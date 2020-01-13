@@ -165,7 +165,7 @@
                     "attribute": "smarts"
                 }
             },
-            "skills-wildcard":{
+            "wildcard-skills":{
                 "academics":{
                     "value": "",
                     "attribute": "smarts"
@@ -297,7 +297,7 @@
             }
         },
         "wildcard":{
-            "templates": ["common", "skills-wildcard"],
+            "templates": ["common", "wildcard-skills"],
             "wounds":{
                 "value": 0,
                 "min": 0,
@@ -308,7 +308,8 @@
                     "value": "",
                     "public": ""
                     },
-                "species": ""
+                "species": "",
+                "currency": ""
             },
             "xp": {
                 "value": 0,
@@ -320,6 +321,48 @@
         }
     },
     "Item":{
-        "types": ["equipment", "weapon", "armor", "edge", "hindrance"]
+        "types": ["equipment", "valuable", "weapon", "armor", "edge", "hindrance", "power", "benny"],
+        "templates": {
+            "itemDescription":{
+                "value": "",
+                "chat": ""
+            },
+            "physicalItem": {
+                "quantity": 1,
+                "weight": 0,
+                "price": 0
+                },
+            "equipable": {
+                "equipped": false
+            }
+        },
+        "equipment":{
+            "templates": ["itemDescription", "physicalItem", "equipable"]
+        },
+        "valuable": {
+            "templates": ["itemDescription", "physicalItem"]
+        },
+        "weapon": {
+
+        },
+        "armor":{
+
+        },
+        "edge": {
+            "templates": ["itemDescription"],
+            "prerequesite": {
+                "value": ""
+            }
+        },
+        "hindrance": {
+            "templates": ["itemDescription"],
+            "major": false   
+        },
+        "power":{
+        
+        },
+        "benny":{
+
+        }
     }
 }
