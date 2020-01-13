@@ -1,3 +1,4 @@
+{
 "name": "swade",
 "title": "Savage Worlds Adventure Edition",
 "description": "A basic gamesystem for running Savage Worlds Adventure Edition games",
@@ -6,36 +7,19 @@
 "scripts": [
     "scripts/swade-scripts-1.js"
 ],
-"styles": [
-],
-"packs": [
-  {
-    "name": "edges",
-    "label": "Edges",
-    "system": "swade",
-    "path": "packs/edges.db",
-    "entity": "Item"
-  },
-  {
-    "name": "items",
-    "label": "Items",
-    "system": "swade",
-    "path": "packs/items.db",
-    "entity": "Item"
-  },
-],
+"styles": [],
+"packs": [],
 "languages": [
     {
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
     }
-
+],
 "initiative": "1d20",
 "gridDistance": 1,
-"gridUnits": "m",
+"gridUnits": "in",
 "primaryTokenAttribute": null,
 "secondaryTokenAttribute": null,
-"minimumCoreVersion": "0.4.3"
-
+"minimumCoreVersion": "0.4.2"
 }
