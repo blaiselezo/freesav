@@ -1,9 +1,12 @@
 {
     "Actor": {
-        "types": ["wildcard", "extra"],
+        "types": [
+            "wildcard",
+            "extra"
+        ],
         "templates": {
             "common": {
-                "attributes":{
+                "attributes": {
                     "agility": {
                         "value": "1d4",
                         "min": "1d4"
@@ -25,7 +28,7 @@
                         "min": "1d4"
                     }
                 },
-                "stats":{
+                "stats": {
                     "speed": {
                         "value": "6",
                         "special": ""
@@ -36,13 +39,13 @@
                         "armor": 0
                     }
                 },
-                "edges":{
+                "edges": {
                     "value": [],
                     "custom": ""
                 }
             },
-            "skills":{
-                "academics":{
+            "skills": {
+                "academics": {
                     "value": "",
                     "attribute": "smarts"
                 },
@@ -94,8 +97,8 @@
                     "value": "",
                     "attribute": "spirits"
                 },
-                "knowledge":[],
-                "language":[],
+                "knowledge": [],
+                "language": [],
                 "notice": {
                     "value": "",
                     "attribute": "smarts"
@@ -165,8 +168,8 @@
                     "attribute": "smarts"
                 }
             },
-            "wildcard-skills":{
-                "academics":{
+            "wildcard-skills": {
+                "academics": {
                     "value": "",
                     "attribute": "smarts"
                 },
@@ -218,14 +221,14 @@
                     "value": "",
                     "attribute": "spirits"
                 },
-                "knowledge":[
+                "knowledge": [
                     {
                         "name": "common",
                         "value": "1d4",
                         "attribute": "smarts"
                     }
                 ],
-                "language":[],
+                "language": [],
                 "notice": {
                     "value": "1d4",
                     "attribute": "smarts"
@@ -296,34 +299,51 @@
                 }
             }
         },
-        "wildcard":{
-            "templates": ["common", "wildcard-skills"],
-            "wounds":{
+        "wildcard": {
+            "templates": [
+                "common",
+                "wildcard-skills"
+            ],
+            "wounds": {
                 "value": 0,
                 "min": 0,
                 "max": 3
             },
-            "details":{
+            "details": {
                 "biography": {
                     "value": "",
                     "public": ""
-                    },
+                },
                 "species": "",
                 "currency": ""
             },
             "xp": {
                 "value": 0,
                 "min": 0
+            },
+            "bennies": {
+                "value": 0
             }
         },
         "extra": {
-            "templates": ["common", "skills"]
+            "templates": [
+                "common",
+                "skills"
+            ]
         }
     },
-    "Item":{
-        "types": ["equipment", "valuable", "weapon", "armor", "edge", "hindrance", "power", "benny"],
+    "Item": {
+        "types": [
+            "equipment",
+            "valuable",
+            "weapon",
+            "armor",
+            "edge",
+            "hindrance",
+            "power"
+        ],
         "templates": {
-            "itemDescription":{
+            "itemDescription": {
                 "value": "",
                 "chat": ""
             },
@@ -331,38 +351,70 @@
                 "quantity": 1,
                 "weight": 0,
                 "price": 0
-                },
+            },
             "equipable": {
                 "equipped": false
             }
         },
-        "equipment":{
-            "templates": ["itemDescription", "physicalItem", "equipable"]
+        "equipment": {
+            "templates": [
+                "itemDescription",
+                "physicalItem",
+                "equipable"
+            ]
         },
         "valuable": {
-            "templates": ["itemDescription", "physicalItem"]
+            "templates": [
+                "itemDescription",
+                "physicalItem"
+            ]
         },
         "weapon": {
-
+            "templates": [
+                "itemDescription",
+                "physicalItem",
+                "equipable"
+            ],
+            "damage": "",
+            "range": "",
+            "rof": 0,
+            "ap": 0,
+            "minStr": "",
+            "shots": 0
         },
-        "armor":{
-
+        "armor": {
+            "templates": [
+                "itemDescription",
+                "physicalItem",
+                "equipable"
+            ],
+            "minStr": "",
+            "armor": 0
+        },
+        "shield": {
+            "templates": [
+                "itemDescription",
+                "physicalItem",
+                "equipable"
+            ],
+            "minStr": "",
+            "parry": 0,
+            "cover": 0
         },
         "edge": {
-            "templates": ["itemDescription"],
-            "prerequesite": {
+            "templates": [
+                "itemDescription"
+            ],
+            "requirements": {
                 "value": ""
             }
         },
         "hindrance": {
-            "templates": ["itemDescription"],
-            "major": false   
+            "templates": [
+                "itemDescription"
+            ],
+            "major": false
         },
-        "power":{
-        
-        },
-        "benny":{
-
-        }
+        "power": {}
     }
 }
