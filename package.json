@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "name": "test",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "package": "fpc package",
+    "publish": "fpc publish",
+    "build": "fpc build && fpc copy",
+    "clean": "fpc clean && fpc copy --clean"
+  },
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "foundry-pc-scripts": "gitlab:foundry-projects/foundry-pc/foundry-pc-scripts#master",
+    "foundry-pc-types": "gitlab:foundry-projects/foundry-pc/foundry-pc-types#master"
+  },
+  "foundry": {
+    "dataPath": "",
+    "manifest": "src",
+    "repository": "",
+    "rawURL": ""
+  }
+}

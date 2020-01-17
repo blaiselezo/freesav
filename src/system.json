@@ -1,0 +1,21 @@
+{
+    "name": "swade",
+    "title": "Savage Worlds Adventure Edition",
+    "description": "A basic gamesystem for running Savage Worlds Adventure Edition games",
+    "version": "0.0.1",
+    "author": "FloRad",
+    "esmodules": [
+        "swade.js"
+    ],
+    "styles": [
+        "swade.css"
+    ],
+    "packs": [],
+    "languages": [],
+    "initiative": "1d20",
+    "gridDistance": 1,
+    "gridUnits": "",
+    "primaryTokenAttribute": null,
+    "secondaryTokenAttribute": null,
+    "minimumCoreVersion": "0.4.2"
+}
