@@ -415,6 +415,22 @@
             ],
             "major": false
         },
-        "power": {}
+        "power": {
+            "templates": [
+                "itemDescription"
+            ],
+            "rank": "",
+            "pp": 0,
+            "range": "",
+            "duration":"",
+            "trapping": "",
+            "modifiers":[]
+        },
+        "powerModifier":{
+            "templates":[
+                "itemDescription"
+            ],
+            "additionalCost":0
+        }
     }
 }
