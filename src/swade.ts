@@ -28,7 +28,9 @@ Hooks.once('init', async function() {
 	// Preload Handlebars templates
 	await preloadTemplates();
 
-	// Register custom sheets (if any)
+  // Register custom sheets (if any)
+  Actors.registerSheet('swade', WildcardSheet, {types: ["wildcard"], makeDefault: true});
+  Actors.registerSheet('swade', ExtraSheet, {types: ["extra"], makeDefault: true});
 });
 
 /* ------------------------------------ */
@@ -48,11 +50,11 @@ Hooks.once('ready', function() {
 
 // Add any additional hooks if necessary
 
-class SwadeSheet extends ActorSheet {
+class WildcardSheet extends ActorSheet {
     get template () {
       // Later you might want to return a different template
       // based on user permissions.
-      return 'systems/swade/templates/actor-sheet.html';
+      return 'systems/swade/templates/wildcard-sheet.html';
     }
   
     activateListeners (html) {
@@ -67,5 +69,23 @@ class SwadeSheet extends ActorSheet {
       return data;
     }
   }
+
+  class ExtraSheet extends ActorSheet {
+    get template () {
+      // Later you might want to return a different template
+      // based on user permissions.
+      return 'systems/swade/templates/extra-sheet.html';
+    }
   
-  Actors.registerSheet('swade', SwadeSheet, {types: [], makeDefault: true});
+    activateListeners (html) {
+      // This is called once your template has rendered.
+      // You have access to the newly-rendered HTML and can
+      // add event listeners here.
+    }
+  
+    getData () {
+      const data = super.getData();
+      // Add any special data that your template needs here.
+      return data;
+    }
+  }
