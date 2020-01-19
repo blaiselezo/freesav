@@ -11,8 +11,10 @@
  */
 
 // Import TypeScript modules
-import { registerSettings } from './module/settings.js';
-import { preloadTemplates } from './module/preloadTemplates.js';
+import { registerSettings } from './module/settings';
+import { preloadTemplates } from './module/preloadTemplates';
+import { WildcardSheet, ExtraSheet} from './module/character-sheet';
+import { SwadeItemSheet} from './module/item-sheet';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -31,6 +33,7 @@ Hooks.once('init', async function() {
   // Register custom sheets (if any)
   Actors.registerSheet('swade', WildcardSheet, {types: ["wildcard"], makeDefault: true});
   Actors.registerSheet('swade', ExtraSheet, {types: ["extra"], makeDefault: true});
+  Items.registerSheet('swade', SwadeItemSheet, {types: ["equipment"], makeDefault: true});
 });
 
 /* ------------------------------------ */
@@ -49,43 +52,3 @@ Hooks.once('ready', function() {
 });
 
 // Add any additional hooks if necessary
-
-class WildcardSheet extends ActorSheet {
-    get template () {
-      // Later you might want to return a different template
-      // based on user permissions.
-      return 'systems/swade/templates/wildcard-sheet.html';
-    }
-  
-    activateListeners (html) {
-      // This is called once your template has rendered.
-      // You have access to the newly-rendered HTML and can
-      // add event listeners here.
-    }
-  
-    getData () {
-      const data = super.getData();
-      // Add any special data that your template needs here.
-      return data;
-    }
-  }
-
-  class ExtraSheet extends ActorSheet {
-    get template () {
-      // Later you might want to return a different template
-      // based on user permissions.
-      return 'systems/swade/templates/extra-sheet.html';
-    }
-  
-    activateListeners (html) {
-      // This is called once your template has rendered.
-      // You have access to the newly-rendered HTML and can
-      // add event listeners here.
-    }
-  
-    getData () {
-      const data = super.getData();
-      // Add any special data that your template needs here.
-      return data;
-    }
-  }
