@@ -47,263 +47,192 @@
             "skills": {
                 "academics": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "athletics": {
                     "value": "",
-                    "attribute": "agility"
+                    "attribute": "agility",
+                    "wild-die": "1d6"
+                    
                 },
                 "battle": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "boating": {
                     "value": "",
-                    "attribute": "agility"
+                    "attribute": "agility",
+                    "wild-die": "1d6"
                 },
                 "driving": {
                     "value": "",
-                    "attribute": "agility"
+                    "attribute": "agility",
+                    "wild-die": "1d6"
                 },
                 "electronics": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "faith": {
                     "value": "",
-                    "attribute": "spirit"
+                    "attribute": "spirit",
+                    "wild-die": "1d6"
                 },
                 "fighting": {
                     "value": "",
-                    "attribute": "agility"
+                    "attribute": "agility",
+                    "wild-die": "1d6"
                 },
                 "focus": {
                     "value": "",
-                    "attribute": "spirit"
+                    "attribute": "spirit",
+                    "wild-die": "1d6"
                 },
                 "gambling": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "hacking": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "healing": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "intimidation": {
                     "value": "",
-                    "attribute": "spirits"
+                    "attribute": "spirits",
+                    "wild-die": "1d6"
                 },
                 "knowledge": [],
                 "language": [],
                 "notice": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "occult": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "performance": {
                     "value": "",
-                    "attribute": "spirit"
+                    "attribute": "spirit",
+                    "wild-die": "1d6"
                 },
                 "persuasion": {
                     "value": "",
-                    "attribute": "spirit"
+                    "attribute": "spirit",
+                    "wild-die": "1d6"
                 },
                 "piloting": {
                     "value": "",
-                    "attribute": "agility"
+                    "attribute": "agility",
+                    "wild-die": "1d6"
                 },
                 "psionics": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "repair": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "research": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "riding": {
                     "value": "",
-                    "attribute": "agility"
+                    "attribute": "agility",
+                    "wild-die": "1d6"
                 },
                 "science": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "shooting": {
                     "value": "",
-                    "attribute": "agility"
+                    "attribute": "agility",
+                    "wild-die": "1d6"
                 },
                 "spellcasting": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "stealth": {
                     "value": "",
-                    "attribute": "agility"
+                    "attribute": "agility",
+                    "wild-die": "1d6"
                 },
                 "survival": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "taunt": {
                     "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 },
                 "thievery": {
                     "value": "",
-                    "attribute": "agility"
+                    "attribute": "agility",
+                    "wild-die": "1d6"
                 },
                 "wierd science": {
                     "value": "",
-                    "attribute": "smarts"
-                }
-            },
-            "wildcard-skills": {
-                "academics": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "athletics": {
-                    "value": "1d4",
-                    "attribute": "agility"
-                },
-                "battle": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "boating": {
-                    "value": "",
-                    "attribute": "agility"
-                },
-                "driving": {
-                    "value": "",
-                    "attribute": "agility"
-                },
-                "electronics": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "faith": {
-                    "value": "",
-                    "attribute": "spirit"
-                },
-                "fighting": {
-                    "value": "",
-                    "attribute": "agility"
-                },
-                "focus": {
-                    "value": "",
-                    "attribute": "spirit"
-                },
-                "gambling": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "hacking": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "healing": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "intimidation": {
-                    "value": "",
-                    "attribute": "spirits"
-                },
-                "knowledge": [
-                    {
-                        "name": "common",
-                        "value": "1d4",
-                        "attribute": "smarts"
-                    }
-                ],
-                "language": [],
-                "notice": {
-                    "value": "1d4",
-                    "attribute": "smarts"
-                },
-                "occult": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "performance": {
-                    "value": "",
-                    "attribute": "spirit"
-                },
-                "persuasion": {
-                    "value": "1d4",
-                    "attribute": "spirit"
-                },
-                "piloting": {
-                    "value": "",
-                    "attribute": "agility"
-                },
-                "psionics": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "repair": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "research": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "riding": {
-                    "value": "",
-                    "attribute": "agility"
-                },
-                "science": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "shooting": {
-                    "value": "",
-                    "attribute": "agility"
-                },
-                "spellcasting": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "stealth": {
-                    "value": "",
-                    "attribute": "agility"
-                },
-                "survival": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "taunt": {
-                    "value": "",
-                    "attribute": "smarts"
-                },
-                "thievery": {
-                    "value": "",
-                    "attribute": "agility"
-                },
-                "wierd science": {
-                    "value": "",
-                    "attribute": "smarts"
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
                 }
             }
         },
         "wildcard": {
             "templates": [
                 "common",
-                "wildcard-skills"
+                "skills"
             ],
+            "skills": { 
+                "athletics": {
+                    "value": "1d4",
+                    "attribute": "agility",
+                    "wild-die": "1d6"
+                },
+                "knowledge":[{
+                    "name": "common",
+                    "value": "1d4",
+                    "attribute": "agility",
+                    "wild-die": "1d6"}
+                ],
+                "notice": {
+                    "value": "1d4",
+                    "attribute": "smarts",
+                    "wild-die": "1d6"
+                },
+                "persuasion": {
+                    "value": "1d4",
+                    "attribute": "spirit",
+                    "wild-die": "1d6"
+                },
+                "stealth": {
+                    "value": "1d4",
+                    "attribute": "agility",
+                    "wild-die": "1d6"
+                }
+            },
             "wounds": {
                 "value": 0,
                 "min": 0,
@@ -319,7 +248,8 @@
             },
             "xp": {
                 "value": 0,
-                "min": 0
+                "min": 0,
+                "rank": "Novice"
             },
             "bennies": {
                 "value": 0
