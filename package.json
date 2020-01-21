@@ -7,16 +7,18 @@
     "package": "fpc package",
     "publish": "fpc publish",
     "build": "fpc build && fpc copy",
-    "clean": "fpc clean && fpc copy --clean"
+    "clean": "fpc clean && fpc copy --clean",
+    "update-types": "npm uninstall foundry-pc-types && npm install --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types",
+    "update-scripts": "npm uninstall foundry-pc-scripts && npm install --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-scripts"
   },
   "author": "",
   "license": "",
   "devDependencies": {
     "foundry-pc-scripts": "gitlab:foundry-projects/foundry-pc/foundry-pc-scripts#master",
-    "foundry-pc-types": "gitlab:foundry-projects/foundry-pc/foundry-pc-types#master"
+    "foundry-pc-types": "gitlab:foundry-projects/foundry-pc/foundry-pc-types"
   },
   "foundry": {
-    "dataPath": "",
+    "dataPath": "C:\\dev\\foundry",
     "manifest": "src",
     "repository": "",
     "rawURL": ""

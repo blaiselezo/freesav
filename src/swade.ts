@@ -2,7 +2,7 @@
  * This is your TypeScript entry file for Foundry VTT.
  * Register custom settings, sheets, and constants using the Foundry API.
  * Change this heading to be more descriptive to your system, or remove it.
- * Author: [your name]
+ * Author: FloRad
  * Content License: [copyright and-or license] If using an existing system
  * 					you may want to put a (link to a) license or copyright
  * 					notice here (e.g. the OGL).
@@ -11,10 +11,10 @@
  */
 
 // Import TypeScript modules
-import { registerSettings } from './module/settings';
-import { preloadTemplates } from './module/preloadTemplates';
-import { WildcardSheet, ExtraSheet} from './module/character-sheet';
-import { SwadeItemSheet} from './module/item-sheet';
+import { registerSettings } from './module/settings.js';
+import { preloadTemplates } from './module/preloadTemplates.js';
+import { WildcardSheet, ExtraSheet} from './module/character-sheet.js';
+import { SwadeItemSheet} from './module/item-sheet.js';
 
 /* ------------------------------------ */
 /* Initialize system					*/
