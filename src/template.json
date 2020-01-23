@@ -194,7 +194,7 @@
                         "attribute": "agility",
                         "wild-die": "1d6"
                     },
-                    "wierd science": {
+                    "weird-science": {
                         "value": "",
                         "attribute": "smarts",
                         "wild-die": "1d6"
