@@ -3,3 +3,4 @@ dist/module
 dist/templates
 dist/**/*.js
 dist/**/*.json
+foundryconfig.json
