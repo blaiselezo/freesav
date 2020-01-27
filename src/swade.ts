@@ -31,8 +31,10 @@ Hooks.once('init', async function() {
 	await preloadTemplates();
 
   // Register custom sheets (if any)
+  Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet('swade', WildcardSheet, {types: ["wildcard"], makeDefault: true});
   Actors.registerSheet('swade', ExtraSheet, {types: ["extra"], makeDefault: true});
+  Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet('swade', SwadeItemSheet, {types: ["equipment"], makeDefault: true});
 });
 
