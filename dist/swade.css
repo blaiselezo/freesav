@@ -10,25 +10,35 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    flex: 0 0 100px;
+    flex: 0 0 150px;
     margin-bottom: 10px;
 }
 
 /* Profile Image*/
 .swade.sheet .profile-img {
-    flex: 0 0 100px;
-    height: 100px;
+    flex: 0 0 150px;
+    flex-wrap: inherit;
+    flex-direction: column;
+    height: 150px;
     margin-right: 10px;
+    
 }
 
+.sheet .sheet-header img{
+    height: 150px;
+    border:none;
+    border-right: 2px groove #eeede0;
+}
+
+/* Header Fields*/
 .swade.sheet .header-fields {
     flex: 1;
     height: 100px;
+    padding: 5px;
 }
 
 .swade.sheet .charname {
     height: 60px;
-    padding: 5px;
     margin: 0;
     border-bottom: 0;
 }
@@ -36,6 +46,38 @@
     width: 100%;
     height: 100%;
     margin: 0;
+}
+
+.swade.sheet .experience{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    margin: 2px 0;
+    padding: 2px 0;
+    border-bottom: 2px groove #eeede0;
+}
+
+.swade.sheet .experience div{
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+}
+
+.swade.sheet .experience .rank{
+    border-right: 2px groove #eeede0;
+}
+
+
+.swade.sheet experience label{
+    padding-right: 2px;
+    display: inline-block;
+}
+
+.swade.sheet experience input{
+    padding-right: 2px;
+    width: 50%;
 }
 
 .swade.sheet .resource {
@@ -50,10 +92,13 @@
 }
 
 /* Navigation Tabs */
+.swade.sheet .sheet-tabs{
+    border-top: 2px groove #eeede0;
+    border-bottom: 2px groove #eeede0;
+}
 .swade.sheet .tabs {
     flex: 0 0 40px;
-    border-top: 1px solid #AAA;
-    border-bottom: 1px solid #AAA;
+
 }
 
 .swade.sheet .tabs .item {
@@ -74,8 +119,9 @@
     height: 100%;
 }
 .swade.sheet .sheet-body .editor {
+    border: 2px groove #eeede0;
     width: 100%;
-    height: 100%;
+    height: 90%;
 }
 
 
@@ -116,9 +162,6 @@
 .swade.sheet .attribute-label { 
     flex: 1.5;
 }
-.swade.sheet .attribute-control { 
-    flex: 0 0 20px;
-}
 
 .swade.sheet .attributes-list {
     list-style: none;
@@ -134,10 +177,6 @@
     border: none;
     border-radius: 0;
     border-bottom: 1px solid #AAA;
-}
-
-.swade.sheet .attribute-value.checkbox {
-    text-align: center;
 }
 
 .swade.sheet .attributes-list li a.attribute-control {
