@@ -8,13 +8,22 @@ export class WildcardSheet extends ActorSheet {
      * Keep track of the currently active sheet tab
      * @type {string}
      */
-    this._sheetTab = "description";
+    this._sheetTab = "attributes";
   }
 
-  get template() {
-    // Later you might want to return a different template
-    // based on user permissions.
-    return 'systems/swade/templates/wildcard-sheet.html';
+  /* -------------------------------------------- */
+
+  /**
+   * Extend and override the default options used by the 5e Actor Sheet
+   * @returns {Object}
+   */
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ["swade", "sheet", "wildcard"],
+      template: "systems/swade/templates/wildcard-sheet.html",
+      width: 600,
+      height: 600
+    });
   }
 
   activateListeners(html) {
@@ -35,7 +44,7 @@ export class WildcardSheet extends ActorSheet {
   getData() {
     const data = super.getData();
     // Add any special data that your template needs here.
-  
+
     return data;
   }
 
