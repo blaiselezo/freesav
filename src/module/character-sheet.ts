@@ -1,5 +1,6 @@
 export class WildcardSheet extends ActorSheet {
   _sheetTab: string;
+  data:any;
 
   constructor(...args) {
     super(...args);
@@ -22,7 +23,7 @@ export class WildcardSheet extends ActorSheet {
       classes: ["swade", "sheet", "wildcard"],
       template: "systems/swade/templates/wildcard-sheet.html",
       width: 600,
-      height: 600
+      height: 768
     });
   }
 
@@ -39,13 +40,43 @@ export class WildcardSheet extends ActorSheet {
       initial: initial,
       callback: clicked => this._sheetTab = clicked.data("tab")
     });
+
+    // Everything below here is only needed if the sheet is editable
+    if (!this.options.editable) return;
+
+    // Update Inventory Item
+    html.find('.item-edit').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.getOwnedItem(li.data("itemId"));
+      item.sheet.render(true);
+    });
+
+    // Delete Inventory Item
+    html.find('.item-delete').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      this.actor.deleteOwnedItem(li.data("itemId"));
+      li.slideUp(200, () => this.render(false));
+    });
   }
 
   getData() {
-    const data = super.getData();
+    this.data = super.getData();
     // Add any special data that your template needs here.
 
-    return data;
+    this.data.itemsByType = {};
+    for (const item of this.data.items) {
+      let list = this.data.itemsByType[item.type];
+      if (!list) {
+        list = [];
+        this.data.itemsByType[item.type] = list;
+      }
+        list.push(item);
+    }
+    this.data.data.edges = this.data.itemsByType["edge"];
+    this.data.data.skills = this.data.itemsByType["skill"];
+    console.log(this.data);
+
+    return this.data;
   }
 
   determineRank(xp: number): String {

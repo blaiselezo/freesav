@@ -1,0 +1,23 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+    {{!-- Item Sheet Header --}}
+    <header class="sheet-header loot-header flexrow">
+        <div class="header-fields" style="border: none;">
+            <h1 class="charname">
+                <input name="name" type="text" value="{{item.name}}" placeholder="Skill Name" />
+            </h1>
+        </div>
+    </header>
+    <h4>
+        Die: <input name="die" type="text" value="{{item.data.value}}" placeholder="Skill Die" />
+    </h4>
+    <h4>
+        Attribute: <input name="attribute" type="text" value="{{item.data.attribute}}" placeholder="Linked Attribute" />
+    </h4>
+    <h4>
+        Wild Die: <input name="wild-die" type="text" value="{{item.data.wild-die}}" placeholder="Wield Die" />
+    </h4>
+
+    <p>
+        {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+    </p>
+</form>

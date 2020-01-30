@@ -192,9 +192,14 @@
 }
 
 /* Attributes */
+.swade.sheet .attributes {
+    margin: 5px 0;
+    padding: 2px;
+}
+
 .swade.sheet .attributes-header { 
     padding: 5px;
-    margin: 5px 0;
+    margin-bottom: 5px;
     background: rgba(0, 0, 0, 0.05);
     border: 1px solid #AAA;
     border-radius: 2px;
@@ -222,5 +227,46 @@
 }
 
 .swade.sheet .attributes-list li a.attribute-control {
+    border: none;
+}
+
+/* Skills */
+
+.swade.sheet .skills{
+    margin: 5px 0;
+    padding: 2px;
+    border-right: 1px solid #AAA;
+}
+
+.swade.sheet .skills-header { 
+    padding: 5px;
+    margin-bottom: 5px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid #AAA;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: bold;
+}
+.swade.sheet .skill-label { 
+    flex: 2;
+}
+
+.swade.sheet .skills-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.swade.sheet .skills-list li > * {
+    margin: 0 3px;
+    height: 28px;
+    line-height: 24px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #AAA;
+}
+
+.swade.sheet .skills-list li a.attribute-control {
     border: none;
 }

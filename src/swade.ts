@@ -13,35 +13,37 @@
 // Import TypeScript modules
 import { registerSettings } from './module/settings.js';
 import { preloadTemplates } from './module/preloadTemplates.js';
-import { WildcardSheet, ExtraSheet} from './module/character-sheet.js';
-import { SwadeItemSheet} from './module/item-sheet.js';
+import { WildcardSheet, ExtraSheet } from './module/character-sheet.js';
+import { SwadeItemSheet } from './module/item-sheet.js';
 
 /* ------------------------------------ */
 /* Initialize system					*/
 /* ------------------------------------ */
-Hooks.once('init', async function() {
+Hooks.once('init', async function () {
 	console.log('swade | Initializing swade');
 
 	// Assign custom classes and constants here
-	
+
 	// Register custom system settings
 	registerSettings();
-	
+
 	// Preload Handlebars templates
 	await preloadTemplates();
 
-  // Register custom sheets (if any)
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet('swade', WildcardSheet, {types: ["wildcard"], makeDefault: true});
-  Actors.registerSheet('swade', ExtraSheet, {types: ["extra"], makeDefault: true});
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet('swade', SwadeItemSheet, {types: ["equipment"], makeDefault: true});
+	// Register custom sheets (if any)
+	Actors.registerSheet('swade', WildcardSheet, { types: ["wildcard"], makeDefault: true });
+	Actors.registerSheet('swade', ExtraSheet, { types: ["extra"], makeDefault: true });
+	Items.registerSheet('swade', SwadeItemSheet, { types: ["equipment", "valuable", "weapon", "armor", "edge", "hindrance", "skill", "power"], makeDefault: true });
+
+	//Unregister Core Sheets
+	Items.unregisterSheet("core", ItemSheet);
+	Actors.unregisterSheet("core", ActorSheet);
 });
 
 /* ------------------------------------ */
 /* Setup system							*/
 /* ------------------------------------ */
-Hooks.once('setup', function() {
+Hooks.once('setup', function () {
 	// Do anything after initialization but before
 	// ready
 });
@@ -49,7 +51,7 @@ Hooks.once('setup', function() {
 /* ------------------------------------ */
 /* When ready							*/
 /* ------------------------------------ */
-Hooks.once('ready', function() {
+Hooks.once('ready', function () {
 	// Do anything once the system is ready
 });
 
