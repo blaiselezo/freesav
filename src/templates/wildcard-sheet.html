@@ -1,23 +1,37 @@
 <form class="{{cssClass}}" autocomplete="off">
 
     {{!-- Sheet Header --}}
-    <header class="sheet-header">
+    <header class="sheet-header flexrow">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+            <ul class="flexrow derived-stats">
+                <li class="derived-stat pace">
+                    <label for="pace">Pace</label>
+                    <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}" data-dtype="Number" />
+                </li>
+                <li class="derived-stat toughness">
+                    <label for="toughness">Toughness</label>
+                    <input id="toughness" name="data.stats.toughness.value" type="text" value={{data.stats.toughness.value}} data-dtype="Number" />
+                </li>
+                <li class="derived-stat parry">
+                    <label for="parry">Parry</label>
+                    <input id="parry" type="text" data-dtype="Number" />
+                </li>
+            </ul>
             {{#unless disableExperience}}
-            <div class="experience {{#if disableExperience}}noxp{{/if}}">
-                <div class="rank">
-                    <label for="rank-input">Rank </label>
+            <ul class="flexrow experience {{#if disableExperience}}noxp{{/if}}">
+                <li class="rank">
+                    <label for="rank-input">Rank</label>
                     <input name="data.xp.rank" id="rank-input" type="text" value="{{data.xp.rank}}" data-dtype="String"
                         placeholder="Novice" />
-                </div>
-                <div class="xp">
-                    <label for="xp-input">XP </label>
+                </li>
+                <li class="xp">
+                    <label for="xp-input">XP</label>
                     <input name="data.details.xp.value" id="xp-input" type="text" value="{{data.details.xp.value}}"
                         data-dtype="Number" placeholder="0" />
-                </div>
-            </div>
+                </li>
+            </ul>
             {{/unless}}
         </div>
     </header>
