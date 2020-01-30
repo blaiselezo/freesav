@@ -61,10 +61,15 @@
                     </header>
                     <ol class="skills-list">
                         {{#each data.skills as |skill id|}}
-                            <li class="skill flexrow" data-attribute="vigor">
+                            <li class="item skill flexrow" data-item-id="{{skill._id}}" data-attribute="vigor">
                                 <label class="skill-label" for="{{skill._id}}">{{skill.name}}</label>
-                                <input class="skill-value" type="text" name="{{skill.name}}.value"
-                                    id="{{skill._id}}" value="{{skill.data.value}}" data-dtype="String" />
+                                <input class="skill-value" type="text" name="{{skill.name}}.value" id="{{skill._id}}"
+                                    value="{{skill.data.value}}" data-dtype="String" />
+                                <div class="item-controls">
+                                    <a class="item-control item-edit" title="Edit Skil"><i class="fas fa-edit"></i></a>
+                                    <a class="item-control item-delete" title="Delete SKill"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
                             </li>
                         {{/each}}
                     </ol>
@@ -75,22 +80,26 @@
                     </header>
                     <ol class="attributes-list">
                         <li class="attribute flexrow" data-attribute="agility">
-                            <label class="attribute-label" for="attributes.agility">Agility </label class="attribute-label">
+                            <label class="attribute-label" for="attributes.agility">Agility </label
+                                class="attribute-label">
                             <input class="attribute-value" type="text" name="data.attributes.agility.value"
                                 id="attributes.agility" value="{{data.attributes.agility.value}}" data-dtype="String" />
                         </li>
                         <li class="attribute flexrow" data-attribute="smarts">
-                            <label class="attribute-label" for="attributes.smarts">Smarts </label class="attribute-label">
+                            <label class="attribute-label" for="attributes.smarts">Smarts </label
+                                class="attribute-label">
                             <input class="attribute-value" type="text" name="data.attributes.smarts.value"
                                 id="attributes.smarts" value="{{data.attributes.smarts.value}}" data-dtype="String" />
                         </li>
                         <li class="attribute flexrow" data-attribute="spirit">
-                            <label class="attribute-label" for="attributes.spirit">Spirit </label class="attribute-label">
+                            <label class="attribute-label" for="attributes.spirit">Spirit </label
+                                class="attribute-label">
                             <input class="attribute-value" type="text" name="data.attributes.spirit.value"
                                 id="attributes.spirit" value="{{data.attributes.spirit.value}}" data-dtype="String" />
                         </li>
                         <li class="attribute flexrow" data-attribute="strength">
-                            <label class="attribute-label" for="attributes.strength">Strength </label class="attribute-label">
+                            <label class="attribute-label" for="attributes.strength">Strength </label
+                                class="attribute-label">
                             <input class="attribute-value" type="text" name="data.attributes.strength.value"
                                 id="attributes.strength" value="{{data.attributes.strength.value}}"
                                 data-dtype="String" />
