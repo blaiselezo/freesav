@@ -14,7 +14,7 @@
     "languages": [],
     "initiative": "1d20",
     "gridDistance": 1,
-    "gridUnits": "",
+    "gridUnits": "in",
     "primaryTokenAttribute": null,
     "secondaryTokenAttribute": null,
     "minimumCoreVersion": "0.4.5"

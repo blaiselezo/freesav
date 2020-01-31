@@ -61,7 +61,7 @@
                     </header>
                     <ol class="skills-list">
                         {{#each data.skills as |skill id|}}
-                            <li class="item skill flexrow" data-item-id="{{skill._id}}" data-attribute="vigor">
+                            <li class="item skill flexrow" data-item-id="{{skill._id}}">
                                 <label class="skill-label" for="{{skill._id}}">{{skill.name}}</label>
                                 <input class="skill-value" type="text" name="{{skill.name}}.value" id="{{skill._id}}"
                                     value="{{skill.data.value}}" data-dtype="String" />

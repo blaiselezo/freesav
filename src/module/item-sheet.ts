@@ -26,16 +26,22 @@ export class SwadeItemSheet extends ItemSheet {
     // add event listeners here.
   }
 
-/**
-* Prepare item sheet data
-* Start with the base item data and extending with additional properties for rendering.
-*/
+  /**
+  * Prepare item sheet data
+  * Start with the base item data and extending with additional properties for rendering.
+  */
   getData() {
     const data = super.getData();
 
-    console.log(data);  
+    console.log(data);
 
     // Add any special data that your template needs here.
     return data;
+  }
+
+  _updateObject(event, formData) {
+
+    // Update the Item
+    return this.object.update(formData);
   }
 }

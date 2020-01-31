@@ -8,16 +8,12 @@
         </div>
     </header>
     <h4>
-        Die: <input name="die" type="text" value="{{item.data.value}}" placeholder="Skill Die" />
+        Die: <input name="die" type="text" value="{{item.data.value}}" name="item.data.value" data-dtype="String" placeholder="Skill Die" />
     </h4>
     <h4>
-        Attribute: <input name="attribute" type="text" value="{{item.data.attribute}}" placeholder="Linked Attribute" />
+        Attribute: <input name="attribute" type="text" value="{{item.data.attribute}}" name="item.data.attribute" data-dtype="String" placeholder="Linked Attribute" />
     </h4>
     <h4>
-        Wild Die: <input name="wild-die" type="text" value="{{item.data.wild-die}}" placeholder="Wield Die" />
+        Wild Die: <input name="wild-die" type="text" value="{{item.data.wild-die}}" name="item.data.wild-die" data-dtype="String" placeholder="Wield Die" />
     </h4>
-
-    <p>
-        {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
-    </p>
 </form>
