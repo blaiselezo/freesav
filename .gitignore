@@ -4,3 +4,4 @@ dist/templates
 dist/**/*.js
 dist/**/*.json
 foundryconfig.json
+.htmlhintrc
