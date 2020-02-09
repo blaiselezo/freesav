@@ -9,7 +9,7 @@ export class WildcardSheet extends ActorSheet {
      * Keep track of the currently active sheet tab
      * @type {string}
      */
-    this._sheetTab = "attributes";
+    this._sheetTab = "summary";
   }
 
   /* -------------------------------------------- */
@@ -63,6 +63,9 @@ export class WildcardSheet extends ActorSheet {
     this.data = super.getData();
     // Add any special data that your template needs here.
 
+    //not sure yet wether to use this
+    //this.data.data.stats.toughness.value = this.calcToughness(this.data);
+
     this.data.itemsByType = {};
     for (const item of this.data.items) {
       let list = this.data.itemsByType[item.type];
@@ -72,11 +75,15 @@ export class WildcardSheet extends ActorSheet {
       }
         list.push(item);
     }
-    this.data.data.edges = this.data.itemsByType["edge"];
     this.data.data.skills = this.data.itemsByType["skill"];
-    console.log(this.data);
-
     return this.data;
+  }
+  
+  calcToughness(data: ActorSheetData){
+
+    let vigor = Number(this.data.data.attributes.vigor.value.substring(2));
+
+    return (vigor/2)+2;
   }
 
   determineRank(xp: number): String {
