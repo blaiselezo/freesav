@@ -33,8 +33,6 @@ export class SwadeItemSheet extends ItemSheet {
   getData() {
     const data = super.getData();
 
-    console.log(data);
-
     // Add any special data that your template needs here.
     return data;
   }
