@@ -5,15 +5,26 @@
             <h1 class="charname">
                 <input name="name" type="text" value="{{item.name}}" placeholder="Skill Name" />
             </h1>
+            <ul class="flexrow header-stats">
+                <li>
+                    <label for="die">Die</label>
+                    <input name="die" type="text" value="{{item.data.value}}" placeholder="Skill Die" />
+                </li>
+                <li>
+                    <label for="attribute">Linked Attribute</label>
+                    <input name="attribute" type="text" value="{{item.data.attribute}}"
+                        placeholder="Linked Attribute" />
+                </li>
+                <li>
+                    <label for="wild-die">Wild Die</label>
+                    <input name="wild-die" type="text" value="{{item.data.wild-die}}" placeholder="Wild Die" />
+                </li>
+            </ul>
         </div>
     </header>
-    <h4>
-        Die: <input name="die" type="text" value="{{item.data.value}}" name="item.data.value" data-dtype="String" placeholder="Skill Die" />
-    </h4>
-    <h4>
-        Attribute: <input name="attribute" type="text" value="{{item.data.attribute}}" name="item.data.attribute" data-dtype="String" placeholder="Linked Attribute" />
-    </h4>
-    <h4>
-        Wild Die: <input name="wild-die" type="text" value="{{item.data.wild-die}}" name="item.data.wild-die" data-dtype="String" placeholder="Wield Die" />
-    </h4>
+    <section class="sheet-body">
+        <div class="tab biography">
+            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+        </div>
+    </section>
 </form>
