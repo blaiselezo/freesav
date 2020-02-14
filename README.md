@@ -2,15 +2,11 @@ An implementation of the Savage Worlds Adventure Edition game system for [Foundr
 
 ## Installation Instructions
 
-To install the SWADE system for Foundry VTT, simply paste the following URL into the **Install System**
-dialog on the Setup menu of the application.
-
-https://gitlab.com/florad92/swade/raw/master/system.json
-
-If you wish to manually install the system, you must clone or extract it into the ``Data/systems/swade`` folder. You
-can do this by cloning the repository or downloading a zip archive from the
-[Releases Page](https://gitlab.com/florad92/swade/-/releases).
-
+To install the SWADE system for Foundry VTT, follow these steps: 
+1. Clone the repository and run `npm install` to install all the required node modules.
+1. Set the `dataPath` in `foundryconfig.json` to your FoundryVTT data folder.
+1. Either run `npm run build` in a shell in your cloned directory or run the npm script `build` directly from your IDE.
+1. Done
 
 ## Community Contribution
 
