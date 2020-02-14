@@ -162,7 +162,7 @@
 .swade.sheet .sheet-body .editor {
     border: 2px groove #eeede0;
     width: 100%;
-    height: 90%;
+    height: 95%;
 }
 
 
@@ -191,9 +191,10 @@
 }
 
 /* Summary */
-.swade.sheet .attributes {
+.swade.sheet .traits {
     margin: 5px 0;
     padding: 2px;
+    border-right: 1px solid #AAA;
 }
 
 .swade.sheet .attributes-header { 
@@ -225,16 +226,18 @@
     border-bottom: 1px solid #AAA;
 }
 
+.swade.sheet .attributes-list li:last-child{
+    border-bottom: none;
+}
+
 .swade.sheet .attributes-list li a.attribute-control {
     border: none;
 }
 
 /* Skills */
-
 .swade.sheet .skills{
     margin: 5px 0;
     padding: 2px;
-    border-right: 1px solid #AAA;
 }
 
 .swade.sheet .skills-header { 
@@ -268,4 +271,20 @@
 
 .swade.sheet .skills-list li a.attribute-control {
     border: none;
+}
+
+/**/
+.swade.sheet .gear{
+    margin: 5px 0;
+    padding: 2px;
+}
+
+.swade.sheet .gear-header { 
+    padding: 5px;
+    margin-bottom: 5px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid #AAA;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: bold;
 }
