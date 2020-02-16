@@ -12,32 +12,34 @@
 
 // Import TypeScript modules
 import { registerSettings } from './module/settings.js';
-import { preloadTemplates } from './module/preloadTemplates.js';
+import { preloadHandlebarsTemplates } from './module/preloadTemplates.js';
 import { WildcardSheet, ExtraSheet } from './module/character-sheet.js';
 import { SwadeItemSheet } from './module/item-sheet.js';
+import { SWADE } from './module/config.js'
 
 /* ------------------------------------ */
 /* Initialize system					*/
 /* ------------------------------------ */
 Hooks.once('init', async function () {
-	console.log('swade | Initializing swade');
+	console.log(`SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`);
 
 	// Assign custom classes and constants here
+
+	 // Record Configuration Values
+	 CONFIG.SWADE = SWADE;
 
 	// Register custom system settings
 	registerSettings();
 
-	// Preload Handlebars templates
-	await preloadTemplates();
-
 	// Register custom sheets (if any)
-	Actors.registerSheet('swade', WildcardSheet, { types: ["wildcard"], makeDefault: true });
-	Actors.registerSheet('swade', ExtraSheet, { types: ["extra"], makeDefault: true });
-	Items.registerSheet('swade', SwadeItemSheet, { types: ["equipment", "valuable", "weapon", "armor", "edge", "hindrance", "skill", "power"], makeDefault: true });
+	Actors.unregisterSheet('core', ActorSheet);
+	Actors.registerSheet('swade', WildcardSheet, { types: ['wildcard'], makeDefault: true });
+	Actors.registerSheet('swade', ExtraSheet, { types: ['extra'], makeDefault: true });
+	Items.unregisterSheet('core', ItemSheet);
+	Items.registerSheet('swade', SwadeItemSheet, { makeDefault: true });
 
-	//Unregister Core Sheets
-	Items.unregisterSheet("core", ItemSheet);
-	Actors.unregisterSheet("core", ActorSheet);
+	// Preload Handlebars templates
+	await preloadHandlebarsTemplates();
 });
 
 /* ------------------------------------ */

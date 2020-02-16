@@ -9,7 +9,7 @@ export class WildcardSheet extends ActorSheet {
      * Keep track of the currently active sheet tab
      * @type {string}
      */
-    this._sheetTab = "summary";
+    this._sheetTab = 'summary';
   }
 
   /* -------------------------------------------- */
@@ -20,11 +20,16 @@ export class WildcardSheet extends ActorSheet {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["swade", "sheet", "wildcard"],
-      template: "systems/swade/templates/wildcard-sheet.html",
+      classes: ['swade', 'sheet', 'wildcard'],
       width: 600,
       height: 768
     });
+  }
+
+  get template() {
+    // Later you might want to return a different template
+    // based on user permissions.
+    return 'systems/swade/templates/wildcard-sheet.html';
   }
 
   activateListeners(html) {
@@ -38,7 +43,7 @@ export class WildcardSheet extends ActorSheet {
     let initial = this._sheetTab;
     new Tabs(tabs, {
       initial: initial,
-      callback: clicked => this._sheetTab = clicked.data("tab")
+      callback: clicked => this._sheetTab = clicked.data('tab')
     });
 
     // Everything below here is only needed if the sheet is editable
@@ -46,15 +51,15 @@ export class WildcardSheet extends ActorSheet {
 
     // Update Inventory Item
     html.find('.item-edit').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
+      const li = $(ev.currentTarget).parents('.item');
+      const item = this.actor.getOwnedItem(li.data('itemId'));
       item.sheet.render(true);
     });
 
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
-      this.actor.deleteOwnedItem(li.data("itemId"));
+      const li = $(ev.currentTarget).parents('.item');
+      this.actor.deleteOwnedItem(li.data('itemId'));
       li.slideUp(200, () => this.render(false));
     });
   }
@@ -75,7 +80,7 @@ export class WildcardSheet extends ActorSheet {
       }
         list.push(item);
     }
-    this.data.data.skills = this.data.itemsByType["skill"];
+    this.data.data.skills = this.data.itemsByType['skill'];
     return this.data;
   }
   
@@ -90,15 +95,15 @@ export class WildcardSheet extends ActorSheet {
     let retVal: String
 
     if (xp <= 19) {
-      retVal = "Novice";
+      retVal = 'Novice';
     } else if (xp >= 20 && xp <= 39) {
-      retVal = "Seasoned";
+      retVal = 'Seasoned';
     } else if (xp >= 40 && xp < 59) {
-      retVal = "Veteran";
+      retVal = 'Veteran';
     } else if (xp >= 60 && xp <= 79) {
-      retVal = "Heroic";
+      retVal = 'Heroic';
     } else if (xp >= 80) {
-      retVal = "Legendary";
+      retVal = 'Legendary';
     }
     return retVal;
   }
@@ -106,6 +111,15 @@ export class WildcardSheet extends ActorSheet {
 }
 
 export class ExtraSheet extends ActorSheet {
+
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ['swade', 'sheet', 'extra'],
+      width: 600,
+      height: 768
+    });
+  }
+
   get template() {
     // Later you might want to return a different template
     // based on user permissions.
