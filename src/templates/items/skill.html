@@ -4,12 +4,12 @@
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="header-fields" style="border: none;">
             <h1 class="charname">
-                <input name="name" type="text" value="{{item.name}}" placeholder="Skill Name" />
+                <input name="name" type="text" value="{{item.name}}" placeholder="Skill Name" data-dtype="String" />
             </h1>
             <ul class="flexrow header-stats">
                 <li>
                     <label for="die">Die</label>
-                    <input name="die" type="text" value="{{item.data.value}}" placeholder="Skill Die" />
+                    <input name="die" type="text" value="{{item.data.die}}" placeholder="Skill Die" data-dtype="String"/>
                 </li>
                 <li>
                     <label for="attribute">Linked Attribute</label>

@@ -176,8 +176,8 @@
             "templates": [
                 "itemDescription"
             ],
-            "value": "1d4",
             "attribute": "",
+            "die": "1d4",
             "wild-die": "1d6"
         }
     }

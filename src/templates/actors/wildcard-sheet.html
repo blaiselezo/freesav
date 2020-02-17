@@ -93,8 +93,8 @@
                             <a class="item-control item-edit" title="Edit Skill"><label
                                     class="skill-label"></label>{{skill.name}}</label></a>
 
-                            <input class="skill-value" type="text" name="{{skill.name}}.value" id="{{skill._id}}"
-                                value="{{skill.data.value}}" data-dtype="String" />
+                            <input class="skill-value" type="text" name="{{skill.name}}.die" id="{{skill._id}}"
+                                value="{{skill.data.die}}" data-dtype="String" />
                             <div class="item-controls">
                                 <a class="item-control item-delete" title="Delete Skill"><i
                                         class="fas fa-trash"></i></a>
@@ -107,12 +107,8 @@
                     <header class="gear-header">
                         <span>Weapons</span>
                     </header>
-                    <ol>
-                        {{#each data.weapons as |weapon id|}}
-                            {{log "1"}}
-                            {{log weapon}}
-                            {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
-                        {{/each}}
+                    <ol class="gear-list">
+                        {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
                     </ol>
                     <header class="gear-header">
                         <span>Armor</span>
