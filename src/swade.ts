@@ -58,3 +58,6 @@ Hooks.once('ready', function () {
 });
 
 // Add any additional hooks if necessary
+Hooks.once('preCreateItem', function() {
+//need to add code that sets a default img to an item based on type during creation
+});
