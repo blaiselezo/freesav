@@ -273,7 +273,7 @@
     border: none;
 }
 
-/**/
+/*Gear*/
 .swade.sheet .gear{
     margin: 5px 0;
     padding: 2px;
@@ -287,4 +287,27 @@
     border-radius: 2px;
     text-align: center;
     font-weight: bold;
+}
+
+.swade.sheet .gear-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.swade.sheet .gear-list li > * {
+    margin: 0 3px;
+    height: 28px;
+    line-height: 24px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #AAA;
+}
+
+.swade.sheet .gear-card{
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #AAA;
+    border-radius: 2px;
 }

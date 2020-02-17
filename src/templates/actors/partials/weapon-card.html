@@ -1,0 +1,8 @@
+{{#each data.weapons as |weapon id|}}
+<li class="item gear-card flexrow" data-item-id="{{weapon._id}}">
+    <div class="flexrow">
+        <span class="gearbox-label">Damage</span>
+        <span class="gearbox-value">{{weapon.data.damage}}</span>       
+    </div>
+</li>
+{{/each}}
