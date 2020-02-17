@@ -29,7 +29,7 @@ export class WildcardSheet extends ActorSheet {
   get template() {
     // Later you might want to return a different template
     // based on user permissions.
-    return 'systems/swade/templates/wildcard-sheet.html';
+    return 'systems/swade/templates/actors/wildcard-sheet.html';
   }
 
   activateListeners(html) {
@@ -81,6 +81,8 @@ export class WildcardSheet extends ActorSheet {
         list.push(item);
     }
     this.data.data.skills = this.data.itemsByType['skill'];
+    this.data.data.weapons = this.data.itemsByType['weapon'];
+    console.log(this.data);
     return this.data;
   }
   
@@ -123,7 +125,7 @@ export class ExtraSheet extends ActorSheet {
   get template() {
     // Later you might want to return a different template
     // based on user permissions.
-    return 'systems/swade/templates/extra-sheet.html';
+    return 'systems/swade/templates/actors/extra-sheet.html';
   }
 
   activateListeners(html) {

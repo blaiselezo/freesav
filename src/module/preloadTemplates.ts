@@ -2,13 +2,13 @@ export const preloadHandlebarsTemplates = async function() {
 	const templatePaths = [
 		// Add paths to "systems/swade/templates"
 		//Character Sheets
-		'systems/swade/templates/wildcard-sheet.html',
-		'systems/swade/templates/extra-sheet.html',
+		'systems/swade/templates/actors/wildcard-sheet.html',
+		'systems/swade/templates/actors/extra-sheet.html',
 
 		//Actor partials
-		'systems/swade/templates/weapon-card.html',
-		'systems/swade/templates/armor-card.html',
-		'systems/swade/templates/shield-card.html',
+		'systems/swade/templates/actors/partials/weapon-card.html',
+		'systems/swade/templates/actors/partials/armor-card.html',
+		'systems/swade/templates/actors/partials/shield-card.html',
 
 		//Item Sheets
 		'systems/swade/templates/items/skill.html',

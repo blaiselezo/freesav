@@ -108,6 +108,11 @@
                         <span>Weapons</span>
                     </header>
                     <ol>
+                        {{#each data.weapons as |weapon id|}}
+                            {{log "1"}}
+                            {{log weapon}}
+                            {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
+                        {{/each}}
                     </ol>
                     <header class="gear-header">
                         <span>Armor</span>
