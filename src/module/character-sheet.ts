@@ -82,7 +82,6 @@ export class WildcardSheet extends ActorSheet {
     }
     this.data.data.skills = this.data.itemsByType['skill'];
     this.data.data.weapons = this.data.itemsByType['weapon'];
-    console.log(this.data);
     return this.data;
   }
   

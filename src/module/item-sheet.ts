@@ -32,13 +32,16 @@ export class SwadeItemSheet extends ItemSheet {
   */
   getData() {
     const data = super.getData();
-
+    console.log("get")
+    console.log(data);
     // Add any special data that your template needs here.
     return data;
   }
 
   _updateObject(event, formData) {
-
+    console.log("update");
+    console.log(formData);
+    super._updateObject(event, formData);
     // Update the Item
     return this.object.update(formData);
   }
