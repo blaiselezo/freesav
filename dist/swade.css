@@ -311,3 +311,10 @@
     border: 1px solid #AAA;
     border-radius: 2px;
 }
+
+.swade.sheet .skill-label { 
+    flex: 1;
+}
+.swade.sheet .skill-value { 
+    flex: 2;
+}
