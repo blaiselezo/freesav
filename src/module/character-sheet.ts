@@ -20,7 +20,7 @@ export class WildcardSheet extends ActorSheet {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['swade', 'sheet', 'wildcard'],
+      classes: ['swade', 'sheet', 'character'],
       width: 600,
       height: 768
     });
@@ -115,7 +115,7 @@ export class ExtraSheet extends ActorSheet {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['swade', 'sheet', 'extra'],
+      classes: ['swade', 'sheet', 'character'],
       width: 600,
       height: 768
     });

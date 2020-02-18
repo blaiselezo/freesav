@@ -7,9 +7,9 @@
             <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
             <ul class="flexrow header-stats">
                 <li>
-                    <label for="pace">Pace</label>
-                    <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
-                        data-dtype="Number" />
+                    <label for="race">Race</label>
+                    <input id="race" name="data.details.species" type="text" value="{{data.details.species}}"
+                        data-dtype="String" />
                 </li>
                 <li>
                     <label for="toughness">Toughness</label>
@@ -22,8 +22,12 @@
                         data-dtype="Number" />
                 </li>
             </ul>
-            {{#unless disableExperience}}
-            <ul class="flexrow experience {{#if disableExperience}}noxp{{/if}}">
+            <ul class="flexrow header-stats">
+                <li>
+                    <label for="pace">Pace</label>
+                    <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
+                        data-dtype="Number" />
+                </li>
                 <li class="rank">
                     <label for="rank-input">Rank</label>
                     <input name="data.xp.rank" id="rank-input" type="text" value="{{data.xp.rank}}" data-dtype="String"
@@ -35,7 +39,6 @@
                         data-dtype="Number" placeholder="0" />
                 </li>
             </ul>
-            {{/unless}}
         </div>
     </header>
 
@@ -92,7 +95,6 @@
                         <li class="item skill flexrow" data-item-id="{{skill._id}}">
                             <a class="item-control item-edit" title="Edit Skill"><label
                                     class="skill-label"></label>{{skill.name}}</label></a>
-
                             <input class="skill-value" type="text" name="{{skill.name}}.die" id="{{skill._id}}"
                                 value="{{skill.data.die}}" data-dtype="String" />
                             <div class="item-controls">

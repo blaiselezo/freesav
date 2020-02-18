@@ -1,31 +1,32 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
     {{!-- Item Sheet Header --}}
-    <header class="sheet-header loot-header flexrow">
+    <header class="sheet-header">
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="header-fields">
             <h1 class="charname">
                 <input name="name" type="text" value="{{item.name}}" placeholder="Skill Name" />
             </h1>
-            <ul class="flexrow header-stats">
-                <li>
-                    <label for="die">Die:</label>
-                    <input name="die" type="text" value="{{item.data.value}}" placeholder="Skill Die" />
-                </li>
-                <li>
-                    <label for="attribute">Linked Attribute:</label>
-                    <input name="attribute" type="text" value="{{item.data.attribute}}"
-                        placeholder="Linked Attribute" />
-                </li>
-                <li>
-                    <label for="wild-die">Wild Die:</label>
-                    <input name="wild-die" type="text" value="{{item.data.wild-die}}" placeholder="Wild Die" />
-                </li>
-            </ul>
         </div>
     </header>
     <section class="sheet-body">
-        <div class="biography">
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+        <ul class="">
+            <li>
+                <label for="die">Die:</label>
+                <input name="die" type="text" value="{{item.data.value}}" placeholder="Skill Die" />
+            </li>
+            <li>
+                <label for="attribute">Linked Attribute:</label>
+                <input name="attribute" type="text" value="{{item.data.attribute}}" placeholder="Linked Attribute" />
+            </li>
+            <li>
+                <label for="wild-die">Wild Die:</label>
+                <input name="wild-die" type="text" value="{{item.data.wild-die}}" placeholder="Wild Die" />
+            </li>
+        </ul>
+
+        <div class="biography" style="width: 100%; height: 95%;">
+            {{editor content=data.description target="data.description" button=true
+      owner=owner editable=editable}}
         </div>
     </section>
 </form>

@@ -1,4 +1,4 @@
-.swade.sheet {
+.swade.sheet.character {
   .window-content {
     padding: 5px;
     overflow-y: hidden;
@@ -48,49 +48,16 @@
       border-bottom: 2px groove #eeede0;
     }
   }
-  .experience {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-    margin: 2px 0;
-    padding: 2px 0;
-  }
-  ul.experience {
-    list-style: none;
-    li {
-      border: none;
-      border-right: 2px groove #eeede0;
-      border-radius: 0;
-      margin: 2px;
-      padding: 2px;
-      justify-content: center;
-      &:last-child {
-        border-right: none;
-      }
-    }
-    input {
-      display: inline;
-      max-width: 80%;
-    }
-  }
-  .header-stats {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-    margin: 2px 0;
-    padding: 2px 0;
-    border-bottom: 2px groove #eeede0;
-  }
+
   ul.header-stats {
     list-style: none;
     justify-content: space-around;
+    padding-left: 3px;
+
     li {
       border: none;
       border-right: 2px groove #eeede0;
+      border-bottom: 2px groove #eeede0;
       border-radius: 0;
       margin: 2px 0;
       padding: 0 3px;
@@ -103,16 +70,6 @@
     input {
       display: inline;
       max-width: 40%;
-    }
-  }
-  .resource {
-    height: 40px;
-    width: 50%;
-    padding: 3px 10px;
-    float: left;
-    input {
-      width: 100px;
-      height: 28px;
     }
   }
   /* Navigation Tabs */
@@ -142,6 +99,7 @@
       height: 95%;
     }
   }
+
   /* Items */
   .items-list {
     list-style: none;
@@ -165,76 +123,81 @@
       flex: 0 0 36px;
     }
   }
+
   /* Summary */
   .traits {
     margin: 5px 0;
     padding: 2px;
     border-right: 1px solid #aaa;
-  }
-  .attributes-header {
-    padding: 5px;
-    margin-bottom: 5px;
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid #aaa;
-    border-radius: 2px;
-    text-align: center;
-    font-weight: bold;
-  }
-  .attribute-label {
-    flex: 1.5;
-  }
-  .attributes-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    li {
-      > * {
-        margin: 0 3px;
-        height: 28px;
-        line-height: 24px;
-        background: transparent;
-        border: none;
-        border-radius: 0;
-        border-bottom: 1px solid #aaa;
+
+    .attributes-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid #aaa;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .attributes-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      .attribute-label {
+        flex: 1.5;
       }
-      &:last-child {
-        border-bottom: none;
-      }
-      a.attribute-control {
-        border: none;
+      li {
+        > * {
+          margin: 0 3px;
+          height: 28px;
+          line-height: 24px;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          border-bottom: 1px solid #aaa;
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+        a.attribute-control {
+          border: none;
+        }
       }
     }
-  }
-  /* Skills */
-  .skills-header {
-    padding: 5px;
-    margin: 5px 0px;
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid #aaa;
-    border-radius: 2px;
-    text-align: center;
-    font-weight: bold;
-  }
-  .skill-label {
-    flex: 2;
-    flex: 1;
-  }
-  .skills-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    li {
-      > * {
-        margin: 0 3px;
-        height: 28px;
-        line-height: 24px;
-        background: transparent;
-        border: none;
-        border-radius: 0;
-        border-bottom: 1px solid #aaa;
+    /* Skills */
+    .skills-header {
+      padding: 5px;
+      margin: 5px 0px;
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid #aaa;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .skills-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      .skill-label {
+        flex: 2;
       }
-      a.attribute-control {
-        border: none;
+      .skill-value {
+        flex: 1;
+      }
+      li {
+        > * {
+          margin: 0 3px;
+          height: 28px;
+          line-height: 24px;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          border-bottom: 1px solid #aaa;
+        }
+        a.attribute-control {
+          border: none;
+        }
       }
     }
   }

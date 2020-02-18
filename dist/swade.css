@@ -1,320 +1,184 @@
-.swade.sheet .window-content {
+.swade.sheet.character {
+  /* Sheet Header */
+  /* Profile Image*/
+  /* Header Fields*/
+  /* Navigation Tabs */
+  /* Content Tabs */
+  /* Items */
+  /* Summary */
+  /*Gear*/ }
+  .swade.sheet.character .window-content {
     padding: 5px;
-    overflow-y: hidden;
-}
-
-/* Sheet Header */
-.swade.sheet .sheet-header {
+    overflow-y: hidden; }
+  .swade.sheet.character .sheet-header {
     overflow: hidden;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
     flex: 0 0 150px;
-    border-bottom: 2px groove #eeede0;
-}
-
-/* Profile Image*/
-.swade.sheet .profile-img {
+    border-bottom: 2px groove #eeede0; }
+  .swade.sheet.character .profile-img {
     flex: 0 0 150px;
     flex-wrap: inherit;
     flex-direction: column;
     height: 150px;
-    margin-right: 10px;
-    
-}
-
-.sheet .sheet-header img{
-    height: 150px;
-    border:none;
-    border-right: 2px groove #eeede0;
-}
-
-/* Header Fields*/
-
-.swade.sheet .header-fields input[type="text"]{
-    background: none;
-    border: 1px solid transparent;
-}
-
-.swade.sheet .header-fields {
+    margin-right: 10px; }
+    .swade.sheet.character .profile-img img {
+      height: 150px;
+      border: none;
+      border-right: 2px groove #eeede0; }
+  .swade.sheet.character .header-fields {
     flex: 1;
     height: 100px;
-    padding: 5px;
-}
-
-.swade.sheet .charname {
+    padding: 5px; }
+    .swade.sheet.character .header-fields input[type="text"] {
+      background: none;
+      border: 1px solid transparent; }
+  .swade.sheet.character .charname {
     height: 60px;
     margin: 0;
-    border-bottom: 0;
-}
-.swade.sheet .charname input {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    border-bottom: 2px groove #eeede0;
-}
-
-.swade.sheet .experience{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-    margin: 2px 0;
-    padding: 2px 0;
-}
-
-.swade.sheet ul.experience{
-    list-style: none;
-}
-
-.swade.sheet ul.experience li{
-    border: none;
-    border-right: 2px groove #eeede0;
-    border-radius: 0;
-    margin: 2px;
-    padding: 2px;
-    justify-content: center;
-}
-
-.swade.sheet ul.experience li:last-child{
-    border-right: none;
-}
-
-.swade.sheet ul.experience input{
-    display: inline;
-    max-width: 80%;
-}
-
-.swade.sheet .header-stats{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-    margin: 2px 0;
-    padding: 2px 0;
-    border-bottom: 2px groove #eeede0;
-}
-
-.swade.sheet ul.header-stats{
+    border-bottom: 0; }
+    .swade.sheet.character .charname input {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      border-bottom: 2px groove #eeede0; }
+  .swade.sheet.character ul.header-stats {
     list-style: none;
     justify-content: space-around;
-}
-
-.swade.sheet ul.header-stats li{
-    border: none;
-    border-right: 2px groove #eeede0;
-    border-radius: 0;
-    margin: 2px 0;
-    padding: 0 3px;
-    width: 33.33%;
-    justify-content: center;
-}
-
-.swade.sheet ul.header-stats li:last-child{
-    border-right: none;
-}
-
-.swade.sheet ul.header-stats input{
-    display: inline;
-    max-width: 40%;
-}
-
-.swade.sheet .resource {
-    height: 40px;
-    width: 50%;
-    padding: 3px 10px;
-    float: left;
-}
-.swade.sheet .resource input {
-    width: 100px;
-    height: 28px;
-}
-
-/* Navigation Tabs */
-.swade.sheet .sheet-tabs{
-    border-bottom: 2px groove #eeede0;
-}
-.swade.sheet .tabs {
-    flex: 0 0 40px;
-
-}
-
-.swade.sheet .tabs .item {
-    line-height: 40px;
-    font-weight: bold;
-}
-
-.swade.sheet .tabs .item.active {
-    text-decoration: underline;
-    text-shadow: none;
-}
-
-/* Content Tabs */
-.swade.sheet .sheet-body {
-    height: calc(100% - 160px);
-}
-.swade.sheet .sheet-body .tab {
-    height: 100%;
-}
-.swade.sheet .sheet-body .editor {
-    border: 2px groove #eeede0;
-    width: 100%;
-    height: 95%;
-}
-
-
-/* Items */
-.swade.sheet .items-list {
+    padding-left: 3px; }
+    .swade.sheet.character ul.header-stats li {
+      border: none;
+      border-right: 2px groove #eeede0;
+      border-bottom: 2px groove #eeede0;
+      border-radius: 0;
+      margin: 2px 0;
+      padding: 0 3px;
+      width: 33.33%;
+      justify-content: center; }
+      .swade.sheet.character ul.header-stats li:last-child {
+        border-right: none; }
+    .swade.sheet.character ul.header-stats input {
+      display: inline;
+      max-width: 40%; }
+  .swade.sheet.character .sheet-tabs {
+    border-bottom: 2px groove #eeede0; }
+  .swade.sheet.character .tabs {
+    flex: 0 0 40px; }
+    .swade.sheet.character .tabs .item {
+      line-height: 40px;
+      font-weight: bold; }
+    .swade.sheet.character .tabs .item.active {
+      text-decoration: underline;
+      text-shadow: none; }
+  .swade.sheet.character .sheet-body {
+    height: calc(100% - 160px); }
+    .swade.sheet.character .sheet-body .tab {
+      height: 100%; }
+    .swade.sheet.character .sheet-body .editor {
+      border: 2px groove #eeede0;
+      width: 100%;
+      height: 95%; }
+  .swade.sheet.character .items-list {
     list-style: none;
     margin: 7px 0;
     padding: 0;
-    overflow-y: auto;
-}
-.swade.sheet .items-list .item {
-    height: 30px;
-    line-height: 24px;
-    padding: 3px 0;
-    border-bottom: 1px solid #BBB;
-}
-.swade.sheet .items-list .item img {
-    flex: 0 0 24px;
-    margin-right: 5px;
-}
-.swade.sheet .items-list .item-name {
-    margin: 0;
-}
-.swade.sheet .items-list .item-controls {
-    flex: 0 0 36px;
-}
-
-/* Summary */
-.swade.sheet .traits {
+    overflow-y: auto; }
+    .swade.sheet.character .items-list .item {
+      height: 30px;
+      line-height: 24px;
+      padding: 3px 0;
+      border-bottom: 1px solid #bbb; }
+      .swade.sheet.character .items-list .item img {
+        flex: 0 0 24px;
+        margin-right: 5px; }
+    .swade.sheet.character .items-list .item-name {
+      margin: 0; }
+    .swade.sheet.character .items-list .item-controls {
+      flex: 0 0 36px; }
+  .swade.sheet.character .traits {
     margin: 5px 0;
     padding: 2px;
-    border-right: 1px solid #AAA;
-}
-
-.swade.sheet .attributes-header { 
-    padding: 5px;
-    margin-bottom: 5px;
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid #AAA;
-    border-radius: 2px;
-    text-align: center;
-    font-weight: bold;
-}
-.swade.sheet .attribute-label { 
-    flex: 1.5;
-}
-
-.swade.sheet .attributes-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.swade.sheet .attributes-list li > * {
-    margin: 0 3px;
-    height: 28px;
-    line-height: 24px;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    border-bottom: 1px solid #AAA;
-}
-
-.swade.sheet .attributes-list li:last-child{
-    border-bottom: none;
-}
-
-.swade.sheet .attributes-list li a.attribute-control {
-    border: none;
-}
-
-/* Skills */
-.swade.sheet .skills{
+    border-right: 1px solid #aaa;
+    /* Skills */ }
+    .swade.sheet.character .traits .attributes-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid #aaa;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold; }
+    .swade.sheet.character .traits .attributes-list {
+      list-style: none;
+      margin: 0;
+      padding: 0; }
+      .swade.sheet.character .traits .attributes-list .attribute-label {
+        flex: 1.5; }
+      .swade.sheet.character .traits .attributes-list li > * {
+        margin: 0 3px;
+        height: 28px;
+        line-height: 24px;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid #aaa; }
+      .swade.sheet.character .traits .attributes-list li:last-child {
+        border-bottom: none; }
+      .swade.sheet.character .traits .attributes-list li a.attribute-control {
+        border: none; }
+    .swade.sheet.character .traits .skills-header {
+      padding: 5px;
+      margin: 5px 0px;
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid #aaa;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold; }
+    .swade.sheet.character .traits .skills-list {
+      list-style: none;
+      margin: 0;
+      padding: 0; }
+      .swade.sheet.character .traits .skills-list .skill-label {
+        flex: 2; }
+      .swade.sheet.character .traits .skills-list .skill-value {
+        flex: 1; }
+      .swade.sheet.character .traits .skills-list li > * {
+        margin: 0 3px;
+        height: 28px;
+        line-height: 24px;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid #aaa; }
+      .swade.sheet.character .traits .skills-list li a.attribute-control {
+        border: none; }
+  .swade.sheet.character .gear {
     margin: 5px 0;
-    padding: 2px;
-}
-
-.swade.sheet .skills-header { 
-    padding: 5px;
-    margin-bottom: 5px;
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid #AAA;
-    border-radius: 2px;
-    text-align: center;
-    font-weight: bold;
-}
-.swade.sheet .skill-label { 
-    flex: 2;
-}
-
-.swade.sheet .skills-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.swade.sheet .skills-list li > * {
-    margin: 0 3px;
-    height: 28px;
-    line-height: 24px;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    border-bottom: 1px solid #AAA;
-}
-
-.swade.sheet .skills-list li a.attribute-control {
-    border: none;
-}
-
-/*Gear*/
-.swade.sheet .gear{
-    margin: 5px 0;
-    padding: 2px;
-}
-
-.swade.sheet .gear-header { 
-    padding: 5px;
-    margin-bottom: 5px;
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid #AAA;
-    border-radius: 2px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.swade.sheet .gear-list{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.swade.sheet .gear-list li > * {
-    margin: 0 3px;
-    height: 28px;
-    line-height: 24px;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    border-bottom: 1px solid #AAA;
-}
-
-.swade.sheet .gear-card{
-    padding: 5px;
-    margin-bottom: 5px;
-    border: 1px solid #AAA;
-    border-radius: 2px;
-}
-
-.swade.sheet .skill-label { 
-    flex: 1;
-}
-.swade.sheet .skill-value { 
-    flex: 2;
-}
+    padding: 2px; }
+    .swade.sheet.character .gear .gear-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid #aaa;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold; }
+    .swade.sheet.character .gear .gear-list {
+      list-style: none;
+      margin: 0;
+      padding: 0; }
+      .swade.sheet.character .gear .gear-list li > * {
+        margin: 0 3px;
+        height: 28px;
+        line-height: 24px;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid #aaa; }
+    .swade.sheet.character .gear .gear-card {
+      padding: 5px;
+      margin-bottom: 5px;
+      border: 1px solid #aaa;
+      border-radius: 2px; }
