@@ -1,7 +1,4 @@
 node_modules
-dist/module
-dist/templates
-dist/**/*.js
-dist/**/*.json
+dist/
 foundryconfig.json
 .htmlhintrc
