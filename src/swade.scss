@@ -1,3 +1,9 @@
+$light-grey: #aaa ;
+$eggshell: #eeede0;
+
+$decorative-line: 1px solid $light-grey;
+$section-border: 2px groove $eggshell;
+
 .swade.sheet.character {
   .window-content {
     padding: 5px;
@@ -11,7 +17,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     flex: 0 0 150px;
-    border-bottom: 2px groove #eeede0;
+    border-bottom: $section-border;
   }
   /* Profile Image*/
   .profile-img {
@@ -23,7 +29,7 @@
     img {
       height: 150px;
       border: none;
-      border-right: 2px groove #eeede0;
+      border-right: $section-border;
     }
   }
 
@@ -45,7 +51,7 @@
       width: 100%;
       height: 100%;
       margin: 0;
-      border-bottom: 2px groove #eeede0;
+      border-bottom: $section-border;
     }
   }
 
@@ -56,8 +62,8 @@
 
     li {
       border: none;
-      border-right: 2px groove #eeede0;
-      border-bottom: 2px groove #eeede0;
+      border-right: $decorative-line;
+      border-bottom: $decorative-line;
       border-radius: 0;
       margin: 2px 0;
       padding: 0 3px;
@@ -74,7 +80,7 @@
   }
   /* Navigation Tabs */
   .sheet-tabs {
-    border-bottom: 2px groove #eeede0;
+    border-bottom: $section-border;
   }
   /* Content Tabs */
   .tabs {
@@ -94,7 +100,7 @@
       height: 100%;
     }
     .editor {
-      border: 2px groove #eeede0;
+      border: $section-border;
       width: 100%;
       height: 95%;
     }
@@ -128,13 +134,13 @@
   .traits {
     margin: 5px 0;
     padding: 2px;
-    border-right: 1px solid #aaa;
+    border-right: $decorative-line;
 
     .attributes-header {
       padding: 5px;
       margin-bottom: 5px;
       background: rgba(0, 0, 0, 0.05);
-      border: 1px solid #aaa;
+      border: $decorative-line;
       border-radius: 2px;
       text-align: center;
       font-weight: bold;
@@ -155,7 +161,7 @@
           background: transparent;
           border: none;
           border-radius: 0;
-          border-bottom: 1px solid #aaa;
+          border-bottom: $decorative-line;
         }
         &:last-child {
           border-bottom: none;
@@ -170,7 +176,7 @@
       padding: 5px;
       margin: 5px 0px;
       background: rgba(0, 0, 0, 0.05);
-      border: 1px solid #aaa;
+      border: $decorative-line;
       border-radius: 2px;
       text-align: center;
       font-weight: bold;
@@ -193,7 +199,7 @@
           background: transparent;
           border: none;
           border-radius: 0;
-          border-bottom: 1px solid #aaa;
+          border-bottom: $decorative-line;
         }
         a.attribute-control {
           border: none;
@@ -211,7 +217,7 @@
       padding: 5px;
       margin-bottom: 5px;
       background: rgba(0, 0, 0, 0.05);
-      border: 1px solid #aaa;
+      border: $decorative-line;
       border-radius: 2px;
       text-align: center;
       font-weight: bold;
@@ -228,14 +234,14 @@
           background: transparent;
           border: none;
           border-radius: 0;
-          border-bottom: 1px solid #aaa;
+          border-bottom: $decorative-line;
         }
       }
     }
     .gear-card {
       padding: 5px;
       margin-bottom: 5px;
-      border: 1px solid #aaa;
+      border: $decorative-line;
       border-radius: 2px;
     }
   }
