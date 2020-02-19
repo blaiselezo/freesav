@@ -13,7 +13,7 @@ const git = require('gulp-git');
 
 const argv = require('yargs').argv;
 
-sass.compiler = require('node-sass');
+sass.compiler = require('sass');
 
 function getConfig() {
 	const configPath = path.resolve(process.cwd(), 'foundryconfig.json');
