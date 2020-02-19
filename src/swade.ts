@@ -25,8 +25,8 @@ Hooks.once('init', async function () {
 
 	// Assign custom classes and constants here
 
-	 // Record Configuration Values
-	 CONFIG.SWADE = SWADE;
+	// Record Configuration Values
+	CONFIG.SWADE = SWADE;
 
 	// Register custom system settings
 	registerSettings();
@@ -58,6 +58,18 @@ Hooks.once('ready', function () {
 });
 
 // Add any additional hooks if necessary
-Hooks.once('preCreateItem', function() {
-//need to add code that sets a default img to an item based on type during creation
+Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
+	//Set default image if no image already exists
+	if (!item.img) {
+		switch (item.type) {
+			case "skill":
+				item.img = 'systems/swade/icons/skill.svg';
+				break;
+			case "weapon":
+				item.img = 'systems/swade/icons/saber-and-pistol.svg'
+				break;
+			default:
+				break;
+		}
+	}
 });
