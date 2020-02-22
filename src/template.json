@@ -1,184 +1,149 @@
 {
-    "Actor": {
-        "types": [
-            "wildcard",
-            "extra"
-        ],
-        "templates": {
-            "common": {
-                "attributes": {
-                    "agility": {
-                        "value": "1d4",
-                        "min": "1d4"
-                    },
-                    "smarts": {
-                        "value": "1d4",
-                        "min": "1d4"
-                    },
-                    "spirit": {
-                        "value": "1d4",
-                        "min": "1d4"
-                    },
-                    "strength": {
-                        "value": "1d4",
-                        "min": "1d4"
-                    },
-                    "vigor": {
-                        "value": "1d4",
-                        "min": "1d4"
-                    }
-                },
-                "stats": {
-                    "speed": {
-                        "value": "6",
-                        "special": ""
-                    },
-                    "toughness": {
-                        "value": 0
-                    }
-                } 
-            }
+  "Actor": {
+    "types": ["wildcard", "extra"],
+    "templates": {
+      "common": {
+        "attributes": {
+          "agility": {
+            "value": "1d4",
+            "min": "1d4"
+          },
+          "smarts": {
+            "value": "1d4",
+            "min": "1d4"
+          },
+          "spirit": {
+            "value": "1d4",
+            "min": "1d4"
+          },
+          "strength": {
+            "value": "1d4",
+            "min": "1d4"
+          },
+          "vigor": {
+            "value": "1d4",
+            "min": "1d4"
+          }
         },
-        "wildcard": {
-            "templates": [
-                "common"
-            ],
-            "wounds": {
-                "value": 0,
-                "min": 0,
-                "max": 3
-            },
-            "details": {
-                "biography": {
-                    "value": "",
-                    "public": ""
-                },
-                "species": "",
-                "currency": ""
-            },
-            "xp": {
-                "value": 0,
-                "min": 0,
-                "rank": "Novice"
-            },
-            "bennies": {
-                "value": 0
-            }
-        },
-        "extra": {
-            "templates": [
-                "common"
-            ]
+        "stats": {
+          "speed": {
+            "value": "6",
+            "special": ""
+          },
+          "toughness": {
+            "value": 0
+          }
         }
+      }
     },
-    "Item": {
-        "types": [
-            "equipment",
-            "valuable",
-            "weapon",
-            "armor",
-            "edge",
-            "hindrance",
-            "skill",
-            "power"
-        ],
-        "templates": {
-            "itemDescription": {
-                "description": "",
-                "chat": ""
-            },
-            "physicalItem": {
-                "quantity": 1,
-                "weight": 0,
-                "price": 0
-            },
-            "equipable": {
-                "equipped": false
-            }
+    "wildcard": {
+      "templates": ["common"],
+      "wounds": {
+        "value": 0,
+        "min": 0,
+        "max": 3
+      },
+      "details": {
+        "biography": {
+          "value": "",
+          "public": ""
         },
-        "equipment": {
-            "templates": [
-                "itemDescription",
-                "physicalItem",
-                "equipable"
-            ]
-        },
-        "valuable": {
-            "templates": [
-                "itemDescription",
-                "physicalItem"
-            ]
-        },
-        "weapon": {
-            "templates": [
-                "itemDescription",
-                "physicalItem",
-                "equipable"
-            ],
-            "damage": "",
-            "range": "",
-            "rof": 0,
-            "ap": 0,
-            "minStr": "",
-            "shots": 0
-        },
-        "armor": {
-            "templates": [
-                "itemDescription",
-                "physicalItem",
-                "equipable"
-            ],
-            "minStr": "",
-            "armor": 0
-        },
-        "shield": {
-            "templates": [
-                "itemDescription",
-                "physicalItem",
-                "equipable"
-            ],
-            "minStr": "",
-            "parry": 0,
-            "cover": 0
-        },
-        "edge": {
-            "templates": [
-                "itemDescription"
-            ],
-            "requirements": {
-                "value": ""
-            }
-        },
-        "hindrance": {
-            "templates": [
-                "itemDescription"
-            ],
-            "major": false
-        },
-        "power": {
-            "templates": [
-                "itemDescription"
-            ],
-            "rank": "",
-            "pp": 0,
-            "range": "",
-            "duration": "",
-            "trapping": "",
-            "modifiers": []
-        },
-        "powerModifier": {
-            "templates": [
-                "itemDescription"
-            ],
-            "additionalCost": 0
-        },
-        "skill": {
-            "templates": [
-                "itemDescription"
-            ],
-            "attribute": "",
-            "die": "1d4",
-            "wild-die": "1d6"
-        }
+        "species": "",
+        "currency": ""
+      },
+      "xp": {
+        "value": 0,
+        "min": 0,
+        "rank": "Novice"
+      },
+      "bennies": {
+        "value": 0
+      }
+    },
+    "extra": {
+      "templates": ["common"]
     }
+  },
+  "Item": {
+    "types": [
+      "equipment",
+      "valuable",
+      "weapon",
+      "armor",
+      "shield",
+      "edge",
+      "hindrance",
+      "skill",
+      "power"
+    ],
+    "templates": {
+      "itemDescription": {
+        "description": "",
+        "chat": ""
+      },
+      "physicalItem": {
+        "quantity": 1,
+        "weight": 0,
+        "price": 0
+      },
+      "equipable": {
+        "equipped": false
+      }
+    },
+    "equipment": {
+      "templates": ["itemDescription", "physicalItem", "equipable"]
+    },
+    "valuable": {
+      "templates": ["itemDescription", "physicalItem"]
+    },
+    "weapon": {
+      "templates": ["itemDescription", "physicalItem", "equipable"],
+      "damage": "",
+      "range": "",
+      "rof": 0,
+      "ap": 0,
+      "minStr": "",
+      "shots": 0
+    },
+    "armor": {
+      "templates": ["itemDescription", "physicalItem", "equipable"],
+      "minStr": "",
+      "armor": 0
+    },
+    "shield": {
+      "templates": ["itemDescription", "physicalItem", "equipable"],
+      "minStr": "",
+      "parry": 0,
+      "cover": 0
+    },
+    "edge": {
+      "templates": ["itemDescription"],
+      "requirements": {
+        "value": ""
+      }
+    },
+    "hindrance": {
+      "templates": ["itemDescription"],
+      "major": false
+    },
+    "power": {
+      "templates": ["itemDescription"],
+      "rank": "",
+      "pp": 0,
+      "range": "",
+      "duration": "",
+      "trapping": "",
+      "modifiers": []
+    },
+    "powerModifier": {
+      "templates": ["itemDescription"],
+      "additionalCost": 0
+    },
+    "skill": {
+      "templates": ["itemDescription"],
+      "attribute": "",
+      "die": "1d4",
+      "wild-die": "1d6"
+    }
+  }
 }

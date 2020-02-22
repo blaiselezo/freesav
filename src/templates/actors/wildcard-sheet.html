@@ -130,36 +130,48 @@
         </div>
 
         {{!-- Edges/Hindrances Tab --}}
-        {{log actor}}
         <div class="tab edges" data-group="primary" data-tab="edges">
-            <header class="hindrance-header flexrow">
-                <span>Hindrances</span>
-            </header>
-            <ol class="items-list">
-                {{#each data.hindrances as |hindrance id|}}
-                <li class="item flexrow" data-item-id="{{hindrance._id}}">
-                    <img src="{{hindrance.img}}" title="{{hindrance.name}}" width="24" height="24" />
-                    <h4 class="item-name">{{hindrance.name}}</h4>
-                    <div class="item-controls">
-                        <a class="item-control item-delete" title="Delete Hindrance"><i class="fas fa-trash"></i></a>
-                    </div>
-                </li>
-                {{/each}}
-            </ol>
-            <header class="edge-header flexrow">
-                <span>Edges</span>
-            </header>
-            <ol class="items-list">
-                {{#each data.edges as |egde id|}}
-                <li class="item flexrow" data-item-id="{{egde._id}}">
-                    <img src="{{egde.img}}" title="{{egde.name}}" width="24" height="24" />
-                    <h4 class="item-name">{{egde.name}}</h4>
-                    <div class="item-controls">
-                        <a class="item-control item-delete" title="Delete Edge"><i class="fas fa-trash"></i></a>
-                    </div>
-                </li>
-                {{/each}}
-            </ol>
+            <div class="flexrow">
+                <div>
+                    <header class="hindrance-header flexrow">
+                        <span>Hindrances</span>
+                    </header>
+                    <ol class="items-list">
+                        {{#each data.hindrances as |hindrance id|}}
+                        <li class="item flexrow" data-item-id="{{hindrance._id}}">
+                            <img src="{{hindrance.img}}" title="{{hindrance.name}}" width="24" height="24" />
+                            <a class="item-control edge item-name">{{hindrance.name}}</a>
+                            <div class="item-controls">
+                                <a class="item-control item-edit" title="Edit Hindrance"><i class="fas fa-edit"></i></a>
+                                <a class="item-control item-delete" title="Delete Hindrance"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ol>
+                    <header class="edge-header flexrow">
+                        <span>Edges</span>
+                    </header>
+                    <ol class="items-list">
+                        {{#each data.edges as |edge id|}}
+                        <li class="item flexrow" data-item-id="{{edge._id}}">
+                            <img src="{{edge.img}}" title="{{edge.name}}" width="24" height="24" />
+                            <a class="item-control edge item-name">{{edge.name}}</a>
+                            <div class="item-controls">
+                                <a class="item-control item-edit" title="Edit Edge"><i class="fas fa-edit"></i></a>
+                                <a class="item-control item-delete" title="Delete Edge"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ol>
+                </div>
+                <div>
+                    <header class="edge-header flexrow">
+                        <span>Description</span>
+                    </header>
+                    <p id="edge-description"></p>
+                </div>
+            </div>
         </div>
 
         {{!-- Inventory Tab --}}

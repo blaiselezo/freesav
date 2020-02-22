@@ -62,6 +62,13 @@ export class WildcardSheet extends ActorSheet {
       this.actor.deleteOwnedItem(li.data('itemId'));
       li.slideUp(200, () => this.render(false));
     });
+
+    //Show Description of an Edge/Hindrance
+    html.find('.edge').click(ev => {
+      const li = $(ev.currentTarget).parents('.item');
+      const item: any = this.actor.getOwnedItem(li.data('itemId')).data;
+      document.getElementById('edge-description').innerHTML = item.data.description;
+    });
   }
 
   getData() {
@@ -80,13 +87,15 @@ export class WildcardSheet extends ActorSheet {
       }
       list.push(item);
     }
-    this.data.data.skills = this.data.itemsByType['skill'];
+    this.data.data.equipments = this.data.itemsByType['equipment'];
+    this.data.data.valuables = this.data.itemsByType['valuable'];
     this.data.data.weapons = this.data.itemsByType['weapon'];
     this.data.data.armors = this.data.itemsByType['armor'];
     this.data.data.shields = this.data.itemsByType['shield'];
     this.data.data.edges = this.data.itemsByType['edge'];
     this.data.data.hindrances = this.data.itemsByType['hindrance'];
-
+    this.data.data.skills = this.data.itemsByType['skill'];
+    this.data.data.powers = this.data.itemsByType['power'];
     return this.data;
   }
 
