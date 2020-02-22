@@ -140,7 +140,13 @@
                         {{#each data.hindrances as |hindrance id|}}
                         <li class="item flexrow" data-item-id="{{hindrance._id}}">
                             <img src="{{hindrance.img}}" title="{{hindrance.name}}" width="24" height="24" />
-                            <a class="item-control edge item-name">{{hindrance.name}}</a>
+                            <a class="item-control edge item-name">{{hindrance.name}}
+                                {{#if hindrance.data.major}}
+                                (Major)
+                                {{else}}
+                                (Minor)
+                                {{/if}}
+                            </a>
                             <div class="item-controls">
                                 <a class="item-control item-edit" title="Edit Hindrance"><i class="fas fa-edit"></i></a>
                                 <a class="item-control item-delete" title="Delete Hindrance"><i
