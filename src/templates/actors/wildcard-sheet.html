@@ -45,6 +45,7 @@
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="summary">Summary</a>
+        <a class="item" data-tab="edges">Edges&Hindrances</a>
         <a class="item" data-tab="inventory">Inventory</a>
         <a class="item" data-tab="description">Description</a>
     </nav>
@@ -115,10 +116,50 @@
                     <header class="gear-header">
                         <span>Armor</span>
                     </header>
-                    <ol>
+                    <ol class="gear-list">
+                        {{> "systems/swade/templates/actors/partials/armor-card.html"}}
+                    </ol>
+                    <header class="gear-header">
+                        <span>Weapons</span>
+                    </header>
+                    <ol class="gear-list">
+                        {{> "systems/swade/templates/actors/partials/shield-card.html"}}
                     </ol>
                 </div>
             </div>
+        </div>
+
+        {{!-- Edges/Hindrances Tab --}}
+        {{log actor}}
+        <div class="tab edges" data-group="primary" data-tab="edges">
+            <header class="hindrance-header flexrow">
+                <span>Hindrances</span>
+            </header>
+            <ol class="items-list">
+                {{#each data.hindrances as |hindrance id|}}
+                <li class="item flexrow" data-item-id="{{hindrance._id}}">
+                    <img src="{{hindrance.img}}" title="{{hindrance.name}}" width="24" height="24" />
+                    <h4 class="item-name">{{hindrance.name}}</h4>
+                    <div class="item-controls">
+                        <a class="item-control item-delete" title="Delete Hindrance"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+            <header class="edge-header flexrow">
+                <span>Edges</span>
+            </header>
+            <ol class="items-list">
+                {{#each data.edges as |egde id|}}
+                <li class="item flexrow" data-item-id="{{egde._id}}">
+                    <img src="{{egde.img}}" title="{{egde.name}}" width="24" height="24" />
+                    <h4 class="item-name">{{egde.name}}</h4>
+                    <div class="item-controls">
+                        <a class="item-control item-delete" title="Delete Edge"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
         </div>
 
         {{!-- Inventory Tab --}}
@@ -136,6 +177,7 @@
                 {{/each}}
             </ol>
         </div>
+
 
         {{!-- Biography Tab --}}
         <div class="tab biography" data-group="primary" data-tab="description">

@@ -1,5 +1,7 @@
-{{#each data.weapons as |shield id|}}
+{{#each data.shields as |shield id|}}
+{{#if shield.data.equipped}}
 <li class="item gear-card">
-    <p>armor</p>
+    <p>shield</p>
 </li>
+{{/if}}
 {{/each}}

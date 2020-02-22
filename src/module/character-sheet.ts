@@ -1,6 +1,6 @@
 export class WildcardSheet extends ActorSheet {
   _sheetTab: string;
-  data:any;
+  data: any;
 
   constructor(...args) {
     super(...args);
@@ -78,18 +78,23 @@ export class WildcardSheet extends ActorSheet {
         list = [];
         this.data.itemsByType[item.type] = list;
       }
-        list.push(item);
+      list.push(item);
     }
     this.data.data.skills = this.data.itemsByType['skill'];
     this.data.data.weapons = this.data.itemsByType['weapon'];
+    this.data.data.armors = this.data.itemsByType['armor'];
+    this.data.data.shields = this.data.itemsByType['shield'];
+    this.data.data.edges = this.data.itemsByType['edge'];
+    this.data.data.hindrances = this.data.itemsByType['hindrance'];
+
     return this.data;
   }
-  
-  calcToughness(data: ActorSheetData){
+
+  calcToughness(data: ActorSheetData) {
 
     let vigor = Number(this.data.data.attributes.vigor.value.substring(2));
 
-    return (vigor/2)+2;
+    return (vigor / 2) + 2;
   }
 
   determineRank(xp: number): String {
