@@ -68,6 +68,9 @@ Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 			case "weapon":
 				item.img = 'systems/swade/icons/saber-and-pistol.svg'
 				break;
+			case "edge":
+				item.img = 'systems/swade/icons/ribbon-medal.svg'
+				break;
 			default:
 				break;
 		}
