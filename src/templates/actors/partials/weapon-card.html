@@ -1,5 +1,5 @@
 {{#each data.weapons as |weapon id|}}
-{{log weapon}}
+{{#if weapon.data.equipped}}
 <li class="item gear-card flexrow" data-item-id="{{weapon._id}}">
     <div class="flexrow">
         <div>
@@ -20,4 +20,5 @@
         </div>
     </div>
 </li>
+{{/if}}
 {{/each}}
