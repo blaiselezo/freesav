@@ -96,6 +96,28 @@ export class WildcardSheet extends ActorSheet {
     this.data.data.hindrances = this.data.itemsByType['hindrance'];
     this.data.data.skills = this.data.itemsByType['skill'];
     this.data.data.powers = this.data.itemsByType['power'];
+
+    this.data.data.inventory = [];
+
+    if (this.data.data.equipments !== undefined) {
+      this.data.data.inventory = this.data.data.inventory.concat(this.data.data.equipments);
+    }
+    if (this.data.data.valuables !== undefined) {
+      this.data.data.inventory = this.data.data.inventory.concat(this.data.data.valuables);
+    }
+    if (this.data.data.weapons !== undefined) {
+      this.data.data.inventory = this.data.data.inventory.concat(this.data.data.weapons);
+    }
+    if (this.data.data.armors !== undefined) {
+      this.data.data.inventory = this.data.data.inventory.concat(this.data.data.armors);
+    }
+    if (this.data.data.shields !== undefined) {
+      this.data.data.inventory = this.data.data.inventory.concat(this.data.data.shields);
+    }
+
+    //Sort Inventory items alphabetically
+    this.data.data.inventory.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+
     return this.data;
   }
 

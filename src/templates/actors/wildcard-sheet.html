@@ -181,9 +181,10 @@
         </div>
 
         {{!-- Inventory Tab --}}
+        {{log actor}}
         <div class="tab items" data-group="primary" data-tab="inventory">
             <ol class="items-list">
-                {{#each actor.items as |item|}}
+                {{#each data.inventory as |item|}}
                 <li class="item flexrow" data-item-id="{{item._id}}">
                     <img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
                     <h4 class="item-name">{{item.name}}</h4>
