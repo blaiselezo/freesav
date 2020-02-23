@@ -1,0 +1,44 @@
+<div class="flexrow">
+    <div class="edges-hindrances-list">
+        <header class="hindrance-header flexrow">
+            <span>Hindrances</span>
+        </header>
+        <ol class="items-list">
+            {{#each data.hindrances as |hindrance id|}}
+            <li class="item flexrow" data-item-id="{{hindrance._id}}">
+                <img src="{{hindrance.img}}" title="{{hindrance.name}}" width="24" height="24" />
+                <a class="item-control edge item-name">{{hindrance.name}}
+                    {{#if hindrance.data.major}}
+                    (Major)
+                    {{else}}
+                    (Minor)
+                    {{/if}}
+                </a>
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="Edit Edge"><i class="fas fa-edit"></i></a>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+        <header class="edge-header flexrow">
+            <span>Edges</span>
+        </header>
+        <ol class="items-list">
+            {{#each data.edges as |edge id|}}
+            <li class="item flexrow" data-item-id="{{edge._id}}">
+                <img src="{{edge.img}}" title="{{edge.name}}" width="24" height="24" />
+                <a class="item-control edge item-name">{{edge.name}}</a>
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="Edit Edge"><i class="fas fa-edit"></i></a>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+    <div class="description">
+        <header class="description-header flexrow">
+            <span>Description</span>
+        </header>
+        <p class="description-value" id="edge-description"></p>
+    </div>
+</div>

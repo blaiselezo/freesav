@@ -55,146 +55,17 @@
 
         {{!-- Summary Tab --}}
         <div class="tab active" data-group="primary" data-tab="summary">
-            <div class="flexrow">
-                <div class="traits">
-                    <header class="attributes-header flexrow">
-                        <span>Attributes</span>
-                    </header>
-                    <ol class="attributes-list">
-                        <li class="flexrow" data-attribute="agility">
-                            <label class="attribute-label" for="attributes.agility">Agility</label>
-                            <input class="attribute-value" type="text" name="data.attributes.agility.value"
-                                id="attributes.agility" value="{{data.attributes.agility.value}}" data-dtype="String" />
-                        </li>
-                        <li class="flexrow" data-attribute="smarts">
-                            <label class="attribute-label" for="attributes.smarts">Smarts</label>
-                            <input class="attribute-value" type="text" name="data.attributes.smarts.value"
-                                id="attributes.smarts" value="{{data.attributes.smarts.value}}" data-dtype="String" />
-                        </li>
-                        <li class="flexrow" data-attribute="spirit">
-                            <label class="attribute-label" for="attributes.spirit">Spirit</label>
-                            <input class="attribute-value" type="text" name="data.attributes.spirit.value"
-                                id="attributes.spirit" value="{{data.attributes.spirit.value}}" data-dtype="String" />
-                        </li>
-                        <li class="flexrow" data-attribute="strength">
-                            <label class="attribute-label" for="attributes.strength">Strength</label>
-                            <input class="attribute-value" type="text" name="data.attributes.strength.value"
-                                id="attributes.strength" value="{{data.attributes.strength.value}}"
-                                data-dtype="String" />
-                        </li>
-                        <li class="flexrow" data-attribute="vigor">
-                            <label class="attribute-label" for="attributes.vigor">Vigor</label>
-                            <input class="attribute-value" type="text" name="data.attributes.vigor.value"
-                                id="attributes.vigor" value="{{data.attributes.vigor.value}}" data-dtype="String" />
-                        </li>
-                    </ol>
-                    <header class="skills-header">
-                        <span>Skills</span>
-                    </header>
-                    <ol class="skills-list">
-                        {{#each data.skills as |skill id|}}
-                        <li class="item skill flexrow" data-item-id="{{skill._id}}">
-                            <a class="item-control item-edit" title="Edit Skill"><label
-                                    class="skill-label"></label>{{skill.name}}</label></a>
-                            <input class="skill-value" type="text" name="{{skill.name}}.die" id="{{skill._id}}"
-                                value="{{skill.data.die}}" data-dtype="String" />
-                            <div class="item-controls">
-                                <a class="item-control item-delete" title="Delete Skill"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </li>
-                        {{/each}}
-                    </ol>
-                </div>
-                <div class="gear">
-                    <header class="gear-header">
-                        <span>Weapons</span>
-                    </header>
-                    <ol class="gear-list">
-                        {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
-                    </ol>
-                    <header class="gear-header">
-                        <span>Armor</span>
-                    </header>
-                    <ol class="gear-list">
-                        {{> "systems/swade/templates/actors/partials/armor-card.html"}}
-                    </ol>
-                    <header class="gear-header">
-                        <span>Weapons</span>
-                    </header>
-                    <ol class="gear-list">
-                        {{> "systems/swade/templates/actors/partials/shield-card.html"}}
-                    </ol>
-                </div>
-            </div>
+            {{> "systems/swade/templates/actors/partials/summary-tab.html"}}
         </div>
 
         {{!-- Edges/Hindrances Tab --}}
         <div class="tab edges" data-group="primary" data-tab="edges">
-            <div class="flexrow">
-                <div class="edges-hindrances-list">
-                    <header class="hindrance-header flexrow">
-                        <span>Hindrances</span>
-                    </header>
-                    <ol class="items-list">
-                        {{#each data.hindrances as |hindrance id|}}
-                        <li class="item flexrow" data-item-id="{{hindrance._id}}">
-                            <img src="{{hindrance.img}}" title="{{hindrance.name}}" width="24" height="24" />
-                            <a class="item-control edge item-name">{{hindrance.name}}
-                                {{#if hindrance.data.major}}
-                                (Major)
-                                {{else}}
-                                (Minor)
-                                {{/if}}
-                            </a>
-                            <div class="item-controls">
-                                <a class="item-control item-edit" title="Edit Hindrance"><i class="fas fa-edit"></i></a>
-                                <a class="item-control item-delete" title="Delete Hindrance"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </li>
-                        {{/each}}
-                    </ol>
-                    <header class="edge-header flexrow">
-                        <span>Edges</span>
-                    </header>
-                    <ol class="items-list">
-                        {{#each data.edges as |edge id|}}
-                        <li class="item flexrow" data-item-id="{{edge._id}}">
-                            <img src="{{edge.img}}" title="{{edge.name}}" width="24" height="24" />
-                            <a class="item-control edge item-name">{{edge.name}}</a>
-                            <div class="item-controls">
-                                <a class="item-control item-edit" title="Edit Edge"><i class="fas fa-edit"></i></a>
-                                <a class="item-control item-delete" title="Delete Edge"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </li>
-                        {{/each}}
-                    </ol>
-                </div>
-                <div class="description">
-                    <header class="description-header flexrow">
-                        <span>Description</span>
-                    </header>
-                    <p class="description-value" id="edge-description"></p>
-                </div>
-            </div>
+            {{> "systems/swade/templates/actors/partials/edges-tab.html"}}
         </div>
 
         {{!-- Inventory Tab --}}
-        {{log actor}}
         <div class="tab items" data-group="primary" data-tab="inventory">
-            <ol class="items-list">
-                {{#each data.inventory as |item|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
-                    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
-                    <h4 class="item-name">{{item.name}}</h4>
-                    <div class="item-controls">
-                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                    </div>
-                </li>
-                {{/each}}
-            </ol>
+            {{> "systems/swade/templates/actors/partials/inventory-tab.html"}}
         </div>
 
 
