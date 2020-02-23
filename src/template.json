@@ -135,10 +135,6 @@
       "trapping": "",
       "modifiers": []
     },
-    "powerModifier": {
-      "templates": ["itemDescription"],
-      "additionalCost": 0
-    },
     "skill": {
       "templates": ["itemDescription"],
       "attribute": "",
