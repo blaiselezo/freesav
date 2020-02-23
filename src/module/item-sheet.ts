@@ -24,6 +24,16 @@ export class SwadeItemSheet extends ItemSheet {
     // This is called once your template has rendered.
     // You have access to the newly-rendered HTML and can
     // add event listeners here.
+
+
+    // Delete Item from within Sheet. Only really used for skills Edges and Hindrances
+    html.find('.item-delete').click(ev => {
+      const li = $(ev.currentTarget).parents('.sheet-body');
+      if (this.item.actor) {
+        this.item.actor.deleteOwnedItem(li.data('itemId'));
+        this.item.sheet.close();
+      }
+    });
   }
 
   /**
