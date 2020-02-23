@@ -242,22 +242,44 @@
 }
 
 .edges {
-  .edge-header {
-    padding: 5px;
-    margin-bottom: 5px;
-    background: rgba(0, 0, 0, 0.05);
-    border: $decorative-line;
-    border-radius: 2px;
-    text-align: center;
-    font-weight: bold;
+  .edges-hindrances-list {
+    margin: 5px 0;
+    padding: 2px;
+    border-right: $decorative-line;
+
+    .edge-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: $decorative-line;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .hindrance-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: $decorative-line;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
   }
-  .hindrance-header {
-    padding: 5px;
-    margin-bottom: 5px;
-    background: rgba(0, 0, 0, 0.05);
-    border: $decorative-line;
-    border-radius: 2px;
-    text-align: center;
-    font-weight: bold;
+
+  .description {
+    margin: 5px 0;
+    padding: 2px;
+    border-right: $decorative-line;
+
+    .description-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: $decorative-line;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
   }
 }
