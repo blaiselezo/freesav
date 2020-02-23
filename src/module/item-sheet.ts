@@ -15,7 +15,7 @@ export class SwadeItemSheet extends ItemSheet {
    * @return {string}
    */
   get template() {
-    const path = "systems/swade/templates/items/";
+    const path = "systems/swade/templates/items";
     return `${path}/${this.item.data.type}.html`;
   }
 
