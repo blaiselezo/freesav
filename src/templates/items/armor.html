@@ -1,0 +1,38 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+    {{!-- Item Sheet Header --}}
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="header-fields">
+            <h1 class="itemname">
+                <input name="name" type="text" value="{{item.name}}" placeholder="Skill Name" data-dtype="String" />
+            </h1>
+        </div>
+    </header>
+    <section class="sheet-body">
+        <div class="form-group">
+            <label for="data.armor">Armor</label>
+            <input name="data.armor" type="text" value="{{item.data.armor}}" placeholder="Armor" data-dtype="Number" />
+        </div>
+        <div class="form-group">
+            <label for="data.price">Price</label>
+            <input name="data.price" type="text" value="{{item.data.price}}" placeholder="Price" data-dtype="Number" />
+        </div>
+        <div class="form-group">
+            <label for="data.weight">Weight</label>
+            <input name="data.weight" type="text" value="{{item.data.weight}}" placeholder="Weight"
+                data-dtype="Number" />
+        </div>
+        <div class="form-group">
+            <label for="data.minStr">Min. Strength</label>
+            <input name="data.minStr" type="text" value="{{item.data.minStr}}" placeholder="Minimum Strength"
+                data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.equipped">Equipped</label>
+            <input type="checkbox" name="data.equipped" {{checked item.data.equipped}} data-dtype="Boolean">
+        </div>
+        <div class="form-group">
+            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+</form>
