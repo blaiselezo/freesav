@@ -6,34 +6,32 @@
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
             <ul class="flexrow header-stats">
-                <li>
-                    <label for="race">Race</label>
+                <li class="form-group">
                     <input id="race" name="data.details.species" type="text" value="{{data.details.species}}"
-                        data-dtype="String" />
+                        data-dtype="String" placeholder="Race" />
                 </li>
-                <li>
+                <li class="form-group">
                     <label for="toughness">Toughness</label>
                     <input id="toughness" name="data.stats.toughness.value" type="text"
                         value="{{data.stats.toughness.value}}" data-dtype="Number" />
                 </li>
-                <li>
+                <li class="form-group">
                     <label for="parry">Parry</label>
                     <input id="parry" name="data.stats.parry.value" value="{{data.stats.parry.value}}" type="text"
                         data-dtype="Number" />
                 </li>
             </ul>
             <ul class="flexrow header-stats">
-                <li>
+                <li class="form-group">
                     <label for="pace">Pace</label>
                     <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
                         data-dtype="Number" />
                 </li>
-                <li class="rank">
-                    <label for="rank-input">Rank</label>
+                <li class="form-group">
                     <input name="data.xp.rank" id="rank-input" type="text" value="{{data.xp.rank}}" data-dtype="String"
-                        placeholder="Novice" />
+                        placeholder="Rank" />
                 </li>
-                <li class="xp">
+                <li class="form-group">
                     <label for="xp-input">XP</label>
                     <input name="data.details.xp.value" id="xp-input" type="text" value="{{data.details.xp.value}}"
                         data-dtype="Number" placeholder="0" />

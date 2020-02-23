@@ -36,9 +36,9 @@
         <ol class="skills-list">
             {{#each data.skills as |skill id|}}
             <li class="item skill flexrow" data-item-id="{{skill._id}}">
-                <label class="skill-label"><a class="item-control item-edit"
-                        title="Edit Skill">{{skill.name}}</a></label>
-                <div class="skill-value"><span>{{skill.data.die}}</span></div>
+                <label class="skill-label"><a class="item-control item-edit" title="Edit Skill">{{skill.name}}&nbsp;<i
+                            class="fas fa-edit"></i></a></label>
+                <div class="skill-value"><span>{{skill.data.die}}&nbsp;</span></div>
                 <div class="skill-value"><span>{{skill.data.attribute}}</span></div>
                 <!-- Add Dice roll shortcut here? -->
             </li>
@@ -59,7 +59,7 @@
             {{> "systems/swade/templates/actors/partials/armor-card.html"}}
         </ol>
         <header class="gear-header">
-            <span>Weapons</span>
+            <span>Shields</span>
         </header>
         <ol class="gear-list">
             {{> "systems/swade/templates/actors/partials/shield-card.html"}}
