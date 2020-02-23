@@ -36,8 +36,8 @@
         <ol class="skills-list">
             {{#each data.skills as |skill id|}}
             <li class="item skill flexrow" data-item-id="{{skill._id}}">
-                <a class="item-control item-edit" title="Edit Skill"><label
-                        class="skill-label"></label>{{skill.name}}</label></a>
+                <label class="skill-label"><a class="item-control item-edit"
+                        title="Edit Skill">{{skill.name}}</a></label>
                 <div class="skill-value"><span>{{skill.data.die}}</span></div>
                 <div class="skill-value"><span>{{skill.data.attribute}}</span></div>
                 <!-- Add Dice roll shortcut here? -->
