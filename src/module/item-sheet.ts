@@ -4,7 +4,7 @@ export class SwadeItemSheet extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 560,
-      height: 420,
+      height: "auto",
       classes: ["swade", "sheet", "item"],
       resizable: false
     });
