@@ -4,7 +4,7 @@ This list contains all the open ToDos for the SWADE System, in no particular ord
 
 ## UI
 
-- [ ] Implement Wildcard Actor Sheet
+- [ ] Implement Extra Actor Sheet
 - [ ] Decide on styling guidelines
 - [ ] Style Character Sheet
 - [ ] Style Widlcard Sheet
