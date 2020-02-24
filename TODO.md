@@ -13,7 +13,6 @@ This list contains all the open ToDos for the SWADE System, in no particular ord
 
 ## System
 
-- [ ] Roll `equipment` and `valuable` Item Types into `possession` type
-- [ ] Add Fatigue Counter to Wounds
-- [ ] Add system setting to switch between Adventure Edition and Explorers Edition
+- [x] Roll `equipment` and `valuable` Item Types into `possession` type
+- [x] Add Fatigue Counter to Wounds
 - [ ] Add system setting for encumbrance multiplier
