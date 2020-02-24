@@ -14,7 +14,7 @@
   "primaryTokenAttribute": null,
   "secondaryTokenAttribute": null,
   "minimumCoreVersion": "0.4.5+",
-  "url": "https://gitlab.com/florad92/swade",
-  "manifest": "https://gitlab.com/florad92/swade/raw/master/system.json",
+  "url": "https://gitlab.com/florad-foundry/swade",
+  "manifest": "https://gitlab.com/florad-foundry/swade/raw/master/system.json",
   "download": "https://your/packaged/download/archive.zip"
 }

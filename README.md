@@ -4,16 +4,16 @@ An implementation of the Savage Worlds Adventure Edition game system for [Foundr
 
 ## Installation Instructions
 
-> Note: The `master` branch is not functional. As long as no [releases](https://gitlab.com/florad92/swade/-/releases) exist you should refer to ther *Local Build Instructions*
+> Note: The `master` branch is not functional. As long as no [releases](https://gitlab.com/florad-foundry/swade/-/releases) exist you should refer to ther *Local Build Instructions*
 
 To install the SWADE system for Foundry Virtual Tabletop, simply paste the following URL into the **Install System**
 dialog on the Setup menu of the application.
 
-https://gitlab.com/florad92/swade/raw/master/system.json
+https://gitlab.com/florad-foundry/swade/raw/master/system.json
 
 If you wish to manually install the system, you must clone (see Local Build) or extract it into the `Data/systems/swade` folder. You
 may do this by cloning the repository or downloading a zip archive from the
-[Releases Page](https://gitlab.com/florad92/swade/-/releases).
+[Releases Page](https://gitlab.com/florad-foundry/swade/-/releases).
 
 
 ## Local Build Instructions
