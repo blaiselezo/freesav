@@ -66,11 +66,10 @@
   },
   "Item": {
     "types": [
-      "equipment",
-      "valuable",
       "weapon",
       "armor",
       "shield",
+      "gear",
       "edge",
       "hindrance",
       "skill",
@@ -90,10 +89,7 @@
         "equipped": false
       }
     },
-    "equipment": {
-      "templates": ["itemDescription", "physicalItem", "equipable"]
-    },
-    "valuable": {
+    "gear": {
       "templates": ["itemDescription", "physicalItem"]
     },
     "weapon": {
