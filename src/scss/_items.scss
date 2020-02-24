@@ -18,10 +18,7 @@
     flex-wrap: inherit;
     flex-direction: column;
     margin-right: 10px;
-    img {
-      border: $decorative-line;
-      border-right: $section-border;
-    }
+    border: none;
   }
 
   .itemname {
