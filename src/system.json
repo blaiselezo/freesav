@@ -8,10 +8,13 @@
   "styles": ["swade.css"],
   "packs": [],
   "languages": [],
-  "initiative": "1d20",
+  "socket": true,
   "gridDistance": 1,
   "gridUnits": "in",
   "primaryTokenAttribute": null,
   "secondaryTokenAttribute": null,
-  "minimumCoreVersion": "0.4.5+"
+  "minimumCoreVersion": "0.4.5+",
+  "url": "https://gitlab.com/florad92/swade",
+  "manifest": "https://gitlab.com/florad92/swade/raw/master/system.json",
+  "download": "https://your/packaged/download/archive.zip"
 }
