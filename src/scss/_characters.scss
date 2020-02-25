@@ -1,7 +1,7 @@
 .swade.sheet.character {
   .window-content {
     padding: 5px;
-    overflow-y: hidden;
+    overflow-y: auto;
   }
   // Sheet Header
   .sheet-header {
@@ -85,7 +85,7 @@
     }
   }
   .sheet-body {
-    height: calc(100% - 160px);
+    height: auto;
     .tab {
       height: 100%;
     }
@@ -101,7 +101,6 @@
     list-style: none;
     margin: 7px 0;
     padding: 0;
-    overflow-y: auto;
     .item {
       height: 30px;
       line-height: 24px;
