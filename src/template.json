@@ -62,7 +62,8 @@
         "rank": "Novice"
       },
       "bennies": {
-        "value": 0
+        "value": 0,
+        "min": 0
       }
     },
     "extra": {
