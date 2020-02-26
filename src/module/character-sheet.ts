@@ -71,7 +71,7 @@ export class WildcardSheet extends ActorSheet {
     });
   }
 
-  getData() {
+  getData(): ActorSheetData {
     this.data = super.getData();
     // Add any special data that your template needs here.
 
@@ -113,13 +113,6 @@ export class WildcardSheet extends ActorSheet {
     return [];
   }
 
-  calcToughness(data: ActorSheetData) {
-
-    let vigor = Number(this.data.data.attributes.vigor.value.substring(2));
-
-    return (vigor / 2) + 2;
-  }
-
   determineRank(xp: number): String {
     let retVal: String
 
@@ -155,7 +148,7 @@ export class ExtraSheet extends ActorSheet {
     return 'systems/swade/templates/actors/extra-sheet.html';
   }
 
-  activateListeners(html) {
+  activateListeners(html): void {
     super.activateListeners(html);
     // This is called once your template has rendered.
     // You have access to the newly-rendered HTML and can
