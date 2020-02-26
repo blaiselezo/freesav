@@ -177,6 +177,14 @@
       padding: 0;
       .skill-label {
         flex: 2;
+        i {
+          display: none;
+        }
+        &:hover {
+          i {
+            display: inline-block;
+          }
+        }
       }
       .skill-value {
         flex: 1;
@@ -202,7 +210,6 @@
   .gear {
     margin: 5px 0;
     padding: 2px;
-
     .gear-header {
       padding: 5px;
       margin-bottom: 5px;
@@ -218,21 +225,47 @@
       padding: 0;
       li {
         > * {
-          margin: 0 3px;
-          height: 28px;
-          line-height: 24px;
           background: transparent;
-          border: none;
-          border-radius: 0;
-          border-bottom: $decorative-line;
         }
       }
     }
     .gear-card {
-      padding: 5px;
       margin-bottom: 5px;
       border: $decorative-line;
       border-radius: 2px;
+
+      .card-header {
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.05);
+        border-bottom: $decorative-line;
+        text-align: center;
+      }
+      .card-content {
+        margin: 0 3px;
+        line-height: 24px;
+        padding: 5px;
+      }
+      .chips {
+        span {
+          padding-bottom: 8px;
+        }
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        align-items: center;
+        .chip {
+          padding: 0px 5px 5px 5px;
+          font-size: 10px;
+          .chip-content {
+            padding: 2px 5px;
+            height: auto;
+            background-color: #bbb;
+            border-radius: 25%;
+            display: inline-block;
+          }
+        }
+      }
     }
   }
 }

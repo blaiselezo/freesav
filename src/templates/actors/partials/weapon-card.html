@@ -1,22 +1,26 @@
 {{#each data.weapons as |weapon id|}}
 {{#if weapon.data.equipped}}
-<li class="item gear-card flexrow" data-item-id="{{weapon._id}}">
-    <div class="flexrow">
+<li class="gear-card">
+    <header class="flexrow card-header">
+        <span>{{weapon.name}} - Damage: {{weapon.data.damage}}</span>
+    </header>
+    <div class="flexrow card-content" data-item-id="{{weapon._id}}">
         <div>
-            <span class="gearbox-label">Damage</span>
-            <span class="gearbox-value">{{weapon.data.damage}}</span>
+            <div>Range: {{weapon.data.range}}</div>
+            <div>AP: {{weapon.data.ap}}</div>
+        </div>
+        <div>
+            <div>RoF: {{weapon.data.rof}}</div>
+            <div>Shots: {{weapon.data.shots}}</div>
         </div>
     </div>
-    <div class="flexrow">
-        <div>
-            <span class="gearbox-label">Range</span>
-            <span class="gearbox-value">{{weapon.data.range}}</span>
+    <div class="chips">
+        <span>Notes:</span>
+        <div class="chip">
+            <span class="chip-content">HW</span>
         </div>
-    </div>
-    <div class="flexrow">
-        <div>
-            <span class="gearbox-label">AP</span>
-            <span class="gearbox-value">{{weapon.data.ap}}</span>
+        <div class="chip">
+            <span class="chip-content">Snapfire</span>
         </div>
     </div>
 </li>

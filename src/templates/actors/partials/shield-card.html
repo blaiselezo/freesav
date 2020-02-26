@@ -1,7 +1,13 @@
 {{#each data.shields as |shield id|}}
 {{#if shield.data.equipped}}
-<li class="item gear-card">
-    <p>shield</p>
+<li class="gear-card ">
+    <header class="flexrow card-header">
+        <span>{{shield.name}}</span>
+    </header>
+    <div class="flexrow card-content">
+        <div>Parry: {{shield.data.parry}}</div>
+        <div>Cover: {{shield.data.cover}}</div>
+    </div>
 </li>
 {{/if}}
 {{/each}}
