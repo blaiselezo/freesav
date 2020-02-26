@@ -1,0 +1,75 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+            <ul class="flexrow header-stats">
+                <li class="form-group">
+                    <input id="race" name="data.details.species" type="text" value="{{data.details.species}}"
+                        data-dtype="String" placeholder="Race" />
+                </li>
+                <li class="form-group">
+                    <label for="toughness">Toughness</label>
+                    <input id="toughness" name="data.stats.toughness.value" type="text"
+                        value="{{data.stats.toughness.value}}" data-dtype="Number" />
+                </li>
+                <li class="form-group">
+                    <label for="parry">Parry</label>
+                    <input id="parry" name="data.stats.parry.value" value="{{data.stats.parry.value}}" type="text"
+                        data-dtype="Number" />
+                </li>
+            </ul>
+            <ul class="flexrow header-stats">
+                <li class="form-group">
+                    <label for="pace">Pace</label>
+                    <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
+                        data-dtype="Number" />
+                </li>
+                <li class="form-group">
+                    <input name="data.xp.rank" id="rank-input" type="text" value="{{data.xp.rank}}" data-dtype="String"
+                        placeholder="Rank" />
+                </li>
+                <li class="form-group">
+                    <label for="xp-input">XP</label>
+                    <input name="data.details.xp.value" id="xp-input" type="text" value="{{data.details.xp.value}}"
+                        data-dtype="Number" placeholder="0" />
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="summary">Summary</a>
+        <a class="item" data-tab="edges">Edges&Hindrances</a>
+        <a class="item" data-tab="inventory">Inventory</a>
+        <a class="item" data-tab="description">Description</a>
+    </nav>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Summary Tab --}}
+        <div class="tab active" data-group="primary" data-tab="summary">
+            {{> "systems/swade/templates/actors/partials/summary-tab.html"}}
+        </div>
+
+        {{!-- Edges/Hindrances Tab --}}
+        <div class="tab edges" data-group="primary" data-tab="edges">
+            {{> "systems/swade/templates/actors/partials/edges-tab.html"}}
+        </div>
+
+        {{!-- Inventory Tab --}}
+        <div class="tab items" data-group="primary" data-tab="inventory">
+            {{> "systems/swade/templates/actors/partials/inventory-tab.html"}}
+        </div>
+
+
+        {{!-- Biography Tab --}}
+        <div class="tab biography" data-group="primary" data-tab="description">
+            {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+</form>

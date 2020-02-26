@@ -1,0 +1,47 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+    {{!-- Item Sheet Header --}}
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="header-fields flexrow">
+            <h1 class="itemname">
+                <input name="name" type="text" value="{{item.name}}" placeholder="Weapon Name" />
+            </h1>
+        </div>
+    </header>
+    <section class="sheet-body">
+        <div class="form-group">
+            <label for="data.damage">Damage</label>
+            <input name="data.damage" type="text" value="{{item.data.damage}}" placeholder="Damage"
+                data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.range">Range</label>
+            <input name="data.range" type="text" value="{{item.data.range}}" placeholder="Range" data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.rof">RoF</label>
+            <input name="data.rof" type="text" value="{{item.data.rof}}" placeholder="RoF" data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.shots">Shots</label>
+            <input name="data.shots" type="text" value="{{item.data.shots}}" placeholder="AP" data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.ap">AP</label>
+            <input name="data.ap" type="text" value="{{item.data.ap}}" placeholder="AP" data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.weight">Weight</label>
+            <input type="text" name="data.weight" value="{{item.data.weight}}" placeholder="Price"
+                data-dtype="Number" />
+        </div>
+        <div class="form-group">
+            <label for="data.price">Price</label>
+            <input type="text" name="data.price" value="{{item.data.price}}" placeholder="Price" data-dtype="Number" />
+        </div>
+        <div class="form-group">
+            <label for="data.equipped">Equipped</label>
+            <input type="checkbox" name="data.equipped" {{checked item.data.equipped}} data-dtype="Boolean">
+        </div>
+    </section>
+</form>

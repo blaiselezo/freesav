@@ -1,0 +1,24 @@
+{{#each data.weapons as |weapon id|}}
+{{#if weapon.data.equipped}}
+<li class="item gear-card flexrow" data-item-id="{{weapon._id}}">
+    <div class="flexrow">
+        <div>
+            <span class="gearbox-label">Damage</span>
+            <span class="gearbox-value">{{weapon.data.damage}}</span>
+        </div>
+    </div>
+    <div class="flexrow">
+        <div>
+            <span class="gearbox-label">Range</span>
+            <span class="gearbox-value">{{weapon.data.range}}</span>
+        </div>
+    </div>
+    <div class="flexrow">
+        <div>
+            <span class="gearbox-label">AP</span>
+            <span class="gearbox-value">{{weapon.data.ap}}</span>
+        </div>
+    </div>
+</li>
+{{/if}}
+{{/each}}

@@ -1,0 +1,39 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+    {{!-- Item Sheet Header --}}
+    {{log item}}
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <div class="header-fields">
+            <h1 class="itemname">
+                <input name="name" type="text" value="{{item.name}}" placeholder="Skill Name" data-dtype="String" />
+            </h1>
+        </div>
+    </header>
+    <section class="sheet-body">
+        <div class="form-group">
+            <label for="data.pp">Power Points</label>
+            <input name="data.pp" type="text" value="{{item.data.pp}}" placeholder="Power Points" data-dtype="Number" />
+        </div>
+        <div class="form-group">
+            <label for="data.duration">Duration</label>
+            <input name="data.duration" type="text" value="{{item.data.duration}}" placeholder="Duration"
+                data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.range">Range</label>
+            <input name="data.range" type="text" value="{{item.data.range}}" placeholder="Range" data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.rank">Rank</label>
+            <input name="data.rank" type="text" value="{{item.data.rank}}" placeholder="Rank" data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.trapping">Rank</label>
+            <input name="data.trapping" type="text" value="{{item.data.trapping}}" placeholder="Trapping"
+                data-dtype="String" />
+        </div>
+        <div class="form-group">
+            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+</form>

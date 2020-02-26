@@ -1,0 +1,284 @@
+.swade.sheet.character {
+  .window-content {
+    padding: 5px;
+    overflow-y: auto;
+  }
+  // Sheet Header
+  .sheet-header {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex: 0 0 150px;
+    border-bottom: $section-border;
+  }
+  // Profile Image
+  .profile-img {
+    flex: 0 0 150px;
+    flex-wrap: inherit;
+    flex-direction: column;
+    height: 150px;
+    margin-right: 10px;
+    img {
+      height: 150px;
+      border: none;
+      border-right: $section-border;
+    }
+  }
+
+  // Header Fields
+  .header-fields {
+    input[type="text"] {
+      background: none;
+      border: 1px solid transparent;
+    }
+    flex: 1;
+    height: 100px;
+    padding: 5px;
+  }
+  .charname {
+    height: 60px;
+    margin: 0;
+    border-bottom: 0;
+    input {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      border-bottom: $section-border;
+    }
+  }
+
+  ul.header-stats {
+    list-style: none;
+    justify-content: space-around;
+    padding-left: 3px;
+
+    li {
+      border: none;
+      border-right: $decorative-line;
+      border-bottom: $decorative-line;
+      border-radius: 0;
+      margin: 2px 0;
+      padding: 0 3px;
+      width: 33.33%;
+      justify-content: center;
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+  // Navigation Tabs
+  .sheet-tabs {
+    border-bottom: $section-border;
+  }
+  // Content Tabs
+  .tabs {
+    flex: 0 0 40px;
+    .item {
+      line-height: 40px;
+      font-weight: bold;
+    }
+    .item.active {
+      text-decoration: underline;
+      text-shadow: none;
+    }
+  }
+  .sheet-body {
+    height: auto;
+    .tab {
+      height: 100%;
+    }
+    .editor {
+      border: $section-border;
+      height: 420px;
+      width: 100%;
+    }
+  }
+
+  // Items
+  .items-list {
+    list-style: none;
+    margin: 7px 0;
+    padding: 0;
+    .item {
+      height: 30px;
+      line-height: 24px;
+      padding: 3px 0;
+      border-bottom: 1px solid #bbb;
+      img {
+        flex: 0 0 24px;
+        margin-right: 5px;
+        border: none;
+      }
+    }
+    .item-name {
+      margin: 0;
+    }
+    .item-controls {
+      flex: 0 0 36px;
+    }
+  }
+
+  // Summary
+  .traits {
+    margin: 5px 0;
+    padding: 2px;
+    border-right: $decorative-line;
+
+    .attributes-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: $decorative-line;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .attributes-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      .attribute-label {
+        flex: 1.5;
+      }
+      li {
+        > * {
+          margin: 0 3px;
+          height: 28px;
+          line-height: 24px;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          border-bottom: $decorative-line;
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+        a.attribute-control {
+          border: none;
+        }
+      }
+    }
+    // Skills
+    .skills-header {
+      padding: 5px;
+      margin: 5px 0px;
+      background: rgba(0, 0, 0, 0.05);
+      border: $decorative-line;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .skills-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      .skill-label {
+        flex: 2;
+      }
+      .skill-value {
+        flex: 1;
+      }
+      li {
+        > * {
+          margin: 0 3px;
+          height: 28px;
+          line-height: 24px;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          border-bottom: $decorative-line;
+        }
+        a.attribute-control {
+          border: none;
+        }
+      }
+    }
+  }
+
+  //Gear
+  .gear {
+    margin: 5px 0;
+    padding: 2px;
+
+    .gear-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: $decorative-line;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .gear-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        > * {
+          margin: 0 3px;
+          height: 28px;
+          line-height: 24px;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          border-bottom: $decorative-line;
+        }
+      }
+    }
+    .gear-card {
+      padding: 5px;
+      margin-bottom: 5px;
+      border: $decorative-line;
+      border-radius: 2px;
+    }
+  }
+}
+
+.edges {
+  .edges-hindrances-list {
+    margin: 5px 0;
+    padding: 2px;
+    border-right: $decorative-line;
+
+    .edge-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: $decorative-line;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .hindrance-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: $decorative-line;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+
+  .description {
+    margin: 5px 0;
+    padding: 2px;
+
+    .description-header {
+      padding: 5px;
+      margin-bottom: 5px;
+      background: rgba(0, 0, 0, 0.05);
+      border: $decorative-line;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .description-value {
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+  }
+}
