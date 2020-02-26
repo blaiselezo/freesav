@@ -30,8 +30,9 @@ To create a local build of the  SWADE system for Foundry VTT, follow these steps
 
 ## Community Contribution
 
-Code and content contributions are accepted. Please feel free to submit issues to the issue tracker or submit merge requests for code changes. 
-Approval for such requests involves code and (if necessary) design review by FloRad. Please reach out on the Foundry Community Discord with any questions.
+Code and content contributions are accepted. Please feel free to submit issues to the issue tracker or submit merge
+requests for code changes. Approval for such requests involves code and (if necessary) design review by FloRad. Please
+reach out on the Foundry Community Discord with any questions.
 
 ## License Notice
 
