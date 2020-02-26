@@ -87,8 +87,7 @@ export class WildcardSheet extends ActorSheet {
       }
       list.push(item);
     }
-    this.data.data.equipments = this.data.itemsByType['equipment'];
-    this.data.data.valuables = this.data.itemsByType['valuable'];
+    this.data.data.gear = this.data.itemsByType['gear'];
     this.data.data.weapons = this.data.itemsByType['weapon'];
     this.data.data.armors = this.data.itemsByType['armor'];
     this.data.data.shields = this.data.itemsByType['shield'];
@@ -97,28 +96,21 @@ export class WildcardSheet extends ActorSheet {
     this.data.data.skills = this.data.itemsByType['skill'];
     this.data.data.powers = this.data.itemsByType['power'];
 
-    this.data.data.inventory = [];
-
-    if (this.data.data.equipments !== undefined) {
-      this.data.data.inventory = this.data.data.inventory.concat(this.data.data.equipments);
-    }
-    if (this.data.data.valuables !== undefined) {
-      this.data.data.inventory = this.data.data.inventory.concat(this.data.data.valuables);
-    }
-    if (this.data.data.weapons !== undefined) {
-      this.data.data.inventory = this.data.data.inventory.concat(this.data.data.weapons);
-    }
-    if (this.data.data.armors !== undefined) {
-      this.data.data.inventory = this.data.data.inventory.concat(this.data.data.armors);
-    }
-    if (this.data.data.shields !== undefined) {
-      this.data.data.inventory = this.data.data.inventory.concat(this.data.data.shields);
-    }
-
+    //Checks if relevant arrays are not null and combines them into an inventory array
+    this.data.data.inventory = [...this.checkNull(this.data.data.gear),
+    ...this.checkNull(this.data.data.weapons),
+    ...this.checkNull(this.data.data.armors),
+    ...this.checkNull(this.data.data.shields)];
     //Sort Inventory items alphabetically
     this.data.data.inventory.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-
     return this.data;
+  }
+
+  checkNull(items: Item[]) {
+    if (items && items.length) {
+      return items;
+    }
+    return [];
   }
 
   calcToughness(data: ActorSheetData) {
