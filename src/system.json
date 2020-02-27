@@ -16,6 +16,6 @@
   "primaryTokenAttribute": "wounds",
   "secondaryTokenAttribute": "fatigue",
   "url": "https://gitlab.com/florad-foundry/swade",
-  "manifest": "https://gitlab.com/florad-foundry/swade/-/raw//master/src/system.json",
-  "download": "https://gitlab.com/florad-foundry/swade/-/raw//v0.1.0/package/swade-v0.1.0.zip"
+  "manifest": "https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json",
+  "download": "https://gitlab.com/florad-foundry/swade/-/raw/v0.1.0/package/swade-v0.1.0.zip"
 }
