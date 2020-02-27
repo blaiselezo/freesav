@@ -1,8 +1,4 @@
 .swade.sheet.character {
-  .window-content {
-    padding: 5px;
-    overflow-y: auto;
-  }
   // Sheet Header
   .sheet-header {
     overflow: hidden;
@@ -18,13 +14,12 @@
     flex: 0 0 150px;
     flex-wrap: inherit;
     flex-direction: column;
-    height: 150px;
-    margin-right: 10px;
-    img {
-      height: 150px;
-      border: none;
-      border-right: $section-border;
-    }
+    border: none;
+    border-right: $section-border;
+    max-height: 150px;
+    max-width: 150px;
+    height: auto;
+    width: auto;
   }
 
   // Header Fields
