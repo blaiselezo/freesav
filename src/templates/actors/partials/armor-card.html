@@ -1,7 +1,11 @@
 {{#each data.armors as |armor id|}}
 {{#if armor.data.equipped}}
-<li class="item gear-card">
-    <p>armor</p>
+<li class="gear-card ">
+    <header class="flexrow card-header">
+        <span>{{armor.name}} - Armor: {{armor.data.armor}}</span>
+    </header>
+    <div class="card-content">
+    </div>
 </li>
 {{/if}}
 {{/each}}
