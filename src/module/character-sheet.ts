@@ -103,10 +103,22 @@ export class WildcardSheet extends ActorSheet {
     ...this.checkNull(this.data.data.shields)];
     //Sort Inventory items alphabetically
     this.data.data.inventory.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+
+    this.data.inventoryWeight = this.calcInventoryWeight(this.data.data.inventory);
+    console.log(this.data);
     return this.data;
   }
 
-  checkNull(items: Item[]) {
+  calcInventoryWeight(items): number {
+    let retVal = 0;
+
+    items.forEach(i => {
+      retVal += i.data.weight * i.data.quantity;
+    });
+    return retVal;
+  }
+
+  checkNull(items: Item[]): any[] {
     if (items && items.length) {
       return items;
     }
