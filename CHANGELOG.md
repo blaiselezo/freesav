@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Fixed
 
+- Various code improvements and refactoring
 - Finished gear cards on the Summary tab of the Actor sheets
 
 <!--
