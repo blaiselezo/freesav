@@ -41,9 +41,7 @@ export class SwadeItemSheet extends ItemSheet {
   */
   getData() {
     const data = super.getData();
-    if (this.item.actor) {
-      data.data.isOwned = true;
-    }
+    data.data.isOwned = this.item.isOwned
     // Add any special data that your template needs here.
     return data;
   }
