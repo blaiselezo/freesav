@@ -97,19 +97,19 @@ export class WildcardSheet extends ActorSheet {
     this.data.data.powers = this.data.itemsByType['power'];
 
     //Checks if relevant arrays are not null and combines them into an inventory array
-    this.data.data.inventory = [...this.checkNull(this.data.data.gear),
-    ...this.checkNull(this.data.data.weapons),
-    ...this.checkNull(this.data.data.armors),
-    ...this.checkNull(this.data.data.shields)];
+    this.data.data.inventory = [...this._checkNull(this.data.data.gear),
+    ...this._checkNull(this.data.data.weapons),
+    ...this._checkNull(this.data.data.armors),
+    ...this._checkNull(this.data.data.shields)];
     //Sort Inventory items alphabetically
     this.data.data.inventory.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
 
-    this.data.inventoryWeight = this.calcInventoryWeight(this.data.data.inventory);
+    this.data.inventoryWeight = this._calcInventoryWeight(this.data.data.inventory);
     console.log(this.data);
     return this.data;
   }
 
-  calcInventoryWeight(items): number {
+  private _calcInventoryWeight(items): number {
     let retVal = 0;
 
     items.forEach(i => {
@@ -118,14 +118,14 @@ export class WildcardSheet extends ActorSheet {
     return retVal;
   }
 
-  checkNull(items: Item[]): any[] {
+  private _checkNull(items: Item[]): any[] {
     if (items && items.length) {
       return items;
     }
     return [];
   }
 
-  determineRank(xp: number): String {
+  private _determineRank(xp: number): String {
     let retVal: String
 
     if (xp <= 19) {
