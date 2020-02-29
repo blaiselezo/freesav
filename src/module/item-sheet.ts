@@ -1,4 +1,3 @@
-
 export class SwadeItemSheet extends ItemSheet {
 
   static get defaultOptions() {
@@ -42,6 +41,9 @@ export class SwadeItemSheet extends ItemSheet {
   */
   getData() {
     const data = super.getData();
+    if (this.item.actor) {
+      data.data.isOwned = true;
+    }
     // Add any special data that your template needs here.
     return data;
   }
