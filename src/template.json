@@ -5,29 +5,29 @@
       "common": {
         "attributes": {
           "agility": {
-            "value": "1d4",
-            "min": "1d4"
+            "die": "1d4",
+            "wild-die": "1d4"
           },
           "smarts": {
-            "value": "1d4",
-            "min": "1d4"
+            "die": "1d4",
+            "wild-die": "1d4"
           },
           "spirit": {
-            "value": "1d4",
-            "min": "1d4"
+            "die": "1d4",
+            "wild-die": "1d4"
           },
           "strength": {
-            "value": "1d4",
-            "min": "1d4"
+            "die": "1d4",
+            "wild-die": "1d4"
           },
           "vigor": {
-            "value": "1d4",
-            "min": "1d4"
+            "die": "1d4",
+            "wild-die": "1d4"
           }
         },
         "stats": {
           "speed": {
-            "value": "6",
+            "die": "6",
             "special": ""
           },
           "toughness": {
