@@ -101,11 +101,9 @@ export class WildcardSheet extends ActorSheet {
     ...this._checkNull(this.data.data.weapons),
     ...this._checkNull(this.data.data.armors),
     ...this._checkNull(this.data.data.shields)];
-    //Sort Inventory items alphabetically
-    this.data.data.inventory.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
 
     this.data.inventoryWeight = this._calcInventoryWeight(this.data.data.inventory);
-    console.log(this.data);
+
     return this.data;
   }
 
@@ -116,6 +114,10 @@ export class WildcardSheet extends ActorSheet {
       retVal += i.data.weight * i.data.quantity;
     });
     return retVal;
+  }
+
+  private _sortInventoryByName(inventory: Item[]): Item[] {
+    return inventory.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
   }
 
   private _checkNull(items: Item[]): any[] {
