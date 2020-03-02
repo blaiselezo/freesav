@@ -92,28 +92,6 @@
   }
 
   // Items
-  .items-list {
-    list-style: none;
-    margin: 7px 0;
-    padding: 0;
-    .item {
-      height: 30px;
-      line-height: 24px;
-      padding: 3px 0;
-      border-bottom: 1px solid #bbb;
-      img {
-        flex: 0 0 24px;
-        margin-right: 5px;
-        border: none;
-      }
-    }
-    .item-name {
-      margin: 0;
-    }
-    .item-controls {
-      flex: 0 0 36px;
-    }
-  }
 
   // Summary
   .traits {
@@ -287,6 +265,28 @@
       text-align: center;
       font-weight: bold;
     }
+    .items-list {
+      list-style: none;
+      margin: 7px 0;
+      padding: 0;
+      .item {
+        height: 30px;
+        line-height: 24px;
+        padding: 3px 0;
+        border-bottom: 1px solid #bbb;
+        img {
+          flex: 0 0 24px;
+          margin-right: 5px;
+          border: none;
+        }
+      }
+      .item-name {
+        margin: 0;
+      }
+      .item-controls {
+        flex: 0 0 36px;
+      }
+    }
   }
 
   .description {
@@ -311,4 +311,39 @@
 
 .inventory {
   margin: 3px 0;
+  .items-list {
+    list-style: none;
+    margin: 7px 0;
+    padding: 0;
+    .item {
+      display: grid;
+      grid-template-columns: 1fr 6fr 2fr 2fr 1fr;
+      grid-auto-rows: minmax(30px, auto);
+      grid-template-areas: "item-equipped item-name item-quantity item-weight item-controls";
+      align-items: center;
+      line-height: 24px;
+      border-bottom: 1px solid #bbb;
+      .item-equipped {
+        grid-area: item-equipped;
+      }
+      .item-name {
+        grid-area: item-name;
+        overflow: hidden;
+        .item-img {
+          margin: 0;
+          width: 24px;
+          border: none;
+        }
+      }
+      .item-quantity {
+        grid-area: item-quantity;
+      }
+      .item-weight {
+        grid-area: item-weight;
+      }
+      .item-controls {
+        grid-area: item-controls;
+      }
+    }
+  }
 }
