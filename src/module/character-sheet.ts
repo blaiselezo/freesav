@@ -1,6 +1,6 @@
+import { SwadeUtil } from './SwadeUtil.js'
 export class WildcardSheet extends ActorSheet {
   _sheetTab: string;
-  data: any;
 
   constructor(...args) {
     super(...args);
@@ -72,39 +72,65 @@ export class WildcardSheet extends ActorSheet {
   }
 
   getData(): ActorSheetData {
-    this.data = super.getData();
+    let data: any = super.getData();
     // Add any special data that your template needs here.
 
     //not sure yet wether to use this
-    //this.data.data.stats.toughness.value = this.calcToughness(this.data);
+    //data.data.stats.toughness.value = this.calcToughness(data);
 
-    this.data.itemsByType = {};
-    for (const item of this.data.items) {
-      let list = this.data.itemsByType[item.type];
+    data.itemsByType = {};
+    for (const item of data.items) {
+      let list = data.itemsByType[item.type];
       if (!list) {
         list = [];
-        this.data.itemsByType[item.type] = list;
+        data.itemsByType[item.type] = list;
       }
       list.push(item);
     }
-    this.data.data.gear = this.data.itemsByType['gear'];
-    this.data.data.weapons = this.data.itemsByType['weapon'];
-    this.data.data.armors = this.data.itemsByType['armor'];
-    this.data.data.shields = this.data.itemsByType['shield'];
-    this.data.data.edges = this.data.itemsByType['edge'];
-    this.data.data.hindrances = this.data.itemsByType['hindrance'];
-    this.data.data.skills = this.data.itemsByType['skill'];
-    this.data.data.powers = this.data.itemsByType['power'];
+
+    data.data.gear = data.itemsByType['gear'];
+    data.data.weapons = data.itemsByType['weapon'];
+    data.data.armors = data.itemsByType['armor'];
+    data.data.shields = data.itemsByType['shield'];
+    data.data.edges = data.itemsByType['edge'];
+    data.data.hindrances = data.itemsByType['hindrance'];
+    data.data.skills = data.itemsByType['skill'];
+    data.data.powers = data.itemsByType['power'];
 
     //Checks if relevant arrays are not null and combines them into an inventory array
-    this.data.data.inventory = [...this._checkNull(this.data.data.gear),
-    ...this._checkNull(this.data.data.weapons),
-    ...this._checkNull(this.data.data.armors),
-    ...this._checkNull(this.data.data.shields)];
+    data.data.inventory = [...this._checkNull(data.data.gear),
+    ...this._checkNull(data.data.weapons),
+    ...this._checkNull(data.data.armors),
+    ...this._checkNull(data.data.shields)];
 
-    this.data.inventoryWeight = this._calcInventoryWeight(this.data.data.inventory);
+    data.inventoryWeight = this._calcInventoryWeight(data.data.inventory);
+    data.maxCarryCapacity = this._calcMaxCarryCapacity(data);
 
-    return this.data;
+    return data;
+
+  }
+
+  private _calcMaxCarryCapacity(data: any): number {
+    let strengthDie = SwadeUtil.parseDie(data.data.attributes.strength.die);
+    let capacity = 0;
+
+    if (strengthDie.sides == 4) {
+      capacity = 20;
+    }
+    if (strengthDie.sides == 6) {
+      capacity = 40;
+    }
+    if (strengthDie.sides == 8) {
+      capacity = 60;
+    }
+    if (strengthDie.sides == 10) {
+      capacity = 80;
+    }
+    if (strengthDie.sides == 12) {
+      capacity = 100;
+    }
+
+    return capacity + (20 * strengthDie.modifier);
   }
 
   private _calcInventoryWeight(items): number {
@@ -125,23 +151,6 @@ export class WildcardSheet extends ActorSheet {
       return items;
     }
     return [];
-  }
-
-  private _determineRank(xp: number): String {
-    let retVal: String
-
-    if (xp <= 19) {
-      retVal = 'Novice';
-    } else if (xp >= 20 && xp <= 39) {
-      retVal = 'Seasoned';
-    } else if (xp >= 40 && xp < 59) {
-      retVal = 'Veteran';
-    } else if (xp >= 60 && xp <= 79) {
-      retVal = 'Heroic';
-    } else if (xp >= 80) {
-      retVal = 'Legendary';
-    }
-    return retVal;
   }
 
 }
