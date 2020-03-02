@@ -1,11 +1,10 @@
 export class Die {
-    amount: number;
-    sides: number;
-    modifier: number;
+    amount: number = 0;
+    sides: number = 0;
+    modifier: number = 0;
+    modifiers: string[] = [];
 
     toString(): string {
-
-        return `[amount] = ${this.amount}\n[sides] = ${this.sides}\n[modifier] = ${this.modifier}`;
-
+        return `[amount] = ${this.amount}\n[sides] = ${this.sides}\n[modifier] = ${this.modifier}\n[modifiers] = ${this.modifiers}`;
     }
 }
