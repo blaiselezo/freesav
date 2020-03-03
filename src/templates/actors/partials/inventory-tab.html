@@ -16,19 +16,27 @@
     </div>
 </div>
 <ol class="items-list">
-    <li class="item item-header">
-        <div class="item-equipped">Eqd.</div>
-        <div class="item-name">Name</div>
-        <div class="item-quantity">Quanitity</div>
-        <div class="item-weight">Weight</div>
-        <div class="item-controls"></div>
-    </li>
+    <header>
+        <li class="item item-header">
+            <div class="item-equipped">Eqd.</div>
+            <div class="item-name">Name</div>
+            <div class="item-quantity">Quanitity</div>
+            <div class="item-weight">Weight</div>
+            <div class="item-controls"></div>
+        </li>
+    </header>
     {{#each data.inventory as |item|}}
     <li class="item" data-item-id="{{item._id}}">
-        <input type="checkbox" name="data.equipped" {{checked item.data.equipped}} data-dtype="Boolean">
+        <a class="item-equipped">
+            {{#if item.data.equipped}}
+            <i class="fas fa-check"></i>
+            {{else}}
+            <i class="far fa-circle"></i>
+            {{/if}}
+        </a>
         <div class="item-name">
-            <img class="item-img" src="{{item.img}}" title="{{item.name}}" />
-            <span class="item-textname">{{item.name}}</span>
+            <div class="item-img"><img src="{{item.img}}" title="{{item.name}}" /></div>
+            <div class="item-textname">{{item.name}}</div>
         </div>
         <div class="item-quantity">{{item.data.quantity}}</div>
         <div class="item-weight">{{item.data.weight}}</div>
