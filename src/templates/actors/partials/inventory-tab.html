@@ -16,15 +16,13 @@
     </div>
 </div>
 <ol class="items-list">
-    <header>
-        <li class="item item-header">
-            <div class="item-equipped">Eqd.</div>
-            <div class="item-name">Name</div>
-            <div class="item-quantity">Quanitity</div>
-            <div class="item-weight">Weight</div>
-            <div class="item-controls"></div>
-        </li>
-    </header>
+    <li class="item item-header">
+        <div class="item-equipped">Eq'd</div>
+        <div class="item-name">Name</div>
+        <div class="item-quantity">Quantity</div>
+        <div class="item-weight">Weight</div>
+        <div class="item-controls"></div>
+    </li>
     {{#each data.inventory as |item|}}
     <li class="item" data-item-id="{{item._id}}">
         <a class="item-equipped">
