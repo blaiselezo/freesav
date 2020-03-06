@@ -9,14 +9,12 @@ dialog on the Setup menu of the application.
 
 https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json
 
-If you wish to manually install the system, you must clone (see Local Build) or extract it into the `Data/systems/swade` folder. You
-may do this by cloning the repository or downloading a zip archive from the
-[Releases Page](https://gitlab.com/florad-foundry/swade/-/releases).
-
+If you wish to manually install the system, extract it into the `Data/systems/swade` folder. 
+You may do this by downloading a zip archive from the [Releases Page](https://gitlab.com/florad-foundry/swade/-/releases).
 
 ## Local Build Instructions
 
-To create a local build of the  SWADE system for Foundry VTT, follow these steps: 
+To create a local build of the SWADE system for Foundry VTT, follow these steps: 
 
 1. Clone the repository and run `npm install` to install all the required node modules.
 1. Run `npm install --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types` to install the Foundry Type definitions
