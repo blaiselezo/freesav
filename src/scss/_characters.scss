@@ -309,12 +309,30 @@
   }
 }
 
+// Inventory
 .inventory {
   margin: 3px 0;
+  .currency {
+    display: inline;
+    input {
+      width: auto;
+    }
+  }
   .items-list {
     list-style: none;
     margin: 7px 0;
     padding: 0;
+
+    li {
+      padding: 0 2px;
+    }
+    .item-header {
+      background: rgba(0, 0, 0, 0.05);
+      text-align: center;
+      font-weight: bold;
+      border: $decorative-line;
+      border-radius: 2px;
+    }
     .item {
       display: grid;
       grid-template-columns: 1fr 6fr 2fr 2fr 1fr;

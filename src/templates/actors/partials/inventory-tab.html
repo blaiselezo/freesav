@@ -1,16 +1,7 @@
-<div class="flex-row">
-    <div class="form-group">
-        <label for="inventoryWeight">Inventory Weight</label>
-        <input name="inventoryWeight" type="text" value="{{inventoryWeight}}" placeholder="0" data-dtype="Number"
-            disabled />
-    </div>
-    <div class="form-group">
-        <label for="maxCarryCapacity">Max Capacity</label>
-        <input name="maxCarryCapacity" type="text" value="{{maxCarryCapacity}}" placeholder="0" data-dtype="Number"
-            disabled />
-    </div>
-    <div class="form-group">
-        <label for="data.details.currency">Currency</label>
+<div class="flexrow">
+    <span>Carry Weight <span style="font-weight: bold;">{{inventoryWeight}} / {{maxCarryCapacity}}</span></span>
+    <div class="currency">
+        <label for="data.details.currency">Currency </label>
         <input name="data.details.currency" type="text" value="{{data.details.currency}}" placeholder="Currency"
             data-dtype="Number" />
     </div>
@@ -18,13 +9,14 @@
 <ol class="items-list">
     <li class="item item-header">
         <div class="item-equipped">Eq'd</div>
-        <div class="item-name">Name</div>
+        <div class="item-textname">Name</div>
         <div class="item-quantity">Quantity</div>
         <div class="item-weight">Weight</div>
         <div class="item-controls"></div>
     </li>
     {{#each data.inventory as |item|}}
     <li class="item" data-item-id="{{item._id}}">
+        {{#if item.data.equippable}}
         <a class="item-equipped">
             {{#if item.data.equipped}}
             <i class="fas fa-check"></i>
@@ -32,6 +24,7 @@
             <i class="far fa-circle"></i>
             {{/if}}
         </a>
+        {{/if}}
         <div class="item-name">
             <div class="item-img"><img src="{{item.img}}" title="{{item.name}}" /></div>
             <div class="item-textname">{{item.name}}</div>

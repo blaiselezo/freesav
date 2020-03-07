@@ -69,6 +69,12 @@ export class WildcardSheet extends ActorSheet {
       const item: any = this.actor.getOwnedItem(li.data('itemId')).data;
       document.getElementById('edge-description').innerHTML = item.data.description;
     });
+
+    html.find('.item-equipped').click(ev => {
+      const li = $(ev.currentTarget).parents('.item');
+      const item: any = this.actor.getOwnedItem(li.data('itemId'));
+      this.actor.updateOwnedItem(this._toggleEquipped(li.data('itemId'), item));
+    });
   }
 
   getData(): ActorSheetData {
@@ -151,6 +157,15 @@ export class WildcardSheet extends ActorSheet {
       return items;
     }
     return [];
+  }
+
+  private _toggleEquipped(id: number, item: any): any {
+    return {
+      _id: id,
+      data: {
+        equipped: !item.data.data.equipped
+      }
+    }
   }
 
 }

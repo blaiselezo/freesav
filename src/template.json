@@ -92,6 +92,7 @@
         "price": 0
       },
       "equipable": {
+        "equippable": true,
         "equipped": false
       }
     },
