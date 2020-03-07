@@ -84,7 +84,7 @@
     "templates": {
       "itemDescription": {
         "description": "",
-        "chat": ""
+        "notes": ""
       },
       "physicalItem": {
         "quantity": 1,
