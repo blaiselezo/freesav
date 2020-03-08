@@ -113,12 +113,11 @@ export class WildcardSheet extends ActorSheet {
     data.maxCarryCapacity = this._calcMaxCarryCapacity(data);
 
     //Checks if an Actor has a Power Egde
-    if (data.data.edges.find(edge => edge.data.isPowerEdge == true)) {
-      this.actor.setFlag('swade', 'hasPowers', true);
+    if (data.data.edges && data.data.edges.find(edge => edge.data.isArcaneBackground == true)) {
+      this.actor.setFlag('swade', 'hasArcaneBackground', true);
     } else {
-      this.actor.setFlag('swade', 'hasPowers', false);
+      this.actor.setFlag('swade', 'hasArcaneBackground', false);
     }
-    console.log(data)
     return data;
 
   }

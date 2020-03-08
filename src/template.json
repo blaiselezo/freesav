@@ -121,7 +121,7 @@
     },
     "edge": {
       "templates": ["itemDescription"],
-      "isPowerEdge": false,
+      "isArcaneBackground": false,
       "requirements": {
         "value": ""
       }

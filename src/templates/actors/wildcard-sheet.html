@@ -45,11 +45,9 @@
         <a class="item" data-tab="summary">Summary</a>
         <a class="item" data-tab="edges">Edges&Hindrances</a>
         <a class="item" data-tab="inventory">Inventory</a>
-
-        {{#if actor.flags.swade.hasPowers}}
+        {{#if actor.flags.swade.hasArcaneBackground}}
         <a class="item" data-tab="powers">Powers</a>
         {{/if}}
-
         <a class="item" data-tab="description">Description</a>
     </nav>
 
@@ -72,7 +70,7 @@
         </div>
 
         {{!-- Powers Tab --}}
-        {{#if actor.flags.swade.hasPowers}}
+        {{#if actor.flags.swade.hasArcaneBackground}}
         <div class="tab powers" data-group="primary" data-tab="powers">
             {{> "systems/swade/templates/actors/partials/powers-tab.html"}}
         </div>
