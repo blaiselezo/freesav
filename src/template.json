@@ -5,39 +5,64 @@
       "common": {
         "attributes": {
           "agility": {
-            "die": "1d4",
-            "wild-die": "1d4"
+            "die": "1d4"
           },
           "smarts": {
-            "die": "1d4",
-            "wild-die": "1d4"
+            "die": "1d4"
           },
           "spirit": {
-            "die": "1d4",
-            "wild-die": "1d4"
+            "die": "1d4"
           },
           "strength": {
-            "die": "1d4",
-            "wild-die": "1d4"
+            "die": "1d4"
           },
           "vigor": {
-            "die": "1d4",
-            "wild-die": "1d4"
+            "die": "1d4"
           }
         },
         "stats": {
           "speed": {
-            "die": "6",
-            "special": ""
+            "sprintDie": "1d6",
+            "value": 6
           },
           "toughness": {
             "value": 0
           }
+        },
+        "details": {
+          "biography": {
+            "value": "",
+            "public": ""
+          },
+          "species": "",
+          "currency": 500
+        },
+        "powerPoints": {
+          "value": 0,
+          "min": 0,
+          "max": 0
         }
       }
     },
     "wildcard": {
       "templates": ["common"],
+      "attributes": {
+        "agility": {
+          "wild-die": "1d6"
+        },
+        "smarts": {
+          "wild-die": "1d6"
+        },
+        "spirit": {
+          "wild-die": "1d6"
+        },
+        "strength": {
+          "wild-die": "1d6"
+        },
+        "vigor": {
+          "wild-die": "1d6"
+        }
+      },
       "wounds": {
         "value": 0,
         "min": 0,
@@ -48,17 +73,8 @@
         "min": 0,
         "max": 2
       },
-      "details": {
-        "biography": {
-          "value": "",
-          "public": ""
-        },
-        "species": "",
-        "currency": 0
-      },
       "xp": {
         "value": 0,
-        "min": 0,
         "rank": "Novice"
       },
       "bennies": {

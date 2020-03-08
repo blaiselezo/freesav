@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
+- Powers support!
 - Fleshed out Inventory tab on the Wildcard sheet
 - Items of the type `Edge` can now be designated as a power Edge. If an Actor has a power Edge, the Powers tab will be automatially displayed on the Wildcard sheet
 - Equip/Unequip function for weapons, armor and shields from the Inventory Tab
@@ -16,6 +17,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 - Rolled `Equipment` and `Valuable` Item types into new `Gear` Item type
+- Streamlined the `template.json` to better distinguish Wildcards and Extras
 
 ### Fixed
 

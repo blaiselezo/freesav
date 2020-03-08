@@ -69,7 +69,9 @@
   }
   // Content Tabs
   .tabs {
-    flex: 0 0 40px;
+    flex: auto;
+    flex-direction: row;
+    align-content: space-around;
     .item {
       line-height: 40px;
       font-weight: bold;
