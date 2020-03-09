@@ -243,6 +243,7 @@
   }
 }
 
+// Edges
 .edges {
   .edges-hindrances-list {
     margin: 5px 0;
@@ -388,4 +389,40 @@
 // Powers
 .powers {
   margin: 3px 0;
+  .powers-header {
+    padding: 5px;
+    margin-bottom: 5px;
+    background: rgba(0, 0, 0, 0.05);
+    border: $decorative-line;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .powers-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .power {
+      margin: 2px;
+      flex-grow: 1;
+      flex-basis: 160px;
+      border: $decorative-line;
+      border-radius: 2px;
+
+      .power-header {
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.05);
+        border-bottom: $decorative-line;
+        text-align: center;
+      }
+      .power-content {
+        margin: 0 3px;
+        line-height: 24px;
+        padding: 5px;
+        max-height: 160px;
+        overflow-y: auto;
+      }
+    }
+  }
 }

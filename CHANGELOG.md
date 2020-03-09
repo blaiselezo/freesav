@@ -8,11 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
-- Powers support!
+- Powers support! (The sheet layout for that will be need some adjustment in the future though)
 - Fleshed out Inventory tab on the Wildcard sheet
 - Items of the type `Edge` can now be designated as a power Edge. If an Actor has a power Edge, the Powers tab will be automatially displayed on the Wildcard sheet
-- Equip/Unequip function for weapons, armor and shields from the Inventory Tab
-- Weapon/Armor/Shield Notes function added to Items/Actor Sheet Summary tab
+- Equip/Unequip functionality for weapons, armor and shields from the Inventory Tab
+- Weapon/Armor/Shield Notes functionality added to Items/Actor Sheet Summary tab
 
 ### Changed
 
