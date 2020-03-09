@@ -1,4 +1,3 @@
-
 export class SwadeItemSheet extends ItemSheet {
 
   static get defaultOptions() {
@@ -28,9 +27,9 @@ export class SwadeItemSheet extends ItemSheet {
 
     // Delete Item from within Sheet. Only really used for skills Edges and Hindrances
     html.find('.item-delete').click(ev => {
-      const li = $(ev.currentTarget).parents('.sheet-body');
+      const item = $(ev.currentTarget).parents('.sheet-body');
       if (this.item.actor) {
-        this.item.actor.deleteOwnedItem(li.data('itemId'));
+        this.item.actor.deleteOwnedItem(item.data('itemId'));
         this.item.sheet.close();
       }
     });
@@ -42,6 +41,7 @@ export class SwadeItemSheet extends ItemSheet {
   */
   getData() {
     const data = super.getData();
+    data.data.isOwned = this.item.isOwned
     // Add any special data that your template needs here.
     return data;
   }

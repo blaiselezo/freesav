@@ -32,6 +32,10 @@
                 data-dtype="String" />
         </div>
         <div class="form-group">
+            <label for="data.notes">Notes</label>
+            <input type="text" name="data.notes" value="{{item.data.notes}}" placeholder="Notes" data-dtype="String" />
+        </div>
+        <div class="form-group">
             <label for="data.equipped">Equipped</label>
             <input type="checkbox" name="data.equipped" {{checked item.data.equipped}} data-dtype="Boolean">
         </div>

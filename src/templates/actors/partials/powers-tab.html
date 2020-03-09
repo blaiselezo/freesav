@@ -1,0 +1,23 @@
+<div class="flexrow">
+    <div class="form-group powers-header">
+        <label for="data.powerPoints.value">Power Points</label>
+        <input name="data.powerPoints.value" type="text" value="{{data.powerPoints.value}}"
+            placeholder="Current Power Points" data-dtype="Number" />
+        <span>/</span>
+        <input name="data.powerPoints.max" type="text" value="{{data.powerPoints.max}}" placeholder="Max Power Points"
+            data-dtype="Number" />
+    </div>
+</div>
+<powers class="powers-list">
+    {{log actor}}
+    {{#each data.powers as |power|}}
+    <div class="power item" data-item-id="{{power._id}}">
+        <a class="item-edit">
+            <div class="power-header ">{{power.name}} - {{power.data.pp}} PP</div>
+        </a>
+        <div class="power-content">
+            {{power.data.description}}
+        </div>
+    </div>
+    {{/each}}
+</powers>

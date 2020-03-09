@@ -6,28 +6,28 @@
         <ol class="attributes-list">
             <li class="flexrow" data-attribute="agility">
                 <label class="attribute-label" for="attributes.agility">Agility</label>
-                <input class="attribute-value" type="text" name="data.attributes.agility.value" id="attributes.agility"
-                    value="{{data.attributes.agility.value}}" data-dtype="String" />
+                <input class="attribute-value" type="text" name="data.attributes.agility.die" id="attributes.agility"
+                    value="{{data.attributes.agility.die}}" data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="smarts">
                 <label class="attribute-label" for="attributes.smarts">Smarts</label>
-                <input class="attribute-value" type="text" name="data.attributes.smarts.value" id="attributes.smarts"
-                    value="{{data.attributes.smarts.value}}" data-dtype="String" />
+                <input class="attribute-value" type="text" name="data.attributes.smarts.die" id="attributes.smarts"
+                    value="{{data.attributes.smarts.die}}" data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="spirit">
                 <label class="attribute-label" for="attributes.spirit">Spirit</label>
-                <input class="attribute-value" type="text" name="data.attributes.spirit.value" id="attributes.spirit"
-                    value="{{data.attributes.spirit.value}}" data-dtype="String" />
+                <input class="attribute-value" type="text" name="data.attributes.spirit.die" id="attributes.spirit"
+                    value="{{data.attributes.spirit.die}}" data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="strength">
                 <label class="attribute-label" for="attributes.strength">Strength</label>
-                <input class="attribute-value" type="text" name="data.attributes.strength.value"
-                    id="attributes.strength" value="{{data.attributes.strength.value}}" data-dtype="String" />
+                <input class="attribute-value" type="text" name="data.attributes.strength.die" id="attributes.strength"
+                    value="{{data.attributes.strength.die}}" data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="vigor">
                 <label class="attribute-label" for="attributes.vigor">Vigor</label>
-                <input class="attribute-value" type="text" name="data.attributes.vigor.value" id="attributes.vigor"
-                    value="{{data.attributes.vigor.value}}" data-dtype="String" />
+                <input class="attribute-value" type="text" name="data.attributes.vigor.die" id="attributes.vigor"
+                    value="{{data.attributes.vigor.die}}" data-dtype="String" />
             </li>
         </ol>
         <header class="skills-header">
@@ -35,7 +35,7 @@
         </header>
         <ol class="skills-list">
             {{#each data.skills as |skill id|}}
-            <li class="item skill flexrow" data-item-id="{{skill._id}}">
+            <li class="item skill flexrow" data-item-id="{{power._id}}">
                 <label class="skill-label"><a class="item-control item-edit" title="Edit Skill">{{skill.name}}&nbsp;<i
                             class="fas fa-edit"></i></a></label>
                 <div class="skill-value"><span>{{skill.data.die}}&nbsp;</span></div>

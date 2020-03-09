@@ -8,12 +8,19 @@
             </h1>
         </div>
     </header>
-    <section class="sheet-body">
+    <section class="sheet-body" data-item-id="{{item._id}}">
         <div class="form-group">
             <label for="data.requirements.value">Requirements</label>
             <input name="data.requirements.value" type="text" value="{{item.data.requirements.value}}"
                 placeholder="Requirements" data-dtype="String" />
         </div>
+        {{#unless item.data.isOwned}}
+        <div class="form-group">
+            <label for="data.isArcaneBackground">Arcane Background</label>
+            <input type="checkbox" name="data.isArcaneBackground" {{checked item.data.isArcaneBackground}}
+                data-dtype="Boolean">
+        </div>
+        {{/unless}}
         <div class="item-controls">
             <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
         </div>

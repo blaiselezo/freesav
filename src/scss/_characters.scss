@@ -1,8 +1,4 @@
 .swade.sheet.character {
-  .window-content {
-    padding: 5px;
-    overflow-y: auto;
-  }
   // Sheet Header
   .sheet-header {
     overflow: hidden;
@@ -18,13 +14,12 @@
     flex: 0 0 150px;
     flex-wrap: inherit;
     flex-direction: column;
-    height: 150px;
-    margin-right: 10px;
-    img {
-      height: 150px;
-      border: none;
-      border-right: $section-border;
-    }
+    border: none;
+    border-right: $section-border;
+    max-height: 150px;
+    max-width: 150px;
+    height: auto;
+    width: auto;
   }
 
   // Header Fields
@@ -74,7 +69,9 @@
   }
   // Content Tabs
   .tabs {
-    flex: 0 0 40px;
+    flex: auto;
+    flex-direction: row;
+    align-content: space-around;
     .item {
       line-height: 40px;
       font-weight: bold;
@@ -97,28 +94,6 @@
   }
 
   // Items
-  .items-list {
-    list-style: none;
-    margin: 7px 0;
-    padding: 0;
-    .item {
-      height: 30px;
-      line-height: 24px;
-      padding: 3px 0;
-      border-bottom: 1px solid #bbb;
-      img {
-        flex: 0 0 24px;
-        margin-right: 5px;
-        border: none;
-      }
-    }
-    .item-name {
-      margin: 0;
-    }
-    .item-controls {
-      flex: 0 0 36px;
-    }
-  }
 
   // Summary
   .traits {
@@ -268,6 +243,7 @@
   }
 }
 
+// Edges
 .edges {
   .edges-hindrances-list {
     margin: 5px 0;
@@ -292,6 +268,28 @@
       text-align: center;
       font-weight: bold;
     }
+    .items-list {
+      list-style: none;
+      margin: 7px 0;
+      padding: 0;
+      .item {
+        height: 30px;
+        line-height: 24px;
+        padding: 3px 0;
+        border-bottom: 1px solid #bbb;
+        img {
+          flex: 0 0 24px;
+          margin-right: 5px;
+          border: none;
+        }
+      }
+      .item-name {
+        margin: 0;
+      }
+      .item-controls {
+        flex: 0 0 36px;
+      }
+    }
   }
 
   .description {
@@ -310,6 +308,121 @@
     .description-value {
       padding: 5px;
       margin-bottom: 5px;
+    }
+  }
+}
+
+// Inventory
+.inventory {
+  margin: 3px 0;
+  .currency {
+    display: inline;
+    input {
+      width: auto;
+    }
+  }
+  .items-list {
+    list-style: none;
+    margin: 7px 0;
+    padding: 0;
+
+    li {
+      padding: 0 2px;
+    }
+    .item-header {
+      background: rgba(0, 0, 0, 0.05);
+      text-align: center;
+      font-weight: bold;
+      border: $decorative-line;
+      border-radius: 2px;
+    }
+    .item {
+      display: grid;
+      grid-template-columns: 1fr 6fr 2fr 2fr 1fr;
+      grid-auto-rows: minmax(30px, auto);
+      grid-template-areas: "item-equipped item-name item-quantity item-weight item-controls";
+      align-items: center;
+      line-height: 24px;
+      border-bottom: 1px solid #bbb;
+      .item-equipped {
+        grid-area: item-equipped;
+        justify-self: center;
+      }
+      .item-name {
+        display: grid;
+        grid-template-columns: 0.5fr 6fr;
+        grid-auto-rows: minmax(30px, auto);
+        grid-template-areas: "item-img item-textname";
+        align-items: center;
+        grid-area: item-name;
+
+        .item-textname {
+          padding-left: 5px;
+          grid-area: item-textname;
+        }
+        .item-img {
+          grid-area: item-img;
+          display: grid;
+          justify-self: center;
+          align-self: center;
+          img {
+            width: 24px;
+            border: none;
+          }
+        }
+      }
+      .item-quantity {
+        grid-area: item-quantity;
+        justify-self: center;
+      }
+      .item-weight {
+        grid-area: item-weight;
+        justify-self: center;
+      }
+      .item-controls {
+        grid-area: item-controls;
+      }
+    }
+  }
+}
+
+// Powers
+.powers {
+  margin: 3px 0;
+  .powers-header {
+    padding: 5px;
+    margin-bottom: 5px;
+    background: rgba(0, 0, 0, 0.05);
+    border: $decorative-line;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .powers-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .power {
+      margin: 2px;
+      flex-grow: 1;
+      flex-basis: 160px;
+      border: $decorative-line;
+      border-radius: 2px;
+
+      .power-header {
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.05);
+        border-bottom: $decorative-line;
+        text-align: center;
+      }
+      .power-content {
+        margin: 0 3px;
+        line-height: 24px;
+        padding: 5px;
+        max-height: 160px;
+        overflow-y: auto;
+      }
     }
   }
 }

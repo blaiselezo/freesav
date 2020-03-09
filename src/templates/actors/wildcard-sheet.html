@@ -32,7 +32,7 @@
                         placeholder="Rank" />
                 </li>
                 <li class="form-group">
-                    <label for="xp-input">XP</label>
+                    <label for="xp-input">Advances</label>
                     <input name="data.details.xp.value" id="xp-input" type="text" value="{{data.details.xp.value}}"
                         data-dtype="Number" placeholder="0" />
                 </li>
@@ -45,6 +45,9 @@
         <a class="item" data-tab="summary">Summary</a>
         <a class="item" data-tab="edges">Edges&Hindrances</a>
         <a class="item" data-tab="inventory">Inventory</a>
+        {{#if actor.flags.swade.hasArcaneBackground}}
+        <a class="item" data-tab="powers">Powers</a>
+        {{/if}}
         <a class="item" data-tab="description">Description</a>
     </nav>
 
@@ -62,10 +65,16 @@
         </div>
 
         {{!-- Inventory Tab --}}
-        <div class="tab items" data-group="primary" data-tab="inventory">
+        <div class="tab inventory" data-group="primary" data-tab="inventory">
             {{> "systems/swade/templates/actors/partials/inventory-tab.html"}}
         </div>
 
+        {{!-- Powers Tab --}}
+        {{#if actor.flags.swade.hasArcaneBackground}}
+        <div class="tab powers" data-group="primary" data-tab="powers">
+            {{> "systems/swade/templates/actors/partials/powers-tab.html"}}
+        </div>
+        {{/if}}
 
         {{!-- Biography Tab --}}
         <div class="tab biography" data-group="primary" data-tab="description">
