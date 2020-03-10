@@ -1,6 +1,6 @@
 {
-    "dataPath": "",
-    "manifest": "src",
-    "repository": "",
-    "rawURL": ""
+  "dataPath": "",
+  "manifest": "src",
+  "repository": "https://gitlab.com/florad-foundry/swade",
+  "rawURL": "https://gitlab.com/florad-foundry/swade/-/raw"
 }
