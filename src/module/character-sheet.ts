@@ -1,4 +1,3 @@
-import { SwadeUtil } from './SwadeUtil.js'
 export class WildcardSheet extends ActorSheet {
   _sheetTab: string;
 
@@ -123,26 +122,31 @@ export class WildcardSheet extends ActorSheet {
   }
 
   private _calcMaxCarryCapacity(data: any): number {
-    let strengthDie = SwadeUtil.parseDie(data.data.attributes.strength.die);
+    const strengthDie = data.data.attributes.strength.die;
     let capacity = 0;
 
-    if (strengthDie.sides == 4) {
+    if (strengthDie.sides === 4) {
       capacity = 20;
     }
-    if (strengthDie.sides == 6) {
+    if (strengthDie.sides === 6) {
       capacity = 40;
     }
-    if (strengthDie.sides == 8) {
+    if (strengthDie.sides === 8) {
       capacity = 60;
     }
-    if (strengthDie.sides == 10) {
+    if (strengthDie.sides === 10) {
       capacity = 80;
     }
-    if (strengthDie.sides == 12) {
+    if (strengthDie.sides === 12) {
       capacity = 100;
     }
 
-    return capacity + (20 * strengthDie.modifier);
+    if (strengthDie.modifier > 0) {
+      capacity = capacity + (20 * strengthDie.modifier);
+    }
+
+    return capacity;
+
   }
 
   private _calcInventoryWeight(items): number {
