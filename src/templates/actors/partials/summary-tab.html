@@ -6,28 +6,54 @@
         <ol class="attributes-list">
             <li class="flexrow" data-attribute="agility">
                 <label class="attribute-label" for="attributes.agility">Agility</label>
-                <input class="attribute-value" type="text" name="data.attributes.agility.die" id="attributes.agility"
-                    value="{{data.attributes.agility.die}}" data-dtype="String" />
+                <select class="attribute-value" name="data.attributes.agility.die.sides" id="attributes.agility"
+                    data-dtype="Number">
+                    {{#select data.attributes.agility.die.sides}}
+                    {{> "systems/swade/templates/die-sides-options.html"}}
+                    {{/select}}
+                </select>
+                <input name="data.attributes.agility.die.modifier" type="text"
+                    value="{{data.attributes.agility.die.modifier}}" placeholder="Modifier" data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="smarts">
                 <label class="attribute-label" for="attributes.smarts">Smarts</label>
-                <input class="attribute-value" type="text" name="data.attributes.smarts.die" id="attributes.smarts"
-                    value="{{data.attributes.smarts.die}}" data-dtype="String" />
+                <select name="data.attributes.smarts.die.sides" id="attributes.smarts" data-dtype="Number">
+                    {{#select data.attributes.smarts.die.sides}}
+                    {{> "systems/swade/templates/die-sides-options.html"}}
+                    {{/select}}
+                </select>
+                <input name="data.attributes.smarts.die.modifier" type="text"
+                    value="{{data.attributes.smarts.die.modifier}}" placeholder="Modifier" data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="spirit">
                 <label class="attribute-label" for="attributes.spirit">Spirit</label>
-                <input class="attribute-value" type="text" name="data.attributes.spirit.die" id="attributes.spirit"
-                    value="{{data.attributes.spirit.die}}" data-dtype="String" />
+                <select name="data.attributes.spirit.die.sides" id="attributes.spirit" data-dtype="Number">
+                    {{#select data.attributes.spirit.die.sides}}
+                    {{> "systems/swade/templates/die-sides-options.html"}}
+                    {{/select}}
+                </select>
+                <input name="data.attributes.spirit.die.modifier" type="text"
+                    value="{{data.attributes.spirit.die.modifier}}" placeholder="Modifier" data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="strength">
                 <label class="attribute-label" for="attributes.strength">Strength</label>
-                <input class="attribute-value" type="text" name="data.attributes.strength.die" id="attributes.strength"
-                    value="{{data.attributes.strength.die}}" data-dtype="String" />
+                <select name="data.attributes.strength.die.sides" id="attributes.strength" data-dtype="Number">
+                    {{#select data.attributes.strength.die.sides}}
+                    {{> "systems/swade/templates/die-sides-options.html"}}
+                    {{/select}}
+                </select>
+                <input name="data.attributes.strength.die.modifier" type="text"
+                    value="{{data.attributes.strength.die.modifier}}" placeholder="Modifier" data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="vigor">
                 <label class="attribute-label" for="attributes.vigor">Vigor</label>
-                <input class="attribute-value" type="text" name="data.attributes.vigor.die" id="attributes.vigor"
-                    value="{{data.attributes.vigor.die}}" data-dtype="String" />
+                <select name="data.attributes.vigor.die.sides" id="attributes.vigor" data-dtype="Number">
+                    {{#select data.attributes.vigor.die.sides}}
+                    {{> "systems/swade/templates/die-sides-options.html"}}
+                    {{/select}}
+                </select>
+                <input name="data.attributes.vigor.die.modifier" type="text"
+                    value="{{data.attributes.vigor.die.modifier}}" placeholder="Modifier" data-dtype="String" />
             </li>
         </ol>
         <header class="skills-header">
@@ -35,10 +61,10 @@
         </header>
         <ol class="skills-list">
             {{#each data.skills as |skill id|}}
-            <li class="item skill flexrow" data-item-id="{{power._id}}">
+            <li class="item skill flexrow" data-item-id="{{skill._id}}">
                 <label class="skill-label"><a class="item-control item-edit" title="Edit Skill">{{skill.name}}&nbsp;<i
                             class="fas fa-edit"></i></a></label>
-                <div class="skill-value"><span>{{skill.data.die}}&nbsp;</span></div>
+                <div class="skill-value"><span>d{{skill.data.die.sides}}{{skill.data.die.modifier}}</span></div>
                 <div class="skill-value"><span>{{skill.data.attribute}}</span></div>
                 <!-- Add Dice roll shortcut here? -->
             </li>

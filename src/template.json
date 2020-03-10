@@ -5,19 +5,34 @@
       "common": {
         "attributes": {
           "agility": {
-            "die": "1d4"
+            "die": {
+              "sides": 4,
+              "modifier": "0"
+            }
           },
           "smarts": {
-            "die": "1d4"
+            "die": {
+              "sides": 4,
+              "modifier": "0"
+            }
           },
           "spirit": {
-            "die": "1d4"
+            "die": {
+              "sides": 4,
+              "modifier": "0"
+            }
           },
           "strength": {
-            "die": "1d4"
+            "die": {
+              "sides": 4,
+              "modifier": "0"
+            }
           },
           "vigor": {
-            "die": "1d4"
+            "die": {
+              "sides": 4,
+              "modifier": "0"
+            }
           }
         },
         "stats": {
@@ -48,19 +63,29 @@
       "templates": ["common"],
       "attributes": {
         "agility": {
-          "wild-die": "1d6"
+          "wild-die": {
+            "sides": 6
+          }
         },
         "smarts": {
-          "wild-die": "1d6"
+          "wild-die": {
+            "sides": 6
+          }
         },
         "spirit": {
-          "wild-die": "1d6"
+          "wild-die": {
+            "sides": 6
+          }
         },
         "strength": {
-          "wild-die": "1d6"
+          "wild-die": {
+            "sides": 6
+          }
         },
         "vigor": {
-          "wild-die": "1d6"
+          "wild-die": {
+            "sides": 6
+          }
         }
       },
       "wounds": {
@@ -158,8 +183,13 @@
     "skill": {
       "templates": ["itemDescription"],
       "attribute": "",
-      "die": "1d4",
-      "wild-die": "1d6"
+      "die": {
+        "sides": 4,
+        "modifier": ""
+      },
+      "wild-die": {
+        "sides": 6
+      }
     }
   }
 }
