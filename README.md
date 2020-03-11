@@ -32,6 +32,6 @@ reach out on the Foundry Community Discord with any questions.
 
 ## License Notice
 
-![Savage Worlds Fan Product Logo](https://www.peginc.com/wp-content/uploads/2019/01/SW_LOGO_FP_2018.png =250x)
+<img src="https://www.peginc.com/wp-content/uploads/2019/01/SW_LOGO_FP_2018.png" alt="Savage Worlds Fan Product Logo" width="200">
 
 This game references the Savage Worlds game system, available from Pinnacle Entertainment Group at www.peginc.com. Savage Worlds and all associated logos and trademarks are copyrights of Pinnacle Entertainment Group. Used with permission. Pinnacle makes no representation or warranty as to the quality, viability, or suitability for purpose of this product.
