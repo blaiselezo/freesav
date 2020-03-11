@@ -2,20 +2,20 @@
 {{#if weapon.data.equipped}}
 <li class="gear-card">
     <header class="flexrow card-header">
-        <span>{{weapon.name}} - Damage: {{weapon.data.damage}}</span>
+        <span>{{weapon.name}} - {{localize SWADE.Dmg}}: {{weapon.data.damage}}</span>
     </header>
     <div class="flexrow card-content" data-item-id="{{weapon._id}}">
         <div>
-            <div>Range: {{weapon.data.range}}</div>
-            <div>AP: {{weapon.data.ap}}</div>
+            <div>{{localize "SWADE.Rng"}}: {{weapon.data.range}}</div>
+            <div>{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>
         </div>
         <div>
-            <div>RoF: {{weapon.data.rof}}</div>
-            <div>Shots: {{weapon.data.shots}}</div>
+            <div>{{localize "SWADE.RoF"}}: {{weapon.data.rof}}</div>
+            <div>{{localize "SWADE.Mag"}}: {{weapon.data.shots}}</div>
         </div>
     </div>
     <div class="chips">
-        <span>Notes:&nbsp;</span>
+        <span>{{localize "SWADE.Notes"}}:&nbsp;</span>
         <div>{{weapon.data.notes}}</div>
         <!-- <div class="chip">
             <span class="chip-content">HW</span>

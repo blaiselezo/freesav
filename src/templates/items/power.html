@@ -1,39 +1,42 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
     {{!-- Item Sheet Header --}}
-    {{log item}}
     <header class="sheet-header">
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="header-fields">
             <h1 class="itemname">
-                <input name="name" type="text" value="{{item.name}}" placeholder="Skill Name" data-dtype="String" />
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SWADE.Name'}}"
+                    data-dtype="String" />
             </h1>
         </div>
     </header>
     <section class="sheet-body" data-item-id="{{item._id}}">
         <div class="item-controls">
-            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"><i class="fas fa-trash"></i></a>
         </div>
         <div class="form-group">
-            <label for="data.pp">Power Points</label>
-            <input name="data.pp" type="text" value="{{item.data.pp}}" placeholder="Power Points" data-dtype="Number" />
+            <label for="data.pp">{{localize SWADE.PP}}</label>
+            <input name="data.pp" type="text" value="{{item.data.pp}}" placeholder="{{localize 'SWADE.PP'}}"
+                data-dtype="Number" />
         </div>
         <div class="form-group">
-            <label for="data.duration">Duration</label>
-            <input name="data.duration" type="text" value="{{item.data.duration}}" placeholder="Duration"
+            <label for="data.duration">{{localize "SWADE.Dur"}}</label>
+            <input name="data.duration" type="text" value="{{item.data.duration}}"
+                placeholder="{{localize 'SWADE.Dur'}}" data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.range">{{localize "SWADE.Rng"}}</label>
+            <input name="data.range" type="text" value="{{item.data.range}}" placeholder="{{localize 'SWADE.Rng'}}"
                 data-dtype="String" />
         </div>
         <div class="form-group">
-            <label for="data.range">Range</label>
-            <input name="data.range" type="text" value="{{item.data.range}}" placeholder="Range" data-dtype="String" />
-        </div>
-        <div class="form-group">
-            <label for="data.rank">Rank</label>
-            <input name="data.rank" type="text" value="{{item.data.rank}}" placeholder="Rank" data-dtype="String" />
-        </div>
-        <div class="form-group">
-            <label for="data.trapping">Trapping</label>
-            <input name="data.trapping" type="text" value="{{item.data.trapping}}" placeholder="Trapping"
+            <label for="data.rank">{{localize "SWADE.Rank"}}</label>
+            <input name="data.rank" type="text" value="{{item.data.rank}}" placeholder="{{localize 'SWADE.Rank'}}"
                 data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.trapping">{{localize "SWADE.Trap"}}</label>
+            <input name="data.trapping" type="text" value="{{item.data.trapping}}"
+                placeholder="{{localize 'SWADE.Trap'}}" data-dtype="String" />
         </div>
         <div class="form-group">
             {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}

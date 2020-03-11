@@ -4,39 +4,44 @@
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="header-fields">
             <h1 class="itemname">
-                <input name="name" type="text" value="{{item.name}}" placeholder="Skill Name" data-dtype="String" />
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SWADE.Name'}}"
+                    data-dtype="String" />
             </h1>
         </div>
     </header>
     <section class="sheet-body">
         <div class="form-group">
-            <label for="data.cover">Cover</label>
-            <input name="data.cover" type="text" value="{{item.data.cover}}" placeholder="Cover" data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.parry">Parry</label>
-            <input name="data.parry" type="text" value="{{item.data.parry}}" placeholder="Parry" data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.price">Price</label>
-            <input name="data.price" type="text" value="{{item.data.price}}" placeholder="Price" data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.weight">Weight</label>
-            <input name="data.weight" type="text" value="{{item.data.weight}}" placeholder="Weight"
+            <label for="data.cover">{{localize "SWADE.Cover"}}</label>
+            <input name="data.cover" type="text" value="{{item.data.cover}}" placeholder="{{localize 'SWADE.Cover'}}"
                 data-dtype="Number" />
         </div>
         <div class="form-group">
-            <label for="data.minStr">Min. Strength</label>
-            <input name="data.minStr" type="text" value="{{item.data.minStr}}" placeholder="Minimum Strength"
+            <label for="data.parry">{{localize "SWADE.Parry"}}</label>
+            <input name="data.parry" type="text" value="{{item.data.parry}}" placeholder="{{localize 'SWADE.Parry'}}"
+                data-dtype="Number" />
+        </div>
+        <div class="form-group">
+            <label for="data.price">{{"SWADE.Price"}}</label>
+            <input name="data.price" type="text" value="{{item.data.price}}" placeholder="{{localize 'SWADE.Price'}}"
+                data-dtype="Number" />
+        </div>
+        <div class="form-group">
+            <label for="data.weight">{{localize "SWADE.Weight"}}</label>
+            <input name="data.weight" type="text" value="{{item.data.weight}}" placeholder="{{localize 'SWADE.Weight'}}"
+                data-dtype="Number" />
+        </div>
+        <div class="form-group">
+            <label for="data.minStr">{{localize "SWADE.MinStrLong"}}</label>
+            <input name="data.minStr" type="text" value="{{item.data.minStr}}"
+                placeholder="{{localize 'SWADE.MinStrLong'}}" data-dtype="String" />
+        </div>
+        <div class="form-group">
+            <label for="data.notes">{{localize "SWADE.Notes"}}</label>
+            <input type="text" name="data.notes" value="{{item.data.notes}}" placeholder="{{localize 'SWADE.Notes'}}"
                 data-dtype="String" />
         </div>
         <div class="form-group">
-            <label for="data.notes">Notes</label>
-            <input type="text" name="data.notes" value="{{item.data.notes}}" placeholder="Notes" data-dtype="String" />
-        </div>
-        <div class="form-group">
-            <label for="data.equipped">Equipped</label>
+            <label for="data.equipped">{{localize "SWADE.Equipped"}}</label>
             <input type="checkbox" name="data.equipped" {{checked item.data.equipped}} data-dtype="Boolean">
         </div>
         <div class="form-group">
