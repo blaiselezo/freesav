@@ -9,7 +9,18 @@
   "esmodules": ["swade.js"],
   "styles": ["swade.css"],
   "packs": [],
-  "languages": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    }
+  ],
   "socket": true,
   "gridDistance": 1,
   "gridUnits": "in",

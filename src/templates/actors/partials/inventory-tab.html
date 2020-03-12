@@ -1,17 +1,18 @@
 <div class="flexrow">
-    <span>Carry Weight <span style="font-weight: bold;">{{inventoryWeight}} / {{maxCarryCapacity}}</span></span>
+    <span>{{localize "SWADE.CarryWeight"}} <span style="font-weight: bold;">{{inventoryWeight}} /
+            {{maxCarryCapacity}}</span></span>
     <div class="currency">
-        <label for="data.details.currency">Currency </label>
-        <input name="data.details.currency" type="text" value="{{data.details.currency}}" placeholder="Currency"
-            data-dtype="Number" />
+        <label for="data.details.currency">{{localize "SWADE.Currency"}} </label>
+        <input name="data.details.currency" type="text" value="{{data.details.currency}}"
+            placeholder="{{localize 'SWADE.Currency'}}" data-dtype="Number" />
     </div>
 </div>
 <ol class="items-list">
     <li class="item item-header">
-        <div class="item-equipped">Eq'd</div>
-        <div class="item-textname">Name</div>
-        <div class="item-quantity">Quantity</div>
-        <div class="item-weight">Weight</div>
+        <div class="item-equipped">{{localize "SWADE.Eqd"}}</div>
+        <div class="item-textname">{{localize "SWADE.Name"}}</div>
+        <div class="item-quantity">{{localize "SWADE.Quantity"}}</div>
+        <div class="item-weight">{{localize "SWADE.Weight"}}</div>
         <div class="item-controls"></div>
     </li>
     {{#each data.inventory as |item|}}
@@ -32,8 +33,8 @@
         <div class="item-quantity">{{item.data.quantity}}</div>
         <div class="item-weight">{{item.data.weight}}</div>
         <div class="item-controls">
-            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"><i class="fas fa-trash"></i></a>
         </div>
     </li>
     {{/each}}

@@ -1,7 +1,7 @@
 <div class="flexrow">
     <div class="edges-hindrances-list">
         <header class="hindrance-header flexrow">
-            <span>Hindrances</span>
+            <span>{{localize "SWADE.Hindrances"}}</span>
         </header>
         <ol class="items-list">
             {{#each data.hindrances as |hindrance id|}}
@@ -9,19 +9,20 @@
                 <img src="{{hindrance.img}}" title="{{hindrance.name}}" width="24" height="24" />
                 <a class="item-control edge item-name">{{hindrance.name}}
                     {{#if hindrance.data.major}}
-                    (Major)
+                    {{localize "SWADE.Major"}}
                     {{else}}
-                    (Minor)
+                    {{localize "SWADE.Minor"}}
                     {{/if}}
                 </a>
                 <div class="item-controls">
-                    <a class="item-control item-edit" title="Edit Edge"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-edit" title="{{localize 'SWADE.EdHind'}}"><i
+                            class="fas fa-edit"></i></a>
                 </div>
             </li>
             {{/each}}
         </ol>
         <header class="edge-header flexrow">
-            <span>Edges</span>
+            <span>{{localize "SWADE.Edges"}}</span>
         </header>
         <ol class="items-list">
             {{#each data.edges as |edge id|}}
@@ -29,7 +30,8 @@
                 <img src="{{edge.img}}" title="{{edge.name}}" width="24" height="24" />
                 <a class="item-control edge item-name">{{edge.name}}</a>
                 <div class="item-controls">
-                    <a class="item-control item-edit" title="Edit Edge"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-edit" title="{{localize 'SWADE.EdEdge'}}"><i
+                            class="fas fa-edit"></i></a>
                 </div>
             </li>
             {{/each}}
@@ -37,7 +39,7 @@
     </div>
     <div class="description">
         <header class="description-header flexrow">
-            <span>Description</span>
+            <span>{{localize "SWADE.Desc"}}</span>
         </header>
         <p class="description-value" id="edge-description"></p>
     </div>
