@@ -4,15 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/)
 
-## [0.3.1] Unreleased
+## [Unreleased]
 
 ### Added
 
-- Full localization support
+- Full localization support for the english version
 
 ## [0.3.0] - 2020-03-10
 
-## Changed
+### Changed
 
 - Completely reworked how Attribute and Skill dice are handled by the data model
 - Modified `wildcard` Actor sheet to fit new data model
