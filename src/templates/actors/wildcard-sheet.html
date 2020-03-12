@@ -4,35 +4,36 @@
     <header class="sheet-header flexrow">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
         <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}"
+                    placeholder="{{localize 'SWADE.Name'}}" /></h1>
             <ul class="flexrow header-stats">
                 <li class="form-group">
                     <input id="race" name="data.details.species" type="text" value="{{data.details.species}}"
-                        data-dtype="String" placeholder="Race" />
+                        data-dtype="String" placeholder="{{localize 'SWADE.Race'}}" />
                 </li>
                 <li class="form-group">
-                    <label for="toughness">Toughness</label>
+                    <label for="toughness">{{localize "SWADE.Tough"}}</label>
                     <input id="toughness" name="data.stats.toughness.value" type="text"
-                        value="{{data.stats.toughness.value}}" data-dtype="Number" />
+                        value="{{data.stats.toughness.value}}" placeholder="0" data-dtype="Number" />
                 </li>
                 <li class="form-group">
-                    <label for="parry">Parry</label>
+                    <label for="parry">{{localize "SWADE.Parry"}}</label>
                     <input id="parry" name="data.stats.parry.value" value="{{data.stats.parry.value}}" type="text"
-                        data-dtype="Number" />
+                        placeholder="0" data-dtype="Number" />
                 </li>
             </ul>
             <ul class="flexrow header-stats">
                 <li class="form-group">
-                    <label for="pace">Pace</label>
+                    <label for="pace">{{localize "SWADE.Pace"}}</label>
                     <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
-                        data-dtype="Number" />
+                        placeholder="0" data-dtype="Number" />
                 </li>
                 <li class="form-group">
                     <input name="data.xp.rank" id="rank-input" type="text" value="{{data.xp.rank}}" data-dtype="String"
-                        placeholder="Rank" />
+                        placeholder="{{localize 'SWADE.Rank'}}" />
                 </li>
                 <li class="form-group">
-                    <label for="xp-input">Advances</label>
+                    <label for="xp-input">{{localize "SWADE.Adv"}}</label>
                     <input name="data.details.xp.value" id="xp-input" type="text" value="{{data.details.xp.value}}"
                         data-dtype="Number" placeholder="0" />
                 </li>
@@ -42,13 +43,13 @@
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="flexrow sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="summary">Summary</a>
-        <a class="item" data-tab="edges">Edges&Hindrances</a>
-        <a class="item" data-tab="inventory">Inventory</a>
+        <a class="item" data-tab="summary">{{localize "SWADE.Summary"}}</a>
+        <a class="item" data-tab="edges">{{localize "SWADE.Edges"}}</a>
+        <a class="item" data-tab="inventory">{{localize "SWADE.Inv"}}</a>
         {{#if actor.flags.swade.hasArcaneBackground}}
-        <a class="item" data-tab="powers">Powers</a>
+        <a class="item" data-tab="powers">{{localize "SWADE.Pow"}}</a>
         {{/if}}
-        <a class="item" data-tab="description">Description</a>
+        <a class="item" data-tab="description">{{localize "SWADE.Desc"}}</a>
     </nav>
 
     {{!-- Sheet Body --}}

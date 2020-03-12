@@ -2,18 +2,29 @@
   "name": "swade",
   "title": "Savage Worlds Adventure Edition",
   "description": "A basic gamesystem for running Savage Worlds Adventure Edition games",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "minimumCoreVersion": "0.4.5",
   "author": "FloRad",
   "templateVersion": 2,
   "esmodules": ["swade.js"],
   "styles": ["swade.css"],
   "packs": [],
-  "languages": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    }
+  ],
   "socket": true,
   "gridDistance": 1,
   "gridUnits": "in",
   "url": "https://gitlab.com/florad-foundry/swade",
   "manifest": "https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json",
-  "download": "https://gitlab.com/florad-foundry/swade/-/raw/v0.3.0/package/swade-v0.3.0.zip"
+  "download": "https://gitlab.com/florad-foundry/swade/-/raw/v0.4.0/package/swade-v0.4.0.zip"
 }
