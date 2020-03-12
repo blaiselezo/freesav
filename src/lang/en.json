@@ -33,6 +33,7 @@
   "SWADE.Dmg": "Damage",
   "SWADE.Rng": "Range",
   "SWADE.Ap": "AP",
+  "SWADE.APLong": "Armor Piercing",
   "SWADE.RoF": "RoF",
   "SWADE.Mag": "Shots",
   "SWADE.Parry": "Parry",
@@ -62,5 +63,9 @@
   "SWADE.CurPP": "Current Power Points",
   "SWADE.MaxPP": "Maximum Power Points",
   "SWADE.Dur": "Duration",
-  "SWADE.Trap": "Trapping"
+  "SWADE.Trap": "Trapping",
+
+  "SWADE.Wound": "Wound",
+  "SWADE.Wounds": "Wounds",
+  "SWADE.Fatigue": "Fatigue"
 }

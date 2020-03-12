@@ -8,7 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
-- Full localization support for the english version
+- Full localization support for the following languages:
+  - English
+  - Deutsch
 
 ## [0.3.0] - 2020-03-10
 
