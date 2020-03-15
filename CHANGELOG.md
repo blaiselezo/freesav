@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
-### Added Wildcards will now be marked with a card symbol next to their name
+### Added
+
+- Wildcards will now be marked with a card symbol next to their name
+
+### Fixed
+
+- Localization errors that caused field labels on `Weapon` and `Power` Items to disappear
 
 ## [v0.4.0] - 2020-03-12
 
