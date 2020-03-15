@@ -64,3 +64,21 @@ Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 		item.img = `systems/swade/icons/${item.type}.svg`;
 	}
 });
+
+Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
+
+	app.entities.forEach(a => {
+		if (a.data.type === 'wildcard') {
+			let found = html.find(".entity-name");
+			for (let index = 0; index < found.length; index++) {
+				const element = found[index];
+				if (element.innerText === a.data.name) {
+					element.innerHTML = `
+					<a><img src="systems/swade/icons/wildcard.svg" class="wildcard-icon" width="24px" height="24px">${a.data.name}</a>
+					`
+				}
+			}
+		}
+	});
+
+});
