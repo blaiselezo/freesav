@@ -24,7 +24,7 @@ Hooks.once('init', async function () {
 	console.log(`SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`);
 
 	// Assign custom classes and constants here
-	CONFIG.debug.hooks = true;
+
 	// Record Configuration Values
 	CONFIG.SWADE = SWADE;
 
@@ -84,23 +84,21 @@ Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
 	});
 });
 
-Hooks.on('renderCompendium', (app: Compendium, html: JQuery<HTMLElement>, data) => {
+Hooks.on('renderCompendium', async (app, html, data) => {
 	if (app.metadata.entity !== 'Actor') {
-		return;
+		return
 	}
-	app.getContent().then(entities => {
-		entities.forEach(entity => {
-			if (entity.data.type === 'wildcard') {
-				let found = html.find(".entry-name");
-				for (let i = 0; i < found.length; i++) {
-					const element = found[i];
-					if (element.innerText === entity.data.name) {
-						element.innerHTML = `
-						<a><img src="systems/swade/icons/wildcard-dark.svg" class="wildcard-icon">${entity.data.name}</a>
-						`
-					}
-				}
-			}
-		});
+	const content = await app.getContent();
+	const wildcards = content.filter(entity => entity.data.type === 'wildcard');
+	const names: string[] = wildcards.map(e => e.data.name);
+
+	const found = html.find('.entry-name');
+	found.each((i, el) => {
+		const name = names.find(name => name === el.innerText)
+		if (!name) {
+			return;
+		}
+		el.innerHTML = `<a><img src="systems/swade/icons/wildcard-dark.svg" class="wildcard-icon">${name}</a>`
 	});
+
 });
