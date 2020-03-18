@@ -62,7 +62,7 @@ Hooks.once('ready', function () {
 Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 	//Set default image if no image already exists
 	if (!item.img) {
-		item.img = `systems/swade/icons/${item.type}.svg`;
+		item.img = `systems/swade/assets/icons/${item.type}.svg`;
 	}
 });
 
@@ -77,7 +77,7 @@ Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
 			const element = found[i];
 			if (element.innerText === a.data.name) {
 				element.innerHTML = `
-					<a><img src="systems/swade/icons/wildcard.svg" class="wildcard-icon">${a.data.name}</a>
+					<a><img src="systems/swade/assets/ui/wildcard.svg" class="wildcard-icon">${a.data.name}</a>
 					`
 			}
 		}
@@ -99,7 +99,7 @@ Hooks.on('renderCompendium', async (app, html, data) => {
 		if (!name) {
 			return;
 		}
-		el.innerHTML = `<a><img src="systems/swade/icons/wildcard-dark.svg" class="wildcard-icon">${name}</a>`
+		el.innerHTML = `<a><img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">${name}</a>`
 	});
 
 });

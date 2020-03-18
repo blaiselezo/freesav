@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Wildcards will now be marked with a card symbol next to their name
 
+### Changed
+
+- Moved Icons to assets folder and split them into icons and UI elements
+
 ### Fixed
 
 - Localization errors that caused field labels on `Weapon` and `Power` Items to disappear
