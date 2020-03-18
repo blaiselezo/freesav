@@ -13,7 +13,8 @@
 // Import TypeScript modules
 import { registerSettings } from './module/settings.js';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates.js';
-import { WildcardSheet, ExtraSheet } from './module/character-sheet.js';
+import { WildcardSheet } from './module/wildcard-sheet.js';
+import { ExtraSheet } from './module/extra-sheet.js'
 import { SwadeItemSheet } from './module/item-sheet.js';
 import { SWADE } from './module/config.js'
 
