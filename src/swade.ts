@@ -113,7 +113,6 @@ Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
 	const element = html.find('.incap-container');
 
 	if (isIncap) {
-		console.log(actor.flags);
-		element.css('opacity', '1');
+		element.addClass('fade-in');
 	}
 });

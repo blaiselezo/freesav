@@ -119,6 +119,7 @@
       font-weight: bold;
       color: red;
       opacity: 0;
+      transition: opacity 2s;
     }
     .fade-in {
       opacity: 1;
