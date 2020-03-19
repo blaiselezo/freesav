@@ -98,14 +98,12 @@
     .tab {
       height: 100%;
     }
-    .editor {
-      border: $section-border;
-      height: 420px;
-      width: 100%;
-    }
   }
-
-  // Items
+  .editor {
+    border: $section-border;
+    height: 420px;
+    width: 100%;
+  }
 
   // Summary
   .traits {

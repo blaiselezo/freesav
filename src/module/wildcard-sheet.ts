@@ -78,10 +78,6 @@ export class WildcardSheet extends ActorSheet {
 
   getData(): ActorSheetData {
     let data: any = super.getData();
-    // Add any special data that your template needs here.
-
-    //not sure yet wether to use this
-    //data.data.stats.toughness.value = this.calcToughness(data);
 
     data.itemsByType = {};
     for (const item of data.items) {
