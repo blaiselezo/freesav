@@ -67,5 +67,6 @@
 
   "SWADE.Wound": "Wunde",
   "SWADE.Wounds": "Wunden",
-  "SWADE.Fatigue": "Erschöpfung"
+  "SWADE.Fatigue": "Erschöpfung",
+  "SWADE.Incap": "Ausgeschaltet!"
 }

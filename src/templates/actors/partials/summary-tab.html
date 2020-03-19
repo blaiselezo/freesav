@@ -1,4 +1,31 @@
-<div class="flexrow">
+<section class="vitals flexrow">
+    <div class="vitals-container">
+        <strong>Fatigue</strong>
+        <input type="range" name="data.fatigue.value" min="0" max="{{data.fatigue.max}}" class="slider fatigue-slider"
+            value="{{data.fatigue.value}}" />
+        <div class="flexrow">
+            <input type="text" value="{{data.fatigue.value}}" data-dtype="Number" class="fatigue-input" />
+            <span>/</span>
+            <input type="text" name="data.fatigue.max" value="{{data.fatigue.max}}" data-dtype="Number" />
+        </div>
+    </div>
+    <div class="incap-container">
+        <img src="systems/swade/assets/ui/incapacitated.svg">
+        <span class="incap-text">{{localize 'SWADE.Incap'}}</span>
+    </div>
+    <div class="vitals-container">
+        <strong>Wounds</strong>
+        <input type="range" name="data.wounds.value" min="0" max="{{data.wounds.max}}" class="slider wound-slider"
+            value="{{data.wounds.value}}" data-dtype="Number" />
+        <div class="flexrow">
+            <input type="text" value="{{data.wounds.value}}" data-dtype="Number" class="wound-input" />
+            <span>/</span>
+            <input type="text" name="data.wounds.max" value="{{data.wounds.max}}" data-dtype="Number" />
+        </div>
+    </div>
+</section>
+
+<section class="flexrow">
     <div class="traits">
         <header class="attributes-header flexrow">
             <span>{{ localize "SWADE.Attributes" }}</span>
@@ -94,4 +121,4 @@
             {{> "systems/swade/templates/actors/partials/shield-card.html"}}
         </ol>
     </div>
-</div>
+</section>

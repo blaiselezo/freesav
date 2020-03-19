@@ -1,5 +1,6 @@
 export class WildcardSheet extends ActorSheet {
   _sheetTab: string;
+  _needsFading: boolean;
 
   constructor(...args) {
     super(...args);
@@ -9,6 +10,8 @@ export class WildcardSheet extends ActorSheet {
      * @type {string}
      */
     this._sheetTab = 'summary';
+
+    this._needsFading = false;
   }
 
   /* -------------------------------------------- */
@@ -31,7 +34,7 @@ export class WildcardSheet extends ActorSheet {
     return 'systems/swade/templates/actors/wildcard-sheet.html';
   }
 
-  activateListeners(html) {
+  activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
     // This is called once your template has rendered.
     // You have access to the newly-rendered HTML and can
@@ -69,10 +72,28 @@ export class WildcardSheet extends ActorSheet {
       document.getElementById('edge-description').innerHTML = item.data.description;
     });
 
+    //Toggle Equipment
     html.find('.item-equipped').click(ev => {
       const li = $(ev.currentTarget).parents('.item');
       const item: any = this.actor.getOwnedItem(li.data('itemId'));
       this.actor.updateOwnedItem(this._toggleEquipped(li.data('itemId'), item));
+    });
+
+    //Input Synchronization
+    html.find('.wound-input').keyup(ev => {
+      html.find('.wound-slider').val($(ev.currentTarget).val());
+    });
+
+    html.find('.wound-slider').change(ev => {
+      html.find('.wound-input').val($(ev.currentTarget).val());
+    });
+
+    html.find('.fatigue-input').keyup(ev => {
+      html.find('.fatigue-slider').val($(ev.currentTarget).val());
+    });
+
+    html.find('.fatigue-slider').change(ev => {
+      html.find('.fatigue-input').val($(ev.currentTarget).val());
     });
   }
 

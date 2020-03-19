@@ -17,6 +17,7 @@ import { WildcardSheet } from './module/wildcard-sheet.js';
 import { ExtraSheet } from './module/extra-sheet.js'
 import { SwadeItemSheet } from './module/item-sheet.js';
 import { SWADE } from './module/config.js'
+import { isIncapacitated, setIncapacitationSymbol } from './module/util';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -85,7 +86,7 @@ Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
 	});
 });
 
-Hooks.on('renderCompendium', async (app, html, data) => {
+Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 	if (app.metadata.entity !== 'Actor') {
 		return
 	}
@@ -101,5 +102,18 @@ Hooks.on('renderCompendium', async (app, html, data) => {
 		}
 		el.innerHTML = `<a><img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">${name}</a>`
 	});
+});
 
+Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
+	const actor = data.actor;
+	const flags = actor.flags.swade;
+	const wounds = actor.data.wounds;
+	const fatigue = actor.data.fatigue;
+	const isIncap = isIncapacitated(wounds, fatigue);
+	const element = html.find('.incap-container');
+
+	if (isIncap) {
+		console.log(actor.flags);
+		element.css('opacity', '1');
+	}
 });
