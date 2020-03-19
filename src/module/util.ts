@@ -1,5 +1,5 @@
 export function isIncapacitated(wounds, fatigue): boolean {
-    if (parseInt(wounds.value) >= parseInt(wounds.max) || parseInt(fatigue.value) >= parseInt(fatigue.max)) {
+    if ((parseInt(wounds.max) > 0 && ((parseInt(wounds.value) >= parseInt(wounds.max)))) || parseInt(fatigue.value) >= parseInt(fatigue.max)) {
         return true;
     }
     return false;

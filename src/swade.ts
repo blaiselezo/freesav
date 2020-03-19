@@ -106,7 +106,6 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 
 Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
 	const actor = data.actor;
-	const flags = actor.flags.swade;
 	const wounds = actor.data.wounds;
 	const fatigue = actor.data.fatigue;
 	const isIncap = isIncapacitated(wounds, fatigue);

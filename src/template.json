@@ -56,6 +56,15 @@
           "value": 0,
           "min": 0,
           "max": 0
+        },
+        "fatigue": {
+          "value": 0,
+          "min": 0,
+          "max": 2
+        },
+        "wounds": {
+          "value": 0,
+          "min": 0
         }
       }
     },
@@ -89,14 +98,7 @@
         }
       },
       "wounds": {
-        "value": 0,
-        "min": 0,
         "max": 3
-      },
-      "fatigue": {
-        "value": 0,
-        "min": 0,
-        "max": 2
       },
       "xp": {
         "value": 0,
@@ -108,7 +110,10 @@
       }
     },
     "extra": {
-      "templates": ["common"]
+      "templates": ["common"],
+      "wounds": {
+        "max": 0
+      }
     }
   },
   "Item": {
