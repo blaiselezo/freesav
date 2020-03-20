@@ -99,6 +99,12 @@
     .tab {
       height: 100%;
     }
+    .extra-gear-card {
+      border: $decorative-line;
+      border-radius: 2px;
+      padding-bottom: 2px;
+      margin-bottom: 2px;
+    }
   }
   .editor {
     border: $section-border;
