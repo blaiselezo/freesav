@@ -13,35 +13,39 @@
 .swade.sheet.character {
   // Sheet Header
   .sheet-header {
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    flex: 0 0 150px;
+    & > * {
+      flex: 0;
+    }
     border-bottom: $section-border;
   }
   // Profile Image
-  .profile-img {
-    flex: 0 0 150px;
-    flex-wrap: inherit;
-    flex-direction: column;
-    border: none;
-    border-right: $section-border;
-    max-height: 150px;
-    max-width: 150px;
-    height: auto;
-    width: auto;
+  .profile-img-container {
+    width: 150px;
+    height: 150px;
+    .profile-img {
+      border: none;
+      height: inherit;
+      width: inherit;
+      object-fit: contain;
+    }
+    img {
+      height: auto;
+      margin: 0;
+    }
   }
 
   // Header Fields
   .header-fields {
+    border-left: $section-border;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     input[type="text"] {
       background: none;
       border: 1px solid transparent;
     }
     flex: 1;
-    height: 100px;
     padding: 5px;
   }
   .charname {

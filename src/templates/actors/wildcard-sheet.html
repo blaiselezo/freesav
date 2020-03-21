@@ -1,8 +1,10 @@
 <form class="{{cssClass}}" autocomplete="off">
 
     {{!-- Sheet Header --}}
-    <header class="sheet-header flexrow">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    <header class="sheet-header">
+        <div class="profile-img-container">
+            <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+        </div>
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{actor.name}}"
                     placeholder="{{localize 'SWADE.Name'}}" /></h1>
