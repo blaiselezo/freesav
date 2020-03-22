@@ -9,16 +9,19 @@
             <input type="text" name="data.fatigue.max" value="{{data.fatigue.max}}" data-dtype="Number" />
         </div>
     </div>
-    <div class="benny-container">
-        <img src="systems/swade/assets/ui/pokerchip.png" class="benny-background">
-        <svg height="20" width="20" viewBox="0 0 20 20">
-            <circle r="5" cx="10" cy="10" fill="transparent" stroke="#bbb" stroke-width="10"
-                stroke-dasharray="calc({{bennyPercetange}} * 31.4 / 100) 31.4" transform="rotate(-90) translate(-20)" />
-        </svg>
-        <div class="flexrow benny-inputs">
-            <input type="text" value="{{data.bennies.value}}" data-dtype="Number" />
-            <span>&nbsp;</span>
-            <input type="text" value="{{data.bennies.max}}" data-dtype="Number" />
+    <div class="bennies flexrow">
+        <div>
+            <a><i class="benny-add fas fa-plus"></i></a>
+        </div>
+        <div class="benny-tracker">
+            <strong>Bennies</strong>
+            <input class="bennies-current" name="data.bennies.value" type="text" value="{{data.bennies.value}}"
+                data-dtype="Number" />
+            <input class="bennies-max" name="data.bennies.max" type="text" value="{{data.bennies.max}}"
+                data-dtype="Number" />
+        </div>
+        <div>
+            <a><i class="benny-subtract fas fa-minus"></i></a>
         </div>
     </div>
     <div class="vitals-container">

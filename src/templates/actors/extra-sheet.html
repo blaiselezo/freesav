@@ -129,65 +129,88 @@
                 </ol>
                 <div class="gear">
                     <header class="gear-header">
-                        <span>{{localize "SWADE.Inv"}}</span>
+                        <span>{{localize "SWADE.Edges"}}</span>
                     </header>
-                    {{#each data.weapons as |weapon id|}}
-                    <div data-item-id="{{weapon._id}}" class="item extra-gear-card">
-                        <div class="flexrow">
-                            <div>{{weapon.name}}</div>
-                            <div>Damage {{weapon.data.damage}}</div>
-                            <div class="item-controls" style="float: right;">
-                                <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}"><i
-                                        class="fas fa-edit"></i></a>
-                                <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    {{/each}}
-                    {{#each data.armors as |armor id|}}
-                    <div data-item-id="{{armor._id}}" class="item extra-gear-card">
-                        <div class="flexrow">
-                            <div>{{armor.name}}</div>
-                            <div>Armor: {{armor.data.armor}}</div>
-                            <div class="item-controls">
-                                <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}"><i
-                                        class="fas fa-edit"></i></a>
-                                <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                        <div class="flexrow">
-                            <span><span>Notes: {{armor.data.notes}}</span></span>
-                        </div>
-                    </div>
-                    {{/each}}
-                    {{#each data.shields as |shield id|}}
-                    <div data-item-id="{{shield._id}}" class="item extra-gear-card">
-                        <div class="flexrow">
-                            <div>{{shield.name}}</div>
-                            <div class="item-controls">
-                                <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
-                                    <i class="fas fa-edit"></i></a>
-                                <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}">
-                                    <i class="fas fa-trash"></i></a>
-                            </div>
-                            <div>Parry: {{shield.data.parry}}</div>
-                            <div>Cover: {{shield.data.cover}}</div>
-                        </div>
-                        <div class="flexrow">
-                            <span>Notes: {{shield.data.notes}}</span>
-                        </div>
-
+                    {{#each data.edges as |edge id|}}
+                    <div class="item" data-item-id="{{edge._id}}" style="text-align: center;">
+                        <strong>
+                            <a class="item-control item-edit" title="{{localize 'SWADE.Edit'}}">{{edge.name}}&nbsp;<i
+                                    class="fas fa-edit"></i></a>
+                        </strong>
                     </div>
                     {{/each}}
                 </div>
             </div>
             <div class="gear">
                 <header class="gear-header">
+                    <span>{{localize "SWADE.Inv"}}</span>
+                </header>
+                {{#each data.weapons as |weapon id|}}
+                <div data-item-id="{{weapon._id}}" class="item extra-gear-card">
+                    <div class="flexrow">
+                        <div><strong>{{weapon.name}}</strong></div>
+                        <div class="item-controls" style="float: right;">
+                            <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}"><i
+                                    class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"><i
+                                    class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                    <div class="flexrow">
+                        <div>{{localize "SWADE.Dmg"}}: {{weapon.data.damage}}</div>
+                        <div>{{localize "SWADE.Rng"}}: {{weapon.data.range}}</div>
+                    </div>
+                    <div class="flexrow">
+                        <div>{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>
+                        <div>{{localize "SWADE.MinStr"}}: {{weapon.data.minStr}}</div>
+                    </div>
+                    <div class="flexrow">
+                        <div>{{localize "SWADE.RoF"}}: {{weapon.data.rof}}</div>
+                        <div>{{localize "SWADE.Mag"}}: {{weapon.data.shots}}</div>
+                    </div>
+                    <div>{{localize "SWADE.Notes"}}: {{weapon.data.notes}}</div>
+                </div>
+                {{/each}}
+                {{#each data.armors as |armor id|}}
+                <div data-item-id="{{armor._id}}" class="item extra-gear-card">
+                    <div class="flexrow">
+                        <div><strong>{{armor.name}}</strong></div>
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}"><i
+                                    class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"><i
+                                    class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                    <div>{{localize "SWADE.Armor"}}: {{armor.data.armor}}</div>
+                    <div>{{localize "SWADE.Notes"}}: {{armor.data.notes}}</div>
+                </div>
+                {{/each}}
+                {{#each data.shields as |shield id|}}
+                <div data-item-id="{{shield._id}}" class="item extra-gear-card">
+                    <div class="flexrow">
+                        <div><strong>{{shield.name}}</strong></div>
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
+                                <i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}">
+                                <i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                    <div class="flexrow">
+                        <div>{{localize "SWADE.Parry"}}: {{shield.data.parry}}</div>
+                        <div>{{localize "SWADE.Cover"}}: {{shield.data.cover}}</div>
+                    </div>
+                    <div>{{localize "SWADE.Notes"}}: {{shield.data.notes}}</div>
+
+                </div>
+                {{/each}}
+                <header class="gear-header">
                     <span>{{localize "SWADE.Desc"}}</span>
                 </header>
-                {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+                <div style="height: 200px;">
+                    {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+                </div>
             </div>
         </div>
     </section>

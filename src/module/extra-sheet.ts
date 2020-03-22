@@ -4,7 +4,7 @@ export class ExtraSheet extends ActorSheet {
         return mergeObject(super.defaultOptions, {
             classes: ['swade', 'sheet', 'character'],
             width: 600,
-            height: 768
+            height: 'auto'
         });
     }
 

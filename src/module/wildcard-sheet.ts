@@ -92,6 +92,32 @@ export class WildcardSheet extends ActorSheet {
     html.find('.fatigue-slider').change(ev => {
       html.find('.fatigue-input').val($(ev.currentTarget).val());
     });
+
+    //Add Benny
+    html.find('.benny-add').click(ev => {
+      const currentBennies: any = html.find('.bennies-current').val();
+      const newBennies = parseInt(currentBennies) + 1;
+      this.actor.update({ "data.bennies.value": newBennies });
+    });
+
+    //Remove Benny
+    html.find('.benny-subtract').click(ev => {
+      const currentBennies: any = html.find('.bennies-current').val();
+      const newBennies = parseInt(currentBennies) - 1;
+      if (newBennies >= 0) {
+        this.actor.update({ "data.bennies.value": newBennies });
+      }
+    });
+
+    //Toggle Conviction
+    html.find('.convction-toggle').click(ev => {
+      if (!this.actor.getFlag('swade', 'convictionReady')) {
+        this.actor.setFlag('swade', 'convictionReady', true);
+      } else {
+        //roll conviction
+        this.actor.setFlag('swade', 'convictionReady', false);
+      }
+    });
   }
 
   getData(): ActorSheetData {

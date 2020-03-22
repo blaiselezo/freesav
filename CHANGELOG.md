@@ -9,9 +9,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Wildcards will now be marked with a card symbol next to their name
-- Wound/Fatigue/Benny tracking on the Wildcard Sheet
-- Extra sheets!
-- Polish localization. Credit goes to Gil'Dashard#5235 on Discord
+- Wound/Fatigue/Benny/Conviction tracking on the Wildcard Sheet
+- Extra sheets! (sort of, they're still ugly)
+- Polish localization. Credit goes to Piteq#5990 on Discord
 
 ### Changed
 

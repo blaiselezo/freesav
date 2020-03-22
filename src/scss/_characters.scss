@@ -34,7 +34,6 @@
     }
     .incap-img {
       opacity: 0;
-      transition: opacity 2s;
       width: 80px;
       height: 80px;
     }
@@ -65,7 +64,6 @@
     display: inline-flex;
     .charname {
       height: 100%;
-      width: 70%;
       margin: 0;
       border-bottom: 0;
       input {
@@ -74,23 +72,12 @@
         margin: 0;
       }
     }
-    .bennies {
+    .conviction {
       width: 20%;
-      .minus {
-        float: right;
-      }
-      .benny-tracker {
-        input {
-          text-align: center;
-          border-bottom: $decorative-line;
-        }
-        .bennies-current {
-          font-size: 26px;
-          height: 35px;
-        }
-        .bennies-max {
-          height: 20px;
-        }
+      text-align: center;
+      margin-left: 4px;
+      .convction-toggle {
+        padding-top: 6px;
       }
     }
   }
@@ -139,8 +126,7 @@
       height: 100%;
     }
     .extra-gear-card {
-      border: $decorative-line;
-      border-radius: 2px;
+      border-bottom: $decorative-line;
       padding-bottom: 2px;
       margin-bottom: 2px;
     }
@@ -158,35 +144,25 @@
       width: 48px;
       border: none;
     }
-    .benny-container {
-      position: relative;
-      border-left: $decorative-line;
-      border-right: $decorative-line;
-      margin: 2px;
-      .benny-background {
-        width: 64px;
-        height: 64px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    .bennies {
+      i {
+        padding-top: 24px;
       }
-      .benny-inputs {
-        position: absolute;
-        top: 80%;
-        left: 10%;
-        transform: translate(-5%, -50%);
+      .benny-tracker {
         input {
-          background: rgba(0, 0, 0, 0.05);
+          text-align: center;
+          border: none;
+          background: none;
+          border-bottom: $decorative-line;
         }
-      }
-      svg {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 65px;
-        height: 65px;
+        .bennies-current {
+          font-size: 26px;
+          height: 35px;
+        }
+        .bennies-max {
+          height: 20px;
+          border: none;
+        }
       }
     }
     .vitals-container {

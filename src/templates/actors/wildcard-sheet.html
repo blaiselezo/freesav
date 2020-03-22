@@ -12,18 +12,14 @@
                 <h1 class="charname">
                     <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SWADE.Name'}}" />
                 </h1>
-                <div class="bennies flexrow">
-                    <div>
-                        <a><i class="fas fa-plus"></i></a>
-                    </div>
-                    <div class="benny-tracker">
-                        <input class="bennies-current" name="data.bennies.value" type="text"
-                            value="{{data.bennies.value}}" data-dtype="Number" />
-                        <input class="bennies-max" name="data.bennies.max" type="text" value="{{data.bennies.max}}"
-                            data-dtype="Number" />
-                    </div>
-                    <div>
-                        <a class="minus"><i class="fas fa-minus"></i></a>
+                <div class="conviction">
+                    <strong>Conviction</strong>
+                    <div class="convction-toggle">
+                        {{#if actor.flags.swade.convictionReady}}
+                        <a><i class="fas fa-dice-d6 fa-2x"></i></a>
+                        {{else}}
+                        <a><i class="far fa-circle fa-2x"></i></a>
+                        {{/if}}
                     </div>
                 </div>
             </div>
