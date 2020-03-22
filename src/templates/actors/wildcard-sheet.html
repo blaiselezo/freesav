@@ -1,5 +1,4 @@
 <form class="{{cssClass}}" autocomplete="off">
-
     {{!-- Sheet Header --}}
     <header class="sheet-header">
         <div class="profile-img-container">
@@ -9,9 +8,25 @@
             </div>
         </div>
         <div class="header-fields">
-            <h1 class="charname">
-                <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SWADE.Name'}}" />
-            </h1>
+            <div class="charline">
+                <h1 class="charname">
+                    <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SWADE.Name'}}" />
+                </h1>
+                <div class="bennies flexrow">
+                    <div>
+                        <a><i class="fas fa-plus"></i></a>
+                    </div>
+                    <div class="benny-tracker">
+                        <input class="bennies-current" name="data.bennies.value" type="text"
+                            value="{{data.bennies.value}}" data-dtype="Number" />
+                        <input class="bennies-max" name="data.bennies.max" type="text" value="{{data.bennies.max}}"
+                            data-dtype="Number" />
+                    </div>
+                    <div>
+                        <a class="minus"><i class="fas fa-minus"></i></a>
+                    </div>
+                </div>
+            </div>
             <div>
                 <ul class="flexrow header-stats">
                     <li class="form-group">
