@@ -1,6 +1,5 @@
 export class WildcardSheet extends ActorSheet {
   _sheetTab: string;
-  _needsFading: boolean;
 
   constructor(...args) {
     super(...args);
@@ -10,8 +9,6 @@ export class WildcardSheet extends ActorSheet {
      * @type {string}
      */
     this._sheetTab = 'summary';
-
-    this._needsFading = false;
   }
 
   /* -------------------------------------------- */
