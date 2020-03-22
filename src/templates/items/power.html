@@ -1,6 +1,6 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
     {{!-- Item Sheet Header --}}
-    <header class="sheet-header">
+    <header class="item sheet-header" data-item-id="{{item._id}}">
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="header-fields">
             <div class="itemline">
@@ -15,7 +15,7 @@
             </div>
         </div>
     </header>
-    <section class="sheet-body" data-item-id="{{item._id}}">
+    <section class="sheet-body">
         <div class="form-group">
             <label for="data.pp">{{localize "SWADE.PP"}}</label>
             <input name="data.pp" type="text" value="{{item.data.pp}}" placeholder="{{localize 'SWADE.PP'}}"

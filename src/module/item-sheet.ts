@@ -27,7 +27,7 @@ export class SwadeItemSheet extends ItemSheet {
 
     // Delete Item from within Sheet. Only really used for skills Edges and Hindrances
     html.find('.item-delete').click(ev => {
-      const item = $(ev.currentTarget).parents('.sheet-body');
+      const item = $(ev.currentTarget).parents('.item');
       if (this.item.actor) {
         this.item.actor.deleteOwnedItem(item.data('itemId'));
         this.item.sheet.close();
