@@ -9,9 +9,17 @@
             <input type="text" name="data.fatigue.max" value="{{data.fatigue.max}}" data-dtype="Number" />
         </div>
     </div>
-    <div class="incap-container">
-        <img src="systems/swade/assets/ui/incapacitated.svg">
-        <span class="incap-text">{{localize 'SWADE.Incap'}}</span>
+    <div class="benny-container">
+        <img src="systems/swade/assets/ui/pokerchip.png" class="benny-background">
+        <svg height="20" width="20" viewBox="0 0 20 20">
+            <circle r="5" cx="10" cy="10" fill="transparent" stroke="#bbb" stroke-width="10"
+                stroke-dasharray="calc({{bennyPercetange}} * 31.4 / 100) 31.4" transform="rotate(-90) translate(-20)" />
+        </svg>
+        <div class="flexrow benny-inputs">
+            <input type="text" name="data.bennies.value" value="{{data.bennies.value}}" data-dtype="Number" />
+            <span>&nbsp;</span>
+            <input type="text" name="data.bennies.max" value="{{data.bennies.max}}" data-dtype="Number" />
+        </div>
     </div>
     <div class="vitals-container">
         <strong>Wounds</strong>

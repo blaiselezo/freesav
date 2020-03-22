@@ -109,9 +109,8 @@ Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
 	const wounds = actor.data.wounds;
 	const fatigue = actor.data.fatigue;
 	const isIncap = isIncapacitated(wounds, fatigue);
-	const element = html.find('.incap-container');
 
 	if (isIncap) {
-		element.addClass('fade-in');
+		html.find('.incap-img').addClass('fade-in-05');
 	}
 });

@@ -4,42 +4,48 @@
     <header class="sheet-header">
         <div class="profile-img-container">
             <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+            <div class="incap-container">
+                <img src="systems/swade/assets/ui/incapacitated.svg" class="incap-img">
+            </div>
         </div>
         <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}"
-                    placeholder="{{localize 'SWADE.Name'}}" /></h1>
-            <ul class="flexrow header-stats">
-                <li class="form-group">
-                    <input id="race" name="data.details.species" type="text" value="{{data.details.species}}"
-                        data-dtype="String" placeholder="{{localize 'SWADE.Race'}}" />
-                </li>
-                <li class="form-group">
-                    <label for="toughness">{{localize "SWADE.Tough"}}</label>
-                    <input id="toughness" name="data.stats.toughness.value" type="text"
-                        value="{{data.stats.toughness.value}}" placeholder="0" data-dtype="Number" />
-                </li>
-                <li class="form-group">
-                    <label for="parry">{{localize "SWADE.Parry"}}</label>
-                    <input id="parry" name="data.stats.parry.value" value="{{data.stats.parry.value}}" type="text"
-                        placeholder="0" data-dtype="Number" />
-                </li>
-            </ul>
-            <ul class="flexrow header-stats">
-                <li class="form-group">
-                    <label for="pace">{{localize "SWADE.Pace"}}</label>
-                    <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
-                        placeholder="0" data-dtype="Number" />
-                </li>
-                <li class="form-group">
-                    <input name="data.xp.rank" id="rank-input" type="text" value="{{data.xp.rank}}" data-dtype="String"
-                        placeholder="{{localize 'SWADE.Rank'}}" />
-                </li>
-                <li class="form-group">
-                    <label for="xp-input">{{localize "SWADE.Adv"}}</label>
-                    <input name="data.details.xp.value" id="xp-input" type="text" value="{{data.details.xp.value}}"
-                        data-dtype="Number" placeholder="0" />
-                </li>
-            </ul>
+            <h1 class="charname">
+                <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SWADE.Name'}}" />
+            </h1>
+            <div>
+                <ul class="flexrow header-stats">
+                    <li class="form-group">
+                        <input id="race" name="data.details.species" type="text" value="{{data.details.species}}"
+                            data-dtype="String" placeholder="{{localize 'SWADE.Race'}}" />
+                    </li>
+                    <li class="form-group">
+                        <label for="toughness">{{localize "SWADE.Tough"}}</label>
+                        <input id="toughness" name="data.stats.toughness.value" type="text"
+                            value="{{data.stats.toughness.value}}" placeholder="0" data-dtype="Number" />
+                    </li>
+                    <li class="form-group">
+                        <label for="parry">{{localize "SWADE.Parry"}}</label>
+                        <input id="parry" name="data.stats.parry.value" value="{{data.stats.parry.value}}" type="text"
+                            placeholder="0" data-dtype="Number" />
+                    </li>
+                </ul>
+                <ul class="flexrow header-stats">
+                    <li class="form-group">
+                        <label for="pace">{{localize "SWADE.Pace"}}</label>
+                        <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
+                            placeholder="0" data-dtype="Number" />
+                    </li>
+                    <li class="form-group">
+                        <input name="data.xp.rank" id="rank-input" type="text" value="{{data.xp.rank}}"
+                            data-dtype="String" placeholder="{{localize 'SWADE.Rank'}}" />
+                    </li>
+                    <li class="form-group">
+                        <label for="xp-input">{{localize "SWADE.Adv"}}</label>
+                        <input name="data.details.xp.value" id="xp-input" type="text" value="{{data.details.xp.value}}"
+                            data-dtype="Number" placeholder="0" />
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
 

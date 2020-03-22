@@ -134,6 +134,8 @@ export class WildcardSheet extends ActorSheet {
     } else {
       this.actor.setFlag('swade', 'hasArcaneBackground', false);
     }
+
+    data.bennyPercetange = this._calcBennyPercentage(data.data.bennies);
     return data;
 
   }
@@ -175,8 +177,9 @@ export class WildcardSheet extends ActorSheet {
     return retVal;
   }
 
-  private _sortInventoryByName(inventory: Item[]): Item[] {
-    return inventory.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+  private _calcBennyPercentage(bennies: any): number {
+    const per = (bennies.value / bennies.max) * 100
+    return (per - 100) * -1;
   }
 
   private _checkNull(items: Item[]): any[] {

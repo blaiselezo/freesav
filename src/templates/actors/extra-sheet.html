@@ -148,7 +148,8 @@
                     {{#each data.armors as |armor id|}}
                     <div data-item-id="{{armor._id}}" class="item extra-gear-card">
                         <div class="flexrow">
-                            <span>{{armor.name}} - Armor: {{armor.data.armor}}</span>
+                            <div>{{armor.name}}</div>
+                            <div>Armor: {{armor.data.armor}}</div>
                             <div class="item-controls">
                                 <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}"><i
                                         class="fas fa-edit"></i></a>
@@ -164,7 +165,7 @@
                     {{#each data.shields as |shield id|}}
                     <div data-item-id="{{shield._id}}" class="item extra-gear-card">
                         <div class="flexrow">
-                            {{shield.name}}
+                            <div>{{shield.name}}</div>
                             <div class="item-controls">
                                 <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
                                     <i class="fas fa-edit"></i></a>

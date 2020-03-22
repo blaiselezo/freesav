@@ -9,10 +9,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Wildcards will now be marked with a card symbol next to their name
+- Wound/Fatigue/Benny tracking on the Wildcard Sheet
+- Extra sheets!
+- Polish localization. Credit goes to Gil'Dashard#5235 on Discord
 
 ### Changed
 
 - Moved Icons to assets folder and split them into icons and UI elements
+- Character Image now respects aspect ratio
 
 ### Fixed
 

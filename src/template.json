@@ -105,8 +105,9 @@
         "rank": "Novice"
       },
       "bennies": {
-        "value": 0,
-        "min": 0
+        "value": 3,
+        "min": 0,
+        "max": 3
       }
     },
     "extra": {
