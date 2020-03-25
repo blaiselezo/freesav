@@ -4,22 +4,22 @@
     <header class="flexrow card-header">
         <span>{{weapon.name}} - {{localize "SWADE.Dmg"}}: {{weapon.data.damage}}</span>
     </header>
-    <div class="flexrow card-content" data-item-id="{{weapon._id}}">
-        <div>
+    <div class="card-content" data-item-id="{{weapon._id}}">
+        <div class="flexrow">
             <div>{{localize "SWADE.Rng"}}: {{weapon.data.range}}</div>
             <div>{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>
         </div>
-        <div>
+        <div class="flexrow">
             <div>{{localize "SWADE.RoF"}}: {{weapon.data.rof}}</div>
             <div>{{localize "SWADE.Mag"}}: {{weapon.data.shots}}</div>
         </div>
-    </div>
-    <div class="chips">
-        <span>{{localize "SWADE.Notes"}}:&nbsp;</span>
-        <div>{{weapon.data.notes}}</div>
-        <!-- <div class="chip">
-            <span class="chip-content">HW</span>
-        </div>  -->
+        <div class="chips">
+            <span>{{localize "SWADE.Notes"}}:&nbsp;</span>
+            <div>{{weapon.data.notes}}</div>
+            <!-- <div class="chip">
+                <span class="chip-content">HW</span>
+            </div>  -->
+        </div>
     </div>
 </li>
 {{/if}}

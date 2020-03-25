@@ -98,11 +98,15 @@
       &:last-child {
         border-right: none;
       }
+      label {
+        padding-left: 3px;
+      }
     }
   }
   // Navigation Tabs
   .sheet-tabs {
-    border-bottom: $section-border;
+    //border-bottom: $section-border;
+    margin-bottom: 5px;
   }
   // Content Tabs
   .tabs {
@@ -110,12 +114,18 @@
     flex-direction: row;
     align-content: space-around;
     .item {
-      line-height: 40px;
+      margin: 0 5px;
+      line-height: 30px;
       font-weight: bold;
+      border-bottom: 3px solid #b5b3a4;
+      &:hover {
+        text-shadow: none;
+        border-bottom: 3px solid #293133;
+      }
     }
-    .item.active {
-      text-decoration: underline;
+    .active {
       text-shadow: none;
+      border-bottom: 3px solid #293133;
     }
   }
 
@@ -327,17 +337,18 @@
       }
     }
     .gear-card {
-      margin-bottom: 5px;
+      margin: 5px 5px;
       border: $decorative-line;
       border-radius: 2px;
 
       .card-header {
         padding: 5px;
-        background: rgba(0, 0, 0, 0.05);
+        background: rgba(0, 0, 0, 0.2);
         border-bottom: $decorative-line;
         text-align: center;
       }
       .card-content {
+        background: rgba(255, 255, 255, 0.05);
         margin: 0 3px;
         line-height: 24px;
         padding: 5px;
