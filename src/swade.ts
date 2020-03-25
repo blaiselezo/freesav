@@ -11,12 +11,12 @@
  */
 
 // Import TypeScript modules
-import { registerSettings } from './module/settings.js';
-import { preloadHandlebarsTemplates } from './module/preloadTemplates.js';
-import { WildcardSheet } from './module/wildcard-sheet.js';
-import { ExtraSheet } from './module/extra-sheet.js'
-import { SwadeItemSheet } from './module/item-sheet.js';
-import { SWADE } from './module/config.js'
+import { registerSettings } from './module/settings';
+import { preloadHandlebarsTemplates } from './module/preloadTemplates';
+import { CharacterSheet } from './module/character-sheet';
+import { NPCExtraSheet } from './module/npc-extra-sheet';
+import { SwadeItemSheet } from './module/item-sheet';
+import { SWADE } from './module/config'
 import { isIncapacitated, setIncapacitationSymbol } from './module/util';
 
 /* ------------------------------------ */
@@ -35,8 +35,8 @@ Hooks.once('init', async function () {
 
 	// Register custom sheets (if any)
 	Actors.unregisterSheet('core', ActorSheet);
-	Actors.registerSheet('swade', WildcardSheet, { types: ['wildcard'], makeDefault: true });
-	Actors.registerSheet('swade', ExtraSheet, { types: ['extra'], makeDefault: true });
+	Actors.registerSheet('swade', CharacterSheet, { types: ['character'], makeDefault: true });
+	Actors.registerSheet('swade', NPCExtraSheet, { types: ['npc'], makeDefault: true });
 	Items.unregisterSheet('core', ItemSheet);
 	Items.registerSheet('swade', SwadeItemSheet, { makeDefault: true });
 

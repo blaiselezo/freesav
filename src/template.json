@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["wildcard", "extra"],
+    "types": ["character", "npc"],
     "templates": {
       "common": {
         "attributes": {
@@ -8,30 +8,45 @@
             "die": {
               "sides": 4,
               "modifier": "0"
+            },
+            "wild-die": {
+              "sides": 6
             }
           },
           "smarts": {
             "die": {
               "sides": 4,
               "modifier": "0"
+            },
+            "wild-die": {
+              "sides": 6
             }
           },
           "spirit": {
             "die": {
               "sides": 4,
               "modifier": "0"
+            },
+            "wild-die": {
+              "sides": 6
             }
           },
           "strength": {
             "die": {
               "sides": 4,
               "modifier": "0"
+            },
+            "wild-die": {
+              "sides": 6
             }
           },
           "vigor": {
             "die": {
               "sides": 4,
               "modifier": "0"
+            },
+            "wild-die": {
+              "sides": 6
             }
           }
         },
@@ -64,57 +79,25 @@
         },
         "wounds": {
           "value": 0,
-          "min": 0
+          "min": 0,
+          "max": 3
+        },
+        "advances": {
+          "value": 0,
+          "rank": "Novice"
+        },
+        "bennies": {
+          "value": 3,
+          "min": 0,
+          "max": 3
         }
       }
     },
-    "wildcard": {
-      "templates": ["common"],
-      "attributes": {
-        "agility": {
-          "wild-die": {
-            "sides": 6
-          }
-        },
-        "smarts": {
-          "wild-die": {
-            "sides": 6
-          }
-        },
-        "spirit": {
-          "wild-die": {
-            "sides": 6
-          }
-        },
-        "strength": {
-          "wild-die": {
-            "sides": 6
-          }
-        },
-        "vigor": {
-          "wild-die": {
-            "sides": 6
-          }
-        }
-      },
-      "wounds": {
-        "max": 3
-      },
-      "xp": {
-        "value": 0,
-        "rank": "Novice"
-      },
-      "bennies": {
-        "value": 3,
-        "min": 0,
-        "max": 3
-      }
+    "character": {
+      "templates": ["common"]
     },
-    "extra": {
-      "templates": ["common"],
-      "wounds": {
-        "max": 0
-      }
+    "npc": {
+      "templates": ["common"]
     }
   },
   "Item": {

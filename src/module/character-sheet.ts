@@ -1,4 +1,4 @@
-export class WildcardSheet extends ActorSheet {
+export class CharacterSheet extends ActorSheet {
   _sheetTab: string;
 
   constructor(...args) {

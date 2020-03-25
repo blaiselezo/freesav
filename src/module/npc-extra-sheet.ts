@@ -1,4 +1,4 @@
-export class ExtraSheet extends ActorSheet {
+export class NPCExtraSheet extends ActorSheet {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
