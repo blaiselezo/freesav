@@ -1,4 +1,4 @@
-export class WildcardSheet extends ActorSheet {
+export class SwadeCharacterSheet extends ActorSheet {
   _sheetTab: string;
 
   constructor(...args) {
@@ -28,7 +28,7 @@ export class WildcardSheet extends ActorSheet {
   get template() {
     // Later you might want to return a different template
     // based on user permissions.
-    return 'systems/swade/templates/actors/wildcard-sheet.html';
+    return 'systems/swade/templates/actors/character-sheet.html';
   }
 
   activateListeners(html: JQuery<HTMLElement>) {

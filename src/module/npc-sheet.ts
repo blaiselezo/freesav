@@ -1,4 +1,4 @@
-export class ExtraSheet extends ActorSheet {
+export class SwadeNPCSheet extends ActorSheet {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -11,7 +11,7 @@ export class ExtraSheet extends ActorSheet {
     get template() {
         // Later you might want to return a different template
         // based on user permissions.
-        return 'systems/swade/templates/actors/extra-sheet.html';
+        return 'systems/swade/templates/actors/npc-sheet.html';
     }
 
     activateListeners(html): void {
