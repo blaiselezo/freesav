@@ -13,8 +13,8 @@
 // Import TypeScript modules
 import { registerSettings } from './module/settings';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
-import { CharacterSheet } from './module/character-sheet';
-import { NPCExtraSheet } from './module/npc-extra-sheet';
+import { SwadeCharacterSheet } from './module/character-sheet';
+import { SwadeNPCSheet } from './module/npc-sheet';
 import { SwadeItemSheet } from './module/item-sheet';
 import { SWADE } from './module/config'
 import { isIncapacitated, setIncapacitationSymbol } from './module/util';
@@ -35,8 +35,8 @@ Hooks.once('init', async function () {
 
 	// Register custom sheets (if any)
 	Actors.unregisterSheet('core', ActorSheet);
-	Actors.registerSheet('swade', CharacterSheet, { types: ['character'], makeDefault: true });
-	Actors.registerSheet('swade', NPCExtraSheet, { types: ['npc'], makeDefault: true });
+	Actors.registerSheet('swade', SwadeCharacterSheet, { types: ['character'], makeDefault: true });
+	Actors.registerSheet('swade', SwadeNPCSheet, { types: ['npc'], makeDefault: true });
 	Items.unregisterSheet('core', ItemSheet);
 	Items.registerSheet('swade', SwadeItemSheet, { makeDefault: true });
 
@@ -70,7 +70,7 @@ Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 // Mark all Wildcards in the Actors sidebars with an icon
 Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
 	app.entities.forEach(a => {
-		if (a.data.type !== 'wildcard') {
+		if (a.data.type !== 'character') {
 			return;
 		}
 		let found = html.find(".entity-name");
@@ -91,7 +91,7 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 		return
 	}
 	const content = await app.getContent();
-	const wildcards = content.filter(entity => entity.data.type === 'wildcard');
+	const wildcards = content.filter(entity => entity.data.type === 'npc');
 	const names: string[] = wildcards.map(e => e.data.name);
 
 	const found = html.find('.entry-name');
