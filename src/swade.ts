@@ -91,7 +91,7 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 		return
 	}
 	const content = await app.getContent();
-	const wildcards = content.filter(entity => entity.data.type === 'npc');
+	const wildcards = content.filter((entity: Entity) => { entity.data.type === 'npc' && entity.getFlag('swade', 'isWildcard') });
 	const names: string[] = wildcards.map(e => e.data.name);
 
 	const found = html.find('.entry-name');

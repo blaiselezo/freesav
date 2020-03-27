@@ -33,9 +33,6 @@ export class SwadeCharacterSheet extends ActorSheet {
 
   activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
-    // This is called once your template has rendered.
-    // You have access to the newly-rendered HTML and can
-    // add event listeners here.
 
     // Activate tabs
     let tabs = html.find('.tabs');
@@ -139,7 +136,7 @@ export class SwadeCharacterSheet extends ActorSheet {
     data.data.shields = data.itemsByType['shield'];
     data.data.edges = data.itemsByType['edge'];
     data.data.hindrances = data.itemsByType['hindrance'];
-    data.data.skills = data.itemsByType['skill'];
+    data.data.skills = data.itemsByType['skill'].sort((a, b) => a.name.localeCompare(b.name));;
     data.data.powers = data.itemsByType['power'];
 
     //Checks if relevant arrays are not null and combines them into an inventory array

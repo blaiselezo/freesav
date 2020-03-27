@@ -1,0 +1,527 @@
+.swade.sheet.character {
+  min-width: 600px;
+  min-height: 768px;
+
+  // Sheet Header
+  .sheet-header {
+    & > * {
+      flex: 0;
+    }
+    border-bottom: $section-border;
+  }
+  // Profile Image
+  .profile-img-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    img {
+      margin: 0;
+      border: none;
+    }
+    .profile-img {
+      height: inherit;
+      width: inherit;
+      object-fit: contain;
+      cursor: pointer;
+    }
+    .incap-container {
+      pointer-events: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+    }
+    .incap-img {
+      opacity: 0;
+      width: 80px;
+      height: 80px;
+    }
+    .fade-in-05 {
+      opacity: 0.5;
+    }
+  }
+
+  // Header Fields
+  .header-fields {
+    border-left: $section-border;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex: 1;
+    padding: 5px;
+    margin-left: 2px;
+    input[type="text"] {
+      background: none;
+      border: none;
+    }
+  }
+  .charline {
+    border-bottom: $section-border;
+    height: 60px;
+    width: 100%;
+    display: inline-flex;
+    .charname {
+      height: 100%;
+      margin: 0;
+      input {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+    }
+    .conviction {
+      width: 20%;
+      text-align: center;
+      margin-left: 4px;
+      .convction-toggle {
+        padding-top: 6px;
+      }
+    }
+  }
+
+  ul.header-stats {
+    list-style: none;
+    justify-content: space-around;
+    padding-left: 0;
+
+    li {
+      border: none;
+      border-right: $decorative-line;
+      border-bottom: $decorative-line;
+      border-radius: 0;
+      margin: 2px 0;
+      padding: 0 3px;
+      width: 33.33%;
+      justify-content: center;
+      &:last-child {
+        border-right: none;
+      }
+      label {
+        padding-left: 3px;
+      }
+    }
+  }
+  // Navigation Tabs
+  .sheet-tabs {
+    //border-bottom: $section-border;
+    margin-bottom: 5px;
+  }
+  // Content Tabs
+  .tabs {
+    flex: auto;
+    flex-direction: row;
+    align-content: space-around;
+    .item {
+      margin: 0 5px;
+      line-height: 30px;
+      font-weight: bold;
+      border-bottom: 3px solid #b5b3a4;
+      &:hover {
+        text-shadow: none;
+        border-bottom: 3px solid #293133;
+      }
+    }
+    .active {
+      text-shadow: none;
+      border-bottom: 3px solid #293133;
+    }
+  }
+
+  .sheet-body {
+    height: auto;
+    .tab {
+      height: 100%;
+    }
+    .extra-gear-card {
+      border-bottom: $decorative-line;
+      padding-bottom: 2px;
+      margin-bottom: 2px;
+    }
+  }
+  .editor {
+    border: $section-border;
+    height: 420px;
+    width: 100%;
+  }
+
+  .vitals {
+    border-bottom: $section-border;
+    text-align: center;
+    height: 72px;
+    img {
+      width: 48px;
+      border: none;
+    }
+    .bennies {
+      i {
+        padding-top: 24px;
+      }
+      .benny-tracker {
+        input {
+          @extend %standalone-input-field;
+          text-align: center;
+        }
+        .bennies-current {
+          font-size: 26px;
+          height: 35px;
+        }
+        .bennies-max {
+          height: 20px;
+          border: none;
+        }
+      }
+    }
+
+    .vitals-container {
+      padding: 3px 0;
+
+      input[type="text"] {
+        @extend %standalone-input-field;
+      }
+
+      .slider {
+        -webkit-appearance: none; /* Override default CSS styles */
+        appearance: none;
+        height: 16px;
+        width: 100%;
+        outline: none; /* Remove outline */
+        opacity: 0.7;
+        margin-bottom: 5px;
+        cursor: pointer;
+
+        &::-webkit-slider-thumb {
+          position: relative;
+          height: 20px;
+          width: 20px;
+          margin-top: -5px;
+          background: $anthracite;
+          border-radius: 50%;
+          border: 2px solid darkgrey;
+        }
+
+        &::-webkit-slider-runnable-track {
+          border: none;
+          box-shadow: none;
+          height: 10px;
+        }
+
+        &::-moz-range-thumb {
+          position: relative;
+          height: 20px;
+          width: 20px;
+          margin-top: -5px;
+          background: $anthracite;
+          border-radius: 50%;
+          border: 2px solid darkgrey;
+        }
+      }
+
+      .fatigue-slider {
+        &::-webkit-slider-runnable-track {
+          background: steelblue;
+        }
+      }
+
+      .wound-slider {
+        direction: rtl;
+        &::-webkit-slider-runnable-track {
+          background: #ff5349;
+        }
+      }
+    }
+  }
+
+  // Summary
+  .traits {
+    margin: 5px 0;
+    padding: 2px;
+    border-right: $decorative-line;
+
+    .attributes-header {
+      @extend %header-field;
+    }
+
+    .attributes-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      .attribute-label {
+        flex: 1.5;
+      }
+      li {
+        > * {
+          margin: 0 3px;
+          height: 28px;
+          line-height: 24px;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          border-bottom: $decorative-line;
+        }
+        &:last-child {
+          > * {
+            border: none;
+          }
+        }
+        a.attribute-control {
+          border: none;
+        }
+      }
+    }
+    // Skills
+    .skills-header {
+      @extend %header-field;
+    }
+    .skills-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      .skill-label {
+        flex: 2;
+        i {
+          display: none;
+        }
+        &:hover {
+          i {
+            display: inline-block;
+          }
+        }
+      }
+      .skill-value {
+        flex: 1;
+      }
+      li {
+        > * {
+          margin: 0 3px;
+          height: 28px;
+          line-height: 24px;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          border-bottom: $decorative-line;
+        }
+        a.attribute-control {
+          border: none;
+        }
+      }
+    }
+  }
+
+  //Gear
+  .gear {
+    margin: 5px 0;
+    padding: 2px;
+    .gear-header {
+      @extend %header-field;
+    }
+    .gear-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        > * {
+          background: transparent;
+        }
+      }
+    }
+    .gear-card {
+      margin: 5px 5px;
+      border: $decorative-line;
+      border-radius: 2px;
+
+      .card-header {
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.2);
+        border-bottom: $decorative-line;
+        text-align: center;
+      }
+      .card-content {
+        background: rgba(255, 255, 255, 0.05);
+        margin: 0 3px;
+        line-height: 24px;
+        padding: 5px;
+      }
+      .chips {
+        span {
+          padding-bottom: 8px;
+        }
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        .chip {
+          padding: 0px 5px 5px 5px;
+          font-size: 10px;
+          .chip-content {
+            padding: 2px 5px;
+            height: auto;
+            background-color: #bbb;
+            border-radius: 25%;
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Edges
+.edges {
+  .edges-hindrances-list {
+    margin: 5px 0;
+    padding: 2px;
+    border-right: $decorative-line;
+
+    .edge-header {
+      @extend %header-field;
+    }
+    .hindrance-header {
+      @extend %header-field;
+    }
+    .items-list {
+      list-style: none;
+      margin: 7px 0;
+      padding: 0;
+      .item {
+        height: 30px;
+        line-height: 24px;
+        padding: 3px 0;
+        border-bottom: $decorative-line;
+        img {
+          flex: 0 0 24px;
+          margin-right: 5px;
+          border: none;
+        }
+      }
+      .item-name {
+        margin: 0;
+      }
+      .item-controls {
+        flex: 0 0 36px;
+      }
+    }
+  }
+
+  .description {
+    margin: 5px 0;
+    padding: 2px;
+
+    .description-header {
+      @extend %header-field;
+    }
+    .description-value {
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+// Inventory
+.inventory {
+  margin: 3px 0;
+  .currency {
+    display: inline;
+    input {
+      width: auto;
+    }
+  }
+  .items-list {
+    list-style: none;
+    margin: 7px 0;
+    padding: 0;
+
+    li {
+      padding: 0 2px;
+    }
+    .item-header {
+      background: rgba(0, 0, 0, 0.05);
+      text-align: center;
+      font-weight: bold;
+      border: $decorative-line;
+      border-radius: 2px;
+    }
+    .item {
+      display: grid;
+      grid-template-columns: 1fr 6fr 2fr 2fr 1fr;
+      grid-auto-rows: minmax(30px, auto);
+      grid-template-areas: "item-equipped item-name item-quantity item-weight item-controls";
+      align-items: center;
+      line-height: 24px;
+      border-bottom: 1px solid #bbb;
+      .item-equipped {
+        grid-area: item-equipped;
+        justify-self: center;
+      }
+      .item-name {
+        display: grid;
+        grid-template-columns: 0.5fr 6fr;
+        grid-auto-rows: minmax(30px, auto);
+        grid-template-areas: "item-img item-textname";
+        align-items: center;
+        grid-area: item-name;
+
+        .item-textname {
+          padding-left: 5px;
+          grid-area: item-textname;
+        }
+        .item-img {
+          grid-area: item-img;
+          display: grid;
+          justify-self: center;
+          align-self: center;
+          img {
+            width: 24px;
+            border: none;
+          }
+        }
+      }
+      .item-quantity {
+        grid-area: item-quantity;
+        justify-self: center;
+      }
+      .item-weight {
+        grid-area: item-weight;
+        justify-self: center;
+      }
+      .item-controls {
+        grid-area: item-controls;
+      }
+    }
+  }
+}
+
+// Powers
+.powers {
+  margin: 3px 0;
+  .powers-header {
+    @extend %header-field;
+  }
+  .powers-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .power {
+      margin: 2px;
+      flex-grow: 1;
+      flex-basis: 160px;
+      border: $decorative-line;
+      border-radius: 2px;
+
+      .power-header {
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.05);
+        border-bottom: $decorative-line;
+        text-align: center;
+      }
+      .power-content {
+        margin: 0 3px;
+        line-height: 24px;
+        padding: 5px;
+        max-height: 160px;
+        overflow-y: auto;
+      }
+    }
+  }
+}

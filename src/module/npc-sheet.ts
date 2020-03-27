@@ -1,8 +1,19 @@
 export class SwadeNPCSheet extends ActorSheet {
+    _sheetTab: string;
+
+    constructor(...args) {
+        super(...args);
+
+        /**
+         * Keep track of the currently active sheet tab
+         * @type {string}
+         */
+        this._sheetTab = 'summary';
+    }
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ['swade', 'sheet', 'character'],
+            classes: ['swade', 'sheet', 'npc'],
             width: 600,
             height: 'auto'
         });
@@ -17,6 +28,21 @@ export class SwadeNPCSheet extends ActorSheet {
     activateListeners(html): void {
         super.activateListeners(html);
 
+        // Activate tabs
+        let tabs = html.find('.tabs');
+        let initial = this._sheetTab;
+        new Tabs(tabs, {
+            initial: initial,
+            callback: clicked => this._sheetTab = clicked.data('tab')
+        });
+
+        // Update Item via reigh-click
+        html.find('.contextmenu-edit').contextmenu(ev => {
+            const li = $(ev.currentTarget).parents('.item');
+            const item = this.actor.getOwnedItem(li.data('itemId'));
+            item.sheet.render(true);
+        });
+
         // Update Item
         html.find('.item-edit').click(ev => {
             const li = $(ev.currentTarget).parents('.item');
@@ -29,6 +55,39 @@ export class SwadeNPCSheet extends ActorSheet {
             const li = $(ev.currentTarget).parents('.item');
             this.actor.deleteOwnedItem(li.data('itemId'));
             li.slideUp(200, () => this.render(false));
+        });
+
+        //Input Synchronization
+        html.find('.wound-input').keyup(ev => {
+            html.find('.wound-slider').val($(ev.currentTarget).val());
+        });
+
+        html.find('.wound-slider').change(ev => {
+            html.find('.wound-input').val($(ev.currentTarget).val());
+        });
+
+        html.find('.fatigue-input').keyup(ev => {
+            html.find('.fatigue-slider').val($(ev.currentTarget).val());
+        });
+
+        html.find('.fatigue-slider').change(ev => {
+            html.find('.fatigue-input').val($(ev.currentTarget).val());
+        });
+
+        //Add Benny
+        html.find('.benny-add').click(ev => {
+            const currentBennies: any = html.find('.bennies-current').val();
+            const newBennies = parseInt(currentBennies) + 1;
+            this.actor.update({ "data.bennies.value": newBennies });
+        });
+
+        //Remove Benny
+        html.find('.benny-subtract').click(ev => {
+            const currentBennies: any = html.find('.bennies-current').val();
+            const newBennies = parseInt(currentBennies) - 1;
+            if (newBennies >= 0) {
+                this.actor.update({ "data.bennies.value": newBennies });
+            }
         });
     }
 
@@ -51,7 +110,7 @@ export class SwadeNPCSheet extends ActorSheet {
         data.data.shields = data.itemsByType['shield'];
         data.data.edges = data.itemsByType['edge'];
         data.data.hindrances = data.itemsByType['hindrance'];
-        data.data.skills = data.itemsByType['skill'];
+        data.data.skills = data.itemsByType['skill'].sort((a, b) => a.name.localeCompare(b.name));
         data.data.powers = data.itemsByType['power'];
 
         //Checks if an Actor has a Power Egde

@@ -1,5 +1,23 @@
 $light-grey: #aaa;
 $eggshell: #eeede0;
+$anthracite: #293133;
 
 $decorative-line: 1px solid $light-grey;
 $section-border: 2px groove $eggshell;
+
+%header-field {
+  padding: 5px;
+  margin-bottom: 5px;
+  background: rgba(0, 0, 0, 0.05);
+  border: $decorative-line;
+  border-radius: 2px;
+  text-align: center;
+  font-weight: bold;
+}
+
+%standalone-input-field {
+  background: transparent;
+  border: none;
+  border-bottom: $decorative-line;
+  border-radius: 0px;
+}
