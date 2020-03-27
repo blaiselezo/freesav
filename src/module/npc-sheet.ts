@@ -57,23 +57,6 @@ export class SwadeNPCSheet extends ActorSheet {
             li.slideUp(200, () => this.render(false));
         });
 
-        //Input Synchronization
-        html.find('.wound-input').keyup(ev => {
-            html.find('.wound-slider').val($(ev.currentTarget).val());
-        });
-
-        html.find('.wound-slider').change(ev => {
-            html.find('.wound-input').val($(ev.currentTarget).val());
-        });
-
-        html.find('.fatigue-input').keyup(ev => {
-            html.find('.fatigue-slider').val($(ev.currentTarget).val());
-        });
-
-        html.find('.fatigue-slider').change(ev => {
-            html.find('.fatigue-input').val($(ev.currentTarget).val());
-        });
-
         //Add Benny
         html.find('.benny-add').click(ev => {
             const currentBennies: any = html.find('.bennies-current').val();
@@ -87,6 +70,16 @@ export class SwadeNPCSheet extends ActorSheet {
             const newBennies = parseInt(currentBennies) - 1;
             if (newBennies >= 0) {
                 this.actor.update({ "data.bennies.value": newBennies });
+            }
+        });
+
+        //Toggle Conviction
+        html.find('.convction-toggle').click(ev => {
+            if (!this.actor.getFlag('swade', 'convictionReady')) {
+                this.actor.setFlag('swade', 'convictionReady', true);
+            } else {
+                //roll conviction
+                this.actor.setFlag('swade', 'convictionReady', false);
             }
         });
     }

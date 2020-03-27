@@ -13,7 +13,6 @@
                     <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SWADE.Name'}}" />
                 </h1>
                 {{#if actor.flags.swade.isWildcard}}
-                {{log game.user.isGM}}
                 <div class="conviction">
                     <strong>Conviction</strong>
                     <div class="convction-toggle">
@@ -52,23 +51,25 @@
     </header>
     {{!-- Sheet Tab Navigation --}}
     <nav class="flexrow sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="summary">{{localize "SWADE.Summary"}}</a>
         {{#if actor.flags.swade.hasArcaneBackground}}
+        <a class="item" data-tab="summary">{{localize "SWADE.Summary"}}</a>
         <a class="item" data-tab="powers">{{localize "SWADE.Pow"}}</a>
         {{/if}}
     </nav>
     <section class="sheet-body">
-
+        {{#if actor.flags.swade.hasArcaneBackground}}
         {{!-- Summary Tab --}}
         <div class="tab active" data-group="primary" data-tab="summary">
             {{> "systems/swade/templates/actors/partials/npc-summary-tab.html"}}
         </div>
 
         {{!-- Powers Tab --}}
-        {{#if actor.flags.swade.hasArcaneBackground}}
         <div class="tab powers" data-group="primary" data-tab="powers">
             {{> "systems/swade/templates/actors/partials/powers-tab.html"}}
         </div>
+
+        {{else}}
+        {{> "systems/swade/templates/actors/partials/npc-summary-tab.html"}}
         {{/if}}
     </section>
 </form>

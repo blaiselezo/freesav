@@ -1,38 +1,33 @@
 <section class="vitals flexrow">
     <div class="vitals-container">
         <strong>{{localize "SWADE.Fatigue"}}</strong>
-        <input type="range" name="data.fatigue.value" min="0" max="{{data.fatigue.max}}" class="slider fatigue-slider"
-            value="{{data.fatigue.value}}" />
         <div class="flexrow">
-            <input type="text" value="{{data.fatigue.value}}" data-dtype="Number" class="vitals-input" />
+            <input type="text" name="data.fatigue.value" value="{{data.fatigue.value}}" data-dtype="Number"
+                class="vitals-input" />
             <span>/</span>
             <input type="text" name="data.fatigue.max" value="{{data.fatigue.max}}" data-dtype="Number"
                 class="vitals-input" />
         </div>
     </div>
-    <div class="bennies flexrow">
+    <div class="vitals-container">
         {{#if actor.flags.swade.isWildcard}}
         <div>
-            <a><i class="benny-add fas fa-plus"></i></a>
-        </div>
-        <div class="benny-tracker">
             <strong>{{localize "SWADE.Bennies"}}</strong>
+        </div>
+        <div class="flexrow">
             <input class="bennies-current" name="data.bennies.value" type="text" value="{{data.bennies.value}}"
                 data-dtype="Number" />
+            <span>/</span>
             <input class="bennies-max" name="data.bennies.max" type="text" value="{{data.bennies.max}}"
                 data-dtype="Number" />
-        </div>
-        <div>
-            <a><i class="benny-subtract fas fa-minus"></i></a>
         </div>
         {{/if}}
     </div>
     <div class="vitals-container">
         <strong>{{localize "SWADE.Wounds"}}</strong>
-        <input type="range" name="data.wounds.value" min="0" max="{{data.wounds.max}}" class="slider wound-slider"
-            value="{{data.wounds.value}}" data-dtype="Number" />
         <div class="flexrow">
-            <input type="text" value="{{data.wounds.value}}" data-dtype="Number" class="vitals-input" />
+            <input type="text" name="data.wounds.value" value="{{data.wounds.value}}" data-dtype="Number"
+                class="vitals-input" />
             <span>/</span>
             <input type="text" name="data.wounds.max" value="{{data.wounds.max}}" data-dtype="Number"
                 class="vitals-input" />
@@ -119,14 +114,28 @@
             </header>
             {{#each data.edges as |edge id|}}
             <span class="item" data-item-id="{{edge._id}}" style="margin-right: 2px;">
-                <span class="item" data-item-id="{{edge._id}}" style="border-bottom: 1px solid #aaa;">
+                <span class="item" data-item-id="{{edge._id}}" style="border-bottom: 1px dotted #293133;">
                     <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">{{edge.name}}</a>
                 </span>
                 &nbsp;
             </span>
-
             {{/each}}
         </div>
+        {{#if actor.flags.swade.isWildcard}}
+        <div class="gear">
+            <header class="gear-header">
+                <span>{{localize "SWADE.Hindrances"}}</span>
+            </header>
+            {{#each data.hindrances as |hindrance id|}}
+            <span class="item" data-item-id="{{hindrance._id}}" style="margin-right: 2px;">
+                <span class="item" data-item-id="{{hindrance._id}}" style="border-bottom: 1px solid #aaa;">
+                    <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">{{hindrance.name}}</a>
+                </span>
+                &nbsp;
+            </span>
+            {{/each}}
+        </div>
+        {{/if}}
     </div>
     <div class="gear">
         <header class="gear-header">

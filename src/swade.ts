@@ -69,20 +69,20 @@ Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 
 // Mark all Wildcards in the Actors sidebars with an icon
 Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
-	app.entities.forEach(a => {
-		if (a.data.type !== 'character') {
-			return;
-		}
-		let found = html.find(".entity-name");
+
+	const wildcards: Actor[] = app.entities.filter((a: Actor) => a.getFlag('swade', 'isWildcard'));
+	console.log(wildcards);
+	const found = html.find(".entity-name");
+
+	wildcards.forEach((wc: Actor) => {
 		for (let i = 0; i < found.length; i++) {
 			const element = found[i];
-			if (element.innerText === a.data.name) {
+			if (element.innerText === wc.data.name) {
 				element.innerHTML = `
-					<a><img src="systems/swade/assets/ui/wildcard.svg" class="wildcard-icon">${a.data.name}</a>
+					<a><img src="systems/swade/assets/ui/wildcard.svg" class="wildcard-icon">${wc.data.name}</a>
 					`
 			}
 		}
-
 	});
 });
 
@@ -91,7 +91,7 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 		return
 	}
 	const content = await app.getContent();
-	const wildcards = content.filter((entity: Entity) => { entity.data.type === 'npc' && entity.getFlag('swade', 'isWildcard') });
+	const wildcards = content.filter((entity: Actor) => entity.getFlag('swade', 'isWildcard'));
 	const names: string[] = wildcards.map(e => e.data.name);
 
 	const found = html.find('.entry-name');

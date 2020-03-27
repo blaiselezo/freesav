@@ -54,8 +54,7 @@
     padding: 5px;
     margin-left: 2px;
     input[type="text"] {
-      background: none;
-      border: none;
+      @extend %standalone-input-field;
     }
   }
   .charline {
@@ -70,6 +69,7 @@
         width: 100%;
         height: 100%;
         margin: 0;
+        border: 1px solid transparent;
       }
     }
     .conviction {
@@ -88,17 +88,11 @@
     padding-left: 0;
 
     li {
-      border: none;
-      border-right: $decorative-line;
-      border-bottom: $decorative-line;
-      border-radius: 0;
+      border: 1px solid transparent;
       margin: 2px 0;
       padding: 0 3px;
       width: 33.33%;
       justify-content: center;
-      &:last-child {
-        border-right: none;
-      }
       label {
         padding-left: 3px;
       }
@@ -106,9 +100,9 @@
   }
   // Navigation Tabs
   .sheet-tabs {
-    //border-bottom: $section-border;
     margin-bottom: 5px;
   }
+
   // Content Tabs
   .tabs {
     flex: auto;
@@ -118,15 +112,15 @@
       margin: 0 5px;
       line-height: 30px;
       font-weight: bold;
-      border-bottom: 3px solid #b5b3a4;
+      border-bottom: $tab-underline;
       &:hover {
         text-shadow: none;
-        border-bottom: 3px solid #293133;
+        border-bottom: $tab-underline-active;
       }
     }
     .active {
       text-shadow: none;
-      border-bottom: 3px solid #293133;
+      border-bottom: $tab-underline-active;
     }
   }
 
@@ -147,88 +141,13 @@
   }
 
   .vitals {
-    border-bottom: $section-border;
     text-align: center;
-    height: 72px;
-    img {
-      width: 48px;
-      border: none;
-    }
-    .bennies {
-      i {
-        padding-top: 24px;
-      }
-      .benny-tracker {
-        input {
-          @extend %standalone-input-field;
-          text-align: center;
-        }
-        .bennies-current {
-          font-size: 26px;
-          height: 35px;
-        }
-        .bennies-max {
-          height: 20px;
-          border: none;
-        }
-      }
-    }
 
     .vitals-container {
-      padding: 3px 0;
+      margin: 3px 3px;
 
       input[type="text"] {
         @extend %standalone-input-field;
-      }
-
-      .slider {
-        -webkit-appearance: none;
-        appearance: none;
-        height: 16px;
-        width: 100%;
-        outline: none;
-        opacity: 0.7;
-        margin-bottom: 5px;
-        cursor: pointer;
-
-        &::-webkit-slider-thumb {
-          position: relative;
-          height: 20px;
-          width: 20px;
-          margin-top: -5px;
-          background: $anthracite;
-          border-radius: 50%;
-          border: 2px solid darkgrey;
-        }
-
-        &::-webkit-slider-runnable-track {
-          border: none;
-          box-shadow: none;
-          height: 10px;
-        }
-
-        &::-moz-range-thumb {
-          position: relative;
-          height: 20px;
-          width: 20px;
-          margin-top: -5px;
-          background: $anthracite;
-          border-radius: 50%;
-          border: 2px solid darkgrey;
-        }
-      }
-
-      .fatigue-slider {
-        &::-webkit-slider-runnable-track {
-          background: steelblue;
-        }
-      }
-
-      .wound-slider {
-        direction: rtl;
-        &::-webkit-slider-runnable-track {
-          background: #ff5349;
-        }
       }
     }
   }
@@ -247,20 +166,31 @@
       list-style: none;
       margin: 0;
       padding: 0;
+
       .attribute-label {
         flex: 1.5;
       }
       li {
-        > * {
-          @extend %standalone-input-field;
+        margin: 3px;
+        height: 28px;
+        line-height: 24px;
+        label {
+          background: transparent;
+          border: none;
+          border-bottom: $decorative-line;
+          border-radius: 0px;
+        }
+        select {
           margin: 0 3px;
-          line-height: 24px;
+          height: 28px;
+          @extend %standalone-input-field;
         }
-        &:last-child {
-          > * {
-            border: none;
-          }
+        input {
+          margin: 0 3px;
+          height: 28px;
+          @extend %standalone-input-field;
         }
+
         a.attribute-control {
           border: none;
         }
@@ -275,38 +205,14 @@
       margin: 0;
       padding: 0;
       span {
+        a {
+          border-bottom: 1px dotted #293133;
+        }
+        border: 1px solid transparent;
         &:nth-child(odd) {
           &::after {
             content: "/";
           }
-        }
-      }
-      .skill-label {
-        flex: 2;
-        i {
-          display: none;
-        }
-        &:hover {
-          i {
-            display: inline-block;
-          }
-        }
-      }
-      .skill-value {
-        flex: 1;
-      }
-      li {
-        > * {
-          margin: 0 3px;
-          height: 28px;
-          line-height: 24px;
-          background: transparent;
-          border: none;
-          border-radius: 0;
-          border-bottom: $decorative-line;
-        }
-        a.attribute-control {
-          border: none;
         }
       }
     }
