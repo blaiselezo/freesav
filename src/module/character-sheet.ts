@@ -130,26 +130,26 @@ export class SwadeCharacterSheet extends ActorSheet {
       list.push(item);
     }
 
-    data.data.gear = data.itemsByType['gear'];
-    data.data.weapons = data.itemsByType['weapon'];
-    data.data.armors = data.itemsByType['armor'];
-    data.data.shields = data.itemsByType['shield'];
-    data.data.edges = data.itemsByType['edge'];
-    data.data.hindrances = data.itemsByType['hindrance'];
-    data.data.skills = data.itemsByType['skill'].sort((a, b) => a.name.localeCompare(b.name));;
-    data.data.powers = data.itemsByType['power'];
+    data.data.owned.gear = this._checkNull(data.itemsByType['gear']);
+    data.data.owned.weapons = this._checkNull(data.itemsByType['weapon']);
+    data.data.owned.armors = this._checkNull(data.itemsByType['armor']);
+    data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
+    data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
+    data.data.owned.hindrances = this._checkNull(data.itemsByType['hindrance']);
+    data.data.owned.skills = this._checkNull(data.itemsByType['skill']).sort((a, b) => a.name.localeCompare(b.name));;
+    data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
     //Checks if relevant arrays are not null and combines them into an inventory array
-    data.data.inventory = [...this._checkNull(data.data.gear),
-    ...this._checkNull(data.data.weapons),
-    ...this._checkNull(data.data.armors),
-    ...this._checkNull(data.data.shields)];
+    data.data.owned.inventory = [...data.data.owned.gear,
+    ...data.data.owned.weapons,
+    ...data.data.owned.armors,
+    ...data.data.owned.shields];
 
-    data.inventoryWeight = this._calcInventoryWeight(data.data.inventory);
+    data.inventoryWeight = this._calcInventoryWeight(data.data.owned.inventory);
     data.maxCarryCapacity = this._calcMaxCarryCapacity(data);
 
     //Checks if an Actor has a Power Egde
-    if (data.data.edges && data.data.edges.find(edge => edge.data.isArcaneBackground == true)) {
+    if (data.data.owned.edges && data.data.owned.edges.find(edge => edge.data.isArcaneBackground == true)) {
       this.actor.setFlag('swade', 'hasArcaneBackground', true);
     } else {
       this.actor.setFlag('swade', 'hasArcaneBackground', false);

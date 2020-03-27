@@ -64,7 +64,10 @@
             "value": "",
             "public": ""
           },
-          "species": "",
+          "species": {
+            "name": "",
+            "traits": ""
+          },
           "currency": 500
         },
         "powerPoints": {
@@ -90,6 +93,17 @@
           "value": 3,
           "min": 0,
           "max": 3
+        },
+        "owned": {
+          "gear": [],
+          "weapons": [],
+          "armors": [],
+          "shields": [],
+          "edges": [],
+          "hindrances": [],
+          "skills": [],
+          "powers": [],
+          "inventory": []
         }
       }
     },

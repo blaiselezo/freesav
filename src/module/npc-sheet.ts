@@ -97,22 +97,29 @@ export class SwadeNPCSheet extends ActorSheet {
             list.push(item);
         }
 
-        data.data.gear = data.itemsByType['gear'];
-        data.data.weapons = data.itemsByType['weapon'];
-        data.data.armors = data.itemsByType['armor'];
-        data.data.shields = data.itemsByType['shield'];
-        data.data.edges = data.itemsByType['edge'];
-        data.data.hindrances = data.itemsByType['hindrance'];
-        data.data.skills = data.itemsByType['skill'].sort((a, b) => a.name.localeCompare(b.name));
-        data.data.powers = data.itemsByType['power'];
+        data.data.owned.gear = this._checkNull(data.itemsByType['gear']);
+        data.data.owned.weapons = this._checkNull(data.itemsByType['weapon']);
+        data.data.owned.armors = this._checkNull(data.itemsByType['armor']);
+        data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
+        data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
+        data.data.owned.hindrances = this._checkNull(data.itemsByType['hindrance']);
+        data.data.owned.skills = this._checkNull(data.itemsByType['skill']).sort((a, b) => a.name.localeCompare(b.name));;
+        data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
         //Checks if an Actor has a Power Egde
-        if (data.data.edges && data.data.edges.find(edge => edge.data.isArcaneBackground == true)) {
+        if (data.data.owned.edges && data.data.owned.edges.find(edge => edge.data.isArcaneBackground == true)) {
             this.actor.setFlag('swade', 'hasArcaneBackground', true);
         } else {
             this.actor.setFlag('swade', 'hasArcaneBackground', false);
         }
 
         return data;
+    }
+
+    private _checkNull(items: Item[]): any[] {
+        if (items && items.length) {
+            return items;
+        }
+        return [];
     }
 }

@@ -101,7 +101,7 @@
             <span>{{localize "SWADE.Skills"}}</span>
         </header>
         <div class="skills-list">
-            {{#each data.skills as |skill id|}}
+            {{#each data.owned.skills as |skill id|}}
             <span class="skill item" data-item-id="{{skill._id}}" style="display: inline-block;">
                 <a class="contextmenu-edit" title="Right Click to {{localize 'SWADE.EditSkill'}}">{{skill.name}}
                     ({{skill.data.attribute}}) d{{skill.data.die.sides}}{{skill.data.die.modifier}}</a>
@@ -112,7 +112,7 @@
             <header class="gear-header">
                 <span>{{localize "SWADE.Edges"}}</span>
             </header>
-            {{#each data.edges as |edge id|}}
+            {{#each data.owned.edges as |edge id|}}
             <span class="item" data-item-id="{{edge._id}}" style="margin-right: 2px;">
                 <span class="item" data-item-id="{{edge._id}}" style="border-bottom: 1px dotted #293133;">
                     <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">{{edge.name}}</a>
@@ -126,7 +126,7 @@
             <header class="gear-header">
                 <span>{{localize "SWADE.Hindrances"}}</span>
             </header>
-            {{#each data.hindrances as |hindrance id|}}
+            {{#each data.owned.hindrances as |hindrance id|}}
             <span class="item" data-item-id="{{hindrance._id}}" style="margin-right: 2px;">
                 <span class="item" data-item-id="{{hindrance._id}}" style="border-bottom: 1px solid #aaa;">
                     <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">{{hindrance.name}}</a>
@@ -141,7 +141,7 @@
         <header class="gear-header">
             <span>{{localize "SWADE.Inv"}}</span>
         </header>
-        {{#each data.weapons as |weapon id|}}
+        {{#each data.owned.weapons as |weapon id|}}
         <div data-item-id="{{weapon._id}}" class="item extra-gear-card">
             <div class="flexrow">
                 <div>
@@ -167,7 +167,7 @@
             <div>{{localize "SWADE.Notes"}}: {{weapon.data.notes}}</div>
         </div>
         {{/each}}
-        {{#each data.armors as |armor id|}}
+        {{#each data.owned.armors as |armor id|}}
         <div data-item-id="{{armor._id}}" class="item extra-gear-card">
             <div class="flexrow">
                 <div>
@@ -182,7 +182,7 @@
             <div>{{localize "SWADE.Notes"}}: {{armor.data.notes}}</div>
         </div>
         {{/each}}
-        {{#each data.shields as |shield id|}}
+        {{#each data.owned.shields as |shield id|}}
         <div data-item-id="{{shield._id}}" class="item extra-gear-card">
             <div class="flexrow">
                 <div>
