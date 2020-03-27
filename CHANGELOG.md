@@ -10,13 +10,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Wildcards will now be marked with a card symbol next to their name
 - Wound/Fatigue/Benny/Conviction tracking on the Wildcard Sheet
-- Extra sheets! (sort of, they're still ugly)
+- Extra sheets!
 - Polish localization. Credit goes to Piteq#5990 on Discord
 
 ### Changed
 
 - Moved Icons to assets folder and split them into icons and UI elements
 - Character Image now respects aspect ratio
+- The Actor types Wildcard and Extra have been changed to Character and NPC. NPCs can be flagged as Wildcards
+- Whole bunch of changes to Actor sheets for both Characters and NPCs
 
 ### Fixed
 

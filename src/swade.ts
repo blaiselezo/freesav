@@ -70,7 +70,7 @@ Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 // Mark all Wildcards in the Actors sidebars with an icon
 Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
 
-	const wildcards: Actor[] = app.entities.filter((a: Actor) => a.getFlag('swade', 'isWildcard'));
+	const wildcards: Actor[] = app.entities.filter((a: Actor) => a.data.type === 'character' || a.getFlag('swade', 'isWildcard'));
 	console.log(wildcards);
 	const found = html.find(".entity-name");
 
@@ -91,7 +91,7 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 		return
 	}
 	const content = await app.getContent();
-	const wildcards = content.filter((entity: Actor) => entity.getFlag('swade', 'isWildcard'));
+	const wildcards = content.filter((entity: Actor) => entity.data.type === 'character' || entity.getFlag('swade', 'isWildcard'));
 	const names: string[] = wildcards.map(e => e.data.name);
 
 	const found = html.find('.entry-name');
