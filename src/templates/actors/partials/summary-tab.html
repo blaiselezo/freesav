@@ -1,6 +1,6 @@
 <section class="vitals flexrow">
     <div class="vitals-container">
-        <strong>Fatigue</strong>
+        <strong>{{localize "SWADE.Fatigue"}}</strong>
         <input type="range" name="data.fatigue.value" min="0" max="{{data.fatigue.max}}" class="slider fatigue-slider"
             value="{{data.fatigue.value}}" />
         <div class="flexrow">
@@ -14,7 +14,7 @@
             <a><i class="benny-add fas fa-plus"></i></a>
         </div>
         <div class="benny-tracker">
-            <strong>Bennies</strong>
+            <strong>{{localize "SWADE.Bennies"}}</strong>
             <input class="bennies-current" name="data.bennies.value" type="text" value="{{data.bennies.value}}"
                 data-dtype="Number" />
             <input class="bennies-max" name="data.bennies.max" type="text" value="{{data.bennies.max}}"
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="vitals-container">
-        <strong>Wounds</strong>
+        <strong>{{localize "SWADE.Wounds"}}</strong>
         <input type="range" name="data.wounds.value" min="0" max="{{data.wounds.max}}" class="slider wound-slider"
             value="{{data.wounds.value}}" data-dtype="Number" />
         <div class="flexrow">

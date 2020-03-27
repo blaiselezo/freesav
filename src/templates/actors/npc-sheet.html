@@ -26,7 +26,7 @@
             </ul>
             <section class="vitals flexrow">
                 <div class="vitals-container" style="margin-right: 10px;">
-                    <strong>Fatigue</strong>
+                    <strong>{{localize "SWADE.Fatigue"}}</strong>
                     <input type="range" name="data.fatigue.value" min="0" max="{{data.fatigue.max}}"
                         class="slider fatigue-slider" value="{{data.fatigue.value}}" />
                     <div class="flexrow">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="vitals-container" style="margin-left: 10px;">
-                    <strong>Wounds</strong>
+                    <strong>{{localize "SWADE.Wounds"}}</strong>
                     <input type="range" name="data.wounds.value" min="0" max="{{data.wounds.max}}"
                         class="slider wound-slider" value="{{data.wounds.value}}" data-dtype="Number" />
                     <div class="flexrow">
@@ -44,6 +44,10 @@
                         <span>/</span>
                         <input type="text" name="data.wounds.max" value="{{data.wounds.max}}" data-dtype="Number" />
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="">{{localize "SWADE.Wildcard"}}</label>
+                    <input type="checkbox" name="actor.flags.swade.isWildcard" {{checked actor.flags.swade.isWildcard}}>
                 </div>
             </section>
         </div>
@@ -115,18 +119,14 @@
                 <header class="skills-header">
                     <span>{{localize "SWADE.Skills"}}</span>
                 </header>
-                <ol class="skills-list">
+                <div class="skills-list">
                     {{#each data.skills as |skill id|}}
-                    <li class="item skill flexrow" data-item-id="{{skill._id}}">
-                        <label class="skill-label"><a class="item-control item-edit"
-                                title="{{localize 'SWADE.EditSkill'}}">{{skill.name}}&nbsp;<i
-                                    class="fas fa-edit"></i></a></label>
-                        <div class="skill-value"><span>d{{skill.data.die.sides}}{{skill.data.die.modifier}}</span></div>
-                        <div class="skill-value"><span>{{skill.data.attribute}}</span></div>
-                        <!-- Add Dice roll shortcut here? -->
-                    </li>
+                    <div class="item" data-item-id="{{skill._id}}">
+                        <a class="skill" title="Right Click to {{localize 'SWADE.EditSkill'}}">{{skill.name}}
+                            ({{skill.data.attribute}}) d{{skill.data.die.sides}}{{skill.data.die.modifier}}</a>
+                    </div>
                     {{/each}}
-                </ol>
+                </div>
                 <div class="gear">
                     <header class="gear-header">
                         <span>{{localize "SWADE.Edges"}}</span>
