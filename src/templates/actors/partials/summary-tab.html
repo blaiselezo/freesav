@@ -1,4 +1,41 @@
-<div class="flexrow">
+<section class="vitals flexrow">
+    <div class="vitals-container">
+        <strong>{{localize "SWADE.Fatigue"}}</strong>
+        <input type="range" name="data.fatigue.value" min="0" max="{{data.fatigue.max}}" class="slider fatigue-slider"
+            value="{{data.fatigue.value}}" />
+        <div class="flexrow">
+            <input type="text" value="{{data.fatigue.value}}" data-dtype="Number" class="fatigue-input" />
+            <span>/</span>
+            <input type="text" name="data.fatigue.max" value="{{data.fatigue.max}}" data-dtype="Number" />
+        </div>
+    </div>
+    <div class="bennies flexrow">
+        <div>
+            <a><i class="benny-add fas fa-plus"></i></a>
+        </div>
+        <div class="benny-tracker">
+            <strong>{{localize "SWADE.Bennies"}}</strong>
+            <input class="bennies-current" name="data.bennies.value" type="text" value="{{data.bennies.value}}"
+                data-dtype="Number" />
+            <input class="bennies-max" name="data.bennies.max" type="text" value="{{data.bennies.max}}"
+                data-dtype="Number" />
+        </div>
+        <div>
+            <a><i class="benny-subtract fas fa-minus"></i></a>
+        </div>
+    </div>
+    <div class="vitals-container">
+        <strong>{{localize "SWADE.Wounds"}}</strong>
+        <input type="range" name="data.wounds.value" min="0" max="{{data.wounds.max}}" class="slider wound-slider"
+            value="{{data.wounds.value}}" data-dtype="Number" />
+        <div class="flexrow">
+            <input type="text" value="{{data.wounds.value}}" data-dtype="Number" class="wound-input" />
+            <span>/</span>
+            <input type="text" name="data.wounds.max" value="{{data.wounds.max}}" data-dtype="Number" />
+        </div>
+    </div>
+</section>
+<section class="flexrow">
     <div class="traits">
         <header class="attributes-header flexrow">
             <span>{{ localize "SWADE.Attributes" }}</span>
@@ -65,7 +102,7 @@
             <span>{{localize "SWADE.Skills"}}</span>
         </header>
         <ol class="skills-list">
-            {{#each data.skills as |skill id|}}
+            {{#each data.owned.skills as |skill id|}}
             <li class="item skill flexrow" data-item-id="{{skill._id}}">
                 <label class="skill-label"><a class="item-control item-edit"
                         title="{{localize 'SWADE.EditSkill'}}">{{skill.name}}&nbsp;<i
@@ -94,4 +131,4 @@
             {{> "systems/swade/templates/actors/partials/shield-card.html"}}
         </ol>
     </div>
-</div>
+</section>

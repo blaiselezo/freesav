@@ -1,0 +1,211 @@
+<section class="vitals flexrow">
+    <div class="vitals-container">
+        <strong>{{localize "SWADE.Fatigue"}}</strong>
+        <div class="flexrow">
+            <input type="text" name="data.fatigue.value" value="{{data.fatigue.value}}" data-dtype="Number"
+                class="vitals-input" />
+            <span>/</span>
+            <input type="text" name="data.fatigue.max" value="{{data.fatigue.max}}" data-dtype="Number"
+                class="vitals-input" />
+        </div>
+    </div>
+    <div class="vitals-container">
+        {{#if actor.flags.swade.isWildcard}}
+        <div>
+            <strong>{{localize "SWADE.Bennies"}}</strong>
+        </div>
+        <div class="flexrow">
+            <input class="bennies-current" name="data.bennies.value" type="text" value="{{data.bennies.value}}"
+                data-dtype="Number" />
+            <span>/</span>
+            <input class="bennies-max" name="data.bennies.max" type="text" value="{{data.bennies.max}}"
+                data-dtype="Number" />
+        </div>
+        {{/if}}
+    </div>
+    <div class="vitals-container">
+        <strong>{{localize "SWADE.Wounds"}}</strong>
+        <div class="flexrow">
+            <input type="text" name="data.wounds.value" value="{{data.wounds.value}}" data-dtype="Number"
+                class="vitals-input" />
+            <span>/</span>
+            <input type="text" name="data.wounds.max" value="{{data.wounds.max}}" data-dtype="Number"
+                class="vitals-input" />
+        </div>
+    </div>
+</section>
+<div class="flexrow">
+    <div class="traits">
+        <header class="attributes-header flexrow">
+            <span>{{ localize "SWADE.Attributes" }}</span>
+        </header>
+        <ol class="attributes-list">
+            <li class="flexrow" data-attribute="agility">
+                <label class="attribute-label" for="attributes.agility">{{ localize "SWADE.AttrAgi" }}</label>
+                <select class="attribute-value" name="data.attributes.agility.die.sides" id="attributes.agility"
+                    data-dtype="Number">
+                    {{#select data.attributes.agility.die.sides}}
+                    {{> "systems/swade/templates/die-sides-options.html"}}
+                    {{/select}}
+                </select>
+                <input name="data.attributes.agility.die.modifier" type="text"
+                    value="{{data.attributes.agility.die.modifier}}" placeholder="{{localize 'SWADE.Mod'}}"
+                    data-dtype="String" />
+            </li>
+            <li class="flexrow" data-attribute="smarts">
+                <label class="attribute-label" for="attributes.smarts">{{ localize "SWADE.AttrSma" }}</label>
+                <select name="data.attributes.smarts.die.sides" id="attributes.smarts" data-dtype="Number">
+                    {{#select data.attributes.smarts.die.sides}}
+                    {{> "systems/swade/templates/die-sides-options.html"}}
+                    {{/select}}
+                </select>
+                <input name="data.attributes.smarts.die.modifier" type="text"
+                    value="{{data.attributes.smarts.die.modifier}}" placeholder="{{localize 'SWADE.Mod'}}"
+                    data-dtype="String" />
+            </li>
+            <li class="flexrow" data-attribute="spirit">
+                <label class="attribute-label" for="attributes.spirit">{{ localize "SWADE.AttrSpr" }}</label>
+                <select name="data.attributes.spirit.die.sides" id="attributes.spirit" data-dtype="Number">
+                    {{#select data.attributes.spirit.die.sides}}
+                    {{> "systems/swade/templates/die-sides-options.html"}}
+                    {{/select}}
+                </select>
+                <input name="data.attributes.spirit.die.modifier" type="text"
+                    value="{{data.attributes.spirit.die.modifier}}" placeholder="{{localize 'SWADE.Mod'}}"
+                    data-dtype="String" />
+            </li>
+            <li class="flexrow" data-attribute="strength">
+                <label class="attribute-label" for="attributes.strength">{{ localize "SWADE.AttrStr" }}</label>
+                <select name="data.attributes.strength.die.sides" id="attributes.strength" data-dtype="Number">
+                    {{#select data.attributes.strength.die.sides}}
+                    {{> "systems/swade/templates/die-sides-options.html"}}
+                    {{/select}}
+                </select>
+                <input name="data.attributes.strength.die.modifier" type="text"
+                    value="{{data.attributes.strength.die.modifier}}" placeholder="{{localize 'SWADE.Mod'}}"
+                    data-dtype="String" />
+            </li>
+            <li class="flexrow" data-attribute="vigor">
+                <label class="attribute-label" for="attributes.vigor">{{ localize "SWADE.AttrVig" }}</label>
+                <select name="data.attributes.vigor.die.sides" id="attributes.vigor" data-dtype="Number">
+                    {{#select data.attributes.vigor.die.sides}}
+                    {{> "systems/swade/templates/die-sides-options.html"}}
+                    {{/select}}
+                </select>
+                <input name="data.attributes.vigor.die.modifier" type="text"
+                    value="{{data.attributes.vigor.die.modifier}}" placeholder="{{localize 'SWADE.Mod'}}"
+                    data-dtype="String" />
+            </li>
+        </ol>
+        <header class="skills-header">
+            <span>{{localize "SWADE.Skills"}}</span>
+        </header>
+        <div class="skills-list">
+            {{#each data.owned.skills as |skill id|}}
+            <span class="skill item" data-item-id="{{skill._id}}" style="display: inline-block;">
+                <a class="contextmenu-edit" title="Right Click to {{localize 'SWADE.EditSkill'}}">{{skill.name}}
+                    ({{skill.data.attribute}}) d{{skill.data.die.sides}}{{skill.data.die.modifier}}</a>
+            </span>
+            {{/each}}
+        </div>
+        <div class="gear">
+            <header class="gear-header">
+                <span>{{localize "SWADE.Edges"}}</span>
+            </header>
+            {{#each data.owned.edges as |edge id|}}
+            <span class="item" data-item-id="{{edge._id}}" style="margin-right: 2px;">
+                <span class="item" data-item-id="{{edge._id}}" style="border-bottom: 1px dotted #293133;">
+                    <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">{{edge.name}}</a>
+                </span>
+                &nbsp;
+            </span>
+            {{/each}}
+        </div>
+        {{#if actor.flags.swade.isWildcard}}
+        <div class="gear">
+            <header class="gear-header">
+                <span>{{localize "SWADE.Hindrances"}}</span>
+            </header>
+            {{#each data.owned.hindrances as |hindrance id|}}
+            <span class="item" data-item-id="{{hindrance._id}}" style="margin-right: 2px;">
+                <span class="item" data-item-id="{{hindrance._id}}" style="border-bottom: 1px dotted #293133;">
+                    <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">{{hindrance.name}}</a>
+                </span>
+                &nbsp;
+            </span>
+            {{/each}}
+        </div>
+        {{/if}}
+    </div>
+    <div class="gear">
+        <header class="gear-header">
+            <span>{{localize "SWADE.Inv"}}</span>
+        </header>
+        {{#each data.owned.weapons as |weapon id|}}
+        <div data-item-id="{{weapon._id}}" class="item extra-gear-card">
+            <div class="flexrow">
+                <div>
+                    <a class="item-edit" title="{{localize 'SWADE.Ed'}}"><strong>{{weapon.name}}</strong></a>
+                </div>
+                <div class="item-controls" style="float: right;">
+                    <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"><i
+                            class="fas fa-trash"></i></a>
+                </div>
+            </div>
+            <div class="flexrow">
+                <div>{{localize "SWADE.Dmg"}}: {{weapon.data.damage}}</div>
+                <div>{{localize "SWADE.Rng"}}: {{weapon.data.range}}</div>
+            </div>
+            <div class="flexrow">
+                <div>{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>
+                <div>{{localize "SWADE.MinStr"}}: {{weapon.data.minStr}}</div>
+            </div>
+            <div class="flexrow">
+                <div>{{localize "SWADE.RoF"}}: {{weapon.data.rof}}</div>
+                <div>{{localize "SWADE.Mag"}}: {{weapon.data.shots}}</div>
+            </div>
+            <div>{{localize "SWADE.Notes"}}: {{weapon.data.notes}}</div>
+        </div>
+        {{/each}}
+        {{#each data.owned.armors as |armor id|}}
+        <div data-item-id="{{armor._id}}" class="item extra-gear-card">
+            <div class="flexrow">
+                <div>
+                    <a class="item-edit" title="{{localize 'SWADE.Ed'}}"><strong>{{armor.name}}</strong></a>
+                </div>
+                <div class="item-controls">
+                    <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"><i
+                            class="fas fa-trash"></i></a>
+                </div>
+            </div>
+            <div>{{localize "SWADE.Armor"}}: {{armor.data.armor}}</div>
+            <div>{{localize "SWADE.Notes"}}: {{armor.data.notes}}</div>
+        </div>
+        {{/each}}
+        {{#each data.owned.shields as |shield id|}}
+        <div data-item-id="{{shield._id}}" class="item extra-gear-card">
+            <div class="flexrow">
+                <div>
+                    <a class="item-edit" title="{{localize 'SWADE.Ed'}}"><strong>{{shield.name}}</strong></a>
+                </div>
+                <div class="item-controls">
+                    <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}">
+                        <i class="fas fa-trash"></i></a>
+                </div>
+            </div>
+            <div class="flexrow">
+                <div>{{localize "SWADE.Parry"}}: {{shield.data.parry}}</div>
+                <div>{{localize "SWADE.Cover"}}: {{shield.data.cover}}</div>
+            </div>
+            <div>{{localize "SWADE.Notes"}}: {{shield.data.notes}}</div>
+
+        </div>
+        {{/each}}
+        <header class="gear-header">
+            <span>{{localize "SWADE.Desc"}}</span>
+        </header>
+        <div style="height: 200px;">
+            {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+        </div>
+    </div>
+</div>

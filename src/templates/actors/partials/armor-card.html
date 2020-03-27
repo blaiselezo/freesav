@@ -1,11 +1,11 @@
-{{#each data.armors as |armor id|}}
+{{#each data.owned.armors as |armor id|}}
 {{#if armor.data.equipped}}
 <li class="gear-card ">
     <header class="flexrow card-header">
         <span>{{armor.name}} - {{localize "SWADE.Armor"}}: {{armor.data.armor}}</span>
     </header>
     <div class="card-content flexrow">
-        <div>{{armor.data.notes}}</div>
+        <diV>{{armor.data.notes}}</div>
     </div>
 </li>
 {{/if}}

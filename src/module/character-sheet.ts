@@ -1,4 +1,4 @@
-export class WildcardSheet extends ActorSheet {
+export class SwadeCharacterSheet extends ActorSheet {
   _sheetTab: string;
 
   constructor(...args) {
@@ -28,14 +28,11 @@ export class WildcardSheet extends ActorSheet {
   get template() {
     // Later you might want to return a different template
     // based on user permissions.
-    return 'systems/swade/templates/actors/wildcard-sheet.html';
+    return 'systems/swade/templates/actors/character-sheet.html';
   }
 
-  activateListeners(html) {
+  activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
-    // This is called once your template has rendered.
-    // You have access to the newly-rendered HTML and can
-    // add event listeners here.
 
     // Activate tabs
     let tabs = html.find('.tabs');
@@ -69,19 +66,59 @@ export class WildcardSheet extends ActorSheet {
       document.getElementById('edge-description').innerHTML = item.data.description;
     });
 
+    //Toggle Equipment
     html.find('.item-equipped').click(ev => {
       const li = $(ev.currentTarget).parents('.item');
       const item: any = this.actor.getOwnedItem(li.data('itemId'));
       this.actor.updateOwnedItem(this._toggleEquipped(li.data('itemId'), item));
     });
+
+    //Input Synchronization
+    html.find('.wound-input').keyup(ev => {
+      html.find('.wound-slider').val($(ev.currentTarget).val());
+    });
+
+    html.find('.wound-slider').change(ev => {
+      html.find('.wound-input').val($(ev.currentTarget).val());
+    });
+
+    html.find('.fatigue-input').keyup(ev => {
+      html.find('.fatigue-slider').val($(ev.currentTarget).val());
+    });
+
+    html.find('.fatigue-slider').change(ev => {
+      html.find('.fatigue-input').val($(ev.currentTarget).val());
+    });
+
+    //Add Benny
+    html.find('.benny-add').click(ev => {
+      const currentBennies: any = html.find('.bennies-current').val();
+      const newBennies = parseInt(currentBennies) + 1;
+      this.actor.update({ "data.bennies.value": newBennies });
+    });
+
+    //Remove Benny
+    html.find('.benny-subtract').click(ev => {
+      const currentBennies: any = html.find('.bennies-current').val();
+      const newBennies = parseInt(currentBennies) - 1;
+      if (newBennies >= 0) {
+        this.actor.update({ "data.bennies.value": newBennies });
+      }
+    });
+
+    //Toggle Conviction
+    html.find('.convction-toggle').click(ev => {
+      if (!this.actor.getFlag('swade', 'convictionReady')) {
+        this.actor.setFlag('swade', 'convictionReady', true);
+      } else {
+        //roll conviction
+        this.actor.setFlag('swade', 'convictionReady', false);
+      }
+    });
   }
 
   getData(): ActorSheetData {
     let data: any = super.getData();
-    // Add any special data that your template needs here.
-
-    //not sure yet wether to use this
-    //data.data.stats.toughness.value = this.calcToughness(data);
 
     data.itemsByType = {};
     for (const item of data.items) {
@@ -93,30 +130,32 @@ export class WildcardSheet extends ActorSheet {
       list.push(item);
     }
 
-    data.data.gear = data.itemsByType['gear'];
-    data.data.weapons = data.itemsByType['weapon'];
-    data.data.armors = data.itemsByType['armor'];
-    data.data.shields = data.itemsByType['shield'];
-    data.data.edges = data.itemsByType['edge'];
-    data.data.hindrances = data.itemsByType['hindrance'];
-    data.data.skills = data.itemsByType['skill'];
-    data.data.powers = data.itemsByType['power'];
+    data.data.owned.gear = this._checkNull(data.itemsByType['gear']);
+    data.data.owned.weapons = this._checkNull(data.itemsByType['weapon']);
+    data.data.owned.armors = this._checkNull(data.itemsByType['armor']);
+    data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
+    data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
+    data.data.owned.hindrances = this._checkNull(data.itemsByType['hindrance']);
+    data.data.owned.skills = this._checkNull(data.itemsByType['skill']).sort((a, b) => a.name.localeCompare(b.name));;
+    data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
     //Checks if relevant arrays are not null and combines them into an inventory array
-    data.data.inventory = [...this._checkNull(data.data.gear),
-    ...this._checkNull(data.data.weapons),
-    ...this._checkNull(data.data.armors),
-    ...this._checkNull(data.data.shields)];
+    data.data.owned.inventory = [...data.data.owned.gear,
+    ...data.data.owned.weapons,
+    ...data.data.owned.armors,
+    ...data.data.owned.shields];
 
-    data.inventoryWeight = this._calcInventoryWeight(data.data.inventory);
+    data.inventoryWeight = this._calcInventoryWeight(data.data.owned.inventory);
     data.maxCarryCapacity = this._calcMaxCarryCapacity(data);
 
     //Checks if an Actor has a Power Egde
-    if (data.data.edges && data.data.edges.find(edge => edge.data.isArcaneBackground == true)) {
+    if (data.data.owned.edges && data.data.owned.edges.find(edge => edge.data.isArcaneBackground == true)) {
       this.actor.setFlag('swade', 'hasArcaneBackground', true);
     } else {
       this.actor.setFlag('swade', 'hasArcaneBackground', false);
     }
+
+    data.bennyPercetange = this._calcBennyPercentage(data.data.bennies);
     return data;
 
   }
@@ -158,8 +197,9 @@ export class WildcardSheet extends ActorSheet {
     return retVal;
   }
 
-  private _sortInventoryByName(inventory: Item[]): Item[] {
-    return inventory.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+  private _calcBennyPercentage(bennies: any): number {
+    const per = (bennies.value / bennies.max) * 100
+    return (per - 100) * -1;
   }
 
   private _checkNull(items: Item[]): any[] {
@@ -178,34 +218,4 @@ export class WildcardSheet extends ActorSheet {
     }
   }
 
-}
-
-export class ExtraSheet extends ActorSheet {
-
-  static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ['swade', 'sheet', 'character'],
-      width: 600,
-      height: 768
-    });
-  }
-
-  get template() {
-    // Later you might want to return a different template
-    // based on user permissions.
-    return 'systems/swade/templates/actors/extra-sheet.html';
-  }
-
-  activateListeners(html): void {
-    super.activateListeners(html);
-    // This is called once your template has rendered.
-    // You have access to the newly-rendered HTML and can
-    // add event listeners here.
-  }
-
-  getData() {
-    const data = super.getData();
-    // Add any special data that your template needs here.
-    return data;
-  }
 }

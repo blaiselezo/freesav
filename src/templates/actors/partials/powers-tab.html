@@ -9,7 +9,7 @@
     </div>
 </div>
 <powers class="powers-list">
-    {{#each data.powers as |power|}}
+    {{#each data.owned.powers as |power|}}
     <div class="power item" data-item-id="{{power._id}}">
         <a class="item-edit">
             <div class="power-header">{{power.name}} - {{power.data.pp}} PP</div>

@@ -20,14 +20,11 @@ export class SwadeItemSheet extends ItemSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
-    // This is called once your template has rendered.
-    // You have access to the newly-rendered HTML and can
-    // add event listeners here.
 
 
-    // Delete Item from within Sheet. Only really used for skills Edges and Hindrances
+    // Delete Item from within Sheet. Only really used for Skills, Edges, Hindrances and Powers
     html.find('.item-delete').click(ev => {
-      const item = $(ev.currentTarget).parents('.sheet-body');
+      const item = $(ev.currentTarget).parents('.item');
       if (this.item.actor) {
         this.item.actor.deleteOwnedItem(item.data('itemId'));
         this.item.sheet.close();
@@ -41,8 +38,13 @@ export class SwadeItemSheet extends ItemSheet {
   */
   getData() {
     const data = super.getData();
-    data.data.isOwned = this.item.isOwned
-    // Add any special data that your template needs here.
+    data.data.isOwned = this.item.isOwned;
+
+    const actor = this.item.actor;
+    const ownerIsWildcard = actor && (actor.data.type === "character" || (actor.data.type === "npc" && actor.getFlag('swade', 'isWildcard')));
+    if (ownerIsWildcard || !this.item.isOwned) {
+      data.data.ownerIsWildcard = true;
+    }
     return data;
   }
 }

@@ -15,7 +15,7 @@
         <div class="item-weight">{{localize "SWADE.Weight"}}</div>
         <div class="item-controls"></div>
     </li>
-    {{#each data.inventory as |item|}}
+    {{#each data.owned.inventory as |item|}}
     <li class="item" data-item-id="{{item._id}}">
         {{#if item.data.equippable}}
         <a class="item-equipped">

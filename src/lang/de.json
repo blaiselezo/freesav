@@ -8,6 +8,9 @@
   "SWADE.Inv": "Inventar",
   "SWADE.Summary": "Übersicht",
   "SWADE.Pow": "Mächte",
+  "SWADE.Wildcard": "Wildcard",
+  "SWADE.Extra": "Statist",
+  "SWADE.Bennies": "Bennys",
 
   "SWADE.Attributes": "Attribute",
   "SWADE.AttrAgi": "Geschicklichkeit",
@@ -67,5 +70,6 @@
 
   "SWADE.Wound": "Wunde",
   "SWADE.Wounds": "Wunden",
-  "SWADE.Fatigue": "Erschöpfung"
+  "SWADE.Fatigue": "Erschöpfung",
+  "SWADE.Incap": "Ausgeschaltet!"
 }

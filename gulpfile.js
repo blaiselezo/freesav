@@ -165,10 +165,11 @@ function buildSASS() {
 /**
  * Copy static files
  */
-async function copyFiles(cb) {
+async function copyFiles() {
   const statics = [
     "lang",
     "fonts",
+    "assets",
     "templates",
     "module.json",
     "system.json",
@@ -180,9 +181,9 @@ async function copyFiles(cb) {
         await fs.copy(path.join("src", file), path.join("dist", file));
       }
     }
-    return cb();
+    return Promise.resolve();
   } catch (err) {
-    cb(err);
+    Promise.reject(err);
   }
 }
 
@@ -191,14 +192,13 @@ async function copyFiles(cb) {
  */
 function buildWatch() {
   gulp.watch("src/**/*.ts", { ignoreInitial: false }, buildTS);
-  gulp.watch("src/*.less", { ignoreInitial: false }, buildLess);
+  gulp.watch("src/**/*.less", { ignoreInitial: false }, buildLess);
   gulp.watch("src/**/*.scss", { ignoreInitial: false }, buildSASS);
   gulp.watch(
     ["src/fonts", "src/templates", "src/*.json"],
     { ignoreInitial: false },
     copyFiles
   );
-  gulp.watch("dist/**/*", copyToUserData);
 }
 
 /********************/
@@ -209,7 +209,7 @@ function buildWatch() {
  * Remove built files from `dist` folder
  * while ignoring source files
  */
-async function clean(cb) {
+async function clean() {
   const name = path.basename(path.resolve("."));
   const files = [];
 
@@ -218,6 +218,7 @@ async function clean(cb) {
     files.push(
       "lang",
       "templates",
+      "assets",
       "module",
       `${name}.js`,
       "module.json",
@@ -242,20 +243,20 @@ async function clean(cb) {
     for (const filePath of files) {
       await fs.remove(path.join("dist", filePath));
     }
-    return cb();
+    return Promise.resolve();
   } catch (err) {
-    cb(err);
+    Promise.reject(err);
   }
 }
 
 /********************/
-/*		COPY		*/
+/*		LINK		*/
 /********************/
 
 /**
- * Copy build to User Data folder
+ * Link build to User Data folder
  */
-async function copyToUserData(cb) {
+async function linkUserData() {
   const name = path.basename(path.resolve("."));
   const config = fs.readJSONSync("foundryconfig.json");
 
@@ -295,15 +296,13 @@ async function copyToUserData(cb) {
       );
 
       await fs.remove(linkDir);
-    } else {
+    } else if (!fs.existsSync(linkDir)) {
       console.log(chalk.green(`Copying build to ${chalk.blueBright(linkDir)}`));
-
-      await fs.emptyDir(linkDir);
-      await fs.copy("dist", linkDir);
+      await fs.symlink(path.resolve("./dist"), linkDir);
     }
-    return cb();
+    return Promise.resolve();
   } catch (err) {
-    cb(err);
+    Promise.reject(err);
   }
 }
 
@@ -314,7 +313,7 @@ async function copyToUserData(cb) {
 /**
  * Package build
  */
-async function packageBuild(cb) {
+async function packageBuild() {
   const manifest = getManifest();
 
   try {
@@ -336,7 +335,7 @@ async function packageBuild(cb) {
     zipFile.on("close", () => {
       console.log(chalk.green(zip.pointer() + " total bytes"));
       console.log(chalk.green(`Zip file ${zipName} has been written`));
-      return cb();
+      return Promise.resolve();
     });
 
     zip.on("error", err => {
@@ -350,7 +349,7 @@ async function packageBuild(cb) {
 
     zip.finalize();
   } catch (err) {
-    cb(err);
+    Promise.reject(err);
   }
 }
 
@@ -452,14 +451,12 @@ function gitAdd() {
 }
 
 function gitCommit() {
-  return gulp
-    .src("./*")
-    .pipe(
-      git.commit(`v${getManifest().file.version}`, {
-        args: "-a",
-        disableAppendPaths: true
-      })
-    );
+  return gulp.src("./*").pipe(
+    git.commit(`v${getManifest().file.version}`, {
+      args: "-a",
+      disableAppendPaths: true
+    })
+  );
 }
 
 function gitTag() {
@@ -480,7 +477,7 @@ const execBuild = gulp.parallel(buildTS, buildLess, buildSASS, copyFiles);
 exports.build = gulp.series(clean, execBuild);
 exports.watch = buildWatch;
 exports.clean = clean;
-exports.copy = copyToUserData;
+exports.link = linkUserData;
 exports.package = packageBuild;
 exports.publish = gulp.series(
   clean,

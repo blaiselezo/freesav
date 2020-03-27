@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["wildcard", "extra"],
+    "types": ["character", "npc"],
     "templates": {
       "common": {
         "attributes": {
@@ -8,30 +8,45 @@
             "die": {
               "sides": 4,
               "modifier": "0"
+            },
+            "wild-die": {
+              "sides": 6
             }
           },
           "smarts": {
             "die": {
               "sides": 4,
               "modifier": "0"
+            },
+            "wild-die": {
+              "sides": 6
             }
           },
           "spirit": {
             "die": {
               "sides": 4,
               "modifier": "0"
+            },
+            "wild-die": {
+              "sides": 6
             }
           },
           "strength": {
             "die": {
               "sides": 4,
               "modifier": "0"
+            },
+            "wild-die": {
+              "sides": 6
             }
           },
           "vigor": {
             "die": {
               "sides": 4,
               "modifier": "0"
+            },
+            "wild-die": {
+              "sides": 6
             }
           }
         },
@@ -49,65 +64,53 @@
             "value": "",
             "public": ""
           },
-          "species": "",
+          "species": {
+            "name": "",
+            "traits": ""
+          },
           "currency": 500
         },
         "powerPoints": {
           "value": 0,
           "min": 0,
           "max": 0
+        },
+        "fatigue": {
+          "value": 0,
+          "min": 0,
+          "max": 2
+        },
+        "wounds": {
+          "value": 0,
+          "min": 0,
+          "max": 3
+        },
+        "advances": {
+          "value": 0,
+          "rank": "Novice"
+        },
+        "bennies": {
+          "value": 3,
+          "min": 0,
+          "max": 3
+        },
+        "owned": {
+          "gear": [],
+          "weapons": [],
+          "armors": [],
+          "shields": [],
+          "edges": [],
+          "hindrances": [],
+          "skills": [],
+          "powers": [],
+          "inventory": []
         }
       }
     },
-    "wildcard": {
-      "templates": ["common"],
-      "attributes": {
-        "agility": {
-          "wild-die": {
-            "sides": 6
-          }
-        },
-        "smarts": {
-          "wild-die": {
-            "sides": 6
-          }
-        },
-        "spirit": {
-          "wild-die": {
-            "sides": 6
-          }
-        },
-        "strength": {
-          "wild-die": {
-            "sides": 6
-          }
-        },
-        "vigor": {
-          "wild-die": {
-            "sides": 6
-          }
-        }
-      },
-      "wounds": {
-        "value": 0,
-        "min": 0,
-        "max": 3
-      },
-      "fatigue": {
-        "value": 0,
-        "min": 0,
-        "max": 2
-      },
-      "xp": {
-        "value": 0,
-        "rank": "Novice"
-      },
-      "bennies": {
-        "value": 0,
-        "min": 0
-      }
+    "character": {
+      "templates": ["common"]
     },
-    "extra": {
+    "npc": {
       "templates": ["common"]
     }
   },

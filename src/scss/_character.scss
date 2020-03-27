@@ -1,71 +1,107 @@
 .swade.sheet.character {
+  min-width: 600px;
+  min-height: 768px;
+
   // Sheet Header
   .sheet-header {
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    flex: 0 0 150px;
+    & > * {
+      flex: 0;
+    }
     border-bottom: $section-border;
   }
   // Profile Image
-  .profile-img {
-    flex: 0 0 150px;
-    flex-wrap: inherit;
-    flex-direction: column;
-    border: none;
-    border-right: $section-border;
-    max-height: 150px;
-    max-width: 150px;
-    height: auto;
-    width: auto;
+  .profile-img-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    img {
+      margin: 0;
+      border: none;
+    }
+    .profile-img {
+      height: inherit;
+      width: inherit;
+      object-fit: contain;
+      cursor: pointer;
+    }
+    .incap-container {
+      pointer-events: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+    }
+    .incap-img {
+      opacity: 0;
+      width: 80px;
+      height: 80px;
+    }
+    .fade-in-05 {
+      opacity: 0.5;
+    }
   }
 
   // Header Fields
   .header-fields {
-    input[type="text"] {
-      background: none;
-      border: 1px solid transparent;
-    }
+    border-left: $section-border;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     flex: 1;
-    height: 100px;
     padding: 5px;
+    margin-left: 2px;
+    input[type="text"] {
+      @extend %standalone-input-field;
+    }
   }
-  .charname {
+  .charline {
+    border-bottom: $section-border;
     height: 60px;
-    margin: 0;
-    border-bottom: 0;
-    input {
-      width: 100%;
+    width: 100%;
+    display: inline-flex;
+    .charname {
       height: 100%;
       margin: 0;
-      border-bottom: $section-border;
+      input {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border: 1px solid transparent;
+      }
+    }
+    .conviction {
+      width: 20%;
+      text-align: center;
+      margin-left: 4px;
+      .convction-toggle {
+        padding-top: 6px;
+      }
     }
   }
 
   ul.header-stats {
     list-style: none;
     justify-content: space-around;
-    padding-left: 3px;
+    padding-left: 0;
 
     li {
-      border: none;
-      border-right: $decorative-line;
-      border-bottom: $decorative-line;
-      border-radius: 0;
+      border: 1px solid transparent;
       margin: 2px 0;
       padding: 0 3px;
       width: 33.33%;
       justify-content: center;
-      &:last-child {
-        border-right: none;
+      label {
+        padding-left: 3px;
       }
     }
   }
+
   // Navigation Tabs
   .sheet-tabs {
-    border-bottom: $section-border;
+    //border-bottom: $section-border;
+    margin-bottom: 5px;
   }
   // Content Tabs
   .tabs {
@@ -73,27 +109,123 @@
     flex-direction: row;
     align-content: space-around;
     .item {
-      line-height: 40px;
+      margin: 0 5px;
+      line-height: 30px;
       font-weight: bold;
+      border-bottom: $tab-underline;
+      &:hover {
+        text-shadow: none;
+        border-bottom: $tab-underline-active;
+      }
     }
-    .item.active {
-      text-decoration: underline;
+    .active {
       text-shadow: none;
+      border-bottom: $tab-underline-active;
     }
   }
+
   .sheet-body {
     height: auto;
     .tab {
       height: 100%;
     }
-    .editor {
-      border: $section-border;
-      height: 420px;
-      width: 100%;
+    .extra-gear-card {
+      border-bottom: $decorative-line;
+      padding-bottom: 2px;
+      margin-bottom: 2px;
     }
   }
+  .editor {
+    border: $section-border;
+    height: 420px;
+    width: 100%;
+  }
 
-  // Items
+  .vitals {
+    text-align: center;
+    height: 72px;
+    img {
+      width: 48px;
+      border: none;
+    }
+    .bennies {
+      i {
+        padding-top: 24px;
+      }
+      .benny-tracker {
+        input {
+          @extend %standalone-input-field;
+          text-align: center;
+        }
+        .bennies-current {
+          font-size: 26px;
+          height: 35px;
+        }
+        .bennies-max {
+          height: 20px;
+          border: none;
+        }
+      }
+    }
+
+    .vitals-container {
+      padding: 3px 0;
+
+      input[type="text"] {
+        @extend %standalone-input-field;
+      }
+
+      .slider {
+        -webkit-appearance: none; /* Override default CSS styles */
+        appearance: none;
+        height: 16px;
+        width: 100%;
+        outline: none; /* Remove outline */
+        opacity: 0.7;
+        margin-bottom: 5px;
+        cursor: pointer;
+
+        &::-webkit-slider-thumb {
+          position: relative;
+          height: 20px;
+          width: 20px;
+          margin-top: -5px;
+          background: $anthracite;
+          border-radius: 50%;
+          border: 2px solid darkgrey;
+        }
+
+        &::-webkit-slider-runnable-track {
+          border: none;
+          box-shadow: none;
+          height: 10px;
+        }
+
+        &::-moz-range-thumb {
+          position: relative;
+          height: 20px;
+          width: 20px;
+          margin-top: -5px;
+          background: $anthracite;
+          border-radius: 50%;
+          border: 2px solid darkgrey;
+        }
+      }
+
+      .fatigue-slider {
+        &::-webkit-slider-runnable-track {
+          background: steelblue;
+        }
+      }
+
+      .wound-slider {
+        direction: rtl;
+        &::-webkit-slider-runnable-track {
+          background: #ff5349;
+        }
+      }
+    }
+  }
 
   // Summary
   .traits {
@@ -102,35 +234,38 @@
     border-right: $decorative-line;
 
     .attributes-header {
-      padding: 5px;
-      margin-bottom: 5px;
-      background: rgba(0, 0, 0, 0.05);
-      border: $decorative-line;
-      border-radius: 2px;
-      text-align: center;
-      font-weight: bold;
+      @extend %header-field;
     }
 
     .attributes-list {
       list-style: none;
       margin: 0;
       padding: 0;
+
       .attribute-label {
         flex: 1.5;
       }
       li {
-        > * {
-          margin: 0 3px;
-          height: 28px;
-          line-height: 24px;
+        margin: 3px;
+        height: 28px;
+        line-height: 24px;
+        label {
           background: transparent;
           border: none;
-          border-radius: 0;
           border-bottom: $decorative-line;
+          border-radius: 0px;
         }
-        &:last-child {
-          border-bottom: none;
+        select {
+          margin: 0 3px;
+          height: 28px;
+          @extend %standalone-input-field;
         }
+        input {
+          margin: 0 3px;
+          height: 28px;
+          @extend %standalone-input-field;
+        }
+
         a.attribute-control {
           border: none;
         }
@@ -138,13 +273,7 @@
     }
     // Skills
     .skills-header {
-      padding: 5px;
-      margin: 5px 0px;
-      background: rgba(0, 0, 0, 0.05);
-      border: $decorative-line;
-      border-radius: 2px;
-      text-align: center;
-      font-weight: bold;
+      @extend %header-field;
     }
     .skills-list {
       list-style: none;
@@ -186,13 +315,7 @@
     margin: 5px 0;
     padding: 2px;
     .gear-header {
-      padding: 5px;
-      margin-bottom: 5px;
-      background: rgba(0, 0, 0, 0.05);
-      border: $decorative-line;
-      border-radius: 2px;
-      text-align: center;
-      font-weight: bold;
+      @extend %header-field;
     }
     .gear-list {
       list-style: none;
@@ -205,17 +328,18 @@
       }
     }
     .gear-card {
-      margin-bottom: 5px;
+      margin: 5px 5px;
       border: $decorative-line;
       border-radius: 2px;
 
       .card-header {
         padding: 5px;
-        background: rgba(0, 0, 0, 0.05);
+        background: rgba(0, 0, 0, 0.2);
         border-bottom: $decorative-line;
         text-align: center;
       }
       .card-content {
+        background: rgba(255, 255, 255, 0.05);
         margin: 0 3px;
         line-height: 24px;
         padding: 5px;
@@ -251,22 +375,10 @@
     border-right: $decorative-line;
 
     .edge-header {
-      padding: 5px;
-      margin-bottom: 5px;
-      background: rgba(0, 0, 0, 0.05);
-      border: $decorative-line;
-      border-radius: 2px;
-      text-align: center;
-      font-weight: bold;
+      @extend %header-field;
     }
     .hindrance-header {
-      padding: 5px;
-      margin-bottom: 5px;
-      background: rgba(0, 0, 0, 0.05);
-      border: $decorative-line;
-      border-radius: 2px;
-      text-align: center;
-      font-weight: bold;
+      @extend %header-field;
     }
     .items-list {
       list-style: none;
@@ -276,7 +388,7 @@
         height: 30px;
         line-height: 24px;
         padding: 3px 0;
-        border-bottom: 1px solid #bbb;
+        border-bottom: $decorative-line;
         img {
           flex: 0 0 24px;
           margin-right: 5px;
@@ -297,13 +409,7 @@
     padding: 2px;
 
     .description-header {
-      padding: 5px;
-      margin-bottom: 5px;
-      background: rgba(0, 0, 0, 0.05);
-      border: $decorative-line;
-      border-radius: 2px;
-      text-align: center;
-      font-weight: bold;
+      @extend %header-field;
     }
     .description-value {
       padding: 5px;
@@ -390,13 +496,7 @@
 .powers {
   margin: 3px 0;
   .powers-header {
-    padding: 5px;
-    margin-bottom: 5px;
-    background: rgba(0, 0, 0, 0.05);
-    border: $decorative-line;
-    border-radius: 2px;
-    text-align: center;
-    font-weight: bold;
+    @extend %header-field;
   }
   .powers-list {
     display: flex;

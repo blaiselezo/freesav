@@ -1,16 +1,21 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
     {{!-- Item Sheet Header --}}
-    {{log item}}
-    <header class="sheet-header">
+    <header class="item sheet-header" data-item-id="{{item._id}}">
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <div class="header-fields">
-            <h1 class="itemname">
-                <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SWADE.Name'}}"
-                    data-dtype="String" />
-            </h1>
+            <div class="itemline">
+                <h1 class="itemname">
+                    <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SWADE.Name'}}"
+                        data-dtype="String" />
+                </h1>
+                <div class="item-controls">
+                    <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"><i
+                            class="fas fa-trash fa-2x"></i></a>
+                </div>
+            </div>
         </div>
     </header>
-    <section class="sheet-body" data-item-id="{{item._id}}">
+    <section class="sheet-body">
         <div class="form-group">
             <label for="die">{{localize "SWADE.Die"}}</label>
             <select name="data.die.sides" id="die" data-dtype="Number">
@@ -26,6 +31,7 @@
             <input name="data.attribute" type="text" value="{{item.data.attribute}}"
                 placeholder="{{localize 'SWADE.LinkAttr'}}" data-dtype="String" />
         </div>
+        {{#if item.data.ownerIsWildcard}}
         <div class="form-group">
             <label for="wild-die">{{localize "SWADE.WildDie"}}</label>
             <select name="data.wild-die.sides" id="wild-die" data-dtype="Number">
@@ -34,11 +40,9 @@
                 {{/select}}
             </select>
         </div>
+        {{/if}}
         <div class="form-group">
             {{editor content=item.data.description target="item.data.description" button=true owner=owner editable=editable}}
-        </div>
-        <div class="item-controls">
-            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
         </div>
     </section>
 </form>

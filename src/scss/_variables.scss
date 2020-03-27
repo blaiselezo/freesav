@@ -1,5 +1,36 @@
 $light-grey: #aaa;
 $eggshell: #eeede0;
+$anthracite: #293133;
 
 $decorative-line: 1px solid $light-grey;
 $section-border: 2px groove $eggshell;
+
+$tab-underline: 3px solid #b5b3a4;
+$tab-underline-active: 3px solid $anthracite;
+
+%header-field {
+  padding: 5px;
+  margin-bottom: 5px;
+  background: rgba(0, 0, 0, 0.05);
+  border: $decorative-line;
+  border-radius: 2px;
+  text-align: center;
+  font-weight: bold;
+}
+
+%standalone-input-field {
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: 1px solid $anthracite;
+  border-radius: 0px;
+  &:hover {
+    border: 1px solid $anthracite;
+    border-radius: 2px;
+    box-shadow: 0 0 5px red;
+  }
+  &:focus {
+    border: 1px solid $anthracite;
+    border-radius: 2px;
+    box-shadow: 0 0 5px red;
+  }
+}

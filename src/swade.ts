@@ -11,11 +11,13 @@
  */
 
 // Import TypeScript modules
-import { registerSettings } from './module/settings.js';
-import { preloadHandlebarsTemplates } from './module/preloadTemplates.js';
-import { WildcardSheet, ExtraSheet } from './module/character-sheet.js';
-import { SwadeItemSheet } from './module/item-sheet.js';
-import { SWADE } from './module/config.js'
+import { registerSettings } from './module/settings';
+import { preloadHandlebarsTemplates } from './module/preloadTemplates';
+import { SwadeCharacterSheet } from './module/character-sheet';
+import { SwadeNPCSheet } from './module/npc-sheet';
+import { SwadeItemSheet } from './module/item-sheet';
+import { SWADE } from './module/config'
+import { isIncapacitated, setIncapacitationSymbol } from './module/util';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -33,8 +35,8 @@ Hooks.once('init', async function () {
 
 	// Register custom sheets (if any)
 	Actors.unregisterSheet('core', ActorSheet);
-	Actors.registerSheet('swade', WildcardSheet, { types: ['wildcard'], makeDefault: true });
-	Actors.registerSheet('swade', ExtraSheet, { types: ['extra'], makeDefault: true });
+	Actors.registerSheet('swade', SwadeCharacterSheet, { types: ['character'], makeDefault: true });
+	Actors.registerSheet('swade', SwadeNPCSheet, { types: ['npc'], makeDefault: true });
 	Items.unregisterSheet('core', ItemSheet);
 	Items.registerSheet('swade', SwadeItemSheet, { makeDefault: true });
 
@@ -61,6 +63,54 @@ Hooks.once('ready', function () {
 Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 	//Set default image if no image already exists
 	if (!item.img) {
-		item.img = `systems/swade/icons/${item.type}.svg`;
+		item.img = `systems/swade/assets/icons/${item.type}.svg`;
+	}
+});
+
+// Mark all Wildcards in the Actors sidebars with an icon
+Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
+
+	const wildcards: Actor[] = app.entities.filter((a: Actor) => a.data.type === 'character' || a.getFlag('swade', 'isWildcard'));
+	console.log(wildcards);
+	const found = html.find(".entity-name");
+
+	wildcards.forEach((wc: Actor) => {
+		for (let i = 0; i < found.length; i++) {
+			const element = found[i];
+			if (element.innerText === wc.data.name) {
+				element.innerHTML = `
+					<a><img src="systems/swade/assets/ui/wildcard.svg" class="wildcard-icon">${wc.data.name}</a>
+					`
+			}
+		}
+	});
+});
+
+Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
+	if (app.metadata.entity !== 'Actor') {
+		return
+	}
+	const content = await app.getContent();
+	const wildcards = content.filter((entity: Actor) => entity.data.type === 'character' || entity.getFlag('swade', 'isWildcard'));
+	const names: string[] = wildcards.map(e => e.data.name);
+
+	const found = html.find('.entry-name');
+	found.each((i, el) => {
+		const name = names.find(name => name === el.innerText)
+		if (!name) {
+			return;
+		}
+		el.innerHTML = `<a><img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">${name}</a>`
+	});
+});
+
+Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
+	const actor = data.actor;
+	const wounds = actor.data.wounds;
+	const fatigue = actor.data.fatigue;
+	const isIncap = isIncapacitated(wounds, fatigue);
+
+	if (isIncap) {
+		html.find('.incap-img').addClass('fade-in-05');
 	}
 });

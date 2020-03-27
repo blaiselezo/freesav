@@ -8,6 +8,9 @@
   "SWADE.Inv": "Inventory",
   "SWADE.Summary": "Summary",
   "SWADE.Pow": "Powers",
+  "SWADE.Wildcard": "Wildcard",
+  "SWADE.Extra": "Extra",
+  "SWADE.Bennies": "Bennies",
 
   "SWADE.Attributes": "Attributes",
   "SWADE.AttrAgi": "Agility",
@@ -52,7 +55,7 @@
   "SWADE.Req": "Requirements",
 
   "SWADE.Currency": "Currency",
-  "SWADE.CarryWeight": "Carry Weight",
+  "SWADE.CarryWeight": "Encumbrance",
   "SWADE.Eqd": "Eq'd",
   "SWADE.Equipped": "Equipped",
   "SWADE.Quantity": "Quantity",
@@ -67,5 +70,6 @@
 
   "SWADE.Wound": "Wound",
   "SWADE.Wounds": "Wounds",
-  "SWADE.Fatigue": "Fatigue"
+  "SWADE.Fatigue": "Fatigue",
+  "SWADE.Incap": "Incapacitated!"
 }
