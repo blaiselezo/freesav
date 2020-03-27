@@ -31,6 +31,7 @@
             <input name="data.attribute" type="text" value="{{item.data.attribute}}"
                 placeholder="{{localize 'SWADE.LinkAttr'}}" data-dtype="String" />
         </div>
+        {{#if item.data.ownerIsWildcard}}
         <div class="form-group">
             <label for="wild-die">{{localize "SWADE.WildDie"}}</label>
             <select name="data.wild-die.sides" id="wild-die" data-dtype="Number">
@@ -39,6 +40,7 @@
                 {{/select}}
             </select>
         </div>
+        {{/if}}
         <div class="form-group">
             {{editor content=item.data.description target="item.data.description" button=true owner=owner editable=editable}}
         </div>
