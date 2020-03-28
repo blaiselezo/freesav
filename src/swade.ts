@@ -18,6 +18,7 @@ import { listenJournalDrop } from './module/journalDrop';
 import { SwadeCharacterSheet } from './module/character-sheet';
 import { SwadeNPCSheet } from './module/npc-sheet';
 import { SwadeItemSheet } from './module/item-sheet';
+import { SwadeActor } from './module/entity';
 import { SWADE } from './module/config'
 import { ActorSWADE } from './module/entity'
 import { isIncapacitated } from './module/util';
@@ -36,6 +37,7 @@ Hooks.once('init', async function () {
 	//Register custom Handlebars helpers
 	registerCustomHelpers();
 	CONFIG.Actor.entityClass = ActorSWADE;
+	CONFIG.Actor.entityClass = SwadeActor as any;
 
 	// Register custom system settings
 	registerSettings();

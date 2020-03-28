@@ -1,3 +1,5 @@
+import { SwadeActor } from "./entity";
+
 export class SwadeCharacterSheet extends ActorSheet {
 
   /* -------------------------------------------- */
@@ -99,12 +101,20 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
   // Roll attribute
-  html.find('.attribute-label').click(ev => {
-    console.log(ev);
-    let element = event.currentTarget as Element;
-    let attribute = element.parentElement.dataset.attribute;
-    // this.actor.rollAttribute(attribute, {event: event});
-  });
+    html.find('.attribute-label').click(ev => {
+      let actorObject = this.actor as SwadeActor;
+      let element = event.currentTarget as Element;
+      let attribute = element.parentElement.dataset.attribute;
+      actorObject.rollAttribute(attribute, {event: event});
+    });
+
+    // Roll Skill
+      html.find('.skill-label').click(ev => {
+        let actorObject = this.actor as SwadeActor;
+        let element = event.currentTarget as Element;
+        let item = element.parentElement.dataset.itemId;
+        actorObject.rollSkill(item, {event: event});
+      });
   }
 
   getData(): ActorSheetData {
