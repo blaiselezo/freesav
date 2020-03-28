@@ -1,3 +1,5 @@
+import { SwadeActor } from "./entity";
+
 export class SwadeNPCSheet extends ActorSheet {
 
 
@@ -64,6 +66,14 @@ export class SwadeNPCSheet extends ActorSheet {
                 //roll conviction
                 this.actor.setFlag('swade', 'convictionReady', false);
             }
+        });
+
+        // Roll attribute
+        html.find('.attribute-label').click(ev => {
+          let actorObject = this.actor as SwadeActor;
+          let element = event.currentTarget as Element;
+          let attribute = element.parentElement.dataset.attribute;
+          actorObject.rollAttribute(attribute, {event: event});
         });
     }
 
