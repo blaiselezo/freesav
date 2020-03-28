@@ -113,6 +113,9 @@ export class SwadeNPCSheet extends ActorSheet {
             this.actor.setFlag('swade', 'hasArcaneBackground', false);
         }
 
+        //Force a render of the Actor directory to catch if any NPCs now need to be shown as Wildcards
+        ui.actors.render();
+
         return data;
     }
 

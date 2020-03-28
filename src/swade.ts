@@ -71,7 +71,6 @@ Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
 
 	const wildcards: Actor[] = app.entities.filter((a: Actor) => a.data.type === 'character' || a.getFlag('swade', 'isWildcard'));
-	console.log(wildcards);
 	const found = html.find(".entity-name");
 
 	wildcards.forEach((wc: Actor) => {
