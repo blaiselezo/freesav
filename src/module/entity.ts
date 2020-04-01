@@ -48,7 +48,7 @@ export class SwadeActor extends Actor {
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
     let exp = "";
-    if (abl["wild-die"].sides) {
+    if (this.getFlag("swade", "isWildcard")) {
       exp = `{1d${abl.die.sides}x${abl.die.sides}, 1d${abl["wild-die"].sides}x${abl["wild-die"].sides}}kh`;
     } else {
       exp = `1d${abl.die.sides}x${abl.die.sides}`;
@@ -72,7 +72,7 @@ export class SwadeActor extends Actor {
     }
     let itemData = items[0].data["data"];
     let exp = "";
-    if (itemData["wild-die"].sides) {
+    if (this.getFlag("swade", "isWildcard")) {
       exp = `{1d${itemData["die"].sides}x${itemData["die"].sides}, 1d${itemData["wild-die"].sides}x${itemData["wild-die"].sides}}kh`;
     } else {
       exp = `1d${itemData["die"].sides}x${itemData["die"].sides}`;

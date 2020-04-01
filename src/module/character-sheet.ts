@@ -101,18 +101,18 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
   // Roll attribute
-    html.find('.attribute-label').click(ev => {
+    html.find('.attribute-label a').click(event => {
       let actorObject = this.actor as SwadeActor;
       let element = event.currentTarget as Element;
-      let attribute = element.parentElement.dataset.attribute;
+      let attribute = element.parentElement.parentElement.dataset.attribute;
       actorObject.rollAttribute(attribute, {event: event});
     });
 
     // Roll Skill
-      html.find('.skill-label').click(ev => {
+      html.find('.skill-label a').click(event => {
         let actorObject = this.actor as SwadeActor;
         let element = event.currentTarget as Element;
-        let item = element.parentElement.dataset.itemId;
+        let item = element.parentElement.parentElement.dataset.itemId;
         actorObject.rollSkill(item, {event: event});
       });
   }
