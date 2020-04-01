@@ -12,6 +12,7 @@
 
 // Import TypeScript modules
 import { registerSettings } from './module/settings';
+import { registerCustomHelpers } from './module/handlebarsHelpers'
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { SwadeCharacterSheet } from './module/character-sheet';
 import { SwadeNPCSheet } from './module/npc-sheet';
@@ -25,10 +26,13 @@ import { isIncapacitated, setIncapacitationSymbol } from './module/util';
 Hooks.once('init', async function () {
 	console.log(`SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`);
 
-	// Assign custom classes and constants here
+	// CONFIG.debug.hooks = true;
 
 	// Record Configuration Values
 	CONFIG.SWADE = SWADE;
+
+	//Register custom Handlebars helpers
+	registerCustomHelpers();
 
 	// Register custom system settings
 	registerSettings();
@@ -111,5 +115,17 @@ Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
 
 	if (isIncap) {
 		html.find('.incap-img').addClass('fade-in-05');
+	}
+});
+
+Hooks.on('updateActor', (actor: Actor, updates: any, object: Object, id: string) => {
+	console.log('gotcha1');
+	if (!updates.flags.swade) {
+		return;
+	}
+
+	if (actor.data.flags.swade.isWildcard !== updates.flags.swade.isWildcard) {
+		console.log('gotcha2');
+		ui.actors.render();
 	}
 });

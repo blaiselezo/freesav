@@ -108,7 +108,8 @@
                         title="{{localize 'SWADE.EditSkill'}}">{{skill.name}}&nbsp;<i
                             class="fas fa-edit"></i></a></label>
                 <div class="skill-value"><span>d{{skill.data.die.sides}}{{skill.data.die.modifier}}</span></div>
-                <div class="skill-value"><span>{{skill.data.attribute}}</span></div>
+                <div class="skill-value"><span>{{localizeSkillAttribute skill.data.attribute}}</span>
+                </div>
                 <!-- Add Dice roll shortcut here? -->
             </li>
             {{/each}}
