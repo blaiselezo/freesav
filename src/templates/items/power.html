@@ -17,14 +17,14 @@
     </header>
     <section class="sheet-body">
         <div class="form-group">
+            <label for="data.rank">{{localize "SWADE.Rank"}}</label>
+            <input name="data.rank" type="text" value="{{item.data.rank}}" placeholder="{{localize 'SWADE.Rank'}}"
+                data-dtype="String" />
+        </div>
+        <div class="form-group">
             <label for="data.pp">{{localize "SWADE.PP"}}</label>
             <input name="data.pp" type="text" value="{{item.data.pp}}" placeholder="{{localize 'SWADE.PP'}}"
                 data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.duration">{{localize "SWADE.Dur"}}</label>
-            <input name="data.duration" type="text" value="{{item.data.duration}}"
-                placeholder="{{localize 'SWADE.Dur'}}" data-dtype="String" />
         </div>
         <div class="form-group">
             <label for="data.range">{{localize "SWADE.Rng"}}</label>
@@ -32,9 +32,9 @@
                 data-dtype="String" />
         </div>
         <div class="form-group">
-            <label for="data.rank">{{localize "SWADE.Rank"}}</label>
-            <input name="data.rank" type="text" value="{{item.data.rank}}" placeholder="{{localize 'SWADE.Rank'}}"
-                data-dtype="String" />
+            <label for="data.duration">{{localize "SWADE.Dur"}}</label>
+            <input name="data.duration" type="text" value="{{item.data.duration}}"
+                placeholder="{{localize 'SWADE.Dur'}}" data-dtype="String" />
         </div>
         <div class="form-group">
             <label for="data.trapping">{{localize "SWADE.Trap"}}</label>
