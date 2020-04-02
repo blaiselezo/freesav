@@ -1,21 +1,12 @@
 export class SwadeNPCSheet extends ActorSheet {
-    _sheetTab: string;
 
-    constructor(...args) {
-        super(...args);
-
-        /**
-         * Keep track of the currently active sheet tab
-         * @type {string}
-         */
-        this._sheetTab = 'summary';
-    }
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['swade', 'sheet', 'npc'],
             width: 600,
-            height: 'auto'
+            height: 'auto',
+            tabs: [{ navSelector: ".tabs", contentSelector: ".sheet-body", initial: "summary" }]
         });
     }
 
@@ -27,14 +18,6 @@ export class SwadeNPCSheet extends ActorSheet {
 
     activateListeners(html): void {
         super.activateListeners(html);
-
-        // Activate tabs
-        let tabs = html.find('.tabs');
-        let initial = this._sheetTab;
-        new Tabs(tabs, {
-            initial: initial,
-            callback: clicked => this._sheetTab = clicked.data('tab')
-        });
 
         // Update Item via reigh-click
         html.find('.contextmenu-edit').contextmenu(ev => {
