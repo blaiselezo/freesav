@@ -119,13 +119,7 @@ Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
 });
 
 Hooks.on('updateActor', (actor: Actor, updates: any, object: Object, id: string) => {
-	console.log('gotcha1');
-	if (!updates.flags.swade) {
-		return;
-	}
-
-	if (actor.data.flags.swade.isWildcard !== updates.flags.swade.isWildcard) {
-		console.log('gotcha2');
+	if (actor.data.type === 'npc') {
 		ui.actors.render();
 	}
 });
