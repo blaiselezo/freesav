@@ -1,0 +1,332 @@
+[
+  {
+    "name": "All Thumbs",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.22", "notes": "", "major": false }
+  },
+  {
+    "name": "Anemic",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.22", "notes": "", "major": false }
+  },
+  {
+    "name": "Bad Eyes",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.22", "notes": "", "major": false }
+  },
+  {
+    "name": "Bad Luck",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.22", "notes": "", "major": true }
+  },
+  {
+    "name": "Big Mouth",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.23", "notes": "", "major": false }
+  },
+  {
+    "name": "Blind",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.23", "notes": "", "major": true }
+  },
+  {
+    "name": "Can't Swim",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.23", "notes": "", "major": false }
+  },
+  {
+    "name": "Cautious",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.23", "notes": "", "major": false }
+  },
+  {
+    "name": "Clueless",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.23", "notes": "", "major": true }
+  },
+  {
+    "name": "Clumsy",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.23", "notes": "", "major": true }
+  },
+  {
+    "name": "Code of Honor",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.23", "notes": "", "major": true }
+  },
+  {
+    "name": "Curious",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.23", "notes": "", "major": true }
+  },
+  {
+    "name": "Death Wish",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.23", "notes": "", "major": false }
+  },
+  {
+    "name": "Delusional",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.23", "notes": "", "major": false }
+  },
+  {
+    "name": "Doubting Thomas",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.24", "notes": "", "major": false }
+  },
+  {
+    "name": "Driven",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.24", "notes": "", "major": false }
+  },
+  {
+    "name": "Elderly",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.24", "notes": "", "major": true }
+  },
+  {
+    "name": "Enemy",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.24", "notes": "", "major": false }
+  },
+  {
+    "name": "Greedy",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.24", "notes": "", "major": false }
+  },
+  {
+    "name": "Habit",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.24", "notes": "", "major": false }
+  },
+  {
+    "name": "Hard of Hearing",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.24", "notes": "", "major": false }
+  },
+  {
+    "name": "Heroic",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.24", "notes": "", "major": true }
+  },
+  {
+    "name": "Hesitant",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.25", "notes": "", "major": false }
+  },
+  {
+    "name": "Illiterate",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.25", "notes": "", "major": false }
+  },
+  {
+    "name": "Impulsive",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.25", "notes": "", "major": true }
+  },
+  {
+    "name": "Jealous",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.25", "notes": "", "major": false }
+  },
+  {
+    "name": "Loyal",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.25", "notes": "", "major": false }
+  },
+  {
+    "name": "Mean",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.25", "notes": "", "major": false }
+  },
+  {
+    "name": "Mild Mannered",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.25", "notes": "", "major": false }
+  },
+  {
+    "name": "Mute",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.25", "notes": "", "major": true }
+  },
+  {
+    "name": "Obese",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.25", "notes": "", "major": false }
+  },
+  {
+    "name": "Obligation",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.25", "notes": "", "major": false }
+  },
+  {
+    "name": "One Arm",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.26", "notes": "", "major": true }
+  },
+  {
+    "name": "One Eye",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.26", "notes": "", "major": true }
+  },
+  {
+    "name": "Outsider",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.26", "notes": "", "major": false }
+  },
+  {
+    "name": "Overconfident",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.26", "notes": "", "major": true }
+  },
+  {
+    "name": "Pacifist",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.26", "notes": "", "major": false }
+  },
+  {
+    "name": "Phobia",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.26", "notes": "", "major": false }
+  },
+  {
+    "name": "Poverty",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.26", "notes": "", "major": false }
+  },
+  {
+    "name": "Quirk",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.26", "notes": "", "major": false }
+  },
+  {
+    "name": "Ruthless",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.26", "notes": "", "major": false }
+  },
+  {
+    "name": "Secret",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.26", "notes": "", "major": false }
+  },
+  {
+    "name": "Shamed",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.27", "notes": "", "major": false }
+  },
+  {
+    "name": "Slow",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.27", "notes": "", "major": false }
+  },
+  {
+    "name": "Small",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.27", "notes": "", "major": false }
+  },
+  {
+    "name": "Stubborn",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.27", "notes": "", "major": false }
+  },
+  {
+    "name": "Suspicious",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.28", "notes": "", "major": false }
+  },
+  {
+    "name": "Thin Skinned",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.28", "notes": "", "major": false }
+  },
+  {
+    "name": "Tongue-Tied",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.28", "notes": "", "major": true }
+  },
+  {
+    "name": "Ugly",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.28", "notes": "", "major": false }
+  },
+  {
+    "name": "Vengeful",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.28", "notes": "", "major": false }
+  },
+  {
+    "name": "Vow",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.28", "notes": "", "major": false }
+  },
+  {
+    "name": "Wanted",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.28", "notes": "", "major": false }
+  },
+  {
+    "name": "Yellow",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.28", "notes": "", "major": true }
+  },
+  {
+    "name": "Young",
+    "permission": { "default": 0 },
+    "type": "hindrance",
+    "data": { "description": "See SWADE p.28", "notes": "", "major": false }
+  }
+]

@@ -8,7 +8,36 @@
   "templateVersion": 2,
   "esmodules": ["swade.js"],
   "styles": ["swade.css"],
-  "packs": [],
+  "packs": [
+    {
+      "name": "skills",
+      "label": "Skills",
+      "system": "swade",
+      "path": "./packs/skills.db",
+      "entity": "Item"
+    },
+    {
+      "name": "edges",
+      "label": "Edges",
+      "system": "swade",
+      "path": "./packs/edges.db",
+      "entity": "Item"
+    },
+    {
+      "name": "hindrances",
+      "label": "Hindrances",
+      "system": "swade",
+      "path": "./packs/hindrances.db",
+      "entity": "Item"
+    },
+    {
+      "name": "powers",
+      "label": "Powers",
+      "system": "swade",
+      "path": "./packs/powers.db",
+      "entity": "Item"
+    }
+  ],
   "languages": [
     {
       "lang": "en",
@@ -24,6 +53,11 @@
       "lang": "pl",
       "name": "Polski",
       "path": "lang/pl.json"
+    },
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json"
     }
   ],
   "socket": true,

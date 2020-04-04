@@ -8,11 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
-- Compendiums!
+- Compendiums! (Thanks to Anathema M for help there)
   - Edges
   - Hindrances
   - Skills
   - Powers
+- French Localization. (Thanks to Leratier Bretonnien & U~Man for that)
 
 ### Changed
 

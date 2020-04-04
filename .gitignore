@@ -2,5 +2,5 @@ node_modules
 foundryconfig.json
 .htmlhintrc
 dist/*
-!dist/icons
-!dist/icons/**
+!dist/packs
+!dist/packs/**
