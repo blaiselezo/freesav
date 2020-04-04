@@ -60,7 +60,8 @@
       "path": "lang/fr.json"
     }
   ],
-  "socket": true,
+  "socket": false,
+  "initiative": "1d54",
   "gridDistance": 1,
   "gridUnits": "in",
   "url": "https://gitlab.com/florad-foundry/swade",
