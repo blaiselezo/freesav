@@ -1,2 +1,7 @@
-export class SwadeInitiative {
+export class SwadeInitiativeHandler {
+
+    constructor(private actioncards: RollTable) {
+
+    }
+
 }
