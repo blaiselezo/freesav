@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - Hindrances
   - Skills
   - Powers
+  - Action Cards
 - French Localization. (Thanks to Leratier Bretonnien & U~Man for that)
 
 ### Changed

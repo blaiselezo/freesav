@@ -30,12 +30,14 @@ Hooks.once('init', async function () {
 
 	// Record Configuration Values
 	CONFIG.SWADE = SWADE;
-
 	//Register custom Handlebars helpers
 	registerCustomHelpers();
 
 	// Register custom system settings
 	registerSettings();
+
+	//TODO Replaces the normal rollInitiative method
+	//Combat.prototype.rollInitiative = myClass.someMethod;
 
 	// Register custom sheets (if any)
 	Actors.unregisterSheet('core', ActorSheet);
@@ -60,7 +62,7 @@ Hooks.once('setup', function () {
 /* When ready							*/
 /* ------------------------------------ */
 Hooks.once('ready', function () {
-	// Do anything once the system is ready
+
 });
 
 // Add any additional hooks if necessary

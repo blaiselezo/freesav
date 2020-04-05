@@ -1,0 +1,598 @@
+[
+  {
+    "name": "Black Joker",
+    "flags": {
+      "action-card": {
+        "card-value": 0,
+        "suit-value": 0,
+        "isJoker": true
+      }
+    },
+    "content": "&#127183;",
+    "img": "systems/swade/assets/pokerDeck/black_joker.svg"
+  },
+  {
+    "name": "Red Joker",
+    "flags": {
+      "action-card": {
+        "card-value": 0,
+        "suit-value": 0,
+        "isJoker": true
+      }
+    },
+    "content": " &#127167;",
+    "img": "systems/swade/assets/pokerDeck/red_joker.svg"
+  },
+  {
+    "name": "2 of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 2,
+        "suit-value": 4
+      }
+    },
+    "content": "2&spades;",
+    "img": "systems/swade/assets/pokerDeck/2_of_spades.svg"
+  },
+  {
+    "name": "3 of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 3,
+        "suit-value": 4
+      }
+    },
+    "content": "3&spades;",
+    "img": "systems/swade/assets/pokerDeck/3_of_spades.svg"
+  },
+  {
+    "name": "4 of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 4,
+        "suit-value": 4
+      }
+    },
+    "content": "4&spades;",
+    "img": "systems/swade/assets/pokerDeck/4_of_spades.svg"
+  },
+  {
+    "name": "5 of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 5,
+        "suit-value": 4
+      }
+    },
+    "content": "5&spades;",
+    "img": "systems/swade/assets/pokerDeck/5_of_spades.svg"
+  },
+  {
+    "name": "6 of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 6,
+        "suit-value": 4
+      }
+    },
+    "content": "6&spades;",
+    "img": "systems/swade/assets/pokerDeck/6_of_spades.svg"
+  },
+  {
+    "name": "7 of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 7,
+        "suit-value": 4
+      }
+    },
+    "content": "7&spades;",
+    "img": "systems/swade/assets/pokerDeck/7_of_spades.svg"
+  },
+  {
+    "name": "8 of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 8,
+        "suit-value": 4
+      }
+    },
+    "content": "8&spades;",
+    "img": "systems/swade/assets/pokerDeck/8_of_spades.svg"
+  },
+  {
+    "name": "9 of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 9,
+        "suit-value": 4
+      }
+    },
+    "content": "9&spades;",
+    "img": "systems/swade/assets/pokerDeck/9_of_spades.svg"
+  },
+  {
+    "name": "10 of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 10,
+        "suit-value": 4
+      }
+    },
+    "content": "10&spades;",
+    "img": "systems/swade/assets/pokerDeck/10_of_spades.svg"
+  },
+  {
+    "name": "Jack of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 11,
+        "suit-value": 4
+      }
+    },
+    "content": "J&spades;",
+    "img": "systems/swade/assets/pokerDeck/jack_of_spades.svg"
+  },
+  {
+    "name": "Queen of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 12,
+        "suit-value": 4
+      }
+    },
+    "content": "Q&spades;",
+    "img": "systems/swade/assets/pokerDeck/queen_of_spades.svg"
+  },
+  {
+    "name": "King of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 13,
+        "suit-value": 4
+      }
+    },
+    "content": "K&spades;",
+    "img": "systems/swade/assets/pokerDeck/king_of_spades.svg"
+  },
+  {
+    "name": "Ace of Spades",
+    "flags": {
+      "action-card": {
+        "card-value": 14,
+        "suit-value": 4
+      }
+    },
+    "content": "A&spades;",
+    "img": "systems/swade/assets/pokerDeck/ace_of_spades.svg"
+  },
+  {
+    "name": "2 of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 2,
+        "suit-value": 3
+      }
+    },
+    "content": "2&hearts;",
+    "img": "systems/swade/assets/pokerDeck/2_of_hearts.svg"
+  },
+  {
+    "name": "3 of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 3,
+        "suit-value": 3
+      }
+    },
+    "content": "3&hearts;",
+    "img": "systems/swade/assets/pokerDeck/3_of_hearts.svg"
+  },
+  {
+    "name": "4 of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 4,
+        "suit-value": 3
+      }
+    },
+    "content": "4&hearts;",
+    "img": "systems/swade/assets/pokerDeck/4_of_hearts.svg"
+  },
+  {
+    "name": "5 of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 5,
+        "suit-value": 3
+      }
+    },
+    "content": "5&hearts;",
+    "img": "systems/swade/assets/pokerDeck/5_of_hearts.svg"
+  },
+  {
+    "name": "6 of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 6,
+        "suit-value": 3
+      }
+    },
+    "content": "6&hearts;",
+    "img": "systems/swade/assets/pokerDeck/6_of_hearts.svg"
+  },
+  {
+    "name": "7 of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 7,
+        "suit-value": 3
+      }
+    },
+    "content": "7&hearts;",
+    "img": "systems/swade/assets/pokerDeck/7_of_hearts.svg"
+  },
+  {
+    "name": "8 of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 8,
+        "suit-value": 3
+      }
+    },
+    "content": "8&hearts;",
+    "img": "systems/swade/assets/pokerDeck/8_of_hearts.svg"
+  },
+  {
+    "name": "9 of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 9,
+        "suit-value": 3
+      }
+    },
+    "content": "9&hearts;",
+    "img": "systems/swade/assets/pokerDeck/9_of_hearts.svg"
+  },
+  {
+    "name": "10 of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 10,
+        "suit-value": 3
+      }
+    },
+    "content": "10&hearts;",
+    "img": "systems/swade/assets/pokerDeck/10_of_hearts.svg"
+  },
+  {
+    "name": "Jack of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 11,
+        "suit-value": 3
+      }
+    },
+    "content": "J&hearts;",
+    "img": "systems/swade/assets/pokerDeck/jack_of_hearts.svg"
+  },
+  {
+    "name": "Queen of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 12,
+        "suit-value": 3
+      }
+    },
+    "content": "Q&hearts;",
+    "img": "systems/swade/assets/pokerDeck/queen_of_hearts.svg"
+  },
+  {
+    "name": "King of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 13,
+        "suit-value": 3
+      }
+    },
+    "content": "K&hearts;",
+    "img": "systems/swade/assets/pokerDeck/king_of_hearts.svg"
+  },
+  {
+    "name": "Ace of Hearts",
+    "flags": {
+      "action-card": {
+        "card-value": 14,
+        "suit-value": 3
+      }
+    },
+    "content": "A&hearts;",
+    "img": "systems/swade/assets/pokerDeck/ace_of_hearts.svg"
+  },
+  {
+    "name": "2 of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 2,
+        "suit-value": 2
+      }
+    },
+    "content": "2&diams;",
+    "img": "systems/swade/assets/pokerDeck/2_of_diamonds.svg"
+  },
+  {
+    "name": "3 of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 3,
+        "suit-value": 2
+      }
+    },
+    "content": "3&diams;",
+    "img": "systems/swade/assets/pokerDeck/3_of_diamonds.svg"
+  },
+  {
+    "name": "4 of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 4,
+        "suit-value": 2
+      }
+    },
+    "content": "4&diams;",
+    "img": "systems/swade/assets/pokerDeck/4_of_diamonds.svg"
+  },
+  {
+    "name": "5 of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 5,
+        "suit-value": 2
+      }
+    },
+    "content": "5&diams;",
+    "img": "systems/swade/assets/pokerDeck/5_of_diamonds.svg"
+  },
+  {
+    "name": "6 of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 6,
+        "suit-value": 2
+      }
+    },
+    "content": "6&diams;",
+    "img": "systems/swade/assets/pokerDeck/6_of_diamonds.svg"
+  },
+  {
+    "name": "7 of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 7,
+        "suit-value": 2
+      }
+    },
+    "content": "7&diams;",
+    "img": "systems/swade/assets/pokerDeck/7_of_diamonds.svg"
+  },
+  {
+    "name": "8 of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 8,
+        "suit-value": 2
+      }
+    },
+    "content": "8&diams;",
+    "img": "systems/swade/assets/pokerDeck/8_of_diamonds.svg"
+  },
+  {
+    "name": "9 of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 9,
+        "suit-value": 2
+      }
+    },
+    "content": "9&diams;",
+    "img": "systems/swade/assets/pokerDeck/9_of_diamonds.svg"
+  },
+  {
+    "name": "10 of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 10,
+        "suit-value": 2
+      }
+    },
+    "content": "10&diams;",
+    "img": "systems/swade/assets/pokerDeck/10_of_diamonds.svg"
+  },
+  {
+    "name": "Jack of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 11,
+        "suit-value": 2
+      }
+    },
+    "content": "J&diams;",
+    "img": "systems/swade/assets/pokerDeck/jack_of_diamonds.svg"
+  },
+  {
+    "name": "Queen of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 12,
+        "suit-value": 2
+      }
+    },
+    "content": "Q&diams;",
+    "img": "systems/swade/assets/pokerDeck/queen_of_diamonds.svg"
+  },
+  {
+    "name": "King of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 13,
+        "suit-value": 2
+      }
+    },
+    "content": "K&diams;",
+    "img": "systems/swade/assets/pokerDeck/king_of_diamonds.svg"
+  },
+  {
+    "name": "Ace of Diamonds",
+    "flags": {
+      "action-card": {
+        "card-value": 14,
+        "suit-value": 2
+      }
+    },
+    "content": "A&diams;",
+    "img": "systems/swade/assets/pokerDeck/ace_of_diamonds.svg"
+  },
+  {
+    "name": "2 of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 2,
+        "suit-value": 1
+      }
+    },
+    "content": "2&clubs;",
+    "img": "systems/swade/assets/pokerDeck/2_of_clubs.svg"
+  },
+  {
+    "name": "3 of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 3,
+        "suit-value": 1
+      }
+    },
+    "content": "3&clubs;",
+    "img": "systems/swade/assets/pokerDeck/3_of_clubs.svg"
+  },
+  {
+    "name": "4 of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 4,
+        "suit-value": 1
+      }
+    },
+    "content": "4&clubs;",
+    "img": "systems/swade/assets/pokerDeck/4_of_clubs.svg"
+  },
+  {
+    "name": "5 of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 5,
+        "suit-value": 1
+      }
+    },
+    "content": "5&clubs;",
+    "img": "systems/swade/assets/pokerDeck/5_of_clubs.svg"
+  },
+  {
+    "name": "6 of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 6,
+        "suit-value": 1
+      }
+    },
+    "content": "6&clubs;",
+    "img": "systems/swade/assets/pokerDeck/6_of_clubs.svg"
+  },
+  {
+    "name": "7 of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 7,
+        "suit-value": 1
+      }
+    },
+    "content": "7&clubs;",
+    "img": "systems/swade/assets/pokerDeck/7_of_clubs.svg"
+  },
+  {
+    "name": "8 of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 8,
+        "suit-value": 1
+      }
+    },
+    "content": "8&clubs;",
+    "img": "systems/swade/assets/pokerDeck/8_of_clubs.svg"
+  },
+  {
+    "name": "9 of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 9,
+        "suit-value": 1
+      }
+    },
+    "content": "9&clubs;",
+    "img": "systems/swade/assets/pokerDeck/9_of_clubs.svg"
+  },
+  {
+    "name": "10 of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 10,
+        "suit-value": 1
+      }
+    },
+    "content": "10&clubs;",
+    "img": "systems/swade/assets/pokerDeck/10_of_clubs.svg"
+  },
+  {
+    "name": "Jack of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 11,
+        "suit-value": 1
+      }
+    },
+    "content": "J&clubs;",
+    "img": "systems/swade/assets/pokerDeck/jack_of_clubs.svg"
+  },
+  {
+    "name": "Queen of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 12,
+        "suit-value": 1
+      }
+    },
+    "content": "Q&clubs;",
+    "img": "systems/swade/assets/pokerDeck/queen_of_clubs.svg"
+  },
+  {
+    "name": "King of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 13,
+        "suit-value": 1
+      }
+    },
+    "content": "K&clubs;",
+    "img": "systems/swade/assets/pokerDeck/king_of_clubs.svg"
+  },
+  {
+    "name": "Ace of Clubs",
+    "flags": {
+      "action-card": {
+        "card-value": 14,
+        "suit-value": 1
+      }
+    },
+    "content": "A&clubs;",
+    "img": "systems/swade/assets/pokerDeck/ace_of_clubs.svg"
+  }
+]
