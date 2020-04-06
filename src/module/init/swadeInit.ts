@@ -20,9 +20,9 @@ export class SwadeCombat extends Combat {
         const combatantUpdates = [];
         const initMessages = [];
 
-        for (let id of ids) {
+        for (let i = 0; i < ids.length; i++) {
             // Get Combatant data
-            const c = this.getCombatant(id) as any;
+            const c = this.getCombatant(ids[i]) as any;
             // Draw initiative
             const drawResult = await actionCardDeck.draw();
             const card = await actionCardPack.getEntity(drawResult._id);
@@ -40,11 +40,16 @@ export class SwadeCombat extends Combat {
                 flavor: `${c.token.name} draws for Initiative!`
             }, messageOptions);
             const chatData = drawResult.toMessage(messageData, { rollMode, create: false });
+            chatData.sound = null;
             initMessages.push(chatData);
         }
 
         if (!combatantUpdates.length) return this;
 
+
+
+        // play a little card sound when dealing initiative cards
+        if (game.settings.get('swade', 'initiativeSound')) AudioHelper.play({ src: "systems/swade/assets/card-flip.wav", volume: 0.8, autoplay: true, loop: false }, true);
         // Update multiple combatants
         await this.updateManyEmbeddedEntities("Combatant", combatantUpdates);
         // Ensure the turn order remains with the same combatant
