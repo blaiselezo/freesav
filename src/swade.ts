@@ -19,6 +19,7 @@ import { SwadeNPCSheet } from './module/npc-sheet';
 import { SwadeItemSheet } from './module/item-sheet';
 import { SWADE } from './module/config'
 import { isIncapacitated, setIncapacitationSymbol } from './module/util';
+import { swadeSetup } from './module/setup/setupHandler';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -26,18 +27,16 @@ import { isIncapacitated, setIncapacitationSymbol } from './module/util';
 Hooks.once('init', async function () {
 	console.log(`SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`);
 
-	// CONFIG.debug.hooks = true;
-
 	// Record Configuration Values
 	CONFIG.SWADE = SWADE;
+	//CONFIG.debug.hooks = true;
+
+
 	//Register custom Handlebars helpers
 	registerCustomHelpers();
 
 	// Register custom system settings
 	registerSettings();
-
-	//TODO Replaces the normal rollInitiative method
-	//Combat.prototype.rollInitiative = myClass.someMethod;
 
 	// Register custom sheets (if any)
 	Actors.unregisterSheet('core', ActorSheet);
@@ -56,13 +55,14 @@ Hooks.once('init', async function () {
 Hooks.once('setup', function () {
 	// Do anything after initialization but before
 	// ready
+
 });
 
 /* ------------------------------------ */
 /* When ready							*/
 /* ------------------------------------ */
-Hooks.once('ready', function () {
-
+Hooks.once('ready', async () => {
+	await swadeSetup();
 });
 
 // Add any additional hooks if necessary
