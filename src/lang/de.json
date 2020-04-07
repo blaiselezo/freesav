@@ -2,7 +2,7 @@
   "SWADE.Name": "Name",
   "SWADE.Tough": "Robustheit",
   "SWADE.Race": "Rasse",
-  "SWADE.Pace": "Parade",
+  "SWADE.Pace": "Bewegungsweite",
   "SWADE.Adv": "Aufstiege",
   "SWADE.Rank": "Rang",
   "SWADE.Inv": "Inventar",
@@ -45,6 +45,7 @@
   "SWADE.MinStrLong": "Mindeststärke",
   "SWADE.MinStr": "Mindeststärke",
   "SWADE.Desc": "Beschreibung",
+  "SWADE.Conv": "Entschlossenheit",
 
   "SWADE.Hindrances": "Handicaps",
   "SWADE.MajHind": "Schweres Handicap",
