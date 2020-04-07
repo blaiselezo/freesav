@@ -20,7 +20,7 @@ import { SwadeItemSheet } from './module/item-sheet';
 import { SWADE } from './module/config'
 import { isIncapacitated, setIncapacitationSymbol } from './module/util';
 import { swadeSetup } from './module/setup/setupHandler';
-import { SwadeCombat } from './module/init/swadeInit';
+import { SwadeCombat, rollInitiative } from './module/init/swadeInit';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -31,7 +31,8 @@ Hooks.once('init', async function () {
 	// Record Configuration Values
 	CONFIG.SWADE = SWADE;
 	//CONFIG.debug.hooks = true;
-	CONFIG.Combat.entityClass = SwadeCombat;
+	//CONFIG.Combat.entityClass = SwadeCombat;
+	Combat.prototype.rollInitiative = rollInitiative;
 
 
 	//Register custom Handlebars helpers
