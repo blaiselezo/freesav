@@ -28,8 +28,11 @@
         </div>
         <div class="form-group">
             <label for="attribute">{{localize "SWADE.LinkAttr"}}</label>
-            <input name="data.attribute" type="text" value="{{item.data.attribute}}"
-                placeholder="{{localize 'SWADE.LinkAttr'}}" data-dtype="String" />
+            <select name="data.attribute" id="attribute" data-dtype="String">
+                {{#select item.data.attribute}}
+                {{> "systems/swade/templates/attribute-select.html"}}
+                {{/select}}
+            </select>
         </div>
         {{#if item.data.ownerIsWildcard}}
         <div class="form-group">

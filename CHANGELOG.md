@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/)
 
+## [Unreleased]
+
+### Added
+
+- Compendiums! (Thanks to Anathema M for help there)
+  - Edges
+  - Hindrances
+  - Skills
+  - Powers
+  - Action Cards (no you can't pull them onto the map, but that's gonna come in the future)
+- French Localization (Thanks to Leratier Bretonnien & U~Man for that)
+- Spanish Localization (Thanks to Jose Lozano for this one)
+
+### Changed
+
+- Upgraded Tabs to `TabsV2`
+- Slight improvements to localization
+
 ## [v0.5.0] 2020-03-27
 
 ### Added

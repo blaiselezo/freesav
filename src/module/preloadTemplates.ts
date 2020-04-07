@@ -19,7 +19,8 @@ export const preloadHandlebarsTemplates = async function () {
 		'systems/swade/templates/actors/partials/shield-card.html',
 
 		//die type list
-		'systems/swade/templates/die-sides-options.html'
+		'systems/swade/templates/die-sides-options.html',
+		'systems/swade/templates/attribute-select.html'
 	];
 
 	return loadTemplates(templatePaths);

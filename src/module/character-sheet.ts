@@ -1,15 +1,4 @@
 export class SwadeCharacterSheet extends ActorSheet {
-  _sheetTab: string;
-
-  constructor(...args) {
-    super(...args);
-
-    /**
-     * Keep track of the currently active sheet tab
-     * @type {string}
-     */
-    this._sheetTab = 'summary';
-  }
 
   /* -------------------------------------------- */
 
@@ -21,7 +10,8 @@ export class SwadeCharacterSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ['swade', 'sheet', 'character'],
       width: 600,
-      height: 768
+      height: 768,
+      tabs: [{ navSelector: ".tabs", contentSelector: ".sheet-body", initial: "summary" }]
     });
   }
 
@@ -33,14 +23,6 @@ export class SwadeCharacterSheet extends ActorSheet {
 
   activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
-
-    // Activate tabs
-    let tabs = html.find('.tabs');
-    let initial = this._sheetTab;
-    new Tabs(tabs, {
-      initial: initial,
-      callback: clicked => this._sheetTab = clicked.data('tab')
-    });
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;

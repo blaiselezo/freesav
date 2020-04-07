@@ -12,12 +12,14 @@
 
 // Import TypeScript modules
 import { registerSettings } from './module/settings';
+import { registerCustomHelpers } from './module/handlebarsHelpers'
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { SwadeCharacterSheet } from './module/character-sheet';
 import { SwadeNPCSheet } from './module/npc-sheet';
 import { SwadeItemSheet } from './module/item-sheet';
 import { SWADE } from './module/config'
 import { isIncapacitated, setIncapacitationSymbol } from './module/util';
+import { swadeSetup } from './module/setup/setupHandler';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -25,10 +27,13 @@ import { isIncapacitated, setIncapacitationSymbol } from './module/util';
 Hooks.once('init', async function () {
 	console.log(`SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`);
 
-	// Assign custom classes and constants here
-
 	// Record Configuration Values
 	CONFIG.SWADE = SWADE;
+	//CONFIG.debug.hooks = true;
+
+
+	//Register custom Handlebars helpers
+	registerCustomHelpers();
 
 	// Register custom system settings
 	registerSettings();
@@ -50,13 +55,14 @@ Hooks.once('init', async function () {
 Hooks.once('setup', function () {
 	// Do anything after initialization but before
 	// ready
+
 });
 
 /* ------------------------------------ */
 /* When ready							*/
 /* ------------------------------------ */
-Hooks.once('ready', function () {
-	// Do anything once the system is ready
+Hooks.once('ready', async () => {
+	await swadeSetup();
 });
 
 // Add any additional hooks if necessary
@@ -71,7 +77,6 @@ Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
 
 	const wildcards: Actor[] = app.entities.filter((a: Actor) => a.data.type === 'character' || a.getFlag('swade', 'isWildcard'));
-	console.log(wildcards);
 	const found = html.find(".entity-name");
 
 	wildcards.forEach((wc: Actor) => {
@@ -112,5 +117,11 @@ Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
 
 	if (isIncap) {
 		html.find('.incap-img').addClass('fade-in-05');
+	}
+});
+
+Hooks.on('updateActor', (actor: Actor, updates: any, object: Object, id: string) => {
+	if (actor.data.type === 'npc') {
+		ui.actors.render();
 	}
 });

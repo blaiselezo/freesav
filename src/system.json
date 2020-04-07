@@ -3,17 +3,58 @@
   "title": "Savage Worlds Adventure Edition",
   "description": "A basic gamesystem for running Savage Worlds Adventure Edition games",
   "version": "0.5.0",
-  "minimumCoreVersion": "0.4.5",
+  "minimumCoreVersion": "0.5.2",
   "author": "FloRad",
   "templateVersion": 2,
   "esmodules": ["swade.js"],
   "styles": ["swade.css"],
-  "packs": [],
+  "packs": [
+    {
+      "name": "skills",
+      "label": "Skills",
+      "system": "swade",
+      "path": "./packs/skills.db",
+      "entity": "Item"
+    },
+    {
+      "name": "edges",
+      "label": "Edges",
+      "system": "swade",
+      "path": "./packs/edges.db",
+      "entity": "Item"
+    },
+    {
+      "name": "hindrances",
+      "label": "Hindrances",
+      "system": "swade",
+      "path": "./packs/hindrances.db",
+      "entity": "Item"
+    },
+    {
+      "name": "powers",
+      "label": "Powers",
+      "system": "swade",
+      "path": "./packs/powers.db",
+      "entity": "Item"
+    },
+    {
+      "name": "action-cards",
+      "label": "Action Cards",
+      "system": "swade",
+      "path": "./packs/action-cards.db",
+      "entity": "JournalEntry"
+    }
+  ],
   "languages": [
     {
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
+    },
+    {
+      "lang": "es",
+      "name": "Spanish",
+      "path": "lang/es.json"
     },
     {
       "lang": "de",
@@ -24,9 +65,15 @@
       "lang": "pl",
       "name": "Polski",
       "path": "lang/pl.json"
+    },
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json"
     }
   ],
-  "socket": true,
+  "socket": false,
+  "initiative": "1d54",
   "gridDistance": 1,
   "gridUnits": "in",
   "url": "https://gitlab.com/florad-foundry/swade",
