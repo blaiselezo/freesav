@@ -13,8 +13,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - Hindrances
   - Skills
   - Powers
-  - Action Cards
-- French Localization. (Thanks to Leratier Bretonnien & U~Man for that)
+  - Action Cards (no you can't pull them onto the map, but that's gonna come in the future)
+- French Localization (Thanks to Leratier Bretonnien & U~Man for that)
+- Spanish Localization (Thanks to Jose Lozano for this one)
 
 ### Changed
 
