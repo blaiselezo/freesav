@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 - Upgraded Tabs to `TabsV2`
+- Slight improvements to localization
 
 ## [v0.5.0] 2020-03-27
 
