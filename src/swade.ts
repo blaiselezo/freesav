@@ -20,7 +20,8 @@ import { SwadeItemSheet } from './module/item-sheet';
 import { SWADE } from './module/config'
 import { isIncapacitated, setIncapacitationSymbol } from './module/util';
 import { swadeSetup } from './module/setup/setupHandler';
-import { SwadeCombat, rollInitiative } from './module/init/swadeInit';
+import { rollInitiative } from './module/init/swadeInit';
+import { compile } from 'handlebars';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -33,6 +34,7 @@ Hooks.once('init', async function () {
 	//CONFIG.debug.hooks = true;
 	//CONFIG.Combat.entityClass = SwadeCombat;
 	Combat.prototype.rollInitiative = rollInitiative;
+	//Combat.prototype.setupTurns = setupTurns;
 
 
 	//Register custom Handlebars helpers
@@ -127,4 +129,19 @@ Hooks.on('updateActor', (actor: Actor, updates: any, object: Object, id: string)
 	if (actor.data.type === 'npc') {
 		ui.actors.render();
 	}
+});
+
+Hooks.on('renderCombatTracker ', (app, html: JQuery<HTMLElement>, data) => {
+	console.log('###################################');
+	const currentCombat = data.combats[data.combatCount - 1];
+	console.log(currentCombat);
+	html.find('.combatant').each((i, el) => {
+		const combId = el.getAttribute('data-combatant-id');
+		console.log(combId);
+		const combatant = currentCombat.data.combatants.find(c => c.id = combId);
+		console.log(combatant);
+		// if (combatant.flags.actionCard && combatant.flags.actionCard.cardString) {
+		// 	el.children[3].innerHTML = `<span class="initiative">${combatant.flags.actionCard.cardString}</span>`
+		// }
+	});
 });
