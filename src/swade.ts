@@ -20,8 +20,7 @@ import { SwadeItemSheet } from './module/item-sheet';
 import { SWADE } from './module/config'
 import { isIncapacitated, setIncapacitationSymbol } from './module/util';
 import { swadeSetup } from './module/setup/setupHandler';
-import { rollInitiative } from './module/init/swadeInit';
-import { compile } from 'handlebars';
+import { rollInitiative, setupTurns } from './module/init/swadeInit';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -31,10 +30,10 @@ Hooks.once('init', async function () {
 
 	// Record Configuration Values
 	CONFIG.SWADE = SWADE;
-	//CONFIG.debug.hooks = true;
-	//CONFIG.Combat.entityClass = SwadeCombat;
+	// CONFIG.debug.hooks = true;
+	// CONFIG.Combat.entityClass = SwadeCombat;
 	Combat.prototype.rollInitiative = rollInitiative;
-	//Combat.prototype.setupTurns = setupTurns;
+	Combat.prototype.setupTurns = setupTurns;
 
 
 	//Register custom Handlebars helpers
@@ -125,23 +124,62 @@ Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
 	}
 });
 
-Hooks.on('updateActor', (actor: Actor, updates: any, object: Object, id: string) => {
+Hooks.on('updateActor', (actor: Actor, updataData: any, options: any, id: string) => {
 	if (actor.data.type === 'npc') {
 		ui.actors.render();
 	}
 });
 
-Hooks.on('renderCombatTracker ', (app, html: JQuery<HTMLElement>, data) => {
-	console.log('###################################');
+Hooks.on('renderCombatTracker', (app, html: JQuery<HTMLElement>, data) => {
 	const currentCombat = data.combats[data.combatCount - 1];
-	console.log(currentCombat);
 	html.find('.combatant').each((i, el) => {
 		const combId = el.getAttribute('data-combatant-id');
-		console.log(combId);
-		const combatant = currentCombat.data.combatants.find(c => c.id = combId);
-		console.log(combatant);
-		// if (combatant.flags.actionCard && combatant.flags.actionCard.cardString) {
-		// 	el.children[3].innerHTML = `<span class="initiative">${combatant.flags.actionCard.cardString}</span>`
-		// }
+		const combatant = currentCombat.data.combatants.find(c => c._id == combId);
+		if (combatant.flags.actionCard && combatant.flags.actionCard.cardString && combatant.initiative) {
+			el.children[3].innerHTML = `<span class="initiative">${combatant.flags.actionCard.cardString}</span>`
+		} else {
+			el.children[3].innerHTML = '<a class="combatant-control roll" title="Roll Initiative" data-control="rollInitiative"></a>'
+		}
 	});
+});
+
+Hooks.on('updateCombat', async (combat, update, options, userId) => {
+	const autoReroll = game.settings.get('swade', 'autoInit');
+
+	// Return early if we are NOT a GM OR we are not the player that triggered the update AND that player IS a GM
+	const user = game.users.get(userId, { strict: true }) as User;
+	if (!game.user.isGM || (game.userId !== userId && user.isGM)) {
+		return
+	}
+
+	// Return if this update does not contains a round
+	if (!update.round) {
+		return;
+	}
+
+	if (combat instanceof CombatEncounters) {
+		combat = game.combats.get(update._id, { strict: true });
+	}
+
+	// If we are not moving forward through the rounds, return
+	if (update.round < 1 || update.round < combat.previous.round) {
+		return;
+	}
+
+	// If Combat has just started, return
+	if (combat.previous.round === null || combat.previous.round === 0) {
+		return;
+	}
+
+	const combatantIds = combat.combatants.map(c => c._id);
+
+	if (autoReroll) {
+		await combat.rollInitiative(combatantIds);
+	} else {
+		combat.combatants.forEach(c => {
+			c.initiative = null;
+		});
+	}
+
+	await combat.update({ turn: 0 });
 });

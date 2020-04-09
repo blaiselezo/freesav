@@ -1,8 +1,16 @@
 export const registerSettings = function () {
 	game.settings.register('swade', 'initiativeSound', {
-		name: 'Card Sound',
-		hint: 'Play a short card sound when dealing Initiative',
+		name: game.i18n.localize("SWADE.CardSound"),
+		hint: game.i18n.localize("SWADE.CardSoundDesc"),
 		default: true,
+		scope: 'world',
+		type: Boolean,
+		config: true
+	});
+	game.settings.register('swade', 'autoInit', {
+		name: game.i18n.localize("SWADE.AutoInit"),
+		hint: game.i18n.localize("SWADE.AutoInitDesc"),
+		default: false,
 		scope: 'world',
 		type: Boolean,
 		config: true

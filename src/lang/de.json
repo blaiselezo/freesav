@@ -71,5 +71,11 @@
   "SWADE.Wound": "Wunde",
   "SWADE.Wounds": "Wunden",
   "SWADE.Fatigue": "Erschöpfung",
-  "SWADE.Incap": "Ausgeschaltet!"
+  "SWADE.Incap": "Ausgeschaltet!",
+
+  "SWADE.InitDraw": "zieht eine Aktionskarten",
+  "SWADE.CardSound": "Kartengeräusch",
+  "SWADE.CardSoundDesc": "Einen kurzen Ton beim ziehen der Aktionskarten abspielen",
+  "SWADE.AutoInit": "Automatische Initiative",
+  "SWADE.AutoInitDesc": "Aktionskarten jede Runde automatisch ziehen"
 }
