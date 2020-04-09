@@ -28,8 +28,12 @@ export const listenJournalDrop = function () {
       }).then((data: any) => {
         let tile = canvas.tiles.placeables.filter((a) => a.id === data._id)[0];
         // Update the tile width to have correct the aspect ratio
-        // TODO: May throw an error when the db is not yet updated, did not found any workaround
-        tile.update({ width: tile.height * tile.aspectRatio });
+        tile._drawTile().then((img: any) => {
+          let ratio = tile.aspectRatio;
+          if (ratio) {
+            tile.update({ width: tile.height * tile.aspectRatio });
+          }
+        });
       });
     }
   }
