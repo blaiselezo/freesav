@@ -74,6 +74,7 @@
   "SWADE.Incap": "Ausgeschaltet!",
 
   "SWADE.InitDraw": "zieht eine Aktionskarten",
+  "SWADE.JokersWild": " bekommt Joker's Wild!",
   "SWADE.CardSound": "Kartengeräusch",
   "SWADE.CardSoundDesc": "Einen kurzen Ton beim ziehen der Aktionskarten abspielen",
   "SWADE.AutoInit": "Automatische Initiative",

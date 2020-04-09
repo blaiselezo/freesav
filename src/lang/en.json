@@ -73,7 +73,8 @@
   "SWADE.Fatigue": "Fatigue",
   "SWADE.Incap": "Incapacitated!",
 
-  "SWADE.InitDraw": "draws for Initiative!",
+  "SWADE.InitDraw": " draws for Initiative!",
+  "SWADE.JokersWild": " gets Joker's Wild!",
   "SWADE.CardSound": "Card Sound",
   "SWADE.CardSoundDesc": "Play a short card sound when dealing Initiative",
   "SWADE.AutoInit": "Automatic Initiative",

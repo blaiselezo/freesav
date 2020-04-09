@@ -39,7 +39,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
                     alias: c.token.name
                 },
                 whisper: (c.token.hidden || c.hidden) ? game.users.entities.filter((u: User) => u.isGM) : "",
-                content: `${c.token.name} gets Joker's Wild!`
+                content: c.token.name + game.i18n.localize("SWADE.JokersWild")
             }, messageOptions);
         }
         const newflags = mergeObject(card.flags, { actionCard: { cardString: card.content } });
@@ -56,7 +56,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
                 alias: c.token.name,
             },
             whisper: (c.token.hidden || c.hidden) ? game.users.entities.filter((u: User) => u.isGM) : "",
-            flavor: c.token.name + " " + game.i18n.localize("SWADE.InitDraw"),
+            flavor: c.token.name + game.i18n.localize("SWADE.InitDraw"),
             content: `<div class="table-result"><img class="result-image" src="${card.img}"><h4 class="result-text">@Compendium[swade.action-cards.${card._id}]{${card.name}}</h4></div>`
         }, messageOptions);
         if (game.settings.get('swade', 'initiativeSound') && i === 0) {
