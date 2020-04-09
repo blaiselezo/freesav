@@ -135,10 +135,8 @@ Hooks.on('renderCombatTracker', (app, html: JQuery<HTMLElement>, data) => {
 	html.find('.combatant').each((i, el) => {
 		const combId = el.getAttribute('data-combatant-id');
 		const combatant = currentCombat.data.combatants.find(c => c._id == combId);
-		if (combatant.flags.actionCard && combatant.flags.actionCard.cardString && combatant.initiative) {
+		if (combatant.hasRolled) {
 			el.children[3].innerHTML = `<span class="initiative">${combatant.flags.actionCard.cardString}</span>`
-		} else {
-			el.children[3].innerHTML = '<a class="combatant-control roll" title="Roll Initiative" data-control="rollInitiative"></a>'
 		}
 	});
 });
@@ -167,17 +165,18 @@ Hooks.on('updateCombat', async (combat, update, options, userId) => {
 	}
 
 	// If Combat has just started, return
-	if (combat.previous.round === null || combat.previous.round === 0) {
+	if (!combat.previous.round || combat.previous.round === 0) {
 		return;
 	}
 
 	const combatantIds = combat.combatants.map(c => c._id);
-
 	if (autoReroll) {
 		await combat.rollInitiative(combatantIds);
 	} else {
 		combat.combatants.forEach(c => {
 			c.initiative = null;
+			c.flags.actionCard = null;
+			c.hasRolled = false;
 		});
 	}
 
