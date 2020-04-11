@@ -113,7 +113,7 @@ export class SwadeNPCSheet extends ActorSheet {
         } else {
             this.actor.setFlag('swade', 'hasArcaneBackground', false);
         }
-
+        data.config = CONFIG.SWADE;
         return data;
     }
 
