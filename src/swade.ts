@@ -14,6 +14,7 @@
 import { registerSettings } from './module/settings';
 import { registerCustomHelpers } from './module/handlebarsHelpers'
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
+import { listenJournalDrop } from './module/journalDrop';
 import { SwadeCharacterSheet } from './module/character-sheet';
 import { SwadeNPCSheet } from './module/npc-sheet';
 import { SwadeItemSheet } from './module/item-sheet';
@@ -45,6 +46,9 @@ Hooks.once('init', async function () {
 	Items.unregisterSheet('core', ItemSheet);
 	Items.registerSheet('swade', SwadeItemSheet, { makeDefault: true });
 
+	// Drop a journal image to a tile (for cards)
+	listenJournalDrop();
+	
 	// Preload Handlebars templates
 	await preloadHandlebarsTemplates();
 });
