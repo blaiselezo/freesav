@@ -19,6 +19,7 @@ import { SwadeCharacterSheet } from './module/character-sheet';
 import { SwadeNPCSheet } from './module/npc-sheet';
 import { SwadeItemSheet } from './module/item-sheet';
 import { SWADE } from './module/config'
+import { ActorSWADE } from './module/entity'
 import { isIncapacitated } from './module/util';
 import { swadeSetup } from './module/setup/setupHandler';
 
@@ -34,6 +35,7 @@ Hooks.once('init', async function () {
 
 	//Register custom Handlebars helpers
 	registerCustomHelpers();
+	CONFIG.Actor.entityClass = ActorSWADE;
 
 	// Register custom system settings
 	registerSettings();

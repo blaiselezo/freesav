@@ -97,6 +97,14 @@ export class SwadeCharacterSheet extends ActorSheet {
         this.actor.setFlag('swade', 'convictionReady', false);
       }
     });
+
+  // Roll attribute
+  html.find('.attribute-label').click(ev => {
+    console.log(ev);
+    let element = event.currentTarget as Element;
+    let attribute = element.parentElement.dataset.attribute;
+    // this.actor.rollAttribute(attribute, {event: event});
+  });
   }
 
   getData(): ActorSheetData {
