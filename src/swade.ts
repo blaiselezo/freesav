@@ -21,7 +21,7 @@ import { SwadeItemSheet } from './module/item-sheet';
 import { SwadeActor } from './module/entity';
 import { SWADE } from './module/config'
 import { ActorSWADE } from './module/entity'
-import { isIncapacitated } from './module/util';
+import { isIncapacitated, setIncapacitationSymbol } from './module/util';
 import { swadeSetup } from './module/setup/setupHandler';
 
 /* ------------------------------------ */
@@ -36,8 +36,7 @@ Hooks.once('init', async function () {
 
 	//Register custom Handlebars helpers
 	registerCustomHelpers();
-	CONFIG.Actor.entityClass = ActorSWADE;
-	CONFIG.Actor.entityClass = SwadeActor as any;
+	CONFIG.Actor.entityClass = SwadeActor;
 
 	// Register custom system settings
 	registerSettings();
