@@ -20,12 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.5.3] 2020-04-11
 
 ## Added
 
-- Qauntity fields to relevant Item sheets
-- Localization for Conviction
+- Added Quantity fields to relevant Item sheets
+- Added Localization options for Conviction
+- JournalEntry images can now be dragged onto the canvas (credit goes to U~man)
+
+## Changed
+
+- Changed initiative formula to `1d54`. This is temporarily while a proper Initiative system is being developed
 
 ## Fixed
 
