@@ -20,6 +20,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [0.5.4] 2020-04-13
+
+### Removed
+
+- Removed empty option from skill attribute select as every skill needs to have a linked attribute anyway
+
+### Fixed
+
+- Rank and Advances fields now point to the correct properties. Make sure to write down what Rank and how many advances all characters have before updating to this version
+
 ## [v0.5.3] 2020-04-11
 
 ## Added
