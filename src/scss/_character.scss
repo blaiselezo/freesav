@@ -13,7 +13,7 @@
   .profile-img-container {
     position: relative;
     width: 150px;
-    height: 150px;
+    height: 160px;
     img {
       margin: 0;
       border: none;
@@ -30,6 +30,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
     }
     .incap-img {
@@ -45,10 +46,9 @@
   // Header Fields
   .header-fields {
     border-left: $section-border;
-    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     flex: 1;
     padding: 5px;
     margin-left: 2px;
@@ -81,16 +81,14 @@
     }
   }
 
-  ul.header-stats {
-    list-style: none;
-    justify-content: space-around;
+  .header-stats {
+    align-content: space-around;
     padding-left: 0;
 
-    li {
+    div {
       border: 1px solid transparent;
       margin: 2px 0;
       padding: 0 3px;
-      width: 33.33%;
       justify-content: center;
       label {
         padding-left: 3px;
