@@ -21,7 +21,6 @@ import { SwadeItemSheet } from './module/item-sheet';
 import { SWADE } from './module/config'
 import { isIncapacitated } from './module/util';
 import { swadeSetup } from './module/setup/setupHandler';
-import { compile } from 'handlebars';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -78,10 +77,15 @@ Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 });
 
 // Mark all Wildcards in the Actors sidebars with an icon
-Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
-
-	const wildcards: Actor[] = app.entities.filter((a: Actor) => a.data.type === 'character' || a.getFlag('swade', 'isWildcard'));
+Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, options: any) => {
 	const found = html.find(".entity-name");
+
+	let wildcards: Actor[] = app.entities.filter((a: Actor) => a.data.type === 'character');
+
+	//if the player is not a GM, then don't mark the NPC wildcards
+	if (!game.settings.get('swade', 'hideNPCWildcards') || options.user.isGM) {
+		wildcards = wildcards.concat(app.entities.filter((a: Actor) => a.getFlag('swade', 'isWildcard')));
+	}
 
 	wildcards.forEach((wc: Actor) => {
 		for (let i = 0; i < found.length; i++) {
