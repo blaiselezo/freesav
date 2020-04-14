@@ -20,6 +20,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Checkboxes for Shaken/Distracted/Vulnerable to Character and NPC Actor sheets
+- Two-Way-Binding between Token and Actor for the three status effects (Shaken/Distracted/Vulnerable)
+- Setting to determine whether NPC Wildcards should be marked as Wildcards for players
+
 ## [0.5.4] 2020-04-13
 
 ### Removed

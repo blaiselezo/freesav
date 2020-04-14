@@ -58,7 +58,6 @@ Hooks.once('init', async function () {
 Hooks.once('setup', function () {
 	// Do anything after initialization but before
 	// ready
-
 });
 
 /* ------------------------------------ */
@@ -174,4 +173,29 @@ Hooks.on('preUpdateToken', async (scene: Scene, sceneId: string, updates: any, t
 	await tokenActor.update({ "data.status.isShaken": updates.effects.includes(shaken) });
 	await tokenActor.update({ "data.status.isVulnerable": updates.effects.includes(vulnerable) });
 	await tokenActor.update({ "data.status.isDistracted": updates.effects.includes(distracted) });
+});
+
+Hooks.on('createToken', async (scene: Scene, sceneId: string, tokenData: any, options: any, userId: string) => {
+
+	//if the token has no linked actor, return
+	if (!tokenData.actorLink) return;
+
+	const actor = game.actors.entities.find(a => a.id == tokenData.actorId) as Actor;
+
+	// If this token has no actor, return
+	if (!actor) return;
+
+	const shaken = "icons/svg/daze.svg";
+	const vulnerable = "icons/svg/degen.svg";
+	const distracted = "icons/svg/stoned.svg";
+	const actorData = actor.data as any;
+
+	actor.getActiveTokens().forEach(async (t: any) => {
+		if (t.data.actorLink && t.scene.id === game.scenes.active.id) {
+			if (actorData.data.status.isShaken) await t.toggleEffect(shaken);
+			if (actorData.data.status.isVulnerable) await t.toggleEffect(vulnerable);
+			if (actorData.data.status.isDistracted) await t.toggleEffect(distracted);
+			await t.drawEffects();
+		}
+	});
 });
