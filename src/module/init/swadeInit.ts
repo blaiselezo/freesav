@@ -78,8 +78,6 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
 
     // Update multiple combatants
     await this.updateManyEmbeddedEntities("Combatant", combatantUpdates);
-    // Ensure the turn order remains with the same combatant
-    await this.update({ turn: this.turns.findIndex(t => t._id === currentId) });
     // Create multiple chat messages
     await ChatMessage.createMany(initMessages);
     // Return the updated Combat
@@ -112,6 +110,10 @@ export const setupTurns = function () {
             let suit = suitb - suitA;
             return suit;
         }
+        let [an, bn] = [a.token.name || "", b.token.name || ""];
+        let cn = an.localeCompare(bn);
+        if (cn !== 0) return cn;
+        return a.tokenId - b.tokenId;
     });
     // Ensure the current turn is bounded
     this.data.turn = Math.min(turns.length - 1, Math.max(this.data.turn, 0));
