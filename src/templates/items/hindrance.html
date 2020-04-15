@@ -20,6 +20,9 @@
             <label for="data.major">{{localize "SWADE.MajHind"}}</label>
             <input type="checkbox" name="data.major" {{checked item.data.major}} data-dtype="Boolean">
         </div>
+        <header class="header-field">
+            <span>{{localize "SWADE.Desc"}}</span>
+        </header>
         <div class="form-group">
             {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
         </div>
