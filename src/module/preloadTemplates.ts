@@ -20,7 +20,10 @@ export const preloadHandlebarsTemplates = async function () {
 
 		//die type list
 		'systems/swade/templates/die-sides-options.html',
-		'systems/swade/templates/attribute-select.html'
+		'systems/swade/templates/attribute-select.html',
+
+		// Chat
+		'/templates/dice/roll.html'
 	];
 
 	return loadTemplates(templatePaths);

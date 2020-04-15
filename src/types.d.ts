@@ -5,3 +5,7 @@ declare class Tile {
 declare class Note extends PlaceableObject {
 	[key: string]: any;
 }
+
+declare interface Roll {
+    options: any;
+}

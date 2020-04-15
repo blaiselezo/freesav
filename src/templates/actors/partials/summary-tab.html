@@ -106,8 +106,8 @@
             <li class="item skill flexrow" data-item-id="{{skill._id}}">
                 <label class="skill-label"><a>{{skill.name}}</a></label>
                 <div class="skill-value"><span><a class="item-control item-edit"
-                    title="{{localize 'SWADE.EditSkill'}}">d{{skill.data.die.sides}}+{{skill.data.die.modifier}}</a></span></div>
-                <div class="skill-value"><span>{{skill.data.attribute}}</span></div>
+                    title="{{localize 'SWADE.EditSkill'}}">d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a></span></div>
+                <div class="skill-value"><span>{{localizeSkillAttribute skill.data.attribute}}</span></div>
             </li>
             {{/each}}
         </ol>

@@ -21,7 +21,7 @@ export class SwadeActor extends Actor {
       dimSight: 30,
       brightSight: 0,
       actorLink: true,
-      disposition: 1
+      disposition: 1,
     });
     return super.create(data, options);
   }
@@ -48,7 +48,7 @@ export class SwadeActor extends Actor {
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
     let exp = "";
-    if (this.getFlag("swade", "isWildcard")) {
+    if (this.data["data"].wildcard) {
       exp = `{1d${abl.die.sides}x${abl.die.sides}, 1d${abl["wild-die"].sides}x${abl["wild-die"].sides}}kh`;
     } else {
       exp = `1d${abl.die.sides}x${abl.die.sides}`;
@@ -61,7 +61,7 @@ export class SwadeActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
         "SWADE.AttributeTest"
-      )}`
+      )}`,
     });
   }
 
@@ -72,7 +72,7 @@ export class SwadeActor extends Actor {
     }
     let itemData = items[0].data["data"];
     let exp = "";
-    if (this.getFlag("swade", "isWildcard")) {
+    if (this.data["data"].wildcard) {
       exp = `{1d${itemData["die"].sides}x${itemData["die"].sides}, 1d${itemData["wild-die"].sides}x${itemData["wild-die"].sides}}kh`;
     } else {
       exp = `1d${itemData["die"].sides}x${itemData["die"].sides}`;
@@ -83,7 +83,7 @@ export class SwadeActor extends Actor {
       parts: [exp, itemData["die"].modifier],
       data: itemData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${items[0].name} ${game.i18n.localize("SWADE.SkillTest")}`
+      flavor: `${items[0].name} ${game.i18n.localize("SWADE.SkillTest")}`,
     });
   }
 }

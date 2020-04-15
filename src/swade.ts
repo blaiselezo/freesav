@@ -11,48 +11,56 @@
  */
 
 // Import TypeScript modules
-import { registerSettings } from './module/settings';
-import { registerCustomHelpers } from './module/handlebarsHelpers'
-import { preloadHandlebarsTemplates } from './module/preloadTemplates';
-import { listenJournalDrop } from './module/journalDrop';
-import { SwadeCharacterSheet } from './module/character-sheet';
-import { SwadeNPCSheet } from './module/npc-sheet';
-import { SwadeItemSheet } from './module/item-sheet';
-import { SwadeActor } from './module/entity';
-import { SWADE } from './module/config'
-import { ActorSWADE } from './module/entity'
-import { isIncapacitated, setIncapacitationSymbol } from './module/util';
-import { swadeSetup } from './module/setup/setupHandler';
+import { registerSettings } from "./module/settings";
+import { registerCustomHelpers } from "./module/handlebarsHelpers";
+import { preloadHandlebarsTemplates } from "./module/preloadTemplates";
+import { listenJournalDrop } from "./module/journalDrop";
+import { SwadeCharacterSheet } from "./module/character-sheet";
+import { SwadeNPCSheet } from "./module/npc-sheet";
+import { SwadeItemSheet } from "./module/item-sheet";
+import { SwadeActor } from "./module/entity";
+import { SWADE } from "./module/config";
+import { isIncapacitated, setIncapacitationSymbol } from "./module/util";
+import { swadeSetup } from "./module/setup/setupHandler";
 
 /* ------------------------------------ */
 /* Initialize system					*/
 /* ------------------------------------ */
-Hooks.once('init', async function () {
-	console.log(`SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`);
+Hooks.once("init", async function () {
+  console.log(
+    `SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`
+  );
 
-	// Record Configuration Values
-	CONFIG.SWADE = SWADE;
-	//CONFIG.debug.hooks = true;
+  // Record Configuration Values
+  CONFIG.SWADE = SWADE;
+  //CONFIG.debug.hooks = true;
 
-	//Register custom Handlebars helpers
-	registerCustomHelpers();
-	CONFIG.Actor.entityClass = SwadeActor;
+  //Register custom Handlebars helpers
+  registerCustomHelpers();
+  CONFIG.Actor.entityClass = SwadeActor;
+  CONFIG.Roll.template = "/systems/swade/templates/chat/roll.html";
 
-	// Register custom system settings
-	registerSettings();
+  // Register custom system settings
+  registerSettings();
 
-	// Register custom sheets (if any)
-	Actors.unregisterSheet('core', ActorSheet);
-	Actors.registerSheet('swade', SwadeCharacterSheet, { types: ['character'], makeDefault: true });
-	Actors.registerSheet('swade', SwadeNPCSheet, { types: ['npc'], makeDefault: true });
-	Items.unregisterSheet('core', ItemSheet);
-	Items.registerSheet('swade', SwadeItemSheet, { makeDefault: true });
+  // Register custom sheets (if any)
+  Actors.unregisterSheet("core", ActorSheet);
+  Actors.registerSheet("swade", SwadeCharacterSheet, {
+    types: ["character"],
+    makeDefault: true,
+  });
+  Actors.registerSheet("swade", SwadeNPCSheet, {
+    types: ["npc"],
+    makeDefault: true,
+  });
+  Items.unregisterSheet("core", ItemSheet);
+  Items.registerSheet("swade", SwadeItemSheet, { makeDefault: true });
 
-	// Drop a journal image to a tile (for cards)
-	listenJournalDrop();
+  // Drop a journal image to a tile (for cards)
+  listenJournalDrop();
 
-	// Preload Handlebars templates
-	await preloadHandlebarsTemplates();
+  // Preload Handlebars templates
+  await preloadHandlebarsTemplates();
 });
 
 /* ------------------------------------ */
@@ -66,16 +74,16 @@ Hooks.once('setup', function () {
 /* ------------------------------------ */
 /* When ready							*/
 /* ------------------------------------ */
-Hooks.once('ready', async () => {
-	await swadeSetup();
+Hooks.once("ready", async () => {
+  await swadeSetup();
 });
 
 // Add any additional hooks if necessary
-Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
-	//Set default image if no image already exists
-	if (!item.img) {
-		item.img = `systems/swade/assets/icons/${item.type}.svg`;
-	}
+Hooks.on("preCreateItem", function (items: Items, item: any, options: any) {
+  //Set default image if no image already exists
+  if (!item.img) {
+    item.img = `systems/swade/assets/icons/${item.type}.svg`;
+  }
 });
 
 // Mark all Wildcards in the Actors sidebars with an icon
@@ -95,39 +103,41 @@ Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, options: any) 
 			if (element.innerText === wc.data.name) {
 				element.innerHTML = `
 					<a><img src="systems/swade/assets/ui/wildcard.svg" class="wildcard-icon">${wc.data.name}</a>
-					`
-			}
-		}
-	});
+					`;
+      }
+    }
+  });
 });
 
-Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
-	if (app.metadata.entity !== 'Actor') {
-		return
-	}
-	const content = await app.getContent();
-	const wildcards = content.filter((entity: Actor) => entity.data.type === 'character' || entity.getFlag('swade', 'isWildcard'));
-	const names: string[] = wildcards.map(e => e.data.name);
+Hooks.on("renderCompendium", async (app, html: JQuery<HTMLElement>, data) => {
+  if (app.metadata.entity !== "Actor") {
+    return;
+  }
+  const content = await app.getContent();
+  const wildcards = content.filter(
+    (entity: Actor) => entity.data['wildcard']
+  );
+  const names: string[] = wildcards.map((e) => e.data.name);
 
-	const found = html.find('.entry-name');
-	found.each((i, el) => {
-		const name = names.find(name => name === el.innerText)
-		if (!name) {
-			return;
-		}
-		el.innerHTML = `<a><img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">${name}</a>`
-	});
+  const found = html.find(".entry-name");
+  found.each((i, el) => {
+    const name = names.find((name) => name === el.innerText);
+    if (!name) {
+      return;
+    }
+    el.innerHTML = `<a><img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">${name}</a>`;
+  });
 });
 
-Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
-	const actor = data.actor;
-	const wounds = actor.data.wounds;
-	const fatigue = actor.data.fatigue;
-	const isIncap = isIncapacitated(wounds, fatigue);
+Hooks.on("renderActorSheet", (app, html: JQuery<HTMLElement>, data) => {
+  const actor = data.actor;
+  const wounds = actor.data.wounds;
+  const fatigue = actor.data.fatigue;
+  const isIncap = isIncapacitated(wounds, fatigue);
 
-	if (isIncap) {
-		html.find('.incap-img').addClass('fade-in-05');
-	}
+  if (isIncap) {
+    html.find(".incap-img").addClass("fade-in-05");
+  }
 });
 
 Hooks.on('updateActor', (actor: Actor, updates: any, options: any, userId: string) => {
