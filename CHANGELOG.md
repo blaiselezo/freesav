@@ -28,6 +28,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Two-Way-Binding between Token and Actor for the three status effects (Shaken/Distracted/Vulnerable)
 - Setting to determine whether NPC Wildcards should be marked as Wildcards for players
 
+### Changed
+
+- More clearly marked Item description fields
+
 ### Fixed
 
 - Power descriptions are now rendered with formatting
