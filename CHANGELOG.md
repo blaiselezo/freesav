@@ -4,7 +4,65 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/)
 
+<!--
 ## [Unreleased]
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+-->
+
+## [Unreleased]
+
+### Added
+
+- Checkboxes for Shaken/Distracted/Vulnerable to Character and NPC Actor sheets
+- Two-Way-Binding between Token and Actor for the three status effects (Shaken/Distracted/Vulnerable)
+- Setting to determine whether NPC Wildcards should be marked as Wildcards for players
+
+### Changed
+
+- More clearly marked Item description fields
+
+### Fixed
+
+- Power descriptions are now rendered with formatting
+
+## [0.5.4] 2020-04-13
+
+### Removed
+
+- Removed empty option from skill attribute select as every skill needs to have a linked attribute anyway
+
+### Fixed
+
+- Rank and Advances fields now point to the correct properties. Make sure to write down what Rank and how many advances all characters have before updating to this version
+
+## [v0.5.3] 2020-04-11
+
+## Added
+
+- Added Quantity fields to relevant Item sheets
+- Added Localization options for Conviction
+- JournalEntry images can now be dragged onto the canvas (credit goes to U~man)
+
+## Changed
+
+- Changed initiative formula to `1d54`. This is temporarily while a proper Initiative system is being developed
+
+## Fixed
+
+- Fixed localization mistake in de.json
+
+## [v0.5.2] 2020-04-07
 
 ### Added
 
@@ -13,12 +71,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - Hindrances
   - Skills
   - Powers
-  - Action Cards
-- French Localization. (Thanks to Leratier Bretonnien & U~Man for that)
+  - Action Cards (no you can't pull them onto the map, but that's gonna come in the future)
+- French Localization (Thanks to Leratier Bretonnien & U~Man for that)
+- Spanish Localization (Thanks to Jose Lozano for this one)
 
 ### Changed
 
 - Upgraded Tabs to `TabsV2`
+- Slight improvements to localization
 
 ## [v0.5.0] 2020-03-27
 
@@ -75,22 +135,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Various code improvements and refactoring
 - Finished gear cards on the Summary tab of the Actor sheets
-
-<!--
-## [Unreleased]
-
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
--->
 
 ## [0.1.0] - 2020-02-26
 

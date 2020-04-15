@@ -5,4 +5,14 @@ export class SWADE {
 ╚════██║██║███╗██║██╔══██║██║  ██║██╔══╝  
 ███████║╚███╔███╔╝██║  ██║██████╔╝███████╗
 ╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝`;
+
+    public static attributes = {
+        agility: "SWADE.AttrAgi",
+        smarts: "SWADE.AttrSma",
+        spirit: "SWADE.AttrSpr",
+        strength: "SWADE.AttrStr",
+        vigor: "SWADE.AttrVig"
+    };
+
+
 }

@@ -14,11 +14,12 @@
 import { registerSettings } from './module/settings';
 import { registerCustomHelpers } from './module/handlebarsHelpers'
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
+import { listenJournalDrop } from './module/journalDrop';
 import { SwadeCharacterSheet } from './module/character-sheet';
 import { SwadeNPCSheet } from './module/npc-sheet';
 import { SwadeItemSheet } from './module/item-sheet';
 import { SWADE } from './module/config'
-import { isIncapacitated, setIncapacitationSymbol } from './module/util';
+import { isIncapacitated } from './module/util';
 import { swadeSetup } from './module/setup/setupHandler';
 import { rollInitiative, setupTurns } from './module/init/swadeInit';
 
@@ -35,7 +36,6 @@ Hooks.once('init', async function () {
 	Combat.prototype.rollInitiative = rollInitiative;
 	Combat.prototype.setupTurns = setupTurns;
 
-
 	//Register custom Handlebars helpers
 	registerCustomHelpers();
 
@@ -49,6 +49,9 @@ Hooks.once('init', async function () {
 	Items.unregisterSheet('core', ItemSheet);
 	Items.registerSheet('swade', SwadeItemSheet, { makeDefault: true });
 
+	// Drop a journal image to a tile (for cards)
+	listenJournalDrop();
+
 	// Preload Handlebars templates
 	await preloadHandlebarsTemplates();
 });
@@ -59,7 +62,6 @@ Hooks.once('init', async function () {
 Hooks.once('setup', function () {
 	// Do anything after initialization but before
 	// ready
-
 });
 
 /* ------------------------------------ */
@@ -78,10 +80,15 @@ Hooks.on('preCreateItem', function (items: Items, item: any, options: any) {
 });
 
 // Mark all Wildcards in the Actors sidebars with an icon
-Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, data) => {
-
-	const wildcards: Actor[] = app.entities.filter((a: Actor) => a.data.type === 'character' || a.getFlag('swade', 'isWildcard'));
+Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, options: any) => {
 	const found = html.find(".entity-name");
+
+	let wildcards: Actor[] = app.entities.filter((a: Actor) => a.data.type === 'character');
+
+	//if the player is not a GM, then don't mark the NPC wildcards
+	if (!game.settings.get('swade', 'hideNPCWildcards') || options.user.isGM) {
+		wildcards = wildcards.concat(app.entities.filter((a: Actor) => a.getFlag('swade', 'isWildcard')));
+	}
 
 	wildcards.forEach((wc: Actor) => {
 		for (let i = 0; i < found.length; i++) {
@@ -124,10 +131,77 @@ Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
 	}
 });
 
-Hooks.on('updateActor', (actor: Actor, updataData: any, options: any, id: string) => {
-	if (actor.data.type === 'npc') {
+Hooks.on('updateActor', (actor: Actor, updates: any, options: any, userId: string) => {
+	if (actor.data.type === 'npc' && updates.flags) {
 		ui.actors.render();
 	}
+
+	//if it's a status update, update the token
+	if (updates.data && updates.data.status) {
+
+		const shaken = "icons/svg/daze.svg";
+		const vulnerable = "icons/svg/degen.svg";
+		const distracted = "icons/svg/stoned.svg";
+		const actorData = actor.data as any;
+
+		actor.getActiveTokens().forEach(async (t: any) => {
+			if (t.data.actorLink && t.scene.id === game.scenes.active.id) {
+				if (actorData.data.status.isShaken && !t.data.effects.includes(shaken)) await t.toggleEffect(shaken);
+				if (!actorData.data.status.isShaken && t.data.effects.includes(shaken)) await t.toggleEffect(shaken);
+				if (actorData.data.status.isVulnerable && !t.data.effects.includes(vulnerable)) await t.toggleEffect(vulnerable);
+				if (!actorData.data.status.isVulnerable && t.data.effects.includes(vulnerable)) await t.toggleEffect(vulnerable);
+				if (actorData.data.status.isDistracted && !t.data.effects.includes(distracted)) await t.toggleEffect(distracted);
+				if (!actorData.data.status.isDistracted && t.data.effects.includes(distracted)) await t.toggleEffect(distracted);
+				await t.drawEffects();
+			}
+		});
+	}
+});
+
+Hooks.on('preUpdateToken', async (scene: Scene, sceneId: string, updates: any, tokenData: any) => {
+	// if the update has no effects, return
+	if (!updates.effects) return;
+
+	//if the token has no linked actor, return
+	if (!tokenData.currentData.actorLink) return;
+
+	const tokenActor = game.actors.entities.find(a => a.id == tokenData.currentData.actorId) as Actor;
+
+	// If this token has no actor, return
+	if (!tokenActor) return;
+
+	const shaken = "icons/svg/daze.svg";
+	const vulnerable = "icons/svg/degen.svg";
+	const distracted = "icons/svg/stoned.svg";
+
+	await tokenActor.update({ "data.status.isShaken": updates.effects.includes(shaken) });
+	await tokenActor.update({ "data.status.isVulnerable": updates.effects.includes(vulnerable) });
+	await tokenActor.update({ "data.status.isDistracted": updates.effects.includes(distracted) });
+});
+
+Hooks.on('createToken', async (scene: Scene, sceneId: string, tokenData: any, options: any, userId: string) => {
+
+	//if the token has no linked actor, return
+	if (!tokenData.actorLink) return;
+
+	const actor = game.actors.entities.find(a => a.id == tokenData.actorId) as Actor;
+
+	// If this token has no actor, return
+	if (!actor) return;
+
+	const shaken = "icons/svg/daze.svg";
+	const vulnerable = "icons/svg/degen.svg";
+	const distracted = "icons/svg/stoned.svg";
+	const actorData = actor.data as any;
+
+	actor.getActiveTokens().forEach(async (t: any) => {
+		if (t.data.actorLink && t.scene.id === game.scenes.active.id) {
+			if (actorData.data.status.isShaken) await t.toggleEffect(shaken);
+			if (actorData.data.status.isVulnerable) await t.toggleEffect(vulnerable);
+			if (actorData.data.status.isDistracted) await t.toggleEffect(distracted);
+			await t.drawEffects();
+		}
+	});
 });
 
 Hooks.on('renderCombatTracker', (app, html: JQuery<HTMLElement>, data) => {

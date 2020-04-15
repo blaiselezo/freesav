@@ -399,7 +399,7 @@ function updateManifest(cb) {
           } else if (version === "minor") {
             return `${major}.${Number(minor) + 1}.0`;
           } else if (version === "patch") {
-            return `${major}.${minor}.${Number(minor) + 1}`;
+            return `${major}.${minor}.${Number(patch) + 1}`;
           } else {
             return "";
           }
