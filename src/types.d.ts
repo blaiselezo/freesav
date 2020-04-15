@@ -13,3 +13,7 @@ declare interface Roll {
 declare interface Scenes {
     active: any;
 }
+
+declare interface BaseEntityData {
+    data: any;
+}
