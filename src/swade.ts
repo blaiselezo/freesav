@@ -31,8 +31,7 @@ Hooks.once('init', async function () {
 
 	// Record Configuration Values
 	CONFIG.SWADE = SWADE;
-	// CONFIG.debug.hooks = true;
-	// CONFIG.Combat.entityClass = SwadeCombat;
+	//CONFIG.debug.hooks = true;
 	Combat.prototype.rollInitiative = rollInitiative;
 	Combat.prototype.setupTurns = setupTurns;
 
@@ -210,13 +209,12 @@ Hooks.on('renderCombatTracker', (app, html: JQuery<HTMLElement>, data) => {
 		const combId = el.getAttribute('data-combatant-id');
 		const combatant = currentCombat.data.combatants.find(c => c._id == combId);
 		if (combatant.hasRolled) {
-			el.children[3].innerHTML = `<span class="initiative">${combatant.flags.actionCard.cardString}</span>`
+			el.getElementsByClassName('token-initiative')[0].innerHTML = `<span class="initiative">${combatant.flags.actionCard.cardString}</span>`
 		}
 	});
 });
 
 Hooks.on('updateCombat', async (combat, update, options, userId) => {
-	const autoReroll = game.settings.get('swade', 'autoInit');
 
 	// Return early if we are NOT a GM OR we are not the player that triggered the update AND that player IS a GM
 	const user = game.users.get(userId, { strict: true }) as User;
@@ -243,16 +241,29 @@ Hooks.on('updateCombat', async (combat, update, options, userId) => {
 		return;
 	}
 
-	const combatantIds = combat.combatants.map(c => c._id);
-	if (autoReroll) {
-		await combat.rollInitiative(combatantIds);
-	} else {
-		combat.combatants.forEach(c => {
-			c.initiative = null;
-			c.flags.actionCard = null;
-			c.hasRolled = false;
-		});
+	let jokerDrawn = false;
+
+	combat.combatants.forEach(async (c) => {
+		if (c.flags.actionCard && c.flags.actionCard.isJoker) {
+			jokerDrawn = true;
+		}
+		c.initiative = null;
+		c.hasRolled = false;
+		c.flags.actionCard = null;
+	});
+
+	await combat.update({ turn: 0, combatants: combat.combatants });
+
+	// Reset the deck if any combatant has had a Joker	
+	if (jokerDrawn) {
+		const deck = game.tables.entities.find(t => t.getFlag('swade', 'isActionCardDeck')) as RollTable;
+		await deck.reset();
+		ui.notifications.info('Card Deck automatically reset');
 	}
 
-	await combat.update({ turn: 0 });
+	//Init autoroll
+	if (game.settings.get('swade', 'autoInit')) {
+		const combatantIds = combat.combatants.map(c => c._id);
+		await combat.rollInitiative(combatantIds);
+	}
 });

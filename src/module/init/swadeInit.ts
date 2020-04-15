@@ -19,6 +19,11 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
     let jokerDrawn = false;
     let jokerMessage: any;
 
+    if (ids.length > actionCardDeck.results.filter(r => !r.drawn).length) {
+        ui.notifications.warn('There are not enough cards left in the deck!');
+        return;
+    }
+
     // Iterate over Combatants, performing an initiative roll for each
     for (let i = 0; i < ids.length; i++) {
         const id = ids[i];
@@ -28,7 +33,9 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
         // Draw initiative
         const drawResult = await actionCardDeck.roll();
         const card = await actionCardPack.getEntry(drawResult[1].resultId);
-        console.log(c);
+        // Set drawn Object to drawn
+        await actionCardDeck.updateEmbeddedEntity('TableResult', { _id: drawResult[1]._id, drawn: true });
+
         if (card.flags.actionCard.isJoker) {
             jokerDrawn = true;
             jokerMessage = mergeObject({
