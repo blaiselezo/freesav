@@ -1,10 +1,28 @@
 .dice-roll {
     .dice-result {
         .dice-formula {
-            img {
-                width: 17px;
-                height: 17px;
-                border: none;
+            height: 30px;
+            .dice {
+                margin: 2px;
+                display: inline-flex;
+                width: 25px;
+                height: 25px;
+                label {
+                    font-weight: bold;
+                    text-align: center;
+                    width: 100%;
+                    z-index: 1;
+                }
+                img {
+                    position: absolute;
+                    width: 25px;
+                    height: 25px;
+                    border: none;
+                }
+            }
+            .modifier {
+                margin: 2px;
+                display: inline-flex;
             }
         }    
     }

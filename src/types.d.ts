@@ -9,3 +9,7 @@ declare class Note extends PlaceableObject {
 declare interface Roll {
     options: any;
 }
+
+declare interface Scenes {
+    active: any;
+}

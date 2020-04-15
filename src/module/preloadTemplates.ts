@@ -23,7 +23,7 @@ export const preloadHandlebarsTemplates = async function () {
 		'systems/swade/templates/attribute-select.html',
 
 		// Chat
-		'/templates/dice/roll.html'
+		'systems/swade/templates/chat/roll-formula.html'
 	];
 
 	return loadTemplates(templatePaths);

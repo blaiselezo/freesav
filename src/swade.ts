@@ -22,6 +22,7 @@ import { SwadeActor } from "./module/entity";
 import { SWADE } from "./module/config";
 import { isIncapacitated, setIncapacitationSymbol } from "./module/util";
 import { swadeSetup } from "./module/setup/setupHandler";
+import { formatRoll } from "./module/chat";
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -38,7 +39,6 @@ Hooks.once("init", async function () {
   //Register custom Handlebars helpers
   registerCustomHelpers();
   CONFIG.Actor.entityClass = SwadeActor;
-  CONFIG.Roll.template = "/systems/swade/templates/chat/roll.html";
 
   // Register custom system settings
   registerSettings();
@@ -212,3 +212,10 @@ Hooks.on('createToken', async (scene: Scene, sceneId: string, tokenData: any, op
 		}
 	});
 });
+
+// Add roll data to the message for formatting of dice pools
+Hooks.on("renderChatMessage", async (chatMessage : ChatMessage, html : JQuery<HTMLHtmlElement>, data : any) => {
+	if (chatMessage.isRoll && chatMessage.isRollVisible) {
+		await formatRoll(chatMessage, html, data);
+	}
+})

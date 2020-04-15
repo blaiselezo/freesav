@@ -1,0 +1,17 @@
+<div class="dice-formula">
+    {{#each dice}}
+    <div class="dice">
+    <label style="color:{{this.color}};">
+            {{this.result}}
+        </label>
+        <img src='{{this.img}}'/>
+    </div>    
+    {{/each}}
+    {{#each modifiers}}
+    <div class="modifier">
+        <span>
+            {{this}}
+        </span>
+    </div>    
+    {{/each}}
+</div> 
