@@ -1,17 +1,12 @@
 <div class="dice-formula">
     {{#each dice}}
-    <div class="dice">
+    <div class="{{#if this.dice}}dice{{else}}modifier{{/if}}">
     <label style="color:{{this.color}};">
             {{this.result}}
         </label>
+        {{#if this.img}}
         <img src='{{this.img}}'/>
-    </div>    
-    {{/each}}
-    {{#each modifiers}}
-    <div class="modifier">
-        <span>
-            {{this}}
-        </span>
+        {{/if}}
     </div>    
     {{/each}}
 </div> 

@@ -3,6 +3,27 @@ export async function formatRoll(
   html: JQuery<HTMLHtmlElement>,
   data: any
 ) {
+  // Little helper function
+  let pushDice = (chatData, total, faces) => {
+    let color = "black";
+    if (total > faces) {
+      color = "green";
+    }
+    if (total == 1) {
+      color = "red";
+    }
+    let img = null;
+    if ([4,6,8,10,12,20].indexOf(faces) > -1) {
+      img = `../icons/svg/d${faces}-grey.svg`;
+    }
+    chatData.dice.push({
+      img: img,
+      result: total,
+      color: color,
+      dice: true
+    });
+  };
+
   let roll = JSON.parse(data.message.roll);
   let chatData = { dice: [], modifiers: [] };
   for (let i = 0; i < roll.parts.length; i++) {
@@ -12,20 +33,8 @@ export async function formatRoll(
       let faces = 0;
       // Compute dice from the pool
       pool.forEach((pooldie: any) => {
-        let color = "black";
         faces = pooldie.dice[0].faces;
-        if (pooldie.total == 1) {
-          color = "red";
-        } else if (pooldie.total != roll.parts[i].total) {
-          color = "#676767";
-        } else if (pooldie.total > faces) {
-          color = "green";
-        }
-        chatData.dice.push({
-          img: `../icons/svg/d${faces}-grey.svg`,
-          result: pooldie.total,
-          color: color,
-        });
+        pushDice(chatData, pooldie.total, faces);
       });
     } else if (
       typeof roll.parts[i] == "string" &&
@@ -34,25 +43,16 @@ export async function formatRoll(
       // Grab the right dice
       let idice = parseInt(roll.parts[i].substring(2));
       let faces = roll.dice[idice].faces;
-      let color = "black";
       let totalDice = 0;
       roll.dice[idice].rolls.forEach((roll: any) => {
         totalDice += roll.roll;
       });
       faces = roll.dice[idice].faces;
-      if (totalDice > faces) {
-        color = "green";
-      }
-      if (totalDice == 1) {
-        color = "red";
-      }
-      chatData.dice.push({
-        img: `../icons/svg/d${faces}-grey.svg`,
-        result: totalDice,
-        color: color,
-      });
+      pushDice(chatData, totalDice, faces);
     } else {
-      chatData.modifiers.push(roll.parts[i]);
+      if (roll.parts[i]) {
+        chatData.dice.push({img: null, result: roll.parts[i], color: 'black', dice: false});
+      }
     }
   }
   // Replace default dice-formula by this custom;

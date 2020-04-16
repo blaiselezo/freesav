@@ -215,7 +215,7 @@ Hooks.on('createToken', async (scene: Scene, sceneId: string, tokenData: any, op
 	});
 });
 
-// Add roll data to the message for formatting of dice pools
+// Add roll data to the message for formatting sheet dice
 Hooks.on("renderChatMessage", async (chatMessage : ChatMessage, html : JQuery<HTMLHtmlElement>, data : any) => {
 	if (chatMessage.isRoll && chatMessage.isRollVisible) {
 		await formatRoll(chatMessage, html, data);

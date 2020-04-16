@@ -1,19 +1,23 @@
 declare class Tile {
-    static create(data: any): Promise<any>;
+  static create(data: any): Promise<any>;
 }
 
 declare class Note extends PlaceableObject {
-	[key: string]: any;
+  [key: string]: any;
 }
 
 declare interface Roll {
-    options: any;
+  options: any;
 }
 
 declare interface Scenes {
-    active: any;
+  active: any;
 }
 
 declare interface BaseEntityData {
-    data: any;
+  data: any;
+}
+
+declare interface Die {
+  formula: any;
 }
