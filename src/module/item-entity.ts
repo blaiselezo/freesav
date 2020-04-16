@@ -24,7 +24,6 @@ export class SwadeItem extends Item {
     // Intermediary roll to let it do the parsing for us
     let roll = new Roll(itemData.damage, {}).roll();
     let newParts = [];
-    console.log(roll);
     roll.parts.forEach((part) => {
       if (part instanceof Die) {
         let split = part.formula.split("d");
