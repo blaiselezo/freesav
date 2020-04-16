@@ -1,3 +1,5 @@
+import { SwadeActor } from "./entity";
+
 export class SwadeNPCSheet extends ActorSheet {
 
 
@@ -65,6 +67,22 @@ export class SwadeNPCSheet extends ActorSheet {
                 this.actor.setFlag('swade', 'convictionReady', false);
             }
         });
+
+        // Roll attribute
+        html.find('.attribute-label a').click((event : Event) => {
+          let actorObject = this.actor as SwadeActor;
+          let element = event.currentTarget as Element;
+          let attribute = element.parentElement.parentElement.dataset.attribute;
+          actorObject.rollAttribute(attribute, {event: event});
+        });
+
+        // Roll Skill
+          html.find('.skill.item a').click(event => {
+            let actorObject = this.actor as SwadeActor;
+            let element = event.currentTarget as Element;
+            let item = element.parentElement.dataset.itemId;
+            actorObject.rollSkill(item, {event: event});
+          });
     }
 
     getData() {
@@ -95,7 +113,7 @@ export class SwadeNPCSheet extends ActorSheet {
         } else {
             this.actor.setFlag('swade', 'hasArcaneBackground', false);
         }
-
+        data.config = CONFIG.SWADE;
         return data;
     }
 

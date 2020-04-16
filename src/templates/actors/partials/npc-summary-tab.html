@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="vitals-container">
-        {{#if actor.flags.swade.isWildcard}}
+        {{#if actor.data.wildcard}}
         <div>
             <strong>{{localize "SWADE.Bennies"}}</strong>
         </div>
@@ -41,7 +41,7 @@
         </header>
         <ol class="attributes-list">
             <li class="flexrow" data-attribute="agility">
-                <label class="attribute-label" for="attributes.agility">{{ localize "SWADE.AttrAgi" }}</label>
+                <label class="attribute-label"><a>{{ localize "SWADE.AttrAgi" }}</a></label>
                 <select class="attribute-value" name="data.attributes.agility.die.sides" id="attributes.agility"
                     data-dtype="Number">
                     {{#select data.attributes.agility.die.sides}}
@@ -53,7 +53,7 @@
                     data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="smarts">
-                <label class="attribute-label" for="attributes.smarts">{{ localize "SWADE.AttrSma" }}</label>
+                <label class="attribute-label"><a>{{ localize "SWADE.AttrSma" }}</a></label>
                 <select name="data.attributes.smarts.die.sides" id="attributes.smarts" data-dtype="Number">
                     {{#select data.attributes.smarts.die.sides}}
                     {{> "systems/swade/templates/die-sides-options.html"}}
@@ -64,7 +64,7 @@
                     data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="spirit">
-                <label class="attribute-label" for="attributes.spirit">{{ localize "SWADE.AttrSpr" }}</label>
+                <label class="attribute-label"><a>{{ localize "SWADE.AttrSpr" }}</a></label>
                 <select name="data.attributes.spirit.die.sides" id="attributes.spirit" data-dtype="Number">
                     {{#select data.attributes.spirit.die.sides}}
                     {{> "systems/swade/templates/die-sides-options.html"}}
@@ -75,7 +75,7 @@
                     data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="strength">
-                <label class="attribute-label" for="attributes.strength">{{ localize "SWADE.AttrStr" }}</label>
+                <label class="attribute-label"><a>{{ localize "SWADE.AttrStr" }}</a></label>
                 <select name="data.attributes.strength.die.sides" id="attributes.strength" data-dtype="Number">
                     {{#select data.attributes.strength.die.sides}}
                     {{> "systems/swade/templates/die-sides-options.html"}}
@@ -86,7 +86,7 @@
                     data-dtype="String" />
             </li>
             <li class="flexrow" data-attribute="vigor">
-                <label class="attribute-label" for="attributes.vigor">{{ localize "SWADE.AttrVig" }}</label>
+                <label class="attribute-label"><a>{{ localize "SWADE.AttrVig" }}</a></label>
                 <select name="data.attributes.vigor.die.sides" id="attributes.vigor" data-dtype="Number">
                     {{#select data.attributes.vigor.die.sides}}
                     {{> "systems/swade/templates/die-sides-options.html"}}
@@ -104,7 +104,7 @@
             {{#each data.owned.skills as |skill id|}}
             <span class="skill item" data-item-id="{{skill._id}}" style="display: inline-block;">
                 <a class="contextmenu-edit" title="Right Click to {{localize 'SWADE.EditSkill'}}">{{skill.name}}
-                    ({{skill.data.attribute}}) d{{skill.data.die.sides}}{{skill.data.die.modifier}}</a>
+                    ({{localizeSkillAttribute skill.data.attribute}}) d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a>
             </span>
             {{/each}}
         </div>
@@ -121,7 +121,7 @@
             </span>
             {{/each}}
         </div>
-        {{#if actor.flags.swade.isWildcard}}
+        {{#if actor.data.wildcard}}
         <div class="gear">
             <header class="gear-header">
                 <span>{{localize "SWADE.Hindrances"}}</span>

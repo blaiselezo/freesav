@@ -12,6 +12,8 @@
   "SWADE.Extra": "Extra",
   "SWADE.Bennies": "Bennies",
 
+  "SWADE.SkillTest": "Skill test",
+  "SWADE.AttributeTest": "Attribute test",
   "SWADE.Attributes": "Attributes",
   "SWADE.AttrAgi": "Agility",
   "SWADE.AttrSma": "Smarts",
