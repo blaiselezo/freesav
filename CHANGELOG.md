@@ -20,10 +20,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [0.6.0]
 
 ### Added
 
+- Rolls for Attributes, Skills and Weapon Damage (kudos to U~man!)
 - Checkboxes for Shaken/Distracted/Vulnerable to Character and NPC Actor sheets
 - Two-Way-Binding between Token and Actor for the three status effects (Shaken/Distracted/Vulnerable)
 - Setting to determine whether NPC Wildcards should be marked as Wildcards for players
@@ -31,6 +32,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 - More clearly marked Item description fields
+- Renamed `Untrained Skill` to simply `Untrained`
 
 ### Fixed
 

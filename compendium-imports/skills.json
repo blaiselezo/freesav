@@ -384,7 +384,7 @@
     }
   },
   {
-    "name": "Untrained Skill",
+    "name": "Untrained",
     "permission": { "default": 0 },
     "type": "skill",
     "data": {
