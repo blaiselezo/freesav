@@ -31,12 +31,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Changed
 
+- Updated hooks to be compatible with Foundry 0.5.4/0.5.5
 - More clearly marked Item description fields
 - Renamed `Untrained Skill` to simply `Untrained`
 
 ### Fixed
 
 - Power descriptions are now rendered with formatting
+- Added missing `Arrogant` hindrance
 
 ## [0.5.4] 2020-04-13
 

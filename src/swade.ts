@@ -81,10 +81,10 @@ Hooks.once("ready", async () => {
 });
 
 // Add any additional hooks if necessary
-Hooks.on("preCreateItem", function (items: Items, item: any, options: any) {
+Hooks.on('preCreateItem', function (createData: any, options: any, userId: string) {
 	//Set default image if no image already exists
-	if (!item.img) {
-		item.img = `systems/swade/assets/icons/${item.type}.svg`;
+	if (!createData.img) {
+		createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
 	}
 });
 
@@ -142,20 +142,20 @@ Hooks.on("renderActorSheet", (app, html: JQuery<HTMLElement>, data) => {
 	}
 });
 
-Hooks.on('updateActor', (actor: Actor, updates: any, options: any, userId: string) => {
+Hooks.on('updateActor', async (actor: Actor, updateData: any, options: any, userId: string) => {
 	if (actor.data.type === 'npc') {
 		ui.actors.render();
 	}
 
 	//if it's a status update, update the token
-	if (updates.data && updates.data.status) {
+	if (updateData.data && updateData.data.status) {
 
 		const shaken = "icons/svg/daze.svg";
 		const vulnerable = "icons/svg/degen.svg";
 		const distracted = "icons/svg/stoned.svg";
 		const actorData = actor.data as any;
 
-		actor.getActiveTokens().forEach(async (t: any) => {
+		for (const t of actor.getActiveTokens()) {
 			if (t.data.actorLink && t.scene.id === game.scenes.active.id) {
 				if (actorData.data.status.isShaken && !t.data.effects.includes(shaken)) await t.toggleEffect(shaken);
 				if (!actorData.data.status.isShaken && t.data.effects.includes(shaken)) await t.toggleEffect(shaken);
@@ -163,20 +163,19 @@ Hooks.on('updateActor', (actor: Actor, updates: any, options: any, userId: strin
 				if (!actorData.data.status.isVulnerable && t.data.effects.includes(vulnerable)) await t.toggleEffect(vulnerable);
 				if (actorData.data.status.isDistracted && !t.data.effects.includes(distracted)) await t.toggleEffect(distracted);
 				if (!actorData.data.status.isDistracted && t.data.effects.includes(distracted)) await t.toggleEffect(distracted);
-				await t.drawEffects();
 			}
-		});
+		}
 	}
 });
 
-Hooks.on('preUpdateToken', async (scene: Scene, sceneId: string, updates: any, tokenData: any) => {
+Hooks.on('preUpdateToken', async (scene: Scene, token: any, updateData: any, options: any) => {
 	// if the update has no effects, return
-	if (!updates.effects) return;
+	if (!updateData.effects) return;
 
 	//if the token has no linked actor, return
-	if (!tokenData.currentData.actorLink) return;
+	if (!token.actorLink) return;
 
-	const tokenActor = game.actors.entities.find(a => a.id == tokenData.currentData.actorId) as Actor;
+	const tokenActor = game.actors.entities.find(a => a.id == token.actorId) as Actor;
 
 	// If this token has no actor, return
 	if (!tokenActor) return;
@@ -185,19 +184,22 @@ Hooks.on('preUpdateToken', async (scene: Scene, sceneId: string, updates: any, t
 	const vulnerable = "icons/svg/degen.svg";
 	const distracted = "icons/svg/stoned.svg";
 
-	await tokenActor.update({ "data.status.isShaken": updates.effects.includes(shaken) });
-	await tokenActor.update({ "data.status.isVulnerable": updates.effects.includes(vulnerable) });
-	await tokenActor.update({ "data.status.isDistracted": updates.effects.includes(distracted) });
+	await tokenActor.update({
+		"data.status": {
+			"isShaken": updateData.effects.includes(shaken),
+			"isVulnerable": updateData.effects.includes(vulnerable),
+			"isDistracted": updateData.effects.includes(distracted),
+		}
+	});
 });
 
-Hooks.on('createToken', async (scene: Scene, sceneId: string, tokenData: any, options: any, userId: string) => {
+Hooks.on('preCreateToken', async (scene: Scene, createData: any, options: any, userId: string) => {
+	// return if the token has no linked actor
+	if (!createData.actorLink) return;
 
-	//if the token has no linked actor, return
-	if (!tokenData.actorLink) return;
+	const actor = game.actors.entities.find(a => a.id == createData.actorId) as Actor;
 
-	const actor = game.actors.entities.find(a => a.id == tokenData.actorId) as Actor;
-
-	// If this token has no actor, return
+	// return if this token has no actor
 	if (!actor) return;
 
 	const shaken = "icons/svg/daze.svg";
@@ -205,14 +207,13 @@ Hooks.on('createToken', async (scene: Scene, sceneId: string, tokenData: any, op
 	const distracted = "icons/svg/stoned.svg";
 	const actorData = actor.data as any;
 
-	actor.getActiveTokens().forEach(async (t: any) => {
-		if (t.data.actorLink && t.scene.id === game.scenes.active.id) {
-			if (actorData.data.status.isShaken) await t.toggleEffect(shaken);
-			if (actorData.data.status.isVulnerable) await t.toggleEffect(vulnerable);
-			if (actorData.data.status.isDistracted) await t.toggleEffect(distracted);
-			await t.drawEffects();
-		}
-	});
+	const createEffects = [];
+
+	if (actorData.data.status.isShaken) createEffects.push(shaken);
+	if (actorData.data.status.isVulnerable) createEffects.push(vulnerable);
+	if (actorData.data.status.isDistracted) createEffects.push(distracted);
+
+	createData.effects = createEffects;
 });
 
 // Add roll data to the message for formatting of dice pools

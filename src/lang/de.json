@@ -11,6 +11,9 @@
   "SWADE.Wildcard": "Wildcard",
   "SWADE.Extra": "Statist",
   "SWADE.Bennies": "Bennys",
+  "SWADE.Shaken": "Angeschlagen",
+  "SWADE.Distr": "Abgelentk",
+  "SWADE.Vuln": "Verwundbar",
 
   "SWADE.Attributes": "Attribute",
   "SWADE.AttrAgi": "Geschicklichkeit",
@@ -19,6 +22,8 @@
   "SWADE.AttrStr": "Stärke",
   "SWADE.AttrVig": "Konstitution",
 
+  "SWADE.SkillTest": "Fertigkeitstest",
+  "SWADE.AttributeTest": "Attributstest",
   "SWADE.Skills": "Fertigkeiten",
   "SWADE.LinkAttr": "Verknüpftes Attribut",
   "SWADE.Die": "Würfel",
