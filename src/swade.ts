@@ -175,7 +175,7 @@ Hooks.on('preUpdateToken', async (scene: Scene, token: any, updateData: any, opt
 	//if the token has no linked actor, return
 	if (!token.actorLink) return;
 
-	const tokenActor = game.actors.entities.find(a => a.id == token.actorId) as Actor;
+	const tokenActor = game.actors.get(token.actorId) as Actor;
 
 	// If this token has no actor, return
 	if (!tokenActor) return;
@@ -197,7 +197,7 @@ Hooks.on('preCreateToken', async (scene: Scene, createData: any, options: any, u
 	// return if the token has no linked actor
 	if (!createData.actorLink) return;
 
-	const actor = game.actors.entities.find(a => a.id == createData.actorId) as Actor;
+	const actor = game.actors.get(createData.actorId) as Actor;
 
 	// return if this token has no actor
 	if (!actor) return;
