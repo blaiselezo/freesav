@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [0.6.0]
+## [0.6.0] 2020-04-18
 
 ### Added
 
