@@ -41,7 +41,7 @@ export class SwadeItemSheet extends ItemSheet {
     data.data.isOwned = this.item.isOwned;
 
     const actor = this.item.actor;
-    const ownerIsWildcard = actor && (actor.data.type === "character" || (actor.data.type === "npc" && actor.getFlag('swade', 'isWildcard')));
+    const ownerIsWildcard = actor && actor.data['data'].wildcard;
     if (ownerIsWildcard || !this.item.isOwned) {
       data.data.ownerIsWildcard = true;
     }

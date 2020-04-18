@@ -7,7 +7,7 @@
           "agility": {
             "die": {
               "sides": 4,
-              "modifier": "0"
+              "modifier": 0
             },
             "wild-die": {
               "sides": 6
@@ -16,7 +16,7 @@
           "smarts": {
             "die": {
               "sides": 4,
-              "modifier": "0"
+              "modifier": 0
             },
             "wild-die": {
               "sides": 6
@@ -25,7 +25,7 @@
           "spirit": {
             "die": {
               "sides": 4,
-              "modifier": "0"
+              "modifier": 0
             },
             "wild-die": {
               "sides": 6
@@ -34,7 +34,7 @@
           "strength": {
             "die": {
               "sides": 4,
-              "modifier": "0"
+              "modifier": 0
             },
             "wild-die": {
               "sides": 6
@@ -43,7 +43,7 @@
           "vigor": {
             "die": {
               "sides": 4,
-              "modifier": "0"
+              "modifier": 0
             },
             "wild-die": {
               "sides": 6
@@ -56,7 +56,8 @@
             "value": 6
           },
           "toughness": {
-            "value": 0
+            "value": 0,
+            "modifier": 0
           }
         },
         "details": {
@@ -66,7 +67,7 @@
           },
           "species": {
             "name": "",
-            "traits": ""
+            "traits": {}
           },
           "currency": 500
         },
@@ -104,14 +105,21 @@
           "skills": [],
           "powers": [],
           "inventory": []
+        },
+        "status": {
+          "isShaken": false,
+          "isDistracted": false,
+          "isVulnerable": false
         }
       }
     },
     "character": {
-      "templates": ["common"]
+      "templates": ["common"],
+      "wildcard": true
     },
     "npc": {
-      "templates": ["common"]
+      "templates": ["common"],
+      "wildcard": false
     }
   },
   "Item": {
@@ -188,7 +196,7 @@
       "attribute": "",
       "die": {
         "sides": 4,
-        "modifier": ""
+        "modifier": "0"
       },
       "wild-die": {
         "sides": 6

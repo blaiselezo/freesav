@@ -1,10 +1,10 @@
 {{#each data.owned.weapons as |weapon id|}}
 {{#if weapon.data.equipped}}
-<li class="gear-card">
+<li class="gear-card" data-item-id="{{weapon._id}}">
     <header class="flexrow card-header">
-        <span>{{weapon.name}} - {{localize "SWADE.Dmg"}}: {{weapon.data.damage}}</span>
+        <span>{{weapon.name}} - {{localize "SWADE.Dmg"}}: <a class="damage-roll">{{weapon.data.damage}}</a></span>
     </header>
-    <div class="card-content" data-item-id="{{weapon._id}}">
+    <div class="card-content">
         <div class="flexrow">
             <div>{{localize "SWADE.Rng"}}: {{weapon.data.range}}</div>
             <div>{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>

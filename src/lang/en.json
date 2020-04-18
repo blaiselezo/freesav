@@ -11,7 +11,12 @@
   "SWADE.Wildcard": "Wildcard",
   "SWADE.Extra": "Extra",
   "SWADE.Bennies": "Bennies",
+  "SWADE.Shaken": "Shaken",
+  "SWADE.Distr": "Distracted",
+  "SWADE.Vuln": "Vulnerable",
 
+  "SWADE.SkillTest": "Skill test",
+  "SWADE.AttributeTest": "Attribute test",
   "SWADE.Attributes": "Attributes",
   "SWADE.AttrAgi": "Agility",
   "SWADE.AttrSma": "Smarts",

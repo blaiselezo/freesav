@@ -25,6 +25,9 @@
             <input name="data.quantity" type="text" value="{{item.data.quantity}}"
                 placeholder="{{localize 'SWADE.Quantity'}}" data-dtype="Number" />
         </div>
+        <header class="header-field">
+            <span>{{localize "SWADE.Desc"}}</span>
+        </header>
         <div class="form-group">
             {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
         </div>
