@@ -104,7 +104,8 @@
             {{#each data.owned.skills as |skill id|}}
             <span class="skill item" data-item-id="{{skill._id}}" style="display: inline-block;">
                 <a class="contextmenu-edit" title="Right Click to {{localize 'SWADE.EditSkill'}}">{{skill.name}}
-                    ({{localizeSkillAttribute skill.data.attribute}}) d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a>
+                    ({{localizeSkillAttribute skill.data.attribute}})
+                    d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a>
             </span>
             {{/each}}
         </div>
@@ -129,7 +130,14 @@
             {{#each data.owned.hindrances as |hindrance id|}}
             <span class="item" data-item-id="{{hindrance._id}}" style="margin-right: 2px;">
                 <span class="item" data-item-id="{{hindrance._id}}" style="border-bottom: 1px dotted #293133;">
-                    <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">{{hindrance.name}}</a>
+                    <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
+                        {{hindrance.name}}
+                        {{#if hindrance.data.major}}
+                        {{localize "SWADE.Major"}}
+                        {{else}}
+                        {{localize "SWADE.Minor"}}
+                        {{/if}}
+                    </a>
                 </span>
                 &nbsp;
             </span>
