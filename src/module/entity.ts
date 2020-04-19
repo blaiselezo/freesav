@@ -53,10 +53,18 @@ export class SwadeActor extends Actor {
     } else {
       exp = `1d${abl.die.sides}x${abl.die.sides}`;
     }
+
+    //Check and add Modifiers
+    const rollParts = [exp] as any[];
+    const ablMod = parseInt(abl.die.modifier);
+    if (ablMod !== NaN && ablMod !== 0) rollParts.push(ablMod);
+    const woundFatigePenalties = this.calcWoundFatigePenalties();
+    if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
+
     // Roll and return
     return SwadeDice.Roll({
       event: options.event,
-      parts: [exp, abl.die.modifier],
+      parts: rollParts,
       data: actorData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
@@ -77,13 +85,32 @@ export class SwadeActor extends Actor {
     } else {
       exp = `1d${itemData["die"].sides}x${itemData["die"].sides}`;
     }
+
+    //Check and add Modifiers
+    const rollParts = [exp] as any[];
+    const itemMod = parseInt(itemData["die"].modifier);
+    if (itemMod !== NaN && itemMod !== 0) rollParts.push(itemMod);
+    const woundFatigePenalties = this.calcWoundFatigePenalties();
+    if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
+
     // Roll and return
     return SwadeDice.Roll({
       event: options.event,
-      parts: [exp, itemData["die"].modifier],
+      parts: rollParts,
       data: itemData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${items[0].name} ${game.i18n.localize("SWADE.SkillTest")}`,
     });
+  }
+
+  calcWoundFatigePenalties(): number {
+    let retVal = 0;
+    const wounds = parseInt(this.data["data"]["wounds"]["value"]);
+    const fatigue = parseInt(this.data["data"]["fatigue"]["value"]);
+
+    if (wounds !== NaN) retVal = (wounds > 3) ? retVal += 3 : retVal += wounds;
+    if (fatigue !== NaN) retVal += fatigue;
+
+    return retVal * -1;
   }
 }
