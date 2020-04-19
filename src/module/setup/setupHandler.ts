@@ -1,6 +1,5 @@
 export async function swadeSetup(): Promise<void> {
 
-    console.log("gotcha2");
     const packName = "swade.action-cards";
     if (game.tables.entities.find(t => t.getFlag("swade", "isActionCardDeck"))) {
         return;

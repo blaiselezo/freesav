@@ -5,7 +5,7 @@
   // Sheet Header
   .sheet-header {
     & > * {
-      flex: 0;
+      flex: none;
     }
     border-bottom: $section-border;
   }

@@ -20,21 +20,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [0.6.0] 2020-04-18
 
 ### Added
 
+- Rolls for Attributes, Skills and Weapon Damage (kudos to U~man!)
 - Checkboxes for Shaken/Distracted/Vulnerable to Character and NPC Actor sheets
 - Two-Way-Binding between Token and Actor for the three status effects (Shaken/Distracted/Vulnerable)
 - Setting to determine whether NPC Wildcards should be marked as Wildcards for players
 
 ### Changed
 
+- Updated hooks to be compatible with Foundry 0.5.4/0.5.5
 - More clearly marked Item description fields
+- Renamed `Untrained Skill` to simply `Untrained`
 
 ### Fixed
 
 - Power descriptions are now rendered with formatting
+- Added missing `Arrogant` hindrance
 
 ## [0.5.4] 2020-04-13
 

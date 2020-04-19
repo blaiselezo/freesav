@@ -12,7 +12,7 @@
                 <h1 class="charname">
                     <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SWADE.Name'}}" />
                 </h1>
-                {{#if actor.flags.swade.isWildcard}}
+                {{#if actor.data.wildcard}}
                 <div class="conviction">
                     <strong>{{localize "SWADE.Conv"}}</strong>
                     <div class="convction-toggle">
@@ -45,20 +45,20 @@
                 </div>
                 <div class="flexrow header-stats">
                     <div class="form-group">
-                        <label for="flags.swade.isWildcard">{{localize "SWADE.Wildcard"}}</label>
-                        <input type="checkbox" name="flags.swade.isWildcard" {{checked actor.flags.swade.isWildcard}}>
+                        <label for="data.wildcard">{{localize "SWADE.Wildcard"}}</label>
+                        <input type="checkbox" name="data.wildcard" {{checked data.wildcard}}>
                     </div>
                     <div class="form-group">
-                        <label for="data.status.isShaken">Shaken</label>
+                        <label for="data.status.isShaken">{{localize "SWADE.Shaken"}}</label>
                         <input type="checkbox" name="data.status.isShaken" {{checked actor.data.status.isShaken}}>
                     </div>
                     <div class="form-group">
-                        <label for="data.status.isDistracted">Distracted</label>
+                        <label for="data.status.isDistracted">{{localize "SWADE.Distr"}}</label>
                         <input type="checkbox" name="data.status.isDistracted"
                             {{checked actor.data.status.isDistracted}}>
                     </div>
                     <div class="form-group">
-                        <label for="data.status.isDistracted">Vulnerable</label>
+                        <label for="data.status.isDistracted">{{localize "SWADE.Vuln"}}</label>
                         <input type="checkbox" name="data.status.isVulnerable"
                             {{checked actor.data.status.isVulnerable}}>
                     </div>
