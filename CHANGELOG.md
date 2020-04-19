@@ -20,6 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [0.6.1] 2020-24-20
+
+### Added
+
+- Trait rolls now take Wound and Fatigue penalties into account
+- `Gear` Items can now be marked as equippable
+
+### Fixed
+
+- Added missing Damage roll option for NPC sheets
+
 ## [0.6.0] 2020-04-18
 
 ### Added
