@@ -2,7 +2,7 @@
   {
     "name": "Black Joker",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 0,
         "suitValue": 0,
         "isJoker": true
@@ -14,7 +14,7 @@
   {
     "name": "Red Joker",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 0,
         "suitValue": 0,
         "isJoker": true
@@ -26,7 +26,7 @@
   {
     "name": "2 of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 2,
         "suitValue": 4
       }
@@ -37,7 +37,7 @@
   {
     "name": "3 of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 3,
         "suitValue": 4
       }
@@ -48,7 +48,7 @@
   {
     "name": "4 of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 4,
         "suitValue": 4
       }
@@ -59,7 +59,7 @@
   {
     "name": "5 of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 5,
         "suitValue": 4
       }
@@ -70,7 +70,7 @@
   {
     "name": "6 of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 6,
         "suitValue": 4
       }
@@ -81,7 +81,7 @@
   {
     "name": "7 of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 7,
         "suitValue": 4
       }
@@ -92,7 +92,7 @@
   {
     "name": "8 of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 8,
         "suitValue": 4
       }
@@ -103,7 +103,7 @@
   {
     "name": "9 of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 9,
         "suitValue": 4
       }
@@ -114,7 +114,7 @@
   {
     "name": "10 of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 10,
         "suitValue": 4
       }
@@ -125,7 +125,7 @@
   {
     "name": "Jack of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 11,
         "suitValue": 4
       }
@@ -136,7 +136,7 @@
   {
     "name": "Queen of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 12,
         "suitValue": 4
       }
@@ -147,7 +147,7 @@
   {
     "name": "King of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 13,
         "suitValue": 4
       }
@@ -158,7 +158,7 @@
   {
     "name": "Ace of Spades",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 14,
         "suitValue": 4
       }
@@ -169,7 +169,7 @@
   {
     "name": "2 of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 2,
         "suitValue": 3
       }
@@ -180,7 +180,7 @@
   {
     "name": "3 of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 3,
         "suitValue": 3
       }
@@ -191,7 +191,7 @@
   {
     "name": "4 of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 4,
         "suitValue": 3
       }
@@ -202,7 +202,7 @@
   {
     "name": "5 of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 5,
         "suitValue": 3
       }
@@ -213,7 +213,7 @@
   {
     "name": "6 of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 6,
         "suitValue": 3
       }
@@ -224,7 +224,7 @@
   {
     "name": "7 of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 7,
         "suitValue": 3
       }
@@ -235,7 +235,7 @@
   {
     "name": "8 of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 8,
         "suitValue": 3
       }
@@ -246,7 +246,7 @@
   {
     "name": "9 of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 9,
         "suitValue": 3
       }
@@ -257,7 +257,7 @@
   {
     "name": "10 of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 10,
         "suitValue": 3
       }
@@ -268,7 +268,7 @@
   {
     "name": "Jack of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 11,
         "suitValue": 3
       }
@@ -279,7 +279,7 @@
   {
     "name": "Queen of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 12,
         "suitValue": 3
       }
@@ -290,7 +290,7 @@
   {
     "name": "King of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 13,
         "suitValue": 3
       }
@@ -301,7 +301,7 @@
   {
     "name": "Ace of Hearts",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 14,
         "suitValue": 3
       }
@@ -312,7 +312,7 @@
   {
     "name": "2 of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 2,
         "suitValue": 2
       }
@@ -323,7 +323,7 @@
   {
     "name": "3 of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 3,
         "suitValue": 2
       }
@@ -334,7 +334,7 @@
   {
     "name": "4 of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 4,
         "suitValue": 2
       }
@@ -345,7 +345,7 @@
   {
     "name": "5 of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 5,
         "suitValue": 2
       }
@@ -356,7 +356,7 @@
   {
     "name": "6 of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 6,
         "suitValue": 2
       }
@@ -367,7 +367,7 @@
   {
     "name": "7 of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 7,
         "suitValue": 2
       }
@@ -378,7 +378,7 @@
   {
     "name": "8 of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 8,
         "suitValue": 2
       }
@@ -389,7 +389,7 @@
   {
     "name": "9 of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 9,
         "suitValue": 2
       }
@@ -400,7 +400,7 @@
   {
     "name": "10 of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 10,
         "suitValue": 2
       }
@@ -411,7 +411,7 @@
   {
     "name": "Jack of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 11,
         "suitValue": 2
       }
@@ -422,7 +422,7 @@
   {
     "name": "Queen of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 12,
         "suitValue": 2
       }
@@ -433,7 +433,7 @@
   {
     "name": "King of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 13,
         "suitValue": 2
       }
@@ -444,7 +444,7 @@
   {
     "name": "Ace of Diamonds",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 14,
         "suitValue": 2
       }
@@ -455,7 +455,7 @@
   {
     "name": "2 of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 2,
         "suitValue": 1
       }
@@ -466,7 +466,7 @@
   {
     "name": "3 of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 3,
         "suitValue": 1
       }
@@ -477,7 +477,7 @@
   {
     "name": "4 of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 4,
         "suitValue": 1
       }
@@ -488,7 +488,7 @@
   {
     "name": "5 of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 5,
         "suitValue": 1
       }
@@ -499,7 +499,7 @@
   {
     "name": "6 of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 6,
         "suitValue": 1
       }
@@ -510,7 +510,7 @@
   {
     "name": "7 of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 7,
         "suitValue": 1
       }
@@ -521,7 +521,7 @@
   {
     "name": "8 of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 8,
         "suitValue": 1
       }
@@ -532,7 +532,7 @@
   {
     "name": "9 of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 9,
         "suitValue": 1
       }
@@ -543,7 +543,7 @@
   {
     "name": "10 of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 10,
         "suitValue": 1
       }
@@ -554,7 +554,7 @@
   {
     "name": "Jack of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 11,
         "suitValue": 1
       }
@@ -565,7 +565,7 @@
   {
     "name": "Queen of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 12,
         "suitValue": 1
       }
@@ -576,7 +576,7 @@
   {
     "name": "King of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 13,
         "suitValue": 1
       }
@@ -587,7 +587,7 @@
   {
     "name": "Ace of Clubs",
     "flags": {
-      "actionCard": {
+      "swade": {
         "cardValue": 14,
         "suitValue": 1
       }

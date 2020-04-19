@@ -9,10 +9,8 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
 
     const actionCardDeck = game.tables.entities.find(t => t.getFlag("swade", "isActionCardDeck")) as RollTable;
     const actionCardPack = game.packs.find(p => p.collection === "swade.action-cards");
-
     // Structure input data
     ids = typeof ids === "string" ? [ids] : ids;
-    const currentId = this.combatant._id;
 
     const combatantUpdates = [];
     const initMessages = [];
@@ -29,14 +27,15 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
         const id = ids[i];
 
         // Get Combatant data
-        let c = this.getCombatant(id);
+        let c = await this.getCombatant(id);
         // Draw initiative
         const drawResult = await actionCardDeck.roll();
+        console.log(drawResult);
         const card = await actionCardPack.getEntry(drawResult[1].resultId);
         // Set drawn Object to drawn
         await actionCardDeck.updateEmbeddedEntity('TableResult', { _id: drawResult[1]._id, drawn: true });
 
-        if (card.flags.actionCard.isJoker) {
+        if (card.flags.swade.hasJoker) {
             jokerDrawn = true;
             jokerMessage = mergeObject({
                 speaker: {
@@ -49,11 +48,12 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
                 content: c.token.name + game.i18n.localize("SWADE.JokersWild")
             }, messageOptions);
         }
-        const newflags = mergeObject(card.flags, { actionCard: { cardString: card.content } });
-        const initValue = "" + card.flags.actionCard.suitValue + card.flags.actionCard.cardValue;
+        const newflags = mergeObject(card.flags, { swade: { cardString: card.content } });
+        const initValue = "" + card.flags.swade.suitValue + card.flags.swade.cardValue;
         combatantUpdates.push({
             _id: c._id, initiative: initValue, flags: newflags
         });
+
         // Construct chat message data
         const messageData = mergeObject({
             speaker: {
@@ -71,15 +71,16 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
         }
         initMessages.push(messageData);
     }
+
     if (!combatantUpdates.length) return this;
     if (jokerDrawn) {
         initMessages.push(jokerMessage);
     }
 
     // Update multiple combatants
-    await this.updateManyEmbeddedEntities("Combatant", combatantUpdates);
+    await this.updateEmbeddedEntity("Combatant", combatantUpdates);
     // Create multiple chat messages
-    await ChatMessage.createMany(initMessages);
+    await ChatMessage.create(initMessages);
     // Return the updated Combat
     return this;
 }
@@ -89,7 +90,7 @@ export const setupTurns = function () {
     const players = game.users.players;
     // Populate additional data for each combatant
     let turns = this.data.combatants.map(c => {
-        c.token = scene.getEmbeddedEntity("Token", c.tokenId, { strict: true });
+        c.token = scene.getEmbeddedEntity("Token", c.tokenId, { strict: false });
         if (!c.token) return c;
         c.actor = Actor.fromToken(new Token(c.token, scene));
         c.players = c.actor ? players.filter(u => c.actor.hasPerm(u, "OWNER")) : [];
@@ -100,13 +101,13 @@ export const setupTurns = function () {
 
     // Sort turns into initiative order: (1) Card Value, (2) Card Suit
     turns = turns.sort((a, b) => {
-        if (a.flags.actionCard && b.flags.actionCard) {
-            const cardA = a.flags.actionCard.cardValue;
-            const cardB = b.flags.actionCard.cardValue;
+        if (a.flags.swade && b.flags.swade) {
+            const cardA = a.flags.swade.cardValue;
+            const cardB = b.flags.swade.cardValue;
             let card = cardB - cardA;
             if (card !== 0) return card;
-            const suitA = a.flags.actionCard.suitValue;
-            const suitb = b.flags.actionCard.suitValue;
+            const suitA = a.flags.swade.suitValue;
+            const suitb = b.flags.swade.suitValue;
             let suit = suitb - suitA;
             return suit;
         }

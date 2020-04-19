@@ -230,8 +230,7 @@ Hooks.on('renderCombatTracker', (app, html: JQuery<HTMLElement>, data) => {
 	});
 });
 
-Hooks.on('updateCombat', async (combat, update, options, userId) => {
-
+Hooks.on('preUpdateCombat', async (combat, updateData, options, userId) => {
 	// Return early if we are NOT a GM OR we are not the player that triggered the update AND that player IS a GM
 	const user = game.users.get(userId, { strict: true }) as User;
 	if (!game.user.isGM || (game.userId !== userId && user.isGM)) {
@@ -239,36 +238,43 @@ Hooks.on('updateCombat', async (combat, update, options, userId) => {
 	}
 
 	// Return if this update does not contains a round
-	if (!update.round) {
+	if (!updateData.round) {
 		return;
 	}
 
 	if (combat instanceof CombatEncounters) {
-		combat = game.combats.get(update._id, { strict: true });
+		combat = game.combats.get(updateData._id, { strict: true });
 	}
 
 	// If we are not moving forward through the rounds, return
-	if (update.round < 1 || update.round < combat.previous.round) {
+	if (updateData.round < 1 || updateData.round < combat.previous.round) {
 		return;
 	}
 
 	// If Combat has just started, return
-	if (!combat.previous.round || combat.previous.round === 0) {
+	if ((!combat.previous.round || combat.previous.round === 0) && updateData.round === 1) {
 		return;
 	}
 
 	let jokerDrawn = false;
 
-	combat.combatants.forEach(async (c) => {
-		if (c.flags.actionCard && c.flags.actionCard.isJoker) {
+	// Reset the Initiative of all combatants
+	combat.combatants.forEach((c) => {
+		if (c.flags.swade && c.flags.swade.hasJoker) {
 			jokerDrawn = true;
 		}
-		c.initiative = null;
-		c.hasRolled = false;
-		c.flags.actionCard = null;
 	});
 
-	await combat.update({ turn: 0, combatants: combat.combatants });
+	const resetComs = combat.combatants.map(c => {
+		c.initiative = null;
+		c.hasRolled = false;
+		c.flags.swade.cardValue = null
+		c.flags.swade.suitValue = null
+		c.flags.swade.hasJoker = null
+		return c
+	});
+
+	updateData.combatants = resetComs;
 
 	// Reset the deck if any combatant has had a Joker	
 	if (jokerDrawn) {
@@ -283,6 +289,7 @@ Hooks.on('updateCombat', async (combat, update, options, userId) => {
 		await combat.rollInitiative(combatantIds);
 	}
 });
+
 // Add roll data to the message for formatting of dice pools
 Hooks.on("renderChatMessage", async (chatMessage: ChatMessage, html: JQuery<HTMLHtmlElement>, data: any) => {
 	if (chatMessage.isRoll && chatMessage.isRollVisible) {
