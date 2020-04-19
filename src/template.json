@@ -149,7 +149,7 @@
       }
     },
     "gear": {
-      "templates": ["itemDescription", "physicalItem"]
+      "templates": ["itemDescription", "physicalItem", "equipable"]
     },
     "weapon": {
       "templates": ["itemDescription", "physicalItem", "equipable"],

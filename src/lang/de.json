@@ -50,7 +50,7 @@
   "SWADE.MinStrLong": "Mindeststärke",
   "SWADE.MinStr": "Mindeststärke",
   "SWADE.Desc": "Beschreibung",
-  "SWADE.Conv": "Entschlossenheit",
+  "SWADE.Equippable": "Ausrüstbar",
 
   "SWADE.Hindrances": "Handicaps",
   "SWADE.MajHind": "Schweres Handicap",
@@ -59,6 +59,7 @@
   "SWADE.Edges": "Talente",
   "SWADE.ArcBack": "Arkaner Hintergrund",
   "SWADE.Req": "Vorrausetzungen",
+  "SWADE.Conv": "Entschlossenheit",
 
   "SWADE.Currency": "Währung",
   "SWADE.CarryWeight": "Getragenes Gewicht",
