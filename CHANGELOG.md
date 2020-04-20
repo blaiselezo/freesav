@@ -20,6 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Damage rolls can now take and `@` modifer to automatically add the attribute request.
+  For example `@str` will resolve to the Strength attribute, which will be added to the damage roll.
+
+### Changed
+
+- Changed automated roll formula a bit to make the code more readable.
+
 ## [0.6.1] 2020-24-20
 
 ### Added

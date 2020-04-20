@@ -81,9 +81,9 @@ export class SwadeActor extends Actor {
     let itemData = items[0].data["data"];
     let exp = "";
     if (this.data["data"].wildcard) {
-      exp = `{1d${itemData["die"].sides}x${itemData["die"].sides}, 1d${itemData["wild-die"].sides}x${itemData["wild-die"].sides}}kh`;
+      exp = `{1d${itemData["die"].sides}x=, 1d${itemData["wild-die"].sides}x=}kh`;
     } else {
-      exp = `1d${itemData["die"].sides}x${itemData["die"].sides}`;
+      exp = `1d${itemData["die"].sides}x=`;
     }
 
     //Check and add Modifiers
@@ -112,5 +112,24 @@ export class SwadeActor extends Actor {
     if (fatigue !== NaN) retVal += fatigue;
 
     return retVal * -1;
+  }
+
+  /**
+  * Function for shorcut roll in item (@str + 1d6)
+  * return something like : {agi: "1d8x8+1", sma: "1d6x6", spi: "1d6x6", str: "1d6x6-1", vig: "1d6x6"}
+  */
+  getRollShortcuts(bAddWildDie = false) {
+    let out = {};
+
+    // Attributes
+    const attr = this.data.data.attributes;
+    for (const name of ["agility", "smarts", "spirit", "strength", "vigor"]) {
+      out[name.substring(0, 3)] = `1d${attr[name].die.sides}x${attr[name].die.sides}`
+        + (attr[name].die.modifier[0] != 0 ? (["+", "-"].indexOf(attr[name].die.modifier[0]) < 0 ? "+" : "") + attr[name].die.modifier : "")
+        // wild-die
+        + (bAddWildDie && attr[name]["wild-die"].sides ? `+1d${attr[name]["wild-die"].sides}x${attr[name]["wild-die"].sides}` : "")
+        ;
+    }//fr
+    return out;
   }
 }
