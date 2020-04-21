@@ -21,7 +21,6 @@ export class SwadeItem extends Item {
     const actor = this.actor as SwadeActor;
     const actorData = actor.data.data;
     const label = this.name;
-    let rollMode = game.settings.get("core", "rollMode");
 
     // Intermediary roll to let it do the parsing for us
     let roll = new Roll(itemData.damage, actor.getRollShortcuts()).roll();
@@ -41,6 +40,8 @@ export class SwadeItem extends Item {
       data: actorData,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize("SWADE.Dmg")}`,
+      title: `${game.i18n.localize(label)} ${game.i18n.localize("SWADE.Dmg")}`,
+      item: true
     });
   }
 

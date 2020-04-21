@@ -1,4 +1,5 @@
 import { SwadeDice } from "./dice";
+import { TilingSprite } from "pixi.js";
 
 export class SwadeActor extends Actor {
   /**
@@ -49,15 +50,18 @@ export class SwadeActor extends Actor {
     const abl = actorData.data.attributes[abilityId];
     let exp = "";
     if (this.data["data"].wildcard) {
-      exp = `{1d${abl.die.sides}x${abl.die.sides}, 1d${abl["wild-die"].sides}x${abl["wild-die"].sides}}kh`;
+      exp = `{1d${abl.die.sides}x=, 1d${abl["wild-die"].sides}x=}kh`;
     } else {
       exp = `1d${abl.die.sides}x${abl.die.sides}`;
     }
 
     //Check and add Modifiers
     const rollParts = [exp] as any[];
-    const ablMod = parseInt(abl.die.modifier);
-    if (ablMod !== NaN && ablMod !== 0) rollParts.push(ablMod);
+    let ablMod = parseInt(abl.die.modifier);
+    if (!isNaN(ablMod) && ablMod !== 0) {
+      if (ablMod > 0) rollParts.push("+")
+      rollParts.push(ablMod)
+    }
     const woundFatigePenalties = this.calcWoundFatigePenalties();
     if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
 
@@ -70,6 +74,9 @@ export class SwadeActor extends Actor {
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
         "SWADE.AttributeTest"
       )}`,
+      title: `${game.i18n.localize(label)} ${game.i18n.localize(
+        "SWADE.AttributeTest"
+      )}`
     });
   }
 
@@ -88,8 +95,11 @@ export class SwadeActor extends Actor {
 
     //Check and add Modifiers
     const rollParts = [exp] as any[];
-    const itemMod = parseInt(itemData["die"].modifier);
-    if (itemMod !== NaN && itemMod !== 0) rollParts.push(itemMod);
+    let itemMod = parseInt(itemData["die"].modifier);
+    if (!isNaN(itemMod) && itemMod !== 0) {
+      if (itemMod > 0) rollParts.push("+")
+      rollParts.push(itemMod)
+    };
     const woundFatigePenalties = this.calcWoundFatigePenalties();
     if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
 
@@ -100,6 +110,7 @@ export class SwadeActor extends Actor {
       data: itemData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${items[0].name} ${game.i18n.localize("SWADE.SkillTest")}`,
+      title: `${items[0].name} ${game.i18n.localize("SWADE.SkillTest")}`
     });
   }
 
@@ -124,10 +135,10 @@ export class SwadeActor extends Actor {
     // Attributes
     const attr = this.data.data.attributes;
     for (const name of ["agility", "smarts", "spirit", "strength", "vigor"]) {
-      out[name.substring(0, 3)] = `1d${attr[name].die.sides}x${attr[name].die.sides}`
+      out[name.substring(0, 3)] = `1d${attr[name].die.sides}x=`
         + (attr[name].die.modifier[0] != 0 ? (["+", "-"].indexOf(attr[name].die.modifier[0]) < 0 ? "+" : "") + attr[name].die.modifier : "")
         // wild-die
-        + (bAddWildDie && attr[name]["wild-die"].sides ? `+1d${attr[name]["wild-die"].sides}x${attr[name]["wild-die"].sides}` : "")
+        + (bAddWildDie && attr[name]["wild-die"].sides ? `+1d${attr[name]["wild-die"].sides}x=` : "")
         ;
     }//fr
     return out;

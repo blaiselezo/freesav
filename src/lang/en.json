@@ -78,5 +78,9 @@
   "SWADE.Wound": "Wound",
   "SWADE.Wounds": "Wounds",
   "SWADE.Fatigue": "Fatigue",
-  "SWADE.Incap": "Incapacitated!"
+  "SWADE.Incap": "Incapacitated!",
+
+  "SWADE.Formula": "Formula",
+  "SWADE.SitMod": "Situational Mod",
+  "SWADE.RollMode": "Roll Mode"
 }

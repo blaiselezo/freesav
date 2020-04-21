@@ -53,8 +53,7 @@ export class SwadeCharacterSheet extends ActorSheet {
     html.find(".edge").click((ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item: any = this.actor.getOwnedItem(li.data("itemId")).data;
-      document.getElementById("edge-description").innerHTML =
-        item.data.description;
+      html.find("#edge-description")[0].innerHTML = item.data.description;
     });
 
     //Toggle Equipment
