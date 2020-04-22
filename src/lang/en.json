@@ -82,5 +82,8 @@
 
   "SWADE.Formula": "Formula",
   "SWADE.SitMod": "Situational Mod",
-  "SWADE.RollMode": "Roll Mode"
+  "SWADE.RollMode": "Roll Mode",
+  "SWADE.RollExample": "eg. +1d6x= or -2",
+  "SWADE.Ok": "Ok",
+  "SWADE.Cancel": "Cancel"
 }

@@ -31,6 +31,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Changed automated roll formula a bit to make the code more readable.
 
+### Fixed
+
+- Fixed a small bug where the description of an Edge or Hindrance could show up on multiple `character` sheets at once
+
 ## [0.6.1] 2020-24-20
 
 ### Added

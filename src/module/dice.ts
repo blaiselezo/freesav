@@ -40,14 +40,13 @@ export class SwadeDice {
         content: html,
         buttons: {
           ok: {
-            label: "Ok",
+            label: game.i18n.localize("SWADE.Ok"),
             callback: (html) => {
               roll = _roll(html[0].children[0]);
             }
           },
           cancel: {
-            label: "Cancel",
-            callback: () => { }
+            label: game.i18n.localize("SWADE.Cancel"),
           },
         },
         default: "ok",
