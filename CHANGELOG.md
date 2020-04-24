@@ -20,7 +20,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [0.6.1] 2020-24-20
+## [v0.7.0] 2020-04-20
+
+### Added
+
+- Damage rolls can now take an `@` modifer to automatically add the attribute requested. For example `@str` will resolve to the Strength attribute, which will be added to the damage roll.
+- Added Limited Sheet for NPCs. If the viewer has the `Limited` Permission they get a different sheet which only contains the character artwork, the name of the NPC and their description
+- Added Confirm Dialogue when deleting items from the inventory of `character` Actors
+
+### Changed
+
+- Changed automated roll formula a bit to make the code more readable.
+
+### Fixed
+
+- Fixed a small bug where the description of an Edge or Hindrance could show up on multiple `character` sheets at once
+
+## [0.6.1] 2020-04-20
 
 ### Added
 
