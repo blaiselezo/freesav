@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.7.0] 2020-04-20
 
 ### Added
 
@@ -36,7 +36,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Fixed a small bug where the description of an Edge or Hindrance could show up on multiple `character` sheets at once
 
-## [0.6.1] 2020-24-20
+## [0.6.1] 2020-04-20
 
 ### Added
 
