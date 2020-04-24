@@ -24,8 +24,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
-- Damage rolls can now take and `@` modifer to automatically add the attribute request.
-  For example `@str` will resolve to the Strength attribute, which will be added to the damage roll.
+- Damage rolls can now take an `@` modifer to automatically add the attribute requested. For example `@str` will resolve to the Strength attribute, which will be added to the damage roll.
+- Added Limited Sheet for NPCs. If the viewer has the `Limited` Permission they get a different sheet which only contains the character artwork, the name of the NPC and their description
+- Added Confirm Dialogue when deleting items from the inventory of `character` Actors
 
 ### Changed
 

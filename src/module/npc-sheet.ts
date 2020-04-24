@@ -16,6 +16,7 @@ export class SwadeNPCSheet extends ActorSheet {
     get template() {
         // Later you might want to return a different template
         // based on user permissions.
+        if (!game.user.isGM && this.actor.limited) return "systems/swade/templates/actors/limited-sheet.html";
         return 'systems/swade/templates/actors/npc-sheet.html';
     }
 

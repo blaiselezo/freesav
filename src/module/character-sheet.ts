@@ -43,10 +43,18 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
     // Delete Item
-    html.find(".item-delete").click((ev) => {
+    html.find(".item-delete").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");
-      this.actor.deleteOwnedItem(li.data("itemId"));
-      li.slideUp(200, () => this.render(false));
+      const ownedItem = this.actor.getOwnedItem(li.data("itemId"))
+      await Dialog.confirm({
+        title: game.i18n.localize("SWADE.Del"),
+        content: `<p><center>${game.i18n.localize("SWADE.Del")} <strong>${ownedItem.name}</strong>?</center></p>`,
+        yes: () => {
+          this.actor.deleteOwnedItem(ownedItem.id);
+          li.slideUp(200, () => this.render(false));
+        },
+        no: () => { }
+      }, {});
     });
 
     //Show Description of an Edge/Hindrance

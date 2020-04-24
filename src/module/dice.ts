@@ -10,7 +10,7 @@ export class SwadeDice {
     const _roll = (form = null) => {
       // Optionally include a situational bonus
       if (form !== null) data['bonus'] = form.bonus.value;
-      if (data["bonus"]) filtered.push(data['bonus']);
+      if (data['bonus']) filtered.push(data['bonus']);
 
       const roll = new Roll(filtered.join(""), data).roll();
       // Convert the roll to a chat message and return the roll
@@ -41,11 +41,13 @@ export class SwadeDice {
         buttons: {
           ok: {
             label: game.i18n.localize("SWADE.Ok"),
+            icon: '<i class="fas fa-check"></i>',
             callback: (html) => {
               roll = _roll(html[0].children[0]);
             }
           },
           cancel: {
+            icon: '<i class="fas fa-times"></i>',
             label: game.i18n.localize("SWADE.Cancel"),
           },
         },

@@ -62,6 +62,7 @@ export class SwadeActor extends Actor {
       if (ablMod > 0) rollParts.push("+")
       rollParts.push(ablMod)
     }
+
     const woundFatigePenalties = this.calcWoundFatigePenalties();
     if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
 
@@ -85,17 +86,17 @@ export class SwadeActor extends Actor {
     if (!items.length) {
       return;
     }
-    let itemData = items[0].data["data"];
+    let skillData = items[0].data["data"];
     let exp = "";
     if (this.data["data"].wildcard) {
-      exp = `{1d${itemData["die"].sides}x=, 1d${itemData["wild-die"].sides}x=}kh`;
+      exp = `{1d${skillData["die"].sides}x=, 1d${skillData["wild-die"].sides}x=}kh`;
     } else {
-      exp = `1d${itemData["die"].sides}x=`;
+      exp = `1d${skillData["die"].sides}x=`;
     }
 
     //Check and add Modifiers
     const rollParts = [exp] as any[];
-    let itemMod = parseInt(itemData["die"].modifier);
+    let itemMod = parseInt(skillData["die"].modifier);
     if (!isNaN(itemMod) && itemMod !== 0) {
       if (itemMod > 0) rollParts.push("+")
       rollParts.push(itemMod)
@@ -107,7 +108,7 @@ export class SwadeActor extends Actor {
     return SwadeDice.Roll({
       event: options.event,
       parts: rollParts,
-      data: itemData,
+      data: skillData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${items[0].name} ${game.i18n.localize("SWADE.SkillTest")}`,
       title: `${items[0].name} ${game.i18n.localize("SWADE.SkillTest")}`
