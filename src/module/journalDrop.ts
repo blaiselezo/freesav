@@ -10,7 +10,7 @@ export const listenJournalDrop = function () {
   }
 
   // Create the tile with the gathered informations
-  function _onDropImage(event: any, data: any) {
+  function _onDropImage(event, data) {
     if (data.type == "image") {
       // Projecting screen coords to the canvas
       let t = canvas.tiles.worldTransform;
@@ -25,14 +25,12 @@ export const listenJournalDrop = function () {
         hidden: false,
         locked: false,
         rotation: 0,
-      }).then((data: any) => {
-        let tile = canvas.tiles.placeables.filter((a) => a.id === data._id)[0];
+      }).then((data) => {
+        let tile = canvas.tiles.placeables.filter((a) => a.id === data.id)[0];
         // Update the tile width to have correct the aspect ratio
-        tile._drawTile().then((img: any) => {
-          let ratio = tile.aspectRatio;
-          if (ratio) {
-            tile.update({ width: tile.height * tile.aspectRatio });
-          }
+        tile._drawTile().then((img) => {
+          let width = img.width * CONFIG.SWADE.imagedrop.height / img.height;
+          tile.update({ width: width, height: CONFIG.SWADE.imagedrop.height });
         });
       });
     }

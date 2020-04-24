@@ -14,5 +14,7 @@ export class SWADE {
         vigor: "SWADE.AttrVig"
     };
 
-
+    public static imagedrop = {
+        height: 200
+    }
 }
