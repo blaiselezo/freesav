@@ -136,7 +136,7 @@ export class SwadeActor extends Actor {
   calcStatusPenalties(): number {
     let retVal = 0;
     if (this.data.data.status.isDistracted) {
-      retVal--;
+      retVal -= 2;
     }
     return retVal;
   }
