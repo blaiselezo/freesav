@@ -1,5 +1,4 @@
-import { SwadeDice } from "./dice";
-import { TilingSprite } from "pixi.js";
+import { SwadeDice } from './dice';
 
 export class SwadeActor extends Actor {
   /**
@@ -48,9 +47,9 @@ export class SwadeActor extends Actor {
     const label = CONFIG.SWADE.attributes[abilityId];
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
-    let exp = "";
-    if (this.data["data"].wildcard) {
-      exp = `{1d${abl.die.sides}x=, 1d${abl["wild-die"].sides}x=}kh`;
+    let exp = '';
+    if (this.data['data'].wildcard) {
+      exp = `{1d${abl.die.sides}x=, 1d${abl['wild-die'].sides}x=}kh`;
     } else {
       exp = `1d${abl.die.sides}x${abl.die.sides}`;
     }
@@ -59,7 +58,7 @@ export class SwadeActor extends Actor {
     const rollParts = [exp] as any[];
     let ablMod = parseInt(abl.die.modifier);
     if (!isNaN(ablMod) && ablMod !== 0) {
-      if (ablMod > 0) rollParts.push("+")
+      if (ablMod > 0) rollParts.push('+')
       rollParts.push(ablMod)
     }
 
@@ -73,10 +72,10 @@ export class SwadeActor extends Actor {
       data: actorData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
-        "SWADE.AttributeTest"
+        'SWADE.AttributeTest'
       )}`,
       title: `${game.i18n.localize(label)} ${game.i18n.localize(
-        "SWADE.AttributeTest"
+        'SWADE.AttributeTest'
       )}`
     });
   }
@@ -86,21 +85,21 @@ export class SwadeActor extends Actor {
     if (!items.length) {
       return;
     }
-    let skillData = items[0].data["data"];
-    let exp = "";
-    if (this.data["data"].wildcard) {
-      exp = `{1d${skillData["die"].sides}x=, 1d${skillData["wild-die"].sides}x=}kh`;
+    let skillData = items[0].data['data'];
+    let exp = '';
+    if (this.data['data'].wildcard) {
+      exp = `{1d${skillData['die'].sides}x=, 1d${skillData['wild-die'].sides}x=}kh`;
     } else {
-      exp = `1d${skillData["die"].sides}x=`;
+      exp = `1d${skillData['die'].sides}x=`;
     }
 
     //Check and add Modifiers
     const rollParts = [exp] as any[];
-    let itemMod = parseInt(skillData["die"].modifier);
+    let itemMod = parseInt(skillData['die'].modifier);
     if (!isNaN(itemMod) && itemMod !== 0) {
-      if (itemMod > 0) rollParts.push("+")
+      if (itemMod > 0) rollParts.push('+')
       rollParts.push(itemMod)
-    };
+    }
     const woundFatigePenalties = this.calcWoundFatigePenalties();
     if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
 
@@ -110,16 +109,16 @@ export class SwadeActor extends Actor {
       parts: rollParts,
       data: skillData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${items[0].name} ${game.i18n.localize("SWADE.SkillTest")}`,
-      title: `${items[0].name} ${game.i18n.localize("SWADE.SkillTest")}`
+      flavor: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
+      title: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`
     });
   }
 
   //Calculated the wound and fatigue penalites
   calcWoundFatigePenalties(): number {
     let retVal = 0;
-    const wounds = parseInt(this.data["data"]["wounds"]["value"]);
-    const fatigue = parseInt(this.data["data"]["fatigue"]["value"]);
+    const wounds = parseInt(this.data['data']['wounds']['value']);
+    const fatigue = parseInt(this.data['data']['fatigue']['value']);
 
     if (!isNaN(wounds)) retVal = (wounds > 3) ? retVal += 3 : retVal += wounds;
     if (!isNaN(fatigue)) retVal += fatigue;
@@ -136,11 +135,11 @@ export class SwadeActor extends Actor {
 
     // Attributes
     const attr = this.data.data.attributes;
-    for (const name of ["agility", "smarts", "spirit", "strength", "vigor"]) {
+    for (const name of ['agility', 'smarts', 'spirit', 'strength', 'vigor']) {
       out[name.substring(0, 3)] = `1d${attr[name].die.sides}x=`
-        + (attr[name].die.modifier[0] != 0 ? (["+", "-"].indexOf(attr[name].die.modifier[0]) < 0 ? "+" : "") + attr[name].die.modifier : "")
+        + (attr[name].die.modifier[0] != 0 ? (['+', '-'].indexOf(attr[name].die.modifier[0]) < 0 ? '+' : '') + attr[name].die.modifier : '')
         // wild-die
-        + (bAddWildDie && attr[name]["wild-die"].sides ? `+1d${attr[name]["wild-die"].sides}x=` : "")
+        + (bAddWildDie && attr[name]['wild-die'].sides ? `+1d${attr[name]['wild-die'].sides}x=` : '')
         ;
     }//fr
     return out;
