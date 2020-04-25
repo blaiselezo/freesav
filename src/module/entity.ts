@@ -66,6 +66,9 @@ export class SwadeActor extends Actor {
     const woundFatigePenalties = this.calcWoundFatigePenalties();
     if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
 
+    const statusPenalties = this.calcStatusPenalties();
+    if (statusPenalties !== 0) rollParts.push(statusPenalties);
+
     // Roll and return
     return SwadeDice.Roll({
       event: options.event,
@@ -104,6 +107,9 @@ export class SwadeActor extends Actor {
     const woundFatigePenalties = this.calcWoundFatigePenalties();
     if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
 
+    const statusPenalties = this.calcStatusPenalties();
+    if (statusPenalties !== 0) rollParts.push(statusPenalties);
+
     // Roll and return
     return SwadeDice.Roll({
       event: options.event,
@@ -125,6 +131,14 @@ export class SwadeActor extends Actor {
     if (!isNaN(fatigue)) retVal += fatigue;
 
     return retVal * -1;
+  }
+
+  calcStatusPenalties(): number {
+    let retVal = 0;
+    if (this.data.data.status.isDistracted) {
+      retVal--;
+    }
+    return retVal;
   }
 
   /**
