@@ -139,7 +139,6 @@ export class SwadeCharacterSheet extends ActorSheet {
         element.parentElement.parentElement.parentElement.dataset.itemId;
       const item = this.actor.getOwnedItem(itemId) as SwadeItem;
       return item.rollDamage();
-      // actorObject.rollSkill(item, {event: event});
     });
   }
 
@@ -189,7 +188,7 @@ export class SwadeCharacterSheet extends ActorSheet {
     }
 
     // Check for enabled optional rules
-    this.actor.setFlag('swade', 'convictionEnabled', game.settings.get('swade', 'convictionEnabled'));
+    this.actor.setFlag('swade', 'enableConviction', game.settings.get('swade', 'enableConviction'));
 
     return data;
   }

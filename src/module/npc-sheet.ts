@@ -1,5 +1,7 @@
-import { SwadeActor } from "./entity";
-import { SwadeItem } from "./item-entity";
+// eslint-disable-next-line no-unused-vars
+import { SwadeActor } from './entity';
+// eslint-disable-next-line no-unused-vars
+import { SwadeItem } from './item-entity';
 
 export class SwadeNPCSheet extends ActorSheet {
 
@@ -9,14 +11,14 @@ export class SwadeNPCSheet extends ActorSheet {
             classes: ['swade', 'sheet', 'npc'],
             width: 600,
             height: 'auto',
-            tabs: [{ navSelector: ".tabs", contentSelector: ".sheet-body", initial: "summary" }]
+            tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }]
         });
     }
 
     get template() {
         // Later you might want to return a different template
         // based on user permissions.
-        if (!game.user.isGM && this.actor.limited) return "systems/swade/templates/actors/limited-sheet.html";
+        if (!game.user.isGM && this.actor.limited) return 'systems/swade/templates/actors/limited-sheet.html';
         return 'systems/swade/templates/actors/npc-sheet.html';
     }
 
@@ -45,23 +47,23 @@ export class SwadeNPCSheet extends ActorSheet {
         });
 
         //Add Benny
-        html.find('.benny-add').click(ev => {
+        html.find('.benny-add').click(() => {
             const currentBennies: any = html.find('.bennies-current').val();
             const newBennies = parseInt(currentBennies) + 1;
-            this.actor.update({ "data.bennies.value": newBennies });
+            this.actor.update({ 'data.bennies.value': newBennies });
         });
 
         //Remove Benny
-        html.find('.benny-subtract').click(ev => {
+        html.find('.benny-subtract').click(() => {
             const currentBennies: any = html.find('.bennies-current').val();
             const newBennies = parseInt(currentBennies) - 1;
             if (newBennies >= 0) {
-                this.actor.update({ "data.bennies.value": newBennies });
+                this.actor.update({ 'data.bennies.value': newBennies });
             }
         });
 
         //Toggle Conviction
-        html.find('.convction-toggle').click(ev => {
+        html.find('.convction-toggle').click(() => {
             if (!this.actor.getFlag('swade', 'convictionReady')) {
                 this.actor.setFlag('swade', 'convictionReady', true);
             } else {
@@ -87,7 +89,7 @@ export class SwadeNPCSheet extends ActorSheet {
         });
 
         // Roll Damage
-        html.find(".damage-roll").click((event) => {
+        html.find('.damage-roll').click((event) => {
             let element = event.currentTarget as Element;
             let itemId =
                 element.parentElement.parentElement.parentElement.dataset.itemId;
@@ -116,7 +118,7 @@ export class SwadeNPCSheet extends ActorSheet {
         data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
         data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
         data.data.owned.hindrances = this._checkNull(data.itemsByType['hindrance']);
-        data.data.owned.skills = this._checkNull(data.itemsByType['skill']).sort((a, b) => a.name.localeCompare(b.name));;
+        data.data.owned.skills = this._checkNull(data.itemsByType['skill']).sort((a, b) => a.name.localeCompare(b.name));
         data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
         //Checks if an Actor has a Power Egde
@@ -125,6 +127,11 @@ export class SwadeNPCSheet extends ActorSheet {
         } else {
             this.actor.setFlag('swade', 'hasArcaneBackground', false);
         }
+
+        // Check for enabled optional rules
+
+        this.actor.setFlag('swade', 'enableConviction', game.settings.get('swade', 'enableConviction') && data.data.wildcard);
+
         data.config = CONFIG.SWADE;
         return data;
     }
