@@ -107,11 +107,11 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
     //Toggle Conviction
-    html.find('.convction-toggle').click(() => {
+    html.find('.convction-toggle').click(async () => {
       if (!this.actor.getFlag('swade', 'convictionReady')) {
         this.actor.setFlag('swade', 'convictionReady', true);
       } else {
-        //roll conviction
+        await new Roll('1d6x=').roll().toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), flavor: 'Calls on her Conviction!' });
         this.actor.setFlag('swade', 'convictionReady', false);
       }
     });
