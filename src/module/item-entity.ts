@@ -1,5 +1,5 @@
-import { SwadeDice } from "./dice";
-import { SwadeActor } from "./entity";
+import { SwadeDice } from './dice';
+import { SwadeActor } from './entity';
 
 /**
  * Override and extend the basic :class:`Item` implementation
@@ -27,7 +27,7 @@ export class SwadeItem extends Item {
     let newParts = [];
     roll.parts.forEach((part) => {
       if (part instanceof Die) {
-        let split = part.formula.split("d");
+        let split = part.formula.split('d');
         newParts.push(`${split[0]}d${part.faces}x=`);
       } else {
         newParts.push(part);
@@ -39,8 +39,8 @@ export class SwadeItem extends Item {
       parts: newParts,
       data: actorData,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: `${game.i18n.localize(label)} ${game.i18n.localize("SWADE.Dmg")}`,
-      title: `${game.i18n.localize(label)} ${game.i18n.localize("SWADE.Dmg")}`,
+      flavor: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
+      title: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
       item: true
     });
   }

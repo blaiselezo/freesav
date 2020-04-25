@@ -1,10 +1,11 @@
 export class SwadeDice {
+  // eslint-disable-next-line no-unused-vars
   static async Roll({ parts = [], data = {}, options = {}, event = null, speaker = null, flavor = null, title = null, item = false } = {}) {
 
-    let rollMode = game.settings.get("core", "rollMode");
+    let rollMode = game.settings.get('core', 'rollMode');
     let rolled = false;
     let filtered = parts.filter(function (el) {
-      return el != "" && el;
+      return el != '' && el;
     });
 
     const _roll = (form = null) => {
@@ -12,7 +13,7 @@ export class SwadeDice {
       if (form !== null) data['bonus'] = form.bonus.value;
       if (data['bonus']) filtered.push(data['bonus']);
 
-      const roll = new Roll(filtered.join(""), data).roll();
+      const roll = new Roll(filtered.join(''), data).roll();
       // Convert the roll to a chat message and return the roll
       rollMode = form ? form.rollMode.value : rollMode;
       roll.toMessage({
@@ -23,9 +24,9 @@ export class SwadeDice {
       return roll;
     }
 
-    const template = "systems/swade/templates/chat/roll-dialog.html";
+    const template = 'systems/swade/templates/chat/roll-dialog.html';
     let dialogData = {
-      formula: filtered.join(" "),
+      formula: filtered.join(' '),
       data: data,
       rollMode: rollMode,
       rollModes: CONFIG.rollModes
@@ -40,7 +41,7 @@ export class SwadeDice {
         content: html,
         buttons: {
           ok: {
-            label: game.i18n.localize("SWADE.Ok"),
+            label: game.i18n.localize('SWADE.Ok'),
             icon: '<i class="fas fa-check"></i>',
             callback: (html) => {
               roll = _roll(html[0].children[0]);
@@ -48,10 +49,10 @@ export class SwadeDice {
           },
           cancel: {
             icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize("SWADE.Cancel"),
+            label: game.i18n.localize('SWADE.Cancel'),
           },
         },
-        default: "ok",
+        default: 'ok',
         close: () => {
           resolve(rolled ? roll : false);
         }

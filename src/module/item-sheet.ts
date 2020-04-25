@@ -3,8 +3,8 @@ export class SwadeItemSheet extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 560,
-      height: "auto",
-      classes: ["swade", "sheet", "item"],
+      height: 'auto',
+      classes: ['swade', 'sheet', 'item'],
       resizable: false
     });
   }
@@ -14,7 +14,7 @@ export class SwadeItemSheet extends ItemSheet {
    * @return {string}
    */
   get template() {
-    const path = "systems/swade/templates/items";
+    const path = 'systems/swade/templates/items';
     return `${path}/${this.item.data.type}.html`;
   }
 
