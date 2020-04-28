@@ -1,4 +1,15 @@
+<div align=center>
+
 # Savage Worlds Adventure Edition for Foundry VTT
+
+<img title="Minimum core version" src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json&label=core&query=minimumCoreVersion&suffix=%2B&style=flat-square&color=important">
+<img title="Latest compatible version" src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json&label=compatible&query=compatibleCoreVersion&style=flat-square&color=important">
+<img src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json&label=version&query=version&style=flat-square&color=success">
+
+[![Donate via Ko-Fi](https://img.shields.io/badge/support-ko--fi-ff4646?style=flat-square&logo=ko-fi)](https://ko-fi.com/florad)
+[![Twitter Follow](https://img.shields.io/badge/follow-%40FloRadical-blue.svg?style=flat-square&logo=twitter)](https://twitter.com/FloRadical)
+
+</div>
 
 An implementation of the Savage Worlds Adventure Edition game system for [Foundry Virtual Tabletop](http://foundryvtt.com) under the [Savage Worlds Fans License](https://www.peginc.com/licensing/)
 
