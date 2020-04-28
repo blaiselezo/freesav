@@ -12,7 +12,7 @@
                 <h1 class="charname">
                     <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SWADE.Name'}}" />
                 </h1>
-                {{#if actor.data.wildcard}}
+                {{#if actor.flags.swade.enableConviction}}
                 <div class="conviction">
                     <strong>{{localize "SWADE.Conv"}}</strong>
                     <div class="convction-toggle">
