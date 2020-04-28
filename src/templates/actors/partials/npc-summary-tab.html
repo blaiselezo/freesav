@@ -36,7 +36,7 @@
 </section>
 <div class="flexrow">
     <div class="traits">
-        <header class="attributes-header flexrow">
+        <header class="header-field">
             <span>{{ localize "SWADE.Attributes" }}</span>
         </header>
         <ol class="attributes-list">
@@ -97,7 +97,7 @@
                     data-dtype="String" />
             </li>
         </ol>
-        <header class="skills-header">
+        <header class="header-field">
             <span>{{localize "SWADE.Skills"}}</span>
         </header>
         <div class="skills-list">
@@ -110,7 +110,7 @@
             {{/each}}
         </div>
         <div class="gear">
-            <header class="gear-header">
+            <header class="header-field">
                 <span>{{localize "SWADE.Edges"}}</span>
             </header>
             {{#each data.owned.edges as |edge id|}}
@@ -124,7 +124,7 @@
         </div>
         {{#if actor.data.wildcard}}
         <div class="gear">
-            <header class="gear-header">
+            <header class="header-field">
                 <span>{{localize "SWADE.Hindrances"}}</span>
             </header>
             {{#each data.owned.hindrances as |hindrance id|}}
@@ -146,7 +146,7 @@
         {{/if}}
     </div>
     <div class="gear">
-        <header class="gear-header">
+        <header class="header-field">
             <span>{{localize "SWADE.Inv"}}</span>
         </header>
         {{#each data.owned.weapons as |weapon id|}}
@@ -209,7 +209,7 @@
 
         </div>
         {{/each}}
-        <header class="gear-header">
+        <header class="header-field">
             <span>{{localize "SWADE.Desc"}}</span>
         </header>
         <div style="height: 200px;">

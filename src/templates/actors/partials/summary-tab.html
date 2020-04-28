@@ -37,7 +37,7 @@
 </section>
 <section class="flexrow">
     <div class="traits">
-        <header class="attributes-header flexrow">
+        <header class="header-field">
             <span>{{ localize "SWADE.Attributes" }}</span>
         </header>
         <ol class="attributes-list">
@@ -98,7 +98,7 @@
                     data-dtype="String" />
             </li>
         </ol>
-        <header class="skills-header">
+        <header class="header-field">
             <span>{{localize "SWADE.Skills"}}</span>
         </header>
         <ol class="skills-list">
@@ -106,20 +106,21 @@
             <li class="item skill flexrow" data-item-id="{{skill._id}}">
                 <label class="skill-label"><a>{{skill.name}}</a></label>
                 <div class="skill-value"><span><a class="item-control item-edit"
-                    title="{{localize 'SWADE.EditSkill'}}">d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a></span></div>
+                            title="{{localize 'SWADE.EditSkill'}}">d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a></span>
+                </div>
                 <div class="skill-value"><span>{{localizeSkillAttribute skill.data.attribute}}</span></div>
             </li>
             {{/each}}
         </ol>
     </div>
     <div class="gear">
-        <header class="gear-header">
+        <header class="header-field">
             <span>{{ localize "SWADE.Weapons" }}</span>
         </header>
         <ol class="gear-list">
             {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
         </ol>
-        <header class="gear-header">
+        <header class="header-field">
             <span>{{ localize "SWADE.Armor" }}</span>
         </header>
         <ol class="gear-list">
