@@ -20,11 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.7.2] 2020-04-28
+
+### Fixed
+
+- Fixed a small bug that would cause an error to be displayed when a player opened te sheet of an actor they only had `Limited` permission on
+
 ## [v0.7.1] 2020-04-28
 
 ### Added
 
-- Status effect penalties will now be factored into rolls made from the sheet (credit to @atomdmac) on GitLab
+- Status effect penalties will now be factored into rolls made from the sheet (credit to @atomdmac on GitLab)
 - Added option to turn Conviction on or off as it is an optional rule
 
 ### Fixed
