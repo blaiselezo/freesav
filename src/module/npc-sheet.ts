@@ -25,6 +25,9 @@ export class SwadeNPCSheet extends ActorSheet {
     activateListeners(html): void {
         super.activateListeners(html);
 
+        // Everything below here is only needed if the sheet is editable
+        if (!this.options.editable) return;
+
         // Update Item via reigh-click
         html.find('.contextmenu-edit').contextmenu(ev => {
             const li = $(ev.currentTarget).parents('.item');
@@ -102,6 +105,9 @@ export class SwadeNPCSheet extends ActorSheet {
     getData() {
         let data: any = super.getData();
 
+        // Everything below here is only needed if user is not limited
+        if (this.actor.limited) return data;
+
         data.itemsByType = {};
         for (const item of data.items) {
             let list = data.itemsByType[item.type];
@@ -127,9 +133,7 @@ export class SwadeNPCSheet extends ActorSheet {
         } else {
             this.actor.setFlag('swade', 'hasArcaneBackground', false);
         }
-
         // Check for enabled optional rules
-
         this.actor.setFlag('swade', 'enableConviction', game.settings.get('swade', 'enableConviction') && data.data.wildcard);
 
         data.config = CONFIG.SWADE;
