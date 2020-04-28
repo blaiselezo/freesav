@@ -8,7 +8,7 @@ export class SwadeNPCSheet extends ActorSheet {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ['swade', 'sheet', 'npc'],
+            classes: ['swade', 'sheet', 'actor', 'npc'],
             width: 600,
             height: 'auto',
             tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }]
