@@ -22,6 +22,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+### Added
+
+- Status effect penalties will now be factored into rolls made from the sheet (credit to @atomdmac) on GitLab
+- Added option to turn Conviction on or off as it is an optional rule
+
 ### Fixed
 
 - Fixed a minor spelling mistake in the german translation
