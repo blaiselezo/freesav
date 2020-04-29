@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Changed
+
+- Optimnized setup code a bit
+
 ## [v0.7.2] 2020-04-28
 
 ### Fixed
