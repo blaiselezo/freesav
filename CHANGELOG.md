@@ -26,6 +26,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Optimnized setup code a bit
 
+### Fixed
+
+- Added missing Bloodthirsty Hindrance
+
 ## [v0.7.2] 2020-04-28
 
 ### Fixed
