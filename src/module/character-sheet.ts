@@ -15,13 +15,7 @@ export class SwadeCharacterSheet extends ActorSheet {
       classes: ['swade', 'sheet', 'character'],
       width: 600,
       height: 768,
-      tabs: [
-        {
-          navSelector: '.tabs',
-          contentSelector: '.sheet-body',
-          initial: 'summary',
-        },
-      ],
+      tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }]
     });
   }
 

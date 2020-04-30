@@ -20,6 +20,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.7.3] 2020-05-01
+
+### Added
+
+- Added the option to view Item artwork by right-clicking the item image in the sheet
+
+### Changed
+
+- Optimnized setup code a bit
+
+### Fixed
+
+- Added missing Bloodthirsty Hindrance
+- Fixed a spelling mistake in the `Improved Level Headed` Edge
+
 ## [v0.7.2] 2020-04-28
 
 ### Fixed
