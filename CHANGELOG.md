@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+### Added
+
+- Added the option to view Item artwork by right-clicking the item image in the sheet
+
 ### Changed
 
 - Optimnized setup code a bit

@@ -30,6 +30,14 @@ export class SwadeItemSheet extends ItemSheet {
         this.item.sheet.close();
       }
     });
+
+    html.find('.profile-img').contextmenu((e) => {
+      new ImagePopout(this.item.img, {
+        title: this.item.name,
+        shareable: true,
+        entity: { type: 'Item', id: this.item.id }
+      }).render(true);
+    });
   }
 
   /**
