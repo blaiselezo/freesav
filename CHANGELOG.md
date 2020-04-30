@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Added missing Bloodthirsty Hindrance
+- Fixed a spelling mistake in the `Improved Level Headed` Edge
 
 ## [v0.7.2] 2020-04-28
 
