@@ -20,6 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Added localization strings for Conviction
+- Fields in weapon cards will now only be shown when the value isn't empty
+
+## Changed
+
+- Switched Benny + and Benny - with each other.
+
 ## [v0.7.3] 2020-05-01
 
 ### Added
