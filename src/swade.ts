@@ -148,7 +148,7 @@ Hooks.on('updateActor', async (actor: Actor, updateData: any, options: any, user
 	}
 
 	//if it's a status update, update the token
-	if (updateData.data && updateData.data.status) {
+	if (updateData.data && updateData.data.status && (game.user.isGM || actor.owner)) {
 
 		const shaken = 'icons/svg/daze.svg';
 		const vulnerable = 'icons/svg/degen.svg';
