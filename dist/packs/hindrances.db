@@ -54,3 +54,4 @@
 {"name":"Slow","permission":{"default":0,"XGltUb0dWlJLkvbE":3},"type":"hindrance","data":{"description":"See SWADE p.27","notes":"","major":false},"flags":{},"img":"systems/swade/assets/icons/hindrance.svg","_id":"vKfRM417A2TCgNYd"}
 {"name":"Death Wish","permission":{"default":0,"XGltUb0dWlJLkvbE":3},"type":"hindrance","data":{"description":"See SWADE p.23","notes":"","major":false},"flags":{},"img":"systems/swade/assets/icons/hindrance.svg","_id":"w4XWEkeekxShUQIu"}
 {"name":"Cautious","permission":{"default":0,"XGltUb0dWlJLkvbE":3},"type":"hindrance","data":{"description":"See SWADE p.23","notes":"","major":false},"flags":{},"img":"systems/swade/assets/icons/hindrance.svg","_id":"xVZDXCCWRywhXAln"}
+{"name":"Bloodthirsty","permission":{"default":0,"XGltUb0dWlJLkvbE":3},"type":"hindrance","data":{"description":"<p>See SWADE p.23</p>","notes":"","major":true},"flags":{},"img":"systems/swade/assets/icons/hindrance.svg","_id":"w9d3qLjIdvdIV12t"}

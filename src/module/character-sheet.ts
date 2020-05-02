@@ -15,13 +15,7 @@ export class SwadeCharacterSheet extends ActorSheet {
       classes: ['swade', 'sheet', 'actor', 'character'],
       width: 600,
       height: 768,
-      tabs: [
-        {
-          navSelector: '.tabs',
-          contentSelector: '.sheet-body',
-          initial: 'summary',
-        },
-      ],
+      tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }]
     });
   }
 
@@ -111,7 +105,7 @@ export class SwadeCharacterSheet extends ActorSheet {
       if (!this.actor.getFlag('swade', 'convictionReady')) {
         this.actor.setFlag('swade', 'convictionReady', true);
       } else {
-        await new Roll('1d6x=').roll().toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), flavor: 'Calls on her Conviction!' });
+        await new Roll('1d6x=').roll().toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), flavor: game.i18n.localize('SWADE.UseConv') });
         this.actor.setFlag('swade', 'convictionReady', false);
       }
     });

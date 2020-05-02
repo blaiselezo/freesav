@@ -20,6 +20,38 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Added localization strings for Conviction
+- Fields in weapon cards will now only be shown when the value isn't empty
+
+## Changed
+
+- Switched Benny + and Benny - with each other.
+
+### Fixed
+
+- Fixed a bug that would display a permission error for players when a token they weren't allowed to update got updated
+- Status Effect binding now also works for tokens that are not linked to their base actor
+- Fixed a small localization error in the Weapon item sheet
+
+## [v0.7.3] 2020-05-01
+
+### Added
+
+- Added the option to view Item artwork by right-clicking the item image in the sheet
+
+### Changed
+
+- Optimnized setup code a bit
+
+### Fixed
+
+- Added missing Bloodthirsty Hindrance
+- Fixed a spelling mistake in the `Improved Level Headed` Edge
+
 ## [v0.7.2] 2020-04-28
 
 ### Fixed

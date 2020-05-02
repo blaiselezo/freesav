@@ -148,7 +148,7 @@ Hooks.on('updateActor', async (actor: Actor, updateData: any, options: any, user
 	}
 
 	//if it's a status update, update the token
-	if (updateData.data && updateData.data.status) {
+	if (updateData.data && updateData.data.status && (game.user.isGM || actor.owner)) {
 
 		const shaken = 'icons/svg/daze.svg';
 		const vulnerable = 'icons/svg/degen.svg';
@@ -169,28 +169,65 @@ Hooks.on('updateActor', async (actor: Actor, updateData: any, options: any, user
 });
 
 Hooks.on('preUpdateToken', async (scene: Scene, token: any, updateData: any, options: any) => {
-	// if the update has no effects, return
-	if (!updateData.effects) return;
-
-	//if the token has no linked actor, return
-	if (!token.actorLink) return;
-
-	const tokenActor = game.actors.get(token.actorId) as Actor;
-
-	// If this token has no actor, return
-	if (!tokenActor) return;
-
 	const shaken = 'icons/svg/daze.svg';
 	const vulnerable = 'icons/svg/degen.svg';
 	const distracted = 'icons/svg/stoned.svg';
 
-	await tokenActor.update({
-		'data.status': {
-			'isShaken': updateData.effects.includes(shaken),
-			'isVulnerable': updateData.effects.includes(vulnerable),
-			'isDistracted': updateData.effects.includes(distracted),
+	// if the update is effects
+	if (updateData.effects) {
+		if (token.actorLink) { // linked token
+			const tokenActor = game.actors.get(token.actorId) as Actor;
+
+			await tokenActor.update({
+				'data.status': {
+					'isShaken': updateData.effects.includes(shaken),
+					'isVulnerable': updateData.effects.includes(vulnerable),
+					'isDistracted': updateData.effects.includes(distracted),
+				}
+			});
+		} else {// unlinked token
+			const newStatus = {
+				isShaken: updateData.effects.includes(shaken),
+				isVulnerable: updateData.effects.includes(vulnerable),
+				isDistracted: updateData.effects.includes(distracted),
+			}
+			updateData.actorData = {
+				data: {
+					status: newStatus
+				}
+			}
 		}
-	});
+	} else if (updateData.actorData && updateData.actorData.data && updateData.actorData.data.status) { //else if the update is a toke-actor status update
+		const actorShaken = updateData.actorData.data.status.isShaken;
+		const actorVulnerable = updateData.actorData.data.status.isVulnerable;
+		const actorDistracted = updateData.actorData.data.status.isDistracted;
+
+		let newEffects = token.effects;
+
+		if (typeof actorShaken !== 'undefined') {
+			if (actorShaken && !newEffects.includes(shaken)) newEffects.push(shaken)
+			if (!actorShaken && newEffects.includes(shaken)) {
+				const index = newEffects.indexOf(shaken);
+				if (index > -1) newEffects.splice(index, 1);
+			}
+		}
+
+		if (typeof actorVulnerable !== 'undefined') {
+			if (actorVulnerable && !newEffects.includes(vulnerable)) newEffects.push(vulnerable)
+			if (!actorVulnerable && newEffects.includes(vulnerable)) {
+				const index = newEffects.indexOf(vulnerable);
+				if (index > -1) newEffects.splice(index, 1);
+			}
+		}
+		if (typeof actorDistracted !== 'undefined') {
+			if (actorDistracted && !newEffects.includes(distracted)) newEffects.push(distracted)
+			if (!actorDistracted && newEffects.includes(distracted)) {
+				const index = newEffects.indexOf(distracted);
+				if (index > -1) newEffects.splice(index, 1);
+			}
+		}
+		updateData.effects = [...new Set(newEffects)];
+	}
 });
 
 Hooks.on('preCreateToken', async (scene: Scene, createData: any, options: any, userId: string) => {
