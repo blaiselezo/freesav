@@ -31,6 +31,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Switched Benny + and Benny - with each other.
 
+### Fixed
+
+- Fixed a bug that would display a permission error for players when a token they weren't allowed to update got updated
+- Status Effect binding now also works for tokens that are not linked to their base actor
+
 ## [v0.7.3] 2020-05-01
 
 ### Added
