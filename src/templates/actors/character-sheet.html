@@ -1,12 +1,16 @@
 <form class="{{cssClass}}" autocomplete="off">
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="flexrow tabs" data-group="primary">
+        <a class="item" data-tab="summary">{{localize "SWADE.Summary"}}</a>
+        <a class="item" data-tab="edges">{{localize "SWADE.Edges"}}</a>
+        <a class="item" data-tab="inventory">{{localize "SWADE.Inv"}}</a>
+        {{#if actor.flags.swade.hasArcaneBackground}}
+        <a class="item" data-tab="powers">{{localize "SWADE.Pow"}}</a>
+        {{/if}}
+        <a class="item" data-tab="description">{{localize "SWADE.Desc"}}</a>
+    </nav>
     {{!-- Sheet Header --}}
     <header class="sheet-header">
-        <div class="profile-img-container">
-            <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-            <div class="incap-container">
-                <img src="systems/swade/assets/ui/incapacitated.svg" class="incap-img">
-            </div>
-        </div>
         <div class="header-fields">
             <div class="charline">
                 <h1 class="charname">
@@ -25,8 +29,39 @@
                 </div>
                 {{/if}}
             </div>
-            <div>
-                <div class="flexrow header-stats">
+            <div class="header-stats">
+                <div class="flexrow">
+                    <div class="form-group">
+                        <input name="data.advances.rank" id="rank-input" type="text" value="{{data.advances.rank}}"
+                            data-dtype="String" placeholder="{{localize 'SWADE.Rank'}}" />
+                    </div>
+                    <div class="form-group">
+                        <input id="race" name="data.details.species.name" type="text"
+                            value="{{data.details.species.name}}" data-dtype="String"
+                            placeholder="{{localize 'SWADE.Race'}}" />
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="data.status.isShaken" id="data.status.isShaken"
+                            {{checked actor.data.status.isShaken}}>
+                        <label for="data.status.isShaken">{{localize "SWADE.Shaken"}}</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="data.status.isDistracted" id="data.status.isDistracted"
+                            {{checked actor.data.status.isDistracted}}>
+                        <label for="data.status.isDistracted">{{localize "SWADE.Distr"}}</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="data.status.isVulnerable" id="data.status.isVulnerable"
+                            {{checked actor.data.status.isVulnerable}}>
+                        <label for="data.status.isVulnerable">{{localize "SWADE.Vuln"}}</label>
+                    </div>
+                </div>
+                <div class="flexrow">
+                    <div class="form-group">
+                        <label for="xp-input">{{localize "SWADE.Adv"}}</label>
+                        <input name="data.advances.value" id="xp-input" type="text" value="{{data.advances.value}}"
+                            data-dtype="Number" placeholder="0" />
+                    </div>
                     <div class="form-group">
                         <label for="pace">{{localize "SWADE.Pace"}}</label>
                         <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
@@ -43,52 +78,9 @@
                             placeholder="0" data-dtype="Number" />
                     </div>
                 </div>
-                <div class="flexrow header-stats">
-                    <div class="form-group">
-                        <input id="race" name="data.details.species.name" type="text"
-                            value="{{data.details.species.name}}" data-dtype="String"
-                            placeholder="{{localize 'SWADE.Race'}}" />
-                    </div>
-                    <div class="form-group">
-                        <input name="data.advances.rank" id="rank-input" type="text" value="{{data.advances.rank}}"
-                            data-dtype="String" placeholder="{{localize 'SWADE.Rank'}}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="xp-input">{{localize "SWADE.Adv"}}</label>
-                        <input name="data.advances.value" id="xp-input" type="text" value="{{data.advances.value}}"
-                            data-dtype="Number" placeholder="0" />
-                    </div>
-                </div>
-                <div class="flexrow header-stats">
-                    <div class="form-group">
-                        <label for="data.status.isShaken">{{localize "SWADE.Shaken"}}</label>
-                        <input type="checkbox" name="data.status.isShaken" {{checked actor.data.status.isShaken}}>
-                    </div>
-                    <div class="form-group">
-                        <label for="data.status.isDistracted">{{localize "SWADE.Distr"}}</label>
-                        <input type="checkbox" name="data.status.isDistracted"
-                            {{checked actor.data.status.isDistracted}}>
-                    </div>
-                    <div class="form-group">
-                        <label for="data.status.isDistracted">{{localize "SWADE.Vuln"}}</label>
-                        <input type="checkbox" name="data.status.isVulnerable"
-                            {{checked actor.data.status.isVulnerable}}>
-                    </div>
-                </div>
             </div>
         </div>
     </header>
-
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="flexrow tabs" data-group="primary">
-        <a class="item" data-tab="summary">{{localize "SWADE.Summary"}}</a>
-        <a class="item" data-tab="edges">{{localize "SWADE.Edges"}}</a>
-        <a class="item" data-tab="inventory">{{localize "SWADE.Inv"}}</a>
-        {{#if actor.flags.swade.hasArcaneBackground}}
-        <a class="item" data-tab="powers">{{localize "SWADE.Pow"}}</a>
-        {{/if}}
-        <a class="item" data-tab="description">{{localize "SWADE.Desc"}}</a>
-    </nav>
 
     {{!-- Sheet Body --}}
     <section class="sheet-body">
@@ -117,7 +109,7 @@
 
         {{!-- Biography Tab --}}
         <div class="tab biography" data-group="primary" data-tab="description">
-            {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+            {{> "systems/swade/templates/actors/partials/biography-tab.html"}}
         </div>
     </section>
 </form>
