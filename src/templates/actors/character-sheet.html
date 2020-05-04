@@ -21,7 +21,7 @@
                     <strong>{{localize "SWADE.Conv"}}</strong>
                     <div class="convction-toggle">
                         {{#if actor.flags.swade.convictionReady}}
-                        <a><i class="fas fa-star fa-2x"></i></a>
+                        <a><i class="fas fa-fire-alt fa-2x"></i></a>
                         {{else}}
                         <a><i class="fas fa-times fa-2x"></i></a>
                         {{/if}}
@@ -31,15 +31,6 @@
             </div>
             <div class="header-stats">
                 <div class="flexrow">
-                    <div class="form-group">
-                        <input name="data.advances.rank" id="rank-input" type="text" value="{{data.advances.rank}}"
-                            data-dtype="String" placeholder="{{localize 'SWADE.Rank'}}" />
-                    </div>
-                    <div class="form-group">
-                        <input id="race" name="data.details.species.name" type="text"
-                            value="{{data.details.species.name}}" data-dtype="String"
-                            placeholder="{{localize 'SWADE.Race'}}" />
-                    </div>
                     <div class="form-group">
                         <input type="checkbox" name="data.status.isShaken" id="data.status.isShaken"
                             {{checked actor.data.status.isShaken}}>

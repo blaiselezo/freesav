@@ -3,9 +3,6 @@
     <header class="sheet-header">
         <div class="profile-img-container">
             <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-            <div class="incap-container">
-                <img src="systems/swade/assets/ui/incapacitated.svg" class="incap-img">
-            </div>
         </div>
         <div class="header-fields">
             <div class="charline">
@@ -17,7 +14,7 @@
                     <strong>{{localize "SWADE.Conv"}}</strong>
                     <div class="convction-toggle">
                         {{#if actor.flags.swade.convictionReady}}
-                        <a><i class="fas fa-star fa-2x"></i></a>
+                        <a><i class="fas fa-fire-alt fa-2x"></i></a>
                         {{else}}
                         <a><i class="fas fa-times fa-2x"></i></a>
                         {{/if}}
@@ -26,23 +23,6 @@
                 {{/if}}
             </div>
             <div>
-                <div class="flexrow header-stats">
-                    <div class="form-group">
-                        <label for="pace">{{localize "SWADE.Pace"}}</label>
-                        <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
-                            placeholder="0" data-dtype="Number" />
-                    </div>
-                    <div class="form-group">
-                        <label for="toughness">{{localize "SWADE.Tough"}}</label>
-                        <input id="toughness" name="data.stats.toughness.value" type="text"
-                            value="{{data.stats.toughness.value}}" placeholder="0" data-dtype="Number" />
-                    </div>
-                    <div class="form-group">
-                        <label for="parry">{{localize "SWADE.Parry"}}</label>
-                        <input id="parry" name="data.stats.parry.value" value="{{data.stats.parry.value}}" type="text"
-                            placeholder="0" data-dtype="Number" />
-                    </div>
-                </div>
                 <div class="flexrow header-stats">
                     <div class="form-group">
                         <input type="checkbox" name="data.wildcard" id="data.wildcard" {{checked data.wildcard}}>
@@ -62,6 +42,23 @@
                         <input type="checkbox" name="data.status.isVulnerable" id="data.status.isVulnerable"
                             {{checked actor.data.status.isVulnerable}}>
                         <label for="data.status.isVulnerable">{{localize "SWADE.Vuln"}}</label>
+                    </div>
+                </div>
+                <div class="flexrow header-stats">
+                    <div class="form-group">
+                        <label for="pace">{{localize "SWADE.Pace"}}</label>
+                        <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
+                            placeholder="0" data-dtype="Number" />
+                    </div>
+                    <div class="form-group">
+                        <label for="toughness">{{localize "SWADE.Tough"}}</label>
+                        <input id="toughness" name="data.stats.toughness.value" type="text"
+                            value="{{data.stats.toughness.value}}" placeholder="0" data-dtype="Number" />
+                    </div>
+                    <div class="form-group">
+                        <label for="parry">{{localize "SWADE.Parry"}}</label>
+                        <input id="parry" name="data.stats.parry.value" value="{{data.stats.parry.value}}" type="text"
+                            placeholder="0" data-dtype="Number" />
                     </div>
                 </div>
             </div>

@@ -9,6 +9,7 @@
   .profile-img-container {
     position: relative;
     width: 150px;
+    max-width: 150px;
     height: 160px;
     border-right: $section-border;
     margin-right: 2px;
@@ -21,20 +22,6 @@
       width: inherit;
       object-fit: contain;
       cursor: pointer;
-    }
-    .incap-container {
-      pointer-events: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-    }
-    .incap-img {
-      opacity: 0;
-      width: 80px;
-      height: 80px;
     }
     .fade-in-05 {
       opacity: 0.5;
@@ -202,7 +189,9 @@
         margin: 0;
         padding: 0;
         margin-bottom: 5px;
-        li + li {
+        li + li label {
+          background: transparent;
+          border: none;
           border-top: $decorative-line;
           border-radius: 0px;
         }
@@ -213,10 +202,7 @@
           margin: 3px;
           height: 28px;
           line-height: 24px;
-          label {
-            background: transparent;
-            border: none;
-          }
+
           select {
             margin: 0 3px;
             height: 28px;
@@ -262,13 +248,13 @@
           .card-header {
             padding: 5px;
             background: rgba(0, 0, 0, 0.2);
-            border-bottom: $decorative-line;
+
             text-align: center;
           }
           .card-content {
+            border-top: $decorative-line;
             background: rgba(255, 255, 255, 0.05);
-            margin: 0 3px;
-            line-height: 24px;
+            line-height: 18px;
             padding: 5px;
           }
           .chips {
