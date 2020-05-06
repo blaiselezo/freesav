@@ -164,6 +164,11 @@
 
       li {
         padding: 0 2px;
+        display: grid;
+        grid-template-columns: 1fr 6fr 2fr 2fr 1fr;
+        grid-auto-rows: minmax(30px, auto);
+        grid-template-areas: "item-equipped item-name item-quantity item-weight item-controls";
+        align-items: center;
       }
       .item-header {
         @extend %header-field;
@@ -171,51 +176,46 @@
         margin-bottom: 0px;
       }
       .item {
-        display: grid;
-        grid-template-columns: 1fr 6fr 2fr 2fr 1fr;
-        grid-auto-rows: minmax(30px, auto);
-        grid-template-areas: "item-equipped item-name item-quantity item-weight item-controls";
-        align-items: center;
         line-height: 24px;
         border-bottom: 1px solid #bbb;
-        .item-equipped {
-          grid-area: item-equipped;
-          justify-self: center;
-        }
-        .item-name {
-          display: grid;
-          grid-template-columns: 0.5fr 6fr;
-          grid-auto-rows: minmax(30px, auto);
-          grid-template-areas: "item-img item-textname";
-          align-items: center;
-          grid-area: item-name;
+      }
+      .item-equipped {
+        grid-area: item-equipped;
+        justify-self: center;
+      }
+      .item-name {
+        display: grid;
+        grid-template-columns: 0.5fr 6fr;
+        grid-auto-rows: minmax(30px, auto);
+        grid-template-areas: "item-img item-textname";
+        align-items: center;
+        grid-area: item-name;
 
-          .item-textname {
-            padding-left: 5px;
-            grid-area: item-textname;
-          }
-          .item-img {
-            grid-area: item-img;
-            display: grid;
-            justify-self: center;
-            align-self: center;
-            img {
-              width: 24px;
-              border: none;
-            }
-          }
+        .item-textname {
+          padding-left: 5px;
+          grid-area: item-textname;
         }
-        .item-quantity {
-          grid-area: item-quantity;
+        .item-img {
+          grid-area: item-img;
+          display: grid;
           justify-self: center;
+          align-self: center;
+          img {
+            width: 24px;
+            border: none;
+          }
         }
-        .item-weight {
-          grid-area: item-weight;
-          justify-self: center;
-        }
-        .item-controls {
-          grid-area: item-controls;
-        }
+      }
+      .item-quantity {
+        grid-area: item-quantity;
+        justify-self: center;
+      }
+      .item-weight {
+        grid-area: item-weight;
+        justify-self: center;
+      }
+      .item-controls {
+        grid-area: item-controls;
       }
     }
   }
