@@ -225,7 +225,7 @@ Hooks.on('renderCombatTracker', (app, html: JQuery<HTMLElement>, data) => {
 		const combId = el.getAttribute('data-combatant-id');
 		const combatant = currentCombat.data.combatants.find(c => c._id == combId);
 		if (combatant.hasRolled) {
-			el.getElementsByClassName('token-initiative')[0].innerHTML = `<span class="initiative">${combatant.flags.actionCard.cardString}</span>`
+			el.getElementsByClassName('token-initiative')[0].innerHTML = `<span class="initiative">${combatant.flags.swade.cardString}</span>`
 		}
 	});
 });
