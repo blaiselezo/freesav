@@ -96,7 +96,8 @@
         "bennies": {
           "value": 3,
           "min": 0,
-          "max": 3
+          "max": 3,
+          "ignored": 0
         },
         "owned": {
           "gear": [],
