@@ -124,11 +124,12 @@ export class SwadeActor extends Actor {
   calcWoundFatigePenalties(): number {
     let retVal = 0;
     const wounds = parseInt(this.data['data']['wounds']['value']);
+    let ignoredWounds = parseInt(this.data['data']['wounds']['ignored']);
+    if (isNaN(ignoredWounds)) ignoredWounds = 0;
     const fatigue = parseInt(this.data['data']['fatigue']['value']);
 
-    if (!isNaN(wounds)) retVal = (wounds > 3) ? retVal += 3 : retVal += wounds;
+    if (!isNaN(wounds)) retVal = (wounds > 3) ? retVal += 3 - ignoredWounds : retVal += wounds - ignoredWounds;
     if (!isNaN(fatigue)) retVal += fatigue;
-
     return retVal * -1;
   }
 
