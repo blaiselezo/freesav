@@ -7,15 +7,13 @@
 */
 export const rollInitiative = async function (ids: string[] | string, formula: string | null, messageOptions: any) {
 
-    const actionCardDeck = game.tables.getName("Action Cards") as RollTable;
-    const actionCardPack = game.packs.find(p => p.collection === "swade.action-cards");
+    const actionCardDeck = game.tables.getName('Action Cards') as RollTable;
+    const actionCardPack = game.packs.find(p => p.collection === 'swade.action-cards');
     // Structure input data
-    ids = typeof ids === "string" ? [ids] : ids;
+    ids = typeof ids === 'string' ? [ids] : ids;
 
     const combatantUpdates = [];
     const initMessages = [];
-    let jokerDrawn = false;
-    let jokerMessage: any;
     let soundAttached = false;
 
     if (ids.length > actionCardDeck.results.filter(r => !r.drawn).length) {
@@ -47,7 +45,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
         }
         const initValue = '' + card.flags.swade.suitValue + card.flags.swade.cardValue;
         combatantUpdates.push({
-            _id: c._id, initiative: initValue, "flags.swade": newflags
+            _id: c._id, initiative: initValue, 'flags.swade': newflags
         });
 
         // Construct chat message data
@@ -59,19 +57,19 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
                 alias: c.token.name,
             },
             whisper: (c.token.hidden || c.hidden) ? game.users.filter((u: User) => u.isGM) : '',
-            flavor: c.token.name + game.i18n.localize("SWADE.InitDraw"),
+            flavor: c.token.name + game.i18n.localize('SWADE.InitDraw'),
             content: `<div class="table-result"><img class="result-image" src="${card.img}"><h4 class="result-text">@Compendium[swade.action-cards.${card._id}]{${card.name}}</h4></div>`
         }, messageOptions);
         if (game.settings.get('swade', 'initiativeSound') && !soundAttached) {
             soundAttached = true;
-            messageData.sound = "systems/swade/assets/card-flip.wav"
+            messageData.sound = 'systems/swade/assets/card-flip.wav'
         }
         initMessages.push(messageData);
     }
     if (!combatantUpdates.length) return this;
 
     // Update multiple combatants
-    await this.updateEmbeddedEntity("Combatant", combatantUpdates);
+    await this.updateEmbeddedEntity('Combatant', combatantUpdates);
     // Create multiple chat messages
     await ChatMessage.create(initMessages);
     // Return the updated Combat
@@ -83,10 +81,10 @@ export const setupTurns = function () {
     const players = game.users.players;
     // Populate additional data for each combatant
     let turns = this.data.combatants.map(c => {
-        c.token = scene.getEmbeddedEntity("Token", c.tokenId, { strict: false });
+        c.token = scene.getEmbeddedEntity('Token', c.tokenId, { strict: false });
         if (!c.token) return c;
         c.actor = Actor.fromToken(new Token(c.token, scene));
-        c.players = c.actor ? players.filter(u => c.actor.hasPerm(u, "OWNER")) : [];
+        c.players = c.actor ? players.filter(u => c.actor.hasPerm(u, 'OWNER')) : [];
         c.owner = game.user.isGM || (c.actor ? c.actor.owner : false);
         c.visible = c.owner || !c.hidden;
         return c;
@@ -104,7 +102,7 @@ export const setupTurns = function () {
             let suit = suitb - suitA;
             return suit;
         }
-        let [an, bn] = [a.token.name || "", b.token.name || ""];
+        let [an, bn] = [a.token.name || '', b.token.name || ''];
         let cn = an.localeCompare(bn);
         if (cn !== 0) return cn;
         return a.tokenId - b.tokenId;
