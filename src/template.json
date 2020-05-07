@@ -87,7 +87,8 @@
         "wounds": {
           "value": 0,
           "min": 0,
-          "max": 3
+          "max": 3,
+          "ignored": 0
         },
         "advances": {
           "value": 0,
@@ -96,8 +97,7 @@
         "bennies": {
           "value": 3,
           "min": 0,
-          "max": 3,
-          "ignored": 0
+          "max": 3
         },
         "owned": {
           "gear": [],
