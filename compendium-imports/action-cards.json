@@ -3,8 +3,8 @@
     "name": "Black Joker",
     "flags": {
       "swade": {
-        "cardValue": 0,
-        "suitValue": 0,
+        "cardValue": 99,
+        "suitValue": 99,
         "isJoker": true
       }
     },
@@ -15,8 +15,8 @@
     "name": "Red Joker",
     "flags": {
       "swade": {
-        "cardValue": 0,
-        "suitValue": 0,
+        "cardValue": 99,
+        "suitValue": 99,
         "isJoker": true
       }
     },
