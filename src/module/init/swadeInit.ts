@@ -39,9 +39,6 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
         const pack = await actionCardPack.getIndex();
         const lookUpCard = pack.find(c => c.name === drawResult[1].text);
         const card = await actionCardPack.getEntry(lookUpCard._id);
-        if (card.flags.swade.isJoker) {
-            jokerDrawn = true;
-        }
         const newflags = {
             suitValue: card.flags.swade.suitValue,
             cardvalue: card.flags.swade.cardValue,
@@ -61,7 +58,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
                 token: c.token._id,
                 alias: c.token.name,
             },
-            whisper: (c.token.hidden || c.hidden) ? game.users.filter((u: User) => u.isGM) : "",
+            whisper: (c.token.hidden || c.hidden) ? game.users.filter((u: User) => u.isGM) : '',
             flavor: c.token.name + game.i18n.localize("SWADE.InitDraw"),
             content: `<div class="table-result"><img class="result-image" src="${card.img}"><h4 class="result-text">@Compendium[swade.action-cards.${card._id}]{${card.name}}</h4></div>`
         }, messageOptions);
@@ -71,9 +68,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
         }
         initMessages.push(messageData);
     }
-
     if (!combatantUpdates.length) return this;
-    if (jokerDrawn) initMessages.push(jokerMessage);
 
     // Update multiple combatants
     await this.updateEmbeddedEntity("Combatant", combatantUpdates);
