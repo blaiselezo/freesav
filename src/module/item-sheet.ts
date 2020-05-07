@@ -3,8 +3,8 @@ export class SwadeItemSheet extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 560,
-      height: "auto",
-      classes: ["swade", "sheet", "item"],
+      height: 'auto',
+      classes: ['swade', 'sheet', 'item'],
       resizable: false
     });
   }
@@ -14,7 +14,7 @@ export class SwadeItemSheet extends ItemSheet {
    * @return {string}
    */
   get template() {
-    const path = "systems/swade/templates/items";
+    const path = 'systems/swade/templates/items';
     return `${path}/${this.item.data.type}.html`;
   }
 
@@ -29,6 +29,14 @@ export class SwadeItemSheet extends ItemSheet {
         this.item.actor.deleteOwnedItem(item.data('itemId'));
         this.item.sheet.close();
       }
+    });
+
+    html.find('.profile-img').contextmenu((e) => {
+      new ImagePopout(this.item.img, {
+        title: this.item.name,
+        shareable: true,
+        entity: { type: 'Item', id: this.item.id }
+      }).render(true);
     });
   }
 

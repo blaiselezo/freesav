@@ -11,7 +11,7 @@
     </div>
     <div class="bennies flexrow">
         <div>
-            <a><i class="benny-add fas fa-plus"></i></a>
+            <a><i class="benny-subtract fas fa-minus"></i></a>
         </div>
         <div class="benny-tracker">
             <strong>{{localize "SWADE.Bennies"}}</strong>
@@ -21,7 +21,7 @@
                 data-dtype="Number" />
         </div>
         <div>
-            <a><i class="benny-subtract fas fa-minus"></i></a>
+            <a><i class="benny-add fas fa-plus"></i></a>
         </div>
     </div>
     <div class="vitals-container">
@@ -106,7 +106,8 @@
             <li class="item skill flexrow" data-item-id="{{skill._id}}">
                 <label class="skill-label"><a>{{skill.name}}</a></label>
                 <div class="skill-value"><span><a class="item-control item-edit"
-                    title="{{localize 'SWADE.EditSkill'}}">d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a></span></div>
+                            title="{{localize 'SWADE.EditSkill'}}">d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a></span>
+                </div>
                 <div class="skill-value"><span>{{localizeSkillAttribute skill.data.attribute}}</span></div>
             </li>
             {{/each}}

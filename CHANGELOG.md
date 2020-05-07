@@ -20,6 +20,82 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Added localization strings for Conviction
+- Fields in weapon cards will now only be shown when the value isn't empty
+
+## Changed
+
+- Switched Benny + and Benny - with each other.
+
+### Fixed
+
+- Fixed a bug that would display a permission error for players when a token they weren't allowed to update got updated
+- Status Effect binding now also works for tokens that are not linked to their base actor
+- Fixed a small localization error in the Weapon item sheet
+
+## [v0.7.3] 2020-05-01
+
+### Added
+
+- Added the option to view Item artwork by right-clicking the item image in the sheet
+
+### Changed
+
+- Optimnized setup code a bit
+
+### Fixed
+
+- Added missing Bloodthirsty Hindrance
+- Fixed a spelling mistake in the `Improved Level Headed` Edge
+
+## [v0.7.2] 2020-04-28
+
+### Fixed
+
+- Fixed a small bug that would cause an error to be displayed when a player opened te sheet of an actor they only had `Limited` permission on
+
+## [v0.7.1] 2020-04-28
+
+### Added
+
+- Status effect penalties will now be factored into rolls made from the sheet (credit to @atomdmac on GitLab)
+- Added option to turn Conviction on or off as it is an optional rule
+
+### Fixed
+
+- Fixed a minor spelling mistake in the german translation
+
+## [v0.7.0] 2020-04-20
+
+### Added
+
+- Damage rolls can now take an `@` modifer to automatically add the attribute requested. For example `@str` will resolve to the Strength attribute, which will be added to the damage roll.
+- Added Limited Sheet for NPCs. If the viewer has the `Limited` Permission they get a different sheet which only contains the character artwork, the name of the NPC and their description
+- Added Confirm Dialogue when deleting items from the inventory of `character` Actors
+
+### Changed
+
+- Changed automated roll formula a bit to make the code more readable.
+
+### Fixed
+
+- Fixed a small bug where the description of an Edge or Hindrance could show up on multiple `character` sheets at once
+
+## [0.6.1] 2020-04-20
+
+### Added
+
+- Trait rolls now take Wound and Fatigue penalties into account
+- `Gear` Items can now be marked as equippable
+
+### Fixed
+
+- Added missing Damage roll option for NPC sheets
+
 ## [0.6.0] 2020-04-18
 
 ### Added

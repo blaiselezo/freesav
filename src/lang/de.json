@@ -12,7 +12,7 @@
   "SWADE.Extra": "Statist",
   "SWADE.Bennies": "Bennys",
   "SWADE.Shaken": "Angeschlagen",
-  "SWADE.Distr": "Abgelentk",
+  "SWADE.Distr": "Abgelenkt",
   "SWADE.Vuln": "Verwundbar",
 
   "SWADE.Attributes": "Attribute",
@@ -50,7 +50,7 @@
   "SWADE.MinStrLong": "Mindeststärke",
   "SWADE.MinStr": "Mindeststärke",
   "SWADE.Desc": "Beschreibung",
-  "SWADE.Conv": "Entschlossenheit",
+  "SWADE.Equippable": "Ausrüstbar",
 
   "SWADE.Hindrances": "Handicaps",
   "SWADE.MajHind": "Schweres Handicap",
@@ -59,6 +59,8 @@
   "SWADE.Edges": "Talente",
   "SWADE.ArcBack": "Arkaner Hintergrund",
   "SWADE.Req": "Vorrausetzungen",
+  "SWADE.Conv": "Entschlossenheit",
+  "SWADE.UseConv": "ist fest Entschlossen!",
 
   "SWADE.Currency": "Währung",
   "SWADE.CarryWeight": "Getragenes Gewicht",
@@ -84,5 +86,12 @@
   "SWADE.CardSound": "Kartengeräusch",
   "SWADE.CardSoundDesc": "Einen kurzen Ton beim ziehen der Aktionskarten abspielen",
   "SWADE.AutoInit": "Automatische Initiative",
-  "SWADE.AutoInitDesc": "Aktionskarten jede Runde automatisch ziehen"
+  "SWADE.AutoInitDesc": "Aktionskarten jede Runde automatisch ziehen",
+
+  "SWADE.Formula": "Formel",
+  "SWADE.SitMod": "Situationsmod.",
+  "SWADE.RollMode": "Roll Modus",
+  "SWADE.RollExample": "z.B. +1d6x= or -2",
+  "SWADE.Ok": "Ok",
+  "SWADE.Cancel": "Abbrechen"
 }

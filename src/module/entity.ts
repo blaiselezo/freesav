@@ -1,4 +1,4 @@
-import { SwadeDice } from "./dice";
+import { SwadeDice } from './dice';
 
 export class SwadeActor extends Actor {
   /**
@@ -47,21 +47,39 @@ export class SwadeActor extends Actor {
     const label = CONFIG.SWADE.attributes[abilityId];
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
-    let exp = "";
-    if (this.data["data"].wildcard) {
-      exp = `{1d${abl.die.sides}x${abl.die.sides}, 1d${abl["wild-die"].sides}x${abl["wild-die"].sides}}kh`;
+    let exp = '';
+    if (this.data['data'].wildcard) {
+      exp = `{1d${abl.die.sides}x=, 1d${abl['wild-die'].sides}x=}kh`;
     } else {
       exp = `1d${abl.die.sides}x${abl.die.sides}`;
     }
+
+    //Check and add Modifiers
+    const rollParts = [exp] as any[];
+    let ablMod = parseInt(abl.die.modifier);
+    if (!isNaN(ablMod) && ablMod !== 0) {
+      if (ablMod > 0) rollParts.push('+')
+      rollParts.push(ablMod)
+    }
+
+    const woundFatigePenalties = this.calcWoundFatigePenalties();
+    if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
+
+    const statusPenalties = this.calcStatusPenalties();
+    if (statusPenalties !== 0) rollParts.push(statusPenalties);
+
     // Roll and return
     return SwadeDice.Roll({
       event: options.event,
-      parts: [exp, abl.die.modifier],
+      parts: rollParts,
       data: actorData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
-        "SWADE.AttributeTest"
+        'SWADE.AttributeTest'
       )}`,
+      title: `${game.i18n.localize(label)} ${game.i18n.localize(
+        'SWADE.AttributeTest'
+      )}`
     });
   }
 
@@ -70,20 +88,74 @@ export class SwadeActor extends Actor {
     if (!items.length) {
       return;
     }
-    let itemData = items[0].data["data"];
-    let exp = "";
-    if (this.data["data"].wildcard) {
-      exp = `{1d${itemData["die"].sides}x${itemData["die"].sides}, 1d${itemData["wild-die"].sides}x${itemData["wild-die"].sides}}kh`;
+    let skillData = items[0].data['data'];
+    let exp = '';
+    if (this.data['data'].wildcard) {
+      exp = `{1d${skillData['die'].sides}x=, 1d${skillData['wild-die'].sides}x=}kh`;
     } else {
-      exp = `1d${itemData["die"].sides}x${itemData["die"].sides}`;
+      exp = `1d${skillData['die'].sides}x=`;
     }
+
+    //Check and add Modifiers
+    const rollParts = [exp] as any[];
+    let itemMod = parseInt(skillData['die'].modifier);
+    if (!isNaN(itemMod) && itemMod !== 0) {
+      if (itemMod > 0) rollParts.push('+')
+      rollParts.push(itemMod)
+    }
+    const woundFatigePenalties = this.calcWoundFatigePenalties();
+    if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
+
+    const statusPenalties = this.calcStatusPenalties();
+    if (statusPenalties !== 0) rollParts.push(statusPenalties);
+
     // Roll and return
     return SwadeDice.Roll({
       event: options.event,
-      parts: [exp, itemData["die"].modifier],
-      data: itemData,
+      parts: rollParts,
+      data: skillData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${items[0].name} ${game.i18n.localize("SWADE.SkillTest")}`,
+      flavor: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
+      title: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`
     });
+  }
+
+  //Calculated the wound and fatigue penalites
+  calcWoundFatigePenalties(): number {
+    let retVal = 0;
+    const wounds = parseInt(this.data['data']['wounds']['value']);
+    const fatigue = parseInt(this.data['data']['fatigue']['value']);
+
+    if (!isNaN(wounds)) retVal = (wounds > 3) ? retVal += 3 : retVal += wounds;
+    if (!isNaN(fatigue)) retVal += fatigue;
+
+    return retVal * -1;
+  }
+
+  calcStatusPenalties(): number {
+    let retVal = 0;
+    if (this.data.data.status.isDistracted) {
+      retVal -= 2;
+    }
+    return retVal;
+  }
+
+  /**
+  * Function for shorcut roll in item (@str + 1d6)
+  * return something like : {agi: "1d8x8+1", sma: "1d6x6", spi: "1d6x6", str: "1d6x6-1", vig: "1d6x6"}
+  */
+  getRollShortcuts(bAddWildDie = false) {
+    let out = {};
+
+    // Attributes
+    const attr = this.data.data.attributes;
+    for (const name of ['agility', 'smarts', 'spirit', 'strength', 'vigor']) {
+      out[name.substring(0, 3)] = `1d${attr[name].die.sides}x=`
+        + (attr[name].die.modifier[0] != 0 ? (['+', '-'].indexOf(attr[name].die.modifier[0]) < 0 ? '+' : '') + attr[name].die.modifier : '')
+        // wild-die
+        + (bAddWildDie && attr[name]['wild-die'].sides ? `+1d${attr[name]['wild-die'].sides}x=` : '')
+        ;
+    }//fr
+    return out;
   }
 }

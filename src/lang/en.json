@@ -50,6 +50,7 @@
   "SWADE.MinStrLong": "Minimum Strength",
   "SWADE.MinStr": "Min. Strength",
   "SWADE.Desc": "Description",
+  "SWADE.Equippable": "Equippable",
 
   "SWADE.Hindrances": "Hindrances",
   "SWADE.MajHind": "Major Hindrance",
@@ -59,6 +60,7 @@
   "SWADE.ArcBack": "Arcane Background",
   "SWADE.Req": "Requirements",
   "SWADE.Conv": "Conviction",
+  "SWADE.UseConv": "Calls on their Conviction!",
 
   "SWADE.Currency": "Currency",
   "SWADE.CarryWeight": "Encumbrance",
@@ -84,5 +86,12 @@
   "SWADE.CardSound": "Card Sound",
   "SWADE.CardSoundDesc": "Play a short card sound when dealing Initiative",
   "SWADE.AutoInit": "Automatic Initiative",
-  "SWADE.AutoInitDesc": "Automatically draw Action Cards every round"
+  "SWADE.AutoInitDesc": "Automatically draw Action Cards every round",
+
+  "SWADE.Formula": "Formula",
+  "SWADE.SitMod": "Situational Mod",
+  "SWADE.RollMode": "Roll Mode",
+  "SWADE.RollExample": "eg. +1d6x= or -2",
+  "SWADE.Ok": "Ok",
+  "SWADE.Cancel": "Cancel"
 }

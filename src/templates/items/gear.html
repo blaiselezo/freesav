@@ -25,6 +25,13 @@
             <input name="data.quantity" type="text" value="{{item.data.quantity}}"
                 placeholder="{{localize 'SWADE.Quantity'}}" data-dtype="Number" />
         </div>
+        {{log item}}
+        {{#unless item.data.isOwned}}
+        <div class="form-group">
+            <label for="data.equippable">{{localize "SWADE.Equippable"}}</label>
+            <input type="checkbox" name="data.equippable" {{checked item.data.equippable}} data-dtype="Boolean">
+        </div>
+        {{/unless}}
         <header class="header-field">
             <span>{{localize "SWADE.Desc"}}</span>
         </header>
