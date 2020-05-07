@@ -7,7 +7,7 @@
 */
 export const rollInitiative = async function (ids: string[] | string, formula: string | null, messageOptions: any) {
 
-    const actionCardDeck = game.tables.entities.find(t => t.getFlag("swade", "isActionCardDeck")) as RollTable;
+    const actionCardDeck = game.tables.getName("Action Cards") as RollTable;
     const actionCardPack = game.packs.find(p => p.collection === "swade.action-cards");
     // Structure input data
     ids = typeof ids === "string" ? [ids] : ids;
@@ -16,42 +16,41 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
     const initMessages = [];
     let jokerDrawn = false;
     let jokerMessage: any;
+    let soundAttached = false;
 
     if (ids.length > actionCardDeck.results.filter(r => !r.drawn).length) {
         ui.notifications.warn('There are not enough cards left in the deck!');
         return;
     }
 
-    // Iterate over Combatants, performing an initiative roll for each
+    // Iterate over Combatants, performing an initiative draw for each
     for (let i = 0; i < ids.length; i++) {
         const id = ids[i];
 
         // Get Combatant data
         let c = await this.getCombatant(id);
+
+        //Do not draw cards for defeated combatants
+        if (c.defeated) continue;
+
         // Draw initiative
         const drawResult = await actionCardDeck.roll();
-        console.log(drawResult);
-        const card = await actionCardPack.getEntry(drawResult[1].resultId);
-        // Set drawn Object to drawn
         await actionCardDeck.updateEmbeddedEntity('TableResult', { _id: drawResult[1]._id, drawn: true });
-
-        if (card.flags.swade.hasJoker) {
+        const pack = await actionCardPack.getIndex();
+        const lookUpCard = pack.find(c => c.name === drawResult[1].text);
+        const card = await actionCardPack.getEntry(lookUpCard._id);
+        if (card.flags.swade.isJoker) {
             jokerDrawn = true;
-            jokerMessage = mergeObject({
-                speaker: {
-                    scene: canvas.scene._id,
-                    actor: c.actor ? c.actor._id : null,
-                    token: c.token._id,
-                    alias: c.token.name
-                },
-                whisper: (c.token.hidden || c.hidden) ? game.users.entities.filter((u: User) => u.isGM) : "",
-                content: c.token.name + game.i18n.localize("SWADE.JokersWild")
-            }, messageOptions);
         }
-        const newflags = mergeObject(card.flags, { swade: { cardString: card.content } });
-        const initValue = "" + card.flags.swade.suitValue + card.flags.swade.cardValue;
+        const newflags = {
+            suitValue: card.flags.swade.suitValue,
+            cardvalue: card.flags.swade.cardValue,
+            hasJoker: card.flags.swade.isJoker,
+            cardString: card.content
+        }
+        const initValue = '' + card.flags.swade.suitValue + card.flags.swade.cardValue;
         combatantUpdates.push({
-            _id: c._id, initiative: initValue, flags: newflags
+            _id: c._id, initiative: initValue, "flags.swade": newflags
         });
 
         // Construct chat message data
@@ -62,20 +61,19 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
                 token: c.token._id,
                 alias: c.token.name,
             },
-            whisper: (c.token.hidden || c.hidden) ? game.users.entities.filter((u: User) => u.isGM) : "",
+            whisper: (c.token.hidden || c.hidden) ? game.users.filter((u: User) => u.isGM) : "",
             flavor: c.token.name + game.i18n.localize("SWADE.InitDraw"),
             content: `<div class="table-result"><img class="result-image" src="${card.img}"><h4 class="result-text">@Compendium[swade.action-cards.${card._id}]{${card.name}}</h4></div>`
         }, messageOptions);
-        if (game.settings.get('swade', 'initiativeSound') && i === 0) {
+        if (game.settings.get('swade', 'initiativeSound') && !soundAttached) {
+            soundAttached = true;
             messageData.sound = "systems/swade/assets/card-flip.wav"
         }
         initMessages.push(messageData);
     }
 
     if (!combatantUpdates.length) return this;
-    if (jokerDrawn) {
-        initMessages.push(jokerMessage);
-    }
+    if (jokerDrawn) initMessages.push(jokerMessage);
 
     // Update multiple combatants
     await this.updateEmbeddedEntity("Combatant", combatantUpdates);

@@ -278,7 +278,7 @@ Hooks.on('preUpdateCombat', async (combat, updateData, options, userId) => {
 
 	// Reset the deck if any combatant has had a Joker	
 	if (jokerDrawn) {
-		const deck = game.tables.entities.find(t => t.getFlag('swade', 'isActionCardDeck')) as RollTable;
+		const deck = game.tables.getName("Action Cards") as RollTable;
 		await deck.reset();
 		ui.notifications.info('Card Deck automatically reset');
 	}
