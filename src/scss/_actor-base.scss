@@ -1,13 +1,9 @@
 .swade.sheet.actor {
   min-width: 600px;
   min-height: 768px;
-  .window-content {
-    background: $light-pastel-blue;
-  }
 
   // Profile Image
   .profile-img-container {
-    position: relative;
     width: 150px;
     max-width: 150px;
     height: 150px;
@@ -65,48 +61,6 @@
       justify-content: space-evenly;
       flex: 1;
       padding: 5px 0px;
-
-      input[type="checkbox"] {
-        display: none;
-
-        & + label {
-          position: relative;
-
-          &::before {
-            width: 14px;
-            height: 14px;
-            border: 2px solid #999;
-            border-radius: 4px;
-            display: block;
-            content: "";
-            float: left;
-            margin-right: 5px;
-          }
-        }
-
-        &:checked + label {
-          &::after {
-            width: 14px;
-            height: 9px;
-            display: block;
-            border-bottom: 5px solid;
-            border-left: 5px solid;
-            content: "";
-            position: absolute;
-            top: -3px;
-            transform: rotate(-45deg);
-            color: #2d3748;
-          }
-
-          &:hover::after {
-            color: #5b7094;
-          }
-        }
-      }
-
-      input[type="text"] {
-        @extend %standalone-input-field;
-      }
     }
 
     .header-stats {
@@ -125,30 +79,6 @@
     }
   }
 
-  // Content Tabs
-  .tabs {
-    border-bottom: 1px solid;
-
-    .item {
-      border: 1px solid;
-      background: $dark-paste-blue;
-      border-radius: 4px 4px 0 0;
-      margin: 0 5px -1px;
-      padding: 4px;
-      &:hover,
-      &:focus {
-        background: $light-pastel-blue;
-        text-shadow: none;
-      }
-      &.active {
-        background: $light-pastel-blue;
-        border-bottom: 0;
-        text-shadow: none;
-        font-weight: bold;
-      }
-    }
-  }
-
   .sheet-body {
     height: auto;
     .tab {
@@ -158,7 +88,7 @@
     //Editor
     .editor {
       border: $section-border;
-      min-height: 300px;
+      height: 300px;
       width: 100%;
     }
 
@@ -168,11 +98,6 @@
 
     .vitals {
       text-align: center;
-      .vitals-container {
-        input[type="text"] {
-          @extend %standalone-input-field;
-        }
-      }
     }
 
     //Summary
@@ -217,7 +142,7 @@
 
     //Gear
     .gear {
-      margin: 5px 0;
+      margin: 5px 0px 0px 0px;
       padding: 2px;
       .gear-list {
         list-style: none;

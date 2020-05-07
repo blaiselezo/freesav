@@ -23,11 +23,6 @@
           border-bottom: 1px dotted #293133;
         }
         border: 1px solid transparent;
-        &:nth-child(odd) {
-          &::after {
-            content: "/";
-          }
-        }
       }
     }
   }

@@ -3,9 +3,6 @@
     <header class="sheet-header">
         <div class="profile-img-container">
             <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-            <div class="incap-container">
-                <img src="systems/swade/assets/ui/incapacitated.svg" class="incap-img">
-            </div>
         </div>
         <div class="header-fields">
             <div class="charline">
@@ -16,7 +13,7 @@
         </div>
     </header>
     <section class="sheet-body">
-        <div style="height: 500px;">
+        <div style="height: 600px;">
             {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
         </div>
     </section>
