@@ -25,7 +25,11 @@ export const preloadHandlebarsTemplates = async function () {
 		'systems/swade/templates/attribute-select.html',
 
 		// Chat
-		'systems/swade/templates/chat/roll-formula.html'
+		'systems/swade/templates/chat/roll-formula.html',
+
+		//Item Header
+		'systems/swade/templates/items/partials/header.html',
+		'systems/swade/templates/items/partials/header-delete.html',
 	];
 
 	return loadTemplates(templatePaths);
