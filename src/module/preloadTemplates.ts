@@ -6,7 +6,6 @@ export const preloadHandlebarsTemplates = async function () {
 		'systems/swade/templates/actors/npc-sheet.html',
 
 		//Actor partials
-		//Sheet tabs
 		'systems/swade/templates/actors/partials/summary-tab.html',
 		'systems/swade/templates/actors/partials/npc-summary-tab.html',
 		'systems/swade/templates/actors/partials/edges-tab.html',
@@ -18,6 +17,8 @@ export const preloadHandlebarsTemplates = async function () {
 		'systems/swade/templates/actors/partials/weapon-card.html',
 		'systems/swade/templates/actors/partials/armor-card.html',
 		'systems/swade/templates/actors/partials/shield-card.html',
+
+		'systems/swade/templates/actors/partials/attributes.html',
 
 		//die type list
 		'systems/swade/templates/die-sides-options.html',
