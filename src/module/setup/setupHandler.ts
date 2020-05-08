@@ -1,7 +1,7 @@
 export async function swadeSetup(): Promise<void> {
 
     const packName = 'swade.action-cards';
-    if (game.tables.entities.find(t => t.getFlag('swade', 'isActionCardDeck'))) {
+    if (game.tables.getName('Action Cards')) {
         return;
     }
 
@@ -10,14 +10,12 @@ export async function swadeSetup(): Promise<void> {
         name: 'Action Cards',
         replacement: false,
         displayRoll: false,
-        type: 'base',
-        types: 'base',
+        description: 'Action Card',
+        formula: '1d54'
     };
 
     const tableOptions = { temporary: false, renderSheet: false };
     const table = await RollTable.create(tableData, tableOptions) as RollTable;
-
-    table.setFlag('swade', 'isActionCardDeck', true);
 
     const createData = []
 
@@ -35,8 +33,6 @@ export async function swadeSetup(): Promise<void> {
         createData.push(resultData);
     }
     await table.createEmbeddedEntity('TableResult', createData);
-
-    await table.normalize();
     ui.tables.render();
     ui.notifications.info('First-Time-Setup complete');
 }
