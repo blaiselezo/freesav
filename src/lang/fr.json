@@ -8,7 +8,13 @@
     "SWADE.Inv": "Inventaire",
     "SWADE.Summary": "Résumé",
     "SWADE.Pow": "Pouvoirs",
-  
+    "SWADE.Wildcard": "Joker",
+    "SWADE.Extra": "Extra",
+    "SWADE.Bennies": "Jetons",
+    "SWADE.Shaken": "Secoué",
+    "SWADE.Distr": "Distrait",
+    "SWADE.Vuln": "Vulnerable",
+
     "SWADE.SkillTest": "jet de compétence",
     "SWADE.AttributeTest": "jet d'attribut",
     "SWADE.Attributes": "Attributs",
@@ -52,7 +58,8 @@
     "SWADE.Edges": "Atouts",
     "SWADE.ArcBack": "Arcane",
     "SWADE.Req": "Prérequis",
-  
+    "SWADE.Conv": "Conviction",
+
     "SWADE.Currency": "Argent",
     "SWADE.CarryWeight": "Encombrement",
     "SWADE.Eqd": "Eq'é",
@@ -70,6 +77,13 @@
     "SWADE.Wound": "Blessure",
     "SWADE.Wounds": "Blessures",
     "SWADE.Fatigue": "Fatigue",
-    "SWADE.Incap": "État critique!"
+    "SWADE.Incap": "État critique!",
+
+    "SWADE.Formula": "Formule",
+    "SWADE.SitMod": "Modificateur de Situation",
+    "SWADE.RollMode": "Mode de lancer",
+    "SWADE.RollExample": "ex. +1d6x= or -2",
+    "SWADE.Ok": "Ok",
+    "SWADE.Cancel": "Annuler"
   }
   
