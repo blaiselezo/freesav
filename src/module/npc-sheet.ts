@@ -75,6 +75,12 @@ export class SwadeNPCSheet extends ActorSheet {
             }
         });
 
+        //Configre initiative Edges/Hindrances
+        html.find('#initConfigButton').click(() => {
+            let actorObject = this.actor as SwadeActor;
+            actorObject.configureInitiative();
+        });
+
         // Roll attribute
         html.find('.attribute-label a').click((event: Event) => {
             let actorObject = this.actor as SwadeActor;

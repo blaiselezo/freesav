@@ -159,4 +159,37 @@ export class SwadeActor extends Actor {
     }//fr
     return out;
   }
+
+  // Launches a dialog to configure which initiative-modifying edges/hindrances the character has 
+  async configureInitiative() {
+    const initData = this.data.data.initiative;
+    const template = 'systems/swade/templates/initiative/configure-init.html';
+    const html = await renderTemplate(template, initData);
+    const d = new Dialog({
+      title: 'Configure Initiative',
+      content: html,
+      buttons: {
+        ok: {
+          icon: '<i class="fas fa-check"></i>',
+          label: game.i18n.localize('SWADE.Ok'),
+          callback: async (html) => {
+            await this.update({
+              'data.initiative': {
+                hasQuick: html.find('#hasQuick').is(':checked'),
+                hasLevelHeaded: html.find('#hasLevelHeaded').is(':checked'),
+                hasImpLevelHeaded: html.find('#hasImpLevelHeaded').is(':checked'),
+                hasHesitant: html.find('#hasHesitant').is(':checked'),
+              }
+            });
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize('SWADE.Cancel')
+        }
+      },
+      default: 'cancel'
+    })
+    d.render(true);
+  }
 }

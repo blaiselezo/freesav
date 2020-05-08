@@ -115,9 +115,12 @@
           "isDistracted": false,
           "isVulnerable": false
         },
-        "hasQuick": false,
-        "hasLevelHeaded": false,
-        "hasImpLevelHeaded": false
+        "initiative": {
+          "hasHesitant": false,
+          "hasQuick": false,
+          "hasLevelHeaded": false,
+          "hasImpLevelHeaded": false
+        }
       }
     },
     "character": {
