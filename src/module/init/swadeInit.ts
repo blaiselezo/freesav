@@ -6,9 +6,8 @@
 * @return {Promise.<Combat>}       A promise which resolves to the updated Combat entity once updates are complete.
 */
 export const rollInitiative = async function (ids: string[] | string, formula: string | null, messageOptions: any) {
-
     const actionCardDeck = game.tables.getName('Action Cards') as RollTable;
-    const actionCardPack = game.packs.find(p => p.collection === 'swade.action-cards');
+
     // Structure input data
     ids = typeof ids === 'string' ? [ids] : ids;
 
@@ -27,19 +26,34 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
 
         // Get Combatant data
         let c = await this.getCombatant(id);
+        if (c.flags.swade && c.flags.swade.cardValue != null) console.log('This must be a reroll');
 
         //Do not draw cards for defeated combatants
         if (c.defeated) continue;
 
+        // Set up edges
+        let cardsToDraw = 1;
+        if (c.actor.data.data.hasLevelHeaded) cardsToDraw = 2;
+        if (c.actor.data.data.hasImpLevelHeaded) cardsToDraw = 3;
+        const hasQuick = c.actor.data.data.hasQuick;
+
         // Draw initiative
-        const drawResult = await actionCardDeck.roll();
-        await actionCardDeck.updateEmbeddedEntity('TableResult', { _id: drawResult[1]._id, drawn: true });
-        const pack = await actionCardPack.getIndex();
-        const lookUpCard = pack.find(c => c.name === drawResult[1].text);
-        const card = await actionCardPack.getEntry(lookUpCard._id);
+        let card;
+        if (hasQuick && cardsToDraw === 1) {
+            do {
+                card = await drawCard()[0] as any[];
+            } while (card.flags.swade.cardValue < 6);
+        } else if (cardsToDraw > 1) { //Leve Headed stuff
+            const cards = await drawCard(cardsToDraw) as any[];
+            console.log(cards);
+            card = cards[0];
+        } else {//normal card stuff
+            card = await drawCard()[0] as any[];
+        }
+
         const newflags = {
             suitValue: card.flags.swade.suitValue,
-            cardvalue: card.flags.swade.cardValue,
+            cardValue: card.flags.swade.cardValue,
             hasJoker: card.flags.swade.isJoker,
             cardString: card.content
         }
@@ -89,7 +103,6 @@ export const setupTurns = function () {
         c.visible = c.owner || !c.hidden;
         return c;
     }).filter(c => c.token);
-
     // Sort turns into initiative order: (1) Card Value, (2) Card Suit
     turns = turns.sort((a, b) => {
         if (a.flags.swade && b.flags.swade) {
@@ -113,4 +126,21 @@ export const setupTurns = function () {
     // When turns change, tracked resources also change
     if (ui.combat) ui.combat.updateTrackedResources();
     return this.turns;
+}
+
+const drawCard = async function (count?: number): Promise<JournalEntry[]> {
+    const actionCardDeck = game.tables.getName('Action Cards') as RollTable;
+    const actionCardPack = game.packs.find(p => p.collection === 'swade.action-cards');
+    const cards = []
+    if (!count) count = 1;
+
+    for (let i = 0; i < count; i++) {
+        const drawResult = await actionCardDeck.roll();
+        await actionCardDeck.updateEmbeddedEntity('TableResult', { _id: drawResult[1]._id, drawn: true });
+        const pack = await actionCardPack.getIndex();
+        const lookUpCard = pack.find(c => c.name === drawResult[1].text);
+        cards.push(await actionCardPack.getEntry(lookUpCard._id) as JournalEntry);
+    }
+
+    return cards;
 }
