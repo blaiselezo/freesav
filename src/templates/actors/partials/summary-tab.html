@@ -35,70 +35,10 @@
         </div>
     </div>
 </section>
+{{> "systems/swade/templates/actors/partials/attributes.html"}}
 <section class="flexrow">
     <div class="traits">
-        <header class="attributes-header flexrow">
-            <span>{{ localize "SWADE.Attributes" }}</span>
-        </header>
-        <ol class="attributes-list">
-            <li class="flexrow" data-attribute="agility">
-                <label class="attribute-label"><a>{{ localize "SWADE.AttrAgi" }}</a></label>
-                <select class="attribute-value" name="data.attributes.agility.die.sides" id="attributes.agility"
-                    data-dtype="Number">
-                    {{#select data.attributes.agility.die.sides}}
-                    {{> "systems/swade/templates/die-sides-options.html"}}
-                    {{/select}}
-                </select>
-                <input name="data.attributes.agility.die.modifier" type="text"
-                    value="{{data.attributes.agility.die.modifier}}" placeholder="{{localize 'SWADE.Mod'}}"
-                    data-dtype="String" />
-            </li>
-            <li class="flexrow" data-attribute="smarts">
-                <label class="attribute-label"><a>{{ localize "SWADE.AttrSma" }}</a></label>
-                <select name="data.attributes.smarts.die.sides" id="attributes.smarts" data-dtype="Number">
-                    {{#select data.attributes.smarts.die.sides}}
-                    {{> "systems/swade/templates/die-sides-options.html"}}
-                    {{/select}}
-                </select>
-                <input name="data.attributes.smarts.die.modifier" type="text"
-                    value="{{data.attributes.smarts.die.modifier}}" placeholder="{{localize 'SWADE.Mod'}}"
-                    data-dtype="String" />
-            </li>
-            <li class="flexrow" data-attribute="spirit">
-                <label class="attribute-label"><a>{{ localize "SWADE.AttrSpr" }}</a></label>
-                <select name="data.attributes.spirit.die.sides" id="attributes.spirit" data-dtype="Number">
-                    {{#select data.attributes.spirit.die.sides}}
-                    {{> "systems/swade/templates/die-sides-options.html"}}
-                    {{/select}}
-                </select>
-                <input name="data.attributes.spirit.die.modifier" type="text"
-                    value="{{data.attributes.spirit.die.modifier}}" placeholder="{{localize 'SWADE.Mod'}}"
-                    data-dtype="String" />
-            </li>
-            <li class="flexrow" data-attribute="strength">
-                <label class="attribute-label"><a>{{ localize "SWADE.AttrStr" }}</a></label>
-                <select name="data.attributes.strength.die.sides" id="attributes.strength" data-dtype="Number">
-                    {{#select data.attributes.strength.die.sides}}
-                    {{> "systems/swade/templates/die-sides-options.html"}}
-                    {{/select}}
-                </select>
-                <input name="data.attributes.strength.die.modifier" type="text"
-                    value="{{data.attributes.strength.die.modifier}}" placeholder="{{localize 'SWADE.Mod'}}"
-                    data-dtype="String" />
-            </li>
-            <li class="flexrow" data-attribute="vigor">
-                <label class="attribute-label"><a>{{ localize "SWADE.AttrVig" }}</a></label>
-                <select name="data.attributes.vigor.die.sides" id="attributes.vigor" data-dtype="Number">
-                    {{#select data.attributes.vigor.die.sides}}
-                    {{> "systems/swade/templates/die-sides-options.html"}}
-                    {{/select}}
-                </select>
-                <input name="data.attributes.vigor.die.modifier" type="text"
-                    value="{{data.attributes.vigor.die.modifier}}" placeholder="{{localize 'SWADE.Mod'}}"
-                    data-dtype="String" />
-            </li>
-        </ol>
-        <header class="skills-header">
+        <header class="header-field">
             <span>{{localize "SWADE.Skills"}}</span>
         </header>
         <ol class="skills-list">
@@ -114,13 +54,13 @@
         </ol>
     </div>
     <div class="gear">
-        <header class="gear-header">
+        <header class="header-field">
             <span>{{ localize "SWADE.Weapons" }}</span>
         </header>
         <ol class="gear-list">
             {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
         </ol>
-        <header class="gear-header">
+        <header class="header-field">
             <span>{{ localize "SWADE.Armor" }}</span>
         </header>
         <ol class="gear-list">

@@ -26,10 +26,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added localization strings for Conviction
 - Fields in weapon cards will now only be shown when the value isn't empty
+- Ability to ignore Wounds (for example by being a `Construct` or having `Nerves of Steel`)
 
 ## Changed
 
-- Switched Benny + and Benny - with each other.
+- Massively changed the UI and all sheets of SWADE to make it more clean and give it more space.
+- Changed data type of the `Toughness` field from `Number` to `String` so you can add armor until a better solution can be found
 
 ### Fixed
 

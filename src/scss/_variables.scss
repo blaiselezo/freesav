@@ -1,17 +1,16 @@
 $light-grey: #aaa;
 $eggshell: #eeede0;
 $anthracite: #293133;
+$dark-paste-blue: #779ecb;
+$light-pastel-blue: #dfe6f5;
 
-$decorative-line: 1px solid $light-grey;
-$section-border: 2px groove $eggshell;
-
-$tab-underline: 3px solid #b5b3a4;
-$tab-underline-active: 3px solid $anthracite;
+$decorative-line: 1px solid $anthracite;
+$section-border: 1px groove $anthracite;
 
 %header-field {
   padding: 5px;
   margin-bottom: 5px;
-  background: rgba(0, 0, 0, 0.05);
+  background: $light-grey;
   border: $decorative-line;
   border-radius: 2px;
   text-align: center;
@@ -19,18 +18,9 @@ $tab-underline-active: 3px solid $anthracite;
 }
 
 %standalone-input-field {
-  background: transparent;
+  //background: #a1b3c9;
+  //background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.1);
   border: 1px solid transparent;
-  border-bottom: 1px solid $anthracite;
-  border-radius: 0px;
-  &:hover {
-    border: 1px solid $anthracite;
-    border-radius: 2px;
-    box-shadow: 0 0 5px red;
-  }
-  &:focus {
-    border: 1px solid $anthracite;
-    border-radius: 2px;
-    box-shadow: 0 0 5px red;
-  }
+  border-radius: 2px;
 }
