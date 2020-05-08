@@ -37,6 +37,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Status Effect binding now also works for tokens that are not linked to their base actor
 - Fixed a small localization error in the Weapon item sheet
 - Fixed requirements for the `Sweep` Edge
+- Fixed page reference for the Sound/Silence Power
 - Fixed an issue with Skill descriptions not being saved correctly
 
 ## [v0.7.3] 2020-05-01
