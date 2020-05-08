@@ -57,17 +57,20 @@
           },
           "toughness": {
             "value": 0,
+            "armor": 0,
+            "modifier": 0
+          },
+          "parry": {
+            "value": 0,
             "modifier": 0
           }
         },
         "details": {
           "biography": {
-            "value": "",
-            "public": ""
+            "value": ""
           },
           "species": {
-            "name": "",
-            "traits": {}
+            "name": ""
           },
           "currency": 500
         },
@@ -84,7 +87,8 @@
         "wounds": {
           "value": 0,
           "min": 0,
-          "max": 3
+          "max": 3,
+          "ignored": 0
         },
         "advances": {
           "value": 0,
@@ -110,6 +114,12 @@
           "isShaken": false,
           "isDistracted": false,
           "isVulnerable": false
+        },
+        "initiative": {
+          "hasHesitant": false,
+          "hasQuick": false,
+          "hasLevelHeaded": false,
+          "hasImpLevelHeaded": false
         }
       }
     },
