@@ -1,0 +1,8 @@
+<form>
+    {{#each cards as |card|}}
+    <div>
+        <input type="radio" name="card" id="{{card._id}}" data-card-id="{{card._id}}">
+        <label for="{{card._id}}">{{card.name}}</label>
+    </div>
+    {{/each}}
+</form>

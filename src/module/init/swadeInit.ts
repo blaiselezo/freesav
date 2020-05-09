@@ -14,6 +14,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
     const combatantUpdates = [];
     const initMessages = [];
     let soundAttached = false;
+    let isRedraw = false;
 
     if (ids.length > actionCardDeck.results.filter(r => !r.drawn).length) {
         ui.notifications.warn('There are not enough cards left in the deck!');
@@ -26,7 +27,10 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
 
         // Get Combatant data
         let c = await this.getCombatant(id);
-        if (c.flags.swade && c.flags.swade.cardValue != null) console.log('This must be a reroll');
+        if (c.flags.swade && c.flags.swade.cardValue != null) {
+            console.log('This must be a reroll');
+            isRedraw = true;
+        }
 
         //Do not draw cards for defeated combatants
         if (c.defeated) continue;
@@ -35,37 +39,47 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
         let cardsToDraw = 1;
         if (c.actor.data.data.initiative.hasLevelHeaded) cardsToDraw = 2;
         if (c.actor.data.data.initiative.hasImpLevelHeaded) cardsToDraw = 3;
-        const hasQuick = c.actor.data.data.initiative.hasQuick;
         const hasHesitant = c.actor.data.data.initiative.hasHesitant;
 
         // Draw initiative
         let card;
-        if (hasHesitant) { // Hesitant Stuff
-            const cards = await drawCard(2) as any[];
-            card = cards[0];
-            console.log('hesitant', card);
-        } else if (hasQuick && cardsToDraw === 1) { //quick Stuff
-            do {
-                const cards = await drawCard() as any[];
-                card = cards[0];
-                console.log('quick', card);
-            } while (card.flags.swade.cardValue < 6);
-        } else if (cardsToDraw > 1) { //Level Headed stuff
-            const cards = await drawCard(cardsToDraw) as any[];
-            card = cards[0];
-            console.log('level headed', cards);
-        } else {//normal card stuff
-            const cards = await drawCard() as any[];
-            console.log(cards)
-            card = cards[0];
-            console.log('normal', card);
+        if (isRedraw) {
+            const cards = await drawCard();
+            card = cards[0] as any;
+        } else {
+            if (hasHesitant) { // Hesitant
+                const cards = await drawCard(2) as any[];
+                if (cards.filter(c => c.flags.swade.isJoker).length > 0) {
+                    card = await pickACard(cards, c.name);
+                } else {
+                    cards.sort((a, b) => { //sort cards to pick the lower one
+                        const cardA = a.flags.swade.cardValue;
+                        const cardB = b.flags.swade.cardValue;
+                        let card = cardA - cardB;
+                        if (card !== 0) return card;
+                        const suitA = a.flags.swade.suitValue;
+                        const suitB = b.flags.swade.suitValue;
+                        let suit = suitA - suitB;
+                        return suit;
+                    });
+                    card = cards[0];
+                }
+            } else if (cardsToDraw > 1) { //Level Headed
+                const cards = await drawCard(cardsToDraw);
+                card = await pickACard(cards, c.name) as any;
+            } else {//normal card draw
+                const cards = await drawCard();
+                card = cards[0] as any;
+            }
         }
+
         const newflags = {
             suitValue: card.flags.swade.suitValue,
             cardValue: card.flags.swade.cardValue,
             hasJoker: card.flags.swade.isJoker,
             cardString: card.content
         }
+
         const initValue = '' + card.flags.swade.suitValue + card.flags.swade.cardValue;
         combatantUpdates.push({
             _id: c._id, initiative: initValue, 'flags.swade': newflags
@@ -79,7 +93,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
                 token: c.token._id,
                 alias: c.token.name,
             },
-            whisper: (c.token.hidden || c.hidden) ? game.users.filter((u: User) => u.isGM) : '',
+            whisper: (c.token.hidden || c.hidden) ? game.users.entities.filter((u: User) => u.isGM) : '',
             flavor: c.token.name + game.i18n.localize('SWADE.InitDraw'),
             content: `<div class="table-result"><img class="result-image" src="${card.img}"><h4 class="result-text">@Compendium[swade.action-cards.${card._id}]{${card.name}}</h4></div>`
         }, messageOptions);
@@ -120,8 +134,8 @@ export const setupTurns = function () {
             let card = cardB - cardA;
             if (card !== 0) return card;
             const suitA = a.flags.swade.suitValue;
-            const suitb = b.flags.swade.suitValue;
-            let suit = suitb - suitA;
+            const suitB = b.flags.swade.suitValue;
+            let suit = suitB - suitA;
             return suit;
         }
         let [an, bn] = [a.token.name || '', b.token.name || ''];
@@ -140,7 +154,7 @@ export const setupTurns = function () {
 const drawCard = async function (count?: number): Promise<JournalEntry[]> {
     const actionCardDeck = game.tables.getName('Action Cards') as RollTable;
     const actionCardPack = game.packs.find(p => p.collection === 'swade.action-cards');
-    const cards = []
+    const cards: JournalEntry[] = [];
     if (!count) count = 1;
 
     for (let i = 0; i < count; i++) {
@@ -150,5 +164,54 @@ const drawCard = async function (count?: number): Promise<JournalEntry[]> {
         const lookUpCard = pack.find(c => c.name === drawResult[1].text);
         cards.push(await actionCardPack.getEntry(lookUpCard._id) as JournalEntry);
     }
+
     return cards;
+}
+
+const pickACard = async function (cards: JournalEntry[], combatantName?: string): Promise<JournalEntry> {
+    // any card
+
+    // sort the cards for display
+    const sortedCards = cards.sort((a: any, b: any) => {
+        const cardA = a.flags.swade.cardValue;
+        const cardB = b.flags.swade.cardValue;
+        let card = cardB - cardA;
+        if (card !== 0) return card;
+        const suitA = a.flags.swade.suitValue;
+        const suitB = b.flags.swade.suitValue;
+        let suit = suitB - suitA;
+        return suit;
+    });
+
+    let card = null;
+    const template = 'systems/swade/templates/initiative/choose-card.html';
+    const html = await renderTemplate(template, { cards: sortedCards });
+
+    return new Promise(resolve => {
+        new Dialog({
+            title: `Pick a card ${combatantName}`,
+            content: html,
+            buttons: {
+                ok: {
+                    icon: '<i class="fas fa-check"></i>',
+                    label: game.i18n.localize('SWADE.Ok'),
+                    callback: (html) => {
+                        const choice = html.find('input[name=card]:checked')
+                        const cardId = choice.data('card-id') as string;
+                        if (typeof cardId !== 'undefined') {
+                            card = cards.find(c => c._id === cardId);
+                        }
+                    }
+                }
+            },
+            close: () => {
+                //if no card has been chosen then choose first in array
+                if (card === null || typeof card === 'undefined') {
+                    console.log('no card selected');
+                    card = cards[0]; //If no card was selected, assign the first card that was drawn
+                }
+                resolve(card);
+            }
+        }).render(true);
+    });
 }
