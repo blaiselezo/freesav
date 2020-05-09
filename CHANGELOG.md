@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.8.0] 2020-05-09
 
 ### Added
 
@@ -33,6 +33,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Massively changed the UI and all sheets of SWADE to make it more clean and give it more space.
 - Changed data type of the `Toughness` field from `Number` to `String` so you can add armor until a better solution can be found
+- Updated French translation (thanks to LeRatierBretonnien)
 
 ### Fixed
 
@@ -40,7 +41,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Status Effect binding now also works for tokens that are not linked to their base actor
 - Fixed a small localization error in the Weapon item sheet
 - Fixed requirements for the `Sweep` Edge
-- Fixed page reference for the Sound/Silence Power
+- Fixed page reference for the `Sound/Silence` Power
 - Fixed an issue with Skill descriptions not being saved correctly
 
 ## [v0.7.3] 2020-05-01
