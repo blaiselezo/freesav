@@ -183,9 +183,11 @@ export class SwadeCharacterSheet extends ActorSheet {
       data.data.owned.edges &&
       data.data.owned.edges.find((edge) => edge.data.isArcaneBackground == true)
     ) {
-      this.actor.setFlag('swade', 'hasArcaneBackground', true);
+      this.actor.setFlag("swade", "hasArcaneBackground", true);
+      data.data.hasArcaneBackground = true
     } else {
-      this.actor.setFlag('swade', 'hasArcaneBackground', false);
+      this.actor.setFlag("swade", "hasArcaneBackground", false);
+      data.data.hasArcaneBackground = false
     }
 
     // Check for enabled optional rules
