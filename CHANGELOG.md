@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
+- Initiative! Supports all Edges (for Quick simply use the reroll option)
 - Added localization strings for Conviction
 - Fields in weapon cards will now only be shown when the value isn't empty
 - Ability to ignore Wounds (for example by being a `Construct` or having `Nerves of Steel`)
