@@ -124,11 +124,12 @@ export class SwadeActor extends Actor {
   calcWoundFatigePenalties(): number {
     let retVal = 0;
     const wounds = parseInt(this.data['data']['wounds']['value']);
+    let ignoredWounds = parseInt(this.data['data']['wounds']['ignored']);
+    if (isNaN(ignoredWounds)) ignoredWounds = 0;
     const fatigue = parseInt(this.data['data']['fatigue']['value']);
 
-    if (!isNaN(wounds)) retVal = (wounds > 3) ? retVal += 3 : retVal += wounds;
+    if (!isNaN(wounds)) retVal = (wounds > 3) ? retVal += 3 - ignoredWounds : retVal += wounds - ignoredWounds;
     if (!isNaN(fatigue)) retVal += fatigue;
-
     return retVal * -1;
   }
 
@@ -157,5 +158,37 @@ export class SwadeActor extends Actor {
         ;
     }//fr
     return out;
+  }
+
+  // Launches a dialog to configure which initiative-modifying edges/hindrances the character has 
+  async configureInitiative() {
+    const initData = this.data.data.initiative;
+    const template = 'systems/swade/templates/initiative/configure-init.html';
+    const html = await renderTemplate(template, initData);
+    const d = new Dialog({
+      title: 'Configure Initiative',
+      content: html,
+      buttons: {
+        ok: {
+          icon: '<i class="fas fa-check"></i>',
+          label: game.i18n.localize('SWADE.Ok'),
+          callback: async (html) => {
+            await this.update({
+              'data.initiative': {
+                hasLevelHeaded: html.find('#hasLevelHeaded').is(':checked'),
+                hasImpLevelHeaded: html.find('#hasImpLevelHeaded').is(':checked'),
+                hasHesitant: html.find('#hasHesitant').is(':checked'),
+              }
+            });
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize('SWADE.Cancel')
+        }
+      },
+      default: 'cancel'
+    })
+    d.render(true);
   }
 }

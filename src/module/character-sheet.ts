@@ -12,7 +12,7 @@ export class SwadeCharacterSheet extends ActorSheet {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['swade', 'sheet', 'character'],
+      classes: ['swade', 'sheet', 'actor', 'character'],
       width: 600,
       height: 768,
       tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }]
@@ -105,9 +105,15 @@ export class SwadeCharacterSheet extends ActorSheet {
       if (!this.actor.getFlag('swade', 'convictionReady')) {
         this.actor.setFlag('swade', 'convictionReady', true);
       } else {
-        await new Roll('1d6x=').roll().toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), flavor: 'Calls on her Conviction!' });
+        await new Roll('1d6x=').roll().toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), flavor: game.i18n.localize('SWADE.UseConv') });
         this.actor.setFlag('swade', 'convictionReady', false);
       }
+    });
+
+    //Configre initiative Edges/Hindrances
+    html.find('#initConfigButton').click(() => {
+      let actorObject = this.actor as SwadeActor;
+      actorObject.configureInitiative();
     });
 
     // Roll attribute

@@ -4,10 +4,17 @@ export const registerCustomHelpers = function () {
         return lh == rh;
     })
 
+    Handlebars.registerHelper('isEmpty', (element) => {
+        if (typeof element === undefined) return true;
+        if (Array.isArray(element) && element.length) return false;
+        if (element === '') return true
+    });
+
     // Sheet
     Handlebars.registerHelper('localizeSkillAttribute', (attribute) => {
         return game.i18n.localize(CONFIG.SWADE.attributes[attribute]);
     });
+
     Handlebars.registerHelper('modifier', (str) => {
         str = str === '' || str === null ? '0' : str;
         let value = typeof str == 'string' ? parseInt(str) : str;

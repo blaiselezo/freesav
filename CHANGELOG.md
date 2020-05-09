@@ -20,6 +20,30 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.8.0] 2020-05-09
+
+### Added
+
+- Initiative! Supports all Edges (for Quick simply use the reroll option)
+- Added localization strings for Conviction
+- Fields in weapon cards will now only be shown when the value isn't empty
+- Ability to ignore Wounds (for example by being a `Construct` or having `Nerves of Steel`)
+
+## Changed
+
+- Massively changed the UI and all sheets of SWADE to make it more clean and give it more space.
+- Changed data type of the `Toughness` field from `Number` to `String` so you can add armor until a better solution can be found
+- Updated French translation (thanks to LeRatierBretonnien)
+
+### Fixed
+
+- Fixed a bug that would display a permission error for players when a token they weren't allowed to update got updated
+- Status Effect binding now also works for tokens that are not linked to their base actor
+- Fixed a small localization error in the Weapon item sheet
+- Fixed requirements for the `Sweep` Edge
+- Fixed page reference for the `Sound/Silence` Power
+- Fixed an issue with Skill descriptions not being saved correctly
+
 ## [v0.7.3] 2020-05-01
 
 ### Added

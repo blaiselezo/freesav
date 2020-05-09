@@ -59,6 +59,4 @@ export class SwadeDice {
       }).render(true);
     });
   }
-
-
 }

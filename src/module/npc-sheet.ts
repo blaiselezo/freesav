@@ -8,7 +8,7 @@ export class SwadeNPCSheet extends ActorSheet {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ['swade', 'sheet', 'npc'],
+            classes: ['swade', 'sheet', 'actor', 'npc'],
             width: 600,
             height: 'auto',
             tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }]
@@ -73,6 +73,12 @@ export class SwadeNPCSheet extends ActorSheet {
                 //roll conviction
                 this.actor.setFlag('swade', 'convictionReady', false);
             }
+        });
+
+        //Configre initiative Edges/Hindrances
+        html.find('#initConfigButton').click(() => {
+            let actorObject = this.actor as SwadeActor;
+            actorObject.configureInitiative();
         });
 
         // Roll attribute

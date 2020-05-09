@@ -13,12 +13,25 @@
   }
 
   // Profile Image
-  .profile-img {
-    flex: 0 0 64px;
-    flex-wrap: inherit;
-    flex-direction: column;
-    margin-right: 10px;
-    border: none;
+  .profile-img-container {
+    position: relative;
+    width: 64x;
+    max-width: 64px;
+    height: 64x;
+    margin-right: 2px;
+    img {
+      margin: 0;
+      border: none;
+    }
+    .profile-img {
+      height: inherit;
+      width: inherit;
+      object-fit: contain;
+      cursor: pointer;
+    }
+    .fade-in-05 {
+      opacity: 0.5;
+    }
   }
 
   .itemline {

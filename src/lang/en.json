@@ -60,6 +60,7 @@
   "SWADE.ArcBack": "Arcane Background",
   "SWADE.Req": "Requirements",
   "SWADE.Conv": "Conviction",
+  "SWADE.UseConv": "Calls on their Conviction!",
 
   "SWADE.Currency": "Currency",
   "SWADE.CarryWeight": "Encumbrance",
@@ -79,6 +80,13 @@
   "SWADE.Wounds": "Wounds",
   "SWADE.Fatigue": "Fatigue",
   "SWADE.Incap": "Incapacitated!",
+
+  "SWADE.InitDraw": " draws for Initiative!",
+  "SWADE.JokersWild": " gets Joker's Wild!",
+  "SWADE.CardSound": "Card Sound",
+  "SWADE.CardSoundDesc": "Play a short card sound when dealing Initiative",
+  "SWADE.AutoInit": "Automatic Initiative",
+  "SWADE.AutoInitDesc": "Automatically draw Action Cards every round",
 
   "SWADE.Formula": "Formula",
   "SWADE.SitMod": "Situational Mod",
