@@ -33,24 +33,33 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
 
         // Set up edges
         let cardsToDraw = 1;
-        if (c.actor.data.data.hasLevelHeaded) cardsToDraw = 2;
-        if (c.actor.data.data.hasImpLevelHeaded) cardsToDraw = 3;
-        const hasQuick = c.actor.data.data.hasQuick;
+        if (c.actor.data.data.initiative.hasLevelHeaded) cardsToDraw = 2;
+        if (c.actor.data.data.initiative.hasImpLevelHeaded) cardsToDraw = 3;
+        const hasQuick = c.actor.data.data.initiative.hasQuick;
+        const hasHesitant = c.actor.data.data.initiative.hasHesitant;
 
         // Draw initiative
         let card;
-        if (hasQuick && cardsToDraw === 1) {
-            do {
-                card = await drawCard()[0] as any[];
-            } while (card.flags.swade.cardValue < 6);
-        } else if (cardsToDraw > 1) { //Leve Headed stuff
-            const cards = await drawCard(cardsToDraw) as any[];
-            console.log(cards);
+        if (hasHesitant) { // Hesitant Stuff
+            const cards = await drawCard(2) as any[];
             card = cards[0];
+            console.log('hesitant', card);
+        } else if (hasQuick && cardsToDraw === 1) { //quick Stuff
+            do {
+                const cards = await drawCard() as any[];
+                card = cards[0];
+                console.log('quick', card);
+            } while (card.flags.swade.cardValue < 6);
+        } else if (cardsToDraw > 1) { //Level Headed stuff
+            const cards = await drawCard(cardsToDraw) as any[];
+            card = cards[0];
+            console.log('level headed', cards);
         } else {//normal card stuff
-            card = await drawCard()[0] as any[];
+            const cards = await drawCard() as any[];
+            console.log(cards)
+            card = cards[0];
+            console.log('normal', card);
         }
-
         const newflags = {
             suitValue: card.flags.swade.suitValue,
             cardValue: card.flags.swade.cardValue,
@@ -141,6 +150,5 @@ const drawCard = async function (count?: number): Promise<JournalEntry[]> {
         const lookUpCard = pack.find(c => c.name === drawResult[1].text);
         cards.push(await actionCardPack.getEntry(lookUpCard._id) as JournalEntry);
     }
-
     return cards;
 }
