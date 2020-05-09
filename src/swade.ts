@@ -11,19 +11,20 @@
  */
 
 // Import TypeScript modules
-import { registerSettings } from './module/settings';
-import { registerCustomHelpers } from './module/handlebarsHelpers';
-import { preloadHandlebarsTemplates } from './module/preloadTemplates';
-import { listenJournalDrop } from './module/journalDrop';
 import { SwadeCharacterSheet } from './module/character-sheet';
-import { SwadeNPCSheet } from './module/npc-sheet';
-import { SwadeItemSheet } from './module/item-sheet';
-import { SwadeActor } from './module/entity';
-import { SwadeItem } from './module/item-entity';
-import { SWADE } from './module/config';
-import { isIncapacitated } from './module/util';
-import { swadeSetup } from './module/setup/setupHandler';
 import { formatRoll } from './module/chat';
+import { SWADE } from './module/config';
+import { SwadeActor } from './module/entity';
+import { registerCustomHelpers } from './module/handlebarsHelpers';
+import { rollInitiative, setupTurns } from './module/init/swadeInit';
+import { SwadeItem } from './module/item-entity';
+import { SwadeItemSheet } from './module/item-sheet';
+import { listenJournalDrop } from './module/journalDrop';
+import { SwadeNPCSheet } from './module/npc-sheet';
+import { preloadHandlebarsTemplates } from './module/preloadTemplates';
+import { registerSettings } from './module/settings';
+import { swadeSetup } from './module/setup/setupHandler';
+import { isIncapacitated } from './module/util';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -36,6 +37,8 @@ Hooks.once('init', async function () {
 	// Record Configuration Values
 	CONFIG.SWADE = SWADE;
 	//CONFIG.debug.hooks = true;
+	Combat.prototype.rollInitiative = rollInitiative;
+	Combat.prototype.setupTurns = setupTurns;
 
 	//Register custom Handlebars helpers
 	registerCustomHelpers();
@@ -251,6 +254,77 @@ Hooks.on('preCreateToken', async (scene: Scene, createData: any, options: any, u
 	if (actorData.data.status.isDistracted) createEffects.push(distracted);
 
 	createData.effects = createEffects;
+});
+
+Hooks.on('renderCombatTracker', (app, html: JQuery<HTMLElement>, data) => {
+	const currentCombat = data.combats[data.combatCount - 1];
+	html.find('.combatant').each((i, el) => {
+		const combId = el.getAttribute('data-combatant-id');
+		const combatant = currentCombat.data.combatants.find(c => c._id == combId);
+		if (combatant.hasRolled) {
+			el.getElementsByClassName('token-initiative')[0].innerHTML = `<span class="initiative">${combatant.flags.swade.cardString}</span>`
+		}
+	});
+});
+
+Hooks.on('preUpdateCombat', async (combat, updateData, options, userId) => {
+	// Return early if we are NOT a GM OR we are not the player that triggered the update AND that player IS a GM
+	const user = game.users.get(userId, { strict: true }) as User;
+	if (!game.user.isGM || (game.userId !== userId && user.isGM)) {
+		return
+	}
+
+	// Return if this update does not contains a round
+	if (!updateData.round) {
+		return;
+	}
+
+	if (combat instanceof CombatEncounters) {
+		combat = game.combats.get(updateData._id, { strict: true });
+	}
+
+	// If we are not moving forward through the rounds, return
+	if (updateData.round < 1 || updateData.round < combat.previous.round) {
+		return;
+	}
+
+	// If Combat has just started, return
+	if ((!combat.previous.round || combat.previous.round === 0) && updateData.round === 1) {
+		return;
+	}
+
+	let jokerDrawn = false;
+
+	// Reset the Initiative of all combatants
+	combat.combatants.forEach((c) => {
+		if (c.flags.swade && c.flags.swade.hasJoker) {
+			jokerDrawn = true;
+		}
+	});
+
+	const resetComs = combat.combatants.map(c => {
+		c.initiative = null;
+		c.hasRolled = false;
+		c.flags.swade.cardValue = null
+		c.flags.swade.suitValue = null
+		c.flags.swade.hasJoker = null
+		return c
+	});
+
+	updateData.combatants = resetComs;
+
+	// Reset the deck if any combatant has had a Joker	
+	if (jokerDrawn) {
+		const deck = game.tables.getName('Action Cards') as RollTable;
+		await deck.reset();
+		ui.notifications.info('Card Deck automatically reset');
+	}
+
+	//Init autoroll
+	if (game.settings.get('swade', 'autoInit')) {
+		const combatantIds = combat.combatants.map(c => c._id);
+		await combat.rollInitiative(combatantIds);
+	}
 });
 
 // Add roll data to the message for formatting of dice pools

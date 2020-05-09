@@ -175,7 +175,6 @@ export class SwadeActor extends Actor {
           callback: async (html) => {
             await this.update({
               'data.initiative': {
-                hasQuick: html.find('#hasQuick').is(':checked'),
                 hasLevelHeaded: html.find('#hasLevelHeaded').is(':checked'),
                 hasImpLevelHeaded: html.find('#hasImpLevelHeaded').is(':checked'),
                 hasHesitant: html.find('#hasHesitant').is(':checked'),
