@@ -1,4 +1,5 @@
 {{#each data.owned.powers as |power id|}}
+{{#unless (isEmpty power.data.damage)}}
 <li class="gear-card " data-item-id="{{power._id}}">
     <header class="card-header">
         <span>{{power.name}}</span>
@@ -12,8 +13,9 @@
             <div>{{localize "SWADE.Rng"}}: {{power.data.range}}</div>
         </div>
         <div class="flexrow ellipsize">
-          <div>{{localize "SWADE.Dur"}}: {{power.data.duration}}</div>
+            <div>{{localize "SWADE.Dur"}}: {{power.data.duration}}</div>
         </div>
     </div>
 </li>
+{{/unless}}
 {{/each}}
