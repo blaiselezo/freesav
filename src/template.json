@@ -195,6 +195,7 @@
       "templates": ["itemDescription"],
       "rank": "",
       "pp": 0,
+      "damage": "",
       "range": "",
       "duration": "",
       "trapping": "",
