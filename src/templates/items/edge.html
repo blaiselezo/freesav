@@ -3,9 +3,9 @@
     {{> "systems/swade/templates/items/partials/header-delete.html"}}
     <section class="sheet-body">
         <div class="form-group">
+            <label for="data.requirements.value">{{localize "SWADE.Req"}}:</label>
             <input name="data.requirements.value" type="text" value="{{item.data.requirements.value}}"
                 placeholder="{{localize 'SWADE.Req'}}" data-dtype="String" />
-            <label for="data.requirements.value">{{localize "SWADE.Req"}}</label>
         </div>
         {{#unless item.data.isOwned}}
         <div class="form-group">
