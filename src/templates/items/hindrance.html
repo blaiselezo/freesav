@@ -3,8 +3,8 @@
     {{> "systems/swade/templates/items/partials/header-delete.html"}}
     <section class="sheet-body">
         <div class="form-group">
+            <input type="checkbox" name="data.major" id="data.major" {{checked item.data.major}} data-dtype="Boolean">
             <label for="data.major">{{localize "SWADE.MajHind"}}</label>
-            <input type="checkbox" name="data.major" {{checked item.data.major}} data-dtype="Boolean">
         </div>
         <header class="header-field">
             <span>{{localize "SWADE.Desc"}}</span>

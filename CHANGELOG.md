@@ -20,6 +20,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.8.1] 2020-05-10
+
+### Added
+
+- Powers now have a damage field. If the field is not empty it shows up on the summary tab. Kudos to Adam on Gitlab
+- Fixed an issue with Item Sheets that caused checkboxes to no longer show up
+- Stat fields for NPC equimpent only show up when they actually have stats.
+
 ## [v0.8.0] 2020-05-09
 
 ### Added

@@ -12,9 +12,14 @@
     {{#each data.owned.powers as |power|}}
     <div class="power item" data-item-id="{{power._id}}">
         <a class="item-edit">
-            <div class="power-header">{{power.name}} - {{power.data.pp}} PP</div>
+          <div class="power-header">
+            {{power.name}} - {{power.data.pp}} PP
+          </div>
         </a>
         <div class="power-content">
+            {{#if power.data.damage.length}}
+            <div>{{localize "SWADE.Dmg"}}: <a class="damage-roll">{{power.data.damage}}</a></div>
+            {{/if}}
             {{{power.data.description}}}
         </div>
     </div>

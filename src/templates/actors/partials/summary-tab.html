@@ -60,6 +60,14 @@
         <ol class="gear-list">
             {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
         </ol>
+        {{#if data.hasArcaneBackground}}
+        <header class="header-field">
+            <span>{{ localize "SWADE.Pow" }}</span>
+        </header>
+        <ol class="gear-list">
+            {{> "systems/swade/templates/actors/partials/powers-card.html"}}
+        </ol>
+        {{/if}}
         <header class="header-field">
             <span>{{ localize "SWADE.Armor" }}</span>
         </header>
