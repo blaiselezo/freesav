@@ -20,10 +20,16 @@
         {{log item}}
         {{#unless item.data.isOwned}}
         <div class="form-group">
+            <input type="checkbox" name="data.equippable" id="data.equippable" {{checked item.data.equippable}}
+                data-dtype="Boolean">
             <label for="data.equippable">{{localize "SWADE.Equippable"}}</label>
-            <input type="checkbox" name="data.equippable" {{checked item.data.equippable}} data-dtype="Boolean">
         </div>
         {{/unless}}
+        <div class="form-group">
+            <input type="checkbox" name="data.equipped" id="data.equipped" {{checked item.data.equipped}}
+                data-dtype="Boolean">
+            <label for="data.equipped">{{localize "SWADE.Equipped"}}</label>
+        </div>
         <header class="header-field">
             <span>{{localize "SWADE.Desc"}}</span>
         </header>
