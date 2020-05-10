@@ -135,8 +135,9 @@ export class SwadeCharacterSheet extends ActorSheet {
     // Roll Damage
     html.find('.damage-roll').click((event) => {
       let element = event.currentTarget as Element;
-      let itemId =
-        element.parentElement.parentElement.parentElement.dataset.itemId;
+      let itemId = $(element)
+        .parents("[data-item-id]")
+        .attr("data-item-id");
       const item = this.actor.getOwnedItem(itemId) as SwadeItem;
       return item.rollDamage();
     });
@@ -182,9 +183,11 @@ export class SwadeCharacterSheet extends ActorSheet {
       data.data.owned.edges &&
       data.data.owned.edges.find((edge) => edge.data.isArcaneBackground == true)
     ) {
-      this.actor.setFlag('swade', 'hasArcaneBackground', true);
+      this.actor.setFlag("swade", "hasArcaneBackground", true);
+      data.data.hasArcaneBackground = true
     } else {
-      this.actor.setFlag('swade', 'hasArcaneBackground', false);
+      this.actor.setFlag("swade", "hasArcaneBackground", false);
+      data.data.hasArcaneBackground = false
     }
 
     // Check for enabled optional rules
