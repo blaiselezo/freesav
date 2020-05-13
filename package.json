@@ -18,7 +18,7 @@
 		"archiver": "^3.1.1",
 		"chalk": "^3.0.0",
 		"eslint": "^6.8.0",
-		"foundry-pc-types": "gitlab:foundry-projects/foundry-pc/foundry-pc-types",
+		"foundry-pc-types": "gitlab:florad92/foundry-pc-types",
 		"fs-extra": "^8.1.0",
 		"gulp": "^4.0.2",
 		"gulp-git": "^2.10.0",
