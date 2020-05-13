@@ -5,7 +5,8 @@ export async function swadeSetup(): Promise<void> {
         return;
     }
 
-    const cardPack = await game.packs.find(p => p.collection === packName).getIndex() as any[];
+    const cardPack = game.packs.get(packName) as unknown as Compendium;
+    const cardPackIndex = await cardPack.getIndex() as any[];
     const tableData = {
         name: 'Action Cards',
         replacement: false,
@@ -19,7 +20,7 @@ export async function swadeSetup(): Promise<void> {
 
     const createData = []
 
-    for (let index = 0; index < cardPack.length; index++) {
+    for (let index = 0; index < cardPackIndex.length; index++) {
         let c = cardPack[index];
         let resultData = {
             type: 2, //Set type to compendium

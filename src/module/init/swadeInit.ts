@@ -86,6 +86,17 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
         });
 
         // Construct chat message data
+        const template = `
+        <div class="table-draw">
+            <ol class="table-results">
+                <li class="table-result flexrow">
+                    <img class="result-image" src="${card.img}">
+                    <h4 class="result-text">@Compendium[swade.action-cards.${card._id}]{${card.name}}</h4>
+                </li>
+            </ol>
+        </div>
+        `
+
         const messageData = mergeObject({
             speaker: {
                 scene: canvas.scene._id,
@@ -95,7 +106,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
             },
             whisper: (c.token.hidden || c.hidden) ? game.users.entities.filter((u: User) => u.isGM) : '',
             flavor: c.token.name + game.i18n.localize('SWADE.InitDraw'),
-            content: `<div class="table-result"><img class="result-image" src="${card.img}"><h4 class="result-text">@Compendium[swade.action-cards.${card._id}]{${card.name}}</h4></div>`
+            content: template
         }, messageOptions);
         if (game.settings.get('swade', 'initiativeSound') && !soundAttached) {
             soundAttached = true;
@@ -126,7 +137,7 @@ export const setupTurns = function () {
         c.visible = c.owner || !c.hidden;
         return c;
     }).filter(c => c.token);
-    // Sort turns into initiative order: (1) Card Value, (2) Card Suit
+    // Sort turns into initiative order: (1) Card Value, (2) Card Suit, (3) Token Name, (4) Token ID
     turns = turns.sort((a, b) => {
         if (a.flags.swade && b.flags.swade) {
             const cardA = a.flags.swade.cardValue;
@@ -153,18 +164,16 @@ export const setupTurns = function () {
 
 const drawCard = async function (count?: number): Promise<JournalEntry[]> {
     const actionCardDeck = game.tables.getName('Action Cards') as RollTable;
-    const actionCardPack = game.packs.find(p => p.collection === 'swade.action-cards');
+    const actionCardPack = game.packs.get('swade.action-cards') as unknown as Compendium;
     const cards: JournalEntry[] = [];
     if (!count) count = 1;
 
-    for (let i = 0; i < count; i++) {
-        const drawResult = await actionCardDeck.roll();
-        await actionCardDeck.updateEmbeddedEntity('TableResult', { _id: drawResult[1]._id, drawn: true });
-        const pack = await actionCardPack.getIndex();
-        const lookUpCard = pack.find(c => c.name === drawResult[1].text);
+    const drawResult = await actionCardDeck.drawMany(count, { displayChat: false });
+    const pack = await actionCardPack.getIndex();
+    for (let e of drawResult.results) {
+        const lookUpCard = pack.find(c => c.name === e.text);
         cards.push(await actionCardPack.getEntry(lookUpCard._id) as JournalEntry);
     }
-
     return cards;
 }
 
@@ -195,7 +204,7 @@ const pickACard = async function (cards: JournalEntry[], combatantName?: string)
                 ok: {
                     icon: '<i class="fas fa-check"></i>',
                     label: game.i18n.localize('SWADE.Ok'),
-                    callback: (html) => {
+                    callback: (html: JQuery<HTMLElement>) => {
                         const choice = html.find('input[name=card]:checked')
                         const cardId = choice.data('card-id') as string;
                         if (typeof cardId !== 'undefined') {

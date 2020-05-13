@@ -172,7 +172,7 @@ export class SwadeActor extends Actor {
         ok: {
           icon: '<i class="fas fa-check"></i>',
           label: game.i18n.localize('SWADE.Ok'),
-          callback: async (html) => {
+          callback: async (html: JQuery<HTMLElement>) => {
             await this.update({
               'data.initiative': {
                 hasLevelHeaded: html.find('#hasLevelHeaded').is(':checked'),
