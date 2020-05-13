@@ -20,6 +20,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+## Added
+
+- Added option to turn chat messages for Initiative off
+
+## Changed
+
+- Updated SWADE for FoundryVTT 0.5.6
+
 ## [v0.8.1] 2020-05-10
 
 ### Added

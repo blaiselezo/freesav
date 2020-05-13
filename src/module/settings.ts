@@ -11,7 +11,15 @@ export const registerSettings = function () {
 	game.settings.register('swade', 'autoInit', {
 		name: game.i18n.localize('SWADE.AutoInit'),
 		hint: game.i18n.localize('SWADE.AutoInitDesc'),
-		default: false,
+		default: true,
+		scope: 'world',
+		type: Boolean,
+		config: true
+	});
+
+	game.settings.register('swade', 'initMessage', {
+		name: 'Create Chat Message for Initiative',
+		default: true,
 		scope: 'world',
 		type: Boolean,
 		config: true

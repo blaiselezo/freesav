@@ -13,7 +13,6 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
 
     const combatantUpdates = [];
     const initMessages = [];
-    let soundAttached = false;
     let isRedraw = false;
 
     if (ids.length > actionCardDeck.results.filter(r => !r.drawn).length) {
@@ -108,10 +107,6 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
             flavor: c.token.name + game.i18n.localize('SWADE.InitDraw'),
             content: template
         }, messageOptions);
-        if (game.settings.get('swade', 'initiativeSound') && !soundAttached) {
-            soundAttached = true;
-            messageData.sound = 'systems/swade/assets/card-flip.wav'
-        }
         initMessages.push(messageData);
     }
     if (!combatantUpdates.length) return this;
@@ -119,7 +114,14 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
     // Update multiple combatants
     await this.updateEmbeddedEntity('Combatant', combatantUpdates);
     // Create multiple chat messages
-    await ChatMessage.create(initMessages);
+
+    if (game.settings.get('swade', 'initiativeSound')) {
+        AudioHelper.play({ src: 'systems/swade/assets/card-flip.wav', volume: 0.8, autoplay: true, loop: false }, true);
+    }
+
+    if (game.settings.get('swade', 'initMessage')) {
+        await ChatMessage.create(initMessages);
+    }
     // Return the updated Combat
     return this;
 }
