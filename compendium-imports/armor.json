@@ -1,0 +1,206 @@
+[
+{
+"name": "Jacket (torso, arms)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Cloth/Light Leather", "quantity": 1, 
+"armor": "+1", "minStr": "d4", 
+"weight": 5, "price": "20"
+}},
+{
+"name": "Robes (torso, arms)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Cloth/Light Leather", "quantity": 1, 
+"armor": "+1", "minStr": "d4", 
+"weight": 8, "price": "30"
+}},
+{
+"name": "Leggings (legs)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Cloth/Light Leather", "quantity": 1, 
+"armor": "+1", "minStr": "d4", 
+"weight": 5, "price": "20"
+}},
+{
+"name": "Cap (head)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Cloth/Light Leather", "quantity": 1, 
+"armor": "+1", "minStr": "d4", 
+"weight": 1, "price": "5"
+}},
+{
+"name": "Jacket (torso, arms)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Thick Leather/Tough Hides", "quantity": 1, 
+"armor": "+2", "minStr": "d6", 
+"weight": 8, "price": "80"
+}},
+{
+"name": "Leggings (legs)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Thick Leather/Tough Hides", "quantity": 1, 
+"armor": "+2", "minStr": "d6", 
+"weight": 7, "price": "40"
+}},
+{
+"name": "Cap (head)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Thick Leather/Tough Hides", "quantity": 1, 
+"armor": "+2", "minStr": "d6", 
+"weight": 1, "price": "20"
+}},
+{
+"name": "Shirt (torso, arms)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Chain Mail", "quantity": 1, 
+"armor": "+3", "minStr": "d8", 
+"weight": 25, "price": "300"
+}},
+{
+"name": "Leggings (legs)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Chain Mail", "quantity": 1, 
+"armor": "+3", "minStr": "d8", 
+"weight": 10, "price": "150"
+}},
+{
+"name": "Chain Hood or Helm (head)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Chain Mail", "quantity": 1, 
+"armor": "+3", "minStr": "d8", 
+"weight": 4, "price": "o5"
+}},
+{
+"name": "Bronze Barding (horse)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Bronze Armor (Pre-Iron Age Settings)", "quantity": 1, 
+"armor": "+3", "minStr": "d10", 
+"weight": 50, "price": "1500"
+}},
+{
+"name": "Bronze Corselet (torso)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Bronze Armor (Pre-Iron Age Settings)", "quantity": 1, 
+"armor": "+3", "minStr": "d8", 
+"weight": 13, "price": "80"
+}},
+{
+"name": "Vambraces (arms)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Bronze Armor (Pre-Iron Age Settings)", "quantity": 1, 
+"armor": "+3", "minStr": "d8", 
+"weight": 5, "price": "40"
+}},
+{
+"name": "Greaves (legs)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Bronze Armor (Pre-Iron Age Settings)", "quantity": 1, 
+"armor": "+3", "minStr": "d8", 
+"weight": 6, "price": "50"
+}},
+{
+"name": "Bronze Helment (head)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Bronze Armor (Pre-Iron Age Settings)", "quantity": 1, 
+"armor": "+3", "minStr": "d8", 
+"weight": 6, "price": "25"
+}},
+{
+"name": "Plate Barding (horse)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Plate Mail", "quantity": 1, 
+"armor": "+4", "minStr": "d10", 
+"weight": 50, "price": "1500"
+}},
+{
+"name": "Corselet (torso)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Plate Mail", "quantity": 1, 
+"armor": "+4", "minStr": "d10", 
+"weight": 30, "price": "500"
+}},
+{
+"name": "Vambraces (arms)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Plate Mail", "quantity": 1, 
+"armor": "+4", "minStr": "d10", 
+"weight": 10, "price": "200"
+}},
+{
+"name": "Greaves (legs)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Plate Mail", "quantity": 1, 
+"armor": "+4", "minStr": "d10", 
+"weight": 10, "price": "200"
+}},
+{
+"name": "Heavy Helm (head)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Plate Mail", "quantity": 1, 
+"armor": "+4", "minStr": "d10", 
+"weight": 4, "price": "100"
+}},
+{
+"name": "Heavy Helm, Enclosed (head)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-1 to vision based Notice rolls", "subtype": "Plate Mail", "quantity": 1, 
+"armor": "+4", "minStr": "d10", 
+"weight": 8, "price": "200"
+}},
+{
+"name": "Leather Riding Chaps (legs)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Modern", "quantity": 1, 
+"armor": "+1", "minStr": "d4", 
+"weight": 5, "price": "70"
+}},
+{
+"name": "Kevlar Riding Jacket (torso, arms)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Modern", "quantity": 1, 
+"armor": "+2", "minStr": "d4", 
+"weight": 8, "price": "350"
+}},
+{
+"name": "Kevlar Riding Jeans (legs)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Modern", "quantity": 1, 
+"armor": "+2", "minStr": "d4", 
+"weight": 4, "price": "175"
+}},
+{
+"name": "Bike Helmet (head)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Modern", "quantity": 1, 
+"armor": "+2", "minStr": "d4", 
+"weight": 1, "price": "50"
+}},
+{
+"name": "Motorcycle Helmet (head)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Modern", "quantity": 1, 
+"armor": "+3", "minStr": "d4", 
+"weight": 3, "price": "100"
+}},
+{
+"name": "Flack Jacket (Vietnam-era, torso)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "subtype": "Body Armor", "quantity": 1, 
+"armor": "+2", "minStr": "d6", 
+"weight": 10, "price": "40"
+}},
+{
+"name": "Kevlar Vest (torso)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "reduced damage from bullets by 4", "subtype": "Body Armor", "quantity": 1, 
+"armor": "+2", "minStr": "d6", 
+"weight": 5, "price": "200"
+}},
+{
+"name": "Kevlar Vest with ceramic inserts (torso)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "reduced damage from bullets by 4", "subtype": "Body Armor", "quantity": 1, 
+"armor": "+4", "minStr": "d8", 
+"weight": 17, "price": "500"
+}},
+{
+"name": "Kevlar helmet (head)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "reduced damage from bullets by 4", "subtype": "Body Armor", "quantity": 1, 
+"armor": "+4", "minStr": "d4", 
+"weight": 5, "price": "80"
+}},
+{
+"name": "Bombproof Suit (entire body)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "not build for flexibility except in hands which are uncovered. agilty and related skills cannot exceed d6, pace reduced by 2 ( in addition to min strength penalties)", "subtype": "Body Armor", "quantity": 1, 
+"armor": "+10", "minStr": "d12", 
+"weight": 80, "price": "25k"
+}},
+{
+"name": "Body Armor (torso, arms, legs)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-4 damage from bullets", "subtype": "Futuristic", "quantity": 1, 
+"armor": "+4", "minStr": "d4", 
+"weight": 4, "price": "200"
+}},
+{
+"name": "Infantry Battle Suit (torso, arms, legs)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-4 damage from bullets", "subtype": "Futuristic", "quantity": 1, 
+"armor": "+6", "minStr": "d6", 
+"weight": 12, "price": "800"
+}},
+{
+"name": "Battle Helment (head, full face)", "type": "armor", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-4 damage from bullets", "subtype": "Futuristic", "quantity": 1, 
+"armor": "+6", "minStr": "d6", 
+"weight": 2, "price": "100"
+}},
+]
