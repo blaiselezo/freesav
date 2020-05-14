@@ -4,3 +4,4 @@ foundryconfig.json
 dist/*
 !dist/packs
 !dist/packs/**
+.idea

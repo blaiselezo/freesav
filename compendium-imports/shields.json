@@ -1,0 +1,50 @@
+[
+{
+"name": "Small Shield", "type": "shield", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, 
+"parry": "+1", "cover": "—", "minStr": "d4", 
+"weight": 4, "price": "50"
+}},
+{
+"name": "Medium Shield", "type": "shield", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, 
+"parry": "+2", "cover": "−2", "minStr": "d6", 
+"weight": 8, "price": "100"
+}},
+{
+"name": "Large Shield", "type": "shield", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, 
+"parry": "+3", "cover": "−4", "minStr": "d8", 
+"weight": 12, "price": "200"
+}},
+{
+"name": "Riot Shield", "type": "shield", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, 
+"parry": "+3", "cover": "−4", "minStr": "d4", 
+"weight": 5, "price": "80"
+}},
+{
+"name": "Ballistic Shield", "type": "shield", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, 
+"parry": "+3", "cover": "−4", "minStr": "d6", 
+"weight": 9, "price": "250"
+}},
+{
+"name": "Polymer Shield, Small", "type": "shield", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, 
+"parry": "+1", "cover": "—", "minStr": "d4", 
+"weight": 2, "price": "200"
+}},
+{
+"name": "Polymer Shield, Medium", "type": "shield", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, 
+"parry": "+2", "cover": "−2", "minStr": "d4", 
+"weight": 4, "price": "300"
+}},
+{
+"name": "Polymer Shield, Large", "type": "shield", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, 
+"parry": "+3", "cover": "−4", "minStr": "d6", 
+"weight": 6, "price": "400"
+}},
+]

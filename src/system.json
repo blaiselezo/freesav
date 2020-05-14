@@ -39,6 +39,34 @@
       "entity": "Item"
     },
     {
+      "name": "armor",
+      "label": "Armor",
+      "system": "swade",
+      "path": "./packs/armor.db",
+      "entity": "Item"
+    },
+    {
+      "name": "weapons",
+      "label": "Weapons",
+      "system": "swade",
+      "path": "./packs/weapons.db",
+      "entity": "Item"
+    },
+    {
+      "name": "shields",
+      "label": "Shields",
+      "system": "swade",
+      "path": "./packs/shields.db",
+      "entity": "Item"
+    },
+    {
+      "name": "gear",
+      "label": "Gear",
+      "system": "swade",
+      "path": "./packs/gear.db",
+      "entity": "Item"
+    },
+    {
       "name": "action-cards",
       "label": "Action Cards",
       "system": "swade",
