@@ -202,5 +202,5 @@
 "description": "<p>See SWADE p67-p80", "notes": "-4 damage from bullets", "subtype": "Futuristic", "quantity": 1, 
 "armor": "+6", "minStr": "d6", 
 "weight": 2, "price": "100"
-}},
+}}
 ]

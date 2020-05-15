@@ -1,6 +1,6 @@
 [
 {
-"name": ""Bug" (Micro Transmitter)", "type": "gear", "data": {
+"name": "Bug (Micro Transmitter)", "type": "gear", "data": {
 "description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0, "price": "¥30"
 }},
 {
@@ -293,7 +293,6 @@
 }},
 {
 "name": "Winter Gear (cloak/parka)", "type": "gear", "data": {
-"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 3, "price": "¥200
-"
-}},
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 3, "price": "¥200"
+}}
 ]
