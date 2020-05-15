@@ -18,7 +18,7 @@ export const registerSettings = function () {
 	});
 
 	game.settings.register('swade', 'initMessage', {
-		name: 'Create Chat Message for Initiative',
+		name: game.i18n.localize('SWADE.CreateInitChat'),
 		default: true,
 		scope: 'world',
 		type: Boolean,
@@ -26,8 +26,8 @@ export const registerSettings = function () {
 	});
 
 	game.settings.register('swade', 'hideNPCWildcards', {
-		name: 'Hide NPC Wildcards',
-		hint: 'Do not show which NPCs are Wildcards to players',
+		name: game.i18n.localize('SWADE.HideWC'),
+		hint: game.i18n.localize('SWADE.HideWCDesc'),
 		default: true,
 		scope: 'world',
 		type: Boolean,
@@ -35,8 +35,8 @@ export const registerSettings = function () {
 	});
 
 	game.settings.register('swade', 'enableConviction', {
-		name: 'Enable Conviction',
-		hint: 'Enable the Conviction setting rule',
+		name: game.i18n.localize('SWADE.EnableConv'),
+		hint: game.i18n.localize('SWADE.EnableConvDesc'),
 		default: false,
 		scope: 'world',
 		type: Boolean,

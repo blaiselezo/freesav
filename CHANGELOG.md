@@ -22,13 +22,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
-## Added
+### Added
 
 - Added option to turn chat messages for Initiative off
+- Made Hindrance section available for Extras as well
+- Made PC gear cards more responsive
+- Added more i18n strings
 
-## Changed
+### Changed
 
 - Updated SWADE for FoundryVTT 0.5.6
+
+### Fixed
+
+- Fixed a small bug which would cause the wrong sheet to be update if two character/npc sheets were opened at the same time.
 
 ## [v0.8.1] 2020-05-10
 

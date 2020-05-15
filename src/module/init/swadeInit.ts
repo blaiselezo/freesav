@@ -16,7 +16,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
     let isRedraw = false;
 
     if (ids.length > actionCardDeck.results.filter(r => !r.drawn).length) {
-        ui.notifications.warn('There are not enough cards left in the deck!');
+        ui.notifications.warn(game.i18n.localize('SWADE.NoCardsLeft'));
         return;
     }
 
@@ -26,7 +26,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
 
         // Get Combatant data
         let c = await this.getCombatant(id);
-        if (c.flags.swade && c.flags.swade.cardValue != null) {
+        if (c.flags.swade && c.flags.swade.cardValue !== null) {
             console.log('This must be a reroll');
             isRedraw = true;
         }
@@ -104,7 +104,7 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
                 alias: c.token.name,
             },
             whisper: (c.token.hidden || c.hidden) ? game.users.entities.filter((u: User) => u.isGM) : '',
-            flavor: c.token.name + game.i18n.localize('SWADE.InitDraw'),
+            flavor: `${c.token.name} ${game.i18n.localize('SWADE.InitDraw')}`,
             content: template
         }, messageOptions);
         initMessages.push(messageData);
@@ -200,7 +200,7 @@ const pickACard = async function (cards: JournalEntry[], combatantName?: string)
 
     return new Promise(resolve => {
         new Dialog({
-            title: `Pick a card ${combatantName}`,
+            title: `${game.i18n.localize('SWADE.PickACard')} ${combatantName}`,
             content: html,
             buttons: {
                 ok: {

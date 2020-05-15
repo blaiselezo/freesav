@@ -37,9 +37,9 @@
 {{> "systems/swade/templates/actors/partials/attributes.html"}}
 <div class="flexrow">
     <div class="traits">
-        <button type="Button" id="initConfigButton">Configure Initiative</button>
+        <button type="Button" id="initConfigButton">{{localize "SWADE.ConfigInit"}}</button>
         <div class="form-group">
-            <label for="data.wounds.ignored">Ignore Wounds: </label>
+            <label for="data.wounds.ignored">{{localize "SWADE.IgnWounds"}}: </label>
             <input id="race" name="data.wounds.ignored" type="text" value="{{data.wounds.ignored}}"
                 data-dtype="Number" />
         </div>
