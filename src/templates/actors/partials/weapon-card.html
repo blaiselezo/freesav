@@ -1,35 +1,32 @@
 {{#each data.owned.weapons as |weapon id|}}
 {{#if weapon.data.equipped}}
 <li class="gear-card" data-item-id="{{weapon._id}}">
-    <header class="flexrow card-header">
-        <span>{{weapon.name}} - {{localize "SWADE.Dmg"}}: <a class="damage-roll">{{weapon.data.damage}}</a></span>
+    <header class="card-header">
+        <a class="card-name">{{weapon.name}}</a> -
+        <a class="damage-roll">{{localize "SWADE.Dmg"}}: {{weapon.data.damage}}</a>
     </header>
     <div class="card-content">
-        <div class="flexrow">
-            {{#unless (isEmpty weapon.data.range)}}
-            <div>{{localize "SWADE.Rng"}}: {{weapon.data.range}}</div>
-            {{/unless}}
-            {{#unless (isEmpty weapon.data.ap)}}
-            <div>{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>
-            {{/unless}}
-        </div>
-        <div class="flexrow">
-            {{#unless (isEmpty weapon.data.rof)}}
-            <div>{{localize "SWADE.RoF"}}: {{weapon.data.rof}}</div>
-            {{/unless}}
-            {{#unless (isEmpty weapon.data.shots)}}
-            <div>{{localize "SWADE.Mag"}}: {{weapon.data.shots}}</div>
-            {{/unless}}
-        </div>
+        {{#unless (isEmpty weapon.data.range)}}
+        <div>{{localize "SWADE.Rng"}}: {{weapon.data.range}}</div>
+        {{/unless}}
+        {{#unless (isEmpty weapon.data.ap)}}
+        <div>{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>
+        {{/unless}}
+        {{#unless (isEmpty weapon.data.rof)}}
+        <div>{{localize "SWADE.RoF"}}: {{weapon.data.rof}}</div>
+        {{/unless}}
+        {{#unless (isEmpty weapon.data.shots)}}
+        <div>{{localize "SWADE.Mag"}}: {{weapon.data.shots}}</div>
+        {{/unless}}
+        {{#unless (isEmpty weapon.data.notes)}}
         <div class="chips">
-            {{#unless (isEmpty weapon.data.notes)}}
             <span>{{localize "SWADE.Notes"}}:&nbsp;</span>
             <div>{{weapon.data.notes}}</div>
             <!-- <div class="chip">
                 <span class="chip-content">HW</span>
             </div>  -->
-            {{/unless}}
         </div>
+        {{/unless}}
     </div>
 </li>
 {{/if}}

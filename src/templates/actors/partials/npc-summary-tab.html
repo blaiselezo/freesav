@@ -50,7 +50,6 @@
             {{#each data.owned.skills as |skill id|}}
             <span class="skill item" data-item-id="{{skill._id}}" style="display: inline-block;">
                 <a class="contextmenu-edit" title="Right Click to {{localize 'SWADE.EditSkill'}}">{{skill.name}}
-                    ({{localizeSkillAttribute skill.data.attribute}})
                     d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a>
             </span>
             {{/each}}

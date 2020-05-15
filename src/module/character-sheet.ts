@@ -67,6 +67,23 @@ export class SwadeCharacterSheet extends ActorSheet {
       this.actor.updateOwnedItem(this._toggleEquipped(li.data('itemId'), item));
     });
 
+    //Toggle Equipmnent Card collapsible
+    html.find('.card-name').click((ev) => {
+      const card = $(ev.currentTarget).parents('.gear-card');
+      const content = card.find('.card-content');
+      const cardId = card.data('item-id');
+
+      const isCollapsed = this.actor.getFlag('swade', cardId);
+      content.toggleClass('collapsed');
+      if (content.hasClass('collapsed')) {
+        //content.slideUp('200', () => this.actor.setFlag('swade', cardId, !this.actor.getFlag('swade', cardId)));
+        content.slideUp();
+      } else {
+        //content.slideDown('200', () => this.actor.setFlag('swade', cardId, !this.actor.getFlag('swade', cardId)));
+        content.slideDown();
+      }
+    });
+
     //Input Synchronization
     html.find('.wound-input').keyup((ev) => {
       html.find('.wound-slider').val($(ev.currentTarget).val());
@@ -136,8 +153,8 @@ export class SwadeCharacterSheet extends ActorSheet {
     html.find('.damage-roll').click((event) => {
       let element = event.currentTarget as Element;
       let itemId = $(element)
-        .parents("[data-item-id]")
-        .attr("data-item-id");
+        .parents('[data-item-id]')
+        .attr('data-item-id');
       const item = this.actor.getOwnedItem(itemId) as SwadeItem;
       return item.rollDamage();
     });
@@ -183,10 +200,10 @@ export class SwadeCharacterSheet extends ActorSheet {
       data.data.owned.edges &&
       data.data.owned.edges.find((edge) => edge.data.isArcaneBackground == true)
     ) {
-      this.actor.setFlag("swade", "hasArcaneBackground", true);
+      this.actor.setFlag('swade', 'hasArcaneBackground', true);
       data.data.hasArcaneBackground = true
     } else {
-      this.actor.setFlag("swade", "hasArcaneBackground", false);
+      this.actor.setFlag('swade', 'hasArcaneBackground', false);
       data.data.hasArcaneBackground = false
     }
 

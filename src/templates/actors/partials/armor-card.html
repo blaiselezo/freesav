@@ -2,11 +2,11 @@
 {{#if armor.data.equipped}}
 <li class="gear-card">
     <header class="flexrow card-header">
-        <span>{{armor.name}} - {{localize "SWADE.Armor"}}: {{armor.data.armor}}</span>
+        <a class="card-name">{{armor.name}} - {{localize "SWADE.Armor"}}: {{armor.data.armor}}</a>
     </header>
     {{#unless (isEmpty armor.data.notes)}}
-    <div class="card-content flexrow">
-        <diV>{{armor.data.notes}}</div>
+    <div class="card-content">
+        <div>{{armor.data.notes}}</div>
     </div>
     {{/unless}}
 </li>
