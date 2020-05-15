@@ -166,7 +166,7 @@ export const setupTurns = function () {
 
 const drawCard = async function (count?: number): Promise<JournalEntry[]> {
     const actionCardDeck = game.tables.getName('Action Cards') as RollTable;
-    const actionCardPack = game.packs.get('swade.action-cards') as unknown as Compendium;
+    const actionCardPack = game.packs.get('swade.action-cards') as Compendium;
     const cards: JournalEntry[] = [];
     if (!count) count = 1;
 

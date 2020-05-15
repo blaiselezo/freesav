@@ -5,7 +5,7 @@ export async function swadeSetup(): Promise<void> {
         return;
     }
 
-    const cardPack = game.packs.get(packName) as unknown as Compendium;
+    const cardPack = game.packs.get(packName) as Compendium;
     const cardPackIndex = await cardPack.getIndex() as any[];
     const tableData = {
         name: 'Action Cards',
