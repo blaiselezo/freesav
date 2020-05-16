@@ -13,7 +13,7 @@
         <div class="item-textname">{{localize "SWADE.Name"}}</div>
         <div class="item-quantity">{{localize "SWADE.Quantity"}}</div>
         <div class="item-weight">{{localize "SWADE.Weight"}}</div>
-        <div class="item-controls"></div>
+        <div class="item-controls"><a class="item-create" data-type="choice"><i class="fa fa-plus"></i></a></div>
     </li>
     {{#each data.owned.inventory as |item|}}
     <li class="item" data-item-id="{{item._id}}">

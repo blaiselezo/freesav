@@ -175,9 +175,9 @@ export class SwadeActor extends Actor {
           callback: async (html: JQuery<HTMLElement>) => {
             await this.update({
               'data.initiative': {
-                hasLevelHeaded: html.find('#hasLevelHeaded').is(':checked'),
-                hasImpLevelHeaded: html.find('#hasImpLevelHeaded').is(':checked'),
-                hasHesitant: html.find('#hasHesitant').is(':checked'),
+                hasLevelHeaded: (html as JQuery).find('#hasLevelHeaded').is(':checked'),
+                hasImpLevelHeaded: (html as JQuery).find('#hasImpLevelHeaded').is(':checked'),
+                hasHesitant: (html as JQuery).find('#hasHesitant').is(':checked'),
               }
             });
           }
