@@ -107,16 +107,16 @@
                 <div class="card-stat">{{localize "SWADE.Dmg"}}: <a class="damage-roll">{{weapon.data.damage}}</a></div>
                 {{#unless (isEmpty weapon.data.range)}}<div class="card-stat">{{localize "SWADE.Rng"}}:
                     {{weapon.data.range}}</div>{{/unless}}
-                {{#unless (isEmpty weapon.data.ap)}}<div class="card-stat">{{localize "SWADE.Ap"}}: {{weapon.data.ap}}
-                </div>
-                {{/unless}}
+                {{#unless (isEmpty weapon.data.shots)}}<div class="card-stat">{{localize "SWADE.Mag"}}:
+                    {{weapon.data.shots}}</div>{{/unless}}
                 {{#unless (isEmpty weapon.data.minStr)}}<div class="card-stat">{{localize "SWADE.MinStr"}}:
                     {{weapon.data.minStr}}</div>{{/unless}}
                 {{#unless (isEmpty weapon.data.rof)}}<div class="card-stat">{{localize "SWADE.RoF"}}:
                     {{weapon.data.rof}}
                 </div>{{/unless}}
-                {{#unless (isEmpty weapon.data.shots)}}<div class="card-stat">{{localize "SWADE.Mag"}}:
-                    {{weapon.data.shots}}</div>{{/unless}}
+                {{#unless (isEmpty weapon.data.ap)}}<div class="card-stat">{{localize "SWADE.Ap"}}: {{weapon.data.ap}}
+                </div>
+                {{/unless}}
                 {{#unless (isEmpty weapon.data.notes)}}<div>{{localize "SWADE.Notes"}}: {{weapon.data.notes}}</div>
                 {{/unless}}
             </div>

@@ -9,14 +9,14 @@
         {{#unless (isEmpty weapon.data.range)}}
         <div>{{localize "SWADE.Rng"}}: {{weapon.data.range}}</div>
         {{/unless}}
-        {{#unless (isEmpty weapon.data.ap)}}
-        <div>{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>
+        {{#unless (isEmpty weapon.data.shots)}}
+        <div>{{localize "SWADE.Mag"}}: {{weapon.data.shots}}</div>
         {{/unless}}
         {{#unless (isEmpty weapon.data.rof)}}
         <div>{{localize "SWADE.RoF"}}: {{weapon.data.rof}}</div>
         {{/unless}}
-        {{#unless (isEmpty weapon.data.shots)}}
-        <div>{{localize "SWADE.Mag"}}: {{weapon.data.shots}}</div>
+        {{#unless (isEmpty weapon.data.ap)}}
+        <div>{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>
         {{/unless}}
         {{#unless (isEmpty weapon.data.notes)}}
         <div class="chips">
