@@ -84,7 +84,7 @@
   }
 
   // Summary
-  .traits {
+  .skills {
     .skills-list {
       .skill-label {
         flex: 2;
@@ -224,6 +224,12 @@
       .item-controls {
         grid-area: item-controls;
       }
+    }
+  }
+  .powers {
+    .header-field-add {
+      line-height: 24px;
+      margin-left: 5px;
     }
   }
 }

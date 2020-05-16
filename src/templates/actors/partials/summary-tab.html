@@ -37,9 +37,14 @@
 </section>
 {{> "systems/swade/templates/actors/partials/attributes.html"}}
 <section class="flexrow">
-    <div class="traits">
-        <header class="header-field">
-            <span>{{localize "SWADE.Skills"}}</span>
+    <div class="skills">
+        <header class="header-field flexrow">
+            <div>
+                <span>{{localize "SWADE.Skills"}}</span>
+            </div>
+            <div class="header-field-add">
+                <a class="item-create" data-type="skill"><i class="fa fa-plus"></i></a>
+            </div>
         </header>
         <ol class="skills-list">
             {{#each data.owned.skills as |skill id|}}
@@ -54,22 +59,37 @@
         </ol>
     </div>
     <div class="gear">
-        <header class="header-field">
-            <span>{{ localize "SWADE.Weapons" }}</span>
+        <header class="header-field flexrow">
+            <div>
+                <span>{{ localize "SWADE.Weapons" }}</span>
+            </div>
+            <div class="header-field-add">
+                <a class="item-create" data-type="weapon" data-equipped="True"><i class="fa fa-plus"></i></a>
+            </div>
         </header>
         <ol class="gear-list">
             {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
         </ol>
         {{#if data.hasArcaneBackground}}
-        <header class="header-field">
-            <span>{{ localize "SWADE.Pow" }}</span>
+        <header class="header-field flexrow">
+            <div>
+                <span>{{ localize "SWADE.Pow" }}</span>
+            </div>
+            <div class="header-field-add">
+                <a class="item-create" data-type="power"><i class="fa fa-plus"></i></a>
+            </div>
         </header>
         <ol class="gear-list">
             {{> "systems/swade/templates/actors/partials/powers-card.html"}}
         </ol>
         {{/if}}
-        <header class="header-field">
-            <span>{{ localize "SWADE.Armor" }}</span>
+        <header class="header-field flexrow">
+            <div>
+                <span>{{ localize "SWADE.Armor" }}</span>
+            </div>
+            <div class="header-field-add">
+                <a class="item-create" data-type="armor" data-equipped="True"><i class="fa fa-plus"></i></a>
+            </div>
         </header>
         <ol class="gear-list">
             {{> "systems/swade/templates/actors/partials/armor-card.html"}}

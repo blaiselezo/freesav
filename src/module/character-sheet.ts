@@ -25,6 +25,38 @@ export class SwadeCharacterSheet extends ActorSheet {
     return 'systems/swade/templates/actors/character-sheet.html';
   }
 
+  async _chooseItemType() {
+    const types = [
+      'weapon',
+      'armor',
+      'shield',
+      'gear'
+    ];
+    let templateData = {upper: '', lower: '', types: types},
+        dlg = await renderTemplate('templates/sidebar/entity-create.html', templateData);
+    //Create Dialog window
+    return new Promise(resolve => {
+      new Dialog({
+        title: '',
+        content: dlg,
+        buttons: {
+          ok: {
+            label: game.i18n.localize('SWADE.Ok'),
+            icon: '<i class="fas fa-check"></i>',
+            callback: (html: JQuery) => {
+              resolve({type: html.find('select[name="type"]').val(), name: html.find('input[name="name"]').val()});
+            }
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: game.i18n.localize('SWADE.Cancel'),
+          },
+        },
+        default: 'ok',
+      }).render(true);
+    });
+  }
+
   activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
 
@@ -65,6 +97,23 @@ export class SwadeCharacterSheet extends ActorSheet {
       const li = $(ev.currentTarget).parents('.item');
       const item: any = this.actor.getOwnedItem(li.data('itemId'));
       this.actor.updateOwnedItem(this._toggleEquipped(li.data('itemId'), item));
+    });
+
+    //Toggle Equipmnent Card collapsible
+    html.find('.card-name').click((ev) => {
+      const card = $(ev.currentTarget).parents('.gear-card');
+      const content = card.find('.card-content');
+      const cardId = card.data('item-id');
+
+      const isCollapsed = this.actor.getFlag('swade', cardId);
+      content.toggleClass('collapsed');
+      if (content.hasClass('collapsed')) {
+        //content.slideUp('200', () => this.actor.setFlag('swade', cardId, !this.actor.getFlag('swade', cardId)));
+        content.slideUp();
+      } else {
+        //content.slideDown('200', () => this.actor.setFlag('swade', cardId, !this.actor.getFlag('swade', cardId)));
+        content.slideDown();
+      }
     });
 
     //Input Synchronization
@@ -136,10 +185,40 @@ export class SwadeCharacterSheet extends ActorSheet {
     html.find('.damage-roll').click((event) => {
       let element = event.currentTarget as Element;
       let itemId = $(element)
-        .parents("[data-item-id]")
-        .attr("data-item-id");
+        .parents('[data-item-id]')
+        .attr('data-item-id');
       const item = this.actor.getOwnedItem(itemId) as SwadeItem;
       return item.rollDamage();
+    });
+    
+    // Add new object
+    html.find('.item-create').click((event) => {
+      event.preventDefault();
+      const header = event.currentTarget;
+      let type = header.dataset.type;
+      
+      // item creation helper func
+      let createItem = function (type: string, name: string = `New ${type.capitalize()}`) : any {
+        const itemData = {
+          name: name ? name : `New ${type.capitalize()}`,
+          type: type,
+          data: duplicate(header.dataset),
+        };
+        delete itemData.data['type'];
+        return itemData;
+      };
+
+      // Getting back to main logic
+      if (type == 'choice') {
+          this._chooseItemType().then((dialogInput: any) => {
+            const itemData = createItem(dialogInput.type, dialogInput.name);
+            this.actor.createOwnedItem(itemData);
+          });
+          return;
+      } else { 
+        const itemData = createItem(type);
+        this.actor.createOwnedItem(itemData);
+      }
     });
   }
 
@@ -183,10 +262,10 @@ export class SwadeCharacterSheet extends ActorSheet {
       data.data.owned.edges &&
       data.data.owned.edges.find((edge) => edge.data.isArcaneBackground == true)
     ) {
-      this.actor.setFlag("swade", "hasArcaneBackground", true);
+      this.actor.setFlag('swade', 'hasArcaneBackground', true);
       data.data.hasArcaneBackground = true
     } else {
-      this.actor.setFlag("swade", "hasArcaneBackground", false);
+      this.actor.setFlag('swade', 'hasArcaneBackground', false);
       data.data.hasArcaneBackground = false
     }
 

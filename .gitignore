@@ -1,6 +1,8 @@
 node_modules
 foundryconfig.json
 .htmlhintrc
+.vscode/*
 dist/*
 !dist/packs
 !dist/packs/**
+.idea

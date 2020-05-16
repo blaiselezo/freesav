@@ -81,17 +81,25 @@
   "SWADE.Fatigue": "Erschöpfung",
   "SWADE.Incap": "Ausgeschaltet!",
 
-  "SWADE.InitDraw": "zieht eine Aktionskarten",
-  "SWADE.JokersWild": " bekommt Joker's Wild!",
+  "SWADE.InitDraw": "zieht eine Aktionskarte",
+  "SWADE.JokersWild": "bekommt Joker's Wild!",
   "SWADE.CardSound": "Kartengeräusch",
   "SWADE.CardSoundDesc": "Einen kurzen Ton beim ziehen der Aktionskarten abspielen",
   "SWADE.AutoInit": "Automatische Initiative",
   "SWADE.AutoInitDesc": "Aktionskarten jede Runde automatisch ziehen",
+  "SWADE.CreateInitChat": "Chatnachrichten für die Initiative erstellen",
+  "SWADE.HideWC": "NSC Wildcards verstecken",
+  "SWADE.HideWCDesc": "Den spielern nicht anzeigen welche NSCs Wildcards sind",
+  "SWADE.EnableConv": "Entschlossenheit verwenden",
+  "SWADE.EnableConvDesc": "Dee Entschlossenheit Regel verwenden",
 
   "SWADE.Formula": "Formel",
   "SWADE.SitMod": "Situationsmod.",
   "SWADE.RollMode": "Roll Modus",
   "SWADE.RollExample": "z.B. +1d6x= or -2",
   "SWADE.Ok": "Ok",
-  "SWADE.Cancel": "Abbrechen"
+  "SWADE.Cancel": "Abbrechen",
+  "SWADE.ConfigInit": "Initiative Konfigurieren",
+  "SWADE.IgnWounds": "Wunden ignorieren",
+  "SWADE.PickACard": "Wähle eine Karte"
 }
