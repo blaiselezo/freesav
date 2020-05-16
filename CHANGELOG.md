@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.8.3] 2020-05-16
+
+### Fixed
+
+- Fixed a small bug that would allow combat initiative to draw multiples of a card
+
 ## [v0.8.2] 2020-05-16
 
 ### Added

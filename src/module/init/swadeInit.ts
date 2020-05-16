@@ -167,13 +167,13 @@ export const setupTurns = function () {
 const drawCard = async function (count?: number): Promise<JournalEntry[]> {
     const actionCardDeck = game.tables.getName('Action Cards') as RollTable;
     const actionCardPack = game.packs.get('swade.action-cards') as Compendium;
+    const packIndex = await actionCardPack.getIndex();
     const cards: JournalEntry[] = [];
     if (!count) count = 1;
 
-    const drawResult = await actionCardDeck.drawMany(count, { displayChat: false });
-    const pack = await actionCardPack.getIndex();
-    for (let e of drawResult.results) {
-        const lookUpCard = pack.find(c => c.name === e.text);
+    for (let i = 0; i < count; i++) {
+        let drawResult = await actionCardDeck.draw({ displayChat: false });
+        const lookUpCard = packIndex.find(c => c.name === drawResult.results[0].text);
         cards.push(await actionCardPack.getEntry(lookUpCard._id) as JournalEntry);
     }
     return cards;
