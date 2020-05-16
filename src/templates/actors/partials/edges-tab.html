@@ -1,7 +1,12 @@
 <div class="flexrow">
     <div class="edges-hindrances-list">
         <header class="header-field flexrow">
-            <span>{{localize "SWADE.Hindrances"}}</span>
+            <div>
+                <span>{{localize "SWADE.Hindrances"}}</span>
+            </div>
+            <div class="header-field-add">
+                <a class="item-create" data-type="hindrance"><i class="fa fa-plus"></i></a>
+            </div>
         </header>
         <ol class="items-list">
             {{#each data.owned.hindrances as |hindrance id|}}
@@ -22,7 +27,12 @@
             {{/each}}
         </ol>
         <header class="header-field flexrow">
-            <span>{{localize "SWADE.Edges"}}</span>
+            <div>
+                <span>{{localize "SWADE.Edges"}}</span>
+            </div>
+            <div class="header-field-add">
+                <a class="item-create" data-type="edge"><i class="fa fa-plus"></i></a>
+            </div>
         </header>
         <ol class="items-list">
             {{#each data.owned.edges as |edge id|}}
@@ -38,8 +48,8 @@
         </ol>
     </div>
     <div class="description">
-        <header class="header-field flexrow">
-            <span>{{localize "SWADE.Desc"}}</span>
+        <header class="header-field">
+           <span>{{localize "SWADE.Desc"}}</span>
         </header>
         <p class="description-value" id="edge-description"></p>
     </div>
