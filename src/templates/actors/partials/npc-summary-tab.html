@@ -43,8 +43,13 @@
             <input id="race" name="data.wounds.ignored" type="text" value="{{data.wounds.ignored}}"
                 data-dtype="Number" />
         </div>
-        <header class="header-field">
-            <span>{{localize "SWADE.Skills"}}</span>
+        <header class="header-field flexrow">
+            <div>
+                <span>{{localize "SWADE.Skills"}}</span>
+            </div>
+            <div class="header-field-add">
+                <a class="item-create" data-type="skill"><i class="fa fa-plus"></i></a>
+            </div>
         </header>
         <div class="skills-list">
             {{#each data.owned.skills as |skill id|}}
@@ -55,8 +60,13 @@
             {{/each}}
         </div>
         <div class="gear">
-            <header class="header-field">
-                <span>{{localize "SWADE.Edges"}}</span>
+            <header class="header-field flexrow">
+                <div>
+                    <span>{{localize "SWADE.Edges"}}</span>
+                </div>
+                <div class="header-field-add">
+                    <a class="item-create" data-type="edge"><i class="fa fa-plus"></i></a>
+                </div>
             </header>
             {{#each data.owned.edges as |edge id|}}
             <span class="item" data-item-id="{{edge._id}}" style="margin-right: 2px;">
@@ -68,8 +78,13 @@
             {{/each}}
         </div>
         <div class="gear">
-            <header class="header-field">
-                <span>{{localize "SWADE.Hindrances"}}</span>
+            <header class="header-field flexrow">
+                <div>
+                    <span>{{localize "SWADE.Hindrances"}}</span>
+                </div>
+                <div class="header-field-add">
+                    <a class="item-create" data-type="hindrance"><i class="fa fa-plus"></i></a>
+                </div>
             </header>
             {{#each data.owned.hindrances as |hindrance id|}}
             <span class="item" data-item-id="{{hindrance._id}}" style="margin-right: 2px;">
@@ -89,8 +104,13 @@
         </div>
     </div>
     <div class="gear">
-        <header class="header-field">
-            <span>{{localize "SWADE.Inv"}}</span>
+        <header class="header-field flexrow">
+            <div>
+                <span>{{localize "SWADE.Inv"}}</span>
+            </div>
+            <div class="header-field-add">
+                <a class="item-create" data-type="choice"><i class="fa fa-plus"></i></a>
+            </div>
         </header>
         {{#each data.owned.weapons as |weapon id|}}
         <div data-item-id="{{weapon._id}}" class="item extra-gear-card">

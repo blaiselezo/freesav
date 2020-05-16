@@ -22,6 +22,38 @@ export class SwadeNPCSheet extends ActorSheet {
         return 'systems/swade/templates/actors/npc-sheet.html';
     }
 
+    async _chooseItemType() {
+        const types = [
+          'weapon',
+          'armor',
+          'shield',
+          'gear'
+        ];
+        let templateData = {upper: '', lower: '', types: types},
+            dlg = await renderTemplate('templates/sidebar/entity-create.html', templateData);
+        //Create Dialog window
+        return new Promise(resolve => {
+          new Dialog({
+            title: '',
+            content: dlg,
+            buttons: {
+              ok: {
+                label: game.i18n.localize('SWADE.Ok'),
+                icon: '<i class="fas fa-check"></i>',
+                callback: (html: JQuery) => {
+                  resolve({type: html.find('select[name="type"]').val(), name: html.find('input[name="name"]').val()});
+                }
+              },
+              cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: game.i18n.localize('SWADE.Cancel'),
+              },
+            },
+            default: 'ok',
+          }).render(true);
+        });
+      }
+
     activateListeners(html): void {
         super.activateListeners(html);
 
@@ -105,6 +137,36 @@ export class SwadeNPCSheet extends ActorSheet {
             const item = this.actor.getOwnedItem(itemId) as SwadeItem;
             return item.rollDamage();
             // actorObject.rollSkill(item, {event: event});
+        });
+
+        // Add new object
+        html.find('.item-create').click((event) => {
+          event.preventDefault();
+          const header = event.currentTarget;
+          let type = header.dataset.type;
+        
+          // item creation helper func
+          let createItem = function (type: string, name: string = `New ${type.capitalize()}`) : any {
+            const itemData = {
+              name: name ? name : `New ${type.capitalize()}`,
+              type: type,
+              data: duplicate(header.dataset),
+            };
+            delete itemData.data['type'];
+            return itemData;
+          };
+
+          // Getting back to main logic
+          if (type == 'choice') {
+              this._chooseItemType().then((dialogInput: any) => {
+                const itemData = createItem(dialogInput.type, dialogInput.name);
+                this.actor.createOwnedItem(itemData);
+              });
+              return;
+          } else { 
+            const itemData = createItem(type);
+            this.actor.createOwnedItem(itemData);
+          }
         });
     }
 
