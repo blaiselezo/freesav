@@ -1,0 +1,298 @@
+[
+{
+"name": "Bug (Micro Transmitter)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0, "price": "¥30"
+}},
+{
+"name": "Arrow/Quarrel", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.2, "price": "¥0.5"
+}},
+{
+"name": "Backpack", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥50"
+}},
+{
+"name": "Bedroll (sleeping bag; winterized)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 4, "price": "¥25"
+}},
+{
+"name": "Bipod/Tripod", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥100"
+}},
+{
+"name": "Blanket", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 4, "price": "¥10"
+}},
+{
+"name": "Boots, Hiking", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥100"
+}},
+{
+"name": "Bullet, Large", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.3, "price": "¥1"
+}},
+{
+"name": "Bullet, Medium", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.04, "price": "¥0.4"
+}},
+{
+"name": "Bullet, Small", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.02, "price": "¥0.2"
+}},
+{
+"name": "Button Camera", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0, "price": "¥50"
+}},
+{
+"name": "Camera (disposable)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥10"
+}},
+{
+"name": "Camera (regular)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥75"
+}},
+{
+"name": "Cameras (digital)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥300"
+}},
+{
+"name": "Camouflage Fatigues", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 3, "price": "¥20"
+}},
+{
+"name": "Candle (one hour, 2” radius)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥1"
+}},
+{
+"name": "Canteen (waterskin)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥5"
+}},
+{
+"name": "Cellular Interceptor", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 5, "price": "¥650"
+}},
+{
+"name": "Cellular Phone", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0, "price": "¥100"
+}},
+{
+"name": "Clothing, Casual", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥20"
+}},
+{
+"name": "Clothing, Formal", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 3, "price": "¥200"
+}},
+{
+"name": "Crowbar", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥10"
+}},
+{
+"name": "Desktop Computer", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 20, "price": "¥800"
+}},
+{
+"name": "Elaborate Saddle", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 10, "price": "¥50"
+}},
+{
+"name": "Fast Food Meal", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥8"
+}},
+{
+"name": "First Aid Kit (basic supplies)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥10"
+}},
+{
+"name": "Flashlight (10” beam)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 3, "price": "¥20"
+}},
+{
+"name": "Flask (ceramic)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥5"
+}},
+{
+"name": "Flint and Steel", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥3"
+}},
+{
+"name": "GPS", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥250"
+}},
+{
+"name": "Gatling Laser Power Pack", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 4, "price": "¥50"
+}},
+{
+"name": "Goggles", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥20"
+}},
+{
+"name": "Good Meal (restaurant)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0, "price": "¥15"
+}},
+{
+"name": "Hammer", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥10"
+}},
+{
+"name": "Hand held computer", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥250"
+}},
+{
+"name": "Handcuffs (manacles)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥15"
+}},
+{
+"name": "Horse", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0, "price": "¥300"
+}},
+{
+"name": "Lantern (four hours, 4” radius)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 3, "price": "¥25"
+}},
+{
+"name": "Laptop computer", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 5, "price": "¥1,200"
+}},
+{
+"name": "Laser Pistol Battery", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.25, "price": "¥20"
+}},
+{
+"name": "Laser Rifle or SMG Battery", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.5, "price": "¥20"
+}},
+{
+"name": "Laser Sight", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥150"
+}},
+{
+"name": "Lighter", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0, "price": "¥2"
+}},
+{
+"name": "Lineman's Telephone", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥150"
+}},
+{
+"name": "Lockpicks", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥200"
+}},
+{
+"name": "MRE (Meal Ready to Eat)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥10"
+}},
+{
+"name": "Medic Kit", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 4, "price": "¥100"
+}},
+{
+"name": "Night Vision Goggles", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 3, "price": "¥500"
+}},
+{
+"name": "Oil (for lantern; one pint)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥2"
+}},
+{
+"name": "Parabolic Microphone", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 4, "price": "¥750"
+}},
+{
+"name": "Pepper Spray", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.5, "price": "¥15"
+}},
+{
+"name": "Quiver (holds 20 arrows/ bolts)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥25"
+}},
+{
+"name": "Rifle Scope", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥100"
+}},
+{
+"name": "Rope, hemp (10”/20 yards)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 15, "price": "¥10"
+}},
+{
+"name": "Rope, nylon (10”/20 yards)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 3, "price": "¥10"
+}},
+{
+"name": "Saddle", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 10, "price": "¥10"
+}},
+{
+"name": "Shot (w/ powder)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.05, "price": "¥0.1"
+}},
+{
+"name": "Shotgun shell", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.06, "price": "¥0.6"
+}},
+{
+"name": "Shotgun slug", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.06, "price": "¥0.8"
+}},
+{
+"name": "Shovel", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 5, "price": "¥5"
+}},
+{
+"name": "Sling stone", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.05, "price": "¥0.1"
+}},
+{
+"name": "Soap", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.2, "price": "¥1"
+}},
+{
+"name": "Stun Gun", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0.5, "price": "¥25"
+}},
+{
+"name": "Telephone Tap", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0, "price": "¥250"
+}},
+{
+"name": "Tool Kit", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 5, "price": "¥200"
+}},
+{
+"name": "Torch (one hour, 4” radius)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥5"
+}},
+{
+"name": "Trail Rations", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 5, "price": "¥10"
+}},
+{
+"name": "Transmitter Detector", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥525"
+}},
+{
+"name": "Umbrella", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 2, "price": "¥5"
+}},
+{
+"name": "War Horse", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0, "price": "¥750"
+}},
+{
+"name": "Whetstone", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥5"
+}},
+{
+"name": "Whistle", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 0, "price": "¥2"
+}},
+{
+"name": "Winter Boots", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 1, "price": "¥100"
+}},
+{
+"name": "Winter Gear (cloak/parka)", "type": "gear", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "", "quantity": 1, "weight": 3, "price": "¥200"
+}}
+]

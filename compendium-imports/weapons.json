@@ -1,0 +1,562 @@
+[
+{
+"name": "Axe, Hand", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d6", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "2", "price": "100"
+}},
+{
+"name": "Axe, Battle", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d8", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d8", 
+"weight": "4", "price": "300"
+}},
+{
+"name": "Axe, Great", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "AP2, Parry -1, two hands", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d10", 
+"ap": "2", "rof": "0", "shots": "0", "minStr": "d10", 
+"weight": "7", "price": "400"
+}},
+{
+"name": "Club, Light", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "A sign of low status or thuggery", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d4", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d4", 
+"weight": "2", "price": "25"
+}},
+{
+"name": "Club, Heavy", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "A sign of low status or thuggery", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d6", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "5", "price": "50"
+}},
+{
+"name": "Dagger/Knife", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d4", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d4", 
+"weight": "1", "price": "25"
+}},
+{
+"name": "Flail", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Ignores shield bonus", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d6", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "3", "price": "200"
+}},
+{
+"name": "Halberd", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Reach 1, two hands", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d8", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d8", 
+"weight": "6", "price": "250"
+}},
+{
+"name": "Katana", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Two hands", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d6+1", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "3", "price": "1000"
+}},
+{
+"name": "Lance", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "AP 2 when charging, Reach 2, only usable in mounted combat", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d8", 
+"ap": "2", "rof": "0", "shots": "0", "minStr": "d8", 
+"weight": "6", "price": "300"
+}},
+{
+"name": "Mace", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d6", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "4", "price": "100"
+}},
+{
+"name": "Maul", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Two Hands, +2 damage to break objects (page 98)", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d10", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d10", 
+"weight": "10", "price": "400"
+}},
+{
+"name": "Pike", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Reach 2, two hands", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d8", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d8", 
+"weight": "18", "price": "400"
+}},
+{
+"name": "Rapier", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Parry +1", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d4", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d4", 
+"weight": "2", "price": "150"
+}},
+{
+"name": "Spear", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Reach 1. Parry +1 if used two handed.", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d6", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "3", "price": "100"
+}},
+{
+"name": "Staff", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Parry +1, Reach 1, two hands", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d4", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d4", 
+"weight": "4", "price": "10"
+}},
+{
+"name": "Sword, Great", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Two Hands", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d10", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d10", 
+"weight": "6", "price": "400"
+}},
+{
+"name": "Sword, Long", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Basic swords and cimitars", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d8", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d8", 
+"weight": "3", "price": "300"
+}},
+{
+"name": "Sword, Short", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Includes cavalry sabers", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d6", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "2", "price": "100"
+}},
+{
+"name": "Warhammer", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Spiked, AP +1", "subtype": "Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d6", 
+"ap": "1", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "2", "price": "250"
+}},
+{
+"name": "Bangstick", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Shotgun shell on a stick, reload one action", "subtype": "Modern Melee", "quantity": 1, 
+"range": "0", "damage": "3d6", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "2", "price": "5"
+}},
+{
+"name": "Bayonet", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "@str+d6 and Parry +1 if attatched to rifle, reach 1, two hands", "subtype": "Modern Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d4", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d4", 
+"weight": "1", "price": "25"
+}},
+{
+"name": "Billy Club/Baton", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Often carred by law enforcement", "subtype": "Modern Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d4", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d4", 
+"weight": "1", "price": "10"
+}},
+{
+"name": "Brass Knuckles", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Do not count as a weapon for Unarmed Defendier (page 109)", "subtype": "Modern Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d4", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d4", 
+"weight": "1", "price": "20"
+}},
+{
+"name": "Chainsaw", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Critical Failure hits the user", "subtype": "Modern Melee", "quantity": 1, 
+"range": "0", "damage": "2d6+4", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "20", "price": "200"
+}},
+{
+"name": "Switchblade", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-2 to be noticed if hidden", "subtype": "Modern Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d4", 
+"ap": "0", "rof": "0", "shots": "0", "minStr": "d4", 
+"weight": ".5", "price": "10"
+}},
+{
+"name": "Molecular Knife", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "AP 2, cannot be thrown", "subtype": "Futuristic Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d4+2", 
+"ap": "2", "rof": "0", "shots": "0", "minStr": "d4", 
+"weight": ".5", "price": "250"
+}},
+{
+"name": "Molecular Sword", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "AP 4", "subtype": "Futuristic Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d8+2", 
+"ap": "4", "rof": "0", "shots": "0", "minStr": "d6", 
+"weight": "2", "price": "500"
+}},
+{
+"name": "Laser Sword", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "AP 12", "subtype": "Futuristic Melee", "quantity": 1, 
+"range": "0", "damage": "@str+d6+8", 
+"ap": "12", "rof": "0", "shots": "0", "minStr": "d4", 
+"weight": "2", "price": "1000"
+}},
+{
+"name": "Axe, Throwing", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "3/6/12", "damage": "@str+d6", 
+"ap": "0", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "3", "price": "100"
+}},
+{
+"name": "Bow", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "12/24/48", "damage": "2d6", 
+"ap": "0", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "3", "price": "250"
+}},
+{
+"name": "Crossbow (Hand Drawn)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "10/20/40", "damage": "2d6", 
+"ap": "2", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "5", "price": "250"
+}},
+{
+"name": "Crossbow (Heavy)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "15/30/60", "damage": "2d8", 
+"ap": "2", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "8", "price": "400"
+}},
+{
+"name": "Dagger/Knife", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "3/6/12", "damage": "@str+d4", 
+"ap": "0", "rof": "1", "shots": "0", "minStr": "d4", 
+"weight": "1", "price": "25"
+}},
+{
+"name": "Long Bow", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "15/30/60", "damage": "2d6", 
+"ap": "1", "rof": "1", "shots": "0", "minStr": "d8", 
+"weight": "3", "price": "300"
+}},
+{
+"name": "Net (weighted)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Sucess means entagled, Hardness 10, only vulnerable to cutting attacks", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "3/6/12", "damage": "0", 
+"ap": "0", "rof": "1", "shots": "0", "minStr": "d4", 
+"weight": "8", "price": "50"
+}},
+{
+"name": "Sling (Athletics (throwing))", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "4/8/16", "damage": "@str+d4", 
+"ap": "0", "rof": "1", "shots": "0", "minStr": "d4", 
+"weight": "1", "price": "10"
+}},
+{
+"name": "Spear/Javelin", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "3/6/12", "damage": "@str+d6", 
+"ap": "0", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "3", "price": "100"
+}},
+{
+"name": "Compound Bow (Modern)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "12/24/48", "damage": "@str+d6", 
+"ap": "1", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "3", "price": "200"
+}},
+{
+"name": "Crossbow (Modern)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
+"range": "15/30/60", "damage": "2d6", 
+"ap": "2", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "7", "price": "300"
+}},
+{
+"name": "Flintlock Pistol", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Black Powder", "quantity": 1, 
+"range": "5/10/20", "damage": "2d6+1", 
+"ap": "0", "rof": "1", "shots": "0", "minStr": "d4", 
+"weight": "3", "price": "150"
+}},
+{
+"name": "Brown Bess, etc", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Black Powder", "quantity": 1, 
+"range": "10/20/40", "damage": "2d8", 
+"ap": "0", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "15", "price": "300"
+}},
+{
+"name": "Blunderbuss", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Black Powder", "quantity": 1, 
+"range": "10/20/40", "damage": "1-3d6", 
+"ap": "0", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "12", "price": "300"
+}},
+{
+"name": "Kentucky Rifle", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Reload 4 due to tight rifling", "subtype": "Black Powder", "quantity": 1, 
+"range": "15/30/60", "damage": "2d8", 
+"ap": "2", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "8", "price": "300"
+}},
+{
+"name": "Springfield Rifle Model 1861", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Black Powder", "quantity": 1, 
+"range": "15/30/60", "damage": "2d8", 
+"ap": "0", "rof": "1", "shots": "0", "minStr": "d6", 
+"weight": "11", "price": "250"
+}},
+{
+"name": "Derringer (.41)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Modern Pistol", "quantity": 1, 
+"range": "3/6/12", "damage": "2d4", 
+"ap": "0", "rof": "1", "shots": "2", "minStr": "d4", 
+"weight": "1", "price": "100"
+}},
+{
+"name": "Police Revolver (.38)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Modern Pistol", "quantity": 1, 
+"range": "10/20/40", "damage": "2d6", 
+"ap": "0", "rof": "1", "shots": "6", "minStr": "d4", 
+"weight": "2", "price": "150"
+}},
+{
+"name": "Colt Peacemaker (.45)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Modern Pistol", "quantity": 1, 
+"range": "12/24/48", "damage": "2d6+1", 
+"ap": "1", "rof": "1", "shots": "6", "minStr": "d4", 
+"weight": "4", "price": "200"
+}},
+{
+"name": "Smith & Wesson (.357)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Modern Pistol", "quantity": 1, 
+"range": "12/24/48", "damage": "2d6+1", 
+"ap": "1", "rof": "1", "shots": "6", "minStr": "d4", 
+"weight": "5", "price": "250"
+}},
+{
+"name": "Colt 1911 (.45)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Semi-Auto Pistol", "quantity": 1, 
+"range": "12/24/48", "damage": "2d6+1", 
+"ap": "1", "rof": "1", "shots": "7", "minStr": "d4", 
+"weight": "4", "price": "200"
+}},
+{
+"name": "Desert Egle (.50)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Semi-Auto Pistol", "quantity": 1, 
+"range": "15/30/60", "damage": "2d8", 
+"ap": "2", "rof": "1", "shots": "7", "minStr": "d6", 
+"weight": "8", "price": "300"
+}},
+{
+"name": "Glock (9mm)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Semi-Auto Pistol", "quantity": 1, 
+"range": "12/24/48", "damage": "2d6", 
+"ap": "1", "rof": "1", "shots": "17", "minStr": "d4", 
+"weight": "3", "price": "200"
+}},
+{
+"name": "Ruger (.22)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Semi-Auto Pistol", "quantity": 1, 
+"range": "10/20/40", "damage": "2d4", 
+"ap": "0", "rof": "1", "shots": "9", "minStr": "d4", 
+"weight": "2", "price": "100"
+}},
+{
+"name": "H&K MP5 (9mm)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Submachine", "quantity": 1, 
+"range": "12/24/48", "damage": "2d6", 
+"ap": "1", "rof": "3", "shots": "30", "minStr": "d6", 
+"weight": "10", "price": "300"
+}},
+{
+"name": "Tommy Gun (.45)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Notes: Thompson submachine guns may also use a 50-round drum. This increases the weight by 2 lbs and each loaded drum costs $50.", "subtype": "Submachine", "quantity": 1, 
+"range": "12/24/48", "damage": "2d6+1", 
+"ap": "1", "rof": "3", "shots": "20", "minStr": "d6", 
+"weight": "13", "price": "350"
+}},
+{
+"name": "Uzi (9mm)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Submachine", "quantity": 1, 
+"range": "12/24/48", "damage": "2d6", 
+"ap": "1", "rof": "3", "shots": "32", "minStr": "d4", 
+"weight": "9", "price": "300"
+}},
+{
+"name": "Double-Barrel", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Shotgun", "quantity": 1, 
+"range": "12/24/48", "damage": "1-3d6", 
+"ap": "0", "rof": "1", "shots": "2", "minStr": "d6", 
+"weight": "11", "price": "150"
+}},
+{
+"name": "Pump Action", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Shotgun", "quantity": 1, 
+"range": "12/24/48", "damage": "1-3d6", 
+"ap": "0", "rof": "1", "shots": "6", "minStr": "d4", 
+"weight": "8", "price": "150"
+}},
+{
+"name": "Sawed-Off DB", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Shotgun", "quantity": 1, 
+"range": "5/10/20", "damage": "1-3d6", 
+"ap": "0", "rof": "1", "shots": "2", "minStr": "d4", 
+"weight": "6", "price": "150"
+}},
+{
+"name": "Streetsweeper", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Shotgun", "quantity": 1, 
+"range": "12/24/48", "damage": "1-3d6", 
+"ap": "0", "rof": "1", "shots": "12", "minStr": "d6", 
+"weight": "10", "price": "450"
+}},
+{
+"name": "Barrett (.50)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Heavy Weapon, Snapfire. Barretts use a 10-shot removable magazine that weighs 2 lbs when loaded. They are almost always fitted with a scope.", "subtype": "Rifles", "quantity": 1, 
+"range": "50/100/200", "damage": "2d10", 
+"ap": "4", "rof": "1", "shots": "10", "minStr": "d8", 
+"weight": "35", "price": "750"
+}},
+{
+"name": "M1 Garand (.30-06)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "The standard US infantry rifle in World War II", "subtype": "Rifles", "quantity": 1, 
+"range": "24/48/96", "damage": "2d8", 
+"ap": "2", "rof": "1", "shots": "8", "minStr": "d6", 
+"weight": "10", "price": "300"
+}},
+{
+"name": "Hunting Rifle (.308)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Snapfire", "subtype": "Rifles", "quantity": 1, 
+"range": "24/48/96", "damage": "2d8", 
+"ap": "2", "rof": "1", "shots": "5", "minStr": "d6", 
+"weight": "8", "price": "350"
+}},
+{
+"name": "Sharps Big 50 (.50)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Snapfire", "subtype": "Rifles", "quantity": 1, 
+"range": "30/60/120", "damage": "2d10", 
+"ap": "2", "rof": "1", "shots": "1", "minStr": "d8", 
+"weight": "11", "price": "400"
+}},
+{
+"name": "Spencer Carbine (.52)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Rifles", "quantity": 1, 
+"range": "20/40/80", "damage": "2d8", 
+"ap": "2", "rof": "1", "shots": "7", "minStr": "d4", 
+"weight": "8", "price": "250"
+}},
+{
+"name": "Winchester '73 (.44-40)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Rifles", "quantity": 1, 
+"range": "24/48/96", "damage": "2d8-1", 
+"ap": "2", "rof": "1", "shots": "15", "minStr": "d6", 
+"weight": "10", "price": "300"
+}},
+{
+"name": "AK47 (7.62mm)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Assault Rifles", "quantity": 1, 
+"range": "24/48/96", "damage": "2d8+1", 
+"ap": "2", "rof": "3", "shots": "30", "minStr": "d6", 
+"weight": "10", "price": "450"
+}},
+{
+"name": "M-16 (5.56mm)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "The A-2 version can also fire a Three-Round Burst (see page 67).", "subtype": "Assault Rifles", "quantity": 1, 
+"range": "24/48/96", "damage": "2.8", 
+"ap": "2", "rof": "3", "shots": "20/30", "minStr": "d6", 
+"weight": "8", "price": "400"
+}},
+{
+"name": "Steyr AUG (5.56mm)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "May fire a 3 round burst (see page 67)", "subtype": "Assault Rifles", "quantity": 1, 
+"range": "24/48/96", "damage": "2d8", 
+"ap": "2", "rof": "3", "shots": "30", "minStr": "d6", 
+"weight": "8", "price": "400"
+}},
+{
+"name": "Browning Automatic Rifle (BAR)(.30-6)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Rate of file 1-3, uses magazines ( 1 action to reload )", "subtype": "Machinegun", "quantity": 1, 
+"range": "20/40/60", "damage": "2d8", 
+"ap": "2", "rof": "3", "shots": "20", "minStr": "d8", 
+"weight": "17", "price": "300"
+}},
+{
+"name": "Gatling (.45)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Machinegun", "quantity": 1, 
+"range": "24/48/96", "damage": "2d8", 
+"ap": "2", "rof": "4", "shots": "100", "minStr": "0", 
+"weight": "170", "price": "500"
+}},
+{
+"name": "Minigun (7.62mm)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Minimum Rate of Fire 3, requires backpack harness with ammo which weighs an additional 85 pounds when full (carries 4000 linked rounds)", "subtype": "Machinegun", "quantity": 1, 
+"range": "30/60/120", "damage": "2d8+1", 
+"ap": "2", "rof": "5", "shots": "4000", "minStr": "d10", 
+"weight": "85", "price": "100000"
+}},
+{
+"name": "M2 Browning (.50 Cal)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "Heavy Weapon", "subtype": "Machinegun", "quantity": 1, 
+"range": "50/100/200", "damage": "2d10", 
+"ap": "4", "rof": "3", "shots": "200", "minStr": "0", 
+"weight": "84", "price": "1500"
+}},
+{
+"name": "M60 (7.62mm)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Machinegun", "quantity": 1, 
+"range": "30/60/120", "damage": "2d8+1", 
+"ap": "2", "rof": "3", "shots": "100", "minStr": "d8", 
+"weight": "33", "price": "6000"
+}},
+{
+"name": "MG42 (7.62mm)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Machinegun", "quantity": 1, 
+"range": "30/60/120", "damage": "2d8+1", 
+"ap": "2", "rof": "4", "shots": "200", "minStr": "d10", 
+"weight": "26", "price": "750"
+}},
+{
+"name": "SAW (5.56mm)", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Machinegun", "quantity": 1, 
+"range": "30/60/120", "damage": "2d8", 
+"ap": "2", "rof": "4", "shots": "200", "minStr": "d8", 
+"weight": "20", "price": "4000"
+}},
+{
+"name": "Laser Pistol", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Laser", "quantity": 1, 
+"range": "15/30/60", "damage": "2d6", 
+"ap": "2", "rof": "1", "shots": "50", "minStr": "d4", 
+"weight": "2", "price": "250"
+}},
+{
+"name": "Laser SMG", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Laser", "quantity": 1, 
+"range": "15/30/60", "damage": "2d6", 
+"ap": "2", "rof": "4", "shots": "100", "minStr": "d4", 
+"weight": "4", "price": "500"
+}},
+{
+"name": "Laser Rifle", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Laser", "quantity": 1, 
+"range": "30/60/120", "damage": "3d6", 
+"ap": "2", "rof": "3", "shots": "100", "minStr": "d6", 
+"weight": "8", "price": "700"
+}},
+{
+"name": "Gatling Laser", "type": "weapon", "data": {
+"description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Laser", "quantity": 1, 
+"range": "50/100/200", "damage": "3d6+4", 
+"ap": "2", "rof": "4", "shots": "800", "minStr": "d8", 
+"weight": "20", "price": "1000"
+}}
+]
