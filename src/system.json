@@ -94,11 +94,6 @@
       "lang": "pl",
       "name": "Polski",
       "path": "lang/pl.json"
-    },
-    {
-      "lang": "fr",
-      "name": "French (FRANCE)",
-      "path": "lang/fr.json"
     }
   ],
   "socket": false,

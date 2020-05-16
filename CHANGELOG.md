@@ -20,18 +20,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.8.2] 2020-05-16
 
 ### Added
 
-- Added option to turn chat messages for Initiative off
+- Added option to turn off chat messages for Initiative
 - Made Hindrance section available for Extras as well
 - Made PC gear cards more responsive
 - Added more i18n strings
+- Compendium packs for Core Rulebook equipment (Thanks to Tanuki Go on GitLab for that)
+- Added buttons to quickly add skills, equipment etc (Thanks to U~Man for that)
 
 ### Changed
 
-- Updated SWADE for FoundryVTT 0.5.6
+- Updated SWADE for FoundryVTT 0.5.6/0.5.7
+
+### Removed
+
+- Removed French translation as it will become a seperate module for easier maintenance.
 
 ### Fixed
 
