@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.8.4] 2020-05-17
+
+### Fixed
+
+- Fixed a small bug that would prevent the population of the Action Cards table
+
 ## [v0.8.3] 2020-05-16
 
 ### Fixed
