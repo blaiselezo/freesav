@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * This is your TypeScript entry file for Foundry VTT.
  * Register custom settings, sheets, and constants using the Foundry API.
@@ -134,17 +135,6 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 	});
 });
 
-Hooks.on('renderActorSheet', (app, html: JQuery<HTMLElement>, data) => {
-	const actor = data.actor;
-	const wounds = actor.data.wounds;
-	const fatigue = actor.data.fatigue;
-	const isIncap = isIncapacitated(wounds, fatigue);
-
-	if (isIncap) {
-		html.find('.incap-img').addClass('fade-in-05');
-	}
-});
-
 Hooks.on('updateActor', async (actor: Actor, updateData: any, options: any, userId: string) => {
 	if (actor.data.type === 'npc') {
 		ui.actors.render();
@@ -153,9 +143,9 @@ Hooks.on('updateActor', async (actor: Actor, updateData: any, options: any, user
 	//if it's a status update, update the token
 	if (updateData.data && updateData.data.status && (game.user.isGM || actor.owner)) {
 
-		const shaken = 'icons/svg/daze.svg';
-		const vulnerable = 'icons/svg/degen.svg';
-		const distracted = 'icons/svg/stoned.svg';
+		const shaken = CONFIG.SWADE.statusIcons.shaken;
+		const vulnerable = CONFIG.SWADE.statusIcons.vulnerable;
+		const distracted = CONFIG.SWADE.statusIcons.distracted;
 		const actorData = actor.data as any;
 
 		for (const t of actor.getActiveTokens()) {
@@ -172,9 +162,9 @@ Hooks.on('updateActor', async (actor: Actor, updateData: any, options: any, user
 });
 
 Hooks.on('preUpdateToken', async (scene: Scene, token: any, updateData: any, options: any) => {
-	const shaken = 'icons/svg/daze.svg';
-	const vulnerable = 'icons/svg/degen.svg';
-	const distracted = 'icons/svg/stoned.svg';
+	const shaken = CONFIG.SWADE.statusIcons.shaken;
+	const vulnerable = CONFIG.SWADE.statusIcons.vulnerable;
+	const distracted = CONFIG.SWADE.statusIcons.distracted;
 
 	// if the update is effects
 	if (updateData.effects) {
@@ -242,9 +232,9 @@ Hooks.on('preCreateToken', async (scene: Scene, createData: any, options: any, u
 	// return if this token has no actor
 	if (!actor) return;
 
-	const shaken = 'icons/svg/daze.svg';
-	const vulnerable = 'icons/svg/degen.svg';
-	const distracted = 'icons/svg/stoned.svg';
+	const shaken = CONFIG.SWADE.statusIcons.shaken;
+	const vulnerable = CONFIG.SWADE.statusIcons.vulnerable;
+	const distracted = CONFIG.SWADE.statusIcons.distracted;
 	const actorData = actor.data as any;
 
 	const createEffects = [];
