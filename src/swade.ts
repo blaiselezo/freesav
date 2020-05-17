@@ -24,20 +24,19 @@ import { listenJournalDrop } from './module/journalDrop';
 import { SwadeNPCSheet } from './module/npc-sheet';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { registerSettings } from './module/settings';
-import { swadeSetup } from './module/setup/setupHandler';
-import { isIncapacitated } from './module/util';
+import { SwadeSetup } from './module/setup/setupHandler';
 
 /* ------------------------------------ */
 /* Initialize system					*/
 /* ------------------------------------ */
 Hooks.once('init', async function () {
+	//CONFIG.debug.hooks = true;
 	console.log(
 		`SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`
 	);
 
 	// Record Configuration Values
 	CONFIG.SWADE = SWADE;
-	//CONFIG.debug.hooks = true;
 	Combat.prototype.rollInitiative = rollInitiative;
 	Combat.prototype.setupTurns = setupTurns;
 
@@ -73,15 +72,14 @@ Hooks.once('init', async function () {
 /* Setup system							*/
 /* ------------------------------------ */
 Hooks.once('setup', function () {
-	// Do anything after initialization but before
-	// ready
+	// Do anything after initialization but before ready
 });
 
 /* ------------------------------------ */
 /* When ready							*/
 /* ------------------------------------ */
 Hooks.once('ready', async () => {
-	await swadeSetup();
+	await SwadeSetup.setup();
 });
 
 // Add any additional hooks if necessary
@@ -305,7 +303,7 @@ Hooks.on('preUpdateCombat', async (combat, updateData, options, userId) => {
 
 	// Reset the deck if any combatant has had a Joker	
 	if (jokerDrawn) {
-		const deck = game.tables.getName('Action Cards') as RollTable;
+		const deck = game.tables.getName(CONFIG.SWADE.init.cardTable) as RollTable;
 		await deck.reset();
 		ui.notifications.info('Card Deck automatically reset');
 	}
@@ -322,4 +320,10 @@ Hooks.on('renderChatMessage', async (chatMessage: ChatMessage, html: JQuery<HTML
 	if (chatMessage.isRoll && chatMessage.isRollVisible) {
 		await formatRoll(chatMessage, html, data);
 	}
-})
+});
+
+Hooks.on('renderSettingsConfig', (settingsConfig: SettingsConfig, html: JQuery, data: any) => {
+
+
+
+});

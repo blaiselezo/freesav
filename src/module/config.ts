@@ -25,6 +25,8 @@ export class SWADE {
         cardTable: 'Action Cards'
     }
 
+    public static packChoices = {}
+
     public static imagedrop = {
         height: 200
     }
