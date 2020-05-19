@@ -30,7 +30,6 @@ export const listenJournalDrop = function () {
       locked: false,
       rotation: 0,
     };
-    console.log(tileData);
 
     Tile.create(tileData);
     }
