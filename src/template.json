@@ -63,7 +63,8 @@
           "parry": {
             "value": 0,
             "modifier": 0
-          }
+          },
+          "size": 0
         },
         "details": {
           "biography": {

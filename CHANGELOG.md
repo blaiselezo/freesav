@@ -20,6 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Added Size modifier to sheet
+- Added Roll Raise Button to Damage rolls which automatically applies the extra +1d6 bonus damage for a raise
+
+### Fixed
+
+- Fixed a small bug which caused ignored wounds to behave oddly.
+
 ## [v0.8.4] 2020-05-17
 
 ### Fixed

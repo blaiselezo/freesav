@@ -98,10 +98,13 @@
   "SWADE.SitMod": "Situational Mod",
   "SWADE.RollMode": "Roll Mode",
   "SWADE.RollExample": "eg. +1d6x= or -2",
+  "SWADE.Roll": "Roll",
+  "SWADE.RollRaise": "Roll Raise",
   "SWADE.Ok": "Ok",
   "SWADE.Cancel": "Cancel",
   "SWADE.ConfigInit": "Configure Initiative",
   "SWADE.IgnWounds": "Ignore Wounds",
+  "SWADE.Size": "Size",
   "SWADE.PickACard": "Pick a card",
   "SWADE.NoCardsLeft": "There are not enough cards left in the deck!"
 }
