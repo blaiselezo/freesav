@@ -128,7 +128,19 @@ export class SwadeActor extends Actor {
     if (isNaN(ignoredWounds)) ignoredWounds = 0;
     const fatigue = parseInt(this.data['data']['fatigue']['value']);
 
-    if (!isNaN(wounds)) retVal = (wounds > 3) ? retVal += 3 - ignoredWounds : retVal += wounds - ignoredWounds;
+    if (!isNaN(wounds)) {
+      if (wounds > 3) {
+        retVal += 3;
+      } else {
+        retVal += wounds;
+      }
+      if ((retVal - ignoredWounds) < 0) {
+        retVal = 0;
+      } else {
+        retVal -= ignoredWounds;
+      }
+    }
+
     if (!isNaN(fatigue)) retVal += fatigue;
     return retVal * -1;
   }

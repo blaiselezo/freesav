@@ -1,4 +1,5 @@
 import { SwadeDice } from './dice';
+// eslint-disable-next-line no-unused-vars
 import { SwadeActor } from './entity';
 
 /**
@@ -41,7 +42,7 @@ export class SwadeItem extends Item {
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
       title: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
-      item: true
+      item: true,
     });
   }
 
