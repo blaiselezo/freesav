@@ -26,6 +26,6 @@ export class SWADE {
     }
 
     public static imagedrop = {
-        height: 200
+        height: 300
     }
 }
