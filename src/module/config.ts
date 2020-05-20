@@ -28,6 +28,6 @@ export class SWADE {
     public static packChoices = {}
 
     public static imagedrop = {
-        height: 200
+        height: 300
     }
 }
