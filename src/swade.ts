@@ -28,7 +28,7 @@ import { createActionCardTable } from './module/util';
 /* Initialize system					*/
 /* ------------------------------------ */
 Hooks.once('init', async function () {
-	CONFIG.debug.hooks = true;
+	//CONFIG.debug.hooks = true;
 	console.log(
 		`SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`
 	);
@@ -169,8 +169,7 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 
 Hooks.on('preUpdateActor', (actor: SwadeActor, updateData: any, options: any, userId: string) => {
 		//wildcards will be linked, extras unlinked
-		if(updateData.data && typeof updateData.data.wildcard !== 'undefined'){
-			console.log(updateData.data.wildcard);
+		if(updateData.data && typeof updateData.data.wildcard !== 'undefined' && game.settings.get('swade', 'autoLinkWildcards')){
 			updateData.token = {actorLink: updateData.data.wildcard}
 		}
 });

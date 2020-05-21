@@ -93,6 +93,8 @@
   "SWADE.HideWCDesc": "Do not show which NPCs are Wildcards to players",
   "SWADE.EnableConv": "Enable Conviction",
   "SWADE.EnableConvDesc": "Enable the Conviction setting rule",
+  "SWADE.AutoLink": "Automatically Link Wildcards",
+  "SWADE.AutoLinkDesc": "When enabled, NPC Wildcards will have their tokens linked when you toggle them between Extra and Wildcard",
 
   "SWADE.Formula": "Formula",
   "SWADE.SitMod": "Situational Mod",
