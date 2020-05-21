@@ -167,7 +167,12 @@ export const setupTurns = function () {
 
 const drawCard = async function (count?: number): Promise<JournalEntry[]> {
     const actionCardDeck = game.tables.getName(CONFIG.SWADE.init.cardTable) as RollTable;
-    const actionCardPack = game.packs.get(game.settings.get('swade', 'cardDeck')) as Compendium;
+    let actionCardPack = game.packs.get(game.settings.get('swade', 'cardDeck')) as Compendium;
+    if(actionCardPack === null){
+        console.log('Something went wrong with the card compendium, switching back to default')
+        await game.settings.set('swade', 'cardDeck', CONFIG.SWADE.init.defaultCardCompendium);
+        actionCardPack = game.packs.get(game.settings.get('swade', 'cardDeck')) as Compendium;
+    }
     const packIndex = await actionCardPack.getIndex();
     const cards: JournalEntry[] = [];
     if (!count) count = 1;

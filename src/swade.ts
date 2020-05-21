@@ -25,6 +25,7 @@ import { SwadeNPCSheet } from './module/npc-sheet';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { registerSettings } from './module/settings';
 import { SwadeSetup } from './module/setup/setupHandler';
+import { createActionCardTable } from './module/util';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -79,7 +80,28 @@ Hooks.once('setup', function () {
 /* When ready							*/
 /* ------------------------------------ */
 Hooks.once('ready', async () => {
+
+	let packChoices = {}
+	game.packs.filter(p => p.entity === 'JournalEntry').forEach(p => {
+		packChoices[p.collection] = p.metadata.label;
+	});
+
+	game.settings.register('swade', 'cardDeck', {
+		name: 'Card Deck to use for Initiative',
+		scope: 'world',
+		type: String,
+		config: true,
+		default: CONFIG.SWADE.init.defaultCardCompendium,
+		choices: packChoices,
+		onChange: (choice) => {
+			console.log(`Repopulating action cards Table with cards from deck ${choice}`);
+			createActionCardTable(true, choice).then(ui.notifications.info('Table re-population complete'));
+		}
+	});
+
 	await SwadeSetup.setup();
+
+
 });
 
 // Add any additional hooks if necessary

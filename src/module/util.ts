@@ -38,15 +38,13 @@ export async function createActionCardTable(rebuild?: boolean, cardpack?: string
 
     //If it's a rebuild call, delete all entries and then repopulate them
     if (rebuild) {
-        let deletions = cardTable.results.map(i => i._id);
+        let deletions = cardTable.results.map(i => i._id) as string[];
         await cardTable.deleteEmbeddedEntity('TableResult', deletions);
     }
 
     const createData = []
-    console.log(cardPackIndex)
     for (let i = 0; i < cardPackIndex.length; i++) {
         let c = cardPackIndex[i] as any;
-        console.log(i, c)
         let resultData = {
             type: 2, //Set type to compendium
             text: c.name,
