@@ -2,7 +2,7 @@
 	"name": "swade",
 	"title": "Savage Worlds Adventure Edition",
 	"description": "A comprehensive gamesystem for running Savage Worlds Adventure Edition games",
-	"version": "0.8.4",
+	"version": "0.8.5",
 	"minimumCoreVersion": "0.5.6",
 	"compatibleCoreVersion": "0.5.7",
 	"author": "FloRad",
@@ -101,5 +101,5 @@
 	"gridUnits": "in",
 	"url": "https://gitlab.com/florad-foundry/swade",
 	"manifest": "https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json",
-	"download": "https://gitlab.com/florad-foundry/swade/-/raw/v0.8.4/package/swade-v0.8.4.zip"
+	"download": "https://gitlab.com/florad-foundry/swade/-/raw/v0.8.5/package/swade-v0.8.5.zip"
 }
