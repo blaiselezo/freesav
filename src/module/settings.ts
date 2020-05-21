@@ -1,4 +1,5 @@
 export const registerSettings = function () {
+
 	game.settings.register('swade', 'initiativeSound', {
 		name: game.i18n.localize('SWADE.CardSound'),
 		hint: game.i18n.localize('SWADE.CardSoundDesc'),
