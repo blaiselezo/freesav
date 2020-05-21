@@ -13,6 +13,8 @@
 
 An implementation of the Savage Worlds Adventure Edition game system for [Foundry Virtual Tabletop](http://foundryvtt.com) under the [Savage Worlds Fans License](https://www.peginc.com/licensing/)
 
+_[Read the FAQ](/FAQ.md) for questions not answered below._
+
 ## Installation Instructions
 
 To install the SWADE system for Foundry Virtual Tabletop, simply paste the following URL into the **Install System**

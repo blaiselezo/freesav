@@ -22,10 +22,10 @@
     },
     "type": "power",
     "data": {
-      "rank": "",
-      "pp": "0",
-      "range": "",
-      "duration": "",
+      "rank": "Novice",
+      "pp": "1",
+      "range": "Smarts",
+      "duration": "5",
       "description": "See <strong>Protection</strong> SWADE pg.165",
       "trapping": "",
       "notes": ""
@@ -44,7 +44,7 @@
       "duration": "Instant",
       "description": "See SWADE pg.154",
       "trapping": "",
-      "notes": ""
+      "notes": "Casters Arcane vs target's spirit"
     }
   },
   {
@@ -88,11 +88,12 @@
     "data": {
       "rank": "Seasoned",
       "pp": "3",
-      "range": "Smartsx2",
+      "range": "Smarts x2",
       "duration": "Instant",
+      "damage": "2d6",
       "description": "See SWADE pg.156",
       "trapping": "",
-      "notes": ""
+      "notes": "3d6 damage with raise"
     }
   },
   {
@@ -120,11 +121,12 @@
     "data": {
       "rank": "Novice",
       "pp": "1",
-      "range": "Smartsx2",
+      "range": "Smarts x2",
       "duration": "Instant",
+      "damage": "2d6",
       "description": "See SWADE pg.156",
       "trapping": "",
-      "notes": ""
+      "notes": "3d6 with raise"
     }
   },
   {
@@ -170,9 +172,10 @@
       "pp": "2",
       "range": "Cone Template",
       "duration": "Instant",
+      "damage": "2d6",
       "description": "See SWADE pg.157",
       "trapping": "",
-      "notes": ""
+      "notes": "3d6 with raise.  Additional w/modifiers see SWADE p. 157"
     }
   },
   {
@@ -202,6 +205,7 @@
       "pp": "4",
       "range": "Smarts",
       "duration": "5",
+      "damage": "2d4",
       "description": "See SWADE pg.157",
       "trapping": "",
       "notes": ""
@@ -630,10 +634,10 @@
     },
     "type": "power",
     "data": {
-      "rank": "",
-      "pp": "",
-      "range": "",
-      "duration": "",
+      "rank": "Novice",
+      "pp": "2",
+      "range": "Smarts",
+      "duration": "Instant",
       "description": "See <strong>Havoc</strong> SWADE pg.162",
       "trapping": "",
       "notes": ""
@@ -662,10 +666,10 @@
     },
     "type": "power",
     "data": {
-      "rank": "",
-      "pp": "",
-      "range": "",
-      "duration": "",
+      "rank": "Seasoned",
+      "pp": "2",
+      "range": "Smarts",
+      "duration": "Instant (sloth); 5 (speed)",
       "description": "See <strong>Sloth/Speed</strong> SWADE pg.167",
       "trapping": "",
       "notes": ""
@@ -729,7 +733,7 @@
       "rank": "Seasoned",
       "pp": "2",
       "range": "Smarts",
-      "duration": "Instant(Sloth)/5 (Speed)",
+      "duration": "Instant (Sloth) / 5 (Speed)",
       "description": "See SWADE pg.167",
       "trapping": "",
       "notes": ""
@@ -742,10 +746,10 @@
     },
     "type": "power",
     "data": {
-      "rank": "",
-      "pp": "",
-      "range": "",
-      "duration": "",
+      "rank": "Seasoned",
+      "pp": "2",
+      "range": "Smarts",
+      "duration": "Instant (Slow) / 5 (Speed)",
       "description": "See <strong>Sloth/Speed</strong> SWADE pg.167",
       "trapping": "",
       "notes": ""
@@ -793,7 +797,7 @@
       "rank": "Novice",
       "pp": "1",
       "range": "Smartsx5(Sound)/Smarts(Silence)",
-      "duration": "Instant(Sound)/5 (Silence)",
+      "duration": "Instant(Sound) /5 (Silence)",
       "description": "See SWADE pg.158",
       "trapping": "",
       "notes": ""
@@ -838,10 +842,10 @@
     },
     "type": "power",
     "data": {
-      "rank": "",
-      "pp": "",
-      "range": "",
-      "duration": "",
+      "rank": "Novice",
+      "pp": "1",
+      "range": "Smarts",
+      "duration": "Instant",
       "description": "See <strong>Relief</strong> SWADE pg.166",
       "trapping": "",
       "notes": ""

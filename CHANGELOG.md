@@ -20,17 +20,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.8.5] 2020-05-21
 
 ### Added
 
 - Added Size modifier to sheet
 - Added Roll Raise Button to Damage rolls which automatically applies the extra +1d6 bonus damage for a raise
-- fixed Journal image drop again
+- Player CHaracters will now automatically recieve the core skills.
+- Added FAQ (Thanks to Tenuki Go for getting that started);
+- Toggling a `npc` Actor between Wildcard and not-wildcard will link/unlink the actor data. Wildcards will become linked and Extras will become unlinked. This can still be overriden manually in the Token config. This functionality also comes with a system setting to enable/disable it
+- Actors of the type `npc` will be created with their tokens not actor-linked
 
 ### Fixed
 
 - Fixed a small bug which caused ignored wounds to behave oddly.
+- Fixed duplicates and false naming in the Gear compendia (Thanks to Tenuki Go for getting that done);
+- Fixed Journal image drop again
+- Fixed a small bug where in-sheet created items would not have the correct icon
 
 ## [v0.8.4] 2020-05-17
 

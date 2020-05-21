@@ -231,7 +231,7 @@
 "weight": "8", "price": "400"
 }},
 {
-"name": "Dagger/Knife", "type": "weapon", "data": {
+"name": "Throwing Dagger/Knife", "type": "weapon", "data": {
 "description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
 "range": "3/6/12", "damage": "@str+d4", 
 "ap": "0", "rof": "1", "shots": "0", "minStr": "d4", 
@@ -259,7 +259,7 @@
 "weight": "1", "price": "10"
 }},
 {
-"name": "Spear/Javelin", "type": "weapon", "data": {
+"name": "Throwing Spear/Javelin", "type": "weapon", "data": {
 "description": "<p>See SWADE p67-p80", "notes": "-", "subtype": "Ranged Weapons", "quantity": 1, 
 "range": "3/6/12", "damage": "@str+d6", 
 "ap": "0", "rof": "1", "shots": "0", "minStr": "d6", 

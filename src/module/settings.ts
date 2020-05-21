@@ -35,6 +35,15 @@ export const registerSettings = function () {
 		config: true,
 	});
 
+	game.settings.register('swade', 'autoLinkWildcards', {
+		name: game.i18n.localize('SWADE.AutoLink'),
+		hint: game.i18n.localize('SWADE.AutoLinkDesc'),
+		default: true,
+		scope: 'world',
+		type: Boolean,
+		config: true,
+	});
+
 	game.settings.register('swade', 'enableConviction', {
 		name: game.i18n.localize('SWADE.EnableConv'),
 		hint: game.i18n.localize('SWADE.EnableConvDesc'),

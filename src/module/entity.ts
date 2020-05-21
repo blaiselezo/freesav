@@ -15,14 +15,21 @@ export class SwadeActor extends Actor {
 
   /** @override */
   static async create(data, options = {}) {
+    
+    let link = true;
+
+    if(data.type === 'npc'){
+      link = false;
+    }
     data.token = data.token || {};
     mergeObject(data.token, {
       vision: true,
       dimSight: 30,
       brightSight: 0,
-      actorLink: true,
+      actorLink: link,
       disposition: 1,
     });
+    
     return super.create(data, options);
   }
 
