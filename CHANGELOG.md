@@ -28,6 +28,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added Roll Raise Button to Damage rolls which automatically applies the extra +1d6 bonus damage for a raise
 - Player CHaracters will now automatically recieve the core skills.
 - Added FAQ (Thanks to Tenuki Go for getting that started);
+- Toggling a `npc` Actor between Wildcard and not-wildcard will link/unlink the actor data. Wildcards will become linked and Extras will become unlinked. This can still be overriden manually in the Token config.
 
 ### Fixed
 

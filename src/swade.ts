@@ -167,6 +167,14 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 	});
 });
 
+Hooks.on('preUpdateActor', (actor: SwadeActor, updateData: any, options: any, userId: string) => {
+		//wildcards will be linked, extras unlinked
+		if(updateData.data && typeof updateData.data.wildcard !== 'undefined'){
+			console.log(updateData.data.wildcard);
+			updateData.token = {actorLink: updateData.data.wildcard}
+		}
+});
+
 Hooks.on('updateActor', async (actor: SwadeActor, updateData: any, options: any, userId: string) => {
 	if (actor.data.type === 'npc') {
 		ui.actors.render();
