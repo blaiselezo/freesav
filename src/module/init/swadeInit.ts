@@ -6,7 +6,7 @@
 * @return {Promise.<Combat>}       A promise which resolves to the updated Combat entity once updates are complete.
 */
 export const rollInitiative = async function (ids: string[] | string, formula: string | null, messageOptions: any) {
-    const actionCardDeck = game.tables.getName('Action Cards') as RollTable;
+    const actionCardDeck = game.tables.getName(CONFIG.SWADE.init.cardTable) as RollTable;
 
     // Structure input data
     ids = typeof ids === 'string' ? [ids] : ids;
@@ -85,12 +85,13 @@ export const rollInitiative = async function (ids: string[] | string, formula: s
         });
 
         // Construct chat message data
+        const cardPack = game.settings.get('swade', 'cardDeck');
         const template = `
         <div class="table-draw">
             <ol class="table-results">
                 <li class="table-result flexrow">
                     <img class="result-image" src="${card.img}">
-                    <h4 class="result-text">@Compendium[swade.action-cards.${card._id}]{${card.name}}</h4>
+                    <h4 class="result-text">@Compendium[${cardPack}.${card._id}]{${card.name}}</h4>
                 </li>
             </ol>
         </div>
@@ -165,8 +166,13 @@ export const setupTurns = function () {
 }
 
 const drawCard = async function (count?: number): Promise<JournalEntry[]> {
-    const actionCardDeck = game.tables.getName('Action Cards') as RollTable;
-    const actionCardPack = game.packs.get('swade.action-cards') as Compendium;
+    const actionCardDeck = game.tables.getName(CONFIG.SWADE.init.cardTable) as RollTable;
+    let actionCardPack = game.packs.get(game.settings.get('swade', 'cardDeck')) as Compendium;
+    if(actionCardPack === null){
+        console.log('Something went wrong with the card compendium, switching back to default')
+        await game.settings.set('swade', 'cardDeck', CONFIG.SWADE.init.defaultCardCompendium);
+        actionCardPack = game.packs.get(game.settings.get('swade', 'cardDeck')) as Compendium;
+    }
     const packIndex = await actionCardPack.getIndex();
     const cards: JournalEntry[] = [];
     if (!count) count = 1;

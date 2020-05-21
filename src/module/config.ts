@@ -21,11 +21,13 @@ export class SWADE {
     }
 
     public static init = {
-        cardCompendium: 'swade.action-cards',
+        defaultCardCompendium: 'swade.action-cards',
         cardTable: 'Action Cards'
     }
 
+    public static packChoices = {}
+
     public static imagedrop = {
-        height: 200
+        height: 300
     }
 }

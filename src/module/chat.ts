@@ -5,12 +5,12 @@ export async function formatRoll(
 ) {
   // Little helper function
   let pushDice = (chatData, total, faces) => {
-    let color = "black";
+    let color = 'black';
     if (total > faces) {
-      color = "green";
+      color = 'green';
     }
     if (total == 1) {
-      color = "red";
+      color = 'red';
     }
     let img = null;
     if ([4,6,8,10,12,20].indexOf(faces) > -1) {
@@ -27,7 +27,7 @@ export async function formatRoll(
   let roll = JSON.parse(data.message.roll);
   let chatData = { dice: [], modifiers: [] };
   for (let i = 0; i < roll.parts.length; i++) {
-    if (roll.parts[i].class == "DicePool") {
+    if (roll.parts[i].class == 'DicePool') {
       // Format the dice pools
       let pool = roll.parts[i].rolls;
       let faces = 0;
@@ -37,8 +37,8 @@ export async function formatRoll(
         pushDice(chatData, pooldie.total, faces);
       });
     } else if (
-      typeof roll.parts[i] == "string" &&
-      roll.parts[i].substring(0, 2) == "_d"
+      typeof roll.parts[i] == 'string' &&
+      roll.parts[i].substring(0, 2) == '_d'
     ) {
       // Grab the right dice
       let idice = parseInt(roll.parts[i].substring(2));
@@ -57,9 +57,9 @@ export async function formatRoll(
   }
   // Replace default dice-formula by this custom;
   let rendered = await renderTemplate(
-    "systems/swade/templates/chat/roll-formula.html",
+    'systems/swade/templates/chat/roll-formula.html',
     chatData
   );
-  let formula = html.find(".dice-formula");
+  let formula = html.find('.dice-formula');
   formula.replaceWith(rendered);
 }
