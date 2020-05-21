@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Fixed a small bug which caused ignored wounds to behave oddly.
 - Fixed duplicates and false naming in the Gear compendia (Thanks to Tenuki Go for getting that done);
 - Fixed Journal image drop again
+- Fixed a small bug where in-sheet created items would not have the correct icon
 
 ## [v0.8.4] 2020-05-17
 
