@@ -31,7 +31,7 @@ import { createActionCardTable } from './module/util';
 /* Initialize system					*/
 /* ------------------------------------ */
 Hooks.once('init', async function () {
-	//CONFIG.debug.hooks = true;
+	CONFIG.debug.hooks = true;
 	console.log(
 		`SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`
 	);
@@ -105,25 +105,33 @@ Hooks.once('ready', async () => {
 });
 
 // Add any additional hooks if necessary
-Hooks.on('preCreateItem', function (createData: any, options: any, userId: string) {
+Hooks.on('preCreateItem', (createData: any, options: any, userId: string) => {
 	//Set default image if no image already exists
 	if (!createData.img) {
 		createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
 	}
 });
 
+Hooks.on('createActor', async (actor: SwadeActor, options: any, userId: String) => {
+	if(actor.data.type === 'character'){
+		const skillsToFind = ['Athletics', 'Common Knowledge', 'Notice','Persuasion', 'Stealth' ];
+		const skillIndex = await game.packs.get('swade.skills').getContent() as SwadeItem[];
+		actor.createEmbeddedEntity('OwnedItem', skillIndex.filter(i => skillsToFind.includes(i.data.name)));
+	}
+})
+
 // Mark all Wildcards in the Actors sidebars with an icon
 Hooks.on('renderActorDirectory', (app, html: JQuery<HTMLElement>, options: any) => {
 	const found = html.find('.entity-name');
 
-	let wildcards: Actor[] = app.entities.filter((a: Actor) => a.data.type === 'character');
+	let wildcards: SwadeActor[] = app.entities.filter((a: Actor) => a.data.type === 'character');
 
 	//if the player is not a GM, then don't mark the NPC wildcards
 	if (!game.settings.get('swade', 'hideNPCWildcards') || options.user.isGM) {
 		wildcards = wildcards.concat(app.entities.filter(a => a.data.type === 'npc' && a.data.data.wildcard));
 	}
 
-	wildcards.forEach((wc: Actor) => {
+	wildcards.forEach((wc: SwadeActor) => {
 		for (let i = 0; i < found.length; i++) {
 			const element = found[i];
 			if (element.innerText === wc.data.name) {
@@ -141,7 +149,7 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 	}
 	const content = await app.getContent();
 	const wildcards = content.filter(
-		(entity: Actor) => entity.data['wildcard']
+		(entity: SwadeActor) => entity.data['wildcard']
 	);
 	const names: string[] = wildcards.map((e) => e.data.name);
 
@@ -155,7 +163,7 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 	});
 });
 
-Hooks.on('updateActor', async (actor: Actor, updateData: any, options: any, userId: string) => {
+Hooks.on('updateActor', async (actor: SwadeActor, updateData: any, options: any, userId: string) => {
 	if (actor.data.type === 'npc') {
 		ui.actors.render();
 	}
@@ -189,7 +197,7 @@ Hooks.on('preUpdateToken', async (scene: Scene, token: any, updateData: any, opt
 	// if the update is effects
 	if (updateData.effects) {
 		if (token.actorLink) { // linked token
-			const tokenActor = game.actors.get(token.actorId) as Actor;
+			const tokenActor = game.actors.get(token.actorId) as SwadeActor;
 
 			await tokenActor.update({
 				'data.status': {
@@ -247,7 +255,7 @@ Hooks.on('preCreateToken', async (scene: Scene, createData: any, options: any, u
 	// return if the token has no linked actor
 	if (!createData.actorLink) return;
 
-	const actor = game.actors.get(createData.actorId) as Actor;
+	const actor = game.actors.get(createData.actorId) as SwadeActor;
 
 	// return if this token has no actor
 	if (!actor) return;
@@ -342,10 +350,4 @@ Hooks.on('renderChatMessage', async (chatMessage: ChatMessage, html: JQuery<HTML
 	if (chatMessage.isRoll && chatMessage.isRollVisible) {
 		await formatRoll(chatMessage, html, data);
 	}
-});
-
-Hooks.on('renderSettingsConfig', (settingsConfig: SettingsConfig, html: JQuery, data: any) => {
-
-
-
 });

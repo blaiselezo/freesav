@@ -26,11 +26,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added Size modifier to sheet
 - Added Roll Raise Button to Damage rolls which automatically applies the extra +1d6 bonus damage for a raise
-- fixed Journal image drop again
+- Player CHaracters will now automatically recieve the core skills.
+- Added FAQ (Thanks to Tenuki Go for getting that started);
 
 ### Fixed
 
 - Fixed a small bug which caused ignored wounds to behave oddly.
+- Fixed duplicates and false naming in the Gear compendia (Thanks to Tenuki Go for getting that done);
+- Fixed Journal image drop again
 
 ## [v0.8.4] 2020-05-17
 
