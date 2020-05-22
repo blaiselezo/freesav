@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.8.6] 2020-05-22
+
+### Fixed
+
+- Fixed Compatability with Foundry v0.6.0
+
 ## [v0.8.5] 2020-05-21
 
 ### Added
