@@ -30,7 +30,7 @@ export class SwadeDice {
       formula: filtered.join(' '),
       data: data,
       rollMode: rollMode,
-      rollModes: CONFIG.rollModes
+      rollModes: CONFIG.Dice.rollModes
     };
 
     let buttons = {
