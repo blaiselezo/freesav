@@ -13,3 +13,7 @@ declare interface BaseEntityData {
 declare interface Die {
   formula: any;
 }
+
+declare interface ChatMessage {
+  isContentVisible: boolean
+}

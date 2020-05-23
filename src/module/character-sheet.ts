@@ -57,6 +57,18 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
   }
 
+  // Override to set resizable initial size
+  async _renderInner(...args: any[]) {
+    const html = await super._renderInner(...args);
+    this.form = html[0];
+    let resizable = (html as JQuery).find('.resizable');
+    resizable.each((_, el) => {
+      let heightDelta = this.position.height - (this.options.height as number);
+      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
+    });
+    return html;
+  }
+
   activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
 
@@ -325,5 +337,15 @@ export class SwadeCharacterSheet extends ActorSheet {
         equipped: !item.data.data.equipped,
       },
     };
+  }
+  
+  async _onResize(event: any) {
+    super._onResize(event);
+    let html = $(event.path);
+    let resizable = html.find('.resizable');
+    resizable.each((_, el) => {
+      let heightDelta = this.position.height - (this.options.height as number);
+      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
+    });
   }
 }

@@ -4,6 +4,10 @@ export const registerCustomHelpers = function () {
         return lh == rh;
     })
 
+    Handlebars.registerHelper('gt', (lh, rh) => {
+        return lh >= rh;
+    })
+
     Handlebars.registerHelper('isEmpty', (element) => {
         if (typeof element === undefined) return true;
         if (Array.isArray(element) && element.length) return false;
@@ -12,7 +16,8 @@ export const registerCustomHelpers = function () {
 
     // Sheet
     Handlebars.registerHelper('localizeSkillAttribute', (attribute) => {
-        return game.i18n.localize(CONFIG.SWADE.attributes[attribute]);
+        if (!attribute) return '';
+        return game.i18n.localize(CONFIG.SWADE.attributes[attribute].short);
     });
 
     Handlebars.registerHelper('modifier', (str) => {

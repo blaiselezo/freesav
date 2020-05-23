@@ -39,24 +39,17 @@
                 </div>
                 <div class="flexrow">
                     <div class="form-group">
+                        <input id="race" name="data.details.species.name" type="text" value="{{data.details.species.name}}"
+                            data-dtype="String" placeholder="{{localize 'SWADE.Race'}}" />
+                    </div>
+                    <div class="form-group">
+                        <input name="data.advances.rank" id="rank-input" type="text" value="{{data.advances.rank}}"
+                            data-dtype="String" placeholder="{{localize 'SWADE.Rank'}}" />
+                    </div>
+                    <div class="form-group">
                         <label for="xp-input">{{localize "SWADE.Adv"}}</label>
                         <input name="data.advances.value" id="xp-input" type="text" value="{{data.advances.value}}"
                             data-dtype="Number" placeholder="0" />
-                    </div>
-                    <div class="form-group">
-                        <label for="pace">{{localize "SWADE.Pace"}}</label>
-                        <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
-                            placeholder="0" data-dtype="Number" />
-                    </div>
-                    <div class="form-group">
-                        <label for="parry">{{localize "SWADE.Parry"}}</label>
-                        <input id="parry" name="data.stats.parry.value" value="{{data.stats.parry.value}}" type="text"
-                            placeholder="0" data-dtype="Number" />
-                    </div>
-                    <div class="form-group">
-                        <label for="toughness">{{localize "SWADE.Tough"}}</label>
-                        <input id="toughness" name="data.stats.toughness.value" type="text"
-                            value="{{data.stats.toughness.value}}" placeholder="0" data-dtype="String" />
                     </div>
                 </div>
             </section>

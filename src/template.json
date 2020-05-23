@@ -165,7 +165,7 @@
       "templates": ["itemDescription", "physicalItem", "equipable"],
       "damage": "",
       "range": "",
-      "rof": 0,
+      "rof": 1,
       "ap": 0,
       "minStr": "",
       "shots": 0

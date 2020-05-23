@@ -358,7 +358,7 @@ Hooks.on('preUpdateCombat', async (combat, updateData, options, userId) => {
 
 // Add roll data to the message for formatting of dice pools
 Hooks.on('renderChatMessage', async (chatMessage: ChatMessage, html: JQuery<HTMLHtmlElement>, data: any) => {
-	if (chatMessage.isRoll && chatMessage.isRollVisible) {
+	if (chatMessage.isRoll && chatMessage.isContentVisible) {
 		await formatRoll(chatMessage, html, data);
 	}
 });

@@ -105,20 +105,31 @@
       padding: 2px;
       //Attributes
       .attributes-list {
-        .attribute + .attribute {
-          border-left: 1px solid $anthracite;
-        }
         .attribute {
           .attribute-label {
             text-align: center;
             font-weight: bold;
           }
           select {
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
             margin: 0 3px;
             height: 28px;
+            text-align: center;
+            text-align-last: center;
+            -moz-text-align-last: center;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: transparent;
+            font-weight: 600;
+            ::-ms-expand {
+              display: none;
+            }
             @extend %standalone-input-field;
           }
           input {
+            text-align: center;
             margin: 0 3px;
             height: 28px;
             @extend %standalone-input-field;
@@ -165,7 +176,18 @@
           .card-header {
             padding: 5px;
             background: rgba(0, 0, 0, 0.2);
-            text-align: center;
+            line-height: 20px;
+            .item-name {
+              margin: 0;
+              text-indent: 20px;
+              font-weight: 600;
+            }
+            .item-image {
+              height: 20px;
+              flex-grow: 0;
+              background-size: contain;
+              flex-basis: 20px;
+            }
           }
           .card-content {
             border-top: $decorative-line;

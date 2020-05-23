@@ -1,21 +1,26 @@
 {{#each data.owned.weapons as |weapon id|}}
 {{#if weapon.data.equipped}}
 <li class="gear-card" data-item-id="{{weapon._id}}">
-    <header class="card-header">
-        <a class="card-name">{{weapon.name}}</a> -
-        <a class="damage-roll">{{localize "SWADE.Dmg"}}: {{weapon.data.damage}}</a>
+    <header class="card-header flexrow">
+        <div class="item-image" style="background-image: url('{{weapon.img}}')"></div>
+        <h4 class="item-name">{{weapon.name}}</h4>
     </header>
     <div class="card-content">
+        {{#unless (isEmpty weapon.data.damage)}}
+        <div>
+            <a class="damage-roll">{{localize "SWADE.Dmg"}}: {{weapon.data.damage}}</a>
+        </div>
+        {{/unless}}
         {{#unless (isEmpty weapon.data.range)}}
         <div>{{localize "SWADE.Rng"}}: {{weapon.data.range}}</div>
         {{/unless}}
         {{#unless (isEmpty weapon.data.shots)}}
         <div>{{localize "SWADE.Mag"}}: {{weapon.data.shots}}</div>
         {{/unless}}
-        {{#unless (isEmpty weapon.data.rof)}}
+        {{#if (gt weapon.data.rof 2)}}
         <div>{{localize "SWADE.RoF"}}: {{weapon.data.rof}}</div>
-        {{/unless}}
-        {{#unless (isEmpty weapon.data.ap)}}
+        {{/if}}
+        {{#unless (eq weapon.data.ap 0)}}
         <div>{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>
         {{/unless}}
         {{#unless (isEmpty weapon.data.notes)}}

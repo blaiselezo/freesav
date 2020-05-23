@@ -84,8 +84,19 @@
   }
 
   // Summary
+  .attributes-container {
+    .secondary {
+      flex-grow: 0;
+      flex-basis: 250px;
+    }
+  }
+
   .skills {
+    flex-basis: 250px;
+    flex-grow: 0;
     .skills-list {
+      height: 350px;
+      overflow: auto;
       .skill-label {
         flex: 2;
         i {
@@ -100,11 +111,15 @@
       .skill-value {
         flex: 1;
       }
+      .skill-attribute {
+        flex-grow: 0;
+        flex-basis: 25px;
+      }
       li {
         > * {
           margin: 0 3px;
           height: 28px;
-          line-height: 24px;
+          line-height: 34px;
           border-bottom: $decorative-line;
         }
         a.attribute-control {
@@ -113,7 +128,23 @@
       }
     }
   }
-
+  .quickaccess-list {
+    height: 350px;
+    overflow: auto;
+    .quickaccess-header {
+      line-height: 24px;
+      h4 {
+        font-weight: 600;
+        text-indent: 10px;
+        margin: 0 0 0.2rem;
+        border-bottom: 1px solid grey;
+      }
+      .header-field-add {
+        flex-grow: 0;
+        flex-basis: 20px;
+      }
+    }
+  }
   // Edges
   .edges {
     .edges-hindrances-list {
@@ -168,7 +199,6 @@
       list-style: none;
       margin: 7px 0;
       padding: 0;
-
       li {
         padding: 0 2px;
         display: grid;
