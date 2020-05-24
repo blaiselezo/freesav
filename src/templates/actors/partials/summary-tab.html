@@ -78,7 +78,7 @@
         <ol class="skills-list resizable" data-base-size="350">
             {{#each data.owned.skills as |skill id|}}
             <li class="item skill flexrow" data-item-id="{{skill._id}}">
-                <label class="skill-label"><a>{{skill.name}}</a></label>
+                <label class="skill-label"><a title="{{localize 'SWADE.Roll'}}">{{skill.name}}</a></label>
                 <div class="skill-value"><span><a class="item-control item-edit"
                             title="{{localize 'SWADE.EditSkill'}}">d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a></span>
                 </div>
@@ -92,40 +92,19 @@
             <div>
                 <span>{{ localize "SWADE.QuickAccess" }}</span>
             </div>
+            <div class="header-field-add">
+                <a class="item-create" data-type="choice" data-equipped="true" data-choices="weapon,power,armor,shield"><i class="fa fa-plus"></i></a>
+            </div>
         </header>
         <div class="quickaccess-list resizable" data-base-size="350">
-            <header class="flexrow quickaccess-header">
-                <div>
-                    <h4>{{ localize "SWADE.Weapons" }}</h4>
-                </div>
-                <div class="header-field-add">
-                    <a class="item-create" data-type="weapon" data-equipped="True"><i class="fa fa-plus"></i></a>
-                </div>
-            </header>
             <ol class="gear-list weapon-list">
                 {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
             </ol>
             {{#if data.hasArcaneBackground}}
-            <header class="flexrow quickaccess-header">
-                <div>
-                    <h4>{{ localize "SWADE.Pow" }}</h4>
-                </div>
-                <div class="header-field-add">
-                    <a class="item-create" data-type="power"><i class="fa fa-plus"></i></a>
-                </div>
-            </header>
             <ol class="gear-list power-list">
                 {{> "systems/swade/templates/actors/partials/powers-card.html"}}
             </ol>
             {{/if}}
-            <header class="flexrow quickaccess-header">
-                <div>
-                    <h4>{{ localize "SWADE.Armor" }}</h4>
-                </div>
-                <div class="header-field-add">
-                    <a class="item-create" data-type="armor" data-equipped="True"><i class="fa fa-plus"></i></a>
-                </div>
-            </header>
             <ol class="gear-list armor-list">
                 {{> "systems/swade/templates/actors/partials/armor-card.html"}}
             </ol>

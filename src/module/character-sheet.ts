@@ -15,7 +15,8 @@ export class SwadeCharacterSheet extends ActorSheet {
       classes: ['swade', 'sheet', 'actor', 'character'],
       width: 600,
       height: 768,
-      tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }]
+      tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }],
+      scrollY: ['.skills .skills-list', '.quickaccess-list', '.inventory .inventory-categories']
     });
   }
 
@@ -25,14 +26,8 @@ export class SwadeCharacterSheet extends ActorSheet {
     return 'systems/swade/templates/actors/character-sheet.html';
   }
 
-  async _chooseItemType() {
-    const types = [
-      'weapon',
-      'armor',
-      'shield',
-      'gear'
-    ];
-    let templateData = {upper: '', lower: '', types: types},
+  async _chooseItemType(choices) {
+    let templateData = {upper: '', lower: '', types: choices},
         dlg = await renderTemplate('templates/sidebar/entity-create.html', templateData);
     //Create Dialog window
     return new Promise(resolve => {
@@ -105,7 +100,7 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
     //Toggle Equipment
-    html.find('.item-equipped').click((ev) => {
+    html.find('.item-toggle').click((ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item: any = this.actor.getOwnedItem(li.data('itemId'));
       this.actor.updateOwnedItem(this._toggleEquipped(li.data('itemId'), item));
@@ -222,7 +217,8 @@ export class SwadeCharacterSheet extends ActorSheet {
 
       // Getting back to main logic
       if (type == 'choice') {
-          this._chooseItemType().then((dialogInput: any) => {
+          const choices = header.dataset.choices.split(',');
+          this._chooseItemType(choices).then((dialogInput: any) => {
             const itemData = createItem(dialogInput.type, dialogInput.name);
             this.actor.createOwnedItem(itemData);
           });
@@ -259,14 +255,14 @@ export class SwadeCharacterSheet extends ActorSheet {
     data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
     //Checks if relevant arrays are not null and combines them into an inventory array
-    data.data.owned.inventory = [
-      ...data.data.owned.gear,
-      ...data.data.owned.weapons,
-      ...data.data.owned.armors,
-      ...data.data.owned.shields,
-    ];
+    data.data.owned.inventory = {
+      gear: data.data.owned.gear,
+      weapons: data.data.owned.weapons,
+      armors: data.data.owned.armors,
+      shields: data.data.owned.shields,
+    };
 
-    data.inventoryWeight = this._calcInventoryWeight(data.data.owned.inventory);
+    data.inventoryWeight = this._calcInventoryWeight(Object.values(data.data.owned.inventory));
     data.maxCarryCapacity = this._calcMaxCarryCapacity(data);
 
     //Checks if an Actor has a Power Egde
@@ -316,10 +312,11 @@ export class SwadeCharacterSheet extends ActorSheet {
 
   private _calcInventoryWeight(items): number {
     let retVal = 0;
-
-    items.forEach((i) => {
-      retVal += i.data.weight * i.data.quantity;
-    });
+    items.forEach((category: any) => {
+      category.forEach((i: any) => {
+        retVal += i.data.weight * i.data.quantity;
+      });  
+    })
     return retVal;
   }
 

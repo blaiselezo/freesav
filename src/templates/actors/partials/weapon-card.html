@@ -8,7 +8,7 @@
     <div class="card-content">
         {{#unless (isEmpty weapon.data.damage)}}
         <div>
-            <a class="damage-roll">{{localize "SWADE.Dmg"}}: {{weapon.data.damage}}</a>
+            <a class="damage-roll" title="{{localize 'SWADE.Roll'}}">{{localize "SWADE.Dmg"}}: {{weapon.data.damage}}</a>
         </div>
         {{/unless}}
         {{#unless (isEmpty weapon.data.range)}}

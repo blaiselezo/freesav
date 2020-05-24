@@ -1,8 +1,9 @@
 {{#each data.owned.shields as |shield id|}}
 {{#if shield.data.equipped}}
 <li class="gear-card ">
-    <header class="card-header">
-        <span>{{shield.name}}</span>
+    <header class="flexrow card-header">
+        <div class="item-image" style="background-image: url('{{shield.img}}')"></div>
+        <h4 class="item-name">{{shield.name}}</h4>
     </header>
     <div class="card-content">
         <div class="flexrow">

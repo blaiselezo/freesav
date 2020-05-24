@@ -193,7 +193,7 @@
       "major": false
     },
     "power": {
-      "templates": ["itemDescription"],
+      "templates": ["itemDescription", "equipable"],
       "rank": "",
       "pp": 0,
       "damage": "",
