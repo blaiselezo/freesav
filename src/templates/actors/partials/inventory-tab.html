@@ -68,7 +68,7 @@
         </div>
     </header>
     {{!-- This is ranged weapons only --}}
-    <li class="item-titles flexrow ranged-columns">
+    <li class="item-titles flexrow">
         <div class="item-name">{{localize "SWADE.Name"}}</div>
         <div class="field-long">{{localize "SWADE.Rng"}}</div>
         <div class="field-long">{{localize "SWADE.Dmg"}}</div>
@@ -77,7 +77,7 @@
         <div class="field-short">{{localize "SWADE.Mag"}}</div>
         <div class="field-short">{{localize "SWADE.Weight"}}</div>
         <div class="item-controls">
-            <a class="item-control item-create" data-type="weapon">
+            <a class="item-control item-create" data-type="weapon" data-range="12/24/48">
                 <i class="fas fa-plus"></i> {{localize "SWADE.Add"}}
             </a>
         </div>
@@ -129,8 +129,7 @@
             <span>{{ localize "SWADE.Armors" }}</span>
         </div>
     </header>
-    {{!-- This is ranged weapons only --}}
-    <li class="item-titles flexrow ranged-columns">
+    <li class="item-titles flexrow">
         <div class="item-name">{{localize "SWADE.Name"}}</div>
         <div class="field-short">{{localize "SWADE.Armor"}}</div>
         <div class="field-short">{{localize "SWADE.MinStrShort"}}</div>
@@ -181,15 +180,14 @@
             <span>{{ localize "SWADE.Shields" }}</span>
         </div>
     </header>
-    {{!-- This is ranged weapons only --}}
-    <li class="item-titles flexrow shield-columns">
+    <li class="item-titles flexrow">
         <div class="item-name">{{localize "SWADE.Name"}}</div>
         <div class="field-short">{{localize "SWADE.Parry"}}</div>
         <div class="field-short">{{localize "SWADE.Cover"}}</div>
         <div class="field-short">{{localize "SWADE.MinStrShort"}}</div>
         <div class="field-short">{{localize "SWADE.Weight"}}</div>
         <div class="item-controls">
-            <a class="item-control item-create" data-type="armor">
+            <a class="item-control item-create" data-type="shield">
                 <i class="fas fa-plus"></i> {{localize "SWADE.Add"}}
             </a>
         </div>
@@ -234,13 +232,13 @@
         </div>
     </header>
     {{!-- This is ranged weapons only --}}
-    <li class="item-titles flexrow gear-columns">
+    <li class="item-titles flexrow">
         <div class="item-name">{{localize "SWADE.Name"}}</div>
         <div class="field-longer">{{localize "SWADE.Notes"}}</div>
         <div class="field-short">{{localize "SWADE.Quantity"}}</div>
         <div class="field-short">{{localize "SWADE.Weight"}}</div>
         <div class="item-controls">
-            <a class="item-control item-create" data-type="armor">
+            <a class="item-control item-create" data-type="gear">
                 <i class="fas fa-plus"></i> {{localize "SWADE.Add"}}
             </a>
         </div>
