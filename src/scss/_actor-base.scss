@@ -114,8 +114,8 @@
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
-            margin: 0 3px;
             height: 28px;
+            text-indent: 2px;
             text-align: center;
             text-align-last: center;
             -moz-text-align-last: center;
@@ -227,17 +227,24 @@
     }
 
     // Powers
+    .power-counter {
+      input {
+        width: 40px;
+      }
+    }
     .powers {
       margin: 3px 0;
       .powers-list {
         display: flex;
         flex-direction: row;
+        align-content: start;
         flex-wrap: wrap;
-
+        overflow: auto;
         .power {
           margin: 2px;
-          flex-grow: 1;
-          flex-basis: 160px;
+          flex-grow: 0;
+          flex-basis: calc(33% - 4px);
+          height: calc(33% - 4px);
           border: $decorative-line;
           border-radius: 2px;
 
@@ -251,7 +258,7 @@
             margin: 0 3px;
             line-height: 24px;
             padding: 5px;
-            max-height: 160px;
+            height: calc(100% - 30px);
             overflow-y: auto;
           }
         }

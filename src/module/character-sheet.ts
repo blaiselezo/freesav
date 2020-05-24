@@ -123,6 +123,18 @@ export class SwadeCharacterSheet extends ActorSheet {
       }
     });
 
+    // Filter power list
+    html.find('.power-filter').change((ev: any) => {
+      const arcane = ev.target.value;
+      html.find('.power').each( (id: number, pow: any) => {
+        if (pow.dataset.arcane == arcane) {
+          pow.style = '';
+        } else {
+          pow.style = 'display:none;';
+        }
+      })
+    })
+
     //Input Synchronization
     html.find('.wound-input').keyup((ev) => {
       html.find('.wound-slider').val($(ev.currentTarget).val());
@@ -233,6 +245,7 @@ export class SwadeCharacterSheet extends ActorSheet {
   getData(): ActorSheetData {
     let data: any = super.getData();
 
+    data.config = CONFIG.SWADE;
     data.itemsByType = {};
     for (const item of data.items) {
       let list = data.itemsByType[item.type];
@@ -253,6 +266,12 @@ export class SwadeCharacterSheet extends ActorSheet {
       data.itemsByType['skill']
     ).sort((a, b) => a.name.localeCompare(b.name));
     data.data.owned.powers = this._checkNull(data.itemsByType['power']);
+    data.arcanes = [];
+    data.itemsByType['power'].forEach((pow: any) => {
+      if (!pow.data.arcane) {pow.data.arcane = game.i18n.localize('SWADE.Default');}
+      if (!data.arcanes.find((el: string) => el == pow.data.arcane)) {
+        data.arcanes.push(pow.data.arcane);
+    }})
 
     //Checks if relevant arrays are not null and combines them into an inventory array
     data.data.owned.inventory = {

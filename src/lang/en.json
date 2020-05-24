@@ -42,6 +42,9 @@
   "SWADE.Ed": "Edit",
   "SWADE.Del": "Delete",
 
+  "SWADE.Arcane": "Arcane",
+  "SWADE.Default": "Default",
+
   "SWADE.Gear": "Gear",
   "SWADE.Weapons": "Weapons",
   "SWADE.MeleeWeapons": "Melee Weapons",

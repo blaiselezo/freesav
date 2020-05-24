@@ -17,3 +17,7 @@ declare interface Die {
 declare interface ChatMessage {
   isContentVisible: boolean
 }
+
+declare interface ItemSheetData {
+  config: any;
+}
