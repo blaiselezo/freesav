@@ -31,16 +31,48 @@
 <powers class="powers-list resizable" data-base-size="510">
     {{#each data.owned.powers as |power id|}}
     <div class="power item" data-item-id="{{power._id}}" {{#unless (eq power.data.arcane "Default" )}} style="display:none;" {{/unless}} data-arcane="{{power.data.arcane}}">
-        <a class="item-edit">
-          <div class="power-header">
-            {{power.name}} - {{power.data.pp}} PP
-          </div>
-        </a>
+        <div class="power-header flexrow">
+            <div class="item-image" style="background-image: url('{{power.img}}')"></div>
+            <h4 class="item-name">{{power.name}}</h4>
+            <div class="item-controls">
+                <a class="item-edit"><i class="fas fa-edit"></i></a>
+            </div>
+        </div>
         <div class="power-content">
-            {{#if power.data.damage.length}}
-            <div>{{localize "SWADE.Dmg"}}: <a class="damage-roll">{{power.data.damage}}</a></div>
-            {{/if}}
-            {{{power.data.description}}}
+            <div class="power-details">
+                <div class="flexrow">
+                    {{#if power.data.rank}}
+                    <div>
+                        {{localize 'SWADE.Rank'}}: {{power.data.rank}}
+                    </div>
+                    {{/if}}
+                    {{#if power.data.pp}}
+                    <div>
+                        {{power.data.pp}} PP
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="flexrow">
+                    {{#if power.data.range}}
+                    <div>
+                        {{localize 'SWADE.Rng'}}: {{power.data.range}}
+                    </div>
+                    {{/if}}
+                    {{#if power.data.duration}}
+                    <div>
+                        {{localize 'SWADE.Dur'}}: {{power.data.duration}}
+                    </div>
+                    {{/if}}
+                </div>
+                {{#if power.data.damage.length}}
+                <div>
+                    {{localize 'SWADE.Dmg'}}: <a class="damage-roll">{{power.data.damage}}</a>
+                </div>
+                {{/if}}
+            </div>
+            <div class="power-description">
+                {{{power.data.description}}}
+            </div>
         </div>
     </div>
     {{/each}}

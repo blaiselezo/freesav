@@ -153,6 +153,9 @@
         list-style: none;
         margin: 0;
         padding: 0;
+        .skill:nth-child(even) {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
       }
     }
 
@@ -243,16 +246,30 @@
         .power {
           margin: 2px;
           flex-grow: 0;
-          flex-basis: calc(33% - 4px);
-          height: calc(33% - 4px);
+          flex-basis: calc(50% - 4px);
+          height: calc(50% - 4px);
           border: $decorative-line;
           border-radius: 2px;
 
           .power-header {
-            padding: 5px;
             background: rgba(0, 0, 0, 0.05);
             border-bottom: $decorative-line;
-            text-align: center;
+            h4 {
+              margin: 0;
+              padding: 5px;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+            .item-image {
+              flex-grow: 0;
+              flex-basis: 30px;
+              background-size: cover;
+            }
+            .item-controls {
+              padding: 5px;
+              flex-grow: 0;
+              flex-basis: 20px;
+            }
           }
           .power-content {
             margin: 0 3px;
@@ -260,6 +277,15 @@
             padding: 5px;
             height: calc(100% - 30px);
             overflow-y: auto;
+            .power-details {
+              font-size: 12px;
+              line-height: 12px;
+              font-weight: 600;
+              text-indent: 5px;
+            }
+            .power-description {
+              line-height: 15px;
+            }
           }
         }
       }

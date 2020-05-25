@@ -266,6 +266,7 @@ export class SwadeCharacterSheet extends ActorSheet {
       data.itemsByType['skill']
     ).sort((a, b) => a.name.localeCompare(b.name));
     data.data.owned.powers = this._checkNull(data.itemsByType['power']);
+    
     data.arcanes = [];
     data.itemsByType['power'].forEach((pow: any) => {
       if (!pow.data.arcane) {pow.data.arcane = game.i18n.localize('SWADE.Default');}

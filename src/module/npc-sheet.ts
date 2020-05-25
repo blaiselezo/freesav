@@ -54,7 +54,7 @@ export class SwadeNPCSheet extends ActorSheet {
         });
       }
 
-    activateListeners(html): void {
+    activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
         // Everything below here is only needed if the sheet is editable
@@ -80,6 +80,18 @@ export class SwadeNPCSheet extends ActorSheet {
             this.actor.deleteOwnedItem(li.data('itemId'));
             li.slideUp(200, () => this.render(false));
         });
+
+        // Filter power list
+        html.find('.power-filter').change((ev: any) => {
+            const arcane = ev.target.value;
+            html.find('.power').each( (id: number, pow: any) => {
+              if (pow.dataset.arcane == arcane) {
+                pow.style = '';
+              } else {
+                pow.style = 'display:none;';
+              }
+            })
+        })
 
         //Add Benny
         html.find('.benny-add').click(() => {
@@ -114,7 +126,7 @@ export class SwadeNPCSheet extends ActorSheet {
         });
 
         // Roll attribute
-        html.find('.attribute-label a').click((event: Event) => {
+        html.find('.attribute-label a').click((event: any) => {
             let actorObject = this.actor as SwadeActor;
             let element = event.currentTarget as Element;
             let attribute = element.parentElement.parentElement.dataset.attribute;
@@ -194,6 +206,13 @@ export class SwadeNPCSheet extends ActorSheet {
         data.data.owned.hindrances = this._checkNull(data.itemsByType['hindrance']);
         data.data.owned.skills = this._checkNull(data.itemsByType['skill']).sort((a, b) => a.name.localeCompare(b.name));
         data.data.owned.powers = this._checkNull(data.itemsByType['power']);
+
+        data.arcanes = [];
+        data.itemsByType['power'].forEach((pow: any) => {
+          if (!pow.data.arcane) {pow.data.arcane = game.i18n.localize('SWADE.Default');}
+          if (!data.arcanes.find((el: string) => el == pow.data.arcane)) {
+            data.arcanes.push(pow.data.arcane);
+        }})
 
         //Checks if an Actor has a Power Egde
         if (data.data.owned.edges && data.data.owned.edges.find(edge => edge.data.isArcaneBackground == true)) {
