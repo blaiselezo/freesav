@@ -126,11 +126,20 @@ export class SwadeCharacterSheet extends ActorSheet {
     // Filter power list
     html.find('.power-filter').change((ev: any) => {
       const arcane = ev.target.value;
+      // Show, hide powers
       html.find('.power').each( (id: number, pow: any) => {
         if (pow.dataset.arcane == arcane) {
           pow.style = '';
         } else {
           pow.style = 'display:none;';
+        }
+      })
+      // Show, Hide powerpoints
+      html.find('.power-counter').each( (id: number, ct: any) => {
+        if (ct.dataset.arcane == arcane) {
+          ct.style = '';
+        } else {
+          ct.style = 'display:none;';
         }
       })
     })
@@ -267,13 +276,23 @@ export class SwadeCharacterSheet extends ActorSheet {
     ).sort((a, b) => a.name.localeCompare(b.name));
     data.data.owned.powers = this._checkNull(data.itemsByType['power']);
     
-    data.arcanes = [];
-    data.itemsByType['power'].forEach((pow: any) => {
-      if (!pow.data.arcane) {pow.data.arcane = game.i18n.localize('SWADE.Default');}
-      if (!data.arcanes.find((el: string) => el == pow.data.arcane)) {
-        data.arcanes.push(pow.data.arcane);
-    }})
 
+    const defaultName = game.i18n.localize('SWADE.Default');
+    data.arcanes = [];
+    const powers = data.itemsByType['power'];
+    if (powers) {
+        powers.forEach((pow: any) => {
+        if (!pow.data.arcane) {pow.data.arcane = defaultName;}
+        if (!data.arcanes.find((el: string) => el == pow.data.arcane)) {
+          data.arcanes.push(pow.data.arcane);
+          // Add powerpoints data relevant to the detected arcane
+          if (!data.data.powerPoints[pow.data.arcane]) {
+            data.data.powerPoints[pow.data.arcane] = {value: 0, max: 0};
+          }
+        }
+      })
+    }
+    
     //Checks if relevant arrays are not null and combines them into an inventory array
     data.data.owned.inventory = {
       gear: data.data.owned.gear,
@@ -299,7 +318,6 @@ export class SwadeCharacterSheet extends ActorSheet {
 
     // Check for enabled optional rules
     this.actor.setFlag('swade', 'enableConviction', game.settings.get('swade', 'enableConviction'));
-
     return data;
   }
 

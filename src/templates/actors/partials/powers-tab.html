@@ -15,14 +15,18 @@
                 {{/each}}
             </select>
         </div>
-        <div class="power-counter">
-            <label for="data.powerPoints.value">{{localize "SWADE.PP"}}</label>
-            <input name="data.powerPoints.value" type="text" value="{{data.powerPoints.value}}"
+        {{#each arcanes as |arcane id|}}
+        <div class="power-counter"  {{#unless (eq arcane (localize "SWADE.Default") )}} style="display:none;" {{/unless}} data-arcane="{{arcane}}">
+            {{#with (lookup ../data.powerPoints arcane)}}
+            <label for="data.powerPoints.{{arcane}}.value">{{localize "SWADE.PP"}}</label>
+            <input name="data.powerPoints.{{arcane}}.value" type="text" value="{{value}}"
                 placeholder="{{localize 'SWADE.CurPP'}}" data-dtype="Number" />
             <span>/</span>
-            <input name="data.powerPoints.max" type="text" value="{{data.powerPoints.max}}"
+            <input name="data.powerPoints.{{arcane}}.max" type="text" value="{{max}}"
                 placeholder="{{localize 'SWADE.MaxPP'}}" data-dtype="Number" />
+            {{/with}}
         </div>
+        {{/each}}
         <div class="header-field-add">
             <a class="item-create" data-type="power"><i class="fa fa-plus"></i></a>
         </div>
@@ -30,7 +34,7 @@
 </div>
 <powers class="powers-list resizable" data-base-size="510">
     {{#each data.owned.powers as |power id|}}
-    <div class="power item" data-item-id="{{power._id}}" {{#unless (eq power.data.arcane "Default" )}} style="display:none;" {{/unless}} data-arcane="{{power.data.arcane}}">
+    <div class="power item" data-item-id="{{power._id}}" {{#unless (eq power.data.arcane (localize "SWADE.Default") )}} style="display:none;" {{/unless}} data-arcane="{{power.data.arcane}}">
         <div class="power-header flexrow">
             <div class="item-image" style="background-image: url('{{power.img}}')"></div>
             <h4 class="item-name">{{power.name}}</h4>

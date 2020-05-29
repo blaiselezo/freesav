@@ -75,12 +75,7 @@
           },
           "currency": 500
         },
-        "powerPoints": {
-          "value": 0,
-          "min": 0,
-          "max": 0,
-          "arcanes": []
-        },
+        "powerPoints": {},
         "fatigue": {
           "value": 0,
           "min": 0,
