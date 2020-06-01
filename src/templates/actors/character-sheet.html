@@ -22,23 +22,6 @@
             <section class="header-stats">
                 <div class="flexrow">
                     <div class="form-group">
-                        <input type="checkbox" name="data.status.isShaken" id="data.status.isShaken-{{actor._id}}"
-                            {{checked actor.data.status.isShaken}}>
-                        <label for="data.status.isShaken-{{actor._id}}">{{localize "SWADE.Shaken"}}</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="data.status.isDistracted"
-                            id="data.status.isDistracted-{{actor._id}}" {{checked actor.data.status.isDistracted}}>
-                        <label for="data.status.isDistracted-{{actor._id}}">{{localize "SWADE.Distr"}}</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="data.status.isVulnerable"
-                            id="data.status.isVulnerable-{{actor._id}}" {{checked actor.data.status.isVulnerable}}>
-                        <label for="data.status.isVulnerable-{{actor._id}}">{{localize "SWADE.Vuln"}}</label>
-                    </div>
-                </div>
-                <div class="flexrow">
-                    <div class="form-group">
                         <input id="race" name="data.details.species.name" type="text" value="{{data.details.species.name}}"
                             data-dtype="String" placeholder="{{localize 'SWADE.Race'}}" />
                     </div>

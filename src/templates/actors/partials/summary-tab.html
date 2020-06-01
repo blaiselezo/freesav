@@ -3,7 +3,7 @@
         <strong>{{localize "SWADE.Fatigue"}}</strong>
         <input type="range" name="data.fatigue.value" min="0" max="{{data.fatigue.max}}" class="slider fatigue-slider"
             value="{{data.fatigue.value}}" />
-        <div class="flexrow">
+        <div class="flexrow vitals-value">
             <input type="text" value="{{data.fatigue.value}}" data-dtype="Number" class="fatigue-input" />
             <span>/</span>
             <input type="text" name="data.fatigue.max" value="{{data.fatigue.max}}" data-dtype="Number" />
@@ -28,10 +28,27 @@
         <strong>{{localize "SWADE.Wounds"}}</strong>
         <input type="range" name="data.wounds.value" min="0" max="{{data.wounds.max}}" class="slider wound-slider"
             value="{{data.wounds.value}}" data-dtype="Number" />
-        <div class="flexrow">
+        <div class="flexrow vitals-value">
             <input type="text" value="{{data.wounds.value}}" data-dtype="Number" class="wound-input" />
             <span>/</span>
             <input type="text" name="data.wounds.max" value="{{data.wounds.max}}" data-dtype="Number" />
+        </div>
+    </div>
+    <div class="status-container">
+        <div class="status-item">
+            <input type="checkbox" name="data.status.isShaken" id="data.status.isShaken-{{actor._id}}"
+                {{checked actor.data.status.isShaken}}>
+            <label for="data.status.isShaken-{{actor._id}}">{{localize "SWADE.Shaken"}}</label>
+        </div>
+        <div class="status-item">
+            <input type="checkbox" name="data.status.isDistracted"
+                id="data.status.isDistracted-{{actor._id}}" {{checked actor.data.status.isDistracted}}>
+            <label for="data.status.isDistracted-{{actor._id}}">{{localize "SWADE.Distr"}}</label>
+        </div>
+        <div class="status-item">
+            <input type="checkbox" name="data.status.isVulnerable"
+                id="data.status.isVulnerable-{{actor._id}}" {{checked actor.data.status.isVulnerable}}>
+            <label for="data.status.isVulnerable-{{actor._id}}">{{localize "SWADE.Vuln"}}</label>
         </div>
     </div>
 </section>
@@ -75,7 +92,7 @@
                 <a class="item-create" data-type="skill"><i class="fa fa-plus"></i></a>
             </div>
         </header>
-        <ol class="skills-list resizable" data-base-size="350">
+        <ol class="skills-list resizable" data-base-size="385">
             {{#each data.owned.skills as |skill id|}}
             <li class="item skill flexrow" data-item-id="{{skill._id}}">
                 <label class="skill-label"><a title="{{localize 'SWADE.Roll'}}">{{skill.name}}</a></label>
@@ -96,7 +113,7 @@
                 <a class="item-create" data-type="choice" data-equipped="true" data-choices="weapon,power,armor,shield"><i class="fa fa-plus"></i></a>
             </div>
         </header>
-        <div class="quickaccess-list resizable" data-base-size="350">
+        <div class="quickaccess-list resizable" data-base-size="385">
             <ol class="gear-list weapon-list">
                 {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
             </ol>

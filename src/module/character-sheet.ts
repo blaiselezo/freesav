@@ -56,6 +56,8 @@ export class SwadeCharacterSheet extends ActorSheet {
   async _renderInner(...args: any[]) {
     const html = await super._renderInner(...args);
     this.form = html[0];
+
+    // Resize resizable classes
     let resizable = (html as JQuery).find('.resizable');
     resizable.each((_, el) => {
       let heightDelta = this.position.height - (this.options.height as number);

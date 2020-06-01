@@ -32,7 +32,7 @@
         </div>
     </div>
 </div>
-<powers class="powers-list resizable" data-base-size="510">
+<powers class="powers-list resizable" data-base-size="545">
     {{#each data.owned.powers as |power id|}}
     <div class="power item" data-item-id="{{power._id}}" {{#unless (eq power.data.arcane (localize "SWADE.Default") )}} style="display:none;" {{/unless}} data-arcane="{{power.data.arcane}}">
         <div class="power-header flexrow">

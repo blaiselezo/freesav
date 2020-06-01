@@ -208,11 +208,15 @@ export class SwadeNPCSheet extends ActorSheet {
         data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
         data.arcanes = [];
-        data.itemsByType['power'].forEach((pow: any) => {
-          if (!pow.data.arcane) {pow.data.arcane = game.i18n.localize('SWADE.Default');}
-          if (!data.arcanes.find((el: string) => el == pow.data.arcane)) {
-            data.arcanes.push(pow.data.arcane);
-        }})
+      
+        let powers = data.itemsByType['power'];
+        if (powers) {
+          powers.forEach((pow: any) => {
+            if (!pow.data.arcane) {pow.data.arcane = game.i18n.localize('SWADE.Default');}
+            if (!data.arcanes.find((el: string) => el == pow.data.arcane)) {
+              data.arcanes.push(pow.data.arcane);
+          }})
+        }
 
         //Checks if an Actor has a Power Egde
         if (data.data.owned.edges && data.data.owned.edges.find(edge => edge.data.isArcaneBackground == true)) {

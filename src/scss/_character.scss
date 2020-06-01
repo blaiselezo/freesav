@@ -9,6 +9,9 @@
   .vitals {
     height: 72px;
     .bennies {
+      flex-grow: 0;
+      flex-basis: 100px;
+      padding: 0 10px;
       i {
         padding-top: 24px;
       }
@@ -28,8 +31,21 @@
       }
     }
 
+    .status-container {
+      flex-grow: 0;
+      flex-basis: 100px;
+      display: flex;
+      flex-direction: column;
+      .status-item {
+        padding: 4px;
+      }
+    }
+
     .vitals-container {
-      padding: 3px 0;
+      padding: 3px;
+      .vitals-value {
+        padding: 0 10px;
+      }
 
       .slider {
         -webkit-appearance: none; /* Override default CSS styles */
@@ -99,6 +115,7 @@
       overflow: auto;
       .skill-label {
         flex: 2;
+        overflow: hidden;
         i {
           display: none;
         }
