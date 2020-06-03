@@ -4,10 +4,11 @@ import { SwadeActor } from './entity';
 import { SwadeItem } from './item-entity';
 
 export class SwadeCharacterSheet extends ActorSheet {
+  
   /* -------------------------------------------- */
 
   /**
-   * Extend and override the default options used by the 5e Actor Sheet
+   * Extend and override the default options used by the Actor Sheet
    * @returns {Object}
    */
   static get defaultOptions() {
@@ -16,7 +17,8 @@ export class SwadeCharacterSheet extends ActorSheet {
       width: 600,
       height: 768,
       tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }],
-      scrollY: ['.skills .skills-list', '.quickaccess-list', '.inventory .inventory-categories']
+      scrollY: ['.skills .skills-list', '.quickaccess-list', '.inventory .inventory-categories'],
+      activeArcane: 'All'
     });
   }
 
@@ -63,7 +65,33 @@ export class SwadeCharacterSheet extends ActorSheet {
       let heightDelta = this.position.height - (this.options.height as number);
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
+    
+    // Filter power list
+    const arcane = !this.options.arcaneActive ? 'All' : this.options.arcaneActive;
+    (html as JQuery).find('.arcane-tabs .arcane').removeClass('active');
+    (html as JQuery).find(`[data-arcane='${arcane}']`).addClass('active');
+    this._filterPowers(html as JQuery, arcane);
     return html;
+  }
+
+  _filterPowers(html: JQuery, arcane: string) {
+    this.options.activeArcane = arcane;
+    // Show, hide powers
+    html.find('.power').each( (id: number, pow: any) => {
+      if (pow.dataset.arcane == arcane || arcane == 'All') {
+        pow.style = '';
+      } else {
+        pow.style = 'display:none;';
+      }
+    })
+    // Show, Hide powerpoints
+    html.find('.power-counter').each( (id: number, ct: any) => {
+      if (ct.dataset.arcane == arcane) {
+        ct.style = '';
+      } else {
+        ct.style = 'display:none;';
+      }
+    })
   }
 
   activateListeners(html: JQuery<HTMLElement>) {
@@ -112,9 +140,9 @@ export class SwadeCharacterSheet extends ActorSheet {
     html.find('.card-name').click((ev) => {
       const card = $(ev.currentTarget).parents('.gear-card');
       const content = card.find('.card-content');
-      const cardId = card.data('item-id');
+      // const cardId = card.data('item-id');
 
-      const isCollapsed = this.actor.getFlag('swade', cardId);
+      // const isCollapsed = this.actor.getFlag('swade', cardId);
       content.toggleClass('collapsed');
       if (content.hasClass('collapsed')) {
         //content.slideUp('200', () => this.actor.setFlag('swade', cardId, !this.actor.getFlag('swade', cardId)));
@@ -126,24 +154,11 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
     // Filter power list
-    html.find('.power-filter').change((ev: any) => {
-      const arcane = ev.target.value;
-      // Show, hide powers
-      html.find('.power').each( (id: number, pow: any) => {
-        if (pow.dataset.arcane == arcane) {
-          pow.style = '';
-        } else {
-          pow.style = 'display:none;';
-        }
-      })
-      // Show, Hide powerpoints
-      html.find('.power-counter').each( (id: number, ct: any) => {
-        if (ct.dataset.arcane == arcane) {
-          ct.style = '';
-        } else {
-          ct.style = 'display:none;';
-        }
-      })
+    html.find('.arcane-tabs .arcane').click((ev: any) => {
+      const arcane = ev.currentTarget.dataset.arcane;
+      html.find('.arcane-tabs .arcane').removeClass('active');
+      ev.currentTarget.classList.add('active');
+      this._filterPowers(html, arcane);
     })
 
     //Input Synchronization
@@ -278,23 +293,23 @@ export class SwadeCharacterSheet extends ActorSheet {
     ).sort((a, b) => a.name.localeCompare(b.name));
     data.data.owned.powers = this._checkNull(data.itemsByType['power']);
     
-
-    const defaultName = game.i18n.localize('SWADE.Default');
+    // Display the current active arcane
+    data.activeArcane = this.options.activeArcane
     data.arcanes = [];
     const powers = data.itemsByType['power'];
     if (powers) {
         powers.forEach((pow: any) => {
-        if (!pow.data.arcane) {pow.data.arcane = defaultName;}
-        if (!data.arcanes.find((el: string) => el == pow.data.arcane)) {
+        if (pow.data.arcane === '') return;
+        if (data.arcanes.find((el: string) => el == pow.data.arcane) === undefined) {
           data.arcanes.push(pow.data.arcane);
           // Add powerpoints data relevant to the detected arcane
-          if (!data.data.powerPoints[pow.data.arcane]) {
+          if (data.data.powerPoints[pow.data.arcane] === undefined) {
             data.data.powerPoints[pow.data.arcane] = {value: 0, max: 0};
           }
         }
       })
     }
-    
+
     //Checks if relevant arrays are not null and combines them into an inventory array
     data.data.owned.inventory = {
       gear: data.data.owned.gear,
