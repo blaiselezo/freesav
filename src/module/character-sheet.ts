@@ -67,7 +67,7 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
     
     // Filter power list
-    const arcane = !this.options.arcaneActive ? 'All' : this.options.arcaneActive;
+    const arcane = !this.options.activeArcane ? 'All' : this.options.activeArcane;
     (html as JQuery).find('.arcane-tabs .arcane').removeClass('active');
     (html as JQuery).find(`[data-arcane='${arcane}']`).addClass('active');
     this._filterPowers(html as JQuery, arcane);
@@ -79,17 +79,17 @@ export class SwadeCharacterSheet extends ActorSheet {
     // Show, hide powers
     html.find('.power').each( (id: number, pow: any) => {
       if (pow.dataset.arcane == arcane || arcane == 'All') {
-        pow.style = '';
+        pow.classList.add('active');
       } else {
-        pow.style = 'display:none;';
+        pow.classList.remove('active');
       }
     })
     // Show, Hide powerpoints
     html.find('.power-counter').each( (id: number, ct: any) => {
       if (ct.dataset.arcane == arcane) {
-        ct.style = '';
+        ct.classList.add('active');
       } else {
-        ct.style = 'display:none;';
+        ct.classList.remove('active');
       }
     })
   }

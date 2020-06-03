@@ -323,5 +323,19 @@
         }
       }
     }
+    .power-counter {
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+    .powers-list {
+      .power {
+        display: none;
+        &.active {
+          display: block;
+        }
+      }
+    }
   }
 }
