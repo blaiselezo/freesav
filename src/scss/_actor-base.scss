@@ -31,7 +31,6 @@
 
     //Actor Name
     .charline {
-      height: 51px;
       width: 100%;
       display: inline-flex;
       .charname {
@@ -60,19 +59,33 @@
       justify-content: space-evenly;
       flex: 1;
       padding: 5px 0px;
+      input {
+        background: none;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+        }
+      }
     }
 
     .header-stats {
       align-content: space-around;
       padding-left: 0;
-
+      #xp-input {
+        margin-left: 2px;
+        text-align: center;
+      }
       div {
         border: 1px solid transparent;
         margin: 2px 0;
         padding: 0 3px;
         justify-content: center;
         label {
-          padding-left: 3px;
+          padding: 0 20px 0 2px;
         }
       }
     }
@@ -87,7 +100,7 @@
     //Editor
     .editor {
       border: $section-border;
-      height: 300px;
+      border-top: none;
       width: 100%;
     }
 
@@ -104,17 +117,18 @@
       padding: 2px;
       //Attributes
       .attributes-list {
+        margin-top: 4px;
         .attribute {
           .attribute-label {
             text-align: center;
             font-weight: bold;
           }
           select {
+            border: none;
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
             height: 28px;
-            text-indent: 2px;
             text-align: center;
             text-align-last: center;
             -moz-text-align-last: center;
@@ -291,6 +305,20 @@
     }
 
     .biography {
+      .advances {
+        padding: 2px;
+        margin: 5px 0;
+        .editor {
+          height: 165px;
+          padding: 3px;
+        }
+      }
+      .description {
+        .editor {
+          height: 350px;
+          padding: 3px;
+        }
+      }
     }
   }
 }

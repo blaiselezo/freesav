@@ -33,7 +33,7 @@
         </div>
     </div>
 </div>
-<powers class="powers-list resizable" data-base-size="535">
+<powers class="powers-list resizable" data-base-size="545">
     {{#each data.owned.powers as |power id|}}
     <div class="power item" data-item-id="{{power._id}}" data-arcane="{{power.data.arcane}}">
         <div class="power-header flexrow">
@@ -76,7 +76,7 @@
                 {{/if}}
             </div>
             <div class="power-description">
-                {{{power.data.description}}}
+                {{enrich power.data.description}}
             </div>
         </div>
     </div>

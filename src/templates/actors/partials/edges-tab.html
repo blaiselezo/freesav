@@ -1,5 +1,5 @@
 <div class="flexrow">
-    <div class="edges-hindrances-list resizable" data-base-size="585">
+    <div class="edges-hindrances-list">
         <header class="header-field flexrow">
             <div>
                 <span>{{localize "SWADE.Hindrances"}}</span>
@@ -8,7 +8,7 @@
                 <a class="item-create" data-type="hindrance"><i class="fa fa-plus"></i></a>
             </div>
         </header>
-        <ol class="items-list">
+        <ol class="hindrances items-list">
             {{#each data.owned.hindrances as |hindrance id|}}
             <li class="item flexrow" data-item-id="{{hindrance._id}}">
                 <img src="{{hindrance.img}}" title="{{hindrance.name}}" width="24" height="24" />
@@ -34,7 +34,7 @@
                 <a class="item-create" data-type="edge"><i class="fa fa-plus"></i></a>
             </div>
         </header>
-        <ol class="items-list">
+        <ol class="edges items-list resizable" data-base-size="395">
             {{#each data.owned.edges as |edge id|}}
             <li class="item flexrow" data-item-id="{{edge._id}}">
                 <img src="{{edge.img}}" title="{{edge.name}}" width="24" height="24" />
@@ -51,6 +51,6 @@
         <header class="header-field">
            <span>{{localize "SWADE.Desc"}}</span>
         </header>
-        <p class="description-value resizable" id="edge-description" data-base-size="535"></p>
+        <p class="description-value resizable" id="edge-description" data-base-size="545"></p>
     </div>
 </div>

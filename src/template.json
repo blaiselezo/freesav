@@ -89,7 +89,8 @@
         },
         "advances": {
           "value": 0,
-          "rank": "Novice"
+          "rank": "Novice",
+          "details": ""
         },
         "bennies": {
           "value": 3,

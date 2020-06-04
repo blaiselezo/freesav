@@ -10,6 +10,7 @@
   "SWADE.Pow": "Powers",
   "SWADE.Wildcard": "Wildcard",
   "SWADE.Extra": "Extra",
+  "SWADE.BenniesMax": "Bennies Reset",
   "SWADE.Bennies": "Bennies",
   "SWADE.Shaken": "Shaken",
   "SWADE.Distr": "Distracted",
@@ -18,7 +19,7 @@
   "SWADE.SkillTest": "Skill test",
   "SWADE.AttributeTest": "Attribute test",
   "SWADE.Attributes": "Attributes",
-  "SWADE.Secondaries": "Secondary",
+  "SWADE.Derived": "Derived Stats",
   "SWADE.AttrAgi": "Agility",
   "SWADE.AttrSma": "Smarts",
   "SWADE.AttrSpr": "Spirit",
@@ -43,7 +44,7 @@
   "SWADE.Del": "Delete",
 
   "SWADE.Arcane": "Arcane",
-  "SWADE.Default": "Default",
+  "SWADE.HasPowers": "Has Powers",
 
   "SWADE.Gear": "Gear",
   "SWADE.Weapons": "Weapons",
@@ -95,9 +96,12 @@
 
   "SWADE.Wound": "Wound",
   "SWADE.Wounds": "Wounds",
+  "SWADE.WoundsMax": "Max Wounds",
   "SWADE.Fatigue": "Fatigue",
+  "SWADE.FatigueMax": "Max Fatigue",
   "SWADE.Incap": "Incapacitated!",
 
+  "SWADE.Init": "Initiative",
   "SWADE.InitDraw": "draws for Initiative!",
   "SWADE.JokersWild": "gets Joker's Wild!",
 

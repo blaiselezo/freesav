@@ -2,6 +2,7 @@
 import { SwadeActor } from './entity';
 // eslint-disable-next-line no-unused-vars
 import { SwadeItem } from './item-entity';
+import { SwadeEntityTweaks } from './dialog/entity-tweaks';
 
 export class SwadeCharacterSheet extends ActorSheet {
   
@@ -20,6 +21,44 @@ export class SwadeCharacterSheet extends ActorSheet {
       scrollY: ['.skills .skills-list', '.quickaccess-list', '.inventory .inventory-categories'],
       activeArcane: 'All'
     });
+  }
+
+  _createEditor(target, editorOptions, initialContent) {
+    // remove some controls to the editor as the space is lacking
+    if (target == 'data.advances.details') {
+      editorOptions.toolbar = 'styleselect bullist hr table removeFormat save';
+    }
+    super._createEditor(target, editorOptions, initialContent);
+  }
+
+  _onConfigureActor(event: Event) {
+    event.preventDefault();
+    new SwadeEntityTweaks(this.actor, {
+      top: this.position.top + 40,
+      left: this.position.left + ((this.position.width - 400) / 2)
+    }).render(true);
+  }
+
+  /**
+   * Extend and override the sheet header buttons
+   * @override
+   */
+  _getHeaderButtons() {
+    let buttons = super._getHeaderButtons();
+
+    // Token Configuration
+    const canConfigure = game.user.isGM || this.actor.owner;
+    if (this.options.editable && canConfigure) {
+      buttons = [
+        {
+          label: 'Tweaks',
+          class: 'configure-actor',
+          icon: 'fas fa-dice',
+          onclick: ev => this._onConfigureActor(ev)
+        }
+       ].concat(buttons);
+    }
+    return buttons
   }
 
   get template() {
@@ -126,7 +165,7 @@ export class SwadeCharacterSheet extends ActorSheet {
     html.find('.edge').click((ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item: any = this.actor.getOwnedItem(li.data('itemId')).data;
-      html.find('#edge-description')[0].innerHTML = item.data.description;
+      html.find('#edge-description')[0].innerHTML = TextEditor.enrichHTML(item.data.description, {});
     });
 
     //Toggle Equipment
@@ -202,12 +241,6 @@ export class SwadeCharacterSheet extends ActorSheet {
         await new Roll('1d6x=').roll().toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), flavor: game.i18n.localize('SWADE.UseConv') });
         this.actor.setFlag('swade', 'convictionReady', false);
       }
-    });
-
-    //Configre initiative Edges/Hindrances
-    html.find('#initConfigButton').click(() => {
-      let actorObject = this.actor as SwadeActor;
-      actorObject.configureInitiative();
     });
 
     // Roll attribute

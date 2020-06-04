@@ -3,7 +3,7 @@
     width: 200px;
     max-width: 200px;
     height: 200px;
-    margin-right: 2px;
+    margin: 2px;
   }
 
   .vitals {
@@ -19,6 +19,7 @@
         input {
           @extend %standalone-input-field;
           text-align: center;
+          border-radius: 0;
         }
         .bennies-current {
           font-size: 26px;
@@ -164,12 +165,15 @@
   // Edges
   .edges {
     .edges-hindrances-list {
-      margin: 5px 0;
+      margin: 5px 0 0;
       padding: 2px;
-      overflow: auto;
+      .hindrances {
+        height: 120px;
+      }
       .items-list {
+        overflow: auto;
         list-style: none;
-        margin: 7px 0;
+        margin: 0 0 7px;
         padding: 0;
         .item {
           height: 30px;
@@ -206,7 +210,9 @@
   // Inventory
   .inventory {
     margin: 3px 0;
-
+    .inventory-info {
+      line-height: 30px;
+    }
     .currency {
       display: inline;
       vertical-align: top;
@@ -224,13 +230,18 @@
       }
       .item-titles {
         text-align: center;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+        margin-top: 1px;
+        padding-top: 2px;
         .item-name {
           text-align: left;
           text-indent: 8px;
         }
-        font-weight: 600;
+        font-weight: 300;
         font-size: 12px;
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.75);
+        color: white;
       }
       .item-list {
         list-style: none;
@@ -246,6 +257,8 @@
         }
         .item {
           line-height: 30px;
+          height: 30px;
+          overflow: hidden;
           &:nth-child(even) {
             background: rgba(0, 0, 0, 0.1);
           }

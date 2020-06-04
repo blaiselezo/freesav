@@ -9,10 +9,10 @@ $section-border: 1px groove $anthracite;
 
 %header-field {
   padding: 5px;
-  margin-bottom: 5px;
   background: $light-grey;
   border: $decorative-line;
-  border-radius: 2px;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
   text-align: center;
   font-weight: bold;
   .header-field-add {
@@ -25,6 +25,6 @@ $section-border: 1px groove $anthracite;
   //background: #a1b3c9;
   //background: rgba(255, 255, 255, 0.2);
   background: rgba(0, 0, 0, 0.1);
-  border: 1px solid transparent;
-  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
 }

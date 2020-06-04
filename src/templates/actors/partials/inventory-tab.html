@@ -1,4 +1,4 @@
-<div class="flexrow">
+<div class="flexrow inventory-info">
     <span>{{localize "SWADE.CarryWeight"}} <span style="font-weight: bold;">{{inventoryWeight}} /
             {{maxCarryCapacity}}</span></span>
     <div class="currency">
@@ -7,24 +7,17 @@
             placeholder="{{localize 'SWADE.Currency'}}" data-dtype="Number" />
     </div>
 </div>
-<div class="inventory-categories resizable" data-base-size="555">
+<div class="inventory-categories resizable" data-base-size="565">
 {{!-- This is melee weapons only --}}
 <div class="items-section"> 
-    <header class="header-field flexrow">
-        <div>
-            <span>{{ localize "SWADE.MeleeWeapons" }}</span>
-        </div>
-        <div class="header-field-add">
-            <a class="item-create" data-type="weapon"><i class="fa fa-plus"></i></a>
-        </div>
-    </header>
     <li class="item-titles flexrow melee-columns">
-        <div class="item-name">{{localize "SWADE.Name"}}</div>
+        <div class="item-name">{{localize "SWADE.MeleeWeapons"}}</div>
         <div class="field-long">{{localize "SWADE.Dmg"}}</div>
         <div class="field-short">{{localize "SWADE.Ap"}}</div>
         <div class="field-longer">{{localize "SWADE.Notes"}}</div>
         <div class="field-short">{{localize "SWADE.Weight"}}</div>
         <div class="item-controls">
+            <a class="item-create" data-type="weapon"><i class="fa fa-plus"></i> {{localize "SWADE.Add"}}</a>
         </div>
     </li>
     <ol class="item-list">
@@ -33,7 +26,7 @@
     <li class="item flexrow melee-columns" data-item-id="{{item._id}}">
         <div class="item-name flexrow rollable">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <h4>
+            <h4 title="{{item.name}}">
                 {{item.name~}}
             </h4>
         </div>
@@ -43,7 +36,7 @@
         <div class="field-short">
             {{item.data.ap}}
         </div>
-        <div class="field-longer">
+        <div class="field-longer" title="{{item.data.notes}}">
             {{item.data.notes}}
         </div>
         <div class="field-short">
@@ -62,17 +55,9 @@
     </ol>
 </div>
 <div class="items-section"> 
-    <header class="header-field flexrow">
-        <div>
-            <span>{{ localize "SWADE.RangedWeapons" }}</span>
-        </div>
-        <div class="header-field-add">
-            <a class="item-create" data-range="12/24/48" data-type="weapon"><i class="fa fa-plus"></i></a>
-        </div>
-    </header>
     {{!-- This is ranged weapons only --}}
     <li class="item-titles flexrow">
-        <div class="item-name">{{localize "SWADE.Name"}}</div>
+        <div class="item-name">{{localize "SWADE.RangedWeapons"}}</div>
         <div class="field-long">{{localize "SWADE.Rng"}}</div>
         <div class="field-long">{{localize "SWADE.Dmg"}}</div>
         <div class="field-short">{{localize "SWADE.Ap"}}</div>
@@ -80,6 +65,7 @@
         <div class="field-short">{{localize "SWADE.Mag"}}</div>
         <div class="field-short">{{localize "SWADE.Weight"}}</div>
         <div class="item-controls">
+            <a class="item-create" data-range="12/24/48" data-type="weapon"><i class="fa fa-plus"></i> {{localize "SWADE.Add"}}</a>
         </div>
     </li>
 
@@ -89,7 +75,7 @@
     <li class="item flexrow ranged-columns" data-item-id="{{item._id}}">
         <div class="item-name flexrow rollable">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <h4>
+            <h4 title="{{item.name}}">
                 {{item.name~}}
             </h4>
         </div>
@@ -124,21 +110,14 @@
     </ol>
 </div>
 <div class="items-section"> 
-    <header class="header-field flexrow">
-        <div>
-            <span>{{ localize "SWADE.Armors" }}</span>
-        </div>
-        <div class="header-field-add">
-            <a class="item-create" data-type="armor"><i class="fa fa-plus"></i></a>
-        </div>
-    </header>
     <li class="item-titles flexrow">
-        <div class="item-name">{{localize "SWADE.Name"}}</div>
+        <div class="item-name">{{localize "SWADE.Armors"}}</div>
         <div class="field-short">{{localize "SWADE.Armor"}}</div>
         <div class="field-short">{{localize "SWADE.MinStrShort"}}</div>
         <div class="field-longer">{{localize "SWADE.Notes"}}</div>
         <div class="field-short">{{localize "SWADE.Weight"}}</div>
         <div class="item-controls">
+            <a class="item-create" data-type="armor"><i class="fa fa-plus"></i> {{localize "SWADE.Add"}}</a>
         </div>
     </li>
 
@@ -147,7 +126,7 @@
     <li class="item flexrow armor-columns" data-item-id="{{item._id}}">
         <div class="item-name flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <h4>
+            <h4 title="{{item.name}}">
                 {{item.name~}}
             </h4>
         </div>
@@ -157,7 +136,7 @@
         <div class="field-short">
             {{item.data.minStr}}
         </div>
-        <div class="field-longer">
+        <div class="field-longer" title="{{item.data.notes}}">
             {{item.data.notes}}
         </div>
         <div class="field-short">
@@ -175,21 +154,14 @@
     </ol>
 </div>
 <div class="items-section"> 
-    <header class="header-field flexrow">
-        <div>
-            <span>{{ localize "SWADE.Shields" }}</span>
-        </div>
-        <div class="header-field-add">
-            <a class="item-create" data-type="shield"><i class="fa fa-plus"></i></a>
-        </div>
-    </header>
     <li class="item-titles flexrow">
-        <div class="item-name">{{localize "SWADE.Name"}}</div>
+        <div class="item-name">{{localize "SWADE.Shields"}}</div>
         <div class="field-short">{{localize "SWADE.Parry"}}</div>
         <div class="field-short">{{localize "SWADE.Cover"}}</div>
         <div class="field-short">{{localize "SWADE.MinStrShort"}}</div>
         <div class="field-short">{{localize "SWADE.Weight"}}</div>
         <div class="item-controls">
+            <a class="item-create" data-type="shield"><i class="fa fa-plus"></i> {{localize "SWADE.Add"}}</a>
         </div>
     </li>
 
@@ -198,7 +170,7 @@
     <li class="item flexrow shield-columns" data-item-id="{{item._id}}">
         <div class="item-name flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <h4>
+            <h4 title="{{item.name}}">
                 {{item.name~}}
             </h4>
         </div>
@@ -226,21 +198,14 @@
     </ol>
 </div>
 <div class="items-section"> 
-    <header class="header-field flexrow">
-        <div>
-            <span>{{ localize "SWADE.Gear" }}</span>
-        </div>
-        <div class="header-field-add">
-            <a class="item-create" data-type="gear"><i class="fa fa-plus"></i></a>
-        </div>
-    </header>
     {{!-- This is ranged weapons only --}}
     <li class="item-titles flexrow">
-        <div class="item-name">{{localize "SWADE.Name"}}</div>
+        <div class="item-name">{{localize "SWADE.Gear"}}</div>
         <div class="field-longer">{{localize "SWADE.Notes"}}</div>
         <div class="field-short">{{localize "SWADE.Quantity"}}</div>
         <div class="field-short">{{localize "SWADE.Weight"}}</div>
         <div class="item-controls">
+            <a class="item-create" data-type="gear"><i class="fa fa-plus"></i> {{localize "SWADE.Add"}}</a>
         </div>
     </li>
 
@@ -249,11 +214,11 @@
     <li class="item flexrow" data-item-id="{{item._id}}">
         <div class="item-name flexrow">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <h4>
+            <h4 title="{{item.name}}">
                 {{item.name~}}
             </h4>
         </div>
-        <div class="field-longer">
+        <div class="field-longer" title="{{item.data.notes}}">
             {{item.data.notes}}
         </div>
         <div class="field-short">
