@@ -92,7 +92,7 @@
                 <a class="item-create" data-type="skill"><i class="fa fa-plus"></i></a>
             </div>
         </header>
-        <ol class="skills-list resizable" data-base-size="395">
+        <ol class="skills-list resizable" data-base-size="390">
             {{#each data.owned.skills as |skill id|}}
             <li class="item skill flexrow" data-item-id="{{skill._id}}">
                 <label class="skill-label"><a title="{{localize 'SWADE.Roll'}}">{{skill.name}}</a></label>
@@ -113,7 +113,7 @@
                 <a class="item-create" data-type="choice" data-equipped="true" data-choices="weapon,power,armor,shield"><i class="fa fa-plus"></i></a>
             </div>
         </header>
-        <div class="quickaccess-list resizable" data-base-size="395">
+        <div class="quickaccess-list resizable" data-base-size="390">
             <ol class="gear-list weapon-list">
                 {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
             </ol>
