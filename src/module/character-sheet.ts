@@ -332,7 +332,7 @@ export class SwadeCharacterSheet extends ActorSheet {
     const powers = data.itemsByType['power'];
     if (powers) {
         powers.forEach((pow: any) => {
-        if (pow.data.arcane === '') return;
+        if (!pow.data.arcane) return;
         if (data.arcanes.find((el: string) => el == pow.data.arcane) === undefined) {
           data.arcanes.push(pow.data.arcane);
           // Add powerpoints data relevant to the detected arcane
