@@ -276,7 +276,7 @@
             .item-image {
               flex-grow: 0;
               flex-basis: 30px;
-              background-size: cover;
+              background-size: contain;
             }
             .item-controls {
               padding: 5px;
