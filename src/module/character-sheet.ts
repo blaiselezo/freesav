@@ -106,7 +106,7 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
     
     // Filter power list
-    const arcane = !this.options.activeArcane ? 'All' : this.options.activeArcane;
+    const arcane = !this.options.activeArcane ?  'All' : this.options.activeArcane;
     (html as JQuery).find('.arcane-tabs .arcane').removeClass('active');
     (html as JQuery).find(`[data-arcane='${arcane}']`).addClass('active');
     this._filterPowers(html as JQuery, arcane);

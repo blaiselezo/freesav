@@ -84,9 +84,6 @@
         margin: 2px 0;
         padding: 0 3px;
         justify-content: center;
-        label {
-          padding: 0 20px 0 2px;
-        }
       }
     }
   }
@@ -242,14 +239,41 @@
       }
     }
 
-    // Powers
-    .power-counter {
-      input {
-        width: 40px;
-      }
-    }
     .powers {
       margin: 3px 0;
+      .header-field-add {
+        line-height: 24px;
+        margin-left: 5px;
+      }
+      .arcane-tabs {
+        display: flex;
+        .arcane {
+          cursor: pointer;
+          width: 90px;
+          height: 24px;
+          text-align: center;
+          line-height: 22px;
+          overflow: hidden;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          &.active {
+            background: rgba(0, 0, 0, 0.2);
+          }
+          &:hover {
+            background: rgba(0, 0, 0, 0.1);  
+          }
+        }
+      }
+      .power-counter {
+        display: none;
+        input {
+          width: 40px;
+          color: white;
+          font-weight: bold;
+        }
+        &.active {
+          display: block;
+        }
+      }
       .powers-list {
         display: flex;
         flex-direction: row;
@@ -257,6 +281,7 @@
         flex-wrap: wrap;
         overflow: auto;
         .power {
+          display: none;
           margin: 2px;
           flex-grow: 0;
           flex-basis: calc(50% - 4px);
@@ -264,7 +289,9 @@
           border: $decorative-line;
           border-top-left-radius: 4px;
           border-radius: 2px;
-
+          &.active {
+            display: block;
+          }
           .power-header {
             background: rgba(0, 0, 0, 0.05);
             border-bottom: $decorative-line;
