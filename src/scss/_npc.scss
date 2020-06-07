@@ -12,6 +12,10 @@
         flex-basis: 140px;
       }
     }
+    .item-controls {
+      flex-grow: 0;
+      flex-basis: 40px;
+    }
   }
   .editor {
     min-height: 200px;
