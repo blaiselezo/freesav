@@ -2,6 +2,7 @@
 import { SwadeActor } from './entity';
 // eslint-disable-next-line no-unused-vars
 import { SwadeItem } from './item-entity';
+import { SwadeEntityTweaks } from './dialog/entity-tweaks';
 
 export class SwadeNPCSheet extends ActorSheet {
 
@@ -20,6 +21,41 @@ export class SwadeNPCSheet extends ActorSheet {
         // based on user permissions.
         if (!game.user.isGM && this.actor.limited) return 'systems/swade/templates/actors/limited-sheet.html';
         return 'systems/swade/templates/actors/npc-sheet.html';
+    }
+
+    _createEditor(target, editorOptions, initialContent) {
+      // remove some controls to the editor as the space is lacking
+      editorOptions.toolbar = 'styleselect bullist hr table removeFormat save';
+      super._createEditor(target, editorOptions, initialContent);
+    }
+
+    _onConfigureActor(event: Event) {
+      event.preventDefault();
+      new SwadeEntityTweaks(this.actor, {
+        top: this.position.top + 40,
+        left: this.position.left + ((this.position.width - 400) / 2)
+      }).render(true);
+    }
+    /**
+     * Extend and override the sheet header buttons
+     * @override
+     */
+    _getHeaderButtons() {
+      let buttons = super._getHeaderButtons();
+
+      // Token Configuration
+      const canConfigure = game.user.isGM || this.actor.owner;
+      if (this.options.editable && canConfigure) {
+        buttons = [
+          {
+            label: 'Tweaks',
+            class: 'configure-actor',
+            icon: 'fas fa-dice',
+            onclick: ev => this._onConfigureActor(ev)
+          }
+         ].concat(buttons);
+      }
+      return buttons
     }
 
     async _chooseItemType() {
@@ -54,7 +90,40 @@ export class SwadeNPCSheet extends ActorSheet {
         });
       }
 
-    activateListeners(html): void {
+  _filterPowers(html: JQuery, arcane: string) {
+    this.options.activeArcane = arcane;
+    // Show, hide powers
+    html.find('.power').each( (id: number, pow: any) => {
+      if (pow.dataset.arcane == arcane || arcane == 'All') {
+        pow.classList.add('active');
+      } else {
+        pow.classList.remove('active');
+      }
+    })
+    // Show, Hide powerpoints
+    html.find('.power-counter').each( (id: number, ct: any) => {
+      if (ct.dataset.arcane == arcane) {
+        ct.classList.add('active');
+      } else {
+        ct.classList.remove('active');
+      }
+    })
+  }
+
+  // Override to set resizable initial size
+  async _renderInner(...args: any[]) {
+    const html = await super._renderInner(...args);
+    this.form = html[0];
+    
+    // Filter power list
+    const arcane = !this.options.activeArcane ? 'All' : this.options.activeArcane;
+    (html as JQuery).find('.arcane-tabs .arcane').removeClass('active');
+    (html as JQuery).find(`[data-arcane='${arcane}']`).addClass('active');
+    this._filterPowers(html as JQuery, arcane);
+    return html;
+  }
+
+    activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
         // Everything below here is only needed if the sheet is editable
@@ -66,6 +135,14 @@ export class SwadeNPCSheet extends ActorSheet {
             const item = this.actor.getOwnedItem(li.data('itemId'));
             item.sheet.render(true);
         });
+
+      // Filter power list
+       html.find('.arcane-tabs .arcane').click((ev: any) => {
+         const arcane = ev.currentTarget.dataset.arcane;
+         html.find('.arcane-tabs .arcane').removeClass('active');
+         ev.currentTarget.classList.add('active');
+         this._filterPowers(html, arcane);
+       })
 
         // Update Item
         html.find('.item-edit').click(ev => {
@@ -80,6 +157,18 @@ export class SwadeNPCSheet extends ActorSheet {
             this.actor.deleteOwnedItem(li.data('itemId'));
             li.slideUp(200, () => this.render(false));
         });
+
+        // Filter power list
+        html.find('.power-filter').change((ev: any) => {
+            const arcane = ev.target.value;
+            html.find('.power').each( (id: number, pow: any) => {
+              if (pow.dataset.arcane == arcane) {
+                pow.style = '';
+              } else {
+                pow.style = 'display:none;';
+              }
+            })
+        })
 
         //Add Benny
         html.find('.benny-add').click(() => {
@@ -114,7 +203,7 @@ export class SwadeNPCSheet extends ActorSheet {
         });
 
         // Roll attribute
-        html.find('.attribute-label a').click((event: Event) => {
+        html.find('.attribute-label a').click((event: any) => {
             let actorObject = this.actor as SwadeActor;
             let element = event.currentTarget as Element;
             let attribute = element.parentElement.parentElement.dataset.attribute;
@@ -195,17 +284,33 @@ export class SwadeNPCSheet extends ActorSheet {
         data.data.owned.skills = this._checkNull(data.itemsByType['skill']).sort((a, b) => a.name.localeCompare(b.name));
         data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
-        //Checks if an Actor has a Power Egde
-        if (data.data.owned.edges && data.data.owned.edges.find(edge => edge.data.isArcaneBackground == true)) {
-            this.actor.setFlag('swade', 'hasArcaneBackground', true);
-        } else {
-            this.actor.setFlag('swade', 'hasArcaneBackground', false);
-        }
-        // Check for enabled optional rules
-        this.actor.setFlag('swade', 'enableConviction', game.settings.get('swade', 'enableConviction') && data.data.wildcard);
+      // Display the current active arcane
+      data.activeArcane = this.options.activeArcane
+      data.arcanes = [];
+      const powers = data.itemsByType['power'];
+      if (powers) {
+          powers.forEach((pow: any) => {
+          if (!pow.data.arcane) return;
+          if (data.arcanes.find((el: string) => el == pow.data.arcane) === undefined) {
+            data.arcanes.push(pow.data.arcane);
+            // Add powerpoints data relevant to the detected arcane
+            if (data.data.powerPoints[pow.data.arcane] === undefined) {
+              data.data.powerPoints[pow.data.arcane] = {value: 0, max: 0};
+            }
+          }
+        })
+      }
 
-        data.config = CONFIG.SWADE;
-        return data;
+      //Checks if an Actor has a Power Egde
+      if (data.data.owned.edges && data.data.owned.edges.find(edge => edge.data.isArcaneBackground == true)) {
+          this.actor.setFlag('swade', 'hasArcaneBackground', true);
+      } else {
+          this.actor.setFlag('swade', 'hasArcaneBackground', false);
+      }
+      // Check for enabled optional rules
+      this.actor.setFlag('swade', 'enableConviction', game.settings.get('swade', 'enableConviction') && data.data.wildcard);
+      data.config = CONFIG.SWADE;
+      return data;
     }
 
     private _checkNull(items: Item[]): any[] {

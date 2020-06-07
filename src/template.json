@@ -75,11 +75,7 @@
           },
           "currency": 500
         },
-        "powerPoints": {
-          "value": 0,
-          "min": 0,
-          "max": 0
-        },
+        "powerPoints": {},
         "fatigue": {
           "value": 0,
           "min": 0,
@@ -93,7 +89,8 @@
         },
         "advances": {
           "value": 0,
-          "rank": "Novice"
+          "rank": "Novice",
+          "details": ""
         },
         "bennies": {
           "value": 3,
@@ -165,7 +162,7 @@
       "templates": ["itemDescription", "physicalItem", "equipable"],
       "damage": "",
       "range": "",
-      "rof": 0,
+      "rof": 1,
       "ap": 0,
       "minStr": "",
       "shots": 0
@@ -193,13 +190,14 @@
       "major": false
     },
     "power": {
-      "templates": ["itemDescription"],
+      "templates": ["itemDescription", "equipable"],
       "rank": "",
       "pp": 0,
       "damage": "",
       "range": "",
       "duration": "",
       "trapping": "",
+      "arcane": "",
       "modifiers": []
     },
     "skill": {

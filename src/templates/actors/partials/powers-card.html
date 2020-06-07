@@ -1,17 +1,18 @@
 {{#each data.owned.powers as |power id|}}
-{{#unless (isEmpty power.data.damage)}}
+{{#if power.data.equipped}}
 <li class="gear-card " data-item-id="{{power._id}}">
-    <header class="card-header">
-        <a class="card-name">{{power.name}}</a> -
-        <a class="damage-roll">{{localize "SWADE.Dmg"}}: {{power.data.damage}}</a>
+    <header class="flexrow card-header">
+        <div class="item-image" style="background-image: url('{{power.img}}')"></div>
+        <h4 class="item-name">{{power.name}}</h4>
     </header>
     <div class="card-content">
+        {{#if power.data.damage}}<div><a class="damage-roll" title="{{localize 'SWADE.Roll'}}">{{localize "SWADE.Dmg"}}: {{power.data.damage}}</a></div>{{/if}}
         <div>{{localize "SWADE.PP"}}: {{power.data.pp}}</div>
-        <div>{{localize "SWADE.Rng"}}: {{power.data.range}}</div>
+        {{#if power.data.range}}<div>{{localize "SWADE.Rng"}}: {{power.data.range}}</div>{{/if}}
         <div class="flexrow ellipsize">
             <div>{{localize "SWADE.Dur"}}: {{power.data.duration}}</div>
         </div>
     </div>
 </li>
-{{/unless}}
+{{/if}}
 {{/each}}

@@ -8,21 +8,21 @@
     border-bottom: 1px solid;
 
     .item {
-      border: 1px solid;
-      background: $dark-paste-blue;
+      border: 1px solid $charcoal;
+      background: $lapis-lazuli;
       border-radius: 4px 4px 0 0;
       margin: 0 5px -1px;
       padding: 4px;
+      color: $light-pastel-blue;
       &:hover,
       &:focus {
-        background: $light-pastel-blue;
+        background: $charcoal;
         text-shadow: none;
       }
       &.active {
-        background: $light-pastel-blue;
+        background: $charcoal;
         border-bottom: 0;
         text-shadow: none;
-        font-weight: bold;
       }
     }
   }

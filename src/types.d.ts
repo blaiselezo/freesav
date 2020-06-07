@@ -13,3 +13,19 @@ declare interface BaseEntityData {
 declare interface Die {
   formula: any;
 }
+
+declare interface ChatMessage {
+  isContentVisible: boolean
+}
+
+declare interface ItemSheetData {
+  config: any;
+}
+
+declare interface ActorSheet {
+  _createEditor(target: any, editorOptions: any, initialContent: any): any;
+}
+
+declare class TextEditor {
+  public static enrichHTML(template: string, data: any): any;
+}

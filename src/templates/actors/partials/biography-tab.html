@@ -2,29 +2,18 @@
     <div class=" profile-img-container">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
     </div>
-    <div>
-        <div class="form-group">
-            <input name="data.advances.rank" id="rank-input" type="text" value="{{data.advances.rank}}"
-                data-dtype="String" placeholder="{{localize 'SWADE.Rank'}}" />
+    <div class="advances">
+        <header class="header-field">
+            <span>{{ localize "SWADE.Adv" }}</span>
+        </header>
+        <div>
+            {{editor content=data.advances.details target="data.advances.details" button=true owner=owner editable=editable}}
         </div>
-        <div class="form-group">
-            <input id="race" name="data.details.species.name" type="text" value="{{data.details.species.name}}"
-                data-dtype="String" placeholder="{{localize 'SWADE.Race'}}" />
-        </div>
-        <div class="form-group">
-            <label for="data.wounds.ignored">{{localize "SWADE.IgnWounds"}}: </label>
-            <input id="data.wounds.ignored" name="data.wounds.ignored" type="text" value="{{data.wounds.ignored}}"
-                data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.stats.size">{{localize "SWADE.Size"}}: </label>
-            <input id="data.stats.size" name="data.stats.size" type="text" value="{{data.stats.size}}"
-                data-dtype="Number" />
-        </div>
-        <button type="Button" id="initConfigButton">{{localize "SWADE.ConfigInit"}}</button>
     </div>
 </div>
-<header class="header-field">
-    <span>{{ localize "SWADE.Desc" }}</span>
-</header>
-{{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+<div class="description" >
+    <header class="header-field">
+        <span>{{ localize "SWADE.Desc" }}</span>
+    </header>
+    {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+</div>

@@ -2,12 +2,14 @@
 import { SwadeActor } from './entity';
 // eslint-disable-next-line no-unused-vars
 import { SwadeItem } from './item-entity';
+import { SwadeEntityTweaks } from './dialog/entity-tweaks';
 
 export class SwadeCharacterSheet extends ActorSheet {
+  
   /* -------------------------------------------- */
 
   /**
-   * Extend and override the default options used by the 5e Actor Sheet
+   * Extend and override the default options used by the Actor Sheet
    * @returns {Object}
    */
   static get defaultOptions() {
@@ -15,8 +17,48 @@ export class SwadeCharacterSheet extends ActorSheet {
       classes: ['swade', 'sheet', 'actor', 'character'],
       width: 600,
       height: 768,
-      tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }]
+      tabs: [{ navSelector: '.tabs', contentSelector: '.sheet-body', initial: 'summary' }],
+      scrollY: ['.skills .skills-list', '.quickaccess-list', '.inventory .inventory-categories'],
+      activeArcane: 'All'
     });
+  }
+
+  _createEditor(target, editorOptions, initialContent) {
+    // remove some controls to the editor as the space is lacking
+    if (target == 'data.advances.details') {
+      editorOptions.toolbar = 'styleselect bullist hr table removeFormat save';
+    }
+    super._createEditor(target, editorOptions, initialContent);
+  }
+
+  _onConfigureActor(event: Event) {
+    event.preventDefault();
+    new SwadeEntityTweaks(this.actor, {
+      top: this.position.top + 40,
+      left: this.position.left + ((this.position.width - 400) / 2)
+    }).render(true);
+  }
+
+  /**
+   * Extend and override the sheet header buttons
+   * @override
+   */
+  _getHeaderButtons() {
+    let buttons = super._getHeaderButtons();
+
+    // Token Configuration
+    const canConfigure = game.user.isGM || this.actor.owner;
+    if (this.options.editable && canConfigure) {
+      buttons = [
+        {
+          label: 'Tweaks',
+          class: 'configure-actor',
+          icon: 'fas fa-dice',
+          onclick: ev => this._onConfigureActor(ev)
+        }
+       ].concat(buttons);
+    }
+    return buttons
   }
 
   get template() {
@@ -25,14 +67,8 @@ export class SwadeCharacterSheet extends ActorSheet {
     return 'systems/swade/templates/actors/character-sheet.html';
   }
 
-  async _chooseItemType() {
-    const types = [
-      'weapon',
-      'armor',
-      'shield',
-      'gear'
-    ];
-    let templateData = {upper: '', lower: '', types: types},
+  async _chooseItemType(choices) {
+    let templateData = {upper: '', lower: '', types: choices},
         dlg = await renderTemplate('templates/sidebar/entity-create.html', templateData);
     //Create Dialog window
     return new Promise(resolve => {
@@ -55,6 +91,46 @@ export class SwadeCharacterSheet extends ActorSheet {
         default: 'ok',
       }).render(true);
     });
+  }
+
+  // Override to set resizable initial size
+  async _renderInner(...args: any[]) {
+    const html = await super._renderInner(...args);
+    this.form = html[0];
+
+    // Resize resizable classes
+    let resizable = (html as JQuery).find('.resizable');
+    resizable.each((_, el) => {
+      let heightDelta = this.position.height - (this.options.height as number);
+      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
+    });
+    
+    // Filter power list
+    const arcane = !this.options.activeArcane ?  'All' : this.options.activeArcane;
+    (html as JQuery).find('.arcane-tabs .arcane').removeClass('active');
+    (html as JQuery).find(`[data-arcane='${arcane}']`).addClass('active');
+    this._filterPowers(html as JQuery, arcane);
+    return html;
+  }
+
+  _filterPowers(html: JQuery, arcane: string) {
+    this.options.activeArcane = arcane;
+    // Show, hide powers
+    html.find('.power').each( (id: number, pow: any) => {
+      if (pow.dataset.arcane == arcane || arcane == 'All') {
+        pow.classList.add('active');
+      } else {
+        pow.classList.remove('active');
+      }
+    })
+    // Show, Hide powerpoints
+    html.find('.power-counter').each( (id: number, ct: any) => {
+      if (ct.dataset.arcane == arcane) {
+        ct.classList.add('active');
+      } else {
+        ct.classList.remove('active');
+      }
+    })
   }
 
   activateListeners(html: JQuery<HTMLElement>) {
@@ -89,11 +165,11 @@ export class SwadeCharacterSheet extends ActorSheet {
     html.find('.edge').click((ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item: any = this.actor.getOwnedItem(li.data('itemId')).data;
-      html.find('#edge-description')[0].innerHTML = item.data.description;
+      html.find('#edge-description')[0].innerHTML = TextEditor.enrichHTML(item.data.description, {});
     });
 
     //Toggle Equipment
-    html.find('.item-equipped').click((ev) => {
+    html.find('.item-toggle').click((ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item: any = this.actor.getOwnedItem(li.data('itemId'));
       this.actor.updateOwnedItem(this._toggleEquipped(li.data('itemId'), item));
@@ -103,9 +179,9 @@ export class SwadeCharacterSheet extends ActorSheet {
     html.find('.card-name').click((ev) => {
       const card = $(ev.currentTarget).parents('.gear-card');
       const content = card.find('.card-content');
-      const cardId = card.data('item-id');
+      // const cardId = card.data('item-id');
 
-      const isCollapsed = this.actor.getFlag('swade', cardId);
+      // const isCollapsed = this.actor.getFlag('swade', cardId);
       content.toggleClass('collapsed');
       if (content.hasClass('collapsed')) {
         //content.slideUp('200', () => this.actor.setFlag('swade', cardId, !this.actor.getFlag('swade', cardId)));
@@ -115,6 +191,14 @@ export class SwadeCharacterSheet extends ActorSheet {
         content.slideDown();
       }
     });
+
+    // Filter power list
+    html.find('.arcane-tabs .arcane').click((ev: any) => {
+      const arcane = ev.currentTarget.dataset.arcane;
+      html.find('.arcane-tabs .arcane').removeClass('active');
+      ev.currentTarget.classList.add('active');
+      this._filterPowers(html, arcane);
+    })
 
     //Input Synchronization
     html.find('.wound-input').keyup((ev) => {
@@ -157,12 +241,6 @@ export class SwadeCharacterSheet extends ActorSheet {
         await new Roll('1d6x=').roll().toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), flavor: game.i18n.localize('SWADE.UseConv') });
         this.actor.setFlag('swade', 'convictionReady', false);
       }
-    });
-
-    //Configre initiative Edges/Hindrances
-    html.find('#initConfigButton').click(() => {
-      let actorObject = this.actor as SwadeActor;
-      actorObject.configureInitiative();
     });
 
     // Roll attribute
@@ -210,7 +288,8 @@ export class SwadeCharacterSheet extends ActorSheet {
 
       // Getting back to main logic
       if (type == 'choice') {
-          this._chooseItemType().then((dialogInput: any) => {
+          const choices = header.dataset.choices.split(',');
+          this._chooseItemType(choices).then((dialogInput: any) => {
             const itemData = createItem(dialogInput.type, dialogInput.name);
             this.actor.createOwnedItem(itemData);
           });
@@ -225,6 +304,7 @@ export class SwadeCharacterSheet extends ActorSheet {
   getData(): ActorSheetData {
     let data: any = super.getData();
 
+    data.config = CONFIG.SWADE;
     data.itemsByType = {};
     for (const item of data.items) {
       let list = data.itemsByType[item.type];
@@ -245,16 +325,33 @@ export class SwadeCharacterSheet extends ActorSheet {
       data.itemsByType['skill']
     ).sort((a, b) => a.name.localeCompare(b.name));
     data.data.owned.powers = this._checkNull(data.itemsByType['power']);
+    
+    // Display the current active arcane
+    data.activeArcane = this.options.activeArcane
+    data.arcanes = [];
+    const powers = data.itemsByType['power'];
+    if (powers) {
+        powers.forEach((pow: any) => {
+        if (!pow.data.arcane) return;
+        if (data.arcanes.find((el: string) => el == pow.data.arcane) === undefined) {
+          data.arcanes.push(pow.data.arcane);
+          // Add powerpoints data relevant to the detected arcane
+          if (data.data.powerPoints[pow.data.arcane] === undefined) {
+            data.data.powerPoints[pow.data.arcane] = {value: 0, max: 0};
+          }
+        }
+      })
+    }
 
     //Checks if relevant arrays are not null and combines them into an inventory array
-    data.data.owned.inventory = [
-      ...data.data.owned.gear,
-      ...data.data.owned.weapons,
-      ...data.data.owned.armors,
-      ...data.data.owned.shields,
-    ];
+    data.data.owned.inventory = {
+      gear: data.data.owned.gear,
+      weapons: data.data.owned.weapons,
+      armors: data.data.owned.armors,
+      shields: data.data.owned.shields,
+    };
 
-    data.inventoryWeight = this._calcInventoryWeight(data.data.owned.inventory);
+    data.inventoryWeight = this._calcInventoryWeight(Object.values(data.data.owned.inventory));
     data.maxCarryCapacity = this._calcMaxCarryCapacity(data);
 
     //Checks if an Actor has a Power Egde
@@ -271,7 +368,6 @@ export class SwadeCharacterSheet extends ActorSheet {
 
     // Check for enabled optional rules
     this.actor.setFlag('swade', 'enableConviction', game.settings.get('swade', 'enableConviction'));
-
     return data;
   }
 
@@ -304,10 +400,11 @@ export class SwadeCharacterSheet extends ActorSheet {
 
   private _calcInventoryWeight(items): number {
     let retVal = 0;
-
-    items.forEach((i) => {
-      retVal += i.data.weight * i.data.quantity;
-    });
+    items.forEach((category: any) => {
+      category.forEach((i: any) => {
+        retVal += i.data.weight * i.data.quantity;
+      });  
+    })
     return retVal;
   }
 
@@ -325,5 +422,15 @@ export class SwadeCharacterSheet extends ActorSheet {
         equipped: !item.data.data.equipped,
       },
     };
+  }
+  
+  async _onResize(event: any) {
+    super._onResize(event);
+    let html = $(event.path);
+    let resizable = html.find('.resizable');
+    resizable.each((_, el) => {
+      let heightDelta = this.position.height - (this.options.height as number);
+      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
+    });
   }
 }

@@ -17,7 +17,6 @@
             <input name="data.quantity" type="text" value="{{item.data.quantity}}"
                 placeholder="{{localize 'SWADE.Quantity'}}" data-dtype="Number" />
         </div>
-        {{log item}}
         {{#unless item.data.isOwned}}
         <div class="form-group">
             <input type="checkbox" name="data.equippable" id="data.equippable" {{checked item.data.equippable}}

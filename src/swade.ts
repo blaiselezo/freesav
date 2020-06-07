@@ -71,6 +71,15 @@ Hooks.once('init', async function () {
 /* ------------------------------------ */
 Hooks.once('setup', function () {
 	// Do anything after initialization but before ready
+  // Localize CONFIG objects once up-front
+  const toLocalize = [];
+  for (let o of toLocalize) {
+    CONFIG.SWADE[o] = Object.entries(CONFIG.SWADE[o]).reduce((obj, e: any) => {
+		console.log(e);
+      obj[e[0]] = game.i18n.localize(e[1]);
+      return obj;
+    }, {});
+  }
 });
 
 /* ------------------------------------ */
@@ -358,7 +367,7 @@ Hooks.on('preUpdateCombat', async (combat, updateData, options, userId) => {
 
 // Add roll data to the message for formatting of dice pools
 Hooks.on('renderChatMessage', async (chatMessage: ChatMessage, html: JQuery<HTMLHtmlElement>, data: any) => {
-	if (chatMessage.isRoll && chatMessage.isRollVisible) {
+	if (chatMessage.isRoll && chatMessage.isContentVisible) {
 		await formatRoll(chatMessage, html, data);
 	}
 });

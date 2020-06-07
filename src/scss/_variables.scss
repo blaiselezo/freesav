@@ -1,20 +1,23 @@
-$light-grey: #aaa;
+$light-grey: rgba(0, 0, 0, 0.2);
 $eggshell: #eeede0;
 $anthracite: #293133;
 $dark-paste-blue: #779ecb;
 $light-pastel-blue: #dfe6f5;
+$charcoal: #2C4251;
+$lapis-lazuli: #33658A; 
 
 $decorative-line: 1px solid $anthracite;
 $section-border: 1px groove $anthracite;
 
 %header-field {
   padding: 5px;
-  margin-bottom: 5px;
   background: $light-grey;
   border: $decorative-line;
-  border-radius: 2px;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
   text-align: center;
-  font-weight: bold;
+  background: $charcoal;
+  color: $light-pastel-blue;
   .header-field-add {
     flex-grow: 0;
     flex-basis: 15px;
@@ -25,6 +28,6 @@ $section-border: 1px groove $anthracite;
   //background: #a1b3c9;
   //background: rgba(255, 255, 255, 0.2);
   background: rgba(0, 0, 0, 0.1);
-  border: 1px solid transparent;
-  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
 }
