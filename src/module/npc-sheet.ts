@@ -328,7 +328,7 @@ export class SwadeNPCSheet extends ActorSheet {
         el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
       });
     }
-    
+
     private _checkNull(items: Item[]): any[] {
         if (items && items.length) {
             return items;
