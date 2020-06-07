@@ -34,22 +34,38 @@
         </div>
     </div>
 </section>
-{{> "systems/swade/templates/actors/partials/attributes.html"}}
-<div class="flexrow">
-    <div class="traits">
-        <button type="Button" id="initConfigButton">{{localize "SWADE.ConfigInit"}}</button>
-        <div class="flexrow" style="margin-bottom: 2px;">
-            <div>
-                <label for="data.wounds.ignored">{{localize "SWADE.IgnWounds"}}: </label>
-                <input id="race" name="data.wounds.ignored" type="text" value="{{data.wounds.ignored}}"
-                    data-dtype="Number" />
-            </div>
-            <div>
-                <label for="data.stats.size">{{localize "SWADE.Size"}}: </label>
+<section class="flexrow attributes-container">
+    <div class="attributes secondary">
+        <header class="header-field">
+            <span>{{ localize "SWADE.Derived" }}</span>
+        </header>
+        <div class="flexrow attributes-list">
+            <div class="attribute">
+                <div class="attribute-label">{{localize "SWADE.Size"}}</div>
                 <input id="data.stats.size" name="data.stats.size" type="text" value="{{data.stats.size}}"
                     data-dtype="Number" />
             </div>
+            <div class="attribute">
+                <div class="attribute-label">{{localize "SWADE.Pace"}}</div>
+                <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
+                    placeholder="0" data-dtype="Number" />
+            </div>
+            <div class="attribute">
+                <div class="attribute-label">{{localize "SWADE.Parry"}}</div>
+                <input id="parry" name="data.stats.parry.value" value="{{data.stats.parry.value}}" type="text"
+                    placeholder="0" data-dtype="Number" />
+            </div>
+            <div class="attribute">
+                <div class="attribute-label">{{localize "SWADE.Tough"}}</div>
+                <input id="toughness" name="data.stats.toughness.value" type="text"
+                    value="{{data.stats.toughness.value}}" placeholder="0" data-dtype="String" />
+            </div>
         </div>
+    </div>
+    {{> "systems/swade/templates/actors/partials/attributes.html"}}
+</section>
+<div class="flexrow">
+    <div class="traits">
         <header class="header-field flexrow">
             <div>
                 <span>{{localize "SWADE.Skills"}}</span>

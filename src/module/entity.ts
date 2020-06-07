@@ -51,7 +51,7 @@ export class SwadeActor extends Actor {
   /*  Rolls                                       */
   /* -------------------------------------------- */
   rollAttribute(abilityId, options = { event: null }) {
-    const label = CONFIG.SWADE.attributes[abilityId];
+    const label = CONFIG.SWADE.attributes[abilityId].long;
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
     let exp = '';

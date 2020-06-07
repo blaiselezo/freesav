@@ -47,7 +47,7 @@ export class SwadeItemSheet extends ItemSheet {
   getData() {
     const data = super.getData();
     data.data.isOwned = this.item.isOwned;
-
+    data.config = CONFIG.SWADE;
     const actor = this.item.actor;
     const ownerIsWildcard = actor && actor.data['data'].wildcard;
     if (ownerIsWildcard || !this.item.isOwned) {

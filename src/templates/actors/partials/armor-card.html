@@ -2,13 +2,15 @@
 {{#if armor.data.equipped}}
 <li class="gear-card">
     <header class="flexrow card-header">
-        <a class="card-name">{{armor.name}} - {{localize "SWADE.Armor"}}: {{armor.data.armor}}</a>
+        <div class="item-image" style="background-image: url('{{armor.img}}')"></div>
+        <h4 class="item-name">{{armor.name}}</h4>
     </header>
-    {{#unless (isEmpty armor.data.notes)}}
     <div class="card-content">
+        <div>{{localize "SWADE.Armor"}}: {{armor.data.armor}}</div>
+        {{#unless (isEmpty armor.data.notes)}}
         <div>{{armor.data.notes}}</div>
+        {{/unless}}
     </div>
-    {{/unless}}
 </li>
 {{/if}}
 {{/each}}
