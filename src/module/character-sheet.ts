@@ -176,18 +176,13 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
     //Toggle Equipmnent Card collapsible
-    html.find('.card-name').click((ev) => {
+    html.find('.gear-card .card-header').click((ev) => {
       const card = $(ev.currentTarget).parents('.gear-card');
       const content = card.find('.card-content');
-      // const cardId = card.data('item-id');
-
-      // const isCollapsed = this.actor.getFlag('swade', cardId);
       content.toggleClass('collapsed');
       if (content.hasClass('collapsed')) {
-        //content.slideUp('200', () => this.actor.setFlag('swade', cardId, !this.actor.getFlag('swade', cardId)));
         content.slideUp();
       } else {
-        //content.slideDown('200', () => this.actor.setFlag('swade', cardId, !this.actor.getFlag('swade', cardId)));
         content.slideDown();
       }
     });

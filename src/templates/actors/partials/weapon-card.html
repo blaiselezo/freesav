@@ -5,7 +5,7 @@
         <div class="item-image" style="background-image: url('{{weapon.img}}')"></div>
         <h4 class="item-name">{{weapon.name}}</h4>
     </header>
-    <div class="card-content">
+    <div class="card-content collapsed" style="display:none;">
         {{#unless (isEmpty weapon.data.damage)}}
         <div>
             <a class="damage-roll" title="{{localize 'SWADE.Roll'}}">{{localize "SWADE.Dmg"}}: {{weapon.data.damage}}</a>
