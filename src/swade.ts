@@ -28,7 +28,7 @@ import { createActionCardTable } from './module/util';
 /* Initialize system					*/
 /* ------------------------------------ */
 Hooks.once('init', async function () {
-	//CONFIG.debug.hooks = true;
+	CONFIG.debug.hooks = true;
 	console.log(
 		`SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`
 	);
@@ -126,7 +126,7 @@ Hooks.on('preCreateOwnedItem', (actor: SwadeActor, createData: any, options: any
 });
 
 Hooks.on('createActor', async (actor: SwadeActor, options: any, userId: String) => {
-	if(actor.data.type === 'character'){
+	if(actor.data.type === 'character' && options.renderSheet){
 		const skillsToFind = ['Athletics', 'Common Knowledge', 'Notice','Persuasion', 'Stealth' ];
 		const skillIndex = await game.packs.get('swade.skills').getContent() as SwadeItem[];
 		actor.createEmbeddedEntity('OwnedItem', skillIndex.filter(i => skillsToFind.includes(i.data.name)));

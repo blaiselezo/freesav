@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Fixed
+
+- Fixed a bug which would duplicate core skills when a PC was duplicated
+
 ## [v0.8.6] 2020-05-22
 
 ### Fixed
