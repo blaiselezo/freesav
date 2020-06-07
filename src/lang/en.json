@@ -48,8 +48,9 @@
   "SWADE.Cover": "Cover",
   "SWADE.Notes": "Notes",
   "SWADE.MinStrLong": "Minimum Strength",
-  "SWADE.MinStr": "Min. Strength",
+  "SWADE.MinStr": "Min. Str",
   "SWADE.Desc": "Description",
+  "SWADE.Details": "Details",
   "SWADE.Equippable": "Equippable",
 
   "SWADE.Hindrances": "Hindrances",
