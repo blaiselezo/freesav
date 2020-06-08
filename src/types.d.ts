@@ -15,7 +15,7 @@ declare interface Die {
 }
 
 declare interface ChatMessage {
-  isContentVisible: boolean
+  isContentVisible: boolean;
 }
 
 declare interface ItemSheetData {
@@ -24,8 +24,4 @@ declare interface ItemSheetData {
 
 declare interface ActorSheet {
   _createEditor(target: any, editorOptions: any, initialContent: any): any;
-}
-
-declare class TextEditor {
-  public static enrichHTML(template: string, data: any): any;
 }
