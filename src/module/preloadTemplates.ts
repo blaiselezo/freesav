@@ -28,9 +28,10 @@ export const preloadHandlebarsTemplates = async function () {
 		// Chat
 		'systems/swade/templates/chat/roll-formula.html',
 
-		//Item Header
+		//Items
 		'systems/swade/templates/items/partials/header.html',
 		'systems/swade/templates/items/partials/header-delete.html',
+		'systems/swade/templates/items/partials/description.html',
 	];
 
 	return loadTemplates(templatePaths);

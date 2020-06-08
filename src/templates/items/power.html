@@ -29,19 +29,14 @@
         </div>
         <div class="form-group">
             <label for="data.damage">{{localize "SWADE.Dmg"}}</label>
-            <input name="data.damage" type="text" value="{{item.data.damage}}"
-                placeholder="{{localize 'SWADE.Dmg'}}" data-dtype="String" />
+            <input name="data.damage" type="text" value="{{item.data.damage}}" placeholder="{{localize 'SWADE.Dmg'}}"
+                data-dtype="String" />
         </div>
         <div class="form-group">
             <label for="data.arcane">{{localize "SWADE.Arcane"}}</label>
-            <input name="data.arcane" type="text" value="{{item.data.arcane}}"
-                placeholder="{{localize 'SWADE.Arcane'}}" data-dtype="String" />
+            <input name="data.arcane" type="text" value="{{item.data.arcane}}" placeholder="{{localize 'SWADE.Arcane'}}"
+                data-dtype="String" />
         </div>
-        <header class="header-field">
-            <span>{{localize "SWADE.Desc"}}</span>
-        </header>
-        <div class="form-group">
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
-        </div>
+        {{> "systems/swade/templates/items/partials/description.html"}}
     </section>
 </form>
