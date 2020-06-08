@@ -5,7 +5,7 @@
         <div class="item-image" style="background-image: url('{{armor.img}}')"></div>
         <h4 class="item-name">{{armor.name}}</h4>
     </header>
-    <div class="card-content">
+    <div class="card-content collapsed" style="display:none;">
         <div>{{localize "SWADE.Armor"}}: {{armor.data.armor}}</div>
         {{#unless (isEmpty armor.data.notes)}}
         <div>{{armor.data.notes}}</div>

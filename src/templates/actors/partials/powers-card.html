@@ -5,13 +5,15 @@
         <div class="item-image" style="background-image: url('{{power.img}}')"></div>
         <h4 class="item-name">{{power.name}}</h4>
     </header>
-    <div class="card-content">
+    <div class="card-content collapsed" style="display:none;">
         {{#if power.data.damage}}<div><a class="damage-roll" title="{{localize 'SWADE.Roll'}}">{{localize "SWADE.Dmg"}}: {{power.data.damage}}</a></div>{{/if}}
-        <div>{{localize "SWADE.PP"}}: {{power.data.pp}}</div>
+        {{#if power.data.pp}}<div>{{localize "SWADE.PP"}}: {{power.data.pp}}</div>{{/if}}
         {{#if power.data.range}}<div>{{localize "SWADE.Rng"}}: {{power.data.range}}</div>{{/if}}
+        {{#if power.data.duration}}
         <div class="flexrow ellipsize">
             <div>{{localize "SWADE.Dur"}}: {{power.data.duration}}</div>
         </div>
+        {{/if}}
     </div>
 </li>
 {{/if}}

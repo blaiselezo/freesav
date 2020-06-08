@@ -115,6 +115,12 @@ export class SwadeNPCSheet extends ActorSheet {
     const html = await super._renderInner(...args);
     this.form = html[0];
     
+    // Resize resizable classes
+    let resizable = (html as JQuery).find('.resizable');
+    resizable.each((_, el) => {
+      let heightDelta = this.position.height - (this.options.height as number);
+      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
+    });
     // Filter power list
     const arcane = !this.options.activeArcane ? 'All' : this.options.activeArcane;
     (html as JQuery).find('.arcane-tabs .arcane').removeClass('active');
@@ -311,6 +317,16 @@ export class SwadeNPCSheet extends ActorSheet {
       this.actor.setFlag('swade', 'enableConviction', game.settings.get('swade', 'enableConviction') && data.data.wildcard);
       data.config = CONFIG.SWADE;
       return data;
+    }
+
+    async _onResize(event: any) {
+      super._onResize(event);
+      let html = $(event.path);
+      let resizable = html.find('.resizable');
+      resizable.each((_, el) => {
+        let heightDelta = this.position.height - (this.options.height as number);
+        el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
+      });
     }
 
     private _checkNull(items: Item[]): any[] {
