@@ -20,6 +20,40 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.9.0]
+
+### Added
+
+- Layout rework (Thanks to U~Man)
+
+  - Added multiple arcane support, filling the Arcane field of power items will sort it in the powers tab and gives it its own PP pool when the filter is enabled
+  - Moved sheet config options (initiative, wounds) to a Tweaks dialog in the sheet header
+  - Moved Race and Rank fields to the sheet header
+  - Moved Size to Derived stats
+  - Fixed Issue with rich HTML links not being processed in power and edge descriptions
+  - Each inventory item type has relevant informations displayed in the inventory tab
+  - Reworked base colors
+  - Moved condition toggles and derived stats to the Summary tab
+  - For PCs sheet, lists no longer overflows the sheet size.
+  - For PCs sheet, power cards have a fixed size
+  - Added an Advances text field above the Description
+  - Changed the default item icons to stick with the new layout colors
+  - Added dice icons to attributes select boxes
+  - Weapon damage can be rolled in the inventory
+  - Added an item edit control on NPC inventory
+
+- Added drag&drop capability for PCs and NPCs so you can pull weapons and skills into the hotbar and create macros.
+- Added a bunch of icons for skills
+- Added the ability to choose cards when rerolling a card
+
+### Changed
+
+- Adjusted Weapon/Armor/Gear/Power Item sheets to be more compact
+
+### Fixed
+
+- Fixed a bug which would duplicate core skills when a PC was duplicated
+
 ## [v0.8.6] 2020-05-22
 
 ### Fixed

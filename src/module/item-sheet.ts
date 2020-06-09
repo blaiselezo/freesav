@@ -1,11 +1,10 @@
 export class SwadeItemSheet extends ItemSheet {
-
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 560,
       height: 'auto',
       classes: ['swade', 'sheet', 'item'],
-      resizable: false
+      resizable: true,
     });
   }
 
@@ -21,9 +20,8 @@ export class SwadeItemSheet extends ItemSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-
     // Delete Item from within Sheet. Only really used for Skills, Edges, Hindrances and Powers
-    html.find('.item-delete').click(ev => {
+    html.find('.item-delete').click((ev) => {
       const item = $(ev.currentTarget).parents('.item');
       if (this.item.actor) {
         this.item.actor.deleteOwnedItem(item.data('itemId'));
@@ -35,19 +33,19 @@ export class SwadeItemSheet extends ItemSheet {
       new ImagePopout(this.item.img, {
         title: this.item.name,
         shareable: true,
-        entity: { type: 'Item', id: this.item.id }
+        entity: { type: 'Item', id: this.item.id },
       }).render(true);
     });
   }
 
   /**
-  * Prepare item sheet data
-  * Start with the base item data and extending with additional properties for rendering.
-  */
+   * Prepare item sheet data
+   * Start with the base item data and extending with additional properties for rendering.
+   */
   getData() {
     const data = super.getData();
     data.data.isOwned = this.item.isOwned;
-
+    data.config = CONFIG.SWADE;
     const actor = this.item.actor;
     const ownerIsWildcard = actor && actor.data['data'].wildcard;
     if (ownerIsWildcard || !this.item.isOwned) {

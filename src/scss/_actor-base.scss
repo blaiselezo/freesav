@@ -31,7 +31,6 @@
 
     //Actor Name
     .charline {
-      height: 51px;
       width: 100%;
       display: inline-flex;
       .charname {
@@ -45,7 +44,6 @@
         }
       }
       .conviction {
-        width: 20%;
         text-align: center;
         margin-left: 4px;
         .convction-toggle {
@@ -61,20 +59,31 @@
       justify-content: space-evenly;
       flex: 1;
       padding: 5px 0px;
+      input {
+        background: none;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+        }
+      }
     }
 
     .header-stats {
       align-content: space-around;
       padding-left: 0;
-
+      #xp-input {
+        margin-left: 2px;
+        text-align: center;
+      }
       div {
         border: 1px solid transparent;
         margin: 2px 0;
         padding: 0 3px;
         justify-content: center;
-        label {
-          padding-left: 3px;
-        }
       }
     }
   }
@@ -88,7 +97,7 @@
     //Editor
     .editor {
       border: $section-border;
-      height: 300px;
+      border-top: none;
       width: 100%;
     }
 
@@ -105,20 +114,32 @@
       padding: 2px;
       //Attributes
       .attributes-list {
-        .attribute + .attribute {
-          border-left: 1px solid $anthracite;
-        }
+        margin-top: 4px;
         .attribute {
           .attribute-label {
             text-align: center;
             font-weight: bold;
           }
           select {
-            margin: 0 3px;
+            border: none;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
             height: 28px;
+            text-align: center;
+            text-align-last: center;
+            -moz-text-align-last: center;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: transparent;
+            font-weight: 600;
+            ::-ms-expand {
+              display: none;
+            }
             @extend %standalone-input-field;
           }
           input {
+            text-align: center;
             margin: 0 3px;
             height: 28px;
             @extend %standalone-input-field;
@@ -142,6 +163,9 @@
         list-style: none;
         margin: 0;
         padding: 0;
+        .skill:nth-child(even) {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
       }
     }
 
@@ -165,7 +189,19 @@
           .card-header {
             padding: 5px;
             background: rgba(0, 0, 0, 0.2);
-            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+            .item-name {
+              margin: 0;
+              text-indent: 20px;
+              font-weight: 600;
+            }
+            .item-image {
+              height: 20px;
+              flex-grow: 0;
+              background-size: contain;
+              flex-basis: 20px;
+            }
           }
           .card-content {
             border-top: $decorative-line;
@@ -204,39 +240,119 @@
       }
     }
 
-    // Powers
     .powers {
       margin: 3px 0;
+      .header-field-add {
+        line-height: 24px;
+        margin-left: 5px;
+      }
+      .arcane-tabs {
+        display: flex;
+        .arcane {
+          cursor: pointer;
+          width: 90px;
+          height: 24px;
+          text-align: center;
+          line-height: 22px;
+          overflow: hidden;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          &.active {
+            background: rgba(0, 0, 0, 0.2);
+          }
+          &:hover {
+            background: rgba(0, 0, 0, 0.1);  
+          }
+        }
+      }
+      .power-counter {
+        display: none;
+        input {
+          width: 40px;
+          color: white;
+          font-weight: bold;
+        }
+        &.active {
+          display: block;
+        }
+      }
       .powers-list {
         display: flex;
         flex-direction: row;
+        align-content: start;
         flex-wrap: wrap;
-
+        overflow: auto;
+        text-align: right;
         .power {
+          display: none;
           margin: 2px;
-          flex-grow: 1;
-          flex-basis: 160px;
+          flex-grow: 0;
+          flex-basis: calc(50% - 4px);
+          height: calc(50% - 4px);
           border: $decorative-line;
+          border-top-left-radius: 4px;
           border-radius: 2px;
-
+          &.active {
+            display: block;
+          }
           .power-header {
-            padding: 5px;
             background: rgba(0, 0, 0, 0.05);
             border-bottom: $decorative-line;
-            text-align: center;
+            h4 {
+              margin: 0;
+              padding: 5px;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+            .item-image {
+              flex-grow: 0;
+              flex-basis: 25px;
+              background-size: contain;
+            }
+            .item-controls {
+              padding: 5px;
+              flex-grow: 0;
+              flex-basis: 45px;
+              color: black;
+              .item-unequipped {
+                color: rgba(0, 0, 0, 0.2);
+              }
+            }
           }
           .power-content {
             margin: 0 3px;
             line-height: 24px;
             padding: 5px;
-            max-height: 160px;
+            height: calc(100% - 30px);
             overflow-y: auto;
+            .power-details {
+              font-size: 12px;
+              line-height: 12px;
+              font-weight: 600;
+              text-indent: 5px;
+            }
+            .power-description {
+              line-height: 15px;
+            }
           }
         }
       }
     }
 
     .biography {
+      .advances {
+        padding: 2px;
+        margin: 5px 0;
+        .editor {
+          height: 165px;
+          padding: 3px;
+        }
+      }
+      .description {
+        .editor {
+          height: 350px;
+          padding: 3px;
+        }
+      }
     }
   }
 }

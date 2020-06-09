@@ -1,40 +1,68 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
-    {{!-- Item Sheet Header --}}
-    {{> "systems/swade/templates/items/partials/header.html"}}
-    <section class="sheet-body">
-        <div class="form-group">
-            <label for="data.price">{{localize "SWADE.Price"}}</label>
-            <input name="data.price" type="text" value="{{item.data.price}}" placeholder="{{localize 'SWADE.Price'}}"
-                data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.weight">{{localize "SWADE.Weight"}}</label>
-            <input name="data.weight" type="text" value="{{item.data.weight}}" placeholder="{{localize 'SWADE.Weight'}}"
-                data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.quantity">{{localize "SWADE.Quantity"}}</label>
-            <input name="data.quantity" type="text" value="{{item.data.quantity}}"
-                placeholder="{{localize 'SWADE.Quantity'}}" data-dtype="Number" />
-        </div>
-        {{log item}}
-        {{#unless item.data.isOwned}}
-        <div class="form-group">
-            <input type="checkbox" name="data.equippable" id="data.equippable" {{checked item.data.equippable}}
-                data-dtype="Boolean">
-            <label for="data.equippable">{{localize "SWADE.Equippable"}}</label>
-        </div>
-        {{/unless}}
-        <div class="form-group">
-            <input type="checkbox" name="data.equipped" id="data.equipped" {{checked item.data.equipped}}
-                data-dtype="Boolean">
-            <label for="data.equipped">{{localize "SWADE.Equipped"}}</label>
-        </div>
-        <header class="header-field">
-            <span>{{localize "SWADE.Desc"}}</span>
-        </header>
-        <div class="form-group">
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
-        </div>
+  {{!-- Item Sheet Header --}} {{>
+  "systems/swade/templates/items/partials/header.html"}}
+  <main class="sheet-body flexrow">
+    <section class="item-stats">
+      <header class="header-field">
+        <span>{{localize "SWADE.Details"}}</span>
+      </header>
+      <div class="form-group">
+        <input
+          type="checkbox"
+          name="data.equippable"
+          id="data.equippable"
+          {{checked
+          item.data.equippable}}
+          data-dtype="Boolean"
+        />
+        <label for="data.equippable">{{localize "SWADE.Equippable"}}</label>
+      </div>
+      {{#if item.data.equippable}}
+      <div class="form-group">
+        <input
+          type="checkbox"
+          name="data.equipped"
+          id="data.equipped"
+          {{checked
+          item.data.equipped}}
+          data-dtype="Boolean"
+        />
+        <label for="data.equipped">{{localize "SWADE.Equipped"}}</label>
+      </div>
+      {{/if}}
+      <div class="form-group">
+        <label for="data.price">{{localize "SWADE.Price"}}</label>
+        <input
+          name="data.price"
+          type="text"
+          value="{{item.data.price}}"
+          placeholder="{{localize 'SWADE.Price'}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label for="data.weight">{{localize "SWADE.Weight"}}</label>
+        <input
+          name="data.weight"
+          type="text"
+          value="{{item.data.weight}}"
+          placeholder="{{localize 'SWADE.Weight'}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label for="data.quantity">{{localize "SWADE.Quantity"}}</label>
+        <input
+          name="data.quantity"
+          type="text"
+          value="{{item.data.quantity}}"
+          placeholder="{{localize 'SWADE.Quantity'}}"
+          data-dtype="Number"
+        />
+      </div>
     </section>
+    <section>
+      {{> "systems/swade/templates/items/partials/description.html"}}
+    </section>
+  </main>
 </form>

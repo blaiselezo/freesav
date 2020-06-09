@@ -1,52 +1,95 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
-    {{!-- Item Sheet Header --}}
-    {{> "systems/swade/templates/items/partials/header.html"}}
-    <section class="sheet-body">
-        <div class="form-group">
-            <label for="data.cover">{{localize "SWADE.Cover"}}</label>
-            <input name="data.cover" type="text" value="{{item.data.cover}}" placeholder="{{localize 'SWADE.Cover'}}"
-                data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.parry">{{localize "SWADE.Parry"}}</label>
-            <input name="data.parry" type="text" value="{{item.data.parry}}" placeholder="{{localize 'SWADE.Parry'}}"
-                data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.price">{{localize "SWADE.Price"}}</label>
-            <input name="data.price" type="text" value="{{item.data.price}}" placeholder="{{localize 'SWADE.Price'}}"
-                data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.weight">{{localize "SWADE.Weight"}}</label>
-            <input name="data.weight" type="text" value="{{item.data.weight}}" placeholder="{{localize 'SWADE.Weight'}}"
-                data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.quantity">{{localize "SWADE.Quantity"}}</label>
-            <input name="data.quantity" type="text" value="{{item.data.quantity}}"
-                placeholder="{{localize 'SWADE.Quantity'}}" data-dtype="Number" />
-        </div>
-        <div class="form-group">
-            <label for="data.minStr">{{localize "SWADE.MinStrLong"}}</label>
-            <input name="data.minStr" type="text" value="{{item.data.minStr}}"
-                placeholder="{{localize 'SWADE.MinStrLong'}}" data-dtype="String" />
-        </div>
-        <div class="form-group">
-            <label for="data.notes">{{localize "SWADE.Notes"}}</label>
-            <input type="text" name="data.notes" value="{{item.data.notes}}" placeholder="{{localize 'SWADE.Notes'}}"
-                data-dtype="String" />
-        </div>
-        <div class="form-group">
-            <input type="checkbox" name="data.equipped" id="data.equipped" {{checked item.data.equipped}}
-                data-dtype="Boolean">
-            <label for="data.equipped">{{localize "SWADE.Equipped"}}</label>
-        </div>
-        <header class="header-field">
-            <span>{{localize "SWADE.Desc"}}</span>
-        </header>
-        <div class="form-group">
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
-        </div>
+  {{!-- Item Sheet Header --}} {{>
+  "systems/swade/templates/items/partials/header.html"}}
+  <main class="sheet-body flexrow">
+    <section class="item-stats">
+      <header class="header-field">
+        <span>{{localize "SWADE.Details"}}</span>
+      </header>
+      <div class="form-group">
+        <input
+          type="checkbox"
+          name="data.equipped"
+          id="data.equipped"
+          {{checked
+          item.data.equipped}}
+          data-dtype="Boolean"
+        />
+        <label for="data.equipped">{{localize "SWADE.Equipped"}}</label>
+      </div>
+      <div class="form-group">
+        <label for="data.cover">{{localize "SWADE.Cover"}}</label>
+        <input
+          name="data.cover"
+          type="text"
+          value="{{item.data.cover}}"
+          placeholder="{{localize 'SWADE.Cover'}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label for="data.parry">{{localize "SWADE.Parry"}}</label>
+        <input
+          name="data.parry"
+          type="text"
+          value="{{item.data.parry}}"
+          placeholder="{{localize 'SWADE.Parry'}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label for="data.price">{{localize "SWADE.Price"}}</label>
+        <input
+          name="data.price"
+          type="text"
+          value="{{item.data.price}}"
+          placeholder="{{localize 'SWADE.Price'}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label for="data.weight">{{localize "SWADE.Weight"}}</label>
+        <input
+          name="data.weight"
+          type="text"
+          value="{{item.data.weight}}"
+          placeholder="{{localize 'SWADE.Weight'}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label for="data.quantity">{{localize "SWADE.Quantity"}}</label>
+        <input
+          name="data.quantity"
+          type="text"
+          value="{{item.data.quantity}}"
+          placeholder="{{localize 'SWADE.Quantity'}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="form-group">
+        <label for="data.minStr">{{localize "SWADE.MinStrShort"}}</label>
+        <input
+          name="data.minStr"
+          type="text"
+          value="{{item.data.minStr}}"
+          placeholder="{{localize 'SWADE.MinStr'}}"
+          data-dtype="String"
+        />
+      </div>
+      <div class="form-group">
+        <label for="data.notes">{{localize "SWADE.Notes"}}</label>
+        <input
+          type="text"
+          name="data.notes"
+          value="{{item.data.notes}}"
+          placeholder="{{localize 'SWADE.Notes'}}"
+          data-dtype="String"
+        />
+      </div>
     </section>
+    <section>
+      {{> "systems/swade/templates/items/partials/description.html"}}
+    </section>
+  </main>
 </form>

@@ -12,6 +12,10 @@
         flex-basis: 140px;
       }
     }
+    .item-controls {
+      flex-grow: 0;
+      flex-basis: 40px;
+    }
   }
   .editor {
     min-height: 200px;
@@ -26,6 +30,8 @@
 
   // Summary
   .traits {
+    margin: 5px 0;
+    padding: 2px;
     .skills-list {
       span {
         a {
