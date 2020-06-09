@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.9.0]
 
 ### Added
 
@@ -43,6 +43,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - Added an item edit control on NPC inventory
 
 - Added drag&drop capability for PCs and NPCs so you can pull weapons and skills into the hotbar and create macros.
+- Added a bunch of icons for skills
+- Added the ability to choose cards when rerolling a card
 
 ### Changed
 
