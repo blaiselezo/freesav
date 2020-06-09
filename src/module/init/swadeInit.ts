@@ -20,6 +20,7 @@ export const rollInitiative = async function (
   const combatantUpdates = [];
   const initMessages = [];
   let isRedraw = false;
+  let skipMessage = false;
 
   if (ids.length > actionCardDeck.results.filter((r) => !r.drawn).length) {
     ui.notifications.warn(game.i18n.localize('SWADE.NoCardsLeft'));
@@ -29,7 +30,6 @@ export const rollInitiative = async function (
   // Iterate over Combatants, performing an initiative draw for each
   for (let i = 0; i < ids.length; i++) {
     const id = ids[i];
-
     // Get Combatant data
     let c = await this.getCombatant(id);
     if (c.flags.swade && c.flags.swade.cardValue !== null) {
@@ -49,23 +49,31 @@ export const rollInitiative = async function (
     // Draw initiative
     let card;
     if (isRedraw) {
+      let oldCard = await findCard(
+        c.flags.swade.cardValue,
+        c.flags.swade.suitValue,
+      );
       const cards = await drawCard();
-      card = cards[0] as any;
+      cards.push(oldCard);
+      card = await pickACard(cards, c.name, oldCard._id);
+      if (card === oldCard) {
+        skipMessage = true;
+      }
     } else {
       if (hasHesitant) {
         // Hesitant
-        const cards = (await drawCard(2)) as any[];
-        if (cards.filter((c) => c.flags.swade.isJoker).length > 0) {
+        const cards = await drawCard(2);
+        if (cards.filter((c) => c.getFlag('swade', 'isJoker')).length > 0) {
           card = await pickACard(cards, c.name);
         } else {
           cards.sort((a, b) => {
             //sort cards to pick the lower one
-            const cardA = a.flags.swade.cardValue;
-            const cardB = b.flags.swade.cardValue;
+            const cardA = a.getFlag('swade', 'cardValue');
+            const cardB = b.getFlag('swade', 'cardValue');
             let card = cardA - cardB;
             if (card !== 0) return card;
-            const suitA = a.flags.swade.suitValue;
-            const suitB = b.flags.swade.suitValue;
+            const suitA = a.getFlag('swade', 'suitValue');
+            const suitB = b.getFlag('swade', 'suitValue');
             let suit = suitA - suitB;
             return suit;
           });
@@ -83,14 +91,16 @@ export const rollInitiative = async function (
     }
 
     const newflags = {
-      suitValue: card.flags.swade.suitValue,
-      cardValue: card.flags.swade.cardValue,
-      hasJoker: card.flags.swade.isJoker,
-      cardString: card.content,
+      suitValue: card.getFlag('swade', 'suitValue'),
+      cardValue: card.getFlag('swade', 'cardValue'),
+      hasJoker: card.getFlag('swade', 'isJoker'),
+      cardString: card['data']['content'],
     };
 
     const initValue =
-      '' + card.flags.swade.suitValue + card.flags.swade.cardValue;
+      '' +
+      card.getFlag('swade', 'suitValue') +
+      card.getFlag('swade', 'cardValue');
     combatantUpdates.push({
       _id: c._id,
       initiative: initValue,
@@ -103,7 +113,7 @@ export const rollInitiative = async function (
         <div class="table-draw">
             <ol class="table-results">
                 <li class="table-result flexrow">
-                    <img class="result-image" src="${card.img}">
+                    <img class="result-image" src="${card['data']['img']}">
                     <h4 class="result-text">@Compendium[${cardPack}.${card._id}]{${card.name}}</h4>
                 </li>
             </ol>
@@ -135,7 +145,7 @@ export const rollInitiative = async function (
   await this.updateEmbeddedEntity('Combatant', combatantUpdates);
   // Create multiple chat messages
 
-  if (game.settings.get('swade', 'initiativeSound')) {
+  if (game.settings.get('swade', 'initiativeSound') && !skipMessage) {
     AudioHelper.play(
       {
         src: 'systems/swade/assets/card-flip.wav',
@@ -147,7 +157,7 @@ export const rollInitiative = async function (
     );
   }
 
-  if (game.settings.get('swade', 'initMessage')) {
+  if (game.settings.get('swade', 'initMessage') && !skipMessage) {
     await ChatMessage.create(initMessages);
   }
   // Return the updated Combat
@@ -196,6 +206,10 @@ export const setupTurns = function () {
   return this.turns;
 };
 
+/**
+ * Draws cards
+ * @param count number of cards to draw
+ */
 const drawCard = async function (count?: number): Promise<JournalEntry[]> {
   const actionCardDeck = game.tables.getName(
     CONFIG.SWADE.init.cardTable,
@@ -225,32 +239,46 @@ const drawCard = async function (count?: number): Promise<JournalEntry[]> {
     const lookUpCard = packIndex.find(
       (c) => c.name === drawResult.results[0].text,
     );
-    cards.push((await actionCardPack.getEntry(lookUpCard._id)) as JournalEntry);
+    cards.push(
+      (await actionCardPack.getEntity(lookUpCard._id)) as JournalEntry,
+    );
   }
   return cards;
 };
 
+/**
+ * Asks the GM to pick a cards
+ * @param cards an array of cards
+ * @param combatantName name of the combatant
+ * @param oldCardId id of the old card, if you're picking cards for a redraw
+ */
 const pickACard = async function (
   cards: JournalEntry[],
   combatantName?: string,
+  oldCardId?: string,
 ): Promise<JournalEntry> {
   // any card
 
   // sort the cards for display
-  const sortedCards = cards.sort((a: any, b: any) => {
-    const cardA = a.flags.swade.cardValue;
-    const cardB = b.flags.swade.cardValue;
+  const sortedCards = cards.sort((a: JournalEntry, b: JournalEntry) => {
+    const cardA = a.getFlag('swade', 'cardValue') as number;
+    const cardB = b.getFlag('swade', 'cardValue') as number;
     let card = cardB - cardA;
     if (card !== 0) return card;
-    const suitA = a.flags.swade.suitValue;
-    const suitB = b.flags.swade.suitValue;
+    const suitA = a.getFlag('swade', 'suitValue') as number;
+    const suitB = b.getFlag('swade', 'suitValue') as number;
     let suit = suitB - suitA;
     return suit;
   });
-
+  console.log('oldCardId:', oldCardId);
   let card = null;
   const template = 'systems/swade/templates/initiative/choose-card.html';
-  const html = await renderTemplate(template, { cards: sortedCards });
+  const html = await renderTemplate(template, {
+    data: {
+      cards: sortedCards,
+      oldCard: oldCardId,
+    },
+  });
 
   return new Promise((resolve) => {
     new Dialog({
@@ -272,11 +300,36 @@ const pickACard = async function (
       close: () => {
         //if no card has been chosen then choose first in array
         if (card === null || typeof card === 'undefined') {
-          console.log('no card selected');
-          card = cards[0]; //If no card was selected, assign the first card that was drawn
+          if (oldCardId) {
+            card = cards.find((c) => c._id === oldCardId);
+          } else {
+            console.log('no card selected');
+            card = cards[0]; //If no card was selected, assign the first card that was drawn
+          }
         }
         resolve(card);
       },
     }).render(true);
   });
+};
+
+/**
+ * Find a card from the deck based on it's suit and value
+ * @param cardValue
+ * @param cardSuit
+ */
+const findCard = async function (
+  cardValue: number,
+  cardSuit: number,
+): Promise<JournalEntry> {
+  let actionCardPack = game.packs.get(
+    game.settings.get('swade', 'cardDeck'),
+  ) as Compendium;
+  const packContent = (await actionCardPack.getContent()) as JournalEntry[];
+
+  return packContent.find(
+    (c) =>
+      c.getFlag('swade', 'cardValue') === cardValue &&
+      c.getFlag('swade', 'suitValue') === cardSuit,
+  );
 };

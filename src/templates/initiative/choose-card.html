@@ -1,8 +1,17 @@
 <form>
-    {{#each cards as |card|}}
-    <div>
-        <input type="radio" name="card" id="{{card._id}}" data-card-id="{{card._id}}">
-        <label for="{{card._id}}">{{card.name}}</label>
-    </div>
-    {{/each}}
+  {{#each data.cards as |card|}}
+  <div>
+    <input
+      type="radio"
+      name="card"
+      id="{{card.id}}"
+      data-card-id="{{card.id}}"
+    />
+    <label for="{{card._id}}">
+      {{card.name}} {{#if (eq card._id ../data.oldCard)}}<strong
+        >(Old card)</strong
+      >{{/if}}
+    </label>
+  </div>
+  {{/each}}
 </form>
