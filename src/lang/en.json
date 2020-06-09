@@ -92,6 +92,7 @@
   "SWADE.Price": "Price",
 
   "SWADE.PP": "Power Points",
+  "SWADE.PPShort": "P. Points",
   "SWADE.CurPP": "Current Power Points",
   "SWADE.MaxPP": "Maximum Power Points",
   "SWADE.Dur": "Duration",

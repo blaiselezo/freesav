@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Layout rework (Thanks to U~Man)
+
   - Added multiple arcane support, filling the Arcane field of power items will sort it in the powers tab and gives it its own PP pool when the filter is enabled
   - Moved sheet config options (initiative, wounds) to a Tweaks dialog in the sheet header
   - Moved Race and Rank fields to the sheet header
@@ -40,6 +41,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - Added dice icons to attributes select boxes
   - Weapon damage can be rolled in the inventory
   - Added an item edit control on NPC inventory
+
+- Added drag&drop capability for PCs and NPCs so you can pull weapons and skills into the hotbar and create macros.
+
+### Changed
+
+- Adjusted Weapon/Armor/Gear/Power Item sheets to be more compact
 
 ### Fixed
 

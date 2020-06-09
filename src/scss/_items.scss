@@ -1,4 +1,5 @@
 .swade.sheet.item {
+  min-width: 560px;
   .window-content {
     padding: 5px;
     overflow-y: hidden;
@@ -55,7 +56,7 @@
 
   // Header Fields
   .header-fields {
-    input[type="text"] {
+    input[type='text'] {
       background: none;
       border: 1px solid transparent;
     }
@@ -68,6 +69,7 @@
     .editor {
       border: $section-border;
       height: 300px;
+      padding: 0 3px;
     }
     .item-stats {
       max-width: 30%;
