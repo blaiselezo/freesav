@@ -69,6 +69,7 @@
   "SWADE.Desc": "Description",
   "SWADE.Details": "Details",
   "SWADE.Equippable": "Equippable",
+  "SWADE.Misc": "Misc",
 
   "SWADE.QuickAccess": "Quick Access",
   "SWADE.Hindrances": "Hindrances",
@@ -91,6 +92,7 @@
   "SWADE.Price": "Price",
 
   "SWADE.PP": "Power Points",
+  "SWADE.PPShort": "P. Points",
   "SWADE.CurPP": "Current Power Points",
   "SWADE.MaxPP": "Maximum Power Points",
   "SWADE.Dur": "Duration",
