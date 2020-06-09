@@ -2,7 +2,7 @@
   "name": "swade",
   "title": "Savage Worlds Adventure Edition",
   "description": "A comprehensive gamesystem for running Savage Worlds Adventure Edition games",
-  "version": "0.8.6",
+  "version": "0.9.0",
   "minimumCoreVersion": "0.6.0",
   "compatibleCoreVersion": "0.6.2",
   "author": "FloRad",
