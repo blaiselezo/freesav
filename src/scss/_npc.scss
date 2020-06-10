@@ -23,8 +23,7 @@
     }
   }
   .editor {
-    min-height: 200px;
-    height: 500px;
+    height: 165px;
   }
 
   .vitals {
@@ -37,6 +36,7 @@
   .traits {
     margin: 5px 0;
     padding: 2px;
+    overflow: auto;
     .skills-list {
       span {
         a {

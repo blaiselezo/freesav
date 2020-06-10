@@ -1,3 +1,23 @@
+<section class="flexrow">
+  <div class="profile-img-container">
+    <img
+      class="profile-img"
+      src="{{actor.img}}"
+      data-edit="img"
+      title="{{actor.name}}"
+    />
+  </div>
+  <div class="advances">
+    <header class="header-field">
+      <span>{{localize "SWADE.Desc"}}</span>
+    </header>
+    <div style="height: 200px;">
+      {{editor content=data.details.biography.value
+      target="data.details.biography.value" button=true owner=owner
+      editable=editable}}
+    </div>
+  </div>
+</section>
 <section class="vitals flexrow">
   <div class="vitals-container">
     <strong>{{localize "SWADE.Fatigue"}}</strong>
@@ -118,7 +138,7 @@
   {{> "systems/swade/templates/actors/partials/attributes.html"}}
 </section>
 <div class="flexrow">
-  <div class="traits">
+  <div class="traits resizable" data-base-size="350">
     <header class="header-field flexrow">
       <div>
         <span>{{localize "SWADE.Skills"}}</span>
