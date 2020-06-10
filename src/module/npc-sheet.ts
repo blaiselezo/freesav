@@ -251,11 +251,9 @@ export class SwadeNPCSheet extends ActorSheet {
     // Roll Damage
     html.find('.damage-roll').click((event) => {
       let element = event.currentTarget as Element;
-      let itemId =
-        element.parentElement.parentElement.parentElement.dataset.itemId;
+      let itemId = $(element).parents('[data-item-id]').attr('data-item-id');
       const item = this.actor.getOwnedItem(itemId) as SwadeItem;
       return item.rollDamage();
-      // actorObject.rollSkill(item, {event: event});
     });
 
     // Add new object
