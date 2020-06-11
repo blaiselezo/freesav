@@ -431,11 +431,10 @@ export class SwadeCharacterSheet extends ActorSheet {
     }
 
     // Check for enabled optional rules
-    this.actor.setFlag(
-      'swade',
-      'enableConviction',
-      game.settings.get('swade', 'enableConviction'),
-    );
+    data.data.settingrules = {
+      conviction: game.settings.get('swade', 'enableConviction'),
+    };
+    console.log(data);
     return data;
   }
 
@@ -476,7 +475,7 @@ export class SwadeCharacterSheet extends ActorSheet {
     return retVal;
   }
 
-  private _checkNull(items: Item[]): any[] {
+  private _checkNull(items: Item[]): Item[] {
     if (items && items.length) {
       return items;
     }
