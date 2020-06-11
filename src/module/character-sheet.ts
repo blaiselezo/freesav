@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from './entity';
+import { SwadeActor } from './SwadeActor';
 // eslint-disable-next-line no-unused-vars
-import { SwadeItem } from './item-entity';
+import { SwadeItem } from './SwadeItem';
 import { SwadeEntityTweaks } from './dialog/entity-tweaks';
 
 export class SwadeCharacterSheet extends ActorSheet {

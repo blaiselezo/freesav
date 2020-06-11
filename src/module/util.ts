@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeItem } from './item-entity';
+import { SwadeItem } from './SwadeItem';
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from './entity';
+import { SwadeActor } from './SwadeActor';
 
 export function isIncapacitated(wounds, fatigue): boolean {
   if (
@@ -36,7 +36,7 @@ export async function createActionCardTable(
     packName = cardpack;
   }
   const cardPack = game.packs.get(packName) as Compendium;
-  const cardPackIndex = (await cardPack.getIndex()) as JournalEntry[];
+  const cardPackIndex = await cardPack.getIndex();
   let cardTable = game.tables.getName(CONFIG.SWADE.init.cardTable);
 
   //If the table doesn't exist, create it
@@ -45,7 +45,6 @@ export async function createActionCardTable(
       name: CONFIG.SWADE.init.cardTable,
       replacement: false,
       displayRoll: false,
-      description: 'Action Card',
     };
     const tableOptions = { temporary: false, renderSheet: false };
     cardTable = (await RollTable.create(tableData, tableOptions)) as RollTable;
