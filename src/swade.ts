@@ -43,6 +43,8 @@ Hooks.once('init', async function () {
 
   //Register custom Handlebars helpers
   registerCustomHelpers();
+
+  // Register custom classes
   CONFIG.Actor.entityClass = SwadeActor;
   CONFIG.Item.entityClass = SwadeItem;
   CONFIG.Combat.entityClass = SwadeCombat;

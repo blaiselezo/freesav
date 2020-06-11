@@ -64,7 +64,9 @@ export class SwadeActor extends Actor {
     const rollParts = [exp] as any[];
     let ablMod = parseInt(abl.die.modifier);
     if (!isNaN(ablMod) && ablMod !== 0) {
-      if (ablMod > 0) rollParts.push('+');
+      if (ablMod > 0) {
+        rollParts.push('+');
+      }
       rollParts.push(ablMod);
     }
 
@@ -106,7 +108,9 @@ export class SwadeActor extends Actor {
     const rollParts = [exp] as any[];
     let itemMod = parseInt(skillData['die'].modifier);
     if (!isNaN(itemMod) && itemMod !== 0) {
-      if (itemMod > 0) rollParts.push('+');
+      if (itemMod > 0) {
+        rollParts.push('+');
+      }
       rollParts.push(itemMod);
     }
     const woundFatigePenalties = this.calcWoundFatigePenalties();
