@@ -20,6 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Changed
+
+- Created dedicated `Combat` class for the system
+- Renamed a few classes to make their function more easily apparent
+
+### Fixed
+
+- Fixed a small bug which would prevent NPCs from rolling power damage
+
 ## [v0.9.0]
 
 ### Added
