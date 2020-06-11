@@ -9,16 +9,15 @@
  */
 
 // Import TypeScript modules
-import { SwadeCharacterSheet } from './module/character-sheet';
+import { SwadeCharacterSheet } from './module/SwadeCharacterSheet';
 import { formatRoll } from './module/chat';
 import { SWADE } from './module/config';
-import { SwadeActor } from './module/entity';
+import { SwadeActor } from './module/SwadeActor';
 import { registerCustomHelpers } from './module/handlebarsHelpers';
-import { rollInitiative, setupTurns } from './module/init/swadeInit';
-import { SwadeItem } from './module/item-entity';
-import { SwadeItemSheet } from './module/item-sheet';
+import { SwadeItem } from './module/SwadeItem';
+import { SwadeItemSheet } from './module/SwadeItemSheet';
 import { listenJournalDrop } from './module/journalDrop';
-import { SwadeNPCSheet } from './module/npc-sheet';
+import { SwadeNPCSheet } from './module/SwadeNPCSheet';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { registerSettings } from './module/settings';
 import { SwadeSetup } from './module/setup/setupHandler';
@@ -28,6 +27,7 @@ import {
   rollSkillMacro,
   rollWeaponMacro,
 } from './module/util';
+import { SwadeCombat } from './module/SwadeCombat';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -40,13 +40,14 @@ Hooks.once('init', async function () {
 
   // Record Configuration Values
   CONFIG.SWADE = SWADE;
-  Combat.prototype.rollInitiative = rollInitiative;
-  Combat.prototype.setupTurns = setupTurns;
 
   //Register custom Handlebars helpers
   registerCustomHelpers();
+
+  // Register custom classes
   CONFIG.Actor.entityClass = SwadeActor;
   CONFIG.Item.entityClass = SwadeItem;
+  CONFIG.Combat.entityClass = SwadeCombat;
 
   // Register custom system settings
   registerSettings();
