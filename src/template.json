@@ -73,7 +73,11 @@
           "species": {
             "name": ""
           },
-          "currency": 500
+          "currency": 500,
+          "conviction": {
+            "value": 0,
+            "active": false
+          }
         },
         "powerPoints": {},
         "fatigue": {

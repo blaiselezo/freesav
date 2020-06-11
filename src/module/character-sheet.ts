@@ -270,16 +270,36 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
     //Toggle Conviction
-    html.find('.convction-toggle').click(async () => {
-      if (!this.actor.getFlag('swade', 'convictionReady')) {
-        this.actor.setFlag('swade', 'convictionReady', true);
-      } else {
-        await new Roll('1d6x=').roll().toMessage({
-          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-          flavor: game.i18n.localize('SWADE.UseConv'),
+    html.find('.conviction-toggle').click(async () => {
+      const current = html.find('.conviction-counter').val() as number;
+      const active = this.actor.data.data['details']['conviction']['active'];
+      if (current > 0 && !active) {
+        await this.actor.update({
+          'data.details.conviction.value': current - 1,
+          'data.details.conviction.active': true,
         });
-        this.actor.setFlag('swade', 'convictionReady', false);
+        ChatMessage.create({
+          speaker: {
+            actor: this.actor,
+            alias: this.actor.name,
+          },
+          flavor: 'Calls upon their conviction!',
+          content:
+            'While Conviction is active, the character adds an additional d6 to their trait and damage roll totals that can ace.',
+        });
+      } else {
+        await this.actor.update({
+          'data.details.conviction.active': false,
+        });
+        ChatMessage.create({
+          speaker: {
+            actor: this.actor,
+            alias: this.actor.name,
+          },
+          content: 'wavers in her conviction',
+        });
       }
+      console.log(this.actor.data.data['details']['conviction']['active']);
     });
 
     // Roll attribute
