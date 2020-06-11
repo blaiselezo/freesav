@@ -1,21 +1,15 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from './entity';
+import { SwadeActor } from './SwadeActor';
 // eslint-disable-next-line no-unused-vars
-import { SwadeItem } from './item-entity';
+import { SwadeItem } from './SwadeItem';
 import { SwadeEntityTweaks } from './dialog/entity-tweaks';
 
-export class SwadeCharacterSheet extends ActorSheet {
-  /* -------------------------------------------- */
-
-  /**
-   * Extend and override the default options used by the Actor Sheet
-   * @returns {Object}
-   */
+export class SwadeNPCSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['swade', 'sheet', 'actor', 'character'],
+      classes: ['swade', 'sheet', 'actor', 'npc'],
       width: 600,
-      height: 768,
+      height: 'auto',
       tabs: [
         {
           navSelector: '.tabs',
@@ -23,20 +17,20 @@ export class SwadeCharacterSheet extends ActorSheet {
           initial: 'summary',
         },
       ],
-      scrollY: [
-        '.skills .skills-list',
-        '.quickaccess-list',
-        '.inventory .inventory-categories',
-      ],
-      activeArcane: 'All',
     });
+  }
+
+  get template() {
+    // Later you might want to return a different template
+    // based on user permissions.
+    if (!game.user.isGM && this.actor.limited)
+      return 'systems/swade/templates/actors/limited-sheet.html';
+    return 'systems/swade/templates/actors/npc-sheet.html';
   }
 
   _createEditor(target, editorOptions, initialContent) {
     // remove some controls to the editor as the space is lacking
-    if (target == 'data.advances.details') {
-      editorOptions.toolbar = 'styleselect bullist hr table removeFormat save';
-    }
+    editorOptions.toolbar = 'styleselect bullist hr table removeFormat save';
     super._createEditor(target, editorOptions, initialContent);
   }
 
@@ -47,7 +41,6 @@ export class SwadeCharacterSheet extends ActorSheet {
       left: this.position.left + (this.position.width - 400) / 2,
     }).render(true);
   }
-
   /**
    * Extend and override the sheet header buttons
    * @override
@@ -70,14 +63,9 @@ export class SwadeCharacterSheet extends ActorSheet {
     return buttons;
   }
 
-  get template() {
-    // Later you might want to return a different template
-    // based on user permissions.
-    return 'systems/swade/templates/actors/character-sheet.html';
-  }
-
-  async _chooseItemType(choices) {
-    let templateData = { upper: '', lower: '', types: choices },
+  async _chooseItemType() {
+    const types = ['weapon', 'armor', 'shield', 'gear'];
+    let templateData = { upper: '', lower: '', types: types },
       dlg = await renderTemplate(
         'templates/sidebar/entity-create.html',
         templateData,
@@ -108,28 +96,6 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
   }
 
-  // Override to set resizable initial size
-  async _renderInner(...args: any[]) {
-    const html = await super._renderInner(...args);
-    this.form = html[0];
-
-    // Resize resizable classes
-    let resizable = (html as JQuery).find('.resizable');
-    resizable.each((_, el) => {
-      let heightDelta = this.position.height - (this.options.height as number);
-      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
-    });
-
-    // Filter power list
-    const arcane = !this.options.activeArcane
-      ? 'All'
-      : this.options.activeArcane;
-    (html as JQuery).find('.arcane-tabs .arcane').removeClass('active');
-    (html as JQuery).find(`[data-arcane='${arcane}']`).addClass('active');
-    this._filterPowers(html as JQuery, arcane);
-    return html;
-  }
-
   _filterPowers(html: JQuery, arcane: string) {
     this.options.activeArcane = arcane;
     // Show, hide powers
@@ -150,82 +116,54 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
   }
 
-  activateListeners(html: JQuery<HTMLElement>) {
-    super.activateListeners(html);
+  // Override to set resizable initial size
+  async _renderInner(...args: any[]) {
+    const html = await super._renderInner(...args);
+    this.form = html[0];
 
-    // Everything below here is only needed if the sheet is editable
-    if (!this.options.editable) return;
+    // Resize resizable classes
+    let resizable = (html as JQuery).find('.resizable');
+    resizable.each((_, el) => {
+      let heightDelta = this.position.height - (this.options.height as number);
+      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
+    });
+    // Filter power list
+    const arcane = !this.options.activeArcane
+      ? 'All'
+      : this.options.activeArcane;
+    (html as JQuery).find('.arcane-tabs .arcane').removeClass('active');
+    (html as JQuery).find(`[data-arcane='${arcane}']`).addClass('active');
+    this._filterPowers(html as JQuery, arcane);
+    return html;
+  }
+
+  activateListeners(html: JQuery): void {
+    super.activateListeners(html);
 
     // Drag events for macros.
     if (this.actor.owner) {
       let handler = (ev) => this._onDragItemStart(ev);
       // Find all items on the character sheet.
-      html.find('li.item.skill').each((i, li) => {
+      html.find('span.item.skill').each((i, li) => {
         // Add draggable attribute and dragstart listener.
         li.setAttribute('draggable', 'true');
         li.addEventListener('dragstart', handler, false);
       });
-      html.find('li.item.weapon').each((i, li) => {
+      html.find('div.item.weapon').each((i, li) => {
         // Add draggable attribute and dragstart listener.
         li.setAttribute('draggable', 'true');
         li.addEventListener('dragstart', handler, false);
       });
     }
 
-    // Update Item
-    html.find('.item-edit').click((ev) => {
+    // Everything below here is only needed if the sheet is editable
+    if (!this.options.editable) return;
+
+    // Update Item via reigh-click
+    html.find('.contextmenu-edit').contextmenu((ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.getOwnedItem(li.data('itemId'));
       item.sheet.render(true);
-    });
-
-    // Delete Item
-    html.find('.item-delete').click(async (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const ownedItem = this.actor.getOwnedItem(li.data('itemId'));
-      await Dialog.confirm(
-        {
-          title: game.i18n.localize('SWADE.Del'),
-          content: `<p><center>${game.i18n.localize('SWADE.Del')} <strong>${
-            ownedItem.name
-          }</strong>?</center></p>`,
-          yes: () => {
-            this.actor.deleteOwnedItem(ownedItem.id);
-            li.slideUp(200, () => this.render(false));
-          },
-          no: () => {},
-        },
-        {},
-      );
-    });
-
-    //Show Description of an Edge/Hindrance
-    html.find('.edge').click((ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item: any = this.actor.getOwnedItem(li.data('itemId')).data;
-      html.find('#edge-description')[0].innerHTML = TextEditor.enrichHTML(
-        item.data.description,
-        {},
-      );
-    });
-
-    //Toggle Equipment
-    html.find('.item-toggle').click((ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item: any = this.actor.getOwnedItem(li.data('itemId'));
-      this.actor.updateOwnedItem(this._toggleEquipped(li.data('itemId'), item));
-    });
-
-    //Toggle Equipmnent Card collapsible
-    html.find('.gear-card .card-header').click((ev) => {
-      const card = $(ev.currentTarget).parents('.gear-card');
-      const content = card.find('.card-content');
-      content.toggleClass('collapsed');
-      if (content.hasClass('collapsed')) {
-        content.slideUp();
-      } else {
-        content.slideDown();
-      }
     });
 
     // Filter power list
@@ -236,21 +174,30 @@ export class SwadeCharacterSheet extends ActorSheet {
       this._filterPowers(html, arcane);
     });
 
-    //Input Synchronization
-    html.find('.wound-input').keyup((ev) => {
-      html.find('.wound-slider').val($(ev.currentTarget).val());
+    // Update Item
+    html.find('.item-edit').click((ev) => {
+      const li = $(ev.currentTarget).parents('.item');
+      const item = this.actor.getOwnedItem(li.data('itemId'));
+      item.sheet.render(true);
     });
 
-    html.find('.wound-slider').change((ev) => {
-      html.find('.wound-input').val($(ev.currentTarget).val());
+    // Delete Item
+    html.find('.item-delete').click((ev) => {
+      const li = $(ev.currentTarget).parents('.item');
+      this.actor.deleteOwnedItem(li.data('itemId'));
+      li.slideUp(200, () => this.render(false));
     });
 
-    html.find('.fatigue-input').keyup((ev) => {
-      html.find('.fatigue-slider').val($(ev.currentTarget).val());
-    });
-
-    html.find('.fatigue-slider').change((ev) => {
-      html.find('.fatigue-input').val($(ev.currentTarget).val());
+    // Filter power list
+    html.find('.power-filter').change((ev: any) => {
+      const arcane = ev.target.value;
+      html.find('.power').each((id: number, pow: any) => {
+        if (pow.dataset.arcane == arcane) {
+          pow.style = '';
+        } else {
+          pow.style = 'display:none;';
+        }
+      });
     });
 
     //Add Benny
@@ -270,20 +217,23 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
     //Toggle Conviction
-    html.find('.convction-toggle').click(async () => {
+    html.find('.convction-toggle').click(() => {
       if (!this.actor.getFlag('swade', 'convictionReady')) {
         this.actor.setFlag('swade', 'convictionReady', true);
       } else {
-        await new Roll('1d6x=').roll().toMessage({
-          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-          flavor: game.i18n.localize('SWADE.UseConv'),
-        });
+        //roll conviction
         this.actor.setFlag('swade', 'convictionReady', false);
       }
     });
 
+    //Configre initiative Edges/Hindrances
+    html.find('#initConfigButton').click(() => {
+      let actorObject = this.actor as SwadeActor;
+      actorObject.configureInitiative();
+    });
+
     // Roll attribute
-    html.find('.attribute-label a').click((event) => {
+    html.find('.attribute-label a').click((event: any) => {
       let actorObject = this.actor as SwadeActor;
       let element = event.currentTarget as Element;
       let attribute = element.parentElement.parentElement.dataset.attribute;
@@ -291,10 +241,10 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
     // Roll Skill
-    html.find('.skill-label a').click((event) => {
+    html.find('.skill.item a').click((event) => {
       let actorObject = this.actor as SwadeActor;
       let element = event.currentTarget as Element;
-      let item = element.parentElement.parentElement.dataset.itemId;
+      let item = element.parentElement.dataset.itemId;
       actorObject.rollSkill(item, { event: event });
     });
 
@@ -328,8 +278,7 @@ export class SwadeCharacterSheet extends ActorSheet {
 
       // Getting back to main logic
       if (type == 'choice') {
-        const choices = header.dataset.choices.split(',');
-        this._chooseItemType(choices).then((dialogInput: any) => {
+        this._chooseItemType().then((dialogInput: any) => {
           const itemData = createItem(dialogInput.type, dialogInput.name);
           this.actor.createOwnedItem(itemData);
         });
@@ -341,10 +290,12 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
   }
 
-  getData(): ActorSheetData {
+  getData() {
     let data: any = super.getData();
 
-    data.config = CONFIG.SWADE;
+    // Everything below here is only needed if user is not limited
+    if (this.actor.limited) return data;
+
     data.itemsByType = {};
     for (const item of data.items) {
       let list = data.itemsByType[item.type];
@@ -385,91 +336,23 @@ export class SwadeCharacterSheet extends ActorSheet {
       });
     }
 
-    //Checks if relevant arrays are not null and combines them into an inventory array
-    data.data.owned.inventory = {
-      gear: data.data.owned.gear,
-      weapons: data.data.owned.weapons,
-      armors: data.data.owned.armors,
-      shields: data.data.owned.shields,
-    };
-
-    data.inventoryWeight = this._calcInventoryWeight(
-      Object.values(data.data.owned.inventory),
-    );
-    data.maxCarryCapacity = this._calcMaxCarryCapacity(data);
-
     //Checks if an Actor has a Power Egde
     if (
       data.data.owned.edges &&
       data.data.owned.edges.find((edge) => edge.data.isArcaneBackground == true)
     ) {
       this.actor.setFlag('swade', 'hasArcaneBackground', true);
-      data.data.hasArcaneBackground = true;
     } else {
       this.actor.setFlag('swade', 'hasArcaneBackground', false);
-      data.data.hasArcaneBackground = false;
     }
-
     // Check for enabled optional rules
     this.actor.setFlag(
       'swade',
       'enableConviction',
-      game.settings.get('swade', 'enableConviction'),
+      game.settings.get('swade', 'enableConviction') && data.data.wildcard,
     );
+    data.config = CONFIG.SWADE;
     return data;
-  }
-
-  private _calcMaxCarryCapacity(data: any): number {
-    const strengthDie = data.data.attributes.strength.die;
-    let capacity = 0;
-
-    if (strengthDie.sides === 4) {
-      capacity = 20;
-    }
-    if (strengthDie.sides === 6) {
-      capacity = 40;
-    }
-    if (strengthDie.sides === 8) {
-      capacity = 60;
-    }
-    if (strengthDie.sides === 10) {
-      capacity = 80;
-    }
-    if (strengthDie.sides === 12) {
-      capacity = 100;
-    }
-
-    if (strengthDie.modifier > 0) {
-      capacity = capacity + 20 * strengthDie.modifier;
-    }
-
-    return capacity;
-  }
-
-  private _calcInventoryWeight(items): number {
-    let retVal = 0;
-    items.forEach((category: any) => {
-      category.forEach((i: any) => {
-        retVal += i.data.weight * i.data.quantity;
-      });
-    });
-    return retVal;
-  }
-
-  private _checkNull(items: Item[]): any[] {
-    if (items && items.length) {
-      return items;
-    }
-    return [];
-  }
-
-  private _toggleEquipped(id: string, item: any): any {
-    return {
-      _id: id,
-      data: {
-        equipped: !item.data.data.equipped,
-      },
-    };
   }
 
   async _onResize(event: any) {
@@ -480,5 +363,12 @@ export class SwadeCharacterSheet extends ActorSheet {
       let heightDelta = this.position.height - (this.options.height as number);
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
+  }
+
+  private _checkNull(items: Item[]): any[] {
+    if (items && items.length) {
+      return items;
+    }
+    return [];
   }
 }
