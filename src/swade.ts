@@ -553,7 +553,7 @@ Hooks.on('getUserContextOptions', (html: JQuery, context: any) => {
   if (!players) return;
   context.push(
     {
-      name: 'Add a Benny',
+      name: game.i18n.localize('SWADE.BenniesGive'),
       icon: '<i class="fas fa-plus"></i>',
       condition: (li) =>
         game.user.isGM && game.users.get(li[0].dataset.userId).isGM,
@@ -567,7 +567,7 @@ Hooks.on('getUserContextOptions', (html: JQuery, context: any) => {
       },
     },
     {
-      name: 'Refresh Bennies',
+      name: game.i18n.localize('SWADE.BenniesRefresh'),
       icon: '<i class="fas fa-sync"></i>',
       condition: (li) => game.user.isGM,
       callback: (li) => {

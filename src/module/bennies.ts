@@ -1,22 +1,42 @@
 import { SwadeActor } from './SwadeActor';
 
 export class Bennies {
-  static spendEvent(ev: MouseEvent) {
+  static async spendEvent(ev: MouseEvent) {
     ev.preventDefault();
     const userId = (ev.target as HTMLElement).parentElement.dataset.userId;
     let user = game.users.find((user: User) => user.id == userId);
     if (user.isGM) {
       let value = user.getFlag('swade', 'bennies');
       if (value == 0) return;
+      let message = await renderTemplate(CONFIG.SWADE.bennies.templates.spend, {
+        target: game.user,
+        speaker: game.user,
+      });
+      let chatData = {
+        content: message,
+      };
+      if (game.settings.get('swade', 'notifyBennies')) {
+        ChatMessage.create(chatData);
+      }
       user.setFlag('swade', 'bennies', value - 1);
     } else if (user.character) {
       user.character.spendBenny();
     }
   }
 
-  static refresh(user: User) {
+  static async refresh(user: User) {
     if (user.isGM) {
       user.setFlag('swade', 'bennies', game.users.size - 1);
+      let message = await renderTemplate(
+        CONFIG.SWADE.bennies.templates.refresh,
+        { target: game.user, speaker: game.user },
+      );
+      let chatData = {
+        content: message,
+      };
+      if (game.settings.get('swade', 'notifyBennies')) {
+        ChatMessage.create(chatData);
+      }
       ui['players'].render(true);
       return;
     }
@@ -25,13 +45,23 @@ export class Bennies {
     }
   }
 
-  static giveEvent(ev: MouseEvent) {
+  static async giveEvent(ev: MouseEvent) {
     ev.preventDefault();
     const userId = (ev.target as HTMLElement).parentElement.dataset.userId;
     let user = game.users.find((user: User) => user.id == userId);
     if (user.isGM) {
       let value = user.getFlag('swade', 'bennies');
       user.setFlag('swade', 'bennies', value + 1);
+      let message = await renderTemplate(CONFIG.SWADE.bennies.templates.gmadd, {
+        target: game.user,
+        speaker: game.user,
+      });
+      let chatData = {
+        content: message,
+      };
+      if (game.settings.get('swade', 'notifyBennies')) {
+        ChatMessage.create(chatData);
+      }
       ui['players'].render(true);
     } else if (user.character) {
       user.character.getBenny();
@@ -61,7 +91,9 @@ export class Bennies {
     span.onmouseover = () => {
       span.innerHTML = user.isGM ? '-' : '+';
     };
-    span.title = user.isGM ? 'Spend a Benny' : 'Give a benny';
+    span.title = user.isGM
+      ? game.i18n.localize('SWADE.BenniesSpend')
+      : game.i18n.localize('SWADE.BenniesGive');
     // Manage GM Bennies
     if (user.isGM) {
       let bennies = user.getFlag('swade', 'bennies');
