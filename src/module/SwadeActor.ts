@@ -143,6 +143,27 @@ export class SwadeActor extends Actor {
     });
   }
 
+  async spendBenny() {
+    let actorData = this.data as any;
+    if (actorData.data.bennies.value > 0) {
+      await this.update({
+        'data.bennies.value': actorData.data.bennies.value - 1,
+      });
+    }
+  }
+
+  async getBenny() {
+    let actorData = this.data as any;
+    await this.update({
+      'data.bennies.value': actorData.data.bennies.value + 1,
+    });
+  }
+
+  async refreshBennies() {
+    let actorData = this.data as any;
+    await this.update({ 'data.bennies.value': actorData.data.bennies.max });
+  }
+
   //Calculated the wound and fatigue penalites
   calcWoundFatigePenalties(): number {
     let retVal = 0;

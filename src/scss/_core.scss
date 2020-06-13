@@ -9,3 +9,19 @@
     vertical-align: middle;
   }
 }
+
+#players ol li.player .player-bennies {
+  flex-grow: 0;
+  flex-basis: 25px;
+  background: url('assets/icons/plain-circle.svg') no-repeat center;
+  color: black;
+  font-weight: 900;
+  overflow: hidden;
+  font-size: 18px;
+  text-align: center;
+  text-shadow: 0 0 5px white;
+  cursor: pointer;
+  &:hover {
+    filter: invert(100);
+  }
+}
