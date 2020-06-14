@@ -3,6 +3,7 @@ import { SwadeActor } from './SwadeActor';
 // eslint-disable-next-line no-unused-vars
 import { SwadeItem } from './SwadeItem';
 import { SwadeEntityTweaks } from './dialog/entity-tweaks';
+import * as chat from './chat';
 
 export class SwadeCharacterSheet extends ActorSheet {
   /* -------------------------------------------- */
@@ -271,8 +272,12 @@ export class SwadeCharacterSheet extends ActorSheet {
 
     //Toggle Conviction
     html.find('.conviction-toggle').click(async () => {
-      const current = html.find('.conviction-counter').val() as number;
-      const active = this.actor.data.data['details']['conviction']['active'];
+      const current = this.actor.data.data['details']['conviction'][
+        'value'
+      ] as number;
+      const active = this.actor.data.data['details']['conviction'][
+        'active'
+      ] as boolean;
       if (current > 0 && !active) {
         await this.actor.update({
           'data.details.conviction.value': current - 1,
@@ -291,13 +296,7 @@ export class SwadeCharacterSheet extends ActorSheet {
         await this.actor.update({
           'data.details.conviction.active': false,
         });
-        ChatMessage.create({
-          speaker: {
-            actor: this.actor,
-            alias: this.actor.name,
-          },
-          content: 'wavers in her conviction',
-        });
+        chat.createConvictionEndMessage(this.actor as SwadeActor);
       }
     });
 

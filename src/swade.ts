@@ -496,14 +496,13 @@ Hooks.on(
       //if it's not the combatants turn then skip
       const convActiveHasTurn =
         conv.tokenId === combat.turns[updateData.turn]['tokenId'];
-      const firstFoundActiveGM =
-        game.users.filter((u) => u.isGM && u.active)[0]._id === game.userId;
+      const activeGMs = game.users.filter((u) => u.isGM && u.active);
+      const firstFoundActiveGM = activeGMs[0]._id === game.userId;
       if (
         convActiveHasTurn &&
         firstFoundActiveGM &&
         game.settings.get('swade', 'enableConviction')
       ) {
-        let recipients = conv.players.concat(game.users.filter((u) => u.isGM));
         const template = 'systems/swade/templates/chat/conviction-card.html';
         const html = await renderTemplate(template, { actor: conv.actor });
         const messageData = {
@@ -513,10 +512,9 @@ Hooks.on(
             token: conv.token as any,
             alias: conv.token.name,
           },
-          whisper: recipients,
+          whisper: [...conv.players, ...game.users.filter((u) => u.isGM)],
           content: html,
         };
-        console.log('sending message to', conv.token.name);
         await ChatMessage.create(messageData);
       }
     }

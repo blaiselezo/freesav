@@ -91,6 +91,7 @@ export function chatListeners(html: JQuery<HTMLElement>) {
     }
     if (action === 'no') {
       await actor.update({ 'data.details.conviction.active': false });
+      createConvictionEndMessage(actor);
     }
     if (game.user.isGM) {
       game.messages.get(messageId).delete();
@@ -100,4 +101,12 @@ export function chatListeners(html: JQuery<HTMLElement>) {
   });
 }
 
-export function createConvictionEndMessage() {}
+export function createConvictionEndMessage(actor: SwadeActor) {
+  ChatMessage.create({
+    speaker: {
+      actor: actor,
+      alias: actor.name,
+    },
+    content: 'wavers in their conviction',
+  });
+}

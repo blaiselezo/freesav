@@ -3,6 +3,7 @@ import { SwadeActor } from './SwadeActor';
 // eslint-disable-next-line no-unused-vars
 import { SwadeItem } from './SwadeItem';
 import { SwadeEntityTweaks } from './dialog/entity-tweaks';
+import * as chat from './chat';
 
 export class SwadeNPCSheet extends ActorSheet {
   static get defaultOptions() {
@@ -288,6 +289,36 @@ export class SwadeNPCSheet extends ActorSheet {
         this.actor.createOwnedItem(itemData);
       }
     });
+
+    //Toggle Conviction
+    html.find('.conviction-toggle').click(async () => {
+      const current = this.actor.data.data['details']['conviction'][
+        'value'
+      ] as number;
+      const active = this.actor.data.data['details']['conviction'][
+        'active'
+      ] as boolean;
+      if (current > 0 && !active) {
+        await this.actor.update({
+          'data.details.conviction.value': current - 1,
+          'data.details.conviction.active': true,
+        });
+        ChatMessage.create({
+          speaker: {
+            actor: this.actor,
+            alias: this.actor.name,
+          },
+          flavor: 'Calls upon their conviction!',
+          content:
+            'While Conviction is active, the character adds an additional d6 to their trait and damage roll totals that can ace.',
+        });
+      } else {
+        await this.actor.update({
+          'data.details.conviction.active': false,
+        });
+        chat.createConvictionEndMessage(this.actor as SwadeActor);
+      }
+    });
   }
 
   getData() {
@@ -345,12 +376,12 @@ export class SwadeNPCSheet extends ActorSheet {
     } else {
       this.actor.setFlag('swade', 'hasArcaneBackground', false);
     }
+
     // Check for enabled optional rules
-    this.actor.setFlag(
-      'swade',
-      'enableConviction',
-      game.settings.get('swade', 'enableConviction') && data.data.wildcard,
-    );
+    data.data.settingrules = {
+      conviction:
+        game.settings.get('swade', 'enableConviction') && data.data.wildcard,
+    };
     data.config = CONFIG.SWADE;
     return data;
   }
