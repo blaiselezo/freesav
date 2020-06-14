@@ -299,7 +299,6 @@ export class SwadeCharacterSheet extends ActorSheet {
           content: 'wavers in her conviction',
         });
       }
-      console.log(this.actor.data.data['details']['conviction']['active']);
     });
 
     // Roll attribute
@@ -434,7 +433,6 @@ export class SwadeCharacterSheet extends ActorSheet {
     data.data.settingrules = {
       conviction: game.settings.get('swade', 'enableConviction'),
     };
-    console.log(data);
     return data;
   }
 

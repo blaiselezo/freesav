@@ -70,6 +70,10 @@ export class SwadeActor extends Actor {
       rollParts.push(ablMod);
     }
 
+    if (this.data.data['details']['conviction']['active']) {
+      rollParts.push('+1d6x=');
+    }
+
     const woundFatigePenalties = this.calcWoundFatigePenalties();
     if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
 
@@ -113,6 +117,14 @@ export class SwadeActor extends Actor {
       }
       rollParts.push(itemMod);
     }
+
+    if (
+      this.data.data['details']['conviction']['active'] &&
+      game.settings.get('swade', 'enableConviction')
+    ) {
+      rollParts.push('+1d6x=');
+    }
+
     const woundFatigePenalties = this.calcWoundFatigePenalties();
     if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
 

@@ -34,6 +34,13 @@ export class SwadeItem extends Item {
         newParts.push(part);
       }
     });
+
+    if (
+      actor.data.data['details']['conviction']['active'] &&
+      game.settings.get('swade', 'enableConviction')
+    ) {
+      newParts.push('+1d6x=');
+    }
     // Roll and return
     return SwadeDice.Roll({
       event: options.event,

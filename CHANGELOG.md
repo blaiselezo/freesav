@@ -26,6 +26,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Created dedicated `Combat` class for the system
 - Renamed a few classes to make their function more easily apparent
+- Changed `Setting Rule` to be compliant with SWADE 5.5
+
+## Removed
+
+- Took away the player's option to draw their own cards, now only the GM can do that
 
 ### Fixed
 

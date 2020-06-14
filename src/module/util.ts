@@ -166,3 +166,13 @@ export function rollWeaponMacro(weaponName) {
   // Trigger the item roll
   return item.rollDamage();
 }
+
+export function findOwner(actor: SwadeActor): string {
+  const permObj = actor.data['permission'];
+  for (const key in permObj) {
+    if (permObj[key] === 3 && !game.users.get(key).isGM) {
+      return key;
+    }
+  }
+  return game.users.find((u) => u.isGM);
+}
