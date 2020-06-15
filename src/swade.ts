@@ -396,7 +396,7 @@ Hooks.on(
 );
 
 Hooks.on('renderCombatTracker', (app, html: JQuery<HTMLElement>, data) => {
-  const currentCombat = data.combats[data.combatCount - 1];
+  const currentCombat = data.combats[data.currentIndex - 1];
   html.find('.combatant').each((i, el) => {
     const combId = el.getAttribute('data-combatant-id');
     const combatant = currentCombat.data.combatants.find(
@@ -415,7 +415,7 @@ Hooks.on(
   'preUpdateCombat',
   async (combat, updateData, options, userId: string) => {
     // Return early if we are NOT a GM OR we are not the player that triggered the update AND that player IS a GM
-    const user = game.users.get(userId, { strict: true }) as User;
+    const user = game.users.get(userId) as User;
     if (!game.user.isGM || (game.userId !== userId && user.isGM)) {
       return;
     }
@@ -426,9 +426,7 @@ Hooks.on(
     }
 
     if (combat instanceof CombatEncounters) {
-      combat = game.combats.get(updateData._id, {
-        strict: true,
-      }) as Combat;
+      combat = game.combats.get(updateData._id) as Combat;
     }
 
     // If we are not moving forward through the rounds, return

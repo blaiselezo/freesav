@@ -95,8 +95,8 @@ export class SwadeActor extends Actor {
     });
   }
 
-  rollSkill(abilityId, options = { event: null }) {
-    let items = this.items.filter((i: Item) => i.id == abilityId);
+  rollSkill(skillId, options = { event: null }) {
+    let items = this.items.filter((i: Item) => i.id == skillId);
     if (!items.length) {
       return;
     }

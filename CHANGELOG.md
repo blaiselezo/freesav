@@ -35,6 +35,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Fixed a small bug which would prevent NPCs from rolling power damage
+- Fixed a small bug that would prevent multiple combat instances to work at the same time
 
 ## [v0.9.0]
 
