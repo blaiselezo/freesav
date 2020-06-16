@@ -509,4 +509,22 @@ export class SwadeCharacterSheet extends ActorSheet {
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
   }
+
+  /**
+   * @override
+   * @param event
+   */
+  async _onDrop(event) {
+    try {
+      const data = JSON.parse(event.dataTransfer.getData('text/plain'));
+      if (data.type !== 'Item') return;
+      const item = this.actor.getOwnedItem(data.id) as SwadeItem;
+      if (item.type === 'armor') {
+        this.actor.calcArmor();
+      }
+      return super._onDrop(event);
+    } catch (err) {
+      return;
+    }
+  }
 }
