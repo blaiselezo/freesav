@@ -73,7 +73,11 @@
           "species": {
             "name": ""
           },
-          "currency": 500
+          "currency": 500,
+          "conviction": {
+            "value": 0,
+            "active": false
+          }
         },
         "powerPoints": {},
         "fatigue": {
@@ -170,7 +174,13 @@
     "armor": {
       "templates": ["itemDescription", "physicalItem", "equipable"],
       "minStr": "",
-      "armor": 0
+      "armor": 0,
+      "locations": {
+        "head": false,
+        "torso": true,
+        "arms": false,
+        "legs": false
+      }
     },
     "shield": {
       "templates": ["itemDescription", "physicalItem", "equipable"],

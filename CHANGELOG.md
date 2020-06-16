@@ -20,16 +20,27 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.9.2]
+
+### Added
+
+- Added a function to the `SwadeActor` class that calculates and sets the proper armor value
+- Added checkboxes to the Armor sheets to mark hit locations
 
 ### Changed
 
-- Created dedicated `Combat` class for the system
 - Renamed a few classes to make their function more easily apparent
+- Changed `Conviction` Setting Rule to be compliant with SWADE 5.5
+- Made Skill names multiline
+
+## Removed
+
+- Took away the player's option to draw their own cards, now only the GM can do that
 
 ### Fixed
 
 - Fixed a small bug which would prevent NPCs from rolling power damage
+- Fixed a small bug that would prevent multiple combat instances to work at the same time
 
 ## [v0.9.0]
 

@@ -1,4 +1,9 @@
 .swade.sheet.actor.npc {
+  .sheet-header {
+    .conviction {
+      width: 30%;
+    }
+  }
   .extra-gear-card {
     border-bottom: $decorative-line;
     padding-bottom: 2px;

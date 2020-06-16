@@ -26,28 +26,42 @@ import {
   createSwadeMacro,
   rollSkillMacro,
   rollWeaponMacro,
+  findOwner,
 } from './module/util';
-import { SwadeCombat } from './module/SwadeCombat';
+import { rollInitiative, setupTurns } from './module/SwadeCombat';
+import * as chat from './module/chat';
+import { SwadeSocketHandler } from './module/SwadeSocketHandler';
 
 /* ------------------------------------ */
 /* Initialize system					*/
 /* ------------------------------------ */
 Hooks.once('init', async function () {
-  //CONFIG.debug.hooks = true;
   console.log(
     `SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`,
   );
 
   // Record Configuration Values
+  //CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
+
+  game.swade = {
+    SwadeActor,
+    SwadeItem,
+    rollSkillMacro,
+    rollWeaponMacro,
+    sockets: new SwadeSocketHandler(),
+  };
 
   //Register custom Handlebars helpers
   registerCustomHelpers();
 
+  Combat.prototype.rollInitiative = rollInitiative;
+  Combat.prototype.setupTurns = setupTurns;
+
   // Register custom classes
   CONFIG.Actor.entityClass = SwadeActor;
   CONFIG.Item.entityClass = SwadeItem;
-  CONFIG.Combat.entityClass = SwadeCombat;
+  //CONFIG.Combat.entityClass = SwadeCombat;
 
   // Register custom system settings
   registerSettings();
@@ -70,13 +84,6 @@ Hooks.once('init', async function () {
 
   // Preload Handlebars templates
   await preloadHandlebarsTemplates();
-
-  game.swade = {
-    SwadeActor,
-    SwadeItem,
-    rollSkillMacro,
-    rollWeaponMacro,
-  };
 });
 
 /* ------------------------------------ */
@@ -389,82 +396,128 @@ Hooks.on(
 );
 
 Hooks.on('renderCombatTracker', (app, html: JQuery<HTMLElement>, data) => {
-  const currentCombat = data.combats[data.combatCount - 1];
+  const currentCombat = data.combats[data.currentIndex - 1];
   html.find('.combatant').each((i, el) => {
     const combId = el.getAttribute('data-combatant-id');
     const combatant = currentCombat.data.combatants.find(
       (c) => c._id == combId,
     );
+    const initdiv = el.getElementsByClassName('token-initiative');
     if (combatant.hasRolled) {
-      el.getElementsByClassName(
-        'token-initiative',
-      )[0].innerHTML = `<span class="initiative">${combatant.flags.swade.cardString}</span>`;
+      initdiv[0].innerHTML = `<span class="initiative">${combatant.flags.swade.cardString}</span>`;
+    } else if (!data.user.isGM) {
+      initdiv[0].innerHTML = '';
     }
   });
 });
 
-Hooks.on('preUpdateCombat', async (combat, updateData, options, userId) => {
-  // Return early if we are NOT a GM OR we are not the player that triggered the update AND that player IS a GM
-  const user = game.users.get(userId, { strict: true }) as User;
-  if (!game.user.isGM || (game.userId !== userId && user.isGM)) {
-    return;
-  }
-
-  // Return if this update does not contains a round
-  if (!updateData.round) {
-    return;
-  }
-
-  if (combat instanceof CombatEncounters) {
-    combat = game.combats.get(updateData._id, { strict: true });
-  }
-
-  // If we are not moving forward through the rounds, return
-  if (updateData.round < 1 || updateData.round < combat.previous.round) {
-    return;
-  }
-
-  // If Combat has just started, return
-  if (
-    (!combat.previous.round || combat.previous.round === 0) &&
-    updateData.round === 1
-  ) {
-    return;
-  }
-
-  let jokerDrawn = false;
-
-  // Reset the Initiative of all combatants
-  combat.combatants.forEach((c) => {
-    if (c.flags.swade && c.flags.swade.hasJoker) {
-      jokerDrawn = true;
+Hooks.on(
+  'preUpdateCombat',
+  async (combat, updateData, options, userId: string) => {
+    // Return early if we are NOT a GM OR we are not the player that triggered the update AND that player IS a GM
+    const user = game.users.get(userId) as User;
+    if (!game.user.isGM || (game.userId !== userId && user.isGM)) {
+      return;
     }
-  });
 
-  const resetComs = combat.combatants.map((c) => {
-    c.initiative = null;
-    c.hasRolled = false;
-    c.flags.swade.cardValue = null;
-    c.flags.swade.suitValue = null;
-    c.flags.swade.hasJoker = null;
-    return c;
-  });
+    // Return if this update does not contains a round
+    if (!updateData.round) {
+      return;
+    }
 
-  updateData.combatants = resetComs;
+    if (combat instanceof CombatEncounters) {
+      combat = game.combats.get(updateData._id) as Combat;
+    }
 
-  // Reset the deck if any combatant has had a Joker
-  if (jokerDrawn) {
-    const deck = game.tables.getName(CONFIG.SWADE.init.cardTable) as RollTable;
-    await deck.reset();
-    ui.notifications.info('Card Deck automatically reset');
-  }
+    // If we are not moving forward through the rounds, return
+    if (updateData.round < 1 || updateData.round < combat.previous.round) {
+      return;
+    }
 
-  //Init autoroll
-  if (game.settings.get('swade', 'autoInit')) {
-    const combatantIds = combat.combatants.map((c) => c._id);
-    await combat.rollInitiative(combatantIds);
-  }
-});
+    // If Combat has just started, return
+    if (
+      (!combat.previous.round || combat.previous.round === 0) &&
+      updateData.round === 1
+    ) {
+      return;
+    }
+
+    let jokerDrawn = false;
+
+    // Reset the Initiative of all combatants
+    combat.combatants.forEach((c) => {
+      if (c.flags.swade && c.flags.swade.hasJoker) {
+        jokerDrawn = true;
+      }
+    });
+
+    const resetComs = combat.combatants.map((c) => {
+      c.initiative = null;
+      c.hasRolled = false;
+      c.flags.swade.cardValue = null;
+      c.flags.swade.suitValue = null;
+      c.flags.swade.hasJoker = null;
+      return c;
+    });
+
+    updateData.combatants = resetComs;
+
+    // Reset the deck if any combatant has had a Joker
+    if (jokerDrawn) {
+      const deck = game.tables.getName(
+        CONFIG.SWADE.init.cardTable,
+      ) as RollTable;
+      await deck.reset();
+      ui.notifications.info('Card Deck automatically reset');
+    }
+
+    //Init autoroll
+    if (game.settings.get('swade', 'autoInit')) {
+      const combatantIds = combat.combatants.map((c) => c._id);
+      await combat.rollInitiative(combatantIds);
+      combat.turns = combat.setupTurns();
+    }
+  },
+);
+
+Hooks.on(
+  'updateCombat',
+  async (combat: Combat, updateData, options, userId: string) => {
+    console.log('############');
+
+    //do stuff here for Conviction
+    //get all combatants with active conviction
+    let activeConvictions = combat.combatants.filter(
+      (c) => c.actor.data.data.details.conviction.active,
+    );
+    for (const conv of activeConvictions) {
+      //if it's not the combatants turn then skip
+      const convActiveHasTurn =
+        conv.tokenId === combat.turns[updateData.turn]['tokenId'];
+      const activeGMs = game.users.filter((u) => u.isGM && u.active);
+      const firstFoundActiveGM = activeGMs[0]._id === game.userId;
+      if (
+        convActiveHasTurn &&
+        firstFoundActiveGM &&
+        game.settings.get('swade', 'enableConviction')
+      ) {
+        const template = 'systems/swade/templates/chat/conviction-card.html';
+        const html = await renderTemplate(template, { actor: conv.actor });
+        const messageData = {
+          speaker: {
+            scene: canvas.scene._id,
+            actor: conv.actor,
+            token: conv.token as any,
+            alias: conv.token.name,
+          },
+          whisper: [...conv.players, ...game.users.filter((u) => u.isGM)],
+          content: html,
+        };
+        await ChatMessage.create(messageData);
+      }
+    }
+  },
+);
 
 // Add roll data to the message for formatting of dice pools
 Hooks.on(
@@ -479,3 +532,7 @@ Hooks.on(
     }
   },
 );
+
+Hooks.on('renderChatLog', (app, html, data) => {
+  chat.chatListeners(html);
+});

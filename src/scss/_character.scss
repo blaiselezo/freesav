@@ -136,8 +136,8 @@
       li {
         > * {
           margin: 0 3px;
-          height: 28px;
-          line-height: 34px;
+          min-height: 28px;
+          line-height: 28px;
         }
         a.attribute-control {
           border: none;
@@ -253,7 +253,7 @@
         }
         font-weight: 300;
         font-size: 12px;
-        background: #2C4251;
+        background: #2c4251;
         color: white;
       }
       .item-list {

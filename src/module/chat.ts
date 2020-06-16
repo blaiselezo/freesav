@@ -1,7 +1,9 @@
+import { SwadeActor } from './SwadeActor';
+
 export async function formatRoll(
   chatMessage: ChatMessage,
   html: JQuery<HTMLHtmlElement>,
-  data: any
+  data: any,
 ) {
   // Little helper function
   let pushDice = (chatData, total, faces) => {
@@ -13,14 +15,14 @@ export async function formatRoll(
       color = 'red';
     }
     let img = null;
-    if ([4,6,8,10,12,20].indexOf(faces) > -1) {
+    if ([4, 6, 8, 10, 12, 20].indexOf(faces) > -1) {
       img = `../icons/svg/d${faces}-grey.svg`;
     }
     chatData.dice.push({
       img: img,
       result: total,
       color: color,
-      dice: true
+      dice: true,
     });
   };
 
@@ -51,15 +53,60 @@ export async function formatRoll(
       pushDice(chatData, totalDice, faces);
     } else {
       if (roll.parts[i]) {
-        chatData.dice.push({img: null, result: roll.parts[i], color: 'black', dice: false});
+        chatData.dice.push({
+          img: null,
+          result: roll.parts[i],
+          color: 'black',
+          dice: false,
+        });
       }
     }
   }
   // Replace default dice-formula by this custom;
   let rendered = await renderTemplate(
     'systems/swade/templates/chat/roll-formula.html',
-    chatData
+    chatData,
   );
   let formula = html.find('.dice-formula');
   formula.replaceWith(rendered);
+}
+
+export function chatListeners(html: JQuery<HTMLElement>) {
+  html.on('click', '.card-buttons button', async (event) => {
+    const element = event.currentTarget as Element;
+    const actorId = $(element).parents('[data-actor-id]').attr('data-actor-id');
+    const actor = game.actors.get(actorId) as SwadeActor;
+    const messageId = $(element)
+      .parents('[data-message-id]')
+      .attr('data-message-id');
+    const action = element.getAttribute('data-action');
+    if (action === 'yes') {
+      const currentBennies = actor.data.data.bennies.value;
+      if (actor.data.data.bennies.value) {
+        await actor.update({ 'data.bennies.value': currentBennies - 1 });
+      } else {
+        await actor.update({ 'data.details.conviction.active': false });
+        ui.notifications.warn("You don't have enough Bennies to extend!");
+      }
+    }
+    if (action === 'no') {
+      await actor.update({ 'data.details.conviction.active': false });
+      createConvictionEndMessage(actor);
+    }
+    if (game.user.isGM) {
+      game.messages.get(messageId).delete();
+    } else {
+      game.swade.sockets.deleteConvictionMessage(messageId);
+    }
+  });
+}
+
+export function createConvictionEndMessage(actor: SwadeActor) {
+  ChatMessage.create({
+    speaker: {
+      actor: actor,
+      alias: actor.name,
+    },
+    content: 'wavers in their conviction',
+  });
 }
