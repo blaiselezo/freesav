@@ -67,6 +67,69 @@
           data-dtype="String"
         />
       </div>
+      <div class="form-group">
+        <label for="data.notes">{{localize "SWADE.Notes"}}</label>
+        <input
+          type="text"
+          name="data.notes"
+          value="{{item.data.notes}}"
+          placeholder="{{localize 'SWADE.Notes'}}"
+          data-dtype="String"
+        />
+      </div>
+      <header class="header-field">
+        Hit Locations
+      </header>
+      <div>
+        <div class="flexrow">
+          <div class="form-group">
+            <input
+              type="checkbox"
+              name="data.locations.head"
+              id="data.locations.head"
+              {{checked
+              item.data.locations.head}}
+              data-dtype="Boolean"
+            />
+            <label for="data.locations.head">Head</label>
+          </div>
+          <div class="form-group">
+            <input
+              type="checkbox"
+              name="data.locations.torso"
+              id="data.locations.torso"
+              {{checked
+              item.data.locations.torso}}
+              data-dtype="Boolean"
+            />
+            <label for="data.locations.torso">Torso</label>
+          </div>
+        </div>
+        <div class="flexrow">
+          <div class="form-group">
+            <input
+              type="checkbox"
+              name="data.locations.arms"
+              id="data.locations.arms"
+              {{checked
+              item.data.locations.arms}}
+              data-dtype="Boolean"
+            />
+            <label for="data.locations.arms">Arms</label>
+          </div>
+          <div class="form-group">
+            <input
+              type="checkbox"
+              name="data.locations.legs"
+              id="data.locations.legs"
+              {{checked
+              item.data.locations.legs}}
+              data-dtype="Boolean"
+            />
+            <label for="data.locations.legs">Legs</label>
+          </div>
+        </div>
+      </div>
     </section>
     <section>
       {{> "systems/swade/templates/items/partials/description.html"}}
