@@ -1,4 +1,5 @@
 import { SwadeDice } from './dice';
+import { SwadeItem } from './SwadeItem';
 
 export class SwadeActor extends Actor {
   /**
@@ -15,10 +16,9 @@ export class SwadeActor extends Actor {
 
   /** @override */
   static async create(data, options = {}) {
-    
     let link = true;
 
-    if(data.type === 'npc'){
+    if (data.type === 'npc') {
       link = false;
     }
     data.token = data.token || {};
@@ -29,7 +29,7 @@ export class SwadeActor extends Actor {
       actorLink: link,
       disposition: 1,
     });
-    
+
     return super.create(data, options);
   }
 
@@ -65,8 +65,14 @@ export class SwadeActor extends Actor {
     const rollParts = [exp] as any[];
     let ablMod = parseInt(abl.die.modifier);
     if (!isNaN(ablMod) && ablMod !== 0) {
-      if (ablMod > 0) rollParts.push('+')
-      rollParts.push(ablMod)
+      if (ablMod > 0) {
+        rollParts.push('+');
+      }
+      rollParts.push(ablMod);
+    }
+
+    if (this.data.data['details']['conviction']['active']) {
+      rollParts.push('+1d6x=');
     }
 
     const woundFatigePenalties = this.calcWoundFatigePenalties();
@@ -82,16 +88,16 @@ export class SwadeActor extends Actor {
       data: actorData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
-        'SWADE.AttributeTest'
+        'SWADE.AttributeTest',
       )}`,
       title: `${game.i18n.localize(label)} ${game.i18n.localize(
-        'SWADE.AttributeTest'
-      )}`
+        'SWADE.AttributeTest',
+      )}`,
     });
   }
 
-  rollSkill(abilityId, options = { event: null }) {
-    let items = this.items.filter((i: Item) => i.id == abilityId);
+  rollSkill(skillId, options = { event: null }) {
+    let items = this.items.filter((i: Item) => i.id == skillId);
     if (!items.length) {
       return;
     }
@@ -107,9 +113,19 @@ export class SwadeActor extends Actor {
     const rollParts = [exp] as any[];
     let itemMod = parseInt(skillData['die'].modifier);
     if (!isNaN(itemMod) && itemMod !== 0) {
-      if (itemMod > 0) rollParts.push('+')
-      rollParts.push(itemMod)
+      if (itemMod > 0) {
+        rollParts.push('+');
+      }
+      rollParts.push(itemMod);
     }
+
+    if (
+      this.data.data['details']['conviction']['active'] &&
+      game.settings.get('swade', 'enableConviction')
+    ) {
+      rollParts.push('+1d6x=');
+    }
+
     const woundFatigePenalties = this.calcWoundFatigePenalties();
     if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
 
@@ -123,7 +139,7 @@ export class SwadeActor extends Actor {
       data: skillData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
-      title: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`
+      title: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
     });
   }
 
@@ -141,7 +157,7 @@ export class SwadeActor extends Actor {
       } else {
         retVal += wounds;
       }
-      if ((retVal - ignoredWounds) < 0) {
+      if (retVal - ignoredWounds < 0) {
         retVal = 0;
       } else {
         retVal -= ignoredWounds;
@@ -161,25 +177,30 @@ export class SwadeActor extends Actor {
   }
 
   /**
-  * Function for shorcut roll in item (@str + 1d6)
-  * return something like : {agi: "1d8x8+1", sma: "1d6x6", spi: "1d6x6", str: "1d6x6-1", vig: "1d6x6"}
-  */
+   * Function for shorcut roll in item (@str + 1d6)
+   * return something like : {agi: "1d8x8+1", sma: "1d6x6", spi: "1d6x6", str: "1d6x6-1", vig: "1d6x6"}
+   */
   getRollShortcuts(bAddWildDie = false) {
     let out = {};
 
     // Attributes
     const attr = this.data.data.attributes;
     for (const name of ['agility', 'smarts', 'spirit', 'strength', 'vigor']) {
-      out[name.substring(0, 3)] = `1d${attr[name].die.sides}x=`
-        + (attr[name].die.modifier[0] != 0 ? (['+', '-'].indexOf(attr[name].die.modifier[0]) < 0 ? '+' : '') + attr[name].die.modifier : '')
+      out[name.substring(0, 3)] =
+        `1d${attr[name].die.sides}x=` +
+        (attr[name].die.modifier[0] != 0
+          ? (['+', '-'].indexOf(attr[name].die.modifier[0]) < 0 ? '+' : '') +
+            attr[name].die.modifier
+          : '') +
         // wild-die
-        + (bAddWildDie && attr[name]['wild-die'].sides ? `+1d${attr[name]['wild-die'].sides}x=` : '')
-        ;
-    }//fr
+        (bAddWildDie && attr[name]['wild-die'].sides
+          ? `+1d${attr[name]['wild-die'].sides}x=`
+          : '');
+    } //fr
     return out;
   }
 
-  // Launches a dialog to configure which initiative-modifying edges/hindrances the character has 
+  // Launches a dialog to configure which initiative-modifying edges/hindrances the character has
   async configureInitiative() {
     const initData = this.data.data.initiative;
     const template = 'systems/swade/templates/initiative/configure-init.html';
@@ -194,20 +215,55 @@ export class SwadeActor extends Actor {
           callback: async (html: JQuery<HTMLElement>) => {
             await this.update({
               'data.initiative': {
-                hasLevelHeaded: (html as JQuery).find('#hasLevelHeaded').is(':checked'),
-                hasImpLevelHeaded: (html as JQuery).find('#hasImpLevelHeaded').is(':checked'),
-                hasHesitant: (html as JQuery).find('#hasHesitant').is(':checked'),
-              }
+                hasLevelHeaded: (html as JQuery)
+                  .find('#hasLevelHeaded')
+                  .is(':checked'),
+                hasImpLevelHeaded: (html as JQuery)
+                  .find('#hasImpLevelHeaded')
+                  .is(':checked'),
+                hasHesitant: (html as JQuery)
+                  .find('#hasHesitant')
+                  .is(':checked'),
+              },
             });
-          }
+          },
         },
         cancel: {
           icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize('SWADE.Cancel')
-        }
+          label: game.i18n.localize('SWADE.Cancel'),
+        },
       },
-      default: 'cancel'
-    })
+      default: 'cancel',
+    });
     d.render(true);
+  }
+
+  /**
+   * Calculates the correct armor value based on SWADE v5.5 and updates the actor
+   */
+  async calcArmor(): Promise<void> {
+    let totalArmorVal = 0;
+    const armorList = this.items
+      .filter(
+        (i: SwadeItem) =>
+          i.type === 'armor' &&
+          i.data.data['equipped'] &&
+          i.data.data['locations']['torso'],
+      )
+      .sort((a, b) => {
+        const aValue = parseInt(a.data.data.armor);
+        const bValue = parseInt(b.data.data.armor);
+        return aValue + bValue;
+      });
+    if (armorList.length === 0) {
+      totalArmorVal = 0;
+    } else if (armorList.length > 0 && armorList.length < 2) {
+      totalArmorVal = parseInt(armorList[0].data.data.armor);
+    } else {
+      totalArmorVal =
+        parseInt(armorList[0].data.data.armor) +
+        parseInt(armorList[1].data.data.armor) / 2;
+    }
+    await this.update({ 'data.stats.toughness.armor': totalArmorVal });
   }
 }

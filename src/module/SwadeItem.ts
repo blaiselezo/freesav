@@ -1,6 +1,6 @@
 import { SwadeDice } from './dice';
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from './entity';
+import { SwadeActor } from './SwadeActor';
 
 /**
  * Override and extend the basic :class:`Item` implementation
@@ -34,6 +34,13 @@ export class SwadeItem extends Item {
         newParts.push(part);
       }
     });
+
+    if (
+      actor.data.data['details']['conviction']['active'] &&
+      game.settings.get('swade', 'enableConviction')
+    ) {
+      newParts.push('+1d6x=');
+    }
     // Roll and return
     return SwadeDice.Roll({
       event: options.event,
@@ -45,5 +52,4 @@ export class SwadeItem extends Item {
       item: true,
     });
   }
-
 }

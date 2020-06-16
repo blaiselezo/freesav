@@ -5,15 +5,11 @@
  * @param {Object} messageOptions   Additional options with which to customize created Chat Messages
  * @return {Promise.<Combat>}       A promise which resolves to the updated Combat entity once updates are complete.
  */
-export const rollInitiative = async function (
+export async function rollInitiative(
   ids: string[] | string,
   formula: string | null,
   messageOptions: any,
-) {
-  const actionCardDeck = game.tables.getName(
-    CONFIG.SWADE.init.cardTable,
-  ) as RollTable;
-
+): Promise<Combat> {
   // Structure input data
   ids = typeof ids === 'string' ? [ids] : ids;
 
@@ -21,7 +17,7 @@ export const rollInitiative = async function (
   const initMessages = [];
   let isRedraw = false;
   let skipMessage = false;
-
+  const actionCardDeck = game.tables.getName(CONFIG.SWADE.init.cardTable);
   if (ids.length > actionCardDeck.results.filter((r) => !r.drawn).length) {
     ui.notifications.warn(game.i18n.localize('SWADE.NoCardsLeft'));
     return;
@@ -49,20 +45,20 @@ export const rollInitiative = async function (
     // Draw initiative
     let card;
     if (isRedraw) {
-      let oldCard = await findCard(
+      let oldCard = await this.findCard(
         c.flags.swade.cardValue,
         c.flags.swade.suitValue,
       );
       const cards = await drawCard();
       cards.push(oldCard);
-      card = await pickACard(cards, c.name, oldCard._id);
+      card = await this.pickACard(cards, c.name, oldCard._id);
       if (card === oldCard) {
         skipMessage = true;
       }
     } else {
       if (hasHesitant) {
         // Hesitant
-        const cards = await drawCard(2);
+        const cards = await this.drawCard(2);
         if (cards.filter((c) => c.getFlag('swade', 'isJoker')).length > 0) {
           card = await pickACard(cards, c.name);
         } else {
@@ -96,29 +92,24 @@ export const rollInitiative = async function (
       hasJoker: card.getFlag('swade', 'isJoker'),
       cardString: card['data']['content'],
     };
-
-    const initValue =
-      '' +
-      card.getFlag('swade', 'suitValue') +
-      card.getFlag('swade', 'cardValue');
     combatantUpdates.push({
       _id: c._id,
-      initiative: initValue,
+      initiative: 0,
       'flags.swade': newflags,
     });
 
     // Construct chat message data
     const cardPack = game.settings.get('swade', 'cardDeck');
     const template = `
-        <div class="table-draw">
-            <ol class="table-results">
-                <li class="table-result flexrow">
-                    <img class="result-image" src="${card['data']['img']}">
-                    <h4 class="result-text">@Compendium[${cardPack}.${card._id}]{${card.name}}</h4>
-                </li>
-            </ol>
-        </div>
-        `;
+          <div class="table-draw">
+              <ol class="table-results">
+                  <li class="table-result flexrow">
+                      <img class="result-image" src="${card['data']['img']}">
+                      <h4 class="result-text">@Compendium[${cardPack}.${card._id}]{${card.name}}</h4>
+                  </li>
+              </ol>
+          </div>
+          `;
 
     const messageData = mergeObject(
       {
@@ -162,15 +153,17 @@ export const rollInitiative = async function (
   }
   // Return the updated Combat
   return this;
-};
+}
 
-export const setupTurns = function () {
-  const scene = game.scenes.get(this.data.scene, { strict: true });
+export function setupTurns(): [] {
+  const scene = game.scenes.get(this.data['scene'], { strict: true });
   const players = game.users.players;
   // Populate additional data for each combatant
-  let turns = this.data.combatants
+  let turns = this.data['combatants']
     .map((c) => {
-      c.token = scene.getEmbeddedEntity('Token', c.tokenId, { strict: false });
+      c.token = scene.getEmbeddedEntity('Token', c.tokenId, {
+        strict: false,
+      });
       if (!c.token) return c;
       c.actor = Actor.fromToken(new Token(c.token, scene));
       c.players = c.actor
@@ -199,25 +192,26 @@ export const setupTurns = function () {
     return a.tokenId - b.tokenId;
   });
   // Ensure the current turn is bounded
-  this.data.turn = Math.min(turns.length - 1, Math.max(this.data.turn, 0));
+  this.data['turn'] = Math.min(
+    turns.length - 1,
+    Math.max(this.data['turn'], 0),
+  );
   this.turns = turns;
   // When turns change, tracked resources also change
   if (ui.combat) ui.combat.updateTrackedResources();
   return this.turns;
-};
+}
 
 /**
  * Draws cards
  * @param count number of cards to draw
  */
-const drawCard = async function (count?: number): Promise<JournalEntry[]> {
-  const actionCardDeck = game.tables.getName(
-    CONFIG.SWADE.init.cardTable,
-  ) as RollTable;
-  let actionCardPack = game.packs.get(
-    game.settings.get('swade', 'cardDeck'),
-  ) as Compendium;
-  if (actionCardPack === null) {
+async function drawCard(count?: number): Promise<JournalEntry[]> {
+  let actionCardPack = game.packs.get(game.settings.get('swade', 'cardDeck'));
+  if (
+    actionCardPack === null ||
+    (await actionCardPack.getIndex()).length === 0
+  ) {
     console.log(
       'Something went wrong with the card compendium, switching back to default',
     );
@@ -230,6 +224,7 @@ const drawCard = async function (count?: number): Promise<JournalEntry[]> {
       game.settings.get('swade', 'cardDeck'),
     ) as Compendium;
   }
+  const actionCardDeck = game.tables.getName(CONFIG.SWADE.init.cardTable);
   const packIndex = await actionCardPack.getIndex();
   const cards: JournalEntry[] = [];
   if (!count) count = 1;
@@ -244,7 +239,7 @@ const drawCard = async function (count?: number): Promise<JournalEntry[]> {
     );
   }
   return cards;
-};
+}
 
 /**
  * Asks the GM to pick a cards
@@ -252,7 +247,7 @@ const drawCard = async function (count?: number): Promise<JournalEntry[]> {
  * @param combatantName name of the combatant
  * @param oldCardId id of the old card, if you're picking cards for a redraw
  */
-const pickACard = async function (
+async function pickACard(
   cards: JournalEntry[],
   combatantName?: string,
   oldCardId?: string,
@@ -270,7 +265,6 @@ const pickACard = async function (
     let suit = suitB - suitA;
     return suit;
   });
-  console.log('oldCardId:', oldCardId);
   let card = null;
   const template = 'systems/swade/templates/initiative/choose-card.html';
   const html = await renderTemplate(template, {
@@ -311,25 +305,22 @@ const pickACard = async function (
       },
     }).render(true);
   });
-};
+}
 
 /**
  * Find a card from the deck based on it's suit and value
  * @param cardValue
  * @param cardSuit
  */
-const findCard = async function (
+async function findCard(
   cardValue: number,
   cardSuit: number,
 ): Promise<JournalEntry> {
-  let actionCardPack = game.packs.get(
-    game.settings.get('swade', 'cardDeck'),
-  ) as Compendium;
-  const packContent = (await actionCardPack.getContent()) as JournalEntry[];
-
-  return packContent.find(
+  const actionCardPack = game.packs.get(game.settings.get('swade', 'cardDeck'));
+  const content = (await actionCardPack.getContent()) as JournalEntry[];
+  return content.find(
     (c) =>
       c.getFlag('swade', 'cardValue') === cardValue &&
       c.getFlag('swade', 'suitValue') === cardSuit,
   );
-};
+}

@@ -134,5 +134,11 @@
   "SWADE.IgnWounds": "Ignore Wounds",
   "SWADE.Size": "Size",
   "SWADE.PickACard": "Pick a card",
-  "SWADE.NoCardsLeft": "There are not enough cards left in the deck!"
+  "SWADE.NoCardsLeft": "There are not enough cards left in the deck!",
+
+  "SWADE.HitLocations": "Hit Locations",
+  "SWADE.Head": "Head",
+  "SWADE.Torso": "Torso",
+  "SWADE.Arms": "Arms",
+  "SWADE.Legs": "Legs"
 }

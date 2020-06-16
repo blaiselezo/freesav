@@ -1,10 +1,12 @@
-import { SwadeActor } from '../entity';
+// eslint-disable-next-line no-unused-vars
+import { SwadeActor } from '../SwadeActor';
 
 export class SwadeEntityTweaks extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.id = 'sheet-tweaks';
-    options.template = 'systems/swade/templates/actors/dialogs/tweaks-dialog.html';
+    options.template =
+      'systems/swade/templates/actors/dialogs/tweaks-dialog.html';
     options.width = 380;
     return options;
   }
@@ -32,7 +34,7 @@ export class SwadeEntityTweaks extends FormApplication {
   /* -------------------------------------------- */
 
   /** @override */
-	activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
     //Configre initiative Edges/Hindrances
     html.find('#initConfigButton').click(() => {
