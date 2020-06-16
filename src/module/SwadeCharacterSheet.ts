@@ -514,7 +514,8 @@ export class SwadeCharacterSheet extends ActorSheet {
    * @override
    * @param event
    */
-  async _onDrop(event) {
+  async _onDrop(event): Promise<any> {
+    super._onDrop(event);
     try {
       const data = JSON.parse(event.dataTransfer.getData('text/plain'));
       if (data.type !== 'Item') return;
@@ -522,7 +523,6 @@ export class SwadeCharacterSheet extends ActorSheet {
       if (item.type === 'armor') {
         this.actor.calcArmor();
       }
-      return super._onDrop(event);
     } catch (err) {
       return;
     }
