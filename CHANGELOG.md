@@ -22,11 +22,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+### Added
+
+- Added a function to the `SwadeActor` class that calculates and sets the proper armor value
+
 ### Changed
 
-- Created dedicated `Combat` class for the system
 - Renamed a few classes to make their function more easily apparent
-- Changed `Setting Rule` to be compliant with SWADE 5.5
+- Changed `Conviction` Setting Rule to be compliant with SWADE 5.5
+- Made Skill names multiline
 
 ## Removed
 

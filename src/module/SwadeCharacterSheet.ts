@@ -197,9 +197,6 @@ export class SwadeCharacterSheet extends ActorSheet {
         title: game.i18n.localize('SWADE.Del'),
         content: template,
         yes: async () => {
-          if (ownedItem.type === 'armor') {
-            await this.actor.calcArmor();
-          }
           await this.actor.deleteOwnedItem(ownedItem.id);
           li.slideUp(200, () => this.render(false));
         },
@@ -224,9 +221,6 @@ export class SwadeCharacterSheet extends ActorSheet {
       await this.actor.updateOwnedItem(
         this._toggleEquipped(li.data('itemId'), item),
       );
-      if (item.type === 'armor') {
-        await this.actor.calcArmor();
-      }
     });
 
     //Toggle Equipmnent Card collapsible
@@ -444,6 +438,8 @@ export class SwadeCharacterSheet extends ActorSheet {
     data.data.settingrules = {
       conviction: game.settings.get('swade', 'enableConviction'),
     };
+
+    this.actor.calcArmor();
     return data;
   }
 
@@ -508,23 +504,5 @@ export class SwadeCharacterSheet extends ActorSheet {
       let heightDelta = this.position.height - (this.options.height as number);
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
-  }
-
-  /**
-   * @override
-   * @param event
-   */
-  async _onDrop(event): Promise<any> {
-    super._onDrop(event);
-    try {
-      const data = JSON.parse(event.dataTransfer.getData('text/plain'));
-      if (data.type !== 'Item') return;
-      const item = this.actor.getOwnedItem(data.id) as SwadeItem;
-      if (item.type === 'armor') {
-        this.actor.calcArmor();
-      }
-    } catch (err) {
-      return;
-    }
   }
 }
