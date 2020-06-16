@@ -6,7 +6,7 @@ import { SwadeEntityTweaks } from './dialog/entity-tweaks';
 import * as chat from './chat';
 
 export class SwadeCharacterSheet extends ActorSheet {
-  /* -------------------------------------------- */
+  actor: SwadeActor;
 
   /**
    * Extend and override the default options used by the Actor Sheet
@@ -184,20 +184,27 @@ export class SwadeCharacterSheet extends ActorSheet {
     html.find('.item-delete').click(async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const ownedItem = this.actor.getOwnedItem(li.data('itemId'));
-      await Dialog.confirm(
-        {
-          title: game.i18n.localize('SWADE.Del'),
-          content: `<p><center>${game.i18n.localize('SWADE.Del')} <strong>${
-            ownedItem.name
-          }</strong>?</center></p>`,
-          yes: () => {
-            this.actor.deleteOwnedItem(ownedItem.id);
-            li.slideUp(200, () => this.render(false));
-          },
-          no: () => {},
+      const template = `
+      <form>
+        <div>
+          <center>${game.i18n.localize('SWADE.Del')} 
+            <strong>${ownedItem.name}</strong>?
+          </center>
+          <br>
+        </div>
+      </form>`;
+      await Dialog.confirm({
+        title: game.i18n.localize('SWADE.Del'),
+        content: template,
+        yes: async () => {
+          if (ownedItem.type === 'armor') {
+            await this.actor.calcArmor();
+          }
+          await this.actor.deleteOwnedItem(ownedItem.id);
+          li.slideUp(200, () => this.render(false));
         },
-        {},
-      );
+        no: () => {},
+      });
     });
 
     //Show Description of an Edge/Hindrance
@@ -211,10 +218,15 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
 
     //Toggle Equipment
-    html.find('.item-toggle').click((ev) => {
+    html.find('.item-toggle').click(async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
-      const item: any = this.actor.getOwnedItem(li.data('itemId'));
-      this.actor.updateOwnedItem(this._toggleEquipped(li.data('itemId'), item));
+      const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
+      await this.actor.updateOwnedItem(
+        this._toggleEquipped(li.data('itemId'), item),
+      );
+      if (item.type === 'armor') {
+        await this.actor.calcArmor();
+      }
     });
 
     //Toggle Equipmnent Card collapsible
@@ -349,12 +361,12 @@ export class SwadeCharacterSheet extends ActorSheet {
         const choices = header.dataset.choices.split(',');
         this._chooseItemType(choices).then((dialogInput: any) => {
           const itemData = createItem(dialogInput.type, dialogInput.name);
-          this.actor.createOwnedItem(itemData);
+          this.actor.createOwnedItem(itemData, {});
         });
         return;
       } else {
         const itemData = createItem(type);
-        this.actor.createOwnedItem(itemData);
+        this.actor.createOwnedItem(itemData, {});
       }
     });
   }

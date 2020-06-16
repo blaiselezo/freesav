@@ -1,4 +1,5 @@
 import { SwadeDice } from './dice';
+import { SwadeItem } from './SwadeItem';
 
 export class SwadeActor extends Actor {
   /**
@@ -235,5 +236,31 @@ export class SwadeActor extends Actor {
       default: 'cancel',
     });
     d.render(true);
+  }
+
+  async calcArmor() {
+    let totalArmorVal = 0;
+    const armorList = this.items
+      .filter(
+        (i: SwadeItem) =>
+          i.type === 'armor' &&
+          i.data.data['equipped'] &&
+          i.data.data['locations']['torso'],
+      )
+      .sort((a, b) => {
+        const aValue = parseInt(a.data.data.armor);
+        const bValue = parseInt(b.data.data.armor);
+        return aValue + bValue;
+      });
+    if (armorList.length === 0) {
+      totalArmorVal = 0;
+    } else if (armorList.length > 0 && armorList.length < 2) {
+      totalArmorVal = parseInt(armorList[0].data.data.armor);
+    } else {
+      totalArmorVal =
+        parseInt(armorList[0].data.data.armor) +
+        parseInt(armorList[1].data.data.armor) / 2;
+    }
+    await this.update({ 'data.stats.toughness.armor': totalArmorVal });
   }
 }
