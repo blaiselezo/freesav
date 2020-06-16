@@ -238,7 +238,10 @@ export class SwadeActor extends Actor {
     d.render(true);
   }
 
-  async calcArmor() {
+  /**
+   * Calculates the correct armor value based on SWADE v5.5 and updates the actor
+   */
+  async calcArmor(): Promise<void> {
     let totalArmorVal = 0;
     const armorList = this.items
       .filter(
