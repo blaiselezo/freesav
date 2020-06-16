@@ -20,11 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.9.2]
 
 ### Added
 
 - Added a function to the `SwadeActor` class that calculates and sets the proper armor value
+- Added checkboxes to the Armor sheets to mark hit locations
 
 ### Changed
 
