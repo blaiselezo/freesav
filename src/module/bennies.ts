@@ -81,12 +81,28 @@ export class Bennies {
   }
 
   static append(player: HTMLElement, options: any) {
-    let span = document.createElement('span');
-    span.classList.add('player-bennies');
-    span.onmouseleave = Bennies.updateBenny;
     let user = options.users.find(
       (user: User) => user.id == player.dataset.userId,
     );
+    let span = document.createElement('span');
+    span.classList.add('bennies-count');
+
+    // Player view
+    if (!game.user.isGM) {
+      if (user.isGM) {
+        span.innerHTML = user.getFlag('swade', 'bennies');
+      } else if (user.character) {
+        span.innerHTML = user.character.data.data.bennies.value;
+      } else {
+        return;
+      }
+      player.append(span);
+      return;
+    }
+
+    // GM interactive interface
+    span.classList.add('bennies-gm');
+    span.onmouseleave = Bennies.updateBenny;
     span.onclick = user.isGM ? this.spendEvent : this.giveEvent;
     span.onmouseover = () => {
       span.innerHTML = user.isGM ? '-' : '+';

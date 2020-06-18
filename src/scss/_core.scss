@@ -10,7 +10,7 @@
   }
 }
 
-#players ol li.player .player-bennies {
+#players ol li.player .bennies-count {
   flex-grow: 0;
   flex-basis: 25px;
   background: url('assets/icons/plain-circle.svg') no-repeat center;
@@ -20,8 +20,10 @@
   font-size: 18px;
   text-align: center;
   text-shadow: 0 0 5px white;
-  cursor: pointer;
-  &:hover {
-    filter: invert(100);
+  &.bennies-gm {
+    cursor: pointer;
+    &:hover {
+      filter: invert(100);
+    }
   }
 }
