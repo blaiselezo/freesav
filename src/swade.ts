@@ -21,6 +21,7 @@ import { SwadeNPCSheet } from './module/SwadeNPCSheet';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { registerSettings } from './module/settings';
 import { SwadeSetup } from './module/setup/setupHandler';
+import { Bennies } from './module/bennies';
 import {
   createActionCardTable,
   createSwadeMacro,
@@ -244,7 +245,10 @@ Hooks.on(
     if (actor.data.type === 'npc') {
       ui.actors.render();
     }
-
+    // Update the player list to display new bennies values
+    if (updateData.data && updateData.data.bennies) {
+      ui['players'].render(true);
+    }
     //if it's a status update, update the token
     if (
       updateData.data &&
@@ -534,5 +538,42 @@ Hooks.on(
 );
 
 Hooks.on('renderChatLog', (app, html, data) => {
-  chat.chatListeners(html);
+  chat.chatListeners(html)
+  ;});
+
+  // Add benny management to the player list
+Hooks.on('renderPlayerList', async (list: any, html: JQuery, options: any) => {
+  html.find('.player').each((id, player) => {
+    Bennies.append(player, options);
+  });
+});
+
+Hooks.on('getUserContextOptions', (html: JQuery, context: any) => {
+  let players = html.find('#players');
+  if (!players) return;
+  context.push(
+    {
+      name: game.i18n.localize('SWADE.BenniesGive'),
+      icon: '<i class="fas fa-plus"></i>',
+      condition: (li) =>
+        game.user.isGM && game.users.get(li[0].dataset.userId).isGM,
+      callback: (li) => {
+        const user = game.users.get(li[0].dataset.userId);
+        user
+          .setFlag('swade', 'bennies', user.getFlag('swade', 'bennies') + 1)
+          .then(() => {
+            ui['players'].render(true);
+          });
+      },
+    },
+    {
+      name: game.i18n.localize('SWADE.BenniesRefresh'),
+      icon: '<i class="fas fa-sync"></i>',
+      condition: (li) => game.user.isGM,
+      callback: (li) => {
+        const user = game.users.get(li[0].dataset.userId);
+        Bennies.refresh(user);
+      },
+    },
+  );
 });

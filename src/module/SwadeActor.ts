@@ -143,6 +143,55 @@ export class SwadeActor extends Actor {
     });
   }
 
+  async spendBenny() {
+    let message = await renderTemplate(CONFIG.SWADE.bennies.templates.spend, {
+      target: this,
+      speaker: game.user,
+    });
+    let chatData = {
+      content: message,
+    };
+    if (game.settings.get('swade', 'notifyBennies')) {
+      ChatMessage.create(chatData);
+    }
+    let actorData = this.data as any;
+    if (actorData.data.bennies.value > 0) {
+      await this.update({
+        'data.bennies.value': actorData.data.bennies.value - 1,
+      });
+    }
+  }
+
+  async getBenny() {
+    let message = await renderTemplate(CONFIG.SWADE.bennies.templates.add, {
+      target: this,
+      speaker: game.user,
+    });
+    let chatData = {
+      content: message,
+    };
+    if (game.settings.get('swade', 'notifyBennies')) {
+      ChatMessage.create(chatData);
+    }
+    let actorData = this.data as any;
+    await this.update({
+      'data.bennies.value': actorData.data.bennies.value + 1,
+    });
+  }
+
+  async refreshBennies() {
+    let message = await renderTemplate(CONFIG.SWADE.bennies.templates.refresh, {
+      target: this,
+      speaker: game.user,
+    });
+    let chatData = {
+      content: message,
+    };
+    ChatMessage.create(chatData);
+    let actorData = this.data as any;
+    await this.update({ 'data.bennies.value': actorData.data.bennies.max });
+  }
+
   //Calculated the wound and fatigue penalites
   calcWoundFatigePenalties(): number {
     let retVal = 0;
