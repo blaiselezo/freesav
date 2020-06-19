@@ -156,6 +156,22 @@
             text-align: center;
             font-weight: bold;
           }
+          .toughness-block {
+            display: flex;
+            flex-direction: row;
+            input {
+              flex: 2;
+            }
+            .armor-value {
+              flex: 1;
+              line-height: 27px;
+              font-weight: 600;
+              text-align: center;
+              background: url('/systems/swade/assets/icons/police-badge.svg')
+                no-repeat center;
+              background-size: cover;
+            }
+          }
           select {
             border: none;
             background-repeat: no-repeat;

@@ -403,6 +403,15 @@ export class SwadeCharacterSheet extends ActorSheet {
       });
     }
 
+    const shields = data.itemsByType['shield'];
+    data.parry = 0;
+    if (shields) {
+      shields.forEach((shield: any) => {
+        if (shield.data.equipped) {
+          data.parry += shield.data.parry;
+        }
+      });
+    }
     //Checks if relevant arrays are not null and combines them into an inventory array
     data.data.owned.inventory = {
       gear: data.data.owned.gear,

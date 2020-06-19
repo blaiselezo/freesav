@@ -373,6 +373,25 @@ export class SwadeNPCSheet extends ActorSheet {
       });
     }
 
+    const armors = data.itemsByType['armor'];
+    data.armor = 0;
+    if (armors) {
+      armors.forEach((armor: any) => {
+        if (armor.data.equipped && armor.data.locations.torso) {
+          data.armor += armor.data.armor;
+        }
+      });
+    }
+
+    const shields = data.itemsByType['shield'];
+    data.parry = 0;
+    if (shields) {
+      shields.forEach((shield: any) => {
+        if (shield.data.equipped) {
+          data.parry += shield.data.parry;
+        }
+      });
+    }
     //Checks if an Actor has a Power Egde
     if (
       data.data.owned.edges &&
