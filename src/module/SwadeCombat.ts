@@ -45,20 +45,20 @@ export async function rollInitiative(
     // Draw initiative
     let card;
     if (isRedraw) {
-      let oldCard = await this.findCard(
+      let oldCard = await findCard(
         c.flags.swade.cardValue,
         c.flags.swade.suitValue,
       );
       const cards = await drawCard();
       cards.push(oldCard);
-      card = await this.pickACard(cards, c.name, oldCard._id);
+      card = await pickACard(cards, c.name, oldCard._id);
       if (card === oldCard) {
         skipMessage = true;
       }
     } else {
       if (hasHesitant) {
         // Hesitant
-        const cards = await this.drawCard(2);
+        const cards = await drawCard(2);
         if (cards.filter((c) => c.getFlag('swade', 'isJoker')).length > 0) {
           card = await pickACard(cards, c.name);
         } else {
