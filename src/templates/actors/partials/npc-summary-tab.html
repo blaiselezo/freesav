@@ -1,89 +1,3 @@
-<section class="flexrow">
-  <div class="profile-img-container">
-    <img
-      class="profile-img"
-      src="{{actor.img}}"
-      data-edit="img"
-      title="{{actor.name}}"
-    />
-  </div>
-  <div class="advances">
-    <header class="header-field">
-      <span>{{localize "SWADE.Desc"}}</span>
-    </header>
-    <div style="height: 200px;">
-      {{editor content=data.details.biography.value
-      target="data.details.biography.value" button=true owner=owner
-      editable=editable}}
-    </div>
-  </div>
-</section>
-<section class="vitals flexrow">
-  <div class="vitals-container">
-    <strong>{{localize "SWADE.Fatigue"}}</strong>
-    <div class="flexrow">
-      <input
-        type="text"
-        name="data.fatigue.value"
-        value="{{data.fatigue.value}}"
-        data-dtype="Number"
-        class="vitals-input"
-      />
-      <span>/</span>
-      <input
-        type="text"
-        name="data.fatigue.max"
-        value="{{data.fatigue.max}}"
-        data-dtype="Number"
-        class="vitals-input"
-      />
-    </div>
-  </div>
-  <div class="vitals-container">
-    {{#if actor.data.wildcard}}
-    <div>
-      <strong>{{localize "SWADE.Bennies"}}</strong>
-    </div>
-    <div class="flexrow">
-      <input
-        class="bennies-current"
-        name="data.bennies.value"
-        type="text"
-        value="{{data.bennies.value}}"
-        data-dtype="Number"
-      />
-      <span>/</span>
-      <input
-        class="bennies-max"
-        name="data.bennies.max"
-        type="text"
-        value="{{data.bennies.max}}"
-        data-dtype="Number"
-      />
-    </div>
-    {{/if}}
-  </div>
-  <div class="vitals-container">
-    <strong>{{localize "SWADE.Wounds"}}</strong>
-    <div class="flexrow">
-      <input
-        type="text"
-        name="data.wounds.value"
-        value="{{data.wounds.value}}"
-        data-dtype="Number"
-        class="vitals-input"
-      />
-      <span>/</span>
-      <input
-        type="text"
-        name="data.wounds.max"
-        value="{{data.wounds.max}}"
-        data-dtype="Number"
-        class="vitals-input"
-      />
-    </div>
-  </div>
-</section>
 <section class="flexrow attributes-container">
   <div class="attributes secondary">
     <header class="header-field">
@@ -138,32 +52,39 @@
   {{> "systems/swade/templates/actors/partials/attributes.html"}}
 </section>
 <div class="flexrow">
-  <div class="traits resizable" data-base-size="350">
-    <header class="header-field flexrow">
-      <div>
-        <span>{{localize "SWADE.Skills"}}</span>
-      </div>
-      <div class="header-field-add">
-        <a class="item-create" data-type="skill"><i class="fa fa-plus"></i></a>
-      </div>
-    </header>
-    <div class="skills-list">
-      {{#each data.owned.skills as |skill id|}}
-      <span
-        class="skill item"
-        data-item-id="{{skill._id}}"
-        style="display: inline-block;"
-      >
-        <a
-          class="contextmenu-edit"
-          title="Right Click to {{localize 'SWADE.EditSkill'}}"
-          >{{skill.name}} d{{skill.data.die.sides}}{{modifier
-          skill.data.die.modifier}};</a
+  <div>
+    {{!-- Left panel --}}
+    <section class="gear skills">
+      <header class="header-field flexrow">
+        <div>
+          <span>{{localize "SWADE.Skills"}}</span>
+        </div>
+        <div class="header-field-add">
+          <a class="item-create" data-type="skill"
+            ><i class="fa fa-plus"></i
+          ></a>
+        </div>
+      </header>
+      <div class="skills-list">
+        {{#each data.owned.skills as |skill id|}}
+        <span
+          class="skill item"
+          data-item-id="{{skill._id}}"
+          style="display: inline-block;"
         >
-      </span>
-      {{/each}}
-    </div>
-    <div class="gear">
+          <a
+            class="contextmenu-edit"
+            title="Right Click to {{localize 'SWADE.EditSkill'}}"
+          >
+            {{#unless @first}}&nbsp;{{/unless}}{{skill.name}}
+            d{{skill.data.die.sides}}{{modifier
+            skill.data.die.modifier}}{{#unless @last}},{{/unless}}
+          </a>
+        </span>
+        {{/each}}
+      </div>
+    </section>
+    <section class="gear edges">
       <header class="header-field flexrow">
         <div>
           <span>{{localize "SWADE.Edges"}}</span>
@@ -173,21 +94,17 @@
         </div>
       </header>
       {{#each data.owned.edges as |edge id|}}
-      <span class="item" data-item-id="{{edge._id}}" style="margin-right: 2px;">
-        <span
-          class="item"
-          data-item-id="{{edge._id}}"
-          style="border-bottom: 1px dotted #293133;"
-        >
-          <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}"
-            >{{edge.name}}</a
-          >
+      <span class="item" data-item-id="{{edge._id}}">
+        <span class="item" data-item-id="{{edge._id}}">
+          <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
+            {{#unless @first}}&nbsp;{{/unless}}{{edge.name}}{{#unless
+            @last}},{{/unless}}
+          </a>
         </span>
-        &nbsp;
       </span>
       {{/each}}
-    </div>
-    <div class="gear">
+    </section>
+    <section class="gear hindrances">
       <header class="header-field flexrow">
         <div>
           <span>{{localize "SWADE.Hindrances"}}</span>
@@ -199,130 +116,157 @@
         </div>
       </header>
       {{#each data.owned.hindrances as |hindrance id|}}
-      <span
-        class="item"
-        data-item-id="{{hindrance._id}}"
-        style="margin-right: 2px;"
-      >
-        <span
-          class="item"
-          data-item-id="{{hindrance._id}}"
-          style="border-bottom: 1px dotted #293133;"
-        >
+      <span class="item" data-item-id="{{hindrance._id}}">
+        <span class="item" data-item-id="{{hindrance._id}}">
           <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
-            {{hindrance.name}} {{#if hindrance.data.major}} {{localize
-            "SWADE.Major"}} {{else}} {{localize "SWADE.Minor"}} {{/if}}
+            {{#unless @first}}&nbsp;{{/unless}}{{hindrance.name}} {{#if
+            hindrance.data.major}}{{localize "SWADE.Major"}}{{else}}{{localize
+            "SWADE.Minor"}}{{/if}}{{#unless @last}},{{/unless}}
           </a>
         </span>
-        &nbsp;
       </span>
       {{/each}}
-    </div>
+    </section>
   </div>
-  <div class="gear">
-    <header class="header-field flexrow">
-      <div>
-        <span>{{localize "SWADE.Inv"}}</span>
-      </div>
-      <div class="header-field-add">
-        <a class="item-create" data-type="choice"><i class="fa fa-plus"></i></a>
-      </div>
-    </header>
-    {{#each data.owned.weapons as |weapon id|}}
-    <div data-item-id="{{weapon._id}}" class="item weapon extra-gear-card">
-      <div class="flexrow">
+  <div>
+    {{!-- Right panel --}}
+    <section class="gear powers">
+      {{#if actor.flags.swade.hasArcaneBackground}}
+      <header class="header-field flexrow">
         <div>
-          <a class="item-edit" title="{{localize 'SWADE.Ed'}}"
-            ><strong>{{weapon.name}}</strong></a
-          >
+          <span>{{localize "SWADE.Pow"}}</span>
         </div>
-        <div class="item-controls" style="float: right;">
-          <a
-            class="item-control item-edit"
-            title='{{localize "SWADE.ItemEdit"}}'
-            ><i class="fas fa-edit"></i
+        <div class="header-field-add">
+          <a class="item-create" data-type="power"
+            ><i class="fa fa-plus"></i
           ></a>
-          <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"
-            ><i class="fas fa-trash"></i
+        </div>
+      </header>
+      {{#each data.owned.powers as |power id|}}
+      <span class="item" data-item-id="{{power._id}}">
+        <span class="item" data-item-id="{{power._id}}">
+          <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
+            {{#unless @first}}&nbsp;{{/unless}}{{power.name}}{{#unless
+            @last}},{{/unless}}
+          </a>
+        </span>
+      </span>
+      {{/each}} {{/if}}
+    </section>
+    <section class="inventory">
+      <header class="header-field flexrow">
+        <div>
+          <span>{{localize "SWADE.Inv"}}</span>
+        </div>
+        <div class="header-field-add">
+          <a class="item-create" data-type="choice"
+            ><i class="fa fa-plus"></i
           ></a>
+        </div>
+      </header>
+      {{#each data.owned.weapons as |weapon id|}}
+      <div data-item-id="{{weapon._id}}" class="item weapon extra-gear-card">
+        <div class="flexrow">
+          <div>
+            <a class="item-edit" title="{{localize 'SWADE.Ed'}}"
+              ><strong>{{weapon.name}}</strong></a
+            >
+          </div>
+          <div class="item-controls" style="float: right;">
+            <a
+              class="item-control item-edit"
+              title='{{localize "SWADE.ItemEdit"}}'
+              ><i class="fas fa-edit"></i
+            ></a>
+            <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"
+              ><i class="fas fa-trash"></i
+            ></a>
+          </div>
+        </div>
+        <div class="stats">
+          {{#unless (isEmpty weapon.data.damage)}}
+          <div class="card-stat">
+            {{localize "SWADE.Dmg"}}:
+            <a class="damage-roll">{{weapon.data.damage}}</a>
+          </div>
+          {{/unless}} {{#unless (isEmpty weapon.data.range)}}
+          <div class="card-stat">
+            {{localize "SWADE.Rng"}}: {{weapon.data.range}}
+          </div>
+          {{/unless}} {{#unless (isEmpty weapon.data.shots)}}
+          <div class="card-stat">
+            {{localize "SWADE.Mag"}}: {{weapon.data.shots}}
+          </div>
+          {{/unless}} {{#unless (isEmpty weapon.data.minStr)}}
+          <div class="card-stat">
+            {{localize "SWADE.MinStr"}}: {{weapon.data.minStr}}
+          </div>
+          {{/unless}} {{#unless (isEmpty weapon.data.rof)}}
+          <div class="card-stat">
+            {{localize "SWADE.RoF"}}: {{weapon.data.rof}}
+          </div>
+          {{/unless}} {{#unless (isEmpty weapon.data.ap)}}
+          <div class="card-stat">
+            {{localize "SWADE.Ap"}}: {{weapon.data.ap}}
+          </div>
+          {{/unless}} {{#unless (isEmpty weapon.data.notes)}}
+          <div>{{localize "SWADE.Notes"}}: {{weapon.data.notes}}</div>
+          {{/unless}}
         </div>
       </div>
-      <div class="stats">
-        {{#unless (isEmpty weapon.data.damage)}}
-        <div class="card-stat">
-          {{localize "SWADE.Dmg"}}:
-          <a class="damage-roll">{{weapon.data.damage}}</a>
+      {{/each}} {{#each data.owned.armors as |armor id|}}
+      <div data-item-id="{{armor._id}}" class="item extra-gear-card">
+        <div class="flexrow">
+          <div>
+            <a class="item-edit" title="{{localize 'SWADE.Ed'}}"
+              ><strong>{{armor.name}}</strong></a
+            >
+          </div>
+          <div class="item-controls">
+            <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"
+              ><i class="fas fa-trash"></i
+            ></a>
+          </div>
         </div>
-        {{/unless}} {{#unless (isEmpty weapon.data.range)}}
-        <div class="card-stat">
-          {{localize "SWADE.Rng"}}: {{weapon.data.range}}
-        </div>
-        {{/unless}} {{#unless (isEmpty weapon.data.shots)}}
-        <div class="card-stat">
-          {{localize "SWADE.Mag"}}: {{weapon.data.shots}}
-        </div>
-        {{/unless}} {{#unless (isEmpty weapon.data.minStr)}}
-        <div class="card-stat">
-          {{localize "SWADE.MinStr"}}: {{weapon.data.minStr}}
-        </div>
-        {{/unless}} {{#unless (isEmpty weapon.data.rof)}}
-        <div class="card-stat">
-          {{localize "SWADE.RoF"}}: {{weapon.data.rof}}
-        </div>
-        {{/unless}} {{#unless (isEmpty weapon.data.ap)}}
-        <div class="card-stat">{{localize "SWADE.Ap"}}: {{weapon.data.ap}}</div>
-        {{/unless}} {{#unless (isEmpty weapon.data.notes)}}
-        <div>{{localize "SWADE.Notes"}}: {{weapon.data.notes}}</div>
+        <div>{{localize "SWADE.Armor"}}: {{armor.data.armor}}</div>
+        {{#unless (isEmpty armor.data.notes)}}
+        <div>{{localize "SWADE.Notes"}}: {{armor.data.notes}}</div>
         {{/unless}}
       </div>
-    </div>
-    {{/each}} {{#each data.owned.armors as |armor id|}}
-    <div data-item-id="{{armor._id}}" class="item extra-gear-card">
-      <div class="flexrow">
-        <div>
-          <a class="item-edit" title="{{localize 'SWADE.Ed'}}"
-            ><strong>{{armor.name}}</strong></a
-          >
+      {{/each}} {{#each data.owned.shields as |shield id|}}
+      <div data-item-id="{{shield._id}}" class="item extra-gear-card">
+        <div class="flexrow">
+          <div>
+            <a class="item-edit" title="{{localize 'SWADE.Ed'}}"
+              ><strong>{{shield.name}}</strong></a
+            >
+          </div>
+          <div class="item-controls">
+            <a
+              class="item-control item-delete"
+              title="{{localize 'SWADE.Del'}}"
+            >
+              <i class="fas fa-trash"></i
+            ></a>
+          </div>
         </div>
-        <div class="item-controls">
-          <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"
-            ><i class="fas fa-trash"></i
-          ></a>
+        <div class="flexrow">
+          <div>{{localize "SWADE.Parry"}}: {{shield.data.parry}}</div>
+          <div>{{localize "SWADE.Cover"}}: {{shield.data.cover}}</div>
         </div>
+        <div>{{localize "SWADE.Notes"}}: {{shield.data.notes}}</div>
       </div>
-      <div>{{localize "SWADE.Armor"}}: {{armor.data.armor}}</div>
-      {{#unless (isEmpty armor.data.notes)}}
-      <div>{{localize "SWADE.Notes"}}: {{armor.data.notes}}</div>
-      {{/unless}}
-    </div>
-    {{/each}} {{#each data.owned.shields as |shield id|}}
-    <div data-item-id="{{shield._id}}" class="item extra-gear-card">
-      <div class="flexrow">
-        <div>
-          <a class="item-edit" title="{{localize 'SWADE.Ed'}}"
-            ><strong>{{shield.name}}</strong></a
-          >
-        </div>
-        <div class="item-controls">
-          <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}">
-            <i class="fas fa-trash"></i
-          ></a>
-        </div>
+      {{/each}}
+    </section>
+    <section class="description">
+      <header class="header-field">
+        <span>{{localize "SWADE.Desc"}}</span>
+      </header>
+      <div>
+        {{editor content=data.details.biography.value
+        target="data.details.biography.value" button=true owner=owner
+        editable=editable}}
       </div>
-      <div class="flexrow">
-        <div>{{localize "SWADE.Parry"}}: {{shield.data.parry}}</div>
-        <div>{{localize "SWADE.Cover"}}: {{shield.data.cover}}</div>
-      </div>
-      <div>{{localize "SWADE.Notes"}}: {{shield.data.notes}}</div>
-    </div>
-    {{/each}}
-    <header class="header-field">
-      <span>{{localize "SWADE.Desc"}}</span>
-    </header>
-    <div style="height: 200px;">
-      {{editor content=data.details.biography.value
-      target="data.details.biography.value" button=true owner=owner
-      editable=editable}}
-    </div>
+    </section>
   </div>
 </div>

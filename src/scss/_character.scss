@@ -1,4 +1,6 @@
 .swade.sheet.actor.character {
+  min-height: 768px;
+  min-width: 600px;
   .profile-img-container {
     width: 200px;
     max-width: 200px;
@@ -102,6 +104,9 @@
 
   // Summary
   .attributes-container {
+    .attributes {
+      margin: 5px 0;
+    }
     .secondary {
       flex-grow: 0;
       flex-basis: 250px;
@@ -111,9 +116,13 @@
   .skills {
     flex-basis: 250px;
     flex-grow: 0;
+    max-width: 288px;
     .skills-list {
       height: 350px;
       overflow: auto;
+      .skill:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
       .skill-label {
         flex: 2;
         overflow: hidden;

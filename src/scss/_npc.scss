@@ -1,5 +1,13 @@
 .swade.sheet.actor.npc {
+  min-width: 540px;
+  max-height: 740px;
+  .header-field {
+    padding: 1px;
+  }
   .sheet-header {
+    .profile-img-container {
+      height: 120px;
+    }
     .conviction {
       width: 30%;
     }
@@ -28,21 +36,24 @@
 
   .vitals {
     .vitals-container {
-      margin: 3px 3px;
+      margin: 0 8px;
+      text-align: center;
+      .counter {
+        line-height: 25px;
+      }
     }
   }
 
   // Summary
-  .traits {
+  .skills {
     margin: 5px 0;
     padding: 2px;
     overflow: auto;
     .skills-list {
       span {
-        a {
+        a:hover {
           border-bottom: 1px dotted #293133;
         }
-        border: 1px solid transparent;
       }
     }
   }

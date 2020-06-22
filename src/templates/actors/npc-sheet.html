@@ -79,28 +79,78 @@
             >
           </div>
         </div>
+        {{#if actor.data.wounds.max}}
+        <section class="vitals flexrow">
+          <div class="vitals-container">
+            <strong>{{localize "SWADE.Fatigue"}}</strong>
+            <div class="counter flexrow">
+              <input
+                type="text"
+                name="data.fatigue.value"
+                value="{{data.fatigue.value}}"
+                data-dtype="Number"
+                class="vitals-input"
+              />
+              <span>/</span>
+              <input
+                type="text"
+                name="data.fatigue.max"
+                value="{{data.fatigue.max}}"
+                data-dtype="Number"
+                class="vitals-input"
+              />
+            </div>
+          </div>
+          <div class="vitals-container">
+            {{#if actor.data.wildcard}}
+            <div>
+              <strong>{{localize "SWADE.Bennies"}}</strong>
+            </div>
+            <div class="counter flexrow">
+              <input
+                class="bennies-current"
+                name="data.bennies.value"
+                type="text"
+                value="{{data.bennies.value}}"
+                data-dtype="Number"
+              />
+              <span>/</span>
+              <input
+                class="bennies-max"
+                name="data.bennies.max"
+                type="text"
+                value="{{data.bennies.max}}"
+                data-dtype="Number"
+              />
+            </div>
+            {{/if}}
+          </div>
+          <div class="vitals-container">
+            <strong>{{localize "SWADE.Wounds"}}</strong>
+            <div class="counter flexrow">
+              <input
+                type="text"
+                name="data.wounds.value"
+                value="{{data.wounds.value}}"
+                data-dtype="Number"
+                class="vitals-input"
+              />
+              <span>/</span>
+              <input
+                type="text"
+                name="data.wounds.max"
+                value="{{data.wounds.max}}"
+                data-dtype="Number"
+                class="vitals-input"
+              />
+            </div>
+          </div>
+        </section>
+        {{/if}}
       </div>
     </div>
   </header>
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="flexrow tabs" data-group="primary">
-    {{#if actor.flags.swade.hasArcaneBackground}}
-    <a class="item" data-tab="summary">{{localize "SWADE.Summary"}}</a>
-    <a class="item" data-tab="powers">{{localize "SWADE.Pow"}}</a>
-    {{/if}}
-  </nav>
   <section class="sheet-body">
-    {{#if actor.flags.swade.hasArcaneBackground}} {{!-- Summary Tab --}}
-    <div class="tab active" data-group="primary" data-tab="summary">
-      {{> "systems/swade/templates/actors/partials/npc-summary-tab.html"}}
-    </div>
-
-    {{!-- Powers Tab --}}
-    <div class="tab powers" data-group="primary" data-tab="powers">
-      {{> "systems/swade/templates/actors/partials/powers-tab.html"}}
-    </div>
-
-    {{else}} {{>
-    "systems/swade/templates/actors/partials/npc-summary-tab.html"}} {{/if}}
+    {{> "systems/swade/templates/actors/partials/npc-summary-tab.html"}}
   </section>
 </form>

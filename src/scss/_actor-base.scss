@@ -1,7 +1,4 @@
 .swade.sheet.actor {
-  min-width: 600px;
-  min-height: 768px;
-
   // Profile Image
   .profile-img-container {
     width: 150px;
@@ -140,7 +137,6 @@
     }
 
     .attributes {
-      margin: 5px 0;
       padding: 2px;
       //Attributes
       .attributes-list {
@@ -186,16 +182,11 @@
     .skills {
       margin: 5px 0;
       padding: 2px;
-      max-width: 288px;
-
       // Skills
       .skills-list {
         list-style: none;
         margin: 0;
         padding: 0;
-        .skill:nth-child(even) {
-          background-color: rgba(0, 0, 0, 0.1);
-        }
       }
     }
 
