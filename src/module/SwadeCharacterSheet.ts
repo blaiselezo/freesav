@@ -262,18 +262,12 @@ export class SwadeCharacterSheet extends ActorSheet {
 
     //Add Benny
     html.find('.benny-add').click(() => {
-      const currentBennies: any = html.find('.bennies-current').val();
-      const newBennies = parseInt(currentBennies) + 1;
-      this.actor.update({ 'data.bennies.value': newBennies });
+      (this.actor as SwadeActor).getBenny();
     });
 
     //Remove Benny
     html.find('.benny-subtract').click(() => {
-      const currentBennies: any = html.find('.bennies-current').val();
-      const newBennies = parseInt(currentBennies) - 1;
-      if (newBennies >= 0) {
-        this.actor.update({ 'data.bennies.value': newBennies });
-      }
+      (this.actor as SwadeActor).spendBenny();
     });
 
     //Toggle Conviction
@@ -438,8 +432,6 @@ export class SwadeCharacterSheet extends ActorSheet {
     data.data.settingrules = {
       conviction: game.settings.get('swade', 'enableConviction'),
     };
-
-    this.actor.calcArmor();
     return data;
   }
 
