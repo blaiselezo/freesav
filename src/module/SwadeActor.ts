@@ -288,9 +288,9 @@ export class SwadeActor extends Actor {
   }
 
   /**
-   * Calculates the correct armor value based on SWADE v5.5 and updates the actor
+   * Calculates the correct armor value based on SWADE v5.5 and returns that value
    */
-  async calcArmor(): Promise<void> {
+  calcArmor(): number {
     let totalArmorVal = 0;
     const armorList = this.items
       .filter(
@@ -313,6 +313,6 @@ export class SwadeActor extends Actor {
         parseInt(armorList[0].data.data.armor) +
         parseInt(armorList[1].data.data.armor) / 2;
     }
-    await this.update({ 'data.stats.toughness.armor': totalArmorVal });
+    return totalArmorVal;
   }
 }

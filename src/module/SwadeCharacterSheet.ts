@@ -432,8 +432,6 @@ export class SwadeCharacterSheet extends ActorSheet {
     data.data.settingrules = {
       conviction: game.settings.get('swade', 'enableConviction'),
     };
-
-    this.actor.calcArmor();
     return data;
   }
 
