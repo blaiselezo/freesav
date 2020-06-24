@@ -20,6 +20,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.9.3]
+
+### Added
+
+- Added Benny reset function for each user
+  - GM Bennies are calculated based on the number of users
+- Benny spend/recieve chat messages
+- Added a function to calculate the valuer of the worn armor to the `SwadeActor` entity
+
 ## [v0.9.2]
 
 ### Fixed
