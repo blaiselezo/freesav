@@ -18,7 +18,7 @@ Make sure you have a clear description of the bug and know the FoundryVTT and SW
 
 #### Q: I don't see feature XYZ, how do I let you know I want it?
 
-- Ask on the foundry vtt discord channel #other-game-systems with SWADE clearly mentioned.
+- Ask on the foundry vtt discord channel #swade with SWADE clearly mentioned.
 - Open an issue on this gitlab project site. (better to ask first probably)
 - Be willing to accept an answer of no, or not for a while.  This system is being developed for free by developers who have lives, jobs, etc - be respectful of their time and effort.
 - Consider contributing the feature if you have the skills.
@@ -32,5 +32,5 @@ Make sure you have a clear description of the bug and know the FoundryVTT and SW
 - The project has dependencies on the https://gitlab.com/foundry-projects/foundry-pc/foundry-pc-types
 - When developers need the latest types used in the SWADE system sometimes the master:head is out of sync with what the swade developer(S) are using from that dependency.  The solution is to find the latest type development by looking at the outstanding merge requests for that project and using that instead. **For example:**
     - `npm uninstall --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types`
-    - `npm install --save-dev gitlab:florad92/foundry-pc-types`
+    - `npm uninstall --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types`
 
