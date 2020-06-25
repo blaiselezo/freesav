@@ -446,23 +446,7 @@ export class SwadeCharacterSheet extends ActorSheet {
 
   private _calcMaxCarryCapacity(data: any): number {
     const strengthDie = data.data.attributes.strength.die;
-    let capacity = 0;
-
-    if (strengthDie.sides === 4) {
-      capacity = 20;
-    }
-    if (strengthDie.sides === 6) {
-      capacity = 40;
-    }
-    if (strengthDie.sides === 8) {
-      capacity = 60;
-    }
-    if (strengthDie.sides === 10) {
-      capacity = 80;
-    }
-    if (strengthDie.sides === 12) {
-      capacity = 100;
-    }
+    let capacity = 20 + 10 * (strengthDie.sides - 4);
 
     if (strengthDie.modifier > 0) {
       capacity = capacity + 20 * strengthDie.modifier;
