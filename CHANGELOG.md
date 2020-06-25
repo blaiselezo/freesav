@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Changed
+
+- Changed the card redraw dialog. It now displays the image of the card as well as a redraw button when appropriate
+
 ## [v0.9.3]
 
 ### Added
