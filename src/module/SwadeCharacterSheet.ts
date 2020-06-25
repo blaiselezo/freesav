@@ -151,6 +151,35 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
   }
 
+  _modifyDefense(target: string) {
+    const template = `
+      <form><div class="form-group">
+        <label>Modifier</label> 
+        <input name="modifier" value="${this.actor.data.data.stats[target].modifier}" placeholder="0" type="text"/>
+      </div></form>`;
+    new Dialog({
+      title: `Modify ${this.actor.name} ${target} modifier`,
+      content: template,
+      buttons: {
+        set: {
+          icon: '<i class="fas fa-shield"></i>',
+          label: 'Modify',
+          callback: (html: JQuery) => {
+            let mod = html.find('input[name="modifier"]').val();
+            let newData = {};
+            newData[`data.stats.${target}.modifier`] = parseInt(mod as string);
+            this.actor.update(newData);
+          },
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: 'Cancel',
+        },
+      },
+      default: 'set',
+    }).render(true);
+  }
+
   activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
 
@@ -207,34 +236,7 @@ export class SwadeCharacterSheet extends ActorSheet {
     // Edit armor modifier
     html.find('.armor-value').click((ev) => {
       var target = ev.currentTarget.id == 'parry-value' ? 'parry' : 'toughness';
-      const template = `
-        <form><div class="form-group">
-          <label>Modifier</label> 
-          <input name="modifier" value="${this.actor.data.data.stats[target].modifier}" placeholder="0" type="text"/>
-        </div></form>`;
-      new Dialog({
-        title: `Modify ${this.actor.name} ${target} modifier`,
-        content: template,
-        buttons: {
-          set: {
-            icon: '<i class="fas fa-shield"></i>',
-            label: 'Modify',
-            callback: (html: JQuery) => {
-              let mod = html.find('input[name="modifier"]').val();
-              let newData = {};
-              newData[`data.stats.${target}.modifier`] = parseInt(
-                mod as string,
-              );
-              this.actor.update(newData);
-            },
-          },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: 'Cancel',
-          },
-        },
-        default: 'set',
-      }).render(true);
+      this._modifyDefense(target);
     });
 
     //Show Description of an Edge/Hindrance
