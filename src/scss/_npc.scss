@@ -1,5 +1,6 @@
 .swade.sheet.actor.npc {
   min-width: 540px;
+  min-height: 240px;
   max-height: 740px;
   .header-field {
     padding: 1px;
@@ -10,6 +11,9 @@
     }
     .conviction {
       width: 30%;
+    }
+    .status-container {
+      margin-left: auto;
     }
   }
   .extra-gear-card {

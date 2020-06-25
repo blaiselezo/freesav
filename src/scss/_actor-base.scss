@@ -79,16 +79,6 @@
       }
     }
 
-    .status-container {
-      flex-grow: 0;
-      flex-basis: 100px;
-      display: flex;
-      flex-direction: column;
-      .status-item {
-        padding: 4px;
-      }
-    }
-
     // Stats Fiels
     .header-fields {
       flex-direction: row;
@@ -122,6 +112,16 @@
         padding: 0 3px;
         justify-content: center;
       }
+    }
+  }
+
+  .status-container {
+    flex-grow: 0;
+    flex-basis: 100px;
+    display: flex;
+    flex-direction: column;
+    .status-item {
+      padding: 4px;
     }
   }
 
