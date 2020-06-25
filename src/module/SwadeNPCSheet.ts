@@ -177,7 +177,7 @@ export class SwadeNPCSheet extends ActorSheet {
 
     // Update Item
     html.find('.item-edit').click((ev) => {
-      const li = $(ev.currentTarget).parents('.gear-card');
+      const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.getOwnedItem(li.data('itemId'));
       item.sheet.render(true);
     });

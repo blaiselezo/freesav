@@ -95,12 +95,10 @@
       </header>
       {{#each data.owned.edges as |edge id|}}
       <span class="item" data-item-id="{{edge._id}}">
-        <span class="item" data-item-id="{{edge._id}}">
-          <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
-            {{#unless @first}}&nbsp;{{/unless}}{{edge.name}}{{#unless
-            @last}},{{/unless}}
-          </a>
-        </span>
+        <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
+          {{#unless @first}}&nbsp;{{/unless}}{{edge.name}}{{#unless
+          @last}},{{/unless}}
+        </a>
       </span>
       {{/each}}
     </section>
@@ -117,13 +115,11 @@
       </header>
       {{#each data.owned.hindrances as |hindrance id|}}
       <span class="item" data-item-id="{{hindrance._id}}">
-        <span class="item" data-item-id="{{hindrance._id}}">
-          <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
-            {{#unless @first}}&nbsp;{{/unless}}{{hindrance.name}} {{#if
-            hindrance.data.major}}{{localize "SWADE.Major"}}{{else}}{{localize
-            "SWADE.Minor"}}{{/if}}{{#unless @last}},{{/unless}}
-          </a>
-        </span>
+        <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
+          {{#unless @first}}&nbsp;{{/unless}}{{hindrance.name}} {{#if
+          hindrance.data.major}}{{localize "SWADE.Major"}}{{else}}{{localize
+          "SWADE.Minor"}}{{/if}}{{#unless @last}},{{/unless}}
+        </a>
       </span>
       {{/each}}
     </section>
