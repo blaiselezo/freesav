@@ -177,14 +177,14 @@ export class SwadeNPCSheet extends ActorSheet {
 
     // Update Item
     html.find('.item-edit').click((ev) => {
-      const li = $(ev.currentTarget).parents('.item');
+      const li = $(ev.currentTarget).parents('.gear-card');
       const item = this.actor.getOwnedItem(li.data('itemId'));
       item.sheet.render(true);
     });
 
     // Delete Item
     html.find('.item-delete').click((ev) => {
-      const li = $(ev.currentTarget).parents('.item');
+      const li = $(ev.currentTarget).parents('.gear-card');
       this.actor.deleteOwnedItem(li.data('itemId'));
       li.slideUp(200, () => this.render(false));
     });
@@ -281,6 +281,18 @@ export class SwadeNPCSheet extends ActorSheet {
       } else {
         const itemData = createItem(type);
         this.actor.createOwnedItem(itemData);
+      }
+    });
+
+    //Toggle Equipmnent Card collapsible
+    html.find('.gear-card .card-header .item-name').click((ev) => {
+      const card = $(ev.currentTarget).parents('.gear-card');
+      const content = card.find('.card-content');
+      content.toggleClass('collapsed');
+      if (content.hasClass('collapsed')) {
+        content.slideUp();
+      } else {
+        content.slideDown();
       }
     });
 

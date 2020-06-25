@@ -142,18 +142,16 @@
           ></a>
         </div>
       </header>
-      {{#each data.owned.powers as |power id|}}
-      <span class="item" data-item-id="{{power._id}}">
-        <span class="item" data-item-id="{{power._id}}">
-          <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
-            {{#unless @first}}&nbsp;{{/unless}}{{power.name}}{{#unless
-            @last}},{{/unless}}
-          </a>
-        </span>
-      </span>
-      {{/each}} {{/if}}
+      <div class="quickaccess-list">
+        <ol class="gear-list power-list">
+          {{#each data.owned.powers}} {{>
+          "systems/swade/templates/actors/partials/powers-card.html"
+          owner=../owner}} {{/each}}
+        </ol>
+      </div>
+      {{/if}}
     </section>
-    <section class="inventory">
+    <section class="inventory gear">
       <header class="header-field flexrow">
         <div>
           <span>{{localize "SWADE.Inv"}}</span>
@@ -164,99 +162,28 @@
           ></a>
         </div>
       </header>
-      {{#each data.owned.weapons as |weapon id|}}
-      <div data-item-id="{{weapon._id}}" class="item weapon extra-gear-card">
-        <div class="flexrow">
-          <div>
-            <a class="item-edit" title="{{localize 'SWADE.Ed'}}"
-              ><strong>{{weapon.name}}</strong></a
-            >
-          </div>
-          <div class="item-controls" style="float: right;">
-            <a
-              class="item-control item-edit"
-              title='{{localize "SWADE.ItemEdit"}}'
-              ><i class="fas fa-edit"></i
-            ></a>
-            <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"
-              ><i class="fas fa-trash"></i
-            ></a>
-          </div>
-        </div>
-        <div class="stats">
-          {{#unless (isEmpty weapon.data.damage)}}
-          <div class="card-stat">
-            {{localize "SWADE.Dmg"}}:
-            <a class="damage-roll">{{weapon.data.damage}}</a>
-          </div>
-          {{/unless}} {{#unless (isEmpty weapon.data.range)}}
-          <div class="card-stat">
-            {{localize "SWADE.Rng"}}: {{weapon.data.range}}
-          </div>
-          {{/unless}} {{#unless (isEmpty weapon.data.shots)}}
-          <div class="card-stat">
-            {{localize "SWADE.Mag"}}: {{weapon.data.shots}}
-          </div>
-          {{/unless}} {{#unless (isEmpty weapon.data.minStr)}}
-          <div class="card-stat">
-            {{localize "SWADE.MinStr"}}: {{weapon.data.minStr}}
-          </div>
-          {{/unless}} {{#unless (isEmpty weapon.data.rof)}}
-          <div class="card-stat">
-            {{localize "SWADE.RoF"}}: {{weapon.data.rof}}
-          </div>
-          {{/unless}} {{#unless (isEmpty weapon.data.ap)}}
-          <div class="card-stat">
-            {{localize "SWADE.Ap"}}: {{weapon.data.ap}}
-          </div>
-          {{/unless}} {{#unless (isEmpty weapon.data.notes)}}
-          <div>{{localize "SWADE.Notes"}}: {{weapon.data.notes}}</div>
-          {{/unless}}
-        </div>
+      <div class="quickaccess-list">
+        <ol class="gear-list weapon-list">
+          {{#each data.owned.weapons}} {{>
+          "systems/swade/templates/actors/partials/weapon-card.html"
+          owner=../owner}} {{/each}}
+        </ol>
+        <ol class="gear-list armor-list">
+          {{#each data.owned.armors}} {{>
+          "systems/swade/templates/actors/partials/armor-card.html"
+          owner=../owner}} {{/each}}
+        </ol>
+        <ol class="gear-list shield-list">
+          {{#each data.owned.shields}} {{>
+          "systems/swade/templates/actors/partials/shield-card.html"
+          owner=../owner}} {{/each}}
+        </ol>
+        <ol class="gear-list items-list">
+          {{#each data.owned.gear}} {{>
+          "systems/swade/templates/actors/partials/misc-card.html"
+          owner=../owner}} {{/each}}
+        </ol>
       </div>
-      {{/each}} {{#each data.owned.armors as |armor id|}}
-      <div data-item-id="{{armor._id}}" class="item extra-gear-card">
-        <div class="flexrow">
-          <div>
-            <a class="item-edit" title="{{localize 'SWADE.Ed'}}"
-              ><strong>{{armor.name}}</strong></a
-            >
-          </div>
-          <div class="item-controls">
-            <a class="item-control item-delete" title="{{localize 'SWADE.Del'}}"
-              ><i class="fas fa-trash"></i
-            ></a>
-          </div>
-        </div>
-        <div>{{localize "SWADE.Armor"}}: {{armor.data.armor}}</div>
-        {{#unless (isEmpty armor.data.notes)}}
-        <div>{{localize "SWADE.Notes"}}: {{armor.data.notes}}</div>
-        {{/unless}}
-      </div>
-      {{/each}} {{#each data.owned.shields as |shield id|}}
-      <div data-item-id="{{shield._id}}" class="item extra-gear-card">
-        <div class="flexrow">
-          <div>
-            <a class="item-edit" title="{{localize 'SWADE.Ed'}}"
-              ><strong>{{shield.name}}</strong></a
-            >
-          </div>
-          <div class="item-controls">
-            <a
-              class="item-control item-delete"
-              title="{{localize 'SWADE.Del'}}"
-            >
-              <i class="fas fa-trash"></i
-            ></a>
-          </div>
-        </div>
-        <div class="flexrow">
-          <div>{{localize "SWADE.Parry"}}: {{shield.data.parry}}</div>
-          <div>{{localize "SWADE.Cover"}}: {{shield.data.cover}}</div>
-        </div>
-        <div>{{localize "SWADE.Notes"}}: {{shield.data.notes}}</div>
-      </div>
-      {{/each}}
     </section>
     <section class="description">
       <header class="header-field">

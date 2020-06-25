@@ -1,4 +1,4 @@
-<li class="gear-card">
+<li class="gear-card" data-item-id="{{_id}}">
   <header class="flexrow card-header">
     <div class="item-image" style="background-image: url('{{img}}')"></div>
     <h4 class="item-name">{{name}}</h4>
@@ -16,9 +16,6 @@
     </div>
   </header>
   <div class="card-content collapsed" style="display: none;">
-    <div>{{localize "SWADE.Armor"}}: {{data.armor}}</div>
-    {{#unless (isEmpty data.notes)}}
-    <div>{{data.notes}}</div>
-    {{/unless}}
+    {{data.description}}
   </div>
 </li>

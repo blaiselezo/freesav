@@ -79,6 +79,16 @@
       }
     }
 
+    .status-container {
+      flex-grow: 0;
+      flex-basis: 100px;
+      display: flex;
+      flex-direction: column;
+      .status-item {
+        padding: 4px;
+      }
+    }
+
     // Stats Fiels
     .header-fields {
       flex-direction: row;
@@ -178,50 +188,40 @@
       }
     }
 
-    //Summary
-    .skills {
-      margin: 5px 0;
-      padding: 2px;
-      // Skills
-      .skills-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-    }
-
-    //Gear
-    .gear {
-      margin: 5px 0px 0px 0px;
-      padding: 2px;
-      .gear-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        li {
-          > * {
-            background: transparent;
-          }
+    .quickaccess-list {
+      overflow: auto;
+      .quickaccess-header {
+        line-height: 24px;
+        h4 {
+          font-weight: 600;
+          text-indent: 10px;
+          margin: 0 0 0.2rem;
+          border-bottom: 1px solid grey;
         }
+        .header-field-add {
+          flex-grow: 0;
+          flex-basis: 20px;
+        }
+      }
+      .gear-list {
         .gear-card {
-          margin: 5px 5px;
           border: $decorative-line;
-          border-radius: 2px;
           .card-header {
-            padding: 5px;
             background: rgba(0, 0, 0, 0.2);
             line-height: 20px;
             cursor: pointer;
+            padding: 0;
+            line-height: 25px;
             .item-name {
               margin: 0;
               text-indent: 20px;
               font-weight: 600;
             }
             .item-image {
-              height: 20px;
+              height: 25px;
               flex-grow: 0;
               background-size: contain;
-              flex-basis: 20px;
+              flex-basis: 25px;
             }
           }
           .card-content {
@@ -238,121 +238,29 @@
               flex-basis: 130px;
             }
           }
-          .chips {
-            span {
-              padding-bottom: 8px;
-            }
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            .chip {
-              padding: 0px 5px 5px 5px;
-              font-size: 10px;
-              .chip-content {
-                padding: 2px 5px;
-                height: auto;
-                background-color: #bbb;
-                border-radius: 25%;
-                display: inline-block;
-              }
-            }
-          }
         }
       }
     }
 
-    .powers {
-      margin: 3px 0;
-      .header-field-add {
-        line-height: 24px;
-        margin-left: 5px;
+    //Summary
+    .skills {
+      padding: 2px;
+      // Skills
+      .skills-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
       }
-      .arcane-tabs {
-        display: flex;
-        .arcane {
-          cursor: pointer;
-          width: 90px;
-          height: 24px;
-          text-align: center;
-          line-height: 22px;
-          overflow: hidden;
-          border: 1px solid rgba(0, 0, 0, 0.2);
-          &.active {
-            background: rgba(0, 0, 0, 0.2);
-          }
-          &:hover {
-            background: rgba(0, 0, 0, 0.1);
-          }
-        }
-      }
-      .power-counter {
-        display: none;
-        input {
-          width: 40px;
-          color: white;
-          font-weight: bold;
-        }
-        &.active {
-          display: block;
-        }
-      }
-      .powers-list {
-        display: flex;
-        flex-direction: row;
-        align-content: start;
-        flex-wrap: wrap;
-        overflow: auto;
-        .power {
-          display: none;
-          margin: 2px;
-          flex-grow: 0;
-          flex-basis: calc(50% - 4px);
-          height: calc(50% - 4px);
-          border: $decorative-line;
-          border-top-left-radius: 4px;
-          border-radius: 2px;
-          &.active {
-            display: block;
-          }
-          .power-header {
-            background: rgba(0, 0, 0, 0.05);
-            border-bottom: $decorative-line;
-            h4 {
-              margin: 0;
-              padding: 5px;
-              white-space: nowrap;
-              overflow: hidden;
-            }
-            .item-image {
-              flex-grow: 0;
-              flex-basis: 25px;
-              background-size: contain;
-            }
-            .item-controls {
-              padding: 5px;
-              flex-grow: 0;
-              flex-basis: 45px;
-              color: black;
-              .item-unequipped {
-                color: rgba(0, 0, 0, 0.2);
-              }
-            }
-          }
-          .power-content {
-            margin: 0 3px;
-            line-height: 24px;
-            padding: 5px;
-            height: calc(100% - 30px);
-            overflow-y: auto;
-            .power-details {
-              font-size: 12px;
-              line-height: 12px;
-              font-weight: 600;
-              text-indent: 5px;
-            }
-            .power-description {
-              line-height: 15px;
-            }
+    }
+
+    .gear {
+      .gear-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+          > * {
+            background: transparent;
           }
         }
       }

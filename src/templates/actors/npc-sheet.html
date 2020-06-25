@@ -40,9 +40,75 @@
         </div>
         {{/if}}
       </div>
-      <div>
-        <div class="flexrow header-stats">
-          <div class="form-group">
+      <section class="vitals flexrow">
+        {{#if actor.data.wounds.max}}
+        <div class="vitals-container">
+          <strong>{{localize "SWADE.Fatigue"}}</strong>
+          <div class="counter flexrow">
+            <input
+              type="text"
+              name="data.fatigue.value"
+              value="{{data.fatigue.value}}"
+              data-dtype="Number"
+              class="vitals-input"
+            />
+            <span>/</span>
+            <input
+              type="text"
+              name="data.fatigue.max"
+              value="{{data.fatigue.max}}"
+              data-dtype="Number"
+              class="vitals-input"
+            />
+          </div>
+        </div>
+        {{/if}} {{#if actor.data.wildcard}}
+        <div class="vitals-container">
+          <div>
+            <strong>{{localize "SWADE.Bennies"}}</strong>
+          </div>
+          <div class="counter flexrow">
+            <input
+              class="bennies-current"
+              name="data.bennies.value"
+              type="text"
+              value="{{data.bennies.value}}"
+              data-dtype="Number"
+            />
+            <span>/</span>
+            <input
+              class="bennies-max"
+              name="data.bennies.max"
+              type="text"
+              value="{{data.bennies.max}}"
+              data-dtype="Number"
+            />
+          </div>
+        </div>
+        {{/if}} {{#if actor.data.wounds.max}}
+        <div class="vitals-container">
+          <strong>{{localize "SWADE.Wounds"}}</strong>
+          <div class="counter flexrow">
+            <input
+              type="text"
+              name="data.wounds.value"
+              value="{{data.wounds.value}}"
+              data-dtype="Number"
+              class="vitals-input"
+            />
+            <span>/</span>
+            <input
+              type="text"
+              name="data.wounds.max"
+              value="{{data.wounds.max}}"
+              data-dtype="Number"
+              class="vitals-input"
+            />
+          </div>
+        </div>
+        {{/if}}
+        <div class="status-container">
+          <div class="status-item">
             <input
               type="checkbox"
               name="data.status.isShaken"
@@ -54,7 +120,7 @@
               >{{localize "SWADE.Shaken"}}</label
             >
           </div>
-          <div class="form-group">
+          <div class="status-item">
             <input
               type="checkbox"
               name="data.status.isDistracted"
@@ -66,7 +132,7 @@
               >{{localize "SWADE.Distr"}}</label
             >
           </div>
-          <div class="form-group">
+          <div class="status-item">
             <input
               type="checkbox"
               name="data.status.isVulnerable"
@@ -79,75 +145,7 @@
             >
           </div>
         </div>
-        {{#if actor.data.wounds.max}}
-        <section class="vitals flexrow">
-          <div class="vitals-container">
-            <strong>{{localize "SWADE.Fatigue"}}</strong>
-            <div class="counter flexrow">
-              <input
-                type="text"
-                name="data.fatigue.value"
-                value="{{data.fatigue.value}}"
-                data-dtype="Number"
-                class="vitals-input"
-              />
-              <span>/</span>
-              <input
-                type="text"
-                name="data.fatigue.max"
-                value="{{data.fatigue.max}}"
-                data-dtype="Number"
-                class="vitals-input"
-              />
-            </div>
-          </div>
-          <div class="vitals-container">
-            {{#if actor.data.wildcard}}
-            <div>
-              <strong>{{localize "SWADE.Bennies"}}</strong>
-            </div>
-            <div class="counter flexrow">
-              <input
-                class="bennies-current"
-                name="data.bennies.value"
-                type="text"
-                value="{{data.bennies.value}}"
-                data-dtype="Number"
-              />
-              <span>/</span>
-              <input
-                class="bennies-max"
-                name="data.bennies.max"
-                type="text"
-                value="{{data.bennies.max}}"
-                data-dtype="Number"
-              />
-            </div>
-            {{/if}}
-          </div>
-          <div class="vitals-container">
-            <strong>{{localize "SWADE.Wounds"}}</strong>
-            <div class="counter flexrow">
-              <input
-                type="text"
-                name="data.wounds.value"
-                value="{{data.wounds.value}}"
-                data-dtype="Number"
-                class="vitals-input"
-              />
-              <span>/</span>
-              <input
-                type="text"
-                name="data.wounds.max"
-                value="{{data.wounds.max}}"
-                data-dtype="Number"
-                class="vitals-input"
-              />
-            </div>
-          </div>
-        </section>
-        {{/if}}
-      </div>
+      </section>
     </div>
   </header>
   <section class="sheet-body">

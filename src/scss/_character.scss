@@ -34,16 +34,6 @@
       }
     }
 
-    .status-container {
-      flex-grow: 0;
-      flex-basis: 100px;
-      display: flex;
-      flex-direction: column;
-      .status-item {
-        padding: 4px;
-      }
-    }
-
     .vitals-container {
       padding: 3px;
       .vitals-value {
@@ -154,36 +144,24 @@
       }
     }
   }
+
   .quickaccess-list {
     height: 350px;
-    overflow: auto;
-    .quickaccess-header {
-      line-height: 24px;
-      h4 {
-        font-weight: 600;
-        text-indent: 10px;
-        margin: 0 0 0.2rem;
-        border-bottom: 1px solid grey;
-      }
-      .header-field-add {
-        flex-grow: 0;
-        flex-basis: 20px;
-      }
-    }
+  }
+
+  .gear {
+    padding: 2px;
     .gear-list {
       .gear-card {
+        margin: 2px;
         border-top-left-radius: 4px;
-        .card-header {
-          padding: 0;
-          line-height: 25px;
-          .item-image {
-            height: 25px;
-            flex-basis: 25px;
-          }
+        .card-header .item-controls {
+          display: none;
         }
       }
     }
   }
+
   // Edges
   .edges {
     .edges-hindrances-list {
@@ -331,6 +309,102 @@
         margin-right: 4px;
         .item-unequipped {
           color: rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+  }
+  .powers {
+    margin: 3px 0;
+    .header-field-add {
+      line-height: 24px;
+      margin-left: 5px;
+    }
+    .arcane-tabs {
+      display: flex;
+      .arcane {
+        cursor: pointer;
+        width: 90px;
+        height: 24px;
+        text-align: center;
+        line-height: 22px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        &.active {
+          background: rgba(0, 0, 0, 0.2);
+        }
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+    .power-counter {
+      display: none;
+      input {
+        width: 40px;
+        color: white;
+        font-weight: bold;
+      }
+      &.active {
+        display: block;
+      }
+    }
+    .powers-list {
+      display: flex;
+      flex-direction: row;
+      align-content: start;
+      flex-wrap: wrap;
+      overflow: auto;
+      .power {
+        display: none;
+        margin: 2px;
+        flex-grow: 0;
+        flex-basis: calc(50% - 4px);
+        height: calc(50% - 4px);
+        border: $decorative-line;
+        border-top-left-radius: 4px;
+        border-radius: 2px;
+        &.active {
+          display: block;
+        }
+        .power-header {
+          background: rgba(0, 0, 0, 0.05);
+          border-bottom: $decorative-line;
+          h4 {
+            margin: 0;
+            padding: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+          .item-image {
+            flex-grow: 0;
+            flex-basis: 25px;
+            background-size: contain;
+          }
+          .item-controls {
+            padding: 5px;
+            flex-grow: 0;
+            flex-basis: 45px;
+            color: black;
+            .item-unequipped {
+              color: rgba(0, 0, 0, 0.2);
+            }
+          }
+        }
+        .power-content {
+          margin: 0 3px;
+          line-height: 24px;
+          padding: 5px;
+          height: calc(100% - 30px);
+          overflow-y: auto;
+          .power-details {
+            font-size: 12px;
+            line-height: 12px;
+            font-weight: 600;
+            text-indent: 5px;
+          }
+          .power-description {
+            line-height: 15px;
+          }
         }
       }
     }
