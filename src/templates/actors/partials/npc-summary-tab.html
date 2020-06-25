@@ -36,8 +36,8 @@
             placeholder="0"
             data-dtype="Number"
           />
-          {{#if parry}}
-          <div class="armor-value">{{parry}}</div>
+          {{#if (add parry data.stats.parry.modifier)}}
+          <div class="armor-value">{{add parry data.stats.parry.modifier}}</div>
           {{/if}}
         </div>
       </div>
@@ -52,8 +52,10 @@
             placeholder="0"
             data-dtype="String"
           />
-          {{#if armor}}
-          <div class="armor-value">{{armor}}</div>
+          {{#if (add armor data.stats.toughness.modifier)}}
+          <div class="armor-value">
+            {{add armor data.stats.toughness.modifier}}
+          </div>
           {{/if}}
         </div>
       </div>

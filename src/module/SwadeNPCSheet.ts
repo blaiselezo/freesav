@@ -373,15 +373,7 @@ export class SwadeNPCSheet extends ActorSheet {
       });
     }
 
-    const armors = data.itemsByType['armor'];
-    data.armor = 0;
-    if (armors) {
-      armors.forEach((armor: any) => {
-        if (armor.data.equipped && armor.data.locations.torso) {
-          data.armor += armor.data.armor;
-        }
-      });
-    }
+    data.armor = (this.actor as SwadeActor).calcArmor();
 
     const shields = data.itemsByType['shield'];
     data.parry = 0;
