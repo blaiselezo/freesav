@@ -1,133 +1,244 @@
 <section class="vitals flexrow">
-    <div class="vitals-container">
-        <strong>{{localize "SWADE.Fatigue"}}</strong>
-        <input type="range" name="data.fatigue.value" min="0" max="{{data.fatigue.max}}" class="slider fatigue-slider"
-            value="{{data.fatigue.value}}" />
-        <div class="flexrow vitals-value">
-            <input type="text" value="{{data.fatigue.value}}" data-dtype="Number" class="fatigue-input" />
-            <span>/</span>
-            <input type="text" name="data.fatigue.max" value="{{data.fatigue.max}}" data-dtype="Number" />
-        </div>
+  <div class="vitals-container">
+    <strong>{{localize "SWADE.Fatigue"}}</strong>
+    <input
+      type="range"
+      name="data.fatigue.value"
+      min="0"
+      max="{{data.fatigue.max}}"
+      class="slider fatigue-slider"
+      value="{{data.fatigue.value}}"
+    />
+    <div class="flexrow vitals-value">
+      <input
+        type="text"
+        value="{{data.fatigue.value}}"
+        data-dtype="Number"
+        class="fatigue-input"
+      />
+      <span>/</span>
+      <input
+        type="text"
+        name="data.fatigue.max"
+        value="{{data.fatigue.max}}"
+        data-dtype="Number"
+      />
     </div>
-    <div class="bennies flexrow">
-        <div>
-            <a><i class="benny-subtract fas fa-minus"></i></a>
-        </div>
-        <div class="benny-tracker">
-            <strong>{{localize "SWADE.Bennies"}}</strong>
-            <input class="bennies-current" name="data.bennies.value" type="text" value="{{data.bennies.value}}"
-                data-dtype="Number" />
-            <input class="bennies-max" name="data.bennies.max" type="text" value="{{data.bennies.max}}"
-                data-dtype="Number" />
-        </div>
-        <div>
-            <a><i class="benny-add fas fa-plus"></i></a>
-        </div>
+  </div>
+  <div class="bennies flexrow">
+    <div>
+      <a><i class="benny-subtract fas fa-minus"></i></a>
     </div>
-    <div class="vitals-container">
-        <strong>{{localize "SWADE.Wounds"}}</strong>
-        <input type="range" name="data.wounds.value" min="0" max="{{data.wounds.max}}" class="slider wound-slider"
-            value="{{data.wounds.value}}" data-dtype="Number" />
-        <div class="flexrow vitals-value">
-            <input type="text" value="{{data.wounds.value}}" data-dtype="Number" class="wound-input" />
-            <span>/</span>
-            <input type="text" name="data.wounds.max" value="{{data.wounds.max}}" data-dtype="Number" />
-        </div>
+    <div class="benny-tracker">
+      <strong>{{localize "SWADE.Bennies"}}</strong>
+      <input
+        class="bennies-current"
+        name="data.bennies.value"
+        type="text"
+        value="{{data.bennies.value}}"
+        data-dtype="Number"
+      />
+      <input
+        class="bennies-max"
+        name="data.bennies.max"
+        type="text"
+        value="{{data.bennies.max}}"
+        data-dtype="Number"
+      />
     </div>
-    <div class="status-container">
-        <div class="status-item">
-            <input type="checkbox" name="data.status.isShaken" id="data.status.isShaken-{{actor._id}}"
-                {{checked actor.data.status.isShaken}}>
-            <label for="data.status.isShaken-{{actor._id}}">{{localize "SWADE.Shaken"}}</label>
-        </div>
-        <div class="status-item">
-            <input type="checkbox" name="data.status.isDistracted"
-                id="data.status.isDistracted-{{actor._id}}" {{checked actor.data.status.isDistracted}}>
-            <label for="data.status.isDistracted-{{actor._id}}">{{localize "SWADE.Distr"}}</label>
-        </div>
-        <div class="status-item">
-            <input type="checkbox" name="data.status.isVulnerable"
-                id="data.status.isVulnerable-{{actor._id}}" {{checked actor.data.status.isVulnerable}}>
-            <label for="data.status.isVulnerable-{{actor._id}}">{{localize "SWADE.Vuln"}}</label>
-        </div>
+    <div>
+      <a><i class="benny-add fas fa-plus"></i></a>
     </div>
+  </div>
+  <div class="vitals-container">
+    <strong>{{localize "SWADE.Wounds"}}</strong>
+    <input
+      type="range"
+      name="data.wounds.value"
+      min="0"
+      max="{{data.wounds.max}}"
+      class="slider wound-slider"
+      value="{{data.wounds.value}}"
+      data-dtype="Number"
+    />
+    <div class="flexrow vitals-value">
+      <input
+        type="text"
+        value="{{data.wounds.value}}"
+        data-dtype="Number"
+        class="wound-input"
+      />
+      <span>/</span>
+      <input
+        type="text"
+        name="data.wounds.max"
+        value="{{data.wounds.max}}"
+        data-dtype="Number"
+      />
+    </div>
+  </div>
+  <div class="status-container">
+    <div class="status-item">
+      <input
+        type="checkbox"
+        name="data.status.isShaken"
+        id="data.status.isShaken-{{actor._id}}"
+        {{checked
+        actor.data.status.isShaken}}
+      />
+      <label for="data.status.isShaken-{{actor._id}}"
+        >{{localize "SWADE.Shaken"}}</label
+      >
+    </div>
+    <div class="status-item">
+      <input
+        type="checkbox"
+        name="data.status.isDistracted"
+        id="data.status.isDistracted-{{actor._id}}"
+        {{checked
+        actor.data.status.isDistracted}}
+      />
+      <label for="data.status.isDistracted-{{actor._id}}"
+        >{{localize "SWADE.Distr"}}</label
+      >
+    </div>
+    <div class="status-item">
+      <input
+        type="checkbox"
+        name="data.status.isVulnerable"
+        id="data.status.isVulnerable-{{actor._id}}"
+        {{checked
+        actor.data.status.isVulnerable}}
+      />
+      <label for="data.status.isVulnerable-{{actor._id}}"
+        >{{localize "SWADE.Vuln"}}</label
+      >
+    </div>
+  </div>
 </section>
 <section class="flexrow attributes-container">
-    <div class="attributes secondary">
-        <header class="header-field">
-            <span>{{ localize "SWADE.Derived" }}</span>
-        </header>
-        <div class="flexrow attributes-list">
-            <div class="attribute">
-                <div class="attribute-label">{{localize "SWADE.Size"}}</div>
-                <input id="data.stats.size" name="data.stats.size" type="text" value="{{data.stats.size}}"
-                    data-dtype="Number" />
-            </div>
-            <div class="attribute">
-                <div class="attribute-label">{{localize "SWADE.Pace"}}</div>
-                <input id="pace" name="data.stats.speed.value" type="text" value="{{data.stats.speed.value}}"
-                    placeholder="0" data-dtype="Number" />
-            </div>
-            <div class="attribute">
-                <div class="attribute-label">{{localize "SWADE.Parry"}}</div>
-                <input id="parry" name="data.stats.parry.value" value="{{data.stats.parry.value}}" type="text"
-                    placeholder="0" data-dtype="Number" />
-            </div>
-            <div class="attribute">
-                <div class="attribute-label">{{localize "SWADE.Tough"}}</div>
-                <input id="toughness" name="data.stats.toughness.value" type="text"
-                    value="{{data.stats.toughness.value}}" placeholder="0" data-dtype="String" />
-            </div>
-        </div>
+  <div class="attributes secondary">
+    <header class="header-field">
+      <span>{{ localize "SWADE.Derived" }}</span>
+    </header>
+    <div class="flexrow attributes-list">
+      <div class="attribute">
+        <div class="attribute-label">{{localize "SWADE.Size"}}</div>
+        <input
+          id="data.stats.size"
+          name="data.stats.size"
+          type="text"
+          value="{{data.stats.size}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="attribute">
+        <div class="attribute-label">{{localize "SWADE.Pace"}}</div>
+        <input
+          id="pace"
+          name="data.stats.speed.value"
+          type="text"
+          value="{{data.stats.speed.value}}"
+          placeholder="0"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="attribute">
+        <div class="attribute-label">{{localize "SWADE.Parry"}}</div>
+        <input
+          id="parry"
+          name="data.stats.parry.value"
+          value="{{data.stats.parry.value}}"
+          type="text"
+          placeholder="0"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="attribute">
+        <div class="attribute-label">{{localize "SWADE.Tough"}}</div>
+        <input
+          id="toughness"
+          name="data.stats.toughness.value"
+          type="text"
+          value="{{data.stats.toughness.value}}"
+          placeholder="0"
+          data-dtype="String"
+        />
+      </div>
     </div>
-    {{> "systems/swade/templates/actors/partials/attributes.html"}}
+  </div>
+  {{> "systems/swade/templates/actors/partials/attributes.html"}}
 </section>
 <section class="flexrow">
-    <div class="skills">
-        <header class="header-field flexrow">
-            <div>
-                <span>{{localize "SWADE.Skills"}}</span>
-            </div>
-            <div class="header-field-add">
-                <a class="item-create" data-type="skill"><i class="fa fa-plus"></i></a>
-            </div>
-        </header>
-        <ol class="skills-list resizable" data-base-size="390">
-            {{#each data.owned.skills as |skill id|}}
-            <li class="item skill flexrow" data-item-id="{{skill._id}}">
-                <label class="skill-label"><a title="{{localize 'SWADE.Roll'}}">{{skill.name}}</a></label>
-                <div class="skill-value"><span><a class="item-control item-edit"
-                            title="{{localize 'SWADE.EditSkill'}}">d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a></span>
-                </div>
-                <div class="skill-attribute"><span>{{localizeSkillAttribute skill.data.attribute}}</span></div>
-            </li>
-            {{/each}}
-        </ol>
-    </div>
-    <div class="gear">
-        <header class="header-field flexrow">
-            <div>
-                <span>{{ localize "SWADE.QuickAccess" }}</span>
-            </div>
-            <div class="header-field-add">
-                <a class="item-create" data-type="choice" data-equipped="true" data-choices="weapon,power,armor,shield"><i class="fa fa-plus"></i></a>
-            </div>
-        </header>
-        <div class="quickaccess-list resizable" data-base-size="390">
-            <ol class="gear-list weapon-list">
-                {{> "systems/swade/templates/actors/partials/weapon-card.html"}}
-            </ol>
-            {{#if data.hasArcaneBackground}}
-            <ol class="gear-list power-list">
-                {{> "systems/swade/templates/actors/partials/powers-card.html"}}
-            </ol>
-            {{/if}}
-            <ol class="gear-list armor-list">
-                {{> "systems/swade/templates/actors/partials/armor-card.html"}}
-            </ol>
-            <ol class="gear-list shield-list">
-                {{> "systems/swade/templates/actors/partials/shield-card.html"}}
-            </ol>
+  <div class="skills">
+    <header class="header-field flexrow">
+      <div>
+        <span>{{localize "SWADE.Skills"}}</span>
+      </div>
+      <div class="header-field-add">
+        <a class="item-create" data-type="skill"><i class="fa fa-plus"></i></a>
+      </div>
+    </header>
+    <ol class="skills-list resizable" data-base-size="390">
+      {{#each data.owned.skills as |skill id|}}
+      <li class="item skill flexrow" data-item-id="{{skill._id}}">
+        <label class="skill-label"
+          ><a title="{{localize 'SWADE.Roll'}}">{{skill.name}}</a></label
+        >
+        <div class="skill-value">
+          <span
+            ><a
+              class="item-control item-edit"
+              title="{{localize 'SWADE.EditSkill'}}"
+              >d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}</a
+            ></span
+          >
         </div>
+        <div class="skill-attribute">
+          <span>{{localizeSkillAttribute skill.data.attribute}}</span>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+  <div class="gear">
+    <header class="header-field flexrow">
+      <div>
+        <span>{{ localize "SWADE.QuickAccess" }}</span>
+      </div>
+      <div class="header-field-add">
+        <a
+          class="item-create"
+          data-type="choice"
+          data-equipped="true"
+          data-choices="weapon,power,armor,shield"
+          ><i class="fa fa-plus"></i
+        ></a>
+      </div>
+    </header>
+    <div class="quickaccess-list resizable" data-base-size="390">
+      <ol class="gear-list weapon-list">
+        {{#each data.owned.weapons as |weapon id|}} {{#if weapon.data.equipped}}
+        {{> "systems/swade/templates/actors/partials/weapon-card.html"}} {{/if}}
+        {{/each}}
+      </ol>
+      {{#if data.hasArcaneBackground}}
+      <ol class="gear-list power-list">
+        {{#each data.owned.powers as |power id|}} {{#if power.data.equipped}}
+        {{> "systems/swade/templates/actors/partials/powers-card.html"}} {{/if}}
+        {{/each}}
+      </ol>
+      {{/if}}
+      <ol class="gear-list armor-list">
+        {{#each data.owned.armors as |armor id|}} {{#if armor.data.equipped}}
+        {{> "systems/swade/templates/actors/partials/armor-card.html"}} {{/if}}
+        {{/each}}
+      </ol>
+      <ol class="gear-list shield-list">
+        {{#each data.owned.shields as |shield id|}} {{#if shield.data.equipped}}
+        {{> "systems/swade/templates/actors/partials/shield-card.html"}} {{/if}}
+        {{/each}}
+      </ol>
     </div>
+  </div>
 </section>

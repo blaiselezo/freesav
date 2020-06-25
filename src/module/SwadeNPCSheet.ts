@@ -10,7 +10,7 @@ export class SwadeNPCSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ['swade', 'sheet', 'actor', 'npc'],
       width: 600,
-      height: 'auto',
+      height: 600,
       tabs: [
         {
           navSelector: '.tabs',
@@ -184,7 +184,7 @@ export class SwadeNPCSheet extends ActorSheet {
 
     // Delete Item
     html.find('.item-delete').click((ev) => {
-      const li = $(ev.currentTarget).parents('.item');
+      const li = $(ev.currentTarget).parents('.gear-card');
       this.actor.deleteOwnedItem(li.data('itemId'));
       li.slideUp(200, () => this.render(false));
     });
@@ -281,6 +281,18 @@ export class SwadeNPCSheet extends ActorSheet {
       } else {
         const itemData = createItem(type);
         this.actor.createOwnedItem(itemData);
+      }
+    });
+
+    //Toggle Equipmnent Card collapsible
+    html.find('.gear-card .card-header .item-name').click((ev) => {
+      const card = $(ev.currentTarget).parents('.gear-card');
+      const content = card.find('.card-content');
+      content.toggleClass('collapsed');
+      if (content.hasClass('collapsed')) {
+        content.slideUp();
+      } else {
+        content.slideDown();
       }
     });
 

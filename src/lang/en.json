@@ -93,6 +93,10 @@
   "SWADE.Conv": "Conviction",
   "SWADE.UseConv": "Calls on their Conviction!",
 
+  "SWADE.Hesitant": "Hesitant",
+  "SWADE.LevelHeaded": "Level Headed",
+  "SWADE.ImprovedLevelHeaded": "Improved Level Headed",
+
   "SWADE.Currency": "Currency",
   "SWADE.CarryWeight": "Encumbrance",
   "SWADE.Eqd": "Eq'd",
