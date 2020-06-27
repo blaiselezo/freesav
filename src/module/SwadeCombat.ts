@@ -156,7 +156,7 @@ export async function rollInitiative(
 }
 
 export function setupTurns(): [] {
-  const scene = game.scenes.get(this.data['scene'], { strict: true });
+  const scene = game.scenes.get(this.data['scene']);
   const players = game.users.players;
   // Populate additional data for each combatant
   let turns = this.data['combatants']
@@ -206,7 +206,7 @@ export function setupTurns(): [] {
  * Draws cards
  * @param count number of cards to draw
  */
-async function drawCard(count?: number): Promise<JournalEntry[]> {
+async function drawCard(count = 1): Promise<JournalEntry[]> {
   let actionCardPack = game.packs.get(game.settings.get('swade', 'cardDeck'));
   if (
     actionCardPack === null ||
@@ -227,7 +227,6 @@ async function drawCard(count?: number): Promise<JournalEntry[]> {
   const actionCardDeck = game.tables.getName(CONFIG.SWADE.init.cardTable);
   const packIndex = await actionCardPack.getIndex();
   const cards: JournalEntry[] = [];
-  if (!count) count = 1;
 
   for (let i = 0; i < count; i++) {
     let drawResult = await actionCardDeck.draw({ displayChat: false });
@@ -254,6 +253,8 @@ async function pickACard(
 ): Promise<JournalEntry> {
   // any card
 
+  let immedeateRedraw = false;
+
   // sort the cards for display
   const sortedCards = cards.sort((a: JournalEntry, b: JournalEntry) => {
     const cardA = a.getFlag('swade', 'cardValue') as number;
@@ -274,24 +275,41 @@ async function pickACard(
     },
   });
 
+  const buttons = {
+    ok: {
+      icon: '<i class="fas fa-check"></i>',
+      label: game.i18n.localize('SWADE.Ok'),
+      callback: (html: JQuery<HTMLElement>) => {
+        const choice = html.find('input[name=card]:checked');
+        const cardId = choice.data('card-id') as string;
+        if (typeof cardId !== 'undefined') {
+          card = cards.find((c) => c._id === cardId);
+        }
+      },
+    },
+  };
+
+  if (oldCardId) {
+    buttons['redraw'] = {
+      icon: '<i class="fas fa-redo"></i>',
+      label: game.i18n.localize('SWADE.Redraw'),
+      callback: () => {
+        immedeateRedraw = true;
+      },
+    };
+  }
+
   return new Promise((resolve) => {
     new Dialog({
       title: `${game.i18n.localize('SWADE.PickACard')} ${combatantName}`,
       content: html,
-      buttons: {
-        ok: {
-          icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize('SWADE.Ok'),
-          callback: (html: JQuery<HTMLElement>) => {
-            const choice = html.find('input[name=card]:checked');
-            const cardId = choice.data('card-id') as string;
-            if (typeof cardId !== 'undefined') {
-              card = cards.find((c) => c._id === cardId);
-            }
-          },
-        },
-      },
-      close: () => {
+      buttons: buttons,
+      close: async () => {
+        if (immedeateRedraw) {
+          let newCard = await drawCard();
+          let newCards = [...cards, ...newCard];
+          card = await pickACard(newCards, combatantName, oldCardId);
+        }
         //if no card has been chosen then choose first in array
         if (card === null || typeof card === 'undefined') {
           if (oldCardId) {
