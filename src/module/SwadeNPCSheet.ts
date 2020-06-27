@@ -138,6 +138,43 @@ export class SwadeNPCSheet extends ActorSheet {
     return html;
   }
 
+  _modifyDefense(target: string) {
+    const targetLabel =
+      target == 'parry'
+        ? game.i18n.localize('SWADE.Parry')
+        : game.i18n.localize('SWADE.Tough');
+    const template = `
+      <form><div class="form-group">
+        <label>${game.i18n.localize('SWADE.Mod')}</label> 
+        <input name="modifier" value="${
+          this.actor.data.data.stats[target].modifier
+        }" placeholder="0" type="text"/>
+      </div></form>`;
+    new Dialog({
+      title: `${game.i18n.localize('SWADE.Ed')} ${
+        this.actor.name
+      } ${targetLabel} ${game.i18n.localize('SWADE.Mod')}`,
+      content: template,
+      buttons: {
+        set: {
+          icon: '<i class="fas fa-shield"></i>',
+          label: game.i18n.localize('SWADE.Ok'),
+          callback: (html: JQuery) => {
+            let mod = html.find('input[name="modifier"]').val();
+            let newData = {};
+            newData[`data.stats.${target}.modifier`] = parseInt(mod as string);
+            this.actor.update(newData);
+          },
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize('SWADE.Cancel'),
+        },
+      },
+      default: 'set',
+    }).render(true);
+  }
+
   activateListeners(html: JQuery): void {
     super.activateListeners(html);
 
@@ -325,6 +362,12 @@ export class SwadeNPCSheet extends ActorSheet {
         chat.createConvictionEndMessage(this.actor as SwadeActor);
       }
     });
+
+    // Edit armor modifier
+    html.find('.armor-value').click((ev) => {
+      var target = ev.currentTarget.id == 'parry-value' ? 'parry' : 'toughness';
+      this._modifyDefense(target);
+    });
   }
 
   getData() {
@@ -373,6 +416,17 @@ export class SwadeNPCSheet extends ActorSheet {
       });
     }
 
+    data.armor = (this.actor as SwadeActor).calcArmor();
+
+    const shields = data.itemsByType['shield'];
+    data.parry = 0;
+    if (shields) {
+      shields.forEach((shield: any) => {
+        if (shield.data.equipped) {
+          data.parry += shield.data.parry;
+        }
+      });
+    }
     //Checks if an Actor has a Power Egde
     if (
       data.data.owned.edges &&

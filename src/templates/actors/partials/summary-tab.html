@@ -122,7 +122,7 @@
       <span>{{ localize "SWADE.Derived" }}</span>
     </header>
     <div class="flexrow attributes-list">
-      <div class="attribute">
+      <div class="attribute flex2">
         <div class="attribute-label">{{localize "SWADE.Size"}}</div>
         <input
           id="data.stats.size"
@@ -132,7 +132,7 @@
           data-dtype="Number"
         />
       </div>
-      <div class="attribute">
+      <div class="attribute flex2">
         <div class="attribute-label">{{localize "SWADE.Pace"}}</div>
         <input
           id="pace"
@@ -143,27 +143,39 @@
           data-dtype="Number"
         />
       </div>
-      <div class="attribute">
+      <div class="attribute flex3">
         <div class="attribute-label">{{localize "SWADE.Parry"}}</div>
-        <input
-          id="parry"
-          name="data.stats.parry.value"
-          value="{{data.stats.parry.value}}"
-          type="text"
-          placeholder="0"
-          data-dtype="Number"
-        />
+        <div class="toughness-block">
+          <input
+            id="parry"
+            name="data.stats.parry.value"
+            value="{{data.stats.parry.value}}"
+            type="text"
+            placeholder="0"
+            data-dtype="Number"
+          />
+          {{#if (add parry data.stats.parry.modifier)}}
+          <div class="armor-value">{{add parry data.stats.parry.modifier}}</div>
+          {{/if}}
+        </div>
       </div>
-      <div class="attribute">
+      <div class="attribute flex3">
         <div class="attribute-label">{{localize "SWADE.Tough"}}</div>
-        <input
-          id="toughness"
-          name="data.stats.toughness.value"
-          type="text"
-          value="{{data.stats.toughness.value}}"
-          placeholder="0"
-          data-dtype="String"
-        />
+        <div class="toughness-block">
+          <input
+            id="toughness"
+            name="data.stats.toughness.value"
+            type="text"
+            value="{{data.stats.toughness.value}}"
+            placeholder="0"
+            data-dtype="String"
+          />
+          {{#if (add armor data.stats.toughness.modifier)}}
+          <div class="armor-value">
+            {{add armor data.stats.toughness.modifier}}
+          </div>
+          {{/if}}
+        </div>
       </div>
     </div>
   </div>
