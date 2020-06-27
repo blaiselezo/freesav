@@ -331,9 +331,7 @@ export class SwadeCharacterSheet extends ActorSheet {
             actor: this.actor,
             alias: this.actor.name,
           },
-          flavor: 'Calls upon their conviction!',
-          content:
-            'While Conviction is active, the character adds an additional d6 to their trait and damage roll totals that can ace.',
+          content: game.i18n.localize('SWADE ConvictionActivate'),
         });
       } else {
         await this.actor.update({

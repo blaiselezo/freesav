@@ -157,5 +157,8 @@
   "SWADE.Head": "Head",
   "SWADE.Torso": "Torso",
   "SWADE.Arms": "Arms",
-  "SWADE.Legs": "Legs"
+  "SWADE.Legs": "Legs",
+
+  "SWADE ConvictionActivate": "Calls upon their conviction!",
+  "SWADE.ConvictionExtend": "Do you want to extend your conviction?"
 }
