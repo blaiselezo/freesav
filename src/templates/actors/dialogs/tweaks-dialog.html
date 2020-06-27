@@ -1,4 +1,5 @@
 <form autocomplete="off">
+  {{#unless isCharacter}}
   <div class="form-group">
     <label for="wildcard">{{localize "SWADE.Wildcard"}}</label>
     <div class="form-fields">
@@ -11,6 +12,7 @@
       />
     </div>
   </div>
+  {{/unless}}
   <div class="form-group">
     <label>{{localize "SWADE.BenniesMax"}}</label>
     <div class="form-fields">
