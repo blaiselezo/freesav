@@ -93,6 +93,10 @@
   "SWADE.Conv": "Conviction",
   "SWADE.UseConv": "Calls on their Conviction!",
 
+  "SWADE.Hesitant": "Hesitant",
+  "SWADE.LevelHeaded": "Level Headed",
+  "SWADE.ImprovedLevelHeaded": "Improved Level Headed",
+
   "SWADE.Currency": "Currency",
   "SWADE.CarryWeight": "Encumbrance",
   "SWADE.Eqd": "Eq'd",
@@ -140,16 +144,23 @@
   "SWADE.RollRaise": "Roll Raise",
   "SWADE.Ok": "Ok",
   "SWADE.Cancel": "Cancel",
+  "SWADE.Redraw": "Redraw",
   "SWADE.Add": "Add",
   "SWADE.ConfigInit": "Configure Initiative",
   "SWADE.IgnWounds": "Ignore Wounds",
   "SWADE.Size": "Size",
   "SWADE.PickACard": "Pick a card",
   "SWADE.NoCardsLeft": "There are not enough cards left in the deck!",
+  "SWADE.OldCard": "Old card",
 
   "SWADE.HitLocations": "Hit Locations",
   "SWADE.Head": "Head",
   "SWADE.Torso": "Torso",
   "SWADE.Arms": "Arms",
-  "SWADE.Legs": "Legs"
+  "SWADE.Legs": "Legs",
+
+  "SWADE ConvictionActivate": "Calls upon their conviction!",
+  "SWADE.ConvictionExtend": "Do you want to extend your conviction?",
+  "SWADE.ConvictionEnd": "wavers in their conviction",
+  "SWADE.NoBennies": "You don't have enough bennies!"
 }

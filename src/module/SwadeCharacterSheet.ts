@@ -151,6 +151,43 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
   }
 
+  _modifyDefense(target: string) {
+    const targetLabel =
+      target == 'parry'
+        ? game.i18n.localize('SWADE.Parry')
+        : game.i18n.localize('SWADE.Tough');
+    const template = `
+      <form><div class="form-group">
+        <label>${game.i18n.localize('SWADE.Mod')}</label> 
+        <input name="modifier" value="${
+          this.actor.data.data.stats[target].modifier
+        }" placeholder="0" type="text"/>
+      </div></form>`;
+    new Dialog({
+      title: `${game.i18n.localize('SWADE.Ed')} ${
+        this.actor.name
+      } ${targetLabel} ${game.i18n.localize('SWADE.Mod')}`,
+      content: template,
+      buttons: {
+        set: {
+          icon: '<i class="fas fa-shield"></i>',
+          label: game.i18n.localize('SWADE.Ok'),
+          callback: (html: JQuery) => {
+            let mod = html.find('input[name="modifier"]').val();
+            let newData = {};
+            newData[`data.stats.${target}.modifier`] = parseInt(mod as string);
+            this.actor.update(newData);
+          },
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize('SWADE.Cancel'),
+        },
+      },
+      default: 'set',
+    }).render(true);
+  }
+
   activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
 
@@ -202,6 +239,12 @@ export class SwadeCharacterSheet extends ActorSheet {
         },
         no: () => {},
       });
+    });
+
+    // Edit armor modifier
+    html.find('.armor-value').click((ev) => {
+      var target = ev.currentTarget.id == 'parry-value' ? 'parry' : 'toughness';
+      this._modifyDefense(target);
     });
 
     //Show Description of an Edge/Hindrance
@@ -288,9 +331,7 @@ export class SwadeCharacterSheet extends ActorSheet {
             actor: this.actor,
             alias: this.actor.name,
           },
-          flavor: 'Calls upon their conviction!',
-          content:
-            'While Conviction is active, the character adds an additional d6 to their trait and damage roll totals that can ace.',
+          content: game.i18n.localize('SWADE ConvictionActivate'),
         });
       } else {
         await this.actor.update({
@@ -403,6 +444,18 @@ export class SwadeCharacterSheet extends ActorSheet {
       });
     }
 
+    const shields = data.itemsByType['shield'];
+    data.parry = 0;
+    if (shields) {
+      shields.forEach((shield: any) => {
+        if (shield.data.equipped) {
+          data.parry += shield.data.parry;
+        }
+      });
+    }
+
+    data.armor = this.actor.calcArmor();
+
     //Checks if relevant arrays are not null and combines them into an inventory array
     data.data.owned.inventory = {
       gear: data.data.owned.gear,
@@ -437,23 +490,7 @@ export class SwadeCharacterSheet extends ActorSheet {
 
   private _calcMaxCarryCapacity(data: any): number {
     const strengthDie = data.data.attributes.strength.die;
-    let capacity = 0;
-
-    if (strengthDie.sides === 4) {
-      capacity = 20;
-    }
-    if (strengthDie.sides === 6) {
-      capacity = 40;
-    }
-    if (strengthDie.sides === 8) {
-      capacity = 60;
-    }
-    if (strengthDie.sides === 10) {
-      capacity = 80;
-    }
-    if (strengthDie.sides === 12) {
-      capacity = 100;
-    }
+    let capacity = 20 + 10 * (strengthDie.sides - 4);
 
     if (strengthDie.modifier > 0) {
       capacity = capacity + 20 * strengthDie.modifier;

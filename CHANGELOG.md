@@ -20,6 +20,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.9.4]
+
+### Added
+
+- Added some more localization options
+
+### Changed
+
+- Changed the card redraw dialog. It now displays the image of the card as well as a redraw button when appropriate
+- Reworked the NPC sheet a bit (thanks to U~Man for that)
+
+### Removed
+
+- Removed the Weapons, Gear, Shields, Armor and Powers compendia due to copyright concerns
+
 ## [v0.9.3]
 
 ### Added

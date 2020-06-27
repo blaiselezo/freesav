@@ -28,7 +28,12 @@ export class SwadeEntityTweaks extends FormApplication {
    * @return {Object}
    */
   getData() {
-    return this.object.data;
+    console.log(this.object);
+    let data = this.object.data;
+    if (this.object.data.type === 'character') {
+      data.isCharacter = true;
+    }
+    return data;
   }
 
   /* -------------------------------------------- */

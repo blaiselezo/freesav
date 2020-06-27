@@ -86,7 +86,7 @@ export function chatListeners(html: JQuery<HTMLElement>) {
         await actor.update({ 'data.bennies.value': currentBennies - 1 });
       } else {
         await actor.update({ 'data.details.conviction.active': false });
-        ui.notifications.warn("You don't have enough Bennies to extend!");
+        ui.notifications.warn(game.i18n.localize('SWADE.NoBennies'));
       }
     }
     if (action === 'no') {
@@ -107,6 +107,6 @@ export function createConvictionEndMessage(actor: SwadeActor) {
       actor: actor,
       alias: actor.name,
     },
-    content: 'wavers in their conviction',
+    content: game.i18n.localize('SWADE.ConvictionEnd'),
   });
 }

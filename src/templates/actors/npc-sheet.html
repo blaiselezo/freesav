@@ -40,21 +40,75 @@
         </div>
         {{/if}}
       </div>
-      <div>
-        <div class="flexrow header-stats">
-          <div class="form-group">
+      <section class="vitals flexrow">
+        {{#if actor.data.wounds.max}}
+        <div class="vitals-container">
+          <strong>{{localize "SWADE.Fatigue"}}</strong>
+          <div class="counter flexrow">
             <input
-              type="checkbox"
-              name="data.wildcard"
-              id="data.wildcard-{{actor._id}}"
-              {{checked
-              data.wildcard}}
+              type="text"
+              name="data.fatigue.value"
+              value="{{data.fatigue.value}}"
+              data-dtype="Number"
+              class="vitals-input"
             />
-            <label for="data.wildcard-{{actor._id}}"
-              >{{localize "SWADE.Wildcard"}}</label
-            >
+            <span>/</span>
+            <input
+              type="text"
+              name="data.fatigue.max"
+              value="{{data.fatigue.max}}"
+              data-dtype="Number"
+              class="vitals-input"
+            />
           </div>
-          <div class="form-group">
+        </div>
+        {{/if}} {{#if actor.data.wildcard}}
+        <div class="vitals-container">
+          <div>
+            <strong>{{localize "SWADE.Bennies"}}</strong>
+          </div>
+          <div class="counter flexrow">
+            <input
+              class="bennies-current"
+              name="data.bennies.value"
+              type="text"
+              value="{{data.bennies.value}}"
+              data-dtype="Number"
+            />
+            <span>/</span>
+            <input
+              class="bennies-max"
+              name="data.bennies.max"
+              type="text"
+              value="{{data.bennies.max}}"
+              data-dtype="Number"
+            />
+          </div>
+        </div>
+        {{/if}} {{#if actor.data.wounds.max}}
+        <div class="vitals-container">
+          <strong>{{localize "SWADE.Wounds"}}</strong>
+          <div class="counter flexrow">
+            <input
+              type="text"
+              name="data.wounds.value"
+              value="{{data.wounds.value}}"
+              data-dtype="Number"
+              class="vitals-input"
+            />
+            <span>/</span>
+            <input
+              type="text"
+              name="data.wounds.max"
+              value="{{data.wounds.max}}"
+              data-dtype="Number"
+              class="vitals-input"
+            />
+          </div>
+        </div>
+        {{/if}}
+        <div class="status-container">
+          <div class="status-item">
             <input
               type="checkbox"
               name="data.status.isShaken"
@@ -66,7 +120,7 @@
               >{{localize "SWADE.Shaken"}}</label
             >
           </div>
-          <div class="form-group">
+          <div class="status-item">
             <input
               type="checkbox"
               name="data.status.isDistracted"
@@ -78,7 +132,7 @@
               >{{localize "SWADE.Distr"}}</label
             >
           </div>
-          <div class="form-group">
+          <div class="status-item">
             <input
               type="checkbox"
               name="data.status.isVulnerable"
@@ -91,28 +145,10 @@
             >
           </div>
         </div>
-      </div>
+      </section>
     </div>
   </header>
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="flexrow tabs" data-group="primary">
-    {{#if actor.flags.swade.hasArcaneBackground}}
-    <a class="item" data-tab="summary">{{localize "SWADE.Summary"}}</a>
-    <a class="item" data-tab="powers">{{localize "SWADE.Pow"}}</a>
-    {{/if}}
-  </nav>
   <section class="sheet-body">
-    {{#if actor.flags.swade.hasArcaneBackground}} {{!-- Summary Tab --}}
-    <div class="tab active" data-group="primary" data-tab="summary">
-      {{> "systems/swade/templates/actors/partials/npc-summary-tab.html"}}
-    </div>
-
-    {{!-- Powers Tab --}}
-    <div class="tab powers" data-group="primary" data-tab="powers">
-      {{> "systems/swade/templates/actors/partials/powers-tab.html"}}
-    </div>
-
-    {{else}} {{>
-    "systems/swade/templates/actors/partials/npc-summary-tab.html"}} {{/if}}
+    {{> "systems/swade/templates/actors/partials/npc-summary-tab.html"}}
   </section>
 </form>
