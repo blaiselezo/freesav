@@ -152,18 +152,26 @@ export class SwadeCharacterSheet extends ActorSheet {
   }
 
   _modifyDefense(target: string) {
+    const targetLabel =
+      target == 'parry'
+        ? game.i18n.localize('SWADE.Parry')
+        : game.i18n.localize('SWADE.Tough');
     const template = `
       <form><div class="form-group">
-        <label>Modifier</label> 
-        <input name="modifier" value="${this.actor.data.data.stats[target].modifier}" placeholder="0" type="text"/>
+        <label>${game.i18n.localize('SWADE.Mod')}</label> 
+        <input name="modifier" value="${
+          this.actor.data.data.stats[target].modifier
+        }" placeholder="0" type="text"/>
       </div></form>`;
     new Dialog({
-      title: `Modify ${this.actor.name} ${target} modifier`,
+      title: `${game.i18n.localize('SWADE.Ed')} ${
+        this.actor.name
+      } ${targetLabel} ${game.i18n.localize('SWADE.Mod')}`,
       content: template,
       buttons: {
         set: {
           icon: '<i class="fas fa-shield"></i>',
-          label: 'Modify',
+          label: game.i18n.localize('SWADE.Ok'),
           callback: (html: JQuery) => {
             let mod = html.find('input[name="modifier"]').val();
             let newData = {};
@@ -173,7 +181,7 @@ export class SwadeCharacterSheet extends ActorSheet {
         },
         cancel: {
           icon: '<i class="fas fa-times"></i>',
-          label: 'Cancel',
+          label: game.i18n.localize('SWADE.Cancel'),
         },
       },
       default: 'set',
