@@ -160,5 +160,7 @@
   "SWADE.Legs": "Legs",
 
   "SWADE ConvictionActivate": "Calls upon their conviction!",
-  "SWADE.ConvictionExtend": "Do you want to extend your conviction?"
+  "SWADE.ConvictionExtend": "Do you want to extend your conviction?",
+  "SWADE.ConvictionEnd": "wavers in their conviction",
+  "SWADE.NoBennies": "You don't have enough bennies!"
 }
