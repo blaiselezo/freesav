@@ -10,7 +10,6 @@ export class SwadeSocketHandler {
    * registers all the socket listeners
    */
   registerSocketListeners(): void {
-    console.log('here be recievers');
     game.socket.on(this.SWADE, (data) => {
       switch (data.type) {
         case 'deleteConvictionMessage':
