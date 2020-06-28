@@ -63,7 +63,6 @@ export class Bennies {
     const npcWildcardsToRefresh = game.actors.filter(
       (a) => !a.isPC && a.data.type === 'npc' && a.data.data['wildcard'],
     ) as SwadeActor[];
-    console.log(npcWildcardsToRefresh);
     for (let actor of npcWildcardsToRefresh) {
       await actor.refreshBennies(false);
     }
