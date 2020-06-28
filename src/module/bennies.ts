@@ -25,6 +25,11 @@ export class Bennies {
     }
   }
 
+  /**
+   * Refresh the bennies of a character
+   * @param user the User the character belongs to
+   *
+   */
   static async refresh(user: User) {
     if (user.isGM) {
       await user.setFlag(
@@ -34,7 +39,7 @@ export class Bennies {
       );
       let message = await renderTemplate(
         CONFIG.SWADE.bennies.templates.refresh,
-        { target: game.user, speaker: game.user },
+        { target: user, speaker: game.user },
       );
       let chatData = {
         content: message,
@@ -47,6 +52,12 @@ export class Bennies {
     }
     if (user.character) {
       (user.character as SwadeActor).refreshBennies();
+    }
+  }
+
+  static async refreshAll() {
+    for (let user of game.users.values()) {
+      this.refresh(user);
     }
   }
 

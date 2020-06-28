@@ -569,7 +569,7 @@ Hooks.on('renderPlayerList', async (list: any, html: JQuery, options: any) => {
   });
 });
 
-Hooks.on('getUserContextOptions', (html: JQuery, context: any) => {
+Hooks.on('getUserContextOptions', (html: JQuery, context: any[]) => {
   let players = html.find('#players');
   if (!players) return;
   context.push(
@@ -603,6 +603,14 @@ Hooks.on('getUserContextOptions', (html: JQuery, context: any) => {
       callback: (li) => {
         const user = game.users.get(li[0].dataset.userId);
         Bennies.refresh(user);
+      },
+    },
+    {
+      name: game.i18n.localize('SWADE.AllBenniesRefresh'),
+      icon: '<i class="fas fa-sync"></i>',
+      condition: (li) => game.user.isGM,
+      callback: (li) => {
+        Bennies.refreshAll();
       },
     },
   );
