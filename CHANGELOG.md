@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Fixed a small bug which would cause the Action Cards deck not to reset when combat was ended in a Round in which a Joker was drawn
+- Fixed a small bug which would cause Gear descriptions not to enrich properly on NPC sheets
 
 ### Changed
 
