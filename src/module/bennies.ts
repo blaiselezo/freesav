@@ -1,4 +1,4 @@
-import { SwadeActor } from './SwadeActor';
+import { SwadeActor } from './entities/SwadeActor';
 import * as chat from './chat';
 
 export class Bennies {

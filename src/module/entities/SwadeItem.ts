@@ -1,4 +1,4 @@
-import { SwadeDice } from './dice';
+import { SwadeDice } from '../dice';
 // eslint-disable-next-line no-unused-vars
 import { SwadeActor } from './SwadeActor';
 

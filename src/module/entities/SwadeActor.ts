@@ -1,4 +1,4 @@
-import { SwadeDice } from './dice';
+import { SwadeDice } from '../dice';
 import { SwadeItem } from './SwadeItem';
 
 export class SwadeActor extends Actor {

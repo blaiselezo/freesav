@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeItem } from './SwadeItem';
+import { SwadeItem } from './entities/SwadeItem';
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from './SwadeActor';
+import { SwadeActor } from './entities/SwadeActor';
 
 export function isIncapacitated(wounds, fatigue): boolean {
   if (
