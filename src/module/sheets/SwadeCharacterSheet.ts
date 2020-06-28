@@ -2,12 +2,9 @@
 import { SwadeActor } from '../entities/SwadeActor';
 // eslint-disable-next-line no-unused-vars
 import { SwadeItem } from '../entities/SwadeItem';
-import { SwadeEntityTweaks } from '../dialog/entity-tweaks';
-import * as chat from '../chat';
+import { SwadeBaseActorSheet } from './SwadeBaseActorSheet';
 
-export class SwadeCharacterSheet extends ActorSheet {
-  actor: SwadeActor;
-
+export class SwadeCharacterSheet extends SwadeBaseActorSheet {
   /**
    * Extend and override the default options used by the Actor Sheet
    * @returns {Object}
@@ -41,72 +38,10 @@ export class SwadeCharacterSheet extends ActorSheet {
     super._createEditor(target, editorOptions, initialContent);
   }
 
-  _onConfigureActor(event: Event) {
-    event.preventDefault();
-    new SwadeEntityTweaks(this.actor, {
-      top: this.position.top + 40,
-      left: this.position.left + (this.position.width - 400) / 2,
-    }).render(true);
-  }
-
-  /**
-   * Extend and override the sheet header buttons
-   * @override
-   */
-  _getHeaderButtons() {
-    let buttons = super._getHeaderButtons();
-
-    // Token Configuration
-    const canConfigure = game.user.isGM || this.actor.owner;
-    if (this.options.editable && canConfigure) {
-      buttons = [
-        {
-          label: 'Tweaks',
-          class: 'configure-actor',
-          icon: 'fas fa-dice',
-          onclick: (ev) => this._onConfigureActor(ev),
-        },
-      ].concat(buttons);
-    }
-    return buttons;
-  }
-
   get template() {
     // Later you might want to return a different template
     // based on user permissions.
     return 'systems/swade/templates/actors/character-sheet.html';
-  }
-
-  async _chooseItemType(choices) {
-    let templateData = { upper: '', lower: '', types: choices },
-      dlg = await renderTemplate(
-        'templates/sidebar/entity-create.html',
-        templateData,
-      );
-    //Create Dialog window
-    return new Promise((resolve) => {
-      new Dialog({
-        title: '',
-        content: dlg,
-        buttons: {
-          ok: {
-            label: game.i18n.localize('SWADE.Ok'),
-            icon: '<i class="fas fa-check"></i>',
-            callback: (html: JQuery) => {
-              resolve({
-                type: html.find('select[name="type"]').val(),
-                name: html.find('input[name="name"]').val(),
-              });
-            },
-          },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize('SWADE.Cancel'),
-          },
-        },
-        default: 'ok',
-      }).render(true);
-    });
   }
 
   // Override to set resizable initial size
@@ -151,43 +86,6 @@ export class SwadeCharacterSheet extends ActorSheet {
     });
   }
 
-  _modifyDefense(target: string) {
-    const targetLabel =
-      target == 'parry'
-        ? game.i18n.localize('SWADE.Parry')
-        : game.i18n.localize('SWADE.Tough');
-    const template = `
-      <form><div class="form-group">
-        <label>${game.i18n.localize('SWADE.Mod')}</label> 
-        <input name="modifier" value="${
-          this.actor.data.data.stats[target].modifier
-        }" placeholder="0" type="text"/>
-      </div></form>`;
-    new Dialog({
-      title: `${game.i18n.localize('SWADE.Ed')} ${
-        this.actor.name
-      } ${targetLabel} ${game.i18n.localize('SWADE.Mod')}`,
-      content: template,
-      buttons: {
-        set: {
-          icon: '<i class="fas fa-shield"></i>',
-          label: game.i18n.localize('SWADE.Ok'),
-          callback: (html: JQuery) => {
-            let mod = html.find('input[name="modifier"]').val();
-            let newData = {};
-            newData[`data.stats.${target}.modifier`] = parseInt(mod as string);
-            this.actor.update(newData);
-          },
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize('SWADE.Cancel'),
-        },
-      },
-      default: 'set',
-    }).render(true);
-  }
-
   activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
 
@@ -209,13 +107,6 @@ export class SwadeCharacterSheet extends ActorSheet {
         li.addEventListener('dragstart', handler, false);
       });
     }
-
-    // Update Item
-    html.find('.item-edit').click((ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.getOwnedItem(li.data('itemId'));
-      item.sheet.render(true);
-    });
 
     // Delete Item
     html.find('.item-delete').click(async (ev) => {
@@ -239,12 +130,6 @@ export class SwadeCharacterSheet extends ActorSheet {
         },
         no: () => {},
       });
-    });
-
-    // Edit armor modifier
-    html.find('.armor-value').click((ev) => {
-      var target = ev.currentTarget.id == 'parry-value' ? 'parry' : 'toughness';
-      this._modifyDefense(target);
     });
 
     //Show Description of an Edge/Hindrance
@@ -303,66 +188,12 @@ export class SwadeCharacterSheet extends ActorSheet {
       html.find('.fatigue-input').val($(ev.currentTarget).val());
     });
 
-    //Add Benny
-    html.find('.benny-add').click(() => {
-      (this.actor as SwadeActor).getBenny();
-    });
-
-    //Remove Benny
-    html.find('.benny-subtract').click(() => {
-      (this.actor as SwadeActor).spendBenny();
-    });
-
-    //Toggle Conviction
-    html.find('.conviction-toggle').click(async () => {
-      const current = this.actor.data.data['details']['conviction'][
-        'value'
-      ] as number;
-      const active = this.actor.data.data['details']['conviction'][
-        'active'
-      ] as boolean;
-      if (current > 0 && !active) {
-        await this.actor.update({
-          'data.details.conviction.value': current - 1,
-          'data.details.conviction.active': true,
-        });
-        ChatMessage.create({
-          speaker: {
-            actor: this.actor,
-            alias: this.actor.name,
-          },
-          content: game.i18n.localize('SWADE ConvictionActivate'),
-        });
-      } else {
-        await this.actor.update({
-          'data.details.conviction.active': false,
-        });
-        chat.createConvictionEndMessage(this.actor as SwadeActor);
-      }
-    });
-
-    // Roll attribute
-    html.find('.attribute-label a').click((event) => {
-      let actorObject = this.actor as SwadeActor;
-      let element = event.currentTarget as Element;
-      let attribute = element.parentElement.parentElement.dataset.attribute;
-      actorObject.rollAttribute(attribute, { event: event });
-    });
-
     // Roll Skill
     html.find('.skill-label a').click((event) => {
       let actorObject = this.actor as SwadeActor;
       let element = event.currentTarget as Element;
       let item = element.parentElement.parentElement.dataset.itemId;
       actorObject.rollSkill(item, { event: event });
-    });
-
-    // Roll Damage
-    html.find('.damage-roll').click((event) => {
-      let element = event.currentTarget as Element;
-      let itemId = $(element).parents('[data-item-id]').attr('data-item-id');
-      const item = this.actor.getOwnedItem(itemId) as SwadeItem;
-      return item.rollDamage();
     });
 
     // Add new object
@@ -509,13 +340,6 @@ export class SwadeCharacterSheet extends ActorSheet {
     return retVal;
   }
 
-  private _checkNull(items: Item[]): Item[] {
-    if (items && items.length) {
-      return items;
-    }
-    return [];
-  }
-
   private _toggleEquipped(id: string, item: any): any {
     return {
       _id: id,
@@ -523,15 +347,5 @@ export class SwadeCharacterSheet extends ActorSheet {
         equipped: !item.data.data.equipped,
       },
     };
-  }
-
-  async _onResize(event: any) {
-    super._onResize(event);
-    let html = $(event.path);
-    let resizable = html.find('.resizable');
-    resizable.each((_, el) => {
-      let heightDelta = this.position.height - (this.options.height as number);
-      el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
-    });
   }
 }

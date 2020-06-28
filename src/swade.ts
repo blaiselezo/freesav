@@ -9,15 +9,15 @@
  */
 
 // Import TypeScript modules
-import { SwadeCharacterSheet } from './module/SwadeCharacterSheet';
+import { SwadeCharacterSheet } from './module/sheets/SwadeCharacterSheet';
 import { formatRoll } from './module/chat';
 import { SWADE } from './module/config';
-import { SwadeActor } from './module/SwadeActor';
+import { SwadeActor } from './module/entities/SwadeActor';
 import { registerCustomHelpers } from './module/handlebarsHelpers';
-import { SwadeItem } from './module/SwadeItem';
-import { SwadeItemSheet } from './module/SwadeItemSheet';
+import { SwadeItem } from './module/entities/SwadeItem';
+import { SwadeItemSheet } from './module/sheets/SwadeItemSheet';
 import { listenJournalDrop } from './module/journalDrop';
-import { SwadeNPCSheet } from './module/SwadeNPCSheet';
+import { SwadeNPCSheet } from './module/sheets/SwadeNPCSheet';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { registerSettings } from './module/settings';
 import { SwadeSetup } from './module/setup/setupHandler';
