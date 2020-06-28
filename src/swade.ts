@@ -42,7 +42,7 @@ Hooks.once('init', async function () {
   );
 
   // Record Configuration Values
-  CONFIG.debug.hooks = true;
+  //CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
 
   game.swade = {
@@ -579,11 +579,20 @@ Hooks.on('getUserContextOptions', (html: JQuery, context: any) => {
       condition: (li) =>
         game.user.isGM && game.users.get(li[0].dataset.userId).isGM,
       callback: (li) => {
-        const user = game.users.get(li[0].dataset.userId);
-        user
-          .setFlag('swade', 'bennies', user.getFlag('swade', 'bennies') + 1)
-          .then(() => {
+        const selectedUser = game.users.get(li[0].dataset.userId);
+        selectedUser
+          .setFlag(
+            'swade',
+            'bennies',
+            selectedUser.getFlag('swade', 'bennies') + 1,
+          )
+          .then(async () => {
             ui['players'].render(true);
+            if (game.settings.get('swade', 'notifyBennies')) {
+              //In case one GM gives another GM a benny a different message should be displayed
+              let givenEvent = selectedUser !== game.user;
+              chat.createGmBennyAddMessage(selectedUser, givenEvent);
+            }
           });
       },
     },

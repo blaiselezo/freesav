@@ -42,7 +42,7 @@
   "SWADE.BenniesRefreshMessage": "Bennies have been refreshed!",
   "SWADE.BenniesGMRefreshMessage": "GM Bennies have been refreshed!",
   "SWADE.BenniesAddMessage": "was given a new Benny!",
-  "SWADE.BenniesGMAddMessage": "GM took an additional Benny!",
+  "SWADE.BenniesGMAddMessage": "took an additional Benny!",
   "SWADE.BenniesSpendMessage": "spends a Benny!",
   "SWADE.EnableBennyNotify": "Benny notifications",
   "SWADE.EnableBennyNotifyDesc": "Displays chat messages when bennies are taken, given or refreshed.",

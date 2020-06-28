@@ -1,4 +1,5 @@
 import { SwadeActor } from './SwadeActor';
+import * as chat from './chat';
 
 export class Bennies {
   static async spendEvent(ev: MouseEvent) {
@@ -54,17 +55,13 @@ export class Bennies {
     const userId = (ev.target as HTMLElement).parentElement.dataset.userId;
     let user = game.users.find((user: User) => user.id == userId);
     if (user.isGM) {
-      let value = user.getFlag('swade', 'bennies');
-      user.setFlag('swade', 'bennies', value + 1);
-      let message = await renderTemplate(CONFIG.SWADE.bennies.templates.gmadd, {
-        target: game.user,
-        speaker: game.user,
-      });
-      let chatData = {
-        content: message,
-      };
+      await user.setFlag(
+        'swade',
+        'bennies',
+        user.getFlag('swade', 'bennies') + 1,
+      );
       if (game.settings.get('swade', 'notifyBennies')) {
-        ChatMessage.create(chatData);
+        chat.createGmBennyAddMessage(user, true);
       }
       ui['players'].render(true);
     } else if (user.character) {
@@ -117,12 +114,14 @@ export class Bennies {
     // Manage GM Bennies
     if (user.isGM) {
       let bennies = user.getFlag('swade', 'bennies');
-      // Set bennies to number of players minus the GM
+      // Set bennies to number as defined in GM benny setting
       if (bennies == null) {
-        user.setFlag('swade', 'bennies', game.users.size).then(() => {
-          span.innerHTML = (game.users.size - 1).toString();
-          player.append(span);
-        });
+        user
+          .setFlag('swade', 'bennies', game.settings.get('swade', 'gmBennies'))
+          .then(() => {
+            span.innerHTML = game.settings.get('swade', 'gmBennies').toString();
+            player.append(span);
+          });
       } else {
         span.innerHTML = user.getFlag('swade', 'bennies');
         player.append(span);

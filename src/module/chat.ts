@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { SwadeActor } from './SwadeActor';
 
 export async function formatRoll(
@@ -100,7 +101,10 @@ export function chatListeners(html: JQuery<HTMLElement>) {
     }
   });
 }
-
+/**
+ * Creates an end message for Conviction
+ * @param actor The Actor whose conviction is ending
+ */
 export function createConvictionEndMessage(actor: SwadeActor) {
   ChatMessage.create({
     speaker: {
@@ -109,4 +113,29 @@ export function createConvictionEndMessage(actor: SwadeActor) {
     },
     content: game.i18n.localize('SWADE.ConvictionEnd'),
   });
+}
+
+/**
+ * Creates a chat message for GM Bennies
+ */
+export async function createGmBennyAddMessage(
+  user: User = game.user,
+  given?: boolean,
+) {
+  let message = await renderTemplate(CONFIG.SWADE.bennies.templates.gmadd, {
+    target: user,
+    speaker: user,
+  });
+
+  if (given) {
+    message = await renderTemplate(CONFIG.SWADE.bennies.templates.add, {
+      target: user,
+      speaker: user,
+    });
+  }
+
+  let chatData = {
+    content: message,
+  };
+  ChatMessage.create(chatData);
 }
