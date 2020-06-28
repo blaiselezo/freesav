@@ -26,7 +26,11 @@ export class Bennies {
 
   static async refresh(user: User) {
     if (user.isGM) {
-      user.setFlag('swade', 'bennies', game.users.size - 1);
+      await user.setFlag(
+        'swade',
+        'bennies',
+        game.settings.get('swade', 'gmBennies'),
+      );
       let message = await renderTemplate(
         CONFIG.SWADE.bennies.templates.refresh,
         { target: game.user, speaker: game.user },

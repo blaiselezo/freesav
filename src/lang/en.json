@@ -135,6 +135,8 @@
   "SWADE.EnableConvDesc": "Enable the Conviction setting rule",
   "SWADE.AutoLink": "Automatically Link Wildcards",
   "SWADE.AutoLinkDesc": "When enabled, NPC Wildcards will have their tokens linked when you toggle them between Extra and Wildcard",
+  "SWADE.GmBennies": "GM Bennies",
+  "SWADE.GmBenniesDesc": "Sets how many Bennies the GM recieves on a refresh",
 
   "SWADE.Formula": "Formula",
   "SWADE.SitMod": "Situational Mod",

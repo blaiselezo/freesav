@@ -60,4 +60,13 @@ export const registerSettings = function () {
     type: Boolean,
     config: true,
   });
+
+  game.settings.register('swade', 'gmBennies', {
+    name: game.i18n.localize('SWADE.GmBennies'),
+    hint: game.i18n.localize('SWADE.GmBenniesDesc'),
+    default: 0,
+    scope: 'world',
+    type: Number,
+    config: true,
+  });
 };

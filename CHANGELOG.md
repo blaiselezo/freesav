@@ -20,6 +20,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Fixed
+
+- Fixed a small bug which would cause the Action Cards deck not to reset when combat was ended in a Round in which a Joker was drawn
+
+### Changed
+
+- Changed how many Bennies the GM gets on a refresh. The number is now configured in a setting (Default 0);
+
 ## [v0.9.4]
 
 ### Added

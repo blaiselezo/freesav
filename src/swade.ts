@@ -42,7 +42,7 @@ Hooks.once('init', async function () {
   );
 
   // Record Configuration Values
-  //CONFIG.debug.hooks = true;
+  CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
 
   game.swade = {
@@ -161,6 +161,7 @@ Hooks.on(
         'Notice',
         'Persuasion',
         'Stealth',
+        'Untrained',
       ];
       const skillIndex = (await game.packs
         .get('swade.skills')
@@ -487,8 +488,6 @@ Hooks.on(
 Hooks.on(
   'updateCombat',
   async (combat: Combat, updateData, options, userId: string) => {
-    console.log('############');
-
     //do stuff here for Conviction
     //get all combatants with active conviction
     let activeConvictions = combat.combatants.filter(
@@ -523,6 +522,28 @@ Hooks.on(
   },
 );
 
+Hooks.on(
+  'deleteCombat',
+  async (combat: Combat, options: any, userId: string) => {
+    if (!game.user.isGM || !game.users.get(userId).isGM) {
+      return;
+    }
+    const jokers = combat.combatants.filter(
+      (c) => c.flags.swade && c.flags.swade.hasJoker,
+    );
+
+    //reset the deck when combat is ended in a round that a Joker was drawn in
+    if (jokers.length > 0) {
+      const deck = game.tables.getName(
+        CONFIG.SWADE.init.cardTable,
+      ) as RollTable;
+      deck.reset().then((value) => {
+        ui.notifications.info('Card Deck automatically reset');
+      });
+    }
+  },
+);
+
 // Add roll data to the message for formatting of dice pools
 Hooks.on(
   'renderChatMessage',
@@ -538,10 +559,10 @@ Hooks.on(
 );
 
 Hooks.on('renderChatLog', (app, html, data) => {
-  chat.chatListeners(html)
-  ;});
+  chat.chatListeners(html);
+});
 
-  // Add benny management to the player list
+// Add benny management to the player list
 Hooks.on('renderPlayerList', async (list: any, html: JQuery, options: any) => {
   html.find('.player').each((id, player) => {
     Bennies.append(player, options);
