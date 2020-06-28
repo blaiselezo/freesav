@@ -35,7 +35,6 @@ export class SwadeSocketHandler {
 
   private _onDeleteConvictionMessage(data: any) {
     const message = game.messages.get(data.messageId) as ChatMessage;
-    console.log('deleting message', message);
     //only delete the message if the user is a GM and the event emitter is one of the recipients
     if (game.user.isGM && message.data['whisper'].includes(data.userId)) {
       message.delete();
