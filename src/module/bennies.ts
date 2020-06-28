@@ -28,36 +28,55 @@ export class Bennies {
   /**
    * Refresh the bennies of a character
    * @param user the User the character belongs to
+   * @param displayToChat display a message to chat
    *
    */
-  static async refresh(user: User) {
+  static async refresh(user: User, displayToChat = true) {
     if (user.isGM) {
       await user.setFlag(
         'swade',
         'bennies',
         game.settings.get('swade', 'gmBennies'),
       );
-      let message = await renderTemplate(
-        CONFIG.SWADE.bennies.templates.refresh,
-        { target: user, speaker: game.user },
-      );
-      let chatData = {
-        content: message,
-      };
-      if (game.settings.get('swade', 'notifyBennies')) {
+      if (game.settings.get('swade', 'notifyBennies') && displayToChat) {
+        let message = await renderTemplate(
+          CONFIG.SWADE.bennies.templates.refresh,
+          { target: user, speaker: game.user },
+        );
+        let chatData = {
+          content: message,
+        };
         ChatMessage.create(chatData);
       }
       ui['players'].render(true);
-      return;
     }
     if (user.character) {
-      (user.character as SwadeActor).refreshBennies();
+      (user.character as SwadeActor).refreshBennies(displayToChat);
     }
   }
 
   static async refreshAll() {
     for (let user of game.users.values()) {
-      this.refresh(user);
+      this.refresh(user, false);
+    }
+
+    const npcWildcardsToRefresh = game.actors.filter(
+      (a) => !a.isPC && a.data.type === 'npc' && a.data.data['wildcard'],
+    ) as SwadeActor[];
+    console.log(npcWildcardsToRefresh);
+    for (let actor of npcWildcardsToRefresh) {
+      await actor.refreshBennies(false);
+    }
+
+    if (game.settings.get('swade', 'notifyBennies')) {
+      let message = await renderTemplate(
+        CONFIG.SWADE.bennies.templates.refreshAll,
+        {},
+      );
+      let chatData = {
+        content: message,
+      };
+      ChatMessage.create(chatData);
     }
   }
 

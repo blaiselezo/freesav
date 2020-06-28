@@ -41,6 +41,7 @@
   "SWADE.BenniesRefresh": "Refresh Bennies",
   "SWADE.AllBenniesRefresh": "Refresh All Bennies",
   "SWADE.BenniesRefreshMessage": "Bennies have been refreshed!",
+  "SWADE.BenniesRefreshAllMessage": "All Bennies have been refreshed!",
   "SWADE.BenniesGMRefreshMessage": "GM Bennies have been refreshed!",
   "SWADE.BenniesAddMessage": "was given a new Benny!",
   "SWADE.BenniesGMAddMessage": "took an additional Benny!",

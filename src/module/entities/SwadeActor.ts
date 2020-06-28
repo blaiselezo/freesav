@@ -179,15 +179,24 @@ export class SwadeActor extends Actor {
     });
   }
 
-  async refreshBennies() {
-    let message = await renderTemplate(CONFIG.SWADE.bennies.templates.refresh, {
-      target: this,
-      speaker: game.user,
-    });
-    let chatData = {
-      content: message,
-    };
-    ChatMessage.create(chatData);
+  /**
+   * Reset the bennies of the Actor to their default value
+   * @param displayToChat display a message to chat
+   */
+  async refreshBennies(displayToChat = true) {
+    if (displayToChat) {
+      let message = await renderTemplate(
+        CONFIG.SWADE.bennies.templates.refresh,
+        {
+          target: this,
+          speaker: game.user,
+        },
+      );
+      let chatData = {
+        content: message,
+      };
+      ChatMessage.create(chatData);
+    }
     let actorData = this.data as any;
     await this.update({ 'data.bennies.value': actorData.data.bennies.max });
   }
