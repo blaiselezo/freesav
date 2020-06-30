@@ -314,13 +314,13 @@ export class SwadeActor extends Actor {
         return aValue + bValue;
       });
     if (armorList.length === 0) {
-      totalArmorVal = 0;
+      return totalArmorVal;
     } else if (armorList.length > 0 && armorList.length < 2) {
       totalArmorVal = parseInt(armorList[0].data.data.armor);
     } else {
       totalArmorVal =
         parseInt(armorList[0].data.data.armor) +
-        parseInt(armorList[1].data.data.armor) / 2;
+        Math.floor(parseInt(armorList[1].data.data.armor) / 2);
     }
     return totalArmorVal;
   }
