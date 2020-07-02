@@ -32,6 +32,7 @@ import {
 import { rollInitiative, setupTurns } from './module/SwadeCombat';
 import * as chat from './module/chat';
 import { SwadeSocketHandler } from './module/SwadeSocketHandler';
+import { getSwadeConeShape } from './module/cone';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -58,7 +59,7 @@ Hooks.once('init', async function () {
 
   Combat.prototype.rollInitiative = rollInitiative;
   Combat.prototype.setupTurns = setupTurns;
-
+  MeasuredTemplate.prototype._getConeShape = getSwadeConeShape;
   // Register custom classes
   CONFIG.Actor.entityClass = SwadeActor;
   CONFIG.Item.entityClass = SwadeItem;
