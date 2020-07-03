@@ -9,13 +9,13 @@ export function getSwadeConeShape(
 ): PIXI.Polygon {
   angle = angle || 90;
   const coneType = game.settings.get('core', 'coneTemplateType');
-  // For round cones - approximate the shape with a ray every 3 degrees
   let coneWidth = (1.5 / 9) * distance;
   let coneLength = (7.5 / 9) * distance;
   let angles;
   let rays;
   let points;
 
+  // For round cones - approximate the shape with a ray every 3 degrees
   if (coneType === 'round') {
     const da = Math.min(angle, 3);
     const c = Ray.fromAngle(0, 0, direction, coneLength);

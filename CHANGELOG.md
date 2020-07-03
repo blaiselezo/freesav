@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added Refresh All Bennies option and Message
+- Added the Savage Worlds Cone shape which replaces the vanilla Foundry cone shapoe for rounded cones
 
 ### Fixed
 
