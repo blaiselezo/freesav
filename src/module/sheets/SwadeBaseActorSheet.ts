@@ -104,7 +104,7 @@ export class SwadeBaseActorSheet extends ActorSheet {
     event.preventDefault();
     new SwadeEntityTweaks(this.actor, {
       top: this.position.top + 40,
-      left: this.position.left + (this.position.width - 400) / 2,
+      left: this.position.left + ((this.position.height as number) - 400) / 2,
     }).render(true);
   }
 
@@ -154,7 +154,8 @@ export class SwadeBaseActorSheet extends ActorSheet {
     let html = $(event.path);
     let resizable = html.find('.resizable');
     resizable.each((_, el) => {
-      let heightDelta = this.position.height - (this.options.height as number);
+      let heightDelta =
+        (this.position.height as number) - (this.options.height as number);
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
   }

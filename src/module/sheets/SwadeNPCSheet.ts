@@ -41,7 +41,8 @@ export class SwadeNPCSheet extends SwadeBaseActorSheet {
     // Resize resizable classes
     let resizable = (html as JQuery).find('.resizable');
     resizable.each((_, el) => {
-      let heightDelta = this.position.height - (this.options.height as number);
+      let heightDelta =
+        (this.position.height as number) - (this.options.height as number);
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
     return html;
