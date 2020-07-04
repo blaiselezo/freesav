@@ -9,30 +9,30 @@
  */
 
 // Import TypeScript modules
-import { SwadeCharacterSheet } from './module/sheets/SwadeCharacterSheet';
+import { Bennies } from './module/bennies';
+import * as chat from './module/chat';
 import { formatRoll } from './module/chat';
+import { getSwadeConeShape } from './module/cone';
 import { SWADE } from './module/config';
 import { SwadeActor } from './module/entities/SwadeActor';
-import { registerCustomHelpers } from './module/handlebarsHelpers';
 import { SwadeItem } from './module/entities/SwadeItem';
-import { SwadeItemSheet } from './module/sheets/SwadeItemSheet';
+import BurstTemplate from './module/entities/SwadeTemplate';
+import { registerCustomHelpers } from './module/handlebarsHelpers';
 import { listenJournalDrop } from './module/journalDrop';
-import { SwadeNPCSheet } from './module/sheets/SwadeNPCSheet';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { registerSettings } from './module/settings';
 import { SwadeSetup } from './module/setup/setupHandler';
-import { Bennies } from './module/bennies';
+import { SwadeCharacterSheet } from './module/sheets/SwadeCharacterSheet';
+import { SwadeItemSheet } from './module/sheets/SwadeItemSheet';
+import { SwadeNPCSheet } from './module/sheets/SwadeNPCSheet';
+import { rollInitiative, setupTurns } from './module/SwadeCombat';
+import { SwadeSocketHandler } from './module/SwadeSocketHandler';
 import {
   createActionCardTable,
   createSwadeMacro,
   rollSkillMacro,
   rollWeaponMacro,
-  findOwner,
 } from './module/util';
-import { rollInitiative, setupTurns } from './module/SwadeCombat';
-import * as chat from './module/chat';
-import { SwadeSocketHandler } from './module/SwadeSocketHandler';
-import { getSwadeConeShape } from './module/cone';
 
 /* ------------------------------------ */
 /* Initialize system					*/
@@ -43,7 +43,7 @@ Hooks.once('init', async function () {
   );
 
   // Record Configuration Values
-  //CONFIG.debug.hooks = true;
+  CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
 
   game.swade = {
@@ -615,4 +615,45 @@ Hooks.on('getUserContextOptions', (html: JQuery, context: any[]) => {
       },
     },
   );
+});
+
+Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) => {
+  const measure = sceneControlButtons.find((a) => a.name === 'measure');
+  const btSHape = 'circle';
+  const newButtons = [
+    {
+      name: 'sbt',
+      title: 'SWADE.SBT',
+      icon: 'sbt far fa-circle',
+      visible: true,
+      button: true,
+      onClick: () => {
+        const template = BurstTemplate.fromData(1, btSHape);
+        if (template) template.drawPreview(event);
+      },
+    },
+    {
+      name: 'mbt',
+      title: 'SWADE.MBT',
+      icon: 'mbt far fa-circle',
+      visible: true,
+      button: true,
+      onClick: () => {
+        const template = BurstTemplate.fromData(2, btSHape);
+        if (template) template.drawPreview(event);
+      },
+    },
+    {
+      name: 'lbt',
+      title: 'SWADE.LBT',
+      icon: 'lbt far fa-circle',
+      visible: true,
+      button: true,
+      onClick: () => {
+        const template = BurstTemplate.fromData(3, btSHape);
+        if (template) template.drawPreview(event);
+      },
+    },
+  ];
+  measure.tools = measure.tools.concat(newButtons);
 });

@@ -25,7 +25,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added Refresh All Bennies option and Message
-- Added the Savage Worlds Cone shape which replaces the vanilla Foundry cone shapoe for rounded cones
+- Added the Savage Worlds Cone shape which replaces the vanilla Foundry cone shapoe for rounded cones (thanks to Godna and Moerill for that one)
+- `SwadeTemplate` class, which allows the creation of predefined `MeasuredTemplate`s (based on code by errational and Atropos)
+- Buttons for predefined Burst Templates
 
 ### Fixed
 

@@ -166,5 +166,9 @@
   "SWADE ConvictionActivate": "Calls upon their conviction!",
   "SWADE.ConvictionExtend": "Do you want to extend your conviction?",
   "SWADE.ConvictionEnd": "wavers in their conviction",
-  "SWADE.NoBennies": "You don't have enough bennies!"
+  "SWADE.NoBennies": "You don't have enough bennies!",
+
+  "SWADE.SBT": "Small Burst Template",
+  "SWADE.MBT": "Medium Burst Template",
+  "SWADE.LBT": "Large Burst Template"
 }
