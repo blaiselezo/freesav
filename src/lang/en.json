@@ -168,7 +168,7 @@
   "SWADE.ConvictionEnd": "wavers in their conviction",
   "SWADE.NoBennies": "You don't have enough bennies!",
 
-  "SWADE.SBT": "Small Burst Template",
-  "SWADE.MBT": "Medium Burst Template",
-  "SWADE.LBT": "Large Burst Template"
+  "SWADE.SBT": "Small Blast Template",
+  "SWADE.MBT": "Medium Blast Template",
+  "SWADE.LBT": "Large Blast Template"
 }
