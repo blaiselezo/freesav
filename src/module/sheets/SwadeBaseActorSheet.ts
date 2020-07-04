@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from '../entities/SwadeActor';
+import SwadeActor from '../entities/SwadeActor';
 // eslint-disable-next-line no-unused-vars
-import { SwadeItem } from '../entities/SwadeItem';
-import { SwadeEntityTweaks } from '../dialog/entity-tweaks';
+import SwadeItem from '../entities/SwadeItem';
+import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import * as chat from '../chat';
 
-export class SwadeBaseActorSheet extends ActorSheet {
+export default class SwadeBaseActorSheet extends ActorSheet {
   actor: SwadeActor;
 
   activateListeners(html: JQuery): void {

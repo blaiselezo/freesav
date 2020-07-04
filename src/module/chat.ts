@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from './entities/SwadeActor';
+import SwadeActor from './entities/SwadeActor';
 
 export async function formatRoll(
   chatMessage: ChatMessage,

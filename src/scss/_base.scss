@@ -108,3 +108,24 @@
     }
   }
 }
+
+.sbt {
+  &::before {
+    content: 'S';
+  }
+}
+.mbt {
+  &::before {
+    content: 'M';
+  }
+}
+.lbt {
+  &::before {
+    content: 'L';
+  }
+}
+.cone {
+  &::before {
+    content: 'C';
+  }
+}

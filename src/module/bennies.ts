@@ -1,7 +1,8 @@
-import { SwadeActor } from './entities/SwadeActor';
+// eslint-disable-next-line no-unused-vars
+import SwadeActor from './entities/SwadeActor';
 import * as chat from './chat';
 
-export class Bennies {
+export default class Bennies {
   static async spendEvent(ev: MouseEvent) {
     ev.preventDefault();
     const userId = (ev.target as HTMLElement).parentElement.dataset.userId;

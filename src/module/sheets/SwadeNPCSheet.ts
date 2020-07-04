@@ -1,9 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from '../entities/SwadeActor';
+import SwadeActor from '../entities/SwadeActor';
 import * as chat from '../chat';
-import { SwadeBaseActorSheet } from './SwadeBaseActorSheet';
+import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 
-export class SwadeNPCSheet extends SwadeBaseActorSheet {
+export default class SwadeNPCSheet extends SwadeBaseActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ['swade', 'sheet', 'actor', 'npc'],

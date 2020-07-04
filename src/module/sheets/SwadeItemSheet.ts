@@ -1,4 +1,4 @@
-export class SwadeItemSheet extends ItemSheet {
+export default class SwadeItemSheet extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 560,
