@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
+    "types": ["character", "npc", "vehicle"],
     "templates": {
       "common": {
         "attributes": {
@@ -122,6 +122,30 @@
           "hasLevelHeaded": false,
           "hasImpLevelHeaded": false
         }
+      },
+      "vehicle-common": {
+        "size": 0,
+        "handling": 0,
+        "cost": 0,
+        "description": "",
+        "notes": "",
+        "toughness": {
+          "base": 0,
+          "armor": 0
+        },
+        "crew": {
+          "required": 1,
+          "optional": 0
+        },
+        "driver": {
+          "id": "",
+          "skill": ""
+        },
+        "cargo": {
+          "value": 0,
+          "max": 0
+        },
+        "maxMods": 0
       }
     },
     "character": {
@@ -131,6 +155,9 @@
     "npc": {
       "templates": ["common"],
       "wildcard": false
+    },
+    "vehicle": {
+      "templates": ["vehicle-common"]
     }
   },
   "Item": {
