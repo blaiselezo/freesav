@@ -170,5 +170,6 @@
 
   "SWADE.SBT": "Small Blast Template",
   "SWADE.MBT": "Medium Blast Template",
-  "SWADE.LBT": "Large Blast Template"
+  "SWADE.LBT": "Large Blast Template",
+  "SWADE.Cone": "Cone Template"
 }

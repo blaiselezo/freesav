@@ -1,14 +1,11 @@
 /* eslint-disable no-unused-vars */
 /**
- * This is your TypeScript entry file for Foundry VTT.
- * Register custom settings, sheets, and constants using the Foundry API.
- * Change this heading to be more descriptive to your system, or remove it.
+ * This is the TypeScript entry file for Foundry VTT.
  * Author: FloRad
  * Content License: Savage Worlds Fan License
  * Software License: GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-// Import TypeScript modules
 import Bennies from './module/bennies';
 import * as chat from './module/chat';
 import { formatRoll } from './module/chat';
@@ -33,9 +30,10 @@ import {
   rollSkillMacro,
   rollWeaponMacro,
 } from './module/util';
+import { TemplatePreset } from './module/enums/TemplatePreset';
 
 /* ------------------------------------ */
-/* Initialize system					*/
+/* Initialize system					          */
 /* ------------------------------------ */
 Hooks.once('init', async function () {
   console.log(
@@ -57,9 +55,11 @@ Hooks.once('init', async function () {
   //Register custom Handlebars helpers
   registerCustomHelpers();
 
+  //Overwrite method prototypes
   Combat.prototype.rollInitiative = rollInitiative;
   Combat.prototype.setupTurns = setupTurns;
   MeasuredTemplate.prototype._getConeShape = getSwadeConeShape;
+
   // Register custom classes
   CONFIG.Actor.entityClass = SwadeActor;
   CONFIG.Item.entityClass = SwadeItem;
@@ -68,7 +68,7 @@ Hooks.once('init', async function () {
   // Register custom system settings
   registerSettings();
 
-  // Register custom sheets (if any)
+  // Register sheets
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('swade', SwadeCharacterSheet, {
     types: ['character'],
@@ -89,7 +89,7 @@ Hooks.once('init', async function () {
 });
 
 /* ------------------------------------ */
-/* Setup system							*/
+/* Setup system							            */
 /* ------------------------------------ */
 Hooks.once('setup', function () {
   // Do anything after initialization but before ready
@@ -105,7 +105,7 @@ Hooks.once('setup', function () {
 });
 
 /* ------------------------------------ */
-/* When ready							*/
+/* When ready						              	*/
 /* ------------------------------------ */
 Hooks.once('ready', async () => {
   let packChoices = {};
@@ -134,7 +134,6 @@ Hooks.once('ready', async () => {
   Hooks.on('hotbarDrop', (bar, data, slot) => createSwadeMacro(data, slot));
 });
 
-// Add any additional hooks if necessary
 Hooks.on('preCreateItem', (createData: any, options: any, userId: string) => {
   //Set default image if no image already exists
   if (!createData.img) {
@@ -619,16 +618,15 @@ Hooks.on('getUserContextOptions', (html: JQuery, context: any[]) => {
 
 Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) => {
   const measure = sceneControlButtons.find((a) => a.name === 'measure');
-  const btSHape = 'circle';
   const newButtons = [
     {
       name: 'swcone',
-      title: 'Cone',
-      icon: 'sbt far fa-circle',
+      title: 'SWADE.Cone',
+      icon: 'cone far fa-circle',
       visible: true,
       button: true,
       onClick: () => {
-        const template = SwadeTemplate.fromData(9, 'cone');
+        const template = SwadeTemplate.fromPreset(TemplatePreset.CONE);
         if (template) template.drawPreview(event);
       },
     },
@@ -639,7 +637,7 @@ Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) => {
       visible: true,
       button: true,
       onClick: () => {
-        const template = SwadeTemplate.fromData(1, btSHape);
+        const template = SwadeTemplate.fromPreset(TemplatePreset.SBT);
         if (template) template.drawPreview(event);
       },
     },
@@ -650,7 +648,7 @@ Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) => {
       visible: true,
       button: true,
       onClick: () => {
-        const template = SwadeTemplate.fromData(2, btSHape);
+        const template = SwadeTemplate.fromPreset(TemplatePreset.MBT);
         if (template) template.drawPreview(event);
       },
     },
@@ -661,7 +659,7 @@ Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) => {
       visible: true,
       button: true,
       onClick: () => {
-        const template = SwadeTemplate.fromData(3, btSHape);
+        const template = SwadeTemplate.fromPreset(TemplatePreset.LBT);
         if (template) template.drawPreview(event);
       },
     },

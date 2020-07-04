@@ -124,3 +124,8 @@
     content: 'L';
   }
 }
+.cone {
+  &::before {
+    content: 'C';
+  }
+}

@@ -1,26 +1,48 @@
+import { TemplatePreset } from '../enums/TemplatePreset';
+
 /**
  * A helper class for building MeasuredTemplates for SWADE Burst Templates
  * @extends {MeasuredTemplate}
  */
 export default class SwadeTemplate extends MeasuredTemplate {
   /**
-   * A factory method to create a BurstTemplate instance using provided radius
-   * @param radius radius of the burst template
-   * @returns BurstTemplate | null
+   * A factory method to create a SwadeTemplate instance using provided preset
+   * @param preset the preset to use.
+   * @returns SwadeTemplate | null
    */
-  static fromData(distance: number, shape: string) {
-    if (!distance || !shape) return null;
+  static fromPreset(preset: TemplatePreset) {
+    if (!preset) return null;
 
     // Prepare template data
     const templateData = {
-      t: shape,
       user: game.user._id,
-      distance: distance,
       direction: 0,
       x: 0,
       y: 0,
       fillColor: game.user['color'],
     };
+
+    //Set template data based on preset option
+    switch (preset) {
+      case TemplatePreset.CONE:
+        templateData['t'] = 'cone';
+        templateData['distance'] = 9;
+        break;
+      case TemplatePreset.SBT:
+        templateData['t'] = 'circle';
+        templateData['distance'] = 1;
+        break;
+      case TemplatePreset.MBT:
+        templateData['t'] = 'circle';
+        templateData['distance'] = 2;
+        break;
+      case TemplatePreset.LBT:
+        templateData['t'] = 'circle';
+        templateData['distance'] = 3;
+        break;
+      default:
+        return null;
+    }
 
     // Return the constructed template
     return new this(templateData);
@@ -32,6 +54,7 @@ export default class SwadeTemplate extends MeasuredTemplate {
    * Creates a preview of the template
    * @param {Event} event   The initiating click event
    */
+  // eslint-disable-next-line no-unused-vars
   drawPreview(event: Event) {
     const initialLayer = canvas.activeLayer;
     this.draw();
@@ -63,6 +86,7 @@ export default class SwadeTemplate extends MeasuredTemplate {
       },
 
       // Cancel the workflow (right-click)
+      // eslint-disable-next-line no-unused-vars
       rc: (event: Event) => {
         this.layer.preview.removeChildren();
         canvas.stage.off('mousemove', handlers.mm);
