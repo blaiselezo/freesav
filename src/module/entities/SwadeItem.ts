@@ -1,11 +1,11 @@
 import { SwadeDice } from '../dice';
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from './SwadeActor';
+import SwadeActor from './SwadeActor';
 
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-export class SwadeItem extends Item {
+export default class SwadeItem extends Item {
   /* -------------------------------------------- */
   /*	Data Preparation														*/
   /* -------------------------------------------- */

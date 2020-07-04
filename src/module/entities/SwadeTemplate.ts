@@ -32,7 +32,7 @@ export default class SwadeTemplate extends MeasuredTemplate {
    * Creates a preview of the template
    * @param {Event} event   The initiating click event
    */
-  drawPreview(event) {
+  drawPreview(event: Event) {
     const initialLayer = canvas.activeLayer;
     this.draw();
     this.layer.activate();
@@ -63,7 +63,7 @@ export default class SwadeTemplate extends MeasuredTemplate {
       },
 
       // Cancel the workflow (right-click)
-      rc: (event) => {
+      rc: (event: Event) => {
         this.layer.preview.removeChildren();
         canvas.stage.off('mousemove', handlers.mm);
         canvas.stage.off('mousedown', handlers.lc);

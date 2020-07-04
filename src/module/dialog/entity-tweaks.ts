@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from '../entities/SwadeActor';
+import SwadeActor from '../entities/SwadeActor';
 
-export class SwadeEntityTweaks extends FormApplication {
+export default class SwadeEntityTweaks extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.id = 'sheet-tweaks';

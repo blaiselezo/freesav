@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from '../entities/SwadeActor';
+import SwadeActor from '../entities/SwadeActor';
 // eslint-disable-next-line no-unused-vars
-import { SwadeItem } from '../entities/SwadeItem';
-import { SwadeBaseActorSheet } from './SwadeBaseActorSheet';
+import SwadeItem from '../entities/SwadeItem';
+import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 
-export class SwadeCharacterSheet extends SwadeBaseActorSheet {
+export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
   /**
    * Extend and override the default options used by the Actor Sheet
    * @returns {Object}
