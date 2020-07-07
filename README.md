@@ -29,7 +29,7 @@ You may do this by downloading a zip archive from the [Releases Page](https://gi
 
 To create a local build of the SWADE system for Foundry VTT, follow these steps:
 
-1. If you don't have it, install the latest Node.js LTS version from here https://nodejs.org/en/
+1. If you don't Node.js installed then install the latest Node.js LTS version from here https://nodejs.org/en/
 1. Clone the repository and either change into it or open a commandline/terminal window in the cloned the directory
 1. Run the `npm install` command to install all the required node modules, including the type definitions.
 1. Set the `dataPath` in `foundryconfig.json` to your FoundryVTT data folder.
