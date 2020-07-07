@@ -29,11 +29,12 @@ You may do this by downloading a zip archive from the [Releases Page](https://gi
 
 To create a local build of the SWADE system for Foundry VTT, follow these steps:
 
-1. Clone the repository and run `npm install` to install all the required node modules.
-1. Run `npm install --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types` to install the Foundry Type definitions
+1. If you don't have it, install the latest Node.js LTS version from here https://nodejs.org/en/
+1. Clone the repository and either change into it or open a commandline/terminal window in the cloned the directory
+1. Run the `npm install` command to install all the required node modules, including the type definitions.
 1. Set the `dataPath` in `foundryconfig.json` to your FoundryVTT data folder.
-1. Either run `npm run build` in a shell in your cloned directory or run the npm script `build` directly from your IDE.
-1. Done
+1. Either run `npm run build` in a shell in your cloned directory or run the npm script `build` directly from your IDE, such as VS Code. Note: you might need to run this command as admin. To do this open your terminal or IDE as admin
+1. Done, swade should now show up in Foundry VTT as an installed game system
 
 > Note: I am not responsible for any local changes _you_ make to SWADE
 
