@@ -17,7 +17,18 @@
         />
         <label for="data.equippable">{{localize "SWADE.Equippable"}}</label>
       </div>
-      {{#if item.data.equippable}}
+      <div class="form-group">
+        <input
+          type="checkbox"
+          name="data.isVehicular"
+          id="data.isVehicular"
+          {{checked
+          item.data.isVehicular}}
+          data-dtype="Boolean"
+        />
+        <label for="data.isVehicular">Is Vehicle Mod</label>
+      </div>
+      {{#if (canBeEquipped item)}}
       <div class="form-group">
         <input
           type="checkbox"
@@ -60,6 +71,18 @@
           data-dtype="Number"
         />
       </div>
+      {{#if item.data.isVehicular}} {{#if settingrules.modSlots}}
+      <div class="form-group">
+        <label for="data.mods">{{localize "SWADE.ModSlots"}}</label>
+        <input
+          name="data.mods"
+          type="text"
+          value="{{item.data.mods}}"
+          placeholder="{{localize 'SWADE.ModSlots'}}"
+          data-dtype="Number"
+        />
+      </div>
+      {{/if}} {{/if}}
     </section>
     <section>
       {{> "systems/swade/templates/items/partials/description.html"}}

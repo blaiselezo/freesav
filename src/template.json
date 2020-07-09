@@ -195,13 +195,22 @@
       "equipable": {
         "equippable": true,
         "equipped": false
+      },
+      "vehicular": {
+        "isVehicular": false,
+        "mods": 1
       }
     },
     "gear": {
-      "templates": ["itemDescription", "physicalItem", "equipable"]
+      "templates": ["itemDescription", "physicalItem", "equipable", "vehicular"]
     },
     "weapon": {
-      "templates": ["itemDescription", "physicalItem", "equipable"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "equipable",
+        "vehicular"
+      ],
       "damage": "",
       "range": "",
       "rof": 1,
