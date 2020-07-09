@@ -17,10 +17,10 @@ export default class SwadeActor extends Actor {
 
   /** @override */
   static async create(data, options = {}) {
-    let link = true;
+    let link = false;
 
-    if (data.type === 'npc') {
-      link = false;
+    if (data.type === 'character') {
+      link = true;
     }
     data.token = data.token || {};
     mergeObject(data.token, {
