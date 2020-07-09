@@ -80,8 +80,8 @@ export const registerSettings = function () {
   });
 
   game.settings.register('swade', 'vehicleEdges', {
-    name: game.i18n.localize('SWADE.VehicleMods'),
-    hint: game.i18n.localize('SWADE.VehicleModsDes'),
+    name: game.i18n.localize('SWADE.VehicleEdges'),
+    hint: game.i18n.localize('SWADE.VehicleEdgesDesc'),
     default: false,
     scope: 'world',
     type: Boolean,
