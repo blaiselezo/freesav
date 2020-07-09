@@ -2,6 +2,14 @@
   {{!-- Sheet Header --}}
 
   <header class="sheet-header">
+    <div class="profile-img-container">
+      <img
+        class="profile-img"
+        src="{{actor.img}}"
+        data-edit="img"
+        title="{{actor.name}}"
+      />
+    </div>
     <div class="header-fields">
       <div class="charline">
         <h1 class="charname">
@@ -13,6 +21,91 @@
           />
         </h1>
       </div>
+      <section class="header-stats flexrow">
+        <div class="form-group">
+          <label for="handling">{{localize "SWADE.Handling"}}</label>
+          <input
+            id="handling"
+            name="data.handling"
+            type="text"
+            value="{{data.handling}}"
+            data-dtype="Number"
+            placeholder="{{localize 'SWADE.Handling'}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="topspeed">{{localize "SWADE.Topspeed"}}</label>
+          <input
+            name="data.topspeed"
+            id="topspeed"
+            type="text"
+            value="{{data.topspeed}}"
+            data-dtype="String"
+            placeholder="0"
+          />
+        </div>
+        <div class="form-group">
+          <label for="size">{{localize "SWADE.Size"}}</label>
+          <input
+            name="data.size"
+            id="size"
+            type="text"
+            value="{{data.size}}"
+            data-dtype="Number"
+            placeholder="0"
+          />
+        </div>
+      </section>
+      <section class="header-stats flexrow">
+        <div class="form-group">
+          <label for="toughness">{{localize "SWADE.Tough"}}</label>
+          <input
+            name="data.toughness.total"
+            id="toughness"
+            type="text"
+            value="{{data.toughness.total}}"
+            data-dtype="String"
+            placeholder="0"
+          />
+        </div>
+        <div class="form-group">
+          <label for="armor">{{localize "SWADE.Armor"}}</label>
+          <input
+            name="data.toughness.armor"
+            id="armor"
+            type="text"
+            value="{{data.toughness.armor}}"
+            data-dtype="String"
+            placeholder="0"
+          />
+        </div>
+      </section>
+      <section class="header-stats flexrow">
+        <div class="status-item">
+          <input
+            type="checkbox"
+            name="data.status.isOutOfControl"
+            id="data.status.isOutOfControl-{{actor._id}}"
+            {{checked
+            actor.data.status.isOutOfControl}}
+          />
+          <label for="data.status.isOutOfControl-{{actor._id}}"
+            >{{localize "SWADE.OutOfControl"}}</label
+          >
+        </div>
+        <div class="status-item">
+          <input
+            type="checkbox"
+            name="data.status.isWrecked"
+            id="data.status.isWrecked-{{actor._id}}"
+            {{checked
+            actor.data.status.isWrecked}}
+          />
+          <label for="data.status.isWrecked-{{actor._id}}"
+            >{{localize "SWADE.Wrecked"}}</label
+          >
+        </div>
+      </section>
     </div>
   </header>
 
@@ -24,13 +117,13 @@
 
   {{!-- Sheet Body --}}
   <main class="sheet-body">
-    {{log actor}} {{!-- Summary Tab --}}
+    {{!-- Summary Tab --}}
     <div class="tab active" data-group="primary" data-tab="summary">
       {{> "systems/swade/templates/actors/vehicle-partials/summary-tab.html"}}
     </div>
 
     {{!-- Inventory Tab --}}
-    <div class="tab cargo" data-group="primary" data-tab="cargo">
+    <div class="tab inventory" data-group="primary" data-tab="cargo">
       {{> "systems/swade/templates/actors/vehicle-partials/cargo-tab.html"}}
     </div>
 

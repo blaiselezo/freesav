@@ -1,7 +1,20 @@
-<div class="description">
-  <header class="header-field">
+<br />
+<div class="description collapsible-container">
+  <header class="header-field collapsible-header">
     <span>{{ localize "SWADE.Desc" }}</span>
   </header>
-  {{editor content=data.description target="data.description" button=true
-  owner=owner editable=editable}}
+  <span class="collapsible-content collapsed">
+    {{editor content=data.description target="data.description" button=true
+    owner=owner editable=editable}}
+  </span>
+</div>
+<br />
+<div class="description collapsible-container">
+  <header class="header-field collapsible-header">
+    <span>{{ localize "SWADE.Special" }}</span>
+  </header>
+  <span class="collapsible-content collapsed" style="display: none;">
+    {{editor content=data.special target="data.special" button=true owner=owner
+    editable=editable}}
+  </span>
 </div>
