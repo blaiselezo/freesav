@@ -331,16 +331,6 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     return capacity;
   }
 
-  private _calcInventoryWeight(items): number {
-    let retVal = 0;
-    items.forEach((category: any) => {
-      category.forEach((i: any) => {
-        retVal += i.data.weight * i.data.quantity;
-      });
-    });
-    return retVal;
-  }
-
   private _toggleEquipped(id: string, item: any): any {
     return {
       _id: id,

@@ -196,4 +196,14 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       default: 'set',
     }).render(true);
   }
+
+  protected _calcInventoryWeight(items): number {
+    let retVal = 0;
+    items.forEach((category: any) => {
+      category.forEach((i: any) => {
+        retVal += i.data.weight * i.data.quantity;
+      });
+    });
+    return retVal;
+  }
 }
