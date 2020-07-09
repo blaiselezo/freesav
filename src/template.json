@@ -98,7 +98,6 @@
         },
         "bennies": {
           "value": 3,
-          "min": 0,
           "max": 3
         },
         "owned": {
@@ -125,13 +124,19 @@
       },
       "vehicle-common": {
         "size": 0,
+        "classification": "",
         "handling": 0,
         "cost": 0,
         "description": "",
+        "special": "",
         "notes": "",
         "toughness": {
-          "base": 0,
+          "total": 0,
           "armor": 0
+        },
+        "wounds": {
+          "value": 0,
+          "max": 3
         },
         "crew": {
           "required": 1,
@@ -141,10 +146,7 @@
           "id": "",
           "skill": ""
         },
-        "cargo": {
-          "value": 0,
-          "max": 0
-        },
+        "maxCargo": 0,
         "maxMods": 0
       }
     },
@@ -154,7 +156,11 @@
     },
     "npc": {
       "templates": ["common"],
-      "wildcard": false
+      "wildcard": false,
+      "bennies": {
+        "value": 2,
+        "max": 2
+      }
     },
     "vehicle": {
       "templates": ["vehicle-common"]
