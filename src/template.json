@@ -127,6 +127,7 @@
         "classification": "",
         "handling": 0,
         "cost": 0,
+        "topspeed": 0,
         "description": "",
         "special": "",
         "notes": "",
@@ -145,6 +146,10 @@
         "driver": {
           "id": "",
           "skill": ""
+        },
+        "status": {
+          "isOutOfControl": false,
+          "isWrecked": false
         },
         "maxCargo": 0,
         "maxMods": 0
