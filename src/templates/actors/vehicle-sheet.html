@@ -15,4 +15,29 @@
       </div>
     </div>
   </header>
+
+  <nav class="flexrow tabs" data-group="primary">
+    <a class="item" data-tab="summary">{{localize "SWADE.Summary"}}</a>
+    <a class="item" data-tab="cargo">{{localize "SWADE.Cargo"}}</a>
+    <a class="item" data-tab="description">{{localize "SWADE.Desc"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <main class="sheet-body">
+    {{log actor}} {{!-- Summary Tab --}}
+    <div class="tab active" data-group="primary" data-tab="summary">
+      {{> "systems/swade/templates/actors/vehicle-partials/summary-tab.html"}}
+    </div>
+
+    {{!-- Inventory Tab --}}
+    <div class="tab cargo" data-group="primary" data-tab="cargo">
+      {{> "systems/swade/templates/actors/vehicle-partials/cargo-tab.html"}}
+    </div>
+
+    {{!-- Biography Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="description">
+      {{>
+      "systems/swade/templates/actors/vehicle-partials/description-tab.html"}}
+    </div>
+  </main>
 </form>
