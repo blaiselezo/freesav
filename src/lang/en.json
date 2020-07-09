@@ -47,8 +47,6 @@
   "SWADE.BenniesAddMessage": "was given a new Benny!",
   "SWADE.BenniesGMAddMessage": "took an additional Benny!",
   "SWADE.BenniesSpendMessage": "spends a Benny!",
-  "SWADE.EnableBennyNotify": "Benny notifications",
-  "SWADE.EnableBennyNotifyDesc": "Displays chat messages when bennies are taken, given or refreshed.",
   "SWADE.BenniesMax": "Bennies Reset",
 
   "SWADE.EditSkill": "Edit Skill",
@@ -140,6 +138,12 @@
   "SWADE.AutoLinkDesc": "When enabled, NPC Wildcards will have their tokens linked when you toggle them between Extra and Wildcard",
   "SWADE.GmBennies": "GM Bennies",
   "SWADE.GmBenniesDesc": "Sets how many Bennies the GM recieves on a refresh",
+  "SWADE.EnableBennyNotify": "Benny notifications",
+  "SWADE.EnableBennyNotifyDesc": "Displays chat messages when bennies are taken, given or refreshed.",
+  "SWADE.VehicleMods": "Vehicles Mods",
+  "SWADE.VehicleModsDesc": "Vehicles use Mod-Slots",
+  "SWADE.VehicleEdges": "Vehicle Edges",
+  "SWADE.VehicleEdgesDesc": "Vehicles use Edges and Hindrances",
 
   "SWADE.Formula": "Formula",
   "SWADE.SitMod": "Situational Mod",
