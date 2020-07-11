@@ -1,6 +1,7 @@
 import { SwadeDice } from '../dice';
 // eslint-disable-next-line no-unused-vars
 import SwadeItem from './SwadeItem';
+import ISkillOptions from '../../interfaces/ISkillOptions';
 
 export default class SwadeActor extends Actor {
   /**
@@ -97,7 +98,7 @@ export default class SwadeActor extends Actor {
     });
   }
 
-  rollSkill(skillId, options = { event: null }) {
+  rollSkill(skillId, options: ISkillOptions = { event: null }): Promise<any> {
     let items = this.items.filter((i: Item) => i.id == skillId);
     if (!items.length) {
       return;
@@ -111,7 +112,7 @@ export default class SwadeActor extends Actor {
     }
 
     //Check and add Modifiers
-    const rollParts = [exp] as any[];
+    let rollParts = [exp] as any[];
     let itemMod = parseInt(skillData['die'].modifier);
     if (!isNaN(itemMod) && itemMod !== 0) {
       if (itemMod > 0) {
@@ -120,6 +121,7 @@ export default class SwadeActor extends Actor {
       rollParts.push(itemMod);
     }
 
+    //Conviction Modifier
     if (
       this.data.data['details']['conviction']['active'] &&
       game.settings.get('swade', 'enableConviction')
@@ -127,11 +129,20 @@ export default class SwadeActor extends Actor {
       rollParts.push('+1d6x=');
     }
 
-    const woundFatigePenalties = this.calcWoundFatigePenalties();
-    if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
+    // Wound and Fatigue Penalties
+    const woundPenalties = this.calcWoundPenalties();
+    if (woundPenalties !== 0) rollParts.push(woundPenalties);
+
+    const fatiguePenalties = this.calcFatiguePenalties();
+    if (fatiguePenalties !== 0) rollParts.push(fatiguePenalties);
 
     const statusPenalties = this.calcStatusPenalties();
     if (statusPenalties !== 0) rollParts.push(statusPenalties);
+
+    //Additional Mods
+    if (options.additionalMods) {
+      rollParts = rollParts.concat(options.additionalMods);
+    }
 
     // Roll and return
     return SwadeDice.Roll({
@@ -202,13 +213,14 @@ export default class SwadeActor extends Actor {
     await this.update({ 'data.bennies.value': actorData.data.bennies.max });
   }
 
-  //Calculated the wound and fatigue penalites
-  calcWoundFatigePenalties(): number {
+  /**
+   * Calculates the total Wound Penalties
+   */
+  calcWoundPenalties(): number {
     let retVal = 0;
-    const wounds = parseInt(this.data['data']['wounds']['value']);
-    let ignoredWounds = parseInt(this.data['data']['wounds']['ignored']);
+    const wounds = parseInt(getProperty(this.data, 'data.wounds.value'));
+    let ignoredWounds = parseInt(getProperty(this.data, 'data.wounds.ignored'));
     if (isNaN(ignoredWounds)) ignoredWounds = 0;
-    const fatigue = parseInt(this.data['data']['fatigue']['value']);
 
     if (!isNaN(wounds)) {
       if (wounds > 3) {
@@ -222,9 +234,17 @@ export default class SwadeActor extends Actor {
         retVal -= ignoredWounds;
       }
     }
-
-    if (!isNaN(fatigue)) retVal += fatigue;
     return retVal * -1;
+  }
+
+  /**
+   * Calculates the total Fatigue Penalties
+   */
+  calcFatiguePenalties(): number {
+    let retVal = 0;
+    const fatigue = parseInt(getProperty(this.data, 'data.fatigue.value'));
+    if (!isNaN(fatigue)) retVal -= fatigue;
+    return retVal;
   }
 
   calcStatusPenalties(): number {
