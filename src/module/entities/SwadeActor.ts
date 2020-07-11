@@ -77,8 +77,11 @@ export default class SwadeActor extends Actor {
       rollParts.push('+1d6x=');
     }
 
-    const woundFatigePenalties = this.calcWoundFatigePenalties();
-    if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
+    const woundPenalties = this.calcWoundPenalties();
+    if (woundPenalties !== 0) rollParts.push(woundPenalties);
+
+    const fatiguePenalties = this.calcFatiguePenalties();
+    if (fatiguePenalties !== 0) rollParts.push(fatiguePenalties);
 
     const statusPenalties = this.calcStatusPenalties();
     if (statusPenalties !== 0) rollParts.push(statusPenalties);
