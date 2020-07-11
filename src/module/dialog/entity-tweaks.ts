@@ -28,11 +28,9 @@ export default class SwadeEntityTweaks extends FormApplication {
    * @return {Object}
    */
   getData() {
-    console.log(this.object);
     let data = this.object.data;
-    if (this.object.data.type === 'character') {
-      data.isCharacter = true;
-    }
+    data.isCharacter = this.object.data.type === 'character';
+    data.isVehicle = this.object.data.type === 'vehicle';
     return data;
   }
 
@@ -41,11 +39,6 @@ export default class SwadeEntityTweaks extends FormApplication {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    //Configre initiative Edges/Hindrances
-    html.find('#initConfigButton').click(() => {
-      let actorObject = this.object as SwadeActor;
-      actorObject.configureInitiative();
-    });
   }
 
   /**

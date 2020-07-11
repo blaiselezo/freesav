@@ -1,5 +1,5 @@
 <form autocomplete="off">
-  {{#unless isCharacter}}
+  {{#unless isCharacter}} {{#unless isVehicle}}
   <div class="form-group">
     <label for="wildcard">{{localize "SWADE.Wildcard"}}</label>
     <div class="form-fields">
@@ -12,19 +12,7 @@
       />
     </div>
   </div>
-  {{/unless}}
-  <div class="form-group">
-    <label>{{localize "SWADE.BenniesMax"}}</label>
-    <div class="form-fields">
-      <input
-        class="bennies-max"
-        name="data.bennies.max"
-        type="text"
-        value="{{data.bennies.max}}"
-        data-dtype="Number"
-      />
-    </div>
-  </div>
+  {{/unless}} {{/unless}}
   <div class="form-group">
     <label>{{localize "SWADE.WoundsMax"}}</label>
     <div class="form-fields">
@@ -36,6 +24,7 @@
       />
     </div>
   </div>
+  {{#unless isVehicle}}
   <div class="form-group">
     <label>{{localize "SWADE.FatigueMax"}}</label>
     <div class="form-fields">
@@ -48,6 +37,19 @@
     </div>
   </div>
   <div class="form-group">
+    <label>{{localize "SWADE.BenniesMax"}}</label>
+    <div class="form-fields">
+      <input
+        class="bennies-max"
+        name="data.bennies.max"
+        type="text"
+        value="{{data.bennies.max}}"
+        data-dtype="Number"
+      />
+    </div>
+  </div>
+  {{/unless}}
+  <div class="form-group">
     <label for="data.wounds.ignored">{{localize "SWADE.IgnWounds"}}</label>
     <div class="form-fields">
       <input
@@ -59,6 +61,7 @@
       />
     </div>
   </div>
+  {{#unless isVehicle}}
   <h2>{{localize "SWADE.Init"}}</h2>
   <div class="form-group">
     <label for="hasLevelHeaded">{{localize "SWADE.LevelHeaded"}}</label>
@@ -98,6 +101,7 @@
       />
     </div>
   </div>
+  {{/unless}}
   <footer class="sheet-footer">
     <button type="submit">
       <i class="fas fa-save"></i>{{localize "Save Changes"}}
