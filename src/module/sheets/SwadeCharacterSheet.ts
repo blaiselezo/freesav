@@ -174,19 +174,11 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
 
     //Input Synchronization
     html.find('.wound-input').keyup((ev) => {
-      html.find('.wound-slider').val($(ev.currentTarget).val());
-    });
-
-    html.find('.wound-slider').change((ev) => {
-      html.find('.wound-input').val($(ev.currentTarget).val());
+      this.actor.update({ 'data.wounds.value': $(ev.currentTarget).val() });
     });
 
     html.find('.fatigue-input').keyup((ev) => {
-      html.find('.fatigue-slider').val($(ev.currentTarget).val());
-    });
-
-    html.find('.fatigue-slider').change((ev) => {
-      html.find('.fatigue-input').val($(ev.currentTarget).val());
+      this.actor.update({ 'data.fatigue.value': $(ev.currentTarget).val() });
     });
 
     // Roll Skill
