@@ -85,7 +85,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     });
 
     // Add new object
-    html.find('.item-create').click((event) => {
+    html.find('.item-create').click(async (event) => {
       event.preventDefault();
       const header = event.currentTarget;
       let type = header.dataset.type;
@@ -93,17 +93,18 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
       let modData;
       let weaponData;
       let choices;
+      let createdItem: Item;
 
       switch (type) {
         case 'choice':
           choices = header.dataset.choices.split(',');
-          this._chooseItemType(choices).then((dialogInput: any) => {
+          this._chooseItemType(choices).then(async (dialogInput: any) => {
             const itemData = this._createItemData(
               dialogInput.type,
               header,
               dialogInput.name,
             );
-            this.actor.createOwnedItem(itemData, {});
+            createdItem = await this.actor.createOwnedItem(itemData, {});
           });
           break;
         case 'mod':
@@ -111,19 +112,23 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
           modData.data.isVehicular = true;
           modData.data.equipped = true;
           modData.name = `New ${type.capitalize()}`;
-          this.actor.createOwnedItem(modData, {});
+          createdItem = await this.actor.createOwnedItem(modData, {});
           break;
         case 'vehicle-weapon':
           weaponData = this._createItemData('weapon', header);
           weaponData.data.isVehicular = true;
           weaponData.data.equipped = true;
           console.log('adding weapon', weaponData);
-          this.actor.createOwnedItem(weaponData, {});
+          createdItem = await this.actor.createOwnedItem(weaponData, {});
           break;
         default:
-          this.actor.createOwnedItem(this._createItemData(type, header), {});
+          createdItem = await this.actor.createOwnedItem(
+            this._createItemData(type, header),
+            {},
+          );
           break;
       }
+      this.actor.getOwnedItem(createdItem._id).sheet.render(true);
     });
 
     //Reset the Driver
@@ -134,6 +139,11 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     // Open driver sheet
     html.find('.driver-img').click(async (event) => {
       await this._openDriverSheet();
+    });
+
+    //Input Synchronization
+    html.find('.wound-input').keyup((ev) => {
+      this.actor.update({ 'data.wounds.value': $(ev.currentTarget).val() });
     });
   }
 

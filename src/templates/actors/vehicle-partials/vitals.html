@@ -1,29 +1,33 @@
+<div class="driver-box">
+  <strong>{{localize "SWADE.Operator"}}</strong>
+  <a class="reset-driver"><i class="fas fa-trash"></i></a>
+  <div id="driverImageContainer">
+    <img src="{{driver.img}}" alt="{{driver.name}}" class="driver-img" />
+  </div>
+  <button type="button">{{localize "SWADE.ManCheck"}}</button>
+</div>
 <section class="vitals flexrow">
   <div class="vitals-container">
-    <strong>{{localize "SWADE.Wounds"}}</strong>
-    <input
-      type="range"
-      name="data.wounds.value"
-      min="0"
-      max="{{data.wounds.max}}"
-      class="slider wound-slider"
-      value="{{data.wounds.value}}"
-      data-dtype="Number"
-      style="direction: ltr;"
-    />
-    <div class="flexrow vitals-value">
+    <div>
       <input
         type="text"
         value="{{data.wounds.value}}"
         data-dtype="Number"
         class="wound-input"
+        maxlength="4"
+        size="4"
+        class="vitals-value"
       />
-      <span>/</span>
+      <span class="vital-name">{{localize "SWADE.Wounds"}}</span>
       <input
-        type="text"
-        name="data.wounds.max"
-        value="{{data.wounds.max}}"
+        type="range"
+        name="data.wounds.value"
+        min="0"
+        max="{{data.wounds.max}}"
+        class="slider wound-slider"
+        value="{{data.wounds.value}}"
         data-dtype="Number"
+        style="direction: ltr;"
       />
     </div>
   </div>
