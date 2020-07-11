@@ -55,4 +55,8 @@ export class SWADE {
       gmadd: 'systems/swade/templates/chat/benny-gmadd.html',
     },
   };
+
+  public static vehicles = {
+    maxHandlingPenalty: -4,
+  };
 }
