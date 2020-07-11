@@ -2,6 +2,7 @@ import { SwadeDice } from '../dice';
 // eslint-disable-next-line no-unused-vars
 import SwadeItem from './SwadeItem';
 import ISkillOptions from '../../interfaces/ISkillOptions';
+import ISKillOptions from '../../interfaces/ISkillOptions';
 
 export default class SwadeActor extends Actor {
   /**
@@ -52,7 +53,10 @@ export default class SwadeActor extends Actor {
   /* -------------------------------------------- */
   /*  Rolls                                       */
   /* -------------------------------------------- */
-  rollAttribute(abilityId, options = { event: null }) {
+  rollAttribute(
+    abilityId: string,
+    options: ISkillOptions = { event: null },
+  ): Promise<any> {
     const label = CONFIG.SWADE.attributes[abilityId].long;
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
@@ -101,7 +105,10 @@ export default class SwadeActor extends Actor {
     });
   }
 
-  rollSkill(skillId, options: ISkillOptions = { event: null }): Promise<any> {
+  rollSkill(
+    skillId: string,
+    options: ISkillOptions = { event: null },
+  ): Promise<any> {
     let items = this.items.filter((i: Item) => i.id == skillId);
     if (!items.length) {
       return;
@@ -155,6 +162,59 @@ export default class SwadeActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
       title: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
+    });
+  }
+
+  makeUnskilledAttempt(options: ISkillOptions = { event: null }): Promise<any> {
+    let exp = '';
+    if (this.data['data'].wildcard) {
+      exp = '{1d4x=, 1d6x=}kh';
+    } else {
+      exp = '1d4x=';
+    }
+
+    let rollParts = [exp] as any[];
+
+    //Unskilled Penalty
+    rollParts.push('- 2');
+
+    //Conviction Modifier
+    if (
+      this.data.data['details']['conviction']['active'] &&
+      game.settings.get('swade', 'enableConviction')
+    ) {
+      rollParts.push('+1d6x=');
+    }
+
+    // Wound and Fatigue Penalties
+    const woundPenalties = this.calcWoundPenalties();
+    if (woundPenalties !== 0) rollParts.push(woundPenalties);
+
+    const fatiguePenalties = this.calcFatiguePenalties();
+    if (fatiguePenalties !== 0) rollParts.push(fatiguePenalties);
+
+    const statusPenalties = this.calcStatusPenalties();
+    if (statusPenalties !== 0) rollParts.push(statusPenalties);
+
+    //Additional Mods
+    if (options.additionalMods) {
+      rollParts = rollParts.concat(options.additionalMods);
+    }
+
+    let skillData = {};
+
+    // Roll and return
+    return SwadeDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: skillData,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${game.i18n.localize('SWADE.Unskilled')} ${game.i18n.localize(
+        'SWADE.SkillTest',
+      )}`,
+      title: `${game.i18n.localize('SWADE.Unskilled')} ${game.i18n.localize(
+        'SWADE.SkillTest',
+      )}`,
     });
   }
 
@@ -347,5 +407,52 @@ export default class SwadeActor extends Actor {
         Math.floor(parseInt(armorList[1].data.data.armor) / 2);
     }
     return totalArmorVal;
+  }
+
+  /**
+   * Helper Function for Vehicle Actors, to roll Maneuevering checks
+   */
+  rollManeuverCheck(event: any = null) {
+    let driverId = getProperty(this.data, 'data.driver.id');
+    let driver = game.actors.get(driverId) as SwadeActor;
+
+    //Return early if no driver was found
+    if (!driverId || !driver) {
+      return;
+    }
+
+    //Get skillname
+    let skillName = getProperty(this.data, 'data.driver.skill');
+    if (skillName === '') {
+      skillName = getProperty(this.data, 'data.driver.skillAlternative');
+    }
+
+    let handling = getProperty(this.data, 'data.handling');
+    let wounds = getProperty(this.data, 'data.wounds.value');
+    let totalHandling: number | string;
+    totalHandling = parseInt(handling) - parseInt(wounds);
+
+    // Calculate handling
+    if (totalHandling < CONFIG.SWADE.vehicles.maxHandlingPenalty) {
+      totalHandling = -4;
+    }
+    if (totalHandling > 0) {
+      totalHandling = `+${totalHandling}`;
+    }
+
+    let options: ISKillOptions = {
+      event: event,
+      additionalMods: [totalHandling],
+    };
+
+    let skill = driver.items.find(
+      (i) => i.type === 'skill' && i.name === skillName,
+    ) as SwadeItem;
+
+    if (skill) {
+      driver.rollSkill(skill.id, options);
+    } else {
+      driver.makeUnskilledAttempt(options);
+    }
   }
 }

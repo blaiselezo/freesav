@@ -3,6 +3,7 @@ import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 import SwadeItem from '../entities/SwadeItem';
 import SwadeActor from '../entities/SwadeActor';
 import IDriverData from '../../interfaces/IDriverData';
+import ISKillOptions from '../../interfaces/ISkillOptions';
 
 export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
   /**
@@ -92,13 +93,11 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
 
       let modData;
       let weaponData;
-      let choices;
       let createdItem: Item;
 
       switch (type) {
         case 'choice':
-          choices = header.dataset.choices.split(',');
-          this._chooseItemType(choices).then(async (dialogInput: any) => {
+          this._chooseItemType().then(async (dialogInput: any) => {
             const itemData = this._createItemData(
               dialogInput.type,
               header,
@@ -132,12 +131,12 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     });
 
     //Reset the Driver
-    html.find('.reset-driver').click(async (event) => {
+    html.find('.reset-driver').click(async () => {
       await this._resetDriver();
     });
 
     // Open driver sheet
-    html.find('.driver-img').click(async (event) => {
+    html.find('.driver-img').click(async () => {
       await this._openDriverSheet();
     });
 
@@ -145,6 +144,11 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     html.find('.wound-input').keyup((ev) => {
       this.actor.update({ 'data.wounds.value': $(ev.currentTarget).val() });
     });
+
+    //Maneuver Check
+    html
+      .find('#maneuverCheck')
+      .click((event) => this.actor.rollManeuverCheck(event));
   }
 
   getData(): ActorSheetData {
