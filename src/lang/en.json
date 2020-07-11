@@ -133,6 +133,7 @@
   "SWADE.Item": "Item",
   "SWADE.CargoWeight": "Cargo Weight",
   "SWADE.ModSlots": "Mod Slots",
+  "SWADE.Mods": "Mods",
 
   "SWADE.CardSound": "Card Sound",
   "SWADE.CardSoundDesc": "Play a short card sound when dealing Initiative",

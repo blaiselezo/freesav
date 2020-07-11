@@ -37,6 +37,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 - Changed how many Bennies the GM gets on a refresh. The number is now configured in a setting (Default 0);
+- Weapon Notes now support inline rolls and Entity linking
 
 ## [v0.9.4]
 

@@ -4,4 +4,19 @@
       height: auto;
     }
   }
+  .gear {
+    padding: 2px;
+    section {
+      padding-bottom: 2px;
+    }
+    .gear-card {
+      margin: 2px;
+      .card-header {
+        .item-controls {
+          flex-grow: 0;
+          flex-basis: 32px;
+        }
+      }
+    }
+  }
 }

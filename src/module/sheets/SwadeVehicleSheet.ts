@@ -1,6 +1,8 @@
 import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 // eslint-disable-next-line no-unused-vars
 import SwadeItem from '../entities/SwadeItem';
+import SwadeActor from '../entities/SwadeActor';
+import IDriverData from '../../interfaces/IDriverData';
 
 export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
   /**
@@ -46,6 +48,18 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
       }
     });
 
+    //Toggle Equipmnent Card collapsible
+    html.find('.gear-card .card-header .item-name').click((ev) => {
+      const card = $(ev.currentTarget).parents('.gear-card');
+      const content = card.find('.card-content');
+      content.toggleClass('collapsed');
+      if (content.hasClass('collapsed')) {
+        content.slideUp();
+      } else {
+        content.slideDown();
+      }
+    });
+
     // Delete Item
     html.find('.item-delete').click(async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
@@ -70,37 +84,56 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
       });
     });
 
-    // Add new cargo item
+    // Add new object
     html.find('.item-create').click((event) => {
       event.preventDefault();
       const header = event.currentTarget;
       let type = header.dataset.type;
 
-      // item creation helper func
-      let createItem = function (
-        type: string,
-        name: string = `New ${type.capitalize()}`,
-      ): any {
-        const itemData = {
-          name: name ? name : `New ${type.capitalize()}`,
-          type: type,
-          data: duplicate(header.dataset),
-        };
-        delete itemData.data['type'];
-        return itemData;
-      };
+      let modData;
+      let weaponData;
+      let choices;
 
-      // Getting back to main logic
-      if (type == 'choice') {
-        this._chooseItemType().then((dialogInput: any) => {
-          const itemData = createItem(dialogInput.type, dialogInput.name);
-          this.actor.createOwnedItem(itemData, {});
-        });
-        return;
-      } else {
-        const itemData = createItem(type);
-        this.actor.createOwnedItem(itemData, {});
+      switch (type) {
+        case 'choice':
+          choices = header.dataset.choices.split(',');
+          this._chooseItemType(choices).then((dialogInput: any) => {
+            const itemData = this._createItemData(
+              dialogInput.type,
+              header,
+              dialogInput.name,
+            );
+            this.actor.createOwnedItem(itemData, {});
+          });
+          break;
+        case 'mod':
+          modData = this._createItemData('gear', header);
+          modData.data.isVehicular = true;
+          modData.data.equipped = true;
+          modData.name = `New ${type.capitalize()}`;
+          this.actor.createOwnedItem(modData, {});
+          break;
+        case 'vehicle-weapon':
+          weaponData = this._createItemData('weapon', header);
+          weaponData.data.isVehicular = true;
+          weaponData.data.equipped = true;
+          console.log('adding weapon', weaponData);
+          this.actor.createOwnedItem(weaponData, {});
+          break;
+        default:
+          this.actor.createOwnedItem(this._createItemData(type, header), {});
+          break;
       }
+    });
+
+    //Reset the Driver
+    html.find('#deleteDriver').click(async (event) => {
+      await this._resetDriver();
+    });
+
+    // Open driver sheet
+    html.find('#driverImage').click(async (event) => {
+      await this._openDriverSheet();
     });
   }
 
@@ -118,6 +151,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
       list.push(item);
     }
 
+    //Prepare inventory
     data.inventory = this._determineCargo(data.itemsByType).sort((a, b) => {
       if (a.name < b.name) {
         return -1;
@@ -133,13 +167,15 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
       data.inventoryWeight += i.data['weight'] * i.data['quantity'];
     });
 
+    //Fetch Driver data
+    data.driver = this._fetchDriver();
+
     // Check for enabled optional rules
     data.settingrules = {
       vehicleEdges: game.settings.get('swade', 'vehicleEdges'),
       modSlots: game.settings.get('swade', 'vehicleMods'),
     };
 
-    console.log(data);
     return data;
   }
 
@@ -149,18 +185,86 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
    */
   private _determineCargo(itemsByType) {
     return [
-      ...this._checkNull(
-        itemsByType['gear'].filter(
-          (i) => !i.data.isVehicular || !i.data.equipped,
-        ),
+      ...this._checkNull(itemsByType['gear']).filter(
+        (i) => !i.data['isVehicular'] || !i.data['equipped'],
       ),
-      ...this._checkNull(
-        itemsByType['weapon'].filter(
-          (i) => !i.data.isVehicular || !i.data.equipped,
-        ),
+      ...this._checkNull(itemsByType['weapon']).filter(
+        (i) => !i.data['isVehicular'] || !i.data['equipped'],
       ),
       ...this._checkNull(itemsByType['armor']),
       ...this._checkNull(itemsByType['shield']),
     ];
+  }
+
+  async _onDrop(event): Promise<any> {
+    let data;
+    try {
+      data = JSON.parse(event.dataTransfer.getData('text/plain'));
+      if (data.type === 'Actor') await this._setDriver(data.id);
+    } catch (err) {
+      return;
+    }
+    return super._onDrop(event);
+  }
+
+  private async _setDriver(id: string): Promise<void> {
+    let driver = game.actors.get(id);
+    if (driver && driver.data.type !== 'vehicle') {
+      await this.actor.update({ 'data.driver.id': id });
+    }
+  }
+
+  private _fetchDriver() {
+    let driverId = getProperty(this.actor.data, 'data.driver.id');
+    let driver = game.actors.get(driverId) as SwadeActor;
+    let userCanViewDriver =
+      game.user.isGM || driver.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
+    let driverData: IDriverData = {
+      img: 'icons/svg/mystery-man.svg',
+      name: 'No Driver',
+      userCanSeeDriver: userCanViewDriver,
+    };
+
+    //Return if the vehicle has no driver
+    if (!driverId || !driver) {
+      return driverData;
+    }
+
+    //Display the Driver data if the current user has at least Limited permission on the driver Actor
+    if (userCanViewDriver) {
+      driverData.img = getProperty(driver, 'data.token.img');
+      driverData.name = driver.name;
+    } else {
+      //else just show an aunknown driver
+      driverData.name = 'Unkown Driver';
+    }
+    return driverData;
+  }
+
+  private async _resetDriver() {
+    await this.actor.update({ 'data.driver.id': '' });
+  }
+
+  private _openDriverSheet() {
+    let driverId = getProperty(this.actor.data, 'data.driver.id');
+    let driver = game.actors.get(driverId);
+    if (driver) {
+      driver.sheet.render(true);
+    }
+  }
+
+  // item creation helper func
+  private _createItemData(
+    type: string,
+    header: HTMLElement,
+    name?: string,
+  ): any {
+    const itemData = {
+      name: name ? name : `New ${type.capitalize()}`,
+      type: type,
+      data: duplicate(header.dataset),
+    };
+    delete itemData.data['type'];
+    return itemData;
   }
 }
