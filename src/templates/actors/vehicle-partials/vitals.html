@@ -1,0 +1,30 @@
+<section class="vitals flexrow">
+  <div class="vitals-container">
+    <strong>{{localize "SWADE.Wounds"}}</strong>
+    <input
+      type="range"
+      name="data.wounds.value"
+      min="0"
+      max="{{data.wounds.max}}"
+      class="slider wound-slider"
+      value="{{data.wounds.value}}"
+      data-dtype="Number"
+      style="direction: ltr;"
+    />
+    <div class="flexrow vitals-value">
+      <input
+        type="text"
+        value="{{data.wounds.value}}"
+        data-dtype="Number"
+        class="wound-input"
+      />
+      <span>/</span>
+      <input
+        type="text"
+        name="data.wounds.max"
+        value="{{data.wounds.max}}"
+        data-dtype="Number"
+      />
+    </div>
+  </div>
+</section>

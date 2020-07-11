@@ -6,6 +6,7 @@
   }
   .gear {
     padding: 2px;
+    flex-basis: 200px;
     section {
       padding-bottom: 2px;
     }
@@ -18,5 +19,30 @@
         }
       }
     }
+  }
+  .vitals {
+    flex-basis: 200px;
+  }
+
+  #driverImageContainer {
+    position: relative;
+    .driver-img {
+      width: 100px;
+      max-width: 100px;
+      height: 100px;
+      margin: 5px auto 5px auto;
+      border: none;
+      object-fit: contain;
+      cursor: pointer;
+    }
+  }
+  .reset-driver {
+    float: right;
+    margin-right: 5px;
+  }
+
+  .driver-box {
+    padding: 3px;
+    text-align: center;
   }
 }

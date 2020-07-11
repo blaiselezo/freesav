@@ -127,12 +127,12 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     });
 
     //Reset the Driver
-    html.find('#deleteDriver').click(async (event) => {
+    html.find('.reset-driver').click(async (event) => {
       await this._resetDriver();
     });
 
     // Open driver sheet
-    html.find('#driverImage').click(async (event) => {
+    html.find('.driver-img').click(async (event) => {
       await this._openDriverSheet();
     });
   }

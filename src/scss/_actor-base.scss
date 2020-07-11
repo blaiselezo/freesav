@@ -15,9 +15,6 @@
       object-fit: contain;
       cursor: pointer;
     }
-    .fade-in-05 {
-      opacity: 0.5;
-    }
   }
 
   // Sheet Header
@@ -166,6 +163,12 @@
         background: $anthracite;
         border-radius: 50%;
         border: 2px solid darkgrey;
+      }
+
+      &::-moz-slider-runnable-track {
+        border: none;
+        box-shadow: none;
+        height: 10px;
       }
     }
 

@@ -1,13 +1,18 @@
-<div>
-  {{driver.name}}&nbsp;<a id="deleteDriver"
-    >Reset Driver&nbsp;<i class="fas fa-trash"></i
-  ></a>
-</div>
-<img src="{{driver.img}}" alt="{{driver.name}}" id="driverImage" height="150" />
-<section class="flexrow">
+<section class="flexrow" id="driver-bar">
+  <div class="driver-box">
+    <strong>Driver</strong>
+    <a class="reset-driver"><i class="fas fa-trash"></i></a>
+    <div id="driverImageContainer">
+      <img src="{{driver.img}}" alt="{{driver.name}}" class="driver-img" />
+    </div>
+    <button type="button">Maneuver Check</button>
+  </div>
+  {{> "systems/swade/templates/actors/vehicle-partials/vitals.html"}}
+</section>
+<div class="flexrow">
   {{!-- Left panel --}}
   <div class="gear">
-    <section class="mods">
+    <section>
       <header class="header-field flexrow">
         <div>
           <span>{{localize "SWADE.Mods"}}</span>
@@ -26,7 +31,7 @@
       </span>
     </section>
     {{#if settingrules.vehicleEdges}}
-    <section class="edges">
+    <section>
       <header class="header-field flexrow">
         <div>
           <span>{{localize "SWADE.Edges"}}</span>
@@ -43,7 +48,7 @@
         </ol>
       </span>
     </section>
-    <section class="hindrances">
+    <section>
       <header class="header-field flexrow">
         <div>
           <span>{{localize "SWADE.Hindrances"}}</span>
@@ -64,6 +69,7 @@
     </section>
     {{/if}}
   </div>
+
   {{!-- Right panel --}}
   <div class="gear">
     <header class="header-field flexrow">
@@ -85,4 +91,4 @@
       </ol>
     </span>
   </div>
-</section>
+</div>
