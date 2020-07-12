@@ -4,7 +4,7 @@
   "description": "A comprehensive gamesystem for running Savage Worlds Adventure Edition games",
   "version": "0.9.4",
   "minimumCoreVersion": "0.6.0",
-  "compatibleCoreVersion": "0.6.4",
+  "compatibleCoreVersion": "0.6.5",
   "author": "FloRad",
   "templateVersion": 2,
   "esmodules": ["swade.js"],
