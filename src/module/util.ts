@@ -109,19 +109,14 @@ export async function createSwadeMacro(data: any, slot: number) {
     default:
       break;
   }
-  let macro = game.macros.find(
-    (m) => m.name === item.name && m['data']['command'] === command,
-  ) as any;
-  if (!macro) {
-    macro = await Macro.create({
-      name: item.name,
-      type: 'script',
-      img: item.img,
-      command: command,
-    });
-  }
+  let macro = (await Macro.create({
+    name: item.name,
+    type: 'script',
+    img: item.img,
+    command: command,
+  })) as Macro;
+
   await game.user.assignHotbarMacro(macro, slot);
-  return false;
 }
 
 /**
