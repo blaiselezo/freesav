@@ -385,18 +385,17 @@ export default class SwadeActor extends Actor {
    */
   calcArmor(): number {
     let totalArmorVal = 0;
-    const armorList = this.items
-      .filter(
-        (i: SwadeItem) =>
-          i.type === 'armor' &&
-          i.data.data['equipped'] &&
-          i.data.data['locations']['torso'],
-      )
-      .sort((a, b) => {
-        const aValue = parseInt(a.data.data.armor);
-        const bValue = parseInt(b.data.data.armor);
-        return aValue + bValue;
-      });
+    let armorList = this.items.filter(
+      (i: SwadeItem) =>
+        i.type === 'armor' &&
+        i.data.data['equipped'] &&
+        i.data.data['locations']['torso'],
+    );
+    armorList = armorList.sort((a, b) => {
+      const aValue = parseInt(a.data.data.armor);
+      const bValue = parseInt(b.data.data.armor);
+      return aValue + bValue;
+    });
     if (armorList.length === 0) {
       return totalArmorVal;
     } else if (armorList.length > 0 && armorList.length < 2) {
