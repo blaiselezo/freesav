@@ -183,17 +183,17 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
 
     // Roll Skill
     html.find('.skill-label a').click((event) => {
-      let actorObject = this.actor as SwadeActor;
       let element = event.currentTarget as Element;
       let item = element.parentElement.parentElement.dataset.itemId;
-      actorObject.rollSkill(item, { event: event });
+      this.actor.rollSkill(item, { event: event });
     });
 
     // Add new object
-    html.find('.item-create').click((event) => {
+    html.find('.item-create').click(async (event) => {
       event.preventDefault();
       const header = event.currentTarget;
       let type = header.dataset.type;
+      let createdItem: Item;
 
       // item creation helper func
       let createItem = function (
@@ -212,14 +212,16 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
       // Getting back to main logic
       if (type == 'choice') {
         const choices = header.dataset.choices.split(',');
-        this._chooseItemType(choices).then((dialogInput: any) => {
+        this._chooseItemType(choices).then(async (dialogInput: any) => {
           const itemData = createItem(dialogInput.type, dialogInput.name);
-          this.actor.createOwnedItem(itemData, {});
+          createdItem = await this.actor.createOwnedItem(itemData, {});
+          this.actor.getOwnedItem(createdItem._id).sheet.render(true);
         });
         return;
       } else {
         const itemData = createItem(type);
-        this.actor.createOwnedItem(itemData, {});
+        createdItem = await this.actor.createOwnedItem(itemData, {});
+        this.actor.getOwnedItem(createdItem._id).sheet.render(true);
       }
     });
   }

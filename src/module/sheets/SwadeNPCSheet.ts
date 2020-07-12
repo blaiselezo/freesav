@@ -93,10 +93,11 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
     });
 
     // Add new object
-    html.find('.item-create').click((event) => {
+    html.find('.item-create').click(async (event) => {
       event.preventDefault();
       const header = event.currentTarget;
       let type = header.dataset.type;
+      let createdItem: Item;
 
       // item creation helper func
       let createItem = function (
@@ -114,14 +115,16 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
 
       // Getting back to main logic
       if (type == 'choice') {
-        this._chooseItemType().then((dialogInput: any) => {
+        this._chooseItemType().then(async (dialogInput: any) => {
           const itemData = createItem(dialogInput.type, dialogInput.name);
-          this.actor.createOwnedItem(itemData, {});
+          createdItem = await this.actor.createOwnedItem(itemData, {});
+          this.actor.getOwnedItem(createdItem._id).sheet.render(true);
         });
         return;
       } else {
         const itemData = createItem(type);
-        this.actor.createOwnedItem(itemData, {});
+        createdItem = await this.actor.createOwnedItem(itemData, {});
+        this.actor.getOwnedItem(createdItem._id).sheet.render(true);
       }
     });
 
