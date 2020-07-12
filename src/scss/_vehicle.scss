@@ -1,6 +1,12 @@
 .swade.sheet.actor.vehicle {
-  .vehicle-editor {
-    height: 240px;
+  .sheet-body {
+    .biography {
+      .description {
+        .editor {
+          height: 240px;
+        }
+      }
+    }
   }
 
   .inventory {
