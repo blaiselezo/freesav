@@ -49,9 +49,14 @@ export class SWADE {
   public static bennies = {
     templates: {
       refresh: 'systems/swade/templates/chat/benny-refresh.html',
+      refreshAll: 'systems/swade/templates/chat/benny-refresh-all.html',
       add: 'systems/swade/templates/chat/benny-add.html',
       spend: 'systems/swade/templates/chat/benny-spend.html',
       gmadd: 'systems/swade/templates/chat/benny-gmadd.html',
     },
+  };
+
+  public static vehicles = {
+    maxHandlingPenalty: -4,
   };
 }

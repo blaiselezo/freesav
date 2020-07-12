@@ -1,7 +1,10 @@
 import { SwadeDice } from '../dice';
-import { SwadeItem } from './SwadeItem';
+// eslint-disable-next-line no-unused-vars
+import SwadeItem from './SwadeItem';
+import ISkillOptions from '../../interfaces/ISkillOptions';
+import ISKillOptions from '../../interfaces/ISkillOptions';
 
-export class SwadeActor extends Actor {
+export default class SwadeActor extends Actor {
   /**
    * Extends data from base Actor class
    */
@@ -16,10 +19,10 @@ export class SwadeActor extends Actor {
 
   /** @override */
   static async create(data, options = {}) {
-    let link = true;
+    let link = false;
 
-    if (data.type === 'npc') {
-      link = false;
+    if (data.type === 'character') {
+      link = true;
     }
     data.token = data.token || {};
     mergeObject(data.token, {
@@ -50,7 +53,10 @@ export class SwadeActor extends Actor {
   /* -------------------------------------------- */
   /*  Rolls                                       */
   /* -------------------------------------------- */
-  rollAttribute(abilityId, options = { event: null }) {
+  rollAttribute(
+    abilityId: string,
+    options: ISkillOptions = { event: null },
+  ): Promise<any> {
     const label = CONFIG.SWADE.attributes[abilityId].long;
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
@@ -75,8 +81,11 @@ export class SwadeActor extends Actor {
       rollParts.push('+1d6x=');
     }
 
-    const woundFatigePenalties = this.calcWoundFatigePenalties();
-    if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
+    const woundPenalties = this.calcWoundPenalties();
+    if (woundPenalties !== 0) rollParts.push(woundPenalties);
+
+    const fatiguePenalties = this.calcFatiguePenalties();
+    if (fatiguePenalties !== 0) rollParts.push(fatiguePenalties);
 
     const statusPenalties = this.calcStatusPenalties();
     if (statusPenalties !== 0) rollParts.push(statusPenalties);
@@ -96,7 +105,10 @@ export class SwadeActor extends Actor {
     });
   }
 
-  rollSkill(skillId, options = { event: null }) {
+  rollSkill(
+    skillId: string,
+    options: ISkillOptions = { event: null },
+  ): Promise<any> {
     let items = this.items.filter((i: Item) => i.id == skillId);
     if (!items.length) {
       return;
@@ -110,7 +122,7 @@ export class SwadeActor extends Actor {
     }
 
     //Check and add Modifiers
-    const rollParts = [exp] as any[];
+    let rollParts = [exp] as any[];
     let itemMod = parseInt(skillData['die'].modifier);
     if (!isNaN(itemMod) && itemMod !== 0) {
       if (itemMod > 0) {
@@ -119,6 +131,7 @@ export class SwadeActor extends Actor {
       rollParts.push(itemMod);
     }
 
+    //Conviction Modifier
     if (
       this.data.data['details']['conviction']['active'] &&
       game.settings.get('swade', 'enableConviction')
@@ -126,11 +139,20 @@ export class SwadeActor extends Actor {
       rollParts.push('+1d6x=');
     }
 
-    const woundFatigePenalties = this.calcWoundFatigePenalties();
-    if (woundFatigePenalties !== 0) rollParts.push(woundFatigePenalties);
+    // Wound and Fatigue Penalties
+    const woundPenalties = this.calcWoundPenalties();
+    if (woundPenalties !== 0) rollParts.push(woundPenalties);
+
+    const fatiguePenalties = this.calcFatiguePenalties();
+    if (fatiguePenalties !== 0) rollParts.push(fatiguePenalties);
 
     const statusPenalties = this.calcStatusPenalties();
     if (statusPenalties !== 0) rollParts.push(statusPenalties);
+
+    //Additional Mods
+    if (options.additionalMods) {
+      rollParts = rollParts.concat(options.additionalMods);
+    }
 
     // Roll and return
     return SwadeDice.Roll({
@@ -140,6 +162,59 @@ export class SwadeActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
       title: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
+    });
+  }
+
+  makeUnskilledAttempt(options: ISkillOptions = { event: null }): Promise<any> {
+    let exp = '';
+    if (this.data['data'].wildcard) {
+      exp = '{1d4x=, 1d6x=}kh';
+    } else {
+      exp = '1d4x=';
+    }
+
+    let rollParts = [exp] as any[];
+
+    //Unskilled Penalty
+    rollParts.push('- 2');
+
+    //Conviction Modifier
+    if (
+      this.data.data['details']['conviction']['active'] &&
+      game.settings.get('swade', 'enableConviction')
+    ) {
+      rollParts.push('+1d6x=');
+    }
+
+    // Wound and Fatigue Penalties
+    const woundPenalties = this.calcWoundPenalties();
+    if (woundPenalties !== 0) rollParts.push(woundPenalties);
+
+    const fatiguePenalties = this.calcFatiguePenalties();
+    if (fatiguePenalties !== 0) rollParts.push(fatiguePenalties);
+
+    const statusPenalties = this.calcStatusPenalties();
+    if (statusPenalties !== 0) rollParts.push(statusPenalties);
+
+    //Additional Mods
+    if (options.additionalMods) {
+      rollParts = rollParts.concat(options.additionalMods);
+    }
+
+    let skillData = {};
+
+    // Roll and return
+    return SwadeDice.Roll({
+      event: options.event,
+      parts: rollParts,
+      data: skillData,
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      flavor: `${game.i18n.localize('SWADE.Unskilled')} ${game.i18n.localize(
+        'SWADE.SkillTest',
+      )}`,
+      title: `${game.i18n.localize('SWADE.Unskilled')} ${game.i18n.localize(
+        'SWADE.SkillTest',
+      )}`,
     });
   }
 
@@ -179,26 +254,36 @@ export class SwadeActor extends Actor {
     });
   }
 
-  async refreshBennies() {
-    let message = await renderTemplate(CONFIG.SWADE.bennies.templates.refresh, {
-      target: this,
-      speaker: game.user,
-    });
-    let chatData = {
-      content: message,
-    };
-    ChatMessage.create(chatData);
+  /**
+   * Reset the bennies of the Actor to their default value
+   * @param displayToChat display a message to chat
+   */
+  async refreshBennies(displayToChat = true) {
+    if (displayToChat) {
+      let message = await renderTemplate(
+        CONFIG.SWADE.bennies.templates.refresh,
+        {
+          target: this,
+          speaker: game.user,
+        },
+      );
+      let chatData = {
+        content: message,
+      };
+      ChatMessage.create(chatData);
+    }
     let actorData = this.data as any;
     await this.update({ 'data.bennies.value': actorData.data.bennies.max });
   }
 
-  //Calculated the wound and fatigue penalites
-  calcWoundFatigePenalties(): number {
+  /**
+   * Calculates the total Wound Penalties
+   */
+  calcWoundPenalties(): number {
     let retVal = 0;
-    const wounds = parseInt(this.data['data']['wounds']['value']);
-    let ignoredWounds = parseInt(this.data['data']['wounds']['ignored']);
+    const wounds = parseInt(getProperty(this.data, 'data.wounds.value'));
+    let ignoredWounds = parseInt(getProperty(this.data, 'data.wounds.ignored'));
     if (isNaN(ignoredWounds)) ignoredWounds = 0;
-    const fatigue = parseInt(this.data['data']['fatigue']['value']);
 
     if (!isNaN(wounds)) {
       if (wounds > 3) {
@@ -212,9 +297,17 @@ export class SwadeActor extends Actor {
         retVal -= ignoredWounds;
       }
     }
-
-    if (!isNaN(fatigue)) retVal += fatigue;
     return retVal * -1;
+  }
+
+  /**
+   * Calculates the total Fatigue Penalties
+   */
+  calcFatiguePenalties(): number {
+    let retVal = 0;
+    const fatigue = parseInt(getProperty(this.data, 'data.fatigue.value'));
+    if (!isNaN(fatigue)) retVal -= fatigue;
+    return retVal;
   }
 
   calcStatusPenalties(): number {
@@ -292,27 +385,73 @@ export class SwadeActor extends Actor {
    */
   calcArmor(): number {
     let totalArmorVal = 0;
-    const armorList = this.items
-      .filter(
-        (i: SwadeItem) =>
-          i.type === 'armor' &&
-          i.data.data['equipped'] &&
-          i.data.data['locations']['torso'],
-      )
-      .sort((a, b) => {
-        const aValue = parseInt(a.data.data.armor);
-        const bValue = parseInt(b.data.data.armor);
-        return aValue + bValue;
-      });
+    let armorList = this.items.filter(
+      (i: SwadeItem) =>
+        i.type === 'armor' &&
+        i.data.data['equipped'] &&
+        i.data.data['locations']['torso'],
+    );
+    armorList = armorList.sort((a, b) => {
+      const aValue = parseInt(a.data.data.armor);
+      const bValue = parseInt(b.data.data.armor);
+      return aValue + bValue;
+    });
     if (armorList.length === 0) {
-      totalArmorVal = 0;
+      return totalArmorVal;
     } else if (armorList.length > 0 && armorList.length < 2) {
       totalArmorVal = parseInt(armorList[0].data.data.armor);
     } else {
       totalArmorVal =
         parseInt(armorList[0].data.data.armor) +
-        parseInt(armorList[1].data.data.armor) / 2;
+        Math.floor(parseInt(armorList[1].data.data.armor) / 2);
     }
     return totalArmorVal;
+  }
+
+  /**
+   * Helper Function for Vehicle Actors, to roll Maneuevering checks
+   */
+  rollManeuverCheck(event: any = null) {
+    let driverId = getProperty(this.data, 'data.driver.id');
+    let driver = game.actors.get(driverId) as SwadeActor;
+
+    //Return early if no driver was found
+    if (!driverId || !driver) {
+      return;
+    }
+
+    //Get skillname
+    let skillName = getProperty(this.data, 'data.driver.skill');
+    if (skillName === '') {
+      skillName = getProperty(this.data, 'data.driver.skillAlternative');
+    }
+
+    let handling = getProperty(this.data, 'data.handling');
+    let wounds = this.calcWoundPenalties();
+    let totalHandling: number | string;
+    totalHandling = parseInt(handling) - wounds;
+
+    // Calculate handling
+    if (totalHandling < CONFIG.SWADE.vehicles.maxHandlingPenalty) {
+      totalHandling = CONFIG.SWADE.vehicles.maxHandlingPenalty;
+    }
+    if (totalHandling > 0) {
+      totalHandling = `+${totalHandling}`;
+    }
+
+    let options: ISKillOptions = {
+      event: event,
+      additionalMods: [totalHandling],
+    };
+
+    let skill = driver.items.find(
+      (i) => i.type === 'skill' && i.name === skillName,
+    ) as SwadeItem;
+
+    if (skill) {
+      driver.rollSkill(skill.id, options);
+    } else {
+      driver.makeUnskilledAttempt(options);
+    }
   }
 }

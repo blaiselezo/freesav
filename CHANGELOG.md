@@ -20,15 +20,37 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v.10]
+
+### Added
+
+- Added Refresh All Bennies option and Message
+- Added the Savage Worlds Cone shape which replaces the vanilla Foundry cone shape for rounded cones (thanks to Godna and Moerill for that one)
+- `SwadeTemplate` class, which allows the creation of predefined `MeasuredTemplate`s (based on code by errational and Atropos)
+- Buttons for predefined Blast and Cone Templates
+- Added Vehicles
+  - Added Vehicle `Actor` type
+  - Added Vehicular flag to `weapon` and `gear` Items
+  - Added Vehicle Sheet
+    - Drag&Drop an actor to set an operator
+    - Roll Maneuvering checks directly from the vehicle sheet
+      - Set Maneuvering skill in the `Description` tab
+- Added optional Setting Rules for Vehicles using Modslots and Vehicles using Edges/Hindrances
+- Added localization options for Vehicles
+- Added `makeUnskilledAttempt` method to `SwadeActor` class
+- Added `rollManeuveringCheck` method to `SwadeActor` class
+- Added Drag&Drop to PC powers
 
 ### Fixed
 
 - Fixed a small bug which would cause the Action Cards deck not to reset when combat was ended in a Round in which a Joker was drawn
+- Fixed a small bug which would cause Gear descriptions not to enrich properly on `Actor` sheets
+- Fixed broken Drag&Drop for NPC sheets
 
 ### Changed
 
 - Changed how many Bennies the GM gets on a refresh. The number is now configured in a setting (Default 0);
+- Weapon Notes now support inline rolls and Entity linking
 
 ## [v0.9.4]
 

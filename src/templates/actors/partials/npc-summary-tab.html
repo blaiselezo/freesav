@@ -54,9 +54,9 @@
             placeholder="0"
             data-dtype="String"
           />
-          {{#if (add armor data.stats.toughness.modifier)}}
+          {{#if data.stats.toughness.armor}}
           <div class="armor-value" id="armor-value">
-            {{add armor data.stats.toughness.modifier}}
+            {{data.stats.toughness.armor}}
           </div>
           {{/if}}
         </div>

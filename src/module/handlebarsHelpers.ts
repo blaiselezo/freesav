@@ -1,3 +1,5 @@
+import SwadeItem from './entities/SwadeItem';
+
 export const registerCustomHelpers = function () {
   // Common helpers
   Handlebars.registerHelper('eq', (lh, rh) => {
@@ -31,5 +33,9 @@ export const registerCustomHelpers = function () {
 
   Handlebars.registerHelper('enrich', (content) => {
     return new Handlebars.SafeString(TextEditor.enrichHTML(content, {}));
+  });
+
+  Handlebars.registerHelper('canBeEquipped', (item: SwadeItem) => {
+    return item.data['equippable'] || item.data['isVehicular'];
   });
 };

@@ -1,11 +1,11 @@
 import { SwadeDice } from '../dice';
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from './SwadeActor';
+import SwadeActor from './SwadeActor';
 
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-export class SwadeItem extends Item {
+export default class SwadeItem extends Item {
   /* -------------------------------------------- */
   /*	Data Preparation														*/
   /* -------------------------------------------- */
@@ -20,11 +20,16 @@ export class SwadeItem extends Item {
   rollDamage(options = { event: Event }) {
     const itemData = this.data.data;
     const actor = this.actor as SwadeActor;
+    const actorIsVehicle = actor.data.type === 'vehicle';
     const actorData = actor.data.data;
     const label = this.name;
-
     // Intermediary roll to let it do the parsing for us
-    let roll = new Roll(itemData.damage, actor.getRollShortcuts()).roll();
+    let roll;
+    if (actorIsVehicle) {
+      roll = new Roll(itemData.damage).roll();
+    } else {
+      roll = new Roll(itemData.damage, actor.getRollShortcuts()).roll();
+    }
     let newParts = [];
     roll.parts.forEach((part) => {
       if (part instanceof Die) {
@@ -36,6 +41,7 @@ export class SwadeItem extends Item {
     });
 
     if (
+      !actorIsVehicle &&
       actor.data.data['details']['conviction']['active'] &&
       game.settings.get('swade', 'enableConviction')
     ) {

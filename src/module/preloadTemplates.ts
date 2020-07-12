@@ -3,14 +3,21 @@ export const preloadHandlebarsTemplates = async function () {
     //Character Sheets
     'systems/swade/templates/actors/character-sheet.html',
     'systems/swade/templates/actors/npc-sheet.html',
+    'systems/swade/templates/actors/vehicle-sheet.html',
 
-    //Actor partials
+    //Character/NPC partials
     'systems/swade/templates/actors/partials/summary-tab.html',
     'systems/swade/templates/actors/partials/npc-summary-tab.html',
     'systems/swade/templates/actors/partials/edges-tab.html',
     'systems/swade/templates/actors/partials/inventory-tab.html',
     'systems/swade/templates/actors/partials/powers-tab.html',
     'systems/swade/templates/actors/partials/biography-tab.html',
+
+    //Vehicle Partials
+    'systems/swade/templates/actors/vehicle-partials/summary-tab.html',
+    'systems/swade/templates/actors/vehicle-partials/cargo-tab.html',
+    'systems/swade/templates/actors/vehicle-partials/description-tab.html',
+    'systems/swade/templates/actors/vehicle-partials/vitals.html',
 
     //Gear Cards
     'systems/swade/templates/actors/partials/weapon-card.html',

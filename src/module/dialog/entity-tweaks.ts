@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from '../entities/SwadeActor';
+import SwadeActor from '../entities/SwadeActor';
 
-export class SwadeEntityTweaks extends FormApplication {
+export default class SwadeEntityTweaks extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.id = 'sheet-tweaks';
@@ -28,11 +28,9 @@ export class SwadeEntityTweaks extends FormApplication {
    * @return {Object}
    */
   getData() {
-    console.log(this.object);
     let data = this.object.data;
-    if (this.object.data.type === 'character') {
-      data.isCharacter = true;
-    }
+    data.isCharacter = this.object.data.type === 'character';
+    data.isVehicle = this.object.data.type === 'vehicle';
     return data;
   }
 
@@ -41,11 +39,6 @@ export class SwadeEntityTweaks extends FormApplication {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    //Configre initiative Edges/Hindrances
-    html.find('#initConfigButton').click(() => {
-      let actorObject = this.object as SwadeActor;
-      actorObject.configureInitiative();
-    });
   }
 
   /**

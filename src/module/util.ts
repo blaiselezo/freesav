@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeItem } from './entities/SwadeItem';
+import SwadeItem from './entities/SwadeItem';
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from './entities/SwadeActor';
+import SwadeActor from './entities/SwadeActor';
 
 export function isIncapacitated(wounds, fatigue): boolean {
   if (
@@ -103,6 +103,9 @@ export async function createSwadeMacro(data: any, slot: number) {
     case 'weapon':
       command = `game.swade.rollWeaponMacro("${item.name}");`;
       break;
+    case 'power':
+      command = `game.swade.rollPowerMacro("${item.name}");`;
+      break;
     default:
       break;
   }
@@ -163,8 +166,29 @@ export function rollWeaponMacro(weaponName) {
       `Your controlled Actor does not have an item named ${weaponName}`,
     );
 
-  // Trigger the item roll
   return item.rollDamage();
+}
+
+export function rollPowerMacro(powerName) {
+  const speaker = ChatMessage.getSpeaker();
+  let actor;
+  if (speaker.token) actor = game.actors.tokens[speaker.token];
+  if (!actor) actor = game.actors.get(speaker.actor);
+  const item: SwadeItem = actor
+    ? actor.items.find((i) => i.name === powerName)
+    : null;
+  if (!item)
+    return ui.notifications.warn(
+      `Your controlled Actor does not have an item named ${powerName}`,
+    );
+
+  // Trigger the item roll
+  // Trigger the item roll
+  console.log(item.data.data['damage']);
+  if (item.data.data['damage']) {
+    return item.rollDamage();
+  }
+  return;
 }
 
 export function findOwner(actor: SwadeActor): string {

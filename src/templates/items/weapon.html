@@ -9,6 +9,17 @@
       <div class="form-group">
         <input
           type="checkbox"
+          name="data.isVehicular"
+          id="data.isVehicular"
+          {{checked
+          item.data.isVehicular}}
+          data-dtype="Boolean"
+        />
+        <label for="data.isVehicular">Vehicular Weapon</label>
+      </div>
+      <div class="form-group">
+        <input
+          type="checkbox"
           name="data.equipped"
           id="data.equipped"
           {{checked
@@ -117,6 +128,18 @@
           data-dtype="String"
         />
       </div>
+      {{#if item.data.isVehicular}} {{#if settingrules.modSlots}}
+      <div class="form-group">
+        <label for="data.mods">{{localize "SWADE.ModSlots"}}</label>
+        <input
+          name="data.mods"
+          type="text"
+          value="{{item.data.mods}}"
+          placeholder="{{localize 'SWADE.ModSlots'}}"
+          data-dtype="Number"
+        />
+      </div>
+      {{/if}} {{/if}}
     </section>
     <section>
       {{> "systems/swade/templates/items/partials/description.html"}}

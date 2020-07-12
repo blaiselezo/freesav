@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from '../entities/SwadeActor';
+import SwadeActor from '../entities/SwadeActor';
 // eslint-disable-next-line no-unused-vars
-import { SwadeItem } from '../entities/SwadeItem';
-import { SwadeEntityTweaks } from '../dialog/entity-tweaks';
+import SwadeItem from '../entities/SwadeItem';
+import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import * as chat from '../chat';
 
-export class SwadeBaseActorSheet extends ActorSheet {
+export default class SwadeBaseActorSheet extends ActorSheet {
   actor: SwadeActor;
 
   activateListeners(html: JQuery): void {
@@ -104,7 +104,7 @@ export class SwadeBaseActorSheet extends ActorSheet {
     event.preventDefault();
     new SwadeEntityTweaks(this.actor, {
       top: this.position.top + 40,
-      left: this.position.left + (this.position.width - 400) / 2,
+      left: this.position.left + ((this.position.height as number) - 400) / 2,
     }).render(true);
   }
 
@@ -154,7 +154,8 @@ export class SwadeBaseActorSheet extends ActorSheet {
     let html = $(event.path);
     let resizable = html.find('.resizable');
     resizable.each((_, el) => {
-      let heightDelta = this.position.height - (this.options.height as number);
+      let heightDelta =
+        (this.position.height as number) - (this.options.height as number);
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
   }
@@ -194,5 +195,15 @@ export class SwadeBaseActorSheet extends ActorSheet {
       },
       default: 'set',
     }).render(true);
+  }
+
+  protected _calcInventoryWeight(items): number {
+    let retVal = 0;
+    items.forEach((category: any) => {
+      category.forEach((i: any) => {
+        retVal += i.data.weight * i.data.quantity;
+      });
+    });
+    return retVal;
   }
 }

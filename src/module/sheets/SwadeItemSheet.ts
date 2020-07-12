@@ -1,4 +1,4 @@
-export class SwadeItemSheet extends ItemSheet {
+export default class SwadeItemSheet extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 560,
@@ -51,6 +51,11 @@ export class SwadeItemSheet extends ItemSheet {
     if (ownerIsWildcard || !this.item.isOwned) {
       data.data.ownerIsWildcard = true;
     }
+
+    // Check for enabled optional rules
+    data['settingrules'] = {
+      modSlots: game.settings.get('swade', 'vehicleMods'),
+    };
     return data;
   }
 }

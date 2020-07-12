@@ -10,12 +10,14 @@
         <input
           type="checkbox"
           name="data.equipped"
-          id="data.equipped"
+          id="data.equipped-{{item._id}}"
           {{checked
           item.data.equipped}}
           data-dtype="Boolean"
         />
-        <label for="data.equipped">{{localize "SWADE.Equipped"}}</label>
+        <label for="data.equipped-{{item._id}}"
+          >{{localize "SWADE.Equipped"}}</label
+        >
       </div>
       <div class="form-group">
         <label for="data.armor">{{localize "SWADE.Armor"}}</label>

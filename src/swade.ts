@@ -1,40 +1,41 @@
 /* eslint-disable no-unused-vars */
 /**
- * This is your TypeScript entry file for Foundry VTT.
- * Register custom settings, sheets, and constants using the Foundry API.
- * Change this heading to be more descriptive to your system, or remove it.
+ * This is the TypeScript entry file for Foundry VTT.
  * Author: FloRad
  * Content License: Savage Worlds Fan License
  * Software License: GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-// Import TypeScript modules
-import { SwadeCharacterSheet } from './module/sheets/SwadeCharacterSheet';
+import Bennies from './module/bennies';
+import * as chat from './module/chat';
 import { formatRoll } from './module/chat';
+import { getSwadeConeShape } from './module/cone';
 import { SWADE } from './module/config';
-import { SwadeActor } from './module/entities/SwadeActor';
+import SwadeActor from './module/entities/SwadeActor';
+import SwadeItem from './module/entities/SwadeItem';
+import SwadeTemplate from './module/entities/SwadeTemplate';
+import { TemplatePreset } from './module/enums/TemplatePreset';
 import { registerCustomHelpers } from './module/handlebarsHelpers';
-import { SwadeItem } from './module/entities/SwadeItem';
-import { SwadeItemSheet } from './module/sheets/SwadeItemSheet';
 import { listenJournalDrop } from './module/journalDrop';
-import { SwadeNPCSheet } from './module/sheets/SwadeNPCSheet';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { registerSettings } from './module/settings';
 import { SwadeSetup } from './module/setup/setupHandler';
-import { Bennies } from './module/bennies';
+import SwadeCharacterSheet from './module/sheets/SwadeCharacterSheet';
+import SwadeItemSheet from './module/sheets/SwadeItemSheet';
+import SwadeNPCSheet from './module/sheets/SwadeNPCSheet';
+import SwadeVehicleSheet from './module/sheets/SwadeVehicleSheet';
+import { rollInitiative, setupTurns } from './module/SwadeCombat';
+import { SwadeSocketHandler } from './module/SwadeSocketHandler';
 import {
   createActionCardTable,
   createSwadeMacro,
   rollSkillMacro,
   rollWeaponMacro,
-  findOwner,
+  rollPowerMacro,
 } from './module/util';
-import { rollInitiative, setupTurns } from './module/SwadeCombat';
-import * as chat from './module/chat';
-import { SwadeSocketHandler } from './module/SwadeSocketHandler';
 
 /* ------------------------------------ */
-/* Initialize system					*/
+/* Initialize system					          */
 /* ------------------------------------ */
 Hooks.once('init', async function () {
   console.log(
@@ -50,14 +51,17 @@ Hooks.once('init', async function () {
     SwadeItem,
     rollSkillMacro,
     rollWeaponMacro,
+    rollPowerMacro,
     sockets: new SwadeSocketHandler(),
   };
 
   //Register custom Handlebars helpers
   registerCustomHelpers();
 
+  //Overwrite method prototypes
   Combat.prototype.rollInitiative = rollInitiative;
   Combat.prototype.setupTurns = setupTurns;
+  MeasuredTemplate.prototype._getConeShape = getSwadeConeShape;
 
   // Register custom classes
   CONFIG.Actor.entityClass = SwadeActor;
@@ -67,7 +71,7 @@ Hooks.once('init', async function () {
   // Register custom system settings
   registerSettings();
 
-  // Register custom sheets (if any)
+  // Register sheets
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('swade', SwadeCharacterSheet, {
     types: ['character'],
@@ -75,6 +79,10 @@ Hooks.once('init', async function () {
   });
   Actors.registerSheet('swade', SwadeNPCSheet, {
     types: ['npc'],
+    makeDefault: true,
+  });
+  Actors.registerSheet('swade', SwadeVehicleSheet, {
+    types: ['vehicle'],
     makeDefault: true,
   });
   Items.unregisterSheet('core', ItemSheet);
@@ -88,7 +96,7 @@ Hooks.once('init', async function () {
 });
 
 /* ------------------------------------ */
-/* Setup system							*/
+/* Setup system							            */
 /* ------------------------------------ */
 Hooks.once('setup', function () {
   // Do anything after initialization but before ready
@@ -104,7 +112,7 @@ Hooks.once('setup', function () {
 });
 
 /* ------------------------------------ */
-/* When ready							*/
+/* When ready						              	*/
 /* ------------------------------------ */
 Hooks.once('ready', async () => {
   let packChoices = {};
@@ -133,7 +141,6 @@ Hooks.once('ready', async () => {
   Hooks.on('hotbarDrop', (bar, data, slot) => createSwadeMacro(data, slot));
 });
 
-// Add any additional hooks if necessary
 Hooks.on('preCreateItem', (createData: any, options: any, userId: string) => {
   //Set default image if no image already exists
   if (!createData.img) {
@@ -569,7 +576,7 @@ Hooks.on('renderPlayerList', async (list: any, html: JQuery, options: any) => {
   });
 });
 
-Hooks.on('getUserContextOptions', (html: JQuery, context: any) => {
+Hooks.on('getUserContextOptions', (html: JQuery, context: any[]) => {
   let players = html.find('#players');
   if (!players) return;
   context.push(
@@ -605,5 +612,64 @@ Hooks.on('getUserContextOptions', (html: JQuery, context: any) => {
         Bennies.refresh(user);
       },
     },
+    {
+      name: game.i18n.localize('SWADE.AllBenniesRefresh'),
+      icon: '<i class="fas fa-sync"></i>',
+      condition: (li) => game.user.isGM,
+      callback: (li) => {
+        Bennies.refreshAll();
+      },
+    },
   );
+});
+
+Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) => {
+  const measure = sceneControlButtons.find((a) => a.name === 'measure');
+  const newButtons = [
+    {
+      name: 'swcone',
+      title: 'SWADE.Cone',
+      icon: 'cone far fa-circle',
+      visible: true,
+      button: true,
+      onClick: () => {
+        const template = SwadeTemplate.fromPreset(TemplatePreset.CONE);
+        if (template) template.drawPreview(event);
+      },
+    },
+    {
+      name: 'sbt',
+      title: 'SWADE.SBT',
+      icon: 'sbt far fa-circle',
+      visible: true,
+      button: true,
+      onClick: () => {
+        const template = SwadeTemplate.fromPreset(TemplatePreset.SBT);
+        if (template) template.drawPreview(event);
+      },
+    },
+    {
+      name: 'mbt',
+      title: 'SWADE.MBT',
+      icon: 'mbt far fa-circle',
+      visible: true,
+      button: true,
+      onClick: () => {
+        const template = SwadeTemplate.fromPreset(TemplatePreset.MBT);
+        if (template) template.drawPreview(event);
+      },
+    },
+    {
+      name: 'lbt',
+      title: 'SWADE.LBT',
+      icon: 'lbt far fa-circle',
+      visible: true,
+      button: true,
+      onClick: () => {
+        const template = SwadeTemplate.fromPreset(TemplatePreset.LBT);
+        if (template) template.drawPreview(event);
+      },
+    },
+  ];
+  measure.tools = measure.tools.concat(newButtons);
 });

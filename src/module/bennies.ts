@@ -1,7 +1,8 @@
-import { SwadeActor } from './entities/SwadeActor';
+// eslint-disable-next-line no-unused-vars
+import SwadeActor from './entities/SwadeActor';
 import * as chat from './chat';
 
-export class Bennies {
+export default class Bennies {
   static async spendEvent(ev: MouseEvent) {
     ev.preventDefault();
     const userId = (ev.target as HTMLElement).parentElement.dataset.userId;
@@ -25,28 +26,57 @@ export class Bennies {
     }
   }
 
-  static async refresh(user: User) {
+  /**
+   * Refresh the bennies of a character
+   * @param user the User the character belongs to
+   * @param displayToChat display a message to chat
+   *
+   */
+  static async refresh(user: User, displayToChat = true) {
     if (user.isGM) {
       await user.setFlag(
         'swade',
         'bennies',
         game.settings.get('swade', 'gmBennies'),
       );
+      if (game.settings.get('swade', 'notifyBennies') && displayToChat) {
+        let message = await renderTemplate(
+          CONFIG.SWADE.bennies.templates.refresh,
+          { target: user, speaker: game.user },
+        );
+        let chatData = {
+          content: message,
+        };
+        ChatMessage.create(chatData);
+      }
+      ui['players'].render(true);
+    }
+    if (user.character) {
+      (user.character as SwadeActor).refreshBennies(displayToChat);
+    }
+  }
+
+  static async refreshAll() {
+    for (let user of game.users.values()) {
+      this.refresh(user, false);
+    }
+
+    const npcWildcardsToRefresh = game.actors.filter(
+      (a) => !a.isPC && a.data.type === 'npc' && a.data.data['wildcard'],
+    ) as SwadeActor[];
+    for (let actor of npcWildcardsToRefresh) {
+      await actor.refreshBennies(false);
+    }
+
+    if (game.settings.get('swade', 'notifyBennies')) {
       let message = await renderTemplate(
-        CONFIG.SWADE.bennies.templates.refresh,
-        { target: game.user, speaker: game.user },
+        CONFIG.SWADE.bennies.templates.refreshAll,
+        {},
       );
       let chatData = {
         content: message,
       };
-      if (game.settings.get('swade', 'notifyBennies')) {
-        ChatMessage.create(chatData);
-      }
-      ui['players'].render(true);
-      return;
-    }
-    if (user.character) {
-      (user.character as SwadeActor).refreshBennies();
+      ChatMessage.create(chatData);
     }
   }
 

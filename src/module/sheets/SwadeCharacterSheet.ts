@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-unused-vars
-import { SwadeActor } from '../entities/SwadeActor';
+import SwadeActor from '../entities/SwadeActor';
 // eslint-disable-next-line no-unused-vars
-import { SwadeItem } from '../entities/SwadeItem';
-import { SwadeBaseActorSheet } from './SwadeBaseActorSheet';
+import SwadeItem from '../entities/SwadeItem';
+import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 
-export class SwadeCharacterSheet extends SwadeBaseActorSheet {
+export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
   /**
    * Extend and override the default options used by the Actor Sheet
    * @returns {Object}
@@ -52,7 +52,8 @@ export class SwadeCharacterSheet extends SwadeBaseActorSheet {
     // Resize resizable classes
     let resizable = (html as JQuery).find('.resizable');
     resizable.each((_, el) => {
-      let heightDelta = this.position.height - (this.options.height as number);
+      let heightDelta =
+        (this.position.height as number) - (this.options.height as number);
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
 
@@ -106,6 +107,11 @@ export class SwadeCharacterSheet extends SwadeBaseActorSheet {
         li.setAttribute('draggable', 'true');
         li.addEventListener('dragstart', handler, false);
       });
+      html.find('div.power.item').each((i, li) => {
+        // Add draggable attribute and dragstart listener.
+        li.setAttribute('draggable', 'true');
+        li.addEventListener('dragstart', handler, false);
+      });
     }
 
     // Delete Item
@@ -149,6 +155,11 @@ export class SwadeCharacterSheet extends SwadeBaseActorSheet {
       await this.actor.updateOwnedItem(
         this._toggleEquipped(li.data('itemId'), item),
       );
+      if (item.type === 'armor') {
+        await this.actor.update({
+          'data.stats.toughness.armor': this.actor.calcArmor(),
+        });
+      }
     });
 
     //Toggle Equipmnent Card collapsible
@@ -173,34 +184,26 @@ export class SwadeCharacterSheet extends SwadeBaseActorSheet {
 
     //Input Synchronization
     html.find('.wound-input').keyup((ev) => {
-      html.find('.wound-slider').val($(ev.currentTarget).val());
-    });
-
-    html.find('.wound-slider').change((ev) => {
-      html.find('.wound-input').val($(ev.currentTarget).val());
+      this.actor.update({ 'data.wounds.value': $(ev.currentTarget).val() });
     });
 
     html.find('.fatigue-input').keyup((ev) => {
-      html.find('.fatigue-slider').val($(ev.currentTarget).val());
-    });
-
-    html.find('.fatigue-slider').change((ev) => {
-      html.find('.fatigue-input').val($(ev.currentTarget).val());
+      this.actor.update({ 'data.fatigue.value': $(ev.currentTarget).val() });
     });
 
     // Roll Skill
     html.find('.skill-label a').click((event) => {
-      let actorObject = this.actor as SwadeActor;
       let element = event.currentTarget as Element;
       let item = element.parentElement.parentElement.dataset.itemId;
-      actorObject.rollSkill(item, { event: event });
+      this.actor.rollSkill(item, { event: event });
     });
 
     // Add new object
-    html.find('.item-create').click((event) => {
+    html.find('.item-create').click(async (event) => {
       event.preventDefault();
       const header = event.currentTarget;
       let type = header.dataset.type;
+      let createdItem: Item;
 
       // item creation helper func
       let createItem = function (
@@ -219,14 +222,16 @@ export class SwadeCharacterSheet extends SwadeBaseActorSheet {
       // Getting back to main logic
       if (type == 'choice') {
         const choices = header.dataset.choices.split(',');
-        this._chooseItemType(choices).then((dialogInput: any) => {
+        this._chooseItemType(choices).then(async (dialogInput: any) => {
           const itemData = createItem(dialogInput.type, dialogInput.name);
-          this.actor.createOwnedItem(itemData, {});
+          createdItem = await this.actor.createOwnedItem(itemData, {});
+          this.actor.getOwnedItem(createdItem._id).sheet.render(true);
         });
         return;
       } else {
         const itemData = createItem(type);
-        this.actor.createOwnedItem(itemData, {});
+        createdItem = await this.actor.createOwnedItem(itemData, {});
+        this.actor.getOwnedItem(createdItem._id).sheet.render(true);
       }
     });
   }
@@ -285,8 +290,6 @@ export class SwadeCharacterSheet extends SwadeBaseActorSheet {
       });
     }
 
-    data.armor = this.actor.calcArmor();
-
     //Checks if relevant arrays are not null and combines them into an inventory array
     data.data.owned.inventory = {
       gear: data.data.owned.gear,
@@ -328,16 +331,6 @@ export class SwadeCharacterSheet extends SwadeBaseActorSheet {
     }
 
     return capacity;
-  }
-
-  private _calcInventoryWeight(items): number {
-    let retVal = 0;
-    items.forEach((category: any) => {
-      category.forEach((i: any) => {
-        retVal += i.data.weight * i.data.quantity;
-      });
-    });
-    return retVal;
   }
 
   private _toggleEquipped(id: string, item: any): any {
