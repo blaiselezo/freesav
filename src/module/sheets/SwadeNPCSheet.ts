@@ -4,6 +4,8 @@ import * as chat from '../chat';
 import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 
 export default class SwadeNPCSheet extends SwadeBaseActorSheet {
+  actor: SwadeActor;
+
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ['swade', 'sheet', 'actor', 'npc'],
@@ -60,7 +62,12 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
         li.setAttribute('draggable', 'true');
         li.addEventListener('dragstart', handler, false);
       });
-      html.find('div.item.weapon').each((i, li) => {
+      html.find('li.item.weapon').each((i, li) => {
+        // Add draggable attribute and dragstart listener.
+        li.setAttribute('draggable', 'true');
+        li.addEventListener('dragstart', handler, false);
+      });
+      html.find('li.item.power').each((i, li) => {
         // Add draggable attribute and dragstart listener.
         li.setAttribute('draggable', 'true');
         li.addEventListener('dragstart', handler, false);
@@ -86,10 +93,9 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
 
     // Roll Skill
     html.find('.skill.item a').click((event) => {
-      let actorObject = this.actor as SwadeActor;
       let element = event.currentTarget as Element;
       let item = element.parentElement.dataset.itemId;
-      actorObject.rollSkill(item, { event: event });
+      this.actor.rollSkill(item, { event: event });
     });
 
     // Add new object
@@ -116,13 +122,15 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
       // Getting back to main logic
       if (type == 'choice') {
         this._chooseItemType().then(async (dialogInput: any) => {
-          const itemData = createItem(dialogInput.type, dialogInput.name);
+          let itemData = createItem(dialogInput.type, dialogInput.name);
+          itemData.data.equipped = true;
           createdItem = await this.actor.createOwnedItem(itemData, {});
           this.actor.getOwnedItem(createdItem._id).sheet.render(true);
         });
         return;
       } else {
-        const itemData = createItem(type);
+        let itemData = createItem(type);
+        itemData.data.equipped = true;
         createdItem = await this.actor.createOwnedItem(itemData, {});
         this.actor.getOwnedItem(createdItem._id).sheet.render(true);
       }
@@ -164,12 +172,12 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
         await this.actor.update({
           'data.details.conviction.active': false,
         });
-        chat.createConvictionEndMessage(this.actor as SwadeActor);
+        chat.createConvictionEndMessage(this.actor);
       }
     });
   }
 
-  getData() {
+  getData(): ActorSheetData {
     let data: any = super.getData();
 
     // Everything below here is only needed if user is not limited
@@ -215,7 +223,12 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
       });
     }
 
-    data.armor = (this.actor as SwadeActor).calcArmor();
+    data.armor = this.actor.calcArmor();
+    if (
+      data.armor !== getProperty(this.actor.data, 'data.stats.toughness.armor')
+    ) {
+      this.actor.update({ 'data.stats.toughness.armor': data.armor });
+    }
 
     const shields = data.itemsByType['shield'];
     data.parry = 0;

@@ -107,6 +107,11 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
         li.setAttribute('draggable', 'true');
         li.addEventListener('dragstart', handler, false);
       });
+      html.find('div.power.item').each((i, li) => {
+        // Add draggable attribute and dragstart listener.
+        li.setAttribute('draggable', 'true');
+        li.addEventListener('dragstart', handler, false);
+      });
     }
 
     // Delete Item
@@ -150,6 +155,11 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
       await this.actor.updateOwnedItem(
         this._toggleEquipped(li.data('itemId'), item),
       );
+      if (item.type === 'armor') {
+        await this.actor.update({
+          'data.stats.toughness.armor': this.actor.calcArmor(),
+        });
+      }
     });
 
     //Toggle Equipmnent Card collapsible
@@ -279,8 +289,6 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
         }
       });
     }
-
-    data.armor = this.actor.calcArmor();
 
     //Checks if relevant arrays are not null and combines them into an inventory array
     data.data.owned.inventory = {
