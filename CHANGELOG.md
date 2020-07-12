@@ -32,18 +32,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - Added Vehicle `Actor` type
   - Added Vehicular flag to `weapon` and `gear` Items
   - Added Vehicle Sheet
-    - Drag&Drop and actor to set an operator
+    - Drag&Drop an actor to set an operator
     - Roll Maneuvering checks directly from the vehicle sheet
       - Set Maneuvering skill in the `Description` tab
 - Added optional Setting Rules for Vehicles using Modslots and Vehicles using Edges/Hindrances
 - Added localization options for Vehicles
 - Added `makeUnskilledAttempt` method to `SwadeActor` class
 - Added `rollManeuveringCheck` method to `SwadeActor` class
+- Added Drag&Drop to PC powers
 
 ### Fixed
 
 - Fixed a small bug which would cause the Action Cards deck not to reset when combat was ended in a Round in which a Joker was drawn
 - Fixed a small bug which would cause Gear descriptions not to enrich properly on `Actor` sheets
+- Fixed broken Drag&Drop for NPC sheets
 
 ### Changed
 
