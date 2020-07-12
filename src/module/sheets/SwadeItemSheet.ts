@@ -51,6 +51,11 @@ export default class SwadeItemSheet extends ItemSheet {
     if (ownerIsWildcard || !this.item.isOwned) {
       data.data.ownerIsWildcard = true;
     }
+
+    // Check for enabled optional rules
+    data['settingrules'] = {
+      modSlots: game.settings.get('swade', 'vehicleMods'),
+    };
     return data;
   }
 }

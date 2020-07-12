@@ -174,19 +174,11 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
 
     //Input Synchronization
     html.find('.wound-input').keyup((ev) => {
-      html.find('.wound-slider').val($(ev.currentTarget).val());
-    });
-
-    html.find('.wound-slider').change((ev) => {
-      html.find('.wound-input').val($(ev.currentTarget).val());
+      this.actor.update({ 'data.wounds.value': $(ev.currentTarget).val() });
     });
 
     html.find('.fatigue-input').keyup((ev) => {
-      html.find('.fatigue-slider').val($(ev.currentTarget).val());
-    });
-
-    html.find('.fatigue-slider').change((ev) => {
-      html.find('.fatigue-input').val($(ev.currentTarget).val());
+      this.actor.update({ 'data.fatigue.value': $(ev.currentTarget).val() });
     });
 
     // Roll Skill
@@ -329,16 +321,6 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     }
 
     return capacity;
-  }
-
-  private _calcInventoryWeight(items): number {
-    let retVal = 0;
-    items.forEach((category: any) => {
-      category.forEach((i: any) => {
-        retVal += i.data.weight * i.data.quantity;
-      });
-    });
-    return retVal;
   }
 
   private _toggleEquipped(id: string, item: any): any {

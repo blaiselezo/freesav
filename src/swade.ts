@@ -14,6 +14,7 @@ import { SWADE } from './module/config';
 import SwadeActor from './module/entities/SwadeActor';
 import SwadeItem from './module/entities/SwadeItem';
 import SwadeTemplate from './module/entities/SwadeTemplate';
+import { TemplatePreset } from './module/enums/TemplatePreset';
 import { registerCustomHelpers } from './module/handlebarsHelpers';
 import { listenJournalDrop } from './module/journalDrop';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
@@ -22,6 +23,7 @@ import { SwadeSetup } from './module/setup/setupHandler';
 import SwadeCharacterSheet from './module/sheets/SwadeCharacterSheet';
 import SwadeItemSheet from './module/sheets/SwadeItemSheet';
 import SwadeNPCSheet from './module/sheets/SwadeNPCSheet';
+import SwadeVehicleSheet from './module/sheets/SwadeVehicleSheet';
 import { rollInitiative, setupTurns } from './module/SwadeCombat';
 import { SwadeSocketHandler } from './module/SwadeSocketHandler';
 import {
@@ -30,7 +32,6 @@ import {
   rollSkillMacro,
   rollWeaponMacro,
 } from './module/util';
-import { TemplatePreset } from './module/enums/TemplatePreset';
 
 /* ------------------------------------ */
 /* Initialize system					          */
@@ -41,7 +42,7 @@ Hooks.once('init', async function () {
   );
 
   // Record Configuration Values
-  CONFIG.debug.hooks = true;
+  //CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
 
   game.swade = {
@@ -76,6 +77,10 @@ Hooks.once('init', async function () {
   });
   Actors.registerSheet('swade', SwadeNPCSheet, {
     types: ['npc'],
+    makeDefault: true,
+  });
+  Actors.registerSheet('swade', SwadeVehicleSheet, {
+    types: ['vehicle'],
     makeDefault: true,
   });
   Items.unregisterSheet('core', ItemSheet);

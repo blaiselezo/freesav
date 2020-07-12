@@ -1,0 +1,30 @@
+<div id="opSkill">
+  <label>Operation Skill</label>
+  <select name="data.driver.skill">
+    {{#select data.driver.skill}}
+    <option value=""></option>
+    <option value="Boating">Boating</option>
+    <option value="Driving">Driving</option>
+    <option value="Piloting">Piloting</option>
+    <option value="Riding">Riding</option>
+    {{/select}}
+  </select>
+  {{#if (isEmpty data.driver.skill)}}
+  <label>{{localize "SWADE.AltSkill"}}</label>
+  <input
+    type="text"
+    value="{{data.driver.skillAlternative}}"
+    name="data.driver.skillAlternative"
+  />
+  {{/if}}
+</div>
+<br />
+<div class="description">
+  <header class="header-field">
+    <span>{{ localize "SWADE.Desc" }}</span>
+  </header>
+  <span class="vehicle-editor">
+    {{editor content=data.description target="data.description" button=true
+    owner=owner editable=editable}}
+  </span>
+</div>

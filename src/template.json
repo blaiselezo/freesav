@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
+    "types": ["character", "npc", "vehicle"],
     "templates": {
       "common": {
         "attributes": {
@@ -98,7 +98,6 @@
         },
         "bennies": {
           "value": 3,
-          "min": 0,
           "max": 3
         },
         "owned": {
@@ -122,6 +121,45 @@
           "hasLevelHeaded": false,
           "hasImpLevelHeaded": false
         }
+      },
+      "vehicle-common": {
+        "size": 0,
+        "scale": 0,
+        "classification": "",
+        "handling": 0,
+        "cost": 0,
+        "topspeed": 0,
+        "description": "",
+        "toughness": {
+          "total": 0,
+          "armor": 0
+        },
+        "wounds": {
+          "value": 0,
+          "max": 3,
+          "ignored": 0
+        },
+        "crew": {
+          "required": {
+            "value": 1,
+            "max": 1
+          },
+          "optional": {
+            "value": 0,
+            "max": 0
+          }
+        },
+        "driver": {
+          "id": "",
+          "skill": "",
+          "skillAlternative": ""
+        },
+        "status": {
+          "isOutOfControl": false,
+          "isWrecked": false
+        },
+        "maxCargo": 0,
+        "maxMods": 0
       }
     },
     "character": {
@@ -130,7 +168,14 @@
     },
     "npc": {
       "templates": ["common"],
-      "wildcard": false
+      "wildcard": false,
+      "bennies": {
+        "value": 2,
+        "max": 2
+      }
+    },
+    "vehicle": {
+      "templates": ["vehicle-common"]
     }
   },
   "Item": {
@@ -155,15 +200,24 @@
         "price": 0
       },
       "equipable": {
-        "equippable": true,
+        "equippable": false,
         "equipped": false
+      },
+      "vehicular": {
+        "isVehicular": false,
+        "mods": 1
       }
     },
     "gear": {
-      "templates": ["itemDescription", "physicalItem", "equipable"]
+      "templates": ["itemDescription", "physicalItem", "equipable", "vehicular"]
     },
     "weapon": {
-      "templates": ["itemDescription", "physicalItem", "equipable"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "equipable",
+        "vehicular"
+      ],
       "damage": "",
       "range": "",
       "rof": 1,
