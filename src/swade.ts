@@ -31,6 +31,7 @@ import {
   createSwadeMacro,
   rollSkillMacro,
   rollWeaponMacro,
+  rollPowerMacro,
 } from './module/util';
 
 /* ------------------------------------ */
@@ -50,6 +51,7 @@ Hooks.once('init', async function () {
     SwadeItem,
     rollSkillMacro,
     rollWeaponMacro,
+    rollPowerMacro,
     sockets: new SwadeSocketHandler(),
   };
 
