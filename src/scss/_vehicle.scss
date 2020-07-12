@@ -1,4 +1,8 @@
 .swade.sheet.actor.vehicle {
+  .vehicle-editor {
+    height: 240px;
+  }
+
   .inventory {
     .inventory-categories {
       height: auto;
@@ -32,8 +36,13 @@
     }
   }
 
+  #driver-bar {
+    section + section {
+      border-left: $decorative-line;
+    }
+  }
+
   #driverImageContainer {
-    position: relative;
     .driver-img {
       width: 100px;
       max-width: 100px;
@@ -50,7 +59,79 @@
   }
 
   .driver-box {
+    flex-basis: 150px;
     padding: 3px;
     text-align: center;
+  }
+
+  #crew {
+    padding: 0px 0px 0px 5px;
+    flex-basis: 150px;
+    label {
+      display: block;
+      text-align: center;
+      font-weight: bold;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    input[type='text'] {
+      flex: 0;
+      flex-basis: 70px;
+      width: 70px;
+      text-align: center;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+  .crew-input {
+    display: flex;
+    justify-content: space-evenly;
+    input {
+      flex: 3;
+    }
+    span {
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+  #opSkill {
+    padding: 7px 0px;
+    display: inline-block;
+    input[type='text'] {
+      flex: 0;
+      flex-basis: 150px;
+      width: 150px;
+    }
+  }
+
+  #maneuverCheck {
+    margin-top: 5px;
+  }
+
+  #modBox {
+    height: auto;
+    margin-top: 7px;
+    padding: 5px 2px;
+    text-align: center;
+    color: #f1f1f1;
+    position: relative;
+    .bar-container {
+      border-radius: 5px;
+      height: 20px;
+      background-color: #999999;
+    }
+    .bar {
+      border-radius: 5px;
+      background-color: #2196f3;
+      height: 20px;
+    }
+    .text {
+      font-weight: bold;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }

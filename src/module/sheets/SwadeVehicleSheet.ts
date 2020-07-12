@@ -14,7 +14,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ['swade', 'sheet', 'actor', 'vehicle'],
       width: 600,
-      height: 768,
+      height: 540,
       tabs: [
         {
           navSelector: '.tabs',
@@ -37,17 +37,16 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    //Toggle collapsible
-    html.find('.collapsible-header').click((ev) => {
-      const container = $(ev.currentTarget).parents('.collapsible-container');
-      const content = container.find('.collapsible-content');
-      content.toggleClass('collapsed');
-      if (content.hasClass('collapsed')) {
-        content.slideUp();
-      } else {
-        content.slideDown();
-      }
-    });
+    // Drag events for macros.
+    if (this.actor.owner) {
+      let handler = (ev) => this._onDragItemStart(ev);
+      // Find all items on the character sheet.
+      html.find('li.item.weapon').each((i, li) => {
+        // Add draggable attribute and dragstart listener.
+        li.setAttribute('draggable', 'true');
+        li.addEventListener('dragstart', handler, false);
+      });
+    }
 
     //Toggle Equipmnent Card collapsible
     html.find('.gear-card .card-header .item-name').click((ev) => {
@@ -190,6 +189,14 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
       modSlots: game.settings.get('swade', 'vehicleMods'),
     };
 
+    if (data.settingrules.modSlots) {
+      let modsUsed = this._calcModSlotsUsed();
+      data.mods = {
+        used: modsUsed,
+        percentage: this._calcModsPercentage(modsUsed),
+      };
+    }
+    console.log(data);
     return data;
   }
 
@@ -280,5 +287,36 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     };
     delete itemData.data['type'];
     return itemData;
+  }
+
+  /**
+   * calculate how many modslots are used
+   */
+  private _calcModSlotsUsed(): number {
+    let mods = this.actor.items.filter(
+      (i: SwadeItem) =>
+        i.type === 'gear' &&
+        i.data.data['isVehicular'] &&
+        i.data.data['equipped'],
+    );
+    let retVal = 0;
+    mods.forEach((m: SwadeItem) => (retVal += m.data.data['mods']));
+
+    return retVal;
+  }
+
+  /**
+   * calculate how many percent of modslots are used
+   * @param modsUsed number of active modslots
+   */
+  private _calcModsPercentage(modsUsed: number): number {
+    let maxMods = this.actor.data.data['maxMods'];
+    let p = (modsUsed / maxMods) * 100;
+
+    //cap the percentage at 100
+    if (p > 100) {
+      p = 100;
+    }
+    return p;
   }
 }
