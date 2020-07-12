@@ -20,13 +20,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.10.1]
 
 ### Fixed
 
 - Fixed a bug that would cause Drag&Drop macros from actor sheets to be cloned, leading to multiple identical macros on the hotbar (identical in ID too), which could lead to players having macros they couldn't interact with properly.
 
-## [v.10]
+## [v0.10.0]
 
 ### Added
 
