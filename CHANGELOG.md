@@ -20,6 +20,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.10.2]
+
+### Added
+
+- Added Source code option to advancement tracker editor
+
+### Changed
+
+- Removed armor calculation from NPC actors as it is a likely culprit for a bug. Proper solution to follow
+
 ## [v0.10.1]
 
 ### Fixed

@@ -223,13 +223,6 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
       });
     }
 
-    data.armor = this.actor.calcArmor();
-    if (
-      data.armor !== getProperty(this.actor.data, 'data.stats.toughness.armor')
-    ) {
-      this.actor.update({ 'data.stats.toughness.armor': data.armor });
-    }
-
     const shields = data.itemsByType['shield'];
     data.parry = 0;
     if (shields) {

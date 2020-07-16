@@ -33,7 +33,8 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
   _createEditor(target, editorOptions, initialContent) {
     // remove some controls to the editor as the space is lacking
     if (target == 'data.advances.details') {
-      editorOptions.toolbar = 'styleselect bullist hr table removeFormat save';
+      editorOptions.toolbar =
+        'styleselect bullist hr table removeFormat code save ';
     }
     super._createEditor(target, editorOptions, initialContent);
   }
