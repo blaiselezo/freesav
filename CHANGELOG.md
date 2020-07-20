@@ -20,6 +20,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased v0.11.0]
+
+### Changed
+
+- Toughness, Parry and Pace fields now accept non-numerical inputs
+- Power sheet now acceptsnon-numerical input for Power Points
+- NPC Hindrances now only show the Major keyword, no longer Minor
+
+### Removed
+
+- Removed Status icon two-way binding
+
 ## [v0.10.2]
 
 ### Added
