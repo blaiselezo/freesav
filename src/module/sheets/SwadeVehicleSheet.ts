@@ -253,7 +253,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
 
     //Display the Driver data if the current user has at least Limited permission on the driver Actor
     if (userCanViewDriver) {
-      driverData.img = getProperty(driver, 'data.token.img');
+      driverData.img = driver.img;
       driverData.name = driver.name;
     } else {
       //else just show an aunknown driver

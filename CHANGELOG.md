@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased v0.11.0]
 
+### Added
+
+- Added Classification field to Vehicle Sheet
+
 ### Changed
 
 - Toughness, Parry and Pace fields now accept non-numerical inputs
