@@ -25,16 +25,29 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added Classification field to Vehicle Sheet
+- Added SwadeActor function `calcToughness` that calculates the toughness and then returns the value as a number
+- Added auto-calculation to toughness if armor is changed or something about the vigor die is changed.
 
 ### Changed
 
-- Toughness, Parry and Pace fields now accept non-numerical inputs
+- Parry and Pace fields now accept non-numerical inputs
+- Toughness Field is now disabled since it's being automatically calculated.
 - Power sheet now acceptsnon-numerical input for Power Points
 - NPC Hindrances now only show the Major keyword, no longer Minor
+- German localization: Shortened `Bewegungsdweite` to `Bewegung`
+- Changed size of status tickbox container from `100px` to `120px` to allow for longer words
+
+### Deprecated
+
+- Started deprecation of `SwadeActor.configureInitiative()` function. It will be fully removed with v0.12.0
 
 ### Removed
 
 - Removed Status icon two-way binding
+
+### Fixed
+
+- Fixed a bug that would remove fatigue of max wounds was set to 0 on NPC sheets
 
 ## [v0.10.2]
 

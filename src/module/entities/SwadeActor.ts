@@ -342,7 +342,10 @@ export default class SwadeActor extends Actor {
     return out;
   }
 
-  // Launches a dialog to configure which initiative-modifying edges/hindrances the character has
+  /**
+   * @deprecated
+   * Launches a dialog to configure which initiative-modifying edges/hindrances the character has
+   */
   async configureInitiative() {
     const initData = this.data.data.initiative;
     const template = 'systems/swade/templates/initiative/configure-init.html';
@@ -413,12 +416,17 @@ export default class SwadeActor extends Actor {
    * @param includeArmor include armor in final value (true/false). Default is true
    */
   calcToughness(includeArmor = true): number {
+    let retVal = 0;
     let vigor = getProperty(this.data, 'data.attributes.vigor.die.sides');
-    let tough = vigor / 2 + 2;
+    let toughMod = getProperty(this.data, 'data.stats.toughness.modifier');
+    let size = getProperty(this.data, 'data.stats.size');
+    retVal = vigor / 2 + 2;
+    retVal += toughMod;
+    retVal += size;
     if (includeArmor) {
-      tough += this.calcArmor();
+      retVal += this.calcArmor();
     }
-    return tough;
+    return retVal;
   }
 
   /**
