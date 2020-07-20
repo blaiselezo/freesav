@@ -29,12 +29,6 @@ export class SWADE {
     },
   };
 
-  public static statusIcons = {
-    shaken: 'icons/svg/daze.svg',
-    vulnerable: 'icons/svg/degen.svg',
-    distracted: 'icons/svg/stoned.svg',
-  };
-
   public static init = {
     defaultCardCompendium: 'swade.action-cards',
     cardTable: 'Action Cards',
@@ -44,6 +38,16 @@ export class SWADE {
 
   public static imagedrop = {
     height: 300,
+  };
+
+  public static bennies = {
+    templates: {
+      refresh: 'systems/swade/templates/chat/benny-refresh.html',
+      refreshAll: 'systems/swade/templates/chat/benny-refresh-all.html',
+      add: 'systems/swade/templates/chat/benny-add.html',
+      spend: 'systems/swade/templates/chat/benny-spend.html',
+      gmadd: 'systems/swade/templates/chat/benny-gmadd.html',
+    },
   };
 
   public static vehicles = {

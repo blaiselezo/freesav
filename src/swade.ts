@@ -32,6 +32,7 @@ import {
   rollSkillMacro,
   rollWeaponMacro,
   rollPowerMacro,
+  updateTougness,
 } from './module/util';
 
 /* ------------------------------------ */
@@ -43,7 +44,7 @@ Hooks.once('init', async function () {
   );
 
   // Record Configuration Values
-  //CONFIG.debug.hooks = true;
+  CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
 
   game.swade = {
@@ -236,6 +237,7 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 Hooks.on(
   'preUpdateActor',
   (actor: SwadeActor, updateData: any, options: any, userId: string) => {
+    console.log('before', updateData);
     //wildcards will be linked, extras unlinked
     if (
       updateData.data &&
@@ -254,8 +256,12 @@ Hooks.on(
       ui.actors.render();
     }
     // Update the player list to display new bennies values
-    if (updateData.data && updateData.data.bennies) {
+    if (updateData?.data?.bennies) {
       ui['players'].render(true);
+    }
+
+    if (updateData?.data?.attributes?.vigor) {
+      await updateTougness(actor);
     }
   },
 );
@@ -526,3 +532,33 @@ Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) => {
   ];
   measure.tools = measure.tools.concat(newButtons);
 });
+
+Hooks.on(
+  'createOwnedItem',
+  async (actor: SwadeActor, item: any, options: any, userId: string) => {
+    //Update armor
+    if (item.type === 'armor') {
+      await updateTougness(actor);
+    }
+  },
+);
+
+Hooks.on(
+  'updateOwnedItem',
+  async (actor: SwadeActor, item: any, options: any, userId: string) => {
+    //Update armor
+    if (item.type === 'armor') {
+      await updateTougness(actor);
+    }
+  },
+);
+
+Hooks.on(
+  'deleteOwnedItem',
+  async (actor: SwadeActor, item: any, options: any, userId: string) => {
+    //Update armor
+    if (item.type === 'armor') {
+      await updateTougness(actor);
+    }
+  },
+);

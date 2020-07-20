@@ -183,12 +183,9 @@ export function rollPowerMacro(powerName) {
   return;
 }
 
-export function findOwner(actor: SwadeActor): string {
-  const permObj = actor.data['permission'];
-  for (const key in permObj) {
-    if (permObj[key] === 3 && !game.users.get(key).isGM) {
-      return key;
-    }
-  }
-  return game.users.find((u) => u.isGM);
+export async function updateTougness(actor: SwadeActor) {
+  await actor.update({
+    'data.stats.toughness.armor': actor.calcArmor(),
+    'data.stats.toughness.value': actor.calcToughness(),
+  });
 }

@@ -409,6 +409,19 @@ export default class SwadeActor extends Actor {
   }
 
   /**
+   * Calculates the Toughness value and returns it, optionally with armor
+   * @param includeArmor include armor in final value (true/false). Default is true
+   */
+  calcToughness(includeArmor = true): number {
+    let vigor = getProperty(this.data, 'data.attributes.vigor.die.sides');
+    let tough = vigor / 2 + 2;
+    if (includeArmor) {
+      tough += this.calcArmor();
+    }
+    return tough;
+  }
+
+  /**
    * Helper Function for Vehicle Actors, to roll Maneuevering checks
    */
   rollManeuverCheck(event: any = null) {

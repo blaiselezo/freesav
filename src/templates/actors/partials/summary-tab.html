@@ -154,9 +154,9 @@
             placeholder="0"
             data-dtype="String"
           />
-          {{#if (add parry data.stats.parry.modifier)}}
-          <div class="armor-value">{{add parry data.stats.parry.modifier}}</div>
-          {{/if}}
+          <div class="armor-value" id="parry-value" alt="Parry modifier">
+            {{data.stats.parry.modifier}}
+          </div>
         </div>
       </div>
       <div class="attribute flex3">
@@ -166,15 +166,14 @@
             id="toughness"
             name="data.stats.toughness.value"
             type="text"
-            value="{{data.stats.toughness.value}}"
+            value="{{add data.stats.toughness.value data.stats.toughness.modifier}}"
             placeholder="0"
             data-dtype="String"
+            disabled
           />
-          {{#if data.stats.toughness.armor}}
           <div class="armor-value">
             {{data.stats.toughness.armor}}
           </div>
-          {{/if}}
         </div>
       </div>
     </div>
