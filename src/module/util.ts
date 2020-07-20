@@ -87,7 +87,6 @@ export async function createActionCardTable(
  * @returns {Promise}
  */
 export async function createSwadeMacro(data: any, slot: number) {
-  console.log(data);
   if (data.type !== 'Item') return;
   if (!('data' in data))
     return ui.notifications.warn(
@@ -178,8 +177,6 @@ export function rollPowerMacro(powerName) {
     );
 
   // Trigger the item roll
-  // Trigger the item roll
-  console.log(item.data.data['damage']);
   if (item.data.data['damage']) {
     return item.rollDamage();
   }
