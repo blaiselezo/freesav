@@ -15,8 +15,8 @@
   "SWADE.Distr": "Distracted",
   "SWADE.Vuln": "Vulnerable",
 
-  "SWADE.SkillTest": "Skill test",
-  "SWADE.AttributeTest": "Attribute test",
+  "SWADE.SkillTest": "Skill Test",
+  "SWADE.AttributeTest": "Attribute Test",
   "SWADE.Attributes": "Attributes",
   "SWADE.Derived": "Derived Stats",
   "SWADE.AttrAgi": "Agility",
@@ -168,6 +168,7 @@
   "SWADE.RollExample": "eg. +1d6x= or -2",
   "SWADE.Roll": "Roll",
   "SWADE.RollRaise": "Roll Raise",
+  "SWADE.GroupRoll": "Group Roll",
   "SWADE.Ok": "Ok",
   "SWADE.Cancel": "Cancel",
   "SWADE.Redraw": "Redraw",

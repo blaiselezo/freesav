@@ -12,26 +12,25 @@ export const listenJournalDrop = function () {
   // Create the tile with the gathered informations
   async function _onDropImage(event, data) {
     if (data.type == 'image') {
+      // Projecting screen coords to the canvas
+      let t = canvas.tiles.worldTransform;
+      // Determine the tile size
+      const tex = await loadTexture(data.src);
 
-    // Projecting screen coords to the canvas
-    let t = canvas.tiles.worldTransform;
-    // Determine the tile size
-    const tex = await loadTexture(data.src);
+      let tileData = {
+        img: data.src,
+        width: (CONFIG.SWADE.imagedrop.height * tex.width) / tex.height,
+        height: CONFIG.SWADE.imagedrop.height,
+        x: (event.clientX - t.tx) / canvas.stage.scale.x,
+        y: (event.clientY - t.ty) / canvas.stage.scale.y,
+        scale: 1,
+        z: 400,
+        hidden: false,
+        locked: false,
+        rotation: 0,
+      };
 
-    let tileData = {
-      img: data.src,
-      width:CONFIG.SWADE.imagedrop.height * tex.width / tex.height,
-      height:CONFIG.SWADE.imagedrop.height,
-      x: (event.clientX - t.tx) / canvas.stage.scale.x,
-      y: (event.clientY - t.ty) / canvas.stage.scale.y,
-      scale: 1,
-      z: 400,
-      hidden: false,
-      locked: false,
-      rotation: 0,
-    };
-
-    Tile.create(tileData);
+      Tile.create(tileData);
     }
   }
 

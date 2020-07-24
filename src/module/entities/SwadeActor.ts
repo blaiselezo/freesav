@@ -1,16 +1,23 @@
 import { SwadeDice } from '../dice';
 // eslint-disable-next-line no-unused-vars
 import SwadeItem from './SwadeItem';
-import ISkillOptions from '../../interfaces/ISkillOptions';
-import ISKillOptions from '../../interfaces/ISkillOptions';
+import IRollOptions from '../../interfaces/ISkillOptions';
 
 export default class SwadeActor extends Actor {
   /**
+   * @override
    * Extends data from base Actor class
    */
   prepareData() {
     super.prepareData();
     return this.data;
+  }
+
+  /* -------------------------------------------- */
+  /*  Getters
+  /* -------------------------------------------- */
+  get isWildcard() {
+    return getProperty(this.data, 'data.wildcard');
   }
 
   /* -------------------------------------------- */
@@ -55,7 +62,7 @@ export default class SwadeActor extends Actor {
   /* -------------------------------------------- */
   rollAttribute(
     abilityId: string,
-    options: ISkillOptions = { event: null },
+    options: IRollOptions = { event: null },
   ): Promise<any> {
     const label = CONFIG.SWADE.attributes[abilityId].long;
     let actorData = this.data as any;
@@ -64,7 +71,7 @@ export default class SwadeActor extends Actor {
     if (this.data['data'].wildcard) {
       exp = `{1d${abl.die.sides}x=, 1d${abl['wild-die'].sides}x=}kh`;
     } else {
-      exp = `1d${abl.die.sides}x${abl.die.sides}`;
+      exp = `{1d${abl.die.sides}x=`;
     }
 
     //Check and add Modifiers
@@ -102,12 +109,13 @@ export default class SwadeActor extends Actor {
       title: `${game.i18n.localize(label)} ${game.i18n.localize(
         'SWADE.AttributeTest',
       )}`,
+      actor: this,
     });
   }
 
   rollSkill(
     skillId: string,
-    options: ISkillOptions = { event: null },
+    options: IRollOptions = { event: null },
   ): Promise<any> {
     let items = this.items.filter((i: Item) => i.id == skillId);
     if (!items.length) {
@@ -162,10 +170,11 @@ export default class SwadeActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
       title: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
+      actor: this,
     });
   }
 
-  makeUnskilledAttempt(options: ISkillOptions = { event: null }): Promise<any> {
+  makeUnskilledAttempt(options: IRollOptions = { event: null }): Promise<any> {
     let exp = '';
     if (this.data['data'].wildcard) {
       exp = '{1d4x=, 1d6x=}kh';
@@ -460,7 +469,7 @@ export default class SwadeActor extends Actor {
       totalHandling = `+${totalHandling}`;
     }
 
-    let options: ISKillOptions = {
+    let options: IRollOptions = {
       event: event,
       additionalMods: [totalHandling],
     };

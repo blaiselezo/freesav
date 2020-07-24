@@ -6,6 +6,13 @@ import SwadeActor from './SwadeActor';
  * Override and extend the basic :class:`Item` implementation
  */
 export default class SwadeItem extends Item {
+  /**
+   * @override
+   */
+  get actor() {
+    return (this.options.actor as SwadeActor) || null;
+  }
+
   /* -------------------------------------------- */
   /*	Data Preparation														*/
   /* -------------------------------------------- */
@@ -23,6 +30,14 @@ export default class SwadeItem extends Item {
     const actorIsVehicle = actor.data.type === 'vehicle';
     const actorData = actor.data.data;
     const label = this.name;
+    let ap = getProperty(this.data, 'data.ap');
+
+    if (ap) {
+      ap = ` - ${game.i18n.localize('SWADE.Ap')} ${ap}`;
+    } else {
+      ap = '';
+    }
+
     // Intermediary roll to let it do the parsing for us
     let roll;
     if (actorIsVehicle) {
@@ -53,9 +68,11 @@ export default class SwadeItem extends Item {
       parts: newParts,
       data: actorData,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
+      flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
+        'SWADE.Dmg',
+      )}${ap}`,
       title: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
-      item: true,
+      item: this,
     });
   }
 }

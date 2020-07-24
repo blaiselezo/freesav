@@ -1,14 +1,17 @@
+import SwadeItem from './entities/SwadeItem';
+import SwadeActor from './entities/SwadeActor';
+
 export class SwadeDice {
   // eslint-disable-next-line no-unused-vars
   static async Roll({
     parts = [],
     data = {},
-    options = {},
     event = null,
     speaker = null,
     flavor = null,
     title = null,
-    item = false,
+    item = null as SwadeItem,
+    actor = null as SwadeActor,
   } = {}) {
     let rollMode = game.settings.get('core', 'rollMode');
     let rolled = false;
@@ -52,8 +55,8 @@ export class SwadeDice {
           roll = _roll(html[0].children[0]);
         },
       },
-      raise: {
-        label: game.i18n.localize('SWADE.RollRaise'),
+      extra: {
+        label: '',
         icon: '<i class="far fa-plus-square"></i>',
         callback: (html) => {
           roll = _roll(html[0].children[0], true);
@@ -65,7 +68,13 @@ export class SwadeDice {
       },
     };
 
-    if (!item) delete buttons.raise;
+    if (item) {
+      buttons.extra.label = game.i18n.localize('SWADE.RollRaise');
+    } else if (actor && !actor.isWildcard) {
+      buttons.extra.label = game.i18n.localize('SWADE.GroupRoll');
+    } else {
+      delete buttons.extra;
+    }
 
     const html = await renderTemplate(template, dialogData);
     //Create Dialog window
