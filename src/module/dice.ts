@@ -19,26 +19,6 @@ export class SwadeDice {
       return el != '' && el;
     });
 
-    const _roll = (form = null, raise = false) => {
-      // Optionally include a situational bonus
-      if (form !== null) data['bonus'] = form.bonus.value;
-      if (data['bonus']) filtered.push(data['bonus']);
-      if (raise) filtered.push('+1d6x=');
-
-      const roll = new Roll(filtered.join(''), data).roll();
-      // Convert the roll to a chat message and return the roll
-      rollMode = form ? form.rollMode.value : rollMode;
-      roll.toMessage(
-        {
-          speaker: speaker,
-          flavor: flavor,
-        },
-        { rollMode },
-      );
-      rolled = true;
-      return roll;
-    };
-
     const template = 'systems/swade/templates/chat/roll-dialog.html';
     let dialogData = {
       formula: filtered.join(' '),
@@ -52,14 +32,26 @@ export class SwadeDice {
         label: game.i18n.localize('SWADE.Roll'),
         icon: '<i class="fas fa-dice"></i>',
         callback: (html) => {
-          roll = _roll(html[0].children[0]);
+          roll = this._handleRoll({
+            form: html[0].children[0],
+            rollParts: filtered,
+            speaker,
+            flavor,
+          });
+          rolled = true;
         },
       },
       extra: {
         label: '',
         icon: '<i class="far fa-plus-square"></i>',
         callback: (html) => {
-          roll = _roll(html[0].children[0], true);
+          roll = this._handleRoll({
+            form: html[0].children[0],
+            raise: true,
+            rollParts: filtered,
+            speaker,
+            flavor,
+          });
         },
       },
       cancel: {
@@ -90,5 +82,32 @@ export class SwadeDice {
         },
       }).render(true);
     });
+  }
+
+  static _handleRoll({
+    form = null,
+    raise = false,
+    rollParts = [],
+    data = {},
+    speaker = null,
+    flavor = '',
+  }): Roll {
+    let rollMode = game.settings.get('core', 'rollMode');
+    // Optionally include a situational bonus
+    if (form !== null) data['bonus'] = form.bonus.value;
+    if (data['bonus']) rollParts.push(data['bonus']);
+    if (raise) rollParts.push('+1d6x=');
+
+    const roll = new Roll(rollParts.join(''), data).roll();
+    // Convert the roll to a chat message and return the roll
+    rollMode = form ? form.rollMode.value : rollMode;
+    roll.toMessage(
+      {
+        speaker: speaker,
+        flavor: flavor,
+      },
+      { rollMode },
+    );
+    return roll;
   }
 }

@@ -26,7 +26,7 @@ export default class SwadeItem extends Item {
 
   rollDamage(options = { event: Event }) {
     const itemData = this.data.data;
-    const actor = this.actor as SwadeActor;
+    const actor = this.actor;
     const actorIsVehicle = actor.data.type === 'vehicle';
     const actorData = actor.data.data;
     const label = this.name;
@@ -35,7 +35,7 @@ export default class SwadeItem extends Item {
     if (ap) {
       ap = ` - ${game.i18n.localize('SWADE.Ap')} ${ap}`;
     } else {
-      ap = '';
+      ap = ` - ${game.i18n.localize('SWADE.Ap')} 0`;
     }
 
     // Intermediary roll to let it do the parsing for us
@@ -57,8 +57,8 @@ export default class SwadeItem extends Item {
 
     if (
       !actorIsVehicle &&
-      actor.data.data['details']['conviction']['active'] &&
-      game.settings.get('swade', 'enableConviction')
+      game.settings.get('swade', 'enableConviction') &&
+      getProperty(actor.data, 'data.details.conviction.active')
     ) {
       newParts.push('+1d6x=');
     }
