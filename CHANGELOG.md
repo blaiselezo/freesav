@@ -27,6 +27,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added Classification field to Vehicle Sheet
 - Added SwadeActor function `calcToughness` that calculates the toughness and then returns the value as a number
 - Added auto-calculation to toughness if armor is changed or something about the vigor die is changed.
+- Added `isWildcard` getter to `SwadeActor`
+- Added Group Rolls for NPC Extras
 
 ### Changed
 
@@ -48,6 +50,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Fixed a bug that would remove fatigue of max wounds was set to 0 on NPC sheets
+- Fixed a small bug that would prevent item deletion from NPC sheets
 
 ## [v0.10.2]
 

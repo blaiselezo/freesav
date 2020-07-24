@@ -87,8 +87,9 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
     // Delete Item
     html.find('.item-delete').click((ev) => {
       const li = $(ev.currentTarget).parents('.gear-card');
-      this.actor.deleteOwnedItem(li.data('itemId'));
-      li.slideUp(200, () => this.render(false));
+      this.actor
+        .deleteOwnedItem(li.data('itemId'))
+        .then((item) => li.slideUp(200, () => this.render(false)));
     });
 
     // Roll Skill

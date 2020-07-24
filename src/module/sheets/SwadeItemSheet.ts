@@ -22,11 +22,10 @@ export default class SwadeItemSheet extends ItemSheet {
 
     // Delete Item from within Sheet. Only really used for Skills, Edges, Hindrances and Powers
     html.find('.item-delete').click((ev) => {
-      const item = $(ev.currentTarget).parents('.item');
-      if (this.item.actor) {
-        this.item.actor.deleteOwnedItem(item.data('itemId'));
-        this.item.sheet.close();
-      }
+      const li = $(ev.currentTarget).parents('.item');
+      const itemId = li.data('itemId');
+      this.close();
+      this.item.actor.deleteOwnedItem(itemId);
     });
 
     html.find('.profile-img').contextmenu((e) => {
