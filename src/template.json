@@ -223,7 +223,8 @@
       "rof": 1,
       "ap": 0,
       "minStr": "",
-      "shots": 0
+      "shots": 0,
+      "currentShots": 0
     },
     "armor": {
       "templates": ["itemDescription", "physicalItem", "equipable"],

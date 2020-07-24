@@ -28,6 +28,25 @@
         />
         <label for="data.equipped">{{localize "SWADE.Equipped"}}</label>
       </div>
+      <div class="shot-group">
+        <label for="data.shots">{{localize "SWADE.Mag"}}</label>
+        <span>
+          <input
+            name="data.currentShots"
+            type="text"
+            value="{{item.data.currentShots}}"
+            placeholder="{{localize 'SWADE.Mag'}}"
+            data-dtype="String"
+          />
+          <input
+            name="data.shots"
+            type="text"
+            value="{{item.data.shots}}"
+            placeholder="0"
+            data-dtype="String"
+          />
+        </span>
+      </div>
       <div class="form-group">
         <label for="data.damage">{{localize "SWADE.Dmg"}}</label>
         <input
@@ -55,16 +74,6 @@
           type="text"
           value="{{item.data.rof}}"
           placeholder="{{localize 'SWADE.RoF'}}"
-          data-dtype="String"
-        />
-      </div>
-      <div class="form-group">
-        <label for="data.shots">{{localize "SWADE.Mag"}}</label>
-        <input
-          name="data.shots"
-          type="text"
-          value="{{item.data.shots}}"
-          placeholder="{{localize 'SWADE.Mag'}}"
           data-dtype="String"
         />
       </div>
