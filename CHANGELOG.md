@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added auto-calculation to toughness if armor is changed or something about the vigor die is changed.
 - Added `isWildcard` getter to `SwadeActor`
 - Added Group Rolls for NPC Extras
+- Added `currentShots` property to `weapons`. Addjusted sheets accordingly
 
 ### Changed
 
