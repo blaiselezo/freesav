@@ -13,7 +13,6 @@ export class SwadeDice {
     item = null as SwadeItem,
     actor = null as SwadeActor,
   } = {}) {
-    let rollMode = game.settings.get('core', 'rollMode');
     let rolled = false;
     let filtered = parts.filter(function (el) {
       return el != '' && el;
@@ -23,7 +22,7 @@ export class SwadeDice {
     let dialogData = {
       formula: filtered.join(' '),
       data: data,
-      rollMode: rollMode,
+      rollMode: game.settings.get('core', 'rollMode'),
       rollModes: CONFIG.Dice.rollModes,
     };
 
@@ -48,6 +47,7 @@ export class SwadeDice {
           roll = this._handleRoll({
             form: html[0].children[0],
             raise: true,
+            actor: actor,
             rollParts: filtered,
             speaker,
             flavor,
@@ -87,6 +87,7 @@ export class SwadeDice {
   static _handleRoll({
     form = null,
     raise = false,
+    actor = null as SwadeActor,
     rollParts = [],
     data = {},
     speaker = null,
@@ -96,7 +97,11 @@ export class SwadeDice {
     // Optionally include a situational bonus
     if (form !== null) data['bonus'] = form.bonus.value;
     if (data['bonus']) rollParts.push(data['bonus']);
-    if (raise) rollParts.push('+1d6x=');
+    if (actor && raise) {
+      rollParts[0] = `{${rollParts[0]}, 1d6x=}kh`;
+    } else if (raise) {
+      rollParts.push('+1d6x=');
+    }
 
     const roll = new Roll(rollParts.join(''), data).roll();
     // Convert the roll to a chat message and return the roll
