@@ -20,7 +20,10 @@ export default class SwadeActor extends Actor {
     if (this.data.type === 'vehicle') {
       return false;
     } else {
-      return getProperty(this.data, 'data.wildcard');
+      return (
+        getProperty(this.data, 'data.wildcard') ||
+        this.data.type === 'character'
+      );
     }
   }
 
@@ -72,10 +75,10 @@ export default class SwadeActor extends Actor {
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
     let exp = '';
-    if (this.data['data'].wildcard) {
+    if (this.isWildcard) {
       exp = `{1d${abl.die.sides}x=, 1d${abl['wild-die'].sides}x=}kh`;
     } else {
-      exp = `{1d${abl.die.sides}x=`;
+      exp = `1d${abl.die.sides}x=`;
     }
 
     //Check and add Modifiers
@@ -88,7 +91,12 @@ export default class SwadeActor extends Actor {
       rollParts.push(ablMod);
     }
 
-    if (this.data.data['details']['conviction']['active']) {
+    //Conviction Modifier
+    if (
+      this.isWildcard &&
+      game.settings.get('swade', 'enableConviction') &&
+      getProperty(this.data, 'data.details.conviction.active')
+    ) {
       rollParts.push('+1d6x=');
     }
 
@@ -145,8 +153,9 @@ export default class SwadeActor extends Actor {
 
     //Conviction Modifier
     if (
-      this.data.data['details']['conviction']['active'] &&
-      game.settings.get('swade', 'enableConviction')
+      this.isWildcard &&
+      game.settings.get('swade', 'enableConviction') &&
+      getProperty(this.data, 'data.details.conviction.active')
     ) {
       rollParts.push('+1d6x=');
     }
