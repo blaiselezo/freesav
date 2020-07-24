@@ -94,11 +94,13 @@ export class SwadeDice {
     flavor = '',
   }): Roll {
     let rollMode = game.settings.get('core', 'rollMode');
+    let groupRoll = actor && raise;
     // Optionally include a situational bonus
     if (form !== null) data['bonus'] = form.bonus.value;
     if (data['bonus']) rollParts.push(data['bonus']);
-    if (actor && raise) {
+    if (groupRoll) {
       rollParts[0] = `{${rollParts[0]}, 1d6x=}kh`;
+      flavor = `${flavor} ${game.i18n.localize('SWADE.GroupRoll')}`;
     } else if (raise) {
       rollParts.push('+1d6x=');
     }
