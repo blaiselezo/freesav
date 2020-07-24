@@ -382,7 +382,6 @@
       }
     }
     .inventory-categories {
-      overflow: auto;
       height: 520px;
       .items-section {
         .header-field {
@@ -419,7 +418,6 @@
         .item {
           line-height: 30px;
           height: 30px;
-          overflow: hidden;
           &:nth-child(even) {
             background: rgba(0, 0, 0, 0.1);
           }
@@ -431,7 +429,6 @@
         .item-name {
           text-indent: 8px;
           text-align: left;
-          overflow: hidden;
           height: 30px;
           margin: 0;
           line-height: 30px;
@@ -452,16 +449,25 @@
         text-align: left;
         flex-basis: 120px;
         flex-grow: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .field-long {
         flex-basis: 65px;
         flex-grow: 0;
         text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .field-short {
         flex-basis: 45px;
         flex-grow: 0;
         text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .item-controls {
         flex-basis: 60px;

@@ -89,7 +89,7 @@
       <div class="field-long">{{localize "SWADE.Dmg"}}</div>
       <div class="field-short">{{localize "SWADE.Ap"}}</div>
       <div class="field-short">{{localize "SWADE.RoF"}}</div>
-      <div class="field-short">{{localize "SWADE.Mag"}}</div>
+      <div class="field-long">{{localize "SWADE.Mag"}}</div>
       <div class="field-short">{{localize "SWADE.Weight"}}</div>
       <div class="item-controls">
         <a class="item-create" data-range="12/24/48" data-type="weapon"
@@ -128,8 +128,8 @@
         <div class="field-short">
           {{item.data.rof}}
         </div>
-        <div class="field-short">
-          {{item.data.shots}}
+        <div class="field-long">
+          {{item.data.currentShots}} / {{item.data.shots}}
         </div>
         <div class="field-short">
           {{item.data.weight}}
