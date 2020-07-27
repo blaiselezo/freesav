@@ -1,4 +1,14 @@
-export const registerSettings = function () {
+import SettingConfigurator from './SettingConfigurator';
+export function registerSettings() {
+  game.settings.registerMenu('swade', 'setting-config', {
+    name: game.i18n.localize('SWADE.SettingConf'),
+    label: game.i18n.localize('SWADE.SettingConfLabel'),
+    hint: game.i18n.localize('SWADE.SettingConfDesc'),
+    icon: 'fas fa-bars',
+    type: SettingConfigurator,
+    restricted: true,
+  });
+
   game.settings.register('swade', 'initiativeSound', {
     name: game.i18n.localize('SWADE.CardSound'),
     hint: game.i18n.localize('SWADE.CardSoundDesc'),
@@ -43,15 +53,6 @@ export const registerSettings = function () {
     config: true,
   });
 
-  game.settings.register('swade', 'enableConviction', {
-    name: game.i18n.localize('SWADE.EnableConv'),
-    hint: game.i18n.localize('SWADE.EnableConvDesc'),
-    default: false,
-    scope: 'world',
-    type: Boolean,
-    config: true,
-  });
-
   game.settings.register('swade', 'notifyBennies', {
     name: game.i18n.localize('SWADE.EnableBennyNotify'),
     hint: game.i18n.localize('SWADE.EnableBennyNotifyDesc'),
@@ -61,13 +62,22 @@ export const registerSettings = function () {
     config: true,
   });
 
+  game.settings.register('swade', 'enableConviction', {
+    name: game.i18n.localize('SWADE.EnableConv'),
+    hint: game.i18n.localize('SWADE.EnableConvDesc'),
+    default: false,
+    scope: 'world',
+    type: Boolean,
+    config: false,
+  });
+
   game.settings.register('swade', 'gmBennies', {
     name: game.i18n.localize('SWADE.GmBennies'),
     hint: game.i18n.localize('SWADE.GmBenniesDesc'),
     default: 0,
     scope: 'world',
     type: Number,
-    config: true,
+    config: false,
   });
 
   game.settings.register('swade', 'vehicleMods', {
@@ -76,7 +86,7 @@ export const registerSettings = function () {
     default: false,
     scope: 'world',
     type: Boolean,
-    config: true,
+    config: false,
   });
 
   game.settings.register('swade', 'vehicleEdges', {
@@ -85,6 +95,17 @@ export const registerSettings = function () {
     default: false,
     scope: 'world',
     type: Boolean,
-    config: true,
+    config: false,
   });
-};
+
+  game.settings.register('swade', 'arbitraryStats', {
+    name: 'Arbitrary stats',
+    default: {},
+    scope: 'world',
+    type: Object,
+    config: false,
+    onChange: (data) => {
+      console.log(data);
+    },
+  });
+}

@@ -53,4 +53,10 @@ export class SWADE {
   public static vehicles = {
     maxHandlingPenalty: -4,
   };
+
+  public static settingConfig = {
+    id: 'settingConfig',
+    title: 'SWADE Setting Rule Configurator',
+    settings: ['enableConviction', 'vehicleMods', 'vehicleEdges', 'gmBennies'],
+  };
 }
