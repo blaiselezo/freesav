@@ -71,7 +71,8 @@ export default class SettingConfigurator extends FormApplication {
     // Handle the free-form attributes list
     const charAttributes = Object.values(
       expandedFormdata.charSettingStats,
-    ).reduce((obj, v) => {
+    ).reduce((obj, v: any) => {
+      if (!v.key) console.log(expandedFormdata.charSettingStats);
       let k = v['key'].trim();
       if (/[\s\.]/.test(k)) {
         return ui.notifications.error(
@@ -82,7 +83,6 @@ export default class SettingConfigurator extends FormApplication {
       obj[k] = v;
       return obj;
     }, {});
-    console.log(charAttributes);
 
     // Remove attributes which are no longer used
     for (let k of Object.keys(charData)) {
