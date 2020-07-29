@@ -472,7 +472,7 @@ export default class SwadeActor extends Actor {
     let handling = getProperty(this.data, 'data.handling');
     let wounds = this.calcWoundPenalties();
     let totalHandling: number | string;
-    totalHandling = parseInt(handling) - wounds;
+    totalHandling = handling + wounds;
 
     // Calculate handling
     if (totalHandling < CONFIG.SWADE.vehicles.maxHandlingPenalty) {
