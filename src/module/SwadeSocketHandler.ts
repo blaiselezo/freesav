@@ -50,6 +50,6 @@ export class SwadeSocketHandler {
   private _onNewRound() {}
 
   private _onUnknownSocket() {
-    throw new Error('This socket event is not supported');
+    console.warn(new Error('This socket event is not supported'));
   }
 }
