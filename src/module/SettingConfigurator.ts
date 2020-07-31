@@ -75,15 +75,18 @@ export default class SettingConfigurator extends FormApplication {
 
     // Handle the free-form attributes list
     let settingFields = game.settings.get('swade', 'settingFields');
-    let actorFieldData = settingFields['actor'];
-    let itemFieldData = settingFields['item'];
 
     let actorAttributes = this._handleKeyValidityCheck(formActorAttrs);
     let itemAttributes = this._handleKeyValidityCheck(formItemAttrs);
+    console.log('after validity check', actorAttributes);
     let saveValue = {
-      actor: this._handleDeletableAttributes(actorAttributes, actorFieldData),
-      item: this._handleDeletableAttributes(itemAttributes, itemFieldData),
+      actor: this._handleDeletableAttributes(
+        actorAttributes,
+        settingFields.actor,
+      ),
+      item: this._handleDeletableAttributes(itemAttributes, settingFields.item),
     };
+    console.log('after deletion check', saveValue.actor);
     await game.settings.set('swade', 'settingFields', saveValue);
   }
 
@@ -108,7 +111,7 @@ export default class SettingConfigurator extends FormApplication {
     if (action === 'createChar') {
       const nk = Object.keys(settingFields.actor).length + 1;
       let newElement = document.createElement('div');
-      newElement.innerHTML = `<input type="text" name="charSettingStats.attr${nk}.key" value="attr${nk}"/>`;
+      newElement.innerHTML = `<input type="text" name="actorSettingStats.attr${nk}.key" value="attr${nk}"/>`;
       let newKey = newElement.children[0];
       form.appendChild(newKey);
       await this._onSubmit(event);
