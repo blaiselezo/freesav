@@ -34,7 +34,10 @@ export default class SettingConfigurator extends FormApplication {
       settingRules[setting] = game.settings.get('swade', setting);
     }
     data['settingRules'] = settingRules;
-    data['charSettingStats'] = game.settings.get('swade', 'arbitraryStats');
+
+    let settingFields = game.settings.get('swade', 'settingFields');
+    data['actorSettingStats'] = settingFields.actor;
+    data['itemSettingStats'] = settingFields.item;
     data['dtypes'] = ['String', 'Number', 'Boolean'];
     return data;
   }
@@ -53,11 +56,15 @@ export default class SettingConfigurator extends FormApplication {
   }
 
   async _updateObject(event, formData) {
+    //Gather Data
     let expandedFormdata = expandObject(formData) as any;
-    let rules = expandedFormdata.settingRules;
+    console.log('expandedFormdata', expandedFormdata);
+    let formActorAttrs = expandedFormdata.actorSettingStats || {};
+    let formItemAttrs = expandedFormdata.itemSettingStats || {};
 
-    for (const key in rules) {
-      let settingValue = rules[key];
+    //Set the "easy" settings
+    for (const key in expandedFormdata.settingRules) {
+      let settingValue = expandedFormdata.settingRules[key];
       if (
         this.config.settings.includes(key) &&
         settingValue !== game.settings.get('swade', key)
@@ -66,42 +73,18 @@ export default class SettingConfigurator extends FormApplication {
       }
     }
 
-    let charData = game.settings.get('swade', 'arbitraryStats');
-
     // Handle the free-form attributes list
-    const charAttributes = Object.values(
-      expandedFormdata.charSettingStats,
-    ).reduce((obj, v: any) => {
-      if (!v.key) console.log(expandedFormdata.charSettingStats);
-      let k = v['key'].trim();
-      if (/[\s\.]/.test(k)) {
-        return ui.notifications.error(
-          'Attribute keys may not contain spaces or periods',
-        );
-      }
-      delete v['key'];
-      obj[k] = v;
-      return obj;
-    }, {});
+    let settingFields = game.settings.get('swade', 'settingFields');
+    let actorFieldData = settingFields['actor'];
+    let itemFieldData = settingFields['item'];
 
-    // Remove attributes which are no longer used
-    for (let k of Object.keys(charData)) {
-      //if (!charAttributes.hasOwnProperty(k)) charAttributes[`-=${k}`] = null;
-      if (!charAttributes.hasOwnProperty(k)) delete charAttributes[k];
-    }
-
-    // Re-combine formData
-    // let newFormData = Object.entries(formData)
-    //   .filter((e) => !e[0].startsWith('charSettingStats'))
-    //   .reduce(
-    //     (obj, e) => {
-    //       obj[e[0]] = e[1];
-    //       return obj;
-    //     },
-    //     { charSettingStats: charAttributes },
-    //   );
-
-    game.settings.set('swade', 'arbitraryStats', charAttributes);
+    let actorAttributes = this._handleKeyValidityCheck(formActorAttrs);
+    let itemAttributes = this._handleKeyValidityCheck(formItemAttrs);
+    let saveValue = {
+      actor: this._handleDeletableAttributes(actorAttributes, actorFieldData),
+      item: this._handleDeletableAttributes(itemAttributes, itemFieldData),
+    };
+    await game.settings.set('swade', 'settingFields', saveValue);
   }
 
   async _resetSettings(event: Event) {
@@ -118,12 +101,12 @@ export default class SettingConfigurator extends FormApplication {
     event.preventDefault();
     const a = event.currentTarget;
     const action = a.dataset.action;
-    const attrs = game.settings.get('swade', 'arbitraryStats');
+    let settingFields = game.settings.get('swade', 'settingFields');
     const form = this.form;
 
     // Add new attribute
     if (action === 'createChar') {
-      const nk = Object.keys(attrs).length + 1;
+      const nk = Object.keys(settingFields.actor).length + 1;
       let newElement = document.createElement('div');
       newElement.innerHTML = `<input type="text" name="charSettingStats.attr${nk}.key" value="attr${nk}"/>`;
       let newKey = newElement.children[0];
@@ -132,21 +115,49 @@ export default class SettingConfigurator extends FormApplication {
       this.render(true);
     }
 
-    // if (action === 'createItem') {
-    //   const nk = Object.keys(attrs).length + 1;
-    //   let newElement = document.createElement('div');
-    //   newElement.innerHTML = `<input type="text" name="itemSettingStats.attr${nk}.key" value="attr${nk}"/>`;
-    //   let newKey = newElement.children[0];
-    //   form.appendChild(newKey);
-    //   await this._onSubmit(event);
-    //   this.render(true);
-    // }
+    if (action === 'createItem') {
+      const nk = Object.keys(settingFields.item).length + 1;
+      let newElement = document.createElement('div');
+      newElement.innerHTML = `<input type="text" name="itemSettingStats.attr${nk}.key" value="attr${nk}"/>`;
+      let newKey = newElement.children[0];
+      form.appendChild(newKey);
+      await this._onSubmit(event);
+      this.render(true);
+    }
 
     // Remove existing attribute
-    else if (action === 'delete') {
+    if (action === 'delete') {
       const li = a.closest('.attribute');
       li.parentElement.removeChild(li);
-      await this._onSubmit(event);
+      this._onSubmit(event).then(() => this.render(true));
     }
+  }
+
+  private _handleKeyValidityCheck(attributes: any): any {
+    return Object.values(attributes).reduce((obj, v) => {
+      let k = v['key'].trim();
+      if (/[\s\.]/.test(k)) {
+        return ui.notifications.error(
+          'Attribute keys may not contain spaces or periods',
+        );
+      }
+      delete v['key'];
+      obj[k] = v;
+      return obj;
+    }, {});
+  }
+
+  /**
+   * Remove attributes which are no longer use
+   * @param attributes
+   * @param base
+   */
+  private _handleDeletableAttributes(attributes: any, base: any) {
+    for (let k of Object.keys(base)) {
+      if (!attributes.hasOwnProperty(k)) {
+        delete attributes[k];
+      }
+    }
+    return attributes;
   }
 }

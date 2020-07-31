@@ -98,14 +98,11 @@ export function registerSettings() {
     config: false,
   });
 
-  game.settings.register('swade', 'arbitraryStats', {
-    name: 'Arbitrary stats',
-    default: {},
+  game.settings.register('swade', 'settingFields', {
+    name: 'Arbitrary Setting Fields',
+    default: { actor: {}, item: {} },
     scope: 'world',
     type: Object,
     config: false,
-    onChange: (data) => {
-      console.log(data);
-    },
   });
 }
