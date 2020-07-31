@@ -46,6 +46,8 @@ export default class SettingConfigurator extends FormApplication {
     super.activateListeners(html);
 
     html.find('#reset').click((ev) => this._resetSettings(ev));
+    html.find('#submit').click((ev) => this.close());
+    html.find('#sync').click((ev) => this._handleSync(ev));
     html
       .find('.attributes')
       .on(
@@ -58,7 +60,6 @@ export default class SettingConfigurator extends FormApplication {
   async _updateObject(event, formData) {
     //Gather Data
     let expandedFormdata = expandObject(formData) as any;
-    console.log('expandedFormdata', expandedFormdata);
     let formActorAttrs = expandedFormdata.actorSettingStats || {};
     let formItemAttrs = expandedFormdata.itemSettingStats || {};
 
@@ -162,5 +163,9 @@ export default class SettingConfigurator extends FormApplication {
       }
     }
     return attributes;
+  }
+
+  private _handleSync(ev) {
+    ui.notifications.warn('Syncing Setting Fields.');
   }
 }
