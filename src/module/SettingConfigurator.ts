@@ -79,7 +79,6 @@ export default class SettingConfigurator extends FormApplication {
 
     let actorAttributes = this._handleKeyValidityCheck(formActorAttrs);
     let itemAttributes = this._handleKeyValidityCheck(formItemAttrs);
-    console.log('after validity check', actorAttributes);
     let saveValue = {
       actor: this._handleDeletableAttributes(
         actorAttributes,
@@ -87,7 +86,6 @@ export default class SettingConfigurator extends FormApplication {
       ),
       item: this._handleDeletableAttributes(itemAttributes, settingFields.item),
     };
-    console.log('after deletion check', saveValue.actor);
     await game.settings.set('swade', 'settingFields', saveValue);
   }
 
@@ -165,7 +163,9 @@ export default class SettingConfigurator extends FormApplication {
     return attributes;
   }
 
-  private _handleSync(ev) {
+  private async _handleSync(ev) {
     ui.notifications.warn('Syncing Setting Fields.');
+    let settingFields = game.settings.get('swade', 'settingFields');
+    //Hooks.call('syncItemSettingFields', settingFields, game.userId);
   }
 }
