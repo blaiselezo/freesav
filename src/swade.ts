@@ -33,7 +33,6 @@ import {
   rollWeaponMacro,
   rollPowerMacro,
   updateToughness,
-  handleItemSettingFields,
 } from './module/util';
 
 /* ------------------------------------ */
@@ -560,39 +559,5 @@ Hooks.on(
     if (item.type === 'armor') {
       await updateToughness(actor);
     }
-  },
-);
-
-Hooks.on(
-  'syncItemSettingFields',
-  async (settingFields: any, userID: string) => {
-    if (!game.user.isGM) {
-      return;
-    }
-
-    //Items in Sidebar
-    for (let item of game.items.values()) {
-      handleItemSettingFields(item as SwadeItem, settingFields);
-    }
-
-    //Item Compendia
-    let packs = game.packs.filter((c: Compendium) => {
-      c.entity === 'Item' && !c.collection.startsWith('swade') && !c.locked;
-    }) as Compendium[];
-
-    for (let pack of packs) {
-      let content = (await pack.getContent()) as SwadeItem[];
-      for (let item of content) {
-        handleItemSettingFields(item as SwadeItem, settingFields);
-      }
-    }
-
-    //Items owned by actors
-    for (let actor of game.actors.values()) {
-      for (let item of actor.items.values()) {
-        handleItemSettingFields(item as SwadeItem, settingFields);
-      }
-    }
-    ui.notifications.info('Field Syncing completed');
   },
 );
