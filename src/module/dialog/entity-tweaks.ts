@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from '../entities/SwadeActor';
+import SwadeItem from '../entities/SwadeItem';
 
 export default class SwadeEntityTweaks extends FormApplication {
   static get defaultOptions() {
@@ -29,8 +30,31 @@ export default class SwadeEntityTweaks extends FormApplication {
    */
   getData() {
     let data = this.object.data;
+    let fields = game.settings.get('swade', 'settingFields');
+    let settingFields;
+
+    if (this.object instanceof SwadeActor) {
+      settingFields = fields.actor;
+    } else if (this.object instanceof SwadeItem) {
+      settingFields = fields.item;
+    }
+
+    for (let [key, value] of Object.entries(settingFields)) {
+      let fieldExists = getProperty(
+        this.object.data,
+        `data.settingSpecific.${key}`,
+      );
+      if (fieldExists) {
+        settingFields[key]['useField'] = true;
+      }
+    }
+
+    data.settingFields = settingFields;
     data.isCharacter = this.object.data.type === 'character';
     data.isVehicle = this.object.data.type === 'vehicle';
+    data.shouldDisplayInit =
+      this instanceof SwadeActor ||
+      (data.isVehicle && game.settings.get('swade', 'vehicleEdges'));
     return data;
   }
 
@@ -49,8 +73,26 @@ export default class SwadeEntityTweaks extends FormApplication {
    */
   async _updateObject(event, formData: any) {
     event.preventDefault();
+    const fields = game.settings.get('swade', 'settingFields').actor;
+    let expandedFormData = expandObject(formData);
+    let settingFields = expandedFormData['data']['settingSpecific'];
+    let newFields = {};
+    for (let [key, value] of Object.entries(settingFields)) {
+      let fieldExistsOnEntity = getProperty(
+        this.object.data,
+        `data.settingSpecific.${key}`,
+      );
+      if (!value['useField'] && fieldExistsOnEntity) {
+        newFields[`-=${key}`] = null;
+      } else if (value['useField'] && !fieldExistsOnEntity) {
+        newFields[key] = fields[key];
+      }
+    }
+
+    setProperty(expandedFormData, 'data.settingSpecific', newFields);
+    console.log(expandObject(expandedFormData));
     // Update the actor
-    this.object.update(formData);
+    this.object.update(flattenObject(expandedFormData));
     // Re-draw the updated sheet
     this.object.sheet.render(true);
   }

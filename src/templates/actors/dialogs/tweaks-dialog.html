@@ -86,47 +86,67 @@
       />
     </div>
   </div>
-  {{/if}} {{#unless isVehicle}}
+  {{/if}} {{#if shouldDisplayInit}}
   <h2>{{localize "SWADE.Init"}}</h2>
-  <div class="form-group">
-    <label for="hasLevelHeaded">{{localize "SWADE.LevelHeaded"}}</label>
-    <div class="form-fields">
+  <section>
+    <div class="form-group">
+      <label for="hasLevelHeaded">{{localize "SWADE.LevelHeaded"}}</label>
+      <div class="form-fields">
+        <input
+          type="checkbox"
+          name="data.initiative.hasLevelHeaded"
+          id="hasLevelHeaded"
+          {{checked
+          data.initiative.hasLevelHeaded}}
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="data.hasImpLevelHeaded"
+        >{{localize "SWADE.ImprovedLevelHeaded"}}</label
+      >
+      <div class="form-fields">
+        <input
+          type="checkbox"
+          name="data.initiative.hasImpLevelHeaded"
+          id="hasImpLevelHeaded"
+          {{checked
+          data.initiative.hasImpLevelHeaded}}
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="hasHesitant">{{localize "SWADE.Hesitant"}}</label>
+      <div class="form-fields">
+        <input
+          type="checkbox"
+          name="data.initiative.hasHesitant"
+          id="hasHesitant"
+          {{checked
+          data.initiative.hasHesitant}}
+        />
+      </div>
+    </div>
+  </section>
+  {{/if}} {{#if settingFields}}
+  <h2>
+    Setting specific Fields
+  </h2>
+  <section>
+    {{log @this}} {{#each settingFields as |attr key|}}
+    <div class="form-group">
+      <label for="{{_id}}-{{key}}-useField">{{attr.label}}</label>
       <input
         type="checkbox"
-        name="data.initiative.hasLevelHeaded"
-        id="hasLevelHeaded"
+        name="data.settingSpecific.{{key}}.useField"
+        id="{{_id}}-{{key}}-useField"
         {{checked
-        data.initiative.hasLevelHeaded}}
+        attr.useField}}
       />
     </div>
-  </div>
-  <div class="form-group">
-    <label for="data.hasImpLevelHeaded"
-      >{{localize "SWADE.ImprovedLevelHeaded"}}</label
-    >
-    <div class="form-fields">
-      <input
-        type="checkbox"
-        name="data.initiative.hasImpLevelHeaded"
-        id="hasImpLevelHeaded"
-        {{checked
-        data.initiative.hasImpLevelHeaded}}
-      />
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="hasHesitant">{{localize "SWADE.Hesitant"}}</label>
-    <div class="form-fields">
-      <input
-        type="checkbox"
-        name="data.initiative.hasHesitant"
-        id="hasHesitant"
-        {{checked
-        data.initiative.hasHesitant}}
-      />
-    </div>
-  </div>
-  {{/unless}}
+    {{/each}}
+  </section>
+  {{/if}}
   <footer class="sheet-footer">
     <button type="submit">
       <i class="fas fa-save"></i>{{localize "Save Changes"}}
