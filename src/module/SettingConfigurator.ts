@@ -47,7 +47,6 @@ export default class SettingConfigurator extends FormApplication {
 
     html.find('#reset').click((ev) => this._resetSettings(ev));
     html.find('#submit').click((ev) => this.close());
-    html.find('#sync').click((ev) => this._handleSync(ev));
     html
       .find('.attributes')
       .on(
@@ -161,11 +160,5 @@ export default class SettingConfigurator extends FormApplication {
       }
     }
     return attributes;
-  }
-
-  private async _handleSync(ev) {
-    ui.notifications.warn('Syncing Setting Fields.');
-    let settingFields = game.settings.get('swade', 'settingFields');
-    //Hooks.call('syncItemSettingFields', settingFields, game.userId);
   }
 }
