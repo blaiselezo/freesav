@@ -64,12 +64,13 @@
       <h2 class="module-header">
         {{localize "SWADE.SpecificStats"}}
       </h2>
-      <h3>Character Stats</h3>
+      <h3>Actor Stats</h3>
       <hr />
       <header class="attributes-header flexrow">
         <span class="attribute-key">Stat Key</span>
         <span class="attribute-label">Label</span>
         <span class="attribute-dtype">Data Type</span>
+        <span class="attribute-maxValue">Has Max Value</span>
         <a class="attribute-control" data-action="createChar"
           ><i class="fas fa-plus"></i
         ></a>
@@ -98,6 +99,17 @@
             <option value="{{t}}">{{t}}</option>
             {{/each}} {{/select}}
           </select>
+          <div
+            class="attribute-maxValue"
+            style="border-bottom: none; text-align: center;"
+          >
+            <input
+              type="checkbox"
+              name="actorSettingStats.{{key}}.hasMaxValue"
+              {{checked
+              attr.hasMaxValue}}
+            />
+          </div>
           <a class="attribute-control" data-action="delete"
             ><i class="fas fa-trash"></i
           ></a>
@@ -111,6 +123,7 @@
         <span class="attribute-key">Stat Key</span>
         <span class="attribute-label">Label</span>
         <span class="attribute-dtype">Data Type</span>
+        <span class="attribute-maxValue">Has Max Value</span>
         <a class="attribute-control" data-action="createItem"
           ><i class="fas fa-plus"></i
         ></a>
@@ -136,6 +149,15 @@
             <option value="{{t}}">{{t}}</option>
             {{/each}} {{/select}}
           </select>
+          <div style="border-bottom: none; text-align: center;">
+            <input
+              class="attribute-maxValue"
+              type="checkbox"
+              name="itemSettingStats.{{key}}.hasMaxValue"
+              {{checked
+              attr.hasMaxValue}}
+            />
+          </div>
           <a class="attribute-control" data-action="delete"
             ><i class="fas fa-trash"></i
           ></a>

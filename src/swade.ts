@@ -32,7 +32,8 @@ import {
   rollSkillMacro,
   rollWeaponMacro,
   rollPowerMacro,
-  updateTougness,
+  updateToughness,
+  handleItemSettingFields,
 } from './module/util';
 
 /* ------------------------------------ */
@@ -44,7 +45,7 @@ Hooks.once('init', async function () {
   );
 
   // Record Configuration Values
-  // CONFIG.debug.hooks = true;
+  //CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
 
   game.swade = {
@@ -237,7 +238,6 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 Hooks.on(
   'preUpdateActor',
   (actor: SwadeActor, updateData: any, options: any, userId: string) => {
-    console.log('before', updateData);
     //wildcards will be linked, extras unlinked
     if (
       updateData.data &&
@@ -261,7 +261,7 @@ Hooks.on(
     }
 
     if (updateData?.data?.attributes?.vigor) {
-      await updateTougness(actor);
+      await updateToughness(actor);
     }
   },
 );
@@ -538,7 +538,7 @@ Hooks.on(
   async (actor: SwadeActor, item: any, options: any, userId: string) => {
     //Update armor
     if (item.type === 'armor') {
-      await updateTougness(actor);
+      await updateToughness(actor);
     }
   },
 );
@@ -548,7 +548,7 @@ Hooks.on(
   async (actor: SwadeActor, item: any, options: any, userId: string) => {
     //Update armor
     if (item.type === 'armor') {
-      await updateTougness(actor);
+      await updateToughness(actor);
     }
   },
 );
@@ -558,7 +558,41 @@ Hooks.on(
   async (actor: SwadeActor, item: any, options: any, userId: string) => {
     //Update armor
     if (item.type === 'armor') {
-      await updateTougness(actor);
+      await updateToughness(actor);
     }
+  },
+);
+
+Hooks.on(
+  'syncItemSettingFields',
+  async (settingFields: any, userID: string) => {
+    if (!game.user.isGM) {
+      return;
+    }
+
+    //Items in Sidebar
+    for (let item of game.items.values()) {
+      handleItemSettingFields(item as SwadeItem, settingFields);
+    }
+
+    //Item Compendia
+    let packs = game.packs.filter((c: Compendium) => {
+      c.entity === 'Item' && !c.collection.startsWith('swade') && !c.locked;
+    }) as Compendium[];
+
+    for (let pack of packs) {
+      let content = (await pack.getContent()) as SwadeItem[];
+      for (let item of content) {
+        handleItemSettingFields(item as SwadeItem, settingFields);
+      }
+    }
+
+    //Items owned by actors
+    for (let actor of game.actors.values()) {
+      for (let item of actor.items.values()) {
+        handleItemSettingFields(item as SwadeItem, settingFields);
+      }
+    }
+    ui.notifications.info('Field Syncing completed');
   },
 );
