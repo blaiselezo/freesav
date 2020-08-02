@@ -2,7 +2,7 @@
 <header class="header-field flexrow">
   <span>Setting fields</span>
 </header>
-{{#each data.settingSpecific as |attr key|}} {{log attr}}
+{{#each data.settingSpecific as |attr key|}}
 <div class="form-group">
   <label>{{attr.label}}</label>
   {{#if attr.isCheckbox}}

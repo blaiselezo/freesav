@@ -86,7 +86,6 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     }
     data.hasSettingSpecificFields =
       Object.keys(data.data.settingSpecific).length > 0;
-    console.log(data);
     return data;
   }
 
