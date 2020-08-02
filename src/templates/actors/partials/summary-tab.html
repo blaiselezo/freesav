@@ -213,20 +213,7 @@
     </ol>
   </div>
   <div class="gear">
-    <header class="header-field flexrow">
-      Setting fields
-    </header>
-    {{#each data.settingSpecific as |attr key|}}
-    <div class="form-group">
-      <label>{{attr.label}}</label>
-      <input
-        type="text"
-        name="data.settingSpecific.{{key}}.value"
-        data-dtype="{{attr.dtype}}"
-        value="{{attr.value}}"
-      />
-    </div>
-    {{/each}}
+    {{> "systems/swade/templates/actors/partials/setting-fields.html"}}
     <header class="header-field flexrow">
       <div>
         <span>{{ localize "SWADE.QuickAccess" }}</span>

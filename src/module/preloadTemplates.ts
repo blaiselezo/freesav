@@ -12,6 +12,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swade/templates/actors/partials/inventory-tab.html',
     'systems/swade/templates/actors/partials/powers-tab.html',
     'systems/swade/templates/actors/partials/biography-tab.html',
+    'systems/swade/templates/actors/partials/setting-fields.html',
 
     //Vehicle Partials
     'systems/swade/templates/actors/vehicle-partials/summary-tab.html',
@@ -39,8 +40,6 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swade/templates/items/partials/header.html',
     'systems/swade/templates/items/partials/header-delete.html',
     'systems/swade/templates/items/partials/description.html',
-
-    'systems/swade/templates/setting-config.html',
   ];
 
   return loadTemplates(templatePaths);

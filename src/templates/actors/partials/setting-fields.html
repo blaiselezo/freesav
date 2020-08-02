@@ -1,0 +1,32 @@
+{{#if hasSettingSpecificFields}}
+<header class="header-field flexrow">
+  <span>Setting fields</span>
+</header>
+{{#each data.settingSpecific as |attr key|}} {{log attr}}
+<div class="form-group">
+  <label>{{attr.label}}</label>
+  {{#if attr.isCheckbox}}
+  <input
+    style="display: inline;"
+    type="checkbox"
+    name="data.settingSpecific.{{key}}.value"
+    {{checked
+    attr.value}}
+  />
+  {{else}}
+  <input
+    type="text"
+    name="data.settingSpecific.{{key}}.value"
+    data-dtype="{{attr.dtype}}"
+    value="{{attr.value}}"
+  />
+  {{#if attr.hasMaxValue}}
+  <input
+    type="text"
+    name="data.settingSpecific.{{key}}.max"
+    data-dtype="{{attr.dtype}}"
+    value="{{attr.max}}"
+  />
+  {{/if}} {{/if}}
+</div>
+{{/each}} {{/if}}

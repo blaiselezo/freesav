@@ -78,6 +78,18 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     });
   }
 
+  getData() {
+    let data: any = super.getData();
+
+    for (let attr of Object.values(data.data.settingSpecific)) {
+      attr['isCheckbox'] = attr['dtype'] === 'Boolean';
+    }
+    data.hasSettingSpecificFields =
+      Object.keys(data.data.settingSpecific).length > 0;
+    console.log(data);
+    return data;
+  }
+
   /**
    * Extend and override the sheet header buttons
    * @override
@@ -93,14 +105,14 @@ export default class SwadeBaseActorSheet extends ActorSheet {
           label: 'Tweaks',
           class: 'configure-actor',
           icon: 'fas fa-dice',
-          onclick: (ev) => this._onConfigureActor(ev),
+          onclick: (ev) => this._onConfigureEntity(ev),
         },
       ].concat(buttons);
     }
     return buttons;
   }
 
-  protected _onConfigureActor(event: Event) {
+  protected _onConfigureEntity(event: Event) {
     event.preventDefault();
     new SwadeEntityTweaks(this.actor, {
       top: this.position.top + 40,
