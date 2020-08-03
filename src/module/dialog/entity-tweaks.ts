@@ -85,6 +85,9 @@ export default class SwadeEntityTweaks extends FormApplication {
           overwrite: true,
         });
         newFields[key]['dtype'] = fields[key]['dtype'];
+        if (newFields[key]['dtype'] === 'Boolean') {
+          newFields[key]['-=max'] = null;
+        }
       } else if (value['useField'] && !fieldExistsOnEntity) {
         //add new field
         newFields[key] = fields[key];
@@ -105,7 +108,9 @@ export default class SwadeEntityTweaks extends FormApplication {
 
     setProperty(expandedFormData, 'data.additionalStats', newFields);
     // Update the actor
-    this.object.update(flattenObject(expandedFormData));
+    this.object
+      .update(flattenObject(expandedFormData))
+      .then((data) => console.log(data));
     // Re-draw the updated sheet
     this.object.sheet.render(true);
   }
