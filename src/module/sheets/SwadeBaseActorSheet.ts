@@ -81,11 +81,11 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   getData() {
     let data: any = super.getData();
 
-    for (let attr of Object.values(data.data.settingSpecific)) {
+    for (let attr of Object.values(data.data.additionalStats)) {
       attr['isCheckbox'] = attr['dtype'] === 'Boolean';
     }
-    data.hasSettingSpecificFields =
-      Object.keys(data.data.settingSpecific).length > 0;
+    data.hasAdditionalStatsFields =
+      Object.keys(data.data.additionalStats).length > 0;
     return data;
   }
 

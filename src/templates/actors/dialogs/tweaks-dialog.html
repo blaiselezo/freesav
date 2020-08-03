@@ -129,20 +129,20 @@
     </div>
   </section>
   {{/if}} {{#if settingFields}}
-  <h2>
-    Setting specific Fields
-  </h2>
+  <h2>{{localize "SWADE.AddStats"}}</h2>
   <section>
     {{#each settingFields as |attr key|}}
     <div class="form-group">
       <label for="{{_id}}-{{key}}-useField">{{attr.label}}</label>
-      <input
-        type="checkbox"
-        name="data.settingSpecific.{{key}}.useField"
-        id="{{_id}}-{{key}}-useField"
-        {{checked
-        attr.useField}}
-      />
+      <div class="form-fields">
+        <input
+          type="checkbox"
+          name="data.additionalStats.{{key}}.useField"
+          id="{{_id}}-{{key}}-useField"
+          {{checked
+          attr.useField}}
+        />
+      </div>
     </div>
     {{/each}}
   </section>

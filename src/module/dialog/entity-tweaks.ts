@@ -35,7 +35,7 @@ export default class SwadeEntityTweaks extends FormApplication {
     for (let [key, value] of Object.entries(settingFields)) {
       let fieldExists = getProperty(
         this.object.data,
-        `data.settingSpecific.${key}`,
+        `data.additionalStats.${key}`,
       );
       if (fieldExists) {
         settingFields[key]['useField'] = true;
@@ -69,13 +69,13 @@ export default class SwadeEntityTweaks extends FormApplication {
     event.preventDefault();
     const fields = this._getAppropriateSettingFields();
     let expandedFormData = expandObject(formData);
-    let formFields = expandedFormData['data']['settingSpecific'];
+    let formFields = expandedFormData['data']['additionalStats'];
     let newFields = {};
     //handle setting specific fields
     for (let [key, value] of Object.entries(formFields)) {
       let fieldExistsOnEntity = getProperty(
         this.object.data,
-        `data.settingSpecific.${key}`,
+        `data.additionalStats.${key}`,
       );
       if (value['useField'] && fieldExistsOnEntity) {
         //update exisiting field;
@@ -95,14 +95,14 @@ export default class SwadeEntityTweaks extends FormApplication {
 
     //handle "stray" fields that exist on the actor but have no prototype
     for (let key of Object.keys(
-      getProperty(this.object.data, 'data.settingSpecific'),
+      getProperty(this.object.data, 'data.additionalStats'),
     )) {
       if (!fields[key]) {
         newFields[`-=${key}`] = null;
       }
     }
 
-    setProperty(expandedFormData, 'data.settingSpecific', newFields);
+    setProperty(expandedFormData, 'data.additionalStats', newFields);
     // Update the actor
     this.object.update(flattenObject(expandedFormData));
     // Re-draw the updated sheet

@@ -1,32 +1,34 @@
-{{#if hasSettingSpecificFields}}
+{{#if hasAdditionalStatsFields}}
 <header class="header-field flexrow">
-  <span>Setting fields</span>
+  <span>{{localize "SWADE.AddStats"}}</span>
 </header>
-{{#each data.settingSpecific as |attr key|}}
+{{#each data.additionalStats as |attr key|}}
 <div class="form-group">
   <label>{{attr.label}}</label>
-  {{#if attr.isCheckbox}}
-  <input
-    style="display: inline;"
-    type="checkbox"
-    name="data.settingSpecific.{{key}}.value"
-    {{checked
-    attr.value}}
-  />
-  {{else}}
-  <input
-    type="text"
-    name="data.settingSpecific.{{key}}.value"
-    data-dtype="{{attr.dtype}}"
-    value="{{attr.value}}"
-  />
-  {{#if attr.hasMaxValue}}
-  <input
-    type="text"
-    name="data.settingSpecific.{{key}}.max"
-    data-dtype="{{attr.dtype}}"
-    value="{{attr.max}}"
-  />
-  {{/if}} {{/if}}
+  <span class="form-fields">
+    {{#if attr.isCheckbox}}
+    <input
+      style="display: inline;"
+      type="checkbox"
+      name="data.additionalStats.{{key}}.value"
+      {{checked
+      attr.value}}
+    />
+    {{else}}
+    <input
+      type="text"
+      name="data.additionalStats.{{key}}.value"
+      data-dtype="{{attr.dtype}}"
+      value="{{attr.value}}"
+    />
+    {{#if attr.hasMaxValue}}
+    <input
+      type="text"
+      name="data.additionalStats.{{key}}.max"
+      data-dtype="{{attr.dtype}}"
+      value="{{attr.max}}"
+    />
+    {{/if}} {{/if}}
+  </span>
 </div>
 {{/each}} {{/if}}

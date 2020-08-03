@@ -106,7 +106,7 @@
   "SWADE.Unequipped": "Unequipped",
   "SWADE.Quantity": "Quantity",
   "SWADE.Weight": "Weight",
-  "SWADE.Price": "Price",
+  "SWADE.Price": "Cost",
 
   "SWADE.PP": "Power Points",
   "SWADE.PPShort": "P. Points",
@@ -201,7 +201,8 @@
   "SWADE.Cone": "Cone Template",
 
   "SWADE.GM": "Game Master",
-  "SWADE.Chars": "Characters",
   "SWADE.Vehicles": "Vehicles",
-  "SWADE.SpecificStats": "Setting-specific Stats"
+  "SWADE.AddStats": "Additional Stats",
+  "SWADE.Actors": "Actors",
+  "SWADE.Items": "Items"
 }

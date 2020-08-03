@@ -121,7 +121,7 @@
           "hasLevelHeaded": false,
           "hasImpLevelHeaded": false
         },
-        "settingSpecific": {}
+        "additionalStats": {}
       },
       "vehicle-common": {
         "size": 0,
@@ -159,7 +159,7 @@
           "isOutOfControl": false,
           "isWrecked": false
         },
-        "settingSpecific": {},
+        "additionalStats": {},
         "maxCargo": 0,
         "maxMods": 0
       }
@@ -195,7 +195,7 @@
       "itemDescription": {
         "description": "",
         "notes": "",
-        "settingSpecific": {}
+        "additionalStats": {}
       },
       "physicalItem": {
         "quantity": 1,
