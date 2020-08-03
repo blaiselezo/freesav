@@ -84,6 +84,7 @@ export default class SwadeEntityTweaks extends FormApplication {
           insertValues: true,
           overwrite: true,
         });
+        newFields[key]['dtype'] = fields[key]['dtype'];
       } else if (value['useField'] && !fieldExistsOnEntity) {
         //add new field
         newFields[key] = fields[key];

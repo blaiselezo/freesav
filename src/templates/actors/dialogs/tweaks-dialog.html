@@ -130,6 +130,21 @@
   </section>
   {{/if}} {{#if settingFields}}
   <h2>{{localize "SWADE.AddStats"}}</h2>
+  <header
+    class="form-group"
+    style="
+      padding: 5px;
+      margin: 5px 0;
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid #aaa;
+      border-radius: 2px;
+    "
+  >
+    <label>Label</label>
+    <div class="form-fields">
+      <label>Use?</label>
+    </div>
+  </header>
   <section>
     {{#each settingFields as |attr key|}}
     <div class="form-group">
