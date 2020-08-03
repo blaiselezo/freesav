@@ -30,6 +30,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added `isWildcard` getter to `SwadeActor`
 - Added Group Rolls for NPC Extras
 - Added `currentShots` property to `weapons`. Addjusted sheets accordingly
+- Added Setting Configurator in the Settings
+- Added Capability to create custom stats.
+  > To use custom stats, create them in the Setting Configurator, then enable them in the Actor/Item Tweaks
 
 ### Changed
 
