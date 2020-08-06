@@ -3,6 +3,7 @@ import SwadeActor from '../entities/SwadeActor';
 import SwadeItem from '../entities/SwadeItem';
 
 export default class SwadeEntityTweaks extends FormApplication {
+  object: Entity;
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.id = 'sheet-tweaks';
@@ -42,13 +43,13 @@ export default class SwadeEntityTweaks extends FormApplication {
       }
     }
 
-    data.settingFields = settingFields;
-    data.isActor = this.object instanceof SwadeActor;
-    data.isCharacter = this.object.data.type === 'character';
-    data.isVehicle = this.object.data.type === 'vehicle';
-    data.shouldDisplayInit =
+    data['settingFields'] = settingFields;
+    data['isActor'] = this.object instanceof SwadeActor;
+    data['isCharacter'] = this.object.data.type === 'character';
+    data['isVehicle'] = this.object.data.type === 'vehicle';
+    data['shouldDisplayInit'] =
       this instanceof SwadeActor ||
-      (data.isVehicle && game.settings.get('swade', 'vehicleEdges'));
+      (data['isVehicle'] && game.settings.get('swade', 'vehicleEdges'));
     return data;
   }
 
@@ -67,10 +68,12 @@ export default class SwadeEntityTweaks extends FormApplication {
    */
   async _updateObject(event, formData: any) {
     event.preventDefault();
-    const fields = this._getAppropriateSettingFields();
+    const prototypeFields = this._getAppropriateSettingFields();
     let expandedFormData = expandObject(formData);
     let formFields = expandedFormData['data']['additionalStats'];
-    let newFields = {};
+    let newFields = duplicate(
+      getProperty(this.object.data, 'data.additionalStats'),
+    );
     //handle setting specific fields
     for (let [key, value] of Object.entries(formFields)) {
       let fieldExistsOnEntity = getProperty(
@@ -79,18 +82,14 @@ export default class SwadeEntityTweaks extends FormApplication {
       );
       if (value['useField'] && fieldExistsOnEntity) {
         //update exisiting field;
-        newFields[key] = mergeObject(fieldExistsOnEntity, fields[key], {
-          insertKeys: true,
-          insertValues: true,
-          overwrite: true,
-        });
-        newFields[key]['dtype'] = fields[key]['dtype'];
+        newFields[key]['hasMaxValue'] = prototypeFields[key]['hasMaxValue'];
+        newFields[key]['dtype'] = prototypeFields[key]['dtype'];
         if (newFields[key]['dtype'] === 'Boolean') {
           newFields[key]['-=max'] = null;
         }
       } else if (value['useField'] && !fieldExistsOnEntity) {
         //add new field
-        newFields[key] = fields[key];
+        newFields[key] = prototypeFields[key];
       } else {
         //delete field
         newFields[`-=${key}`] = null;
@@ -101,18 +100,16 @@ export default class SwadeEntityTweaks extends FormApplication {
     for (let key of Object.keys(
       getProperty(this.object.data, 'data.additionalStats'),
     )) {
-      if (!fields[key]) {
+      if (!prototypeFields[key]) {
         newFields[`-=${key}`] = null;
       }
     }
-
     setProperty(expandedFormData, 'data.additionalStats', newFields);
     // Update the actor
-    this.object
-      .update(flattenObject(expandedFormData))
-      .then((data) => console.log(data));
-    // Re-draw the updated sheet
-    this.object.sheet.render(true);
+    let flattenedFormData = flattenObject(expandedFormData);
+    this.object.update(flattenedFormData).then((entity: Entity) => {
+      this.object.sheet.render(true);
+    });
   }
 
   private _getAppropriateSettingFields(): any {

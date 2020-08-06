@@ -1,12 +1,12 @@
 <form autocomplete="off">
   {{#if isActor}} {{#unless isCharacter}} {{#unless isVehicle}}
   <div class="form-group">
-    <label for="wildcard">{{localize "SWADE.Wildcard"}}</label>
+    <label for="{{_id}}-wildcard">{{localize "SWADE.Wildcard"}}</label>
     <div class="form-fields">
       <input
         type="checkbox"
         name="data.wildcard"
-        id="wildcard"
+        id="{{_id}}-wildcard"
         {{checked
         data.wildcard}}
       />
@@ -90,38 +90,40 @@
   <h2>{{localize "SWADE.Init"}}</h2>
   <section>
     <div class="form-group">
-      <label for="hasLevelHeaded">{{localize "SWADE.LevelHeaded"}}</label>
+      <label for="{{_id}}-hasLevelHeaded"
+        >{{localize "SWADE.LevelHeaded"}}</label
+      >
       <div class="form-fields">
         <input
           type="checkbox"
           name="data.initiative.hasLevelHeaded"
-          id="hasLevelHeaded"
+          id="{{_id}}-hasLevelHeaded"
           {{checked
           data.initiative.hasLevelHeaded}}
         />
       </div>
     </div>
     <div class="form-group">
-      <label for="data.hasImpLevelHeaded"
+      <label for="{{_id}}-hasImpLevelHeaded"
         >{{localize "SWADE.ImprovedLevelHeaded"}}</label
       >
       <div class="form-fields">
         <input
           type="checkbox"
           name="data.initiative.hasImpLevelHeaded"
-          id="hasImpLevelHeaded"
+          id="{{_id}}-hasImpLevelHeaded"
           {{checked
           data.initiative.hasImpLevelHeaded}}
         />
       </div>
     </div>
     <div class="form-group">
-      <label for="hasHesitant">{{localize "SWADE.Hesitant"}}</label>
+      <label for="{{_id}}-hasHesitant">{{localize "SWADE.Hesitant"}}</label>
       <div class="form-fields">
         <input
           type="checkbox"
           name="data.initiative.hasHesitant"
-          id="hasHesitant"
+          id="{{_id}}-hasHesitant"
           {{checked
           data.initiative.hasHesitant}}
         />
@@ -131,7 +133,7 @@
   {{/if}} {{#if settingFields}}
   <h2>{{localize "SWADE.AddStats"}}</h2>
   <header
-    class="form-group"
+    class="form-group flexrow"
     style="
       padding: 5px;
       margin: 5px 0;
@@ -140,16 +142,20 @@
       border-radius: 2px;
     "
   >
-    <label>Label</label>
-    <div class="form-fields">
-      <label>Use?</label>
-    </div>
+    <div>Label</div>
+    <div style="text-align: center;">Has Max Value</div>
+    <div style="text-align: center;">Enabled</div>
   </header>
   <section>
     {{#each settingFields as |attr key|}}
-    <div class="form-group">
-      <label for="{{_id}}-{{key}}-useField">{{attr.label}}</label>
-      <div class="form-fields">
+    <div class="flexrow">
+      <div style="text-align: left;">
+        <label for="{{_id}}-{{key}}-useField">{{attr.label}}</label>
+      </div>
+      <div style="text-align: center;">
+        <input type="checkbox" {{checked attr.hasMaxValue}} disabled />
+      </div>
+      <div style="text-align: center;">
         <input
           type="checkbox"
           name="data.additionalStats.{{key}}.useField"

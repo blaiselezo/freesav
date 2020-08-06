@@ -204,5 +204,7 @@
   "SWADE.Vehicles": "Vehicles",
   "SWADE.AddStats": "Additional Stats",
   "SWADE.Actors": "Actors",
-  "SWADE.Items": "Items"
+  "SWADE.Items": "Items",
+  "SWADE.Max": "Max",
+  "SWADE.Curr": "Current"
 }
