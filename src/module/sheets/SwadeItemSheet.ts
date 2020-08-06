@@ -84,6 +84,12 @@ export default class SwadeItemSheet extends ItemSheet {
       data.data.ownerIsWildcard = true;
     }
 
+    for (let attr of Object.values(data.data.additionalStats)) {
+      attr['isCheckbox'] = attr['dtype'] === 'Boolean';
+    }
+    data['hasAdditionalStatsFields'] =
+      Object.keys(data.data.additionalStats).length > 0;
+
     // Check for enabled optional rules
     data['settingrules'] = {
       modSlots: game.settings.get('swade', 'vehicleMods'),

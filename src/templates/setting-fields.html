@@ -2,7 +2,7 @@
 <header class="header-field flexrow">
   <span>{{localize "SWADE.AddStats"}}</span>
 </header>
-{{#each data.additionalStats as |attr key|}}
+{{#each data.additionalStats as |attr key|}} {{log attr}}
 <div class="form-group">
   <label>{{attr.label}}</label>
   <span class="form-fields">
