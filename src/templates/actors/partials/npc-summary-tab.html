@@ -133,12 +133,13 @@
       </span>
       {{/each}}
     </section>
-    {{> "systems/swade/templates/setting-fields.html"}}
+    <section class="gear">
+      {{> "systems/swade/templates/setting-fields.html"}}
+    </section>
   </div>
   <div>
-    {{!-- Right panel --}}
+    {{!-- Right panel --}} {{#if actor.flags.swade.hasArcaneBackground}}
     <section class="gear powers">
-      {{#if actor.flags.swade.hasArcaneBackground}}
       <header class="header-field flexrow">
         <div>
           <span>{{localize "SWADE.Pow"}}</span>
@@ -156,9 +157,9 @@
           owner=../owner}} {{/each}}
         </ol>
       </div>
-      {{/if}}
     </section>
-    <section class="inventory gear">
+    {{/if}}
+    <section class="gear">
       <header class="header-field flexrow">
         <div>
           <span>{{localize "SWADE.Inv"}}</span>
@@ -192,8 +193,8 @@
         </ol>
       </div>
     </section>
-    <section class="description">
-      <header class="header-field">
+    <section class="gear">
+      <header class="header-field flexrow">
         <span>{{localize "SWADE.Desc"}}</span>
       </header>
       <div>
