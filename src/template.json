@@ -120,7 +120,8 @@
           "hasHesitant": false,
           "hasLevelHeaded": false,
           "hasImpLevelHeaded": false
-        }
+        },
+        "additionalStats": {}
       },
       "vehicle-common": {
         "size": 0,
@@ -158,6 +159,7 @@
           "isOutOfControl": false,
           "isWrecked": false
         },
+        "additionalStats": {},
         "maxCargo": 0,
         "maxMods": 0
       }
@@ -192,7 +194,8 @@
     "templates": {
       "itemDescription": {
         "description": "",
-        "notes": ""
+        "notes": "",
+        "additionalStats": {}
       },
       "physicalItem": {
         "quantity": 1,

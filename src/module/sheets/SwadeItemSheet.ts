@@ -1,3 +1,6 @@
+import SwadeEntityTweaks from '../dialog/entity-tweaks';
+import SwadeItem from '../entities/SwadeItem';
+
 export default class SwadeItemSheet extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -15,6 +18,36 @@ export default class SwadeItemSheet extends ItemSheet {
   get template() {
     const path = 'systems/swade/templates/items';
     return `${path}/${this.item.data.type}.html`;
+  }
+
+  /**
+   * Extend and override the sheet header buttons
+   * @override
+   */
+  protected _getHeaderButtons() {
+    let buttons = super._getHeaderButtons();
+
+    // Token Configuration
+    const canConfigure = game.user.isGM || this.actor.owner;
+    if (this.options.editable && canConfigure) {
+      buttons = [
+        {
+          label: 'Tweaks',
+          class: 'configure-actor',
+          icon: 'fas fa-dice',
+          onclick: (ev) => this._onConfigureEntity(ev),
+        },
+      ].concat(buttons);
+    }
+    return buttons;
+  }
+
+  protected _onConfigureEntity(event: Event) {
+    event.preventDefault();
+    new SwadeEntityTweaks(this.item as SwadeItem, {
+      top: this.position.top + 40,
+      left: this.position.left + ((this.position.height as number) - 400) / 2,
+    }).render(true);
   }
 
   activateListeners(html) {
@@ -50,6 +83,12 @@ export default class SwadeItemSheet extends ItemSheet {
     if (ownerIsWildcard || !this.item.isOwned) {
       data.data.ownerIsWildcard = true;
     }
+
+    for (let attr of Object.values(data.data.additionalStats)) {
+      attr['isCheckbox'] = attr['dtype'] === 'Boolean';
+    }
+    data['hasAdditionalStatsFields'] =
+      Object.keys(data.data.additionalStats).length > 0;
 
     // Check for enabled optional rules
     data['settingrules'] = {

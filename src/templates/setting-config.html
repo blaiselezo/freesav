@@ -1,0 +1,178 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <main class="sheet-body">
+    <section id="gm">
+      <h2 class="module-header">{{localize "SWADE.GM"}}</h2>
+      <div class="form-group">
+        <label>{{localize "SWADE.GmBennies"}}</label>
+        <div class="form-fields">
+          <input
+            type="text"
+            name="settingRules.gmBennies"
+            value="{{settingRules.gmBennies}}"
+            data-dtype="Number"
+          />
+        </div>
+        <p class="notes">{{localize "SWADE.GmBenniesDesc"}}</p>
+      </div>
+    </section>
+    <section id="characters">
+      <h2 class="module-header">{{localize "SWADE.Actors"}}</h2>
+      <div class="form-group">
+        <label>{{localize "SWADE.EnableConv"}}</label>
+        <div class="form-fields">
+          <input
+            type="checkbox"
+            name="settingRules.enableConviction"
+            data-dtype="Boolean"
+            {{checked
+            settingRules.enableConviction}}
+          />
+        </div>
+        <p class="notes">{{localize "SWADE.EnableConvDesc"}}</p>
+      </div>
+    </section>
+    <section id="vehicles">
+      <h2 class="module-header">{{localize "SWADE.Vehicles"}}</h2>
+      <div class="form-group">
+        <label>{{localize "SWADE.VehicleMods"}}</label>
+        <div class="form-fields">
+          <input
+            type="checkbox"
+            name="settingRules.vehicleMods"
+            data-dtype="Boolean"
+            {{checked
+            settingRules.vehicleMods}}
+          />
+        </div>
+        <p class="notes">{{localize "SWADE.VehicleModsDesc"}}</p>
+      </div>
+      <div class="form-group">
+        <label>{{localize "SWADE.VehicleEdges"}}</label>
+        <div class="form-fields">
+          <input
+            type="checkbox"
+            name="settingRules.vehicleEdges"
+            data-dtype="Boolean"
+            {{checked
+            settingRules.vehicleEdges}}
+          />
+        </div>
+        <p class="notes">{{localize "SWADE.VehicleEdgesDesc"}}</p>
+      </div>
+    </section>
+    <section class="attributes" id="setting-specific">
+      <h2 class="module-header">
+        {{localize "SWADE.AddStats"}}
+      </h2>
+      <h3>{{localize "SWADE.Actors"}}</h3>
+      <hr />
+      <header class="attributes-header flexrow">
+        <span class="attribute-key">Stat Key</span>
+        <span class="attribute-label">Label</span>
+        <span class="attribute-dtype">Data Type</span>
+        <span class="attribute-maxValue">Has Max Value</span>
+        <a class="attribute-control" data-action="createChar"
+          ><i class="fas fa-plus"></i
+        ></a>
+      </header>
+
+      <ol class="attributes-list">
+        {{#each actorSettingStats as |attr key|}}
+        <li class="attribute flexrow" data-attribute="{{key}}">
+          <input
+            class="attribute-key"
+            type="text"
+            name="actorSettingStats.{{key}}.key"
+            value="{{key}}"
+          />
+          <input
+            class="attribute-label"
+            type="text"
+            name="actorSettingStats.{{key}}.label"
+            value="{{attr.label}}"
+          />
+          <select
+            class="attribute-dtype"
+            name="actorSettingStats.{{key}}.dtype"
+          >
+            {{#select attr.dtype}} {{#each ../dtypes as |t|}}
+            <option value="{{t}}">{{t}}</option>
+            {{/each}} {{/select}}
+          </select>
+          <div
+            class="attribute-maxValue"
+            style="border-bottom: none; text-align: center;"
+          >
+            <input
+              type="checkbox"
+              name="actorSettingStats.{{key}}.hasMaxValue"
+              {{checked
+              attr.hasMaxValue}}
+            />
+          </div>
+          <a class="attribute-control" data-action="delete"
+            ><i class="fas fa-trash"></i
+          ></a>
+        </li>
+        {{/each}}
+      </ol>
+      <br />
+      <h3>{{localize "SWADE.Items"}}</h3>
+      <hr />
+      <header class="attributes-header flexrow">
+        <span class="attribute-key">Stat Key</span>
+        <span class="attribute-label">Label</span>
+        <span class="attribute-dtype">Data Type</span>
+        <span class="attribute-maxValue">Has Max Value</span>
+        <a class="attribute-control" data-action="createItem"
+          ><i class="fas fa-plus"></i
+        ></a>
+      </header>
+
+      <ol class="attributes-list">
+        {{#each itemSettingStats as |attr key|}}
+        <li class="attribute flexrow" data-attribute="{{key}}">
+          <input
+            class="attribute-key"
+            type="text"
+            name="itemSettingStats.{{key}}.key"
+            value="{{key}}"
+          />
+          <input
+            class="attribute-label"
+            type="text"
+            name="itemSettingStats.{{key}}.label"
+            value="{{attr.label}}"
+          />
+          <select class="attribute-dtype" name="itemSettingStats.{{key}}.dtype">
+            {{#select attr.dtype}} {{#each ../dtypes as |t|}}
+            <option value="{{t}}">{{t}}</option>
+            {{/each}} {{/select}}
+          </select>
+          <div style="border-bottom: none; text-align: center;">
+            <input
+              class="attribute-maxValue"
+              type="checkbox"
+              name="itemSettingStats.{{key}}.hasMaxValue"
+              {{checked
+              attr.hasMaxValue}}
+            />
+          </div>
+          <a class="attribute-control" data-action="delete"
+            ><i class="fas fa-trash"></i
+          ></a>
+        </li>
+        {{/each}}
+      </ol>
+    </section>
+  </main>
+  <br />
+  <footer class="sheet-footer flexrow">
+    <button type="submit" name="submit" id="submit">
+      <i class="far fa-save"></i>{{localize "SETTINGS.Save"}}
+    </button>
+    <button type="reset" name="reset" id="reset">
+      <i class="fas fa-undo"></i>{{localize "SETTINGS.Reset"}}
+    </button>
+  </footer>
+</form>

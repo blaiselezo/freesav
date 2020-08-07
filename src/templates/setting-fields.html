@@ -1,0 +1,40 @@
+{{#if hasAdditionalStatsFields}}
+<header class="header-field flexrow">
+  <span>{{localize "SWADE.AddStats"}}</span>
+</header>
+<div class="additional-stats">
+  {{#each data.additionalStats as |attr key|}}
+  <div class="form-group">
+    {{#if attr.isCheckbox}}
+    <input
+      type="checkbox"
+      name="data.additionalStats.{{key}}.value"
+      id="{{enity._id}}-additionalStats{{key}}"
+      {{checked
+      attr.value}}
+    />
+    <label for="{{enity._id}}-additionalStats{{key}}">{{attr.label}}</label>
+    {{else}}
+    <label>{{attr.label}}</label>
+    <span class="form-fields">
+      <input
+        type="text"
+        name="data.additionalStats.{{key}}.value"
+        data-dtype="{{attr.dtype}}"
+        value="{{attr.value}}"
+        placeholder="{{localize 'SWADE.Curr'}} {{attr.label}}"
+      />
+      {{/if}} {{#if attr.hasMaxValue}}
+      <input
+        type="text"
+        name="data.additionalStats.{{key}}.max"
+        data-dtype="{{attr.dtype}}"
+        value="{{attr.max}}"
+        placeholder="{{localize 'SWADE.Max'}} {{attr.label}}"
+      />
+      {{/if}}
+    </span>
+  </div>
+  {{/each}}
+</div>
+{{/if}}

@@ -1,7 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from '../entities/SwadeActor';
+import SwadeItem from '../entities/SwadeItem';
 
 export default class SwadeEntityTweaks extends FormApplication {
+  object: Entity;
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.id = 'sheet-tweaks';
@@ -29,8 +31,25 @@ export default class SwadeEntityTweaks extends FormApplication {
    */
   getData() {
     let data = this.object.data;
-    data.isCharacter = this.object.data.type === 'character';
-    data.isVehicle = this.object.data.type === 'vehicle';
+    let settingFields = this._getAppropriateSettingFields();
+
+    for (let [key, value] of Object.entries(settingFields)) {
+      let fieldExists = getProperty(
+        this.object.data,
+        `data.additionalStats.${key}`,
+      );
+      if (fieldExists) {
+        settingFields[key]['useField'] = true;
+      }
+    }
+
+    data['settingFields'] = settingFields;
+    data['isActor'] = this.object instanceof SwadeActor;
+    data['isCharacter'] = this.object.data.type === 'character';
+    data['isVehicle'] = this.object.data.type === 'vehicle';
+    data['shouldDisplayInit'] =
+      this instanceof SwadeActor ||
+      (data['isVehicle'] && game.settings.get('swade', 'vehicleEdges'));
     return data;
   }
 
@@ -49,9 +68,58 @@ export default class SwadeEntityTweaks extends FormApplication {
    */
   async _updateObject(event, formData: any) {
     event.preventDefault();
+    const prototypeFields = this._getAppropriateSettingFields();
+    let expandedFormData = expandObject(formData);
+    let formFields = expandedFormData['data']['additionalStats'];
+    let newFields = duplicate(
+      getProperty(this.object.data, 'data.additionalStats'),
+    );
+    //handle setting specific fields
+    for (let [key, value] of Object.entries(formFields)) {
+      let fieldExistsOnEntity = getProperty(
+        this.object.data,
+        `data.additionalStats.${key}`,
+      );
+      if (value['useField'] && fieldExistsOnEntity) {
+        //update exisiting field;
+        newFields[key]['hasMaxValue'] = prototypeFields[key]['hasMaxValue'];
+        newFields[key]['dtype'] = prototypeFields[key]['dtype'];
+        if (newFields[key]['dtype'] === 'Boolean') {
+          newFields[key]['-=max'] = null;
+        }
+      } else if (value['useField'] && !fieldExistsOnEntity) {
+        //add new field
+        newFields[key] = prototypeFields[key];
+      } else {
+        //delete field
+        newFields[`-=${key}`] = null;
+      }
+    }
+
+    //handle "stray" fields that exist on the actor but have no prototype
+    for (let key of Object.keys(
+      getProperty(this.object.data, 'data.additionalStats'),
+    )) {
+      if (!prototypeFields[key]) {
+        newFields[`-=${key}`] = null;
+      }
+    }
+    setProperty(expandedFormData, 'data.additionalStats', newFields);
     // Update the actor
-    this.object.update(formData);
-    // Re-draw the updated sheet
-    this.object.sheet.render(true);
+    let flattenedFormData = flattenObject(expandedFormData);
+    this.object.update(flattenedFormData).then((entity: Entity) => {
+      this.object.sheet.render(true);
+    });
+  }
+
+  private _getAppropriateSettingFields(): any {
+    let fields = game.settings.get('swade', 'settingFields');
+    let settingFields = {};
+    if (this.object instanceof SwadeActor) {
+      settingFields = fields.actor;
+    } else if (this.object instanceof SwadeItem) {
+      settingFields = fields.item;
+    }
+    return settingFields;
   }
 }

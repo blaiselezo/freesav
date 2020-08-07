@@ -88,8 +88,13 @@
     }
   }
 
+  .additional-stats {
+    max-height: 84px;
+    overflow-x: auto;
+  }
+
   .quickaccess-list {
-    height: 350px;
+    overflow-x: auto;
   }
 
   .gear {

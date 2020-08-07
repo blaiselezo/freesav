@@ -32,7 +32,7 @@ import {
   rollSkillMacro,
   rollWeaponMacro,
   rollPowerMacro,
-  updateTougness,
+  updateToughness,
 } from './module/util';
 
 /* ------------------------------------ */
@@ -44,7 +44,7 @@ Hooks.once('init', async function () {
   );
 
   // Record Configuration Values
-  // CONFIG.debug.hooks = true;
+  //CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
 
   game.swade = {
@@ -237,7 +237,6 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
 Hooks.on(
   'preUpdateActor',
   (actor: SwadeActor, updateData: any, options: any, userId: string) => {
-    console.log('before', updateData);
     //wildcards will be linked, extras unlinked
     if (
       updateData.data &&
@@ -261,7 +260,7 @@ Hooks.on(
     }
 
     if (updateData?.data?.attributes?.vigor) {
-      await updateTougness(actor);
+      await updateToughness(actor);
     }
   },
 );
@@ -538,7 +537,7 @@ Hooks.on(
   async (actor: SwadeActor, item: any, options: any, userId: string) => {
     //Update armor
     if (item.type === 'armor') {
-      await updateTougness(actor);
+      await updateToughness(actor);
     }
   },
 );
@@ -548,7 +547,7 @@ Hooks.on(
   async (actor: SwadeActor, item: any, options: any, userId: string) => {
     //Update armor
     if (item.type === 'armor') {
-      await updateTougness(actor);
+      await updateToughness(actor);
     }
   },
 );
@@ -558,7 +557,7 @@ Hooks.on(
   async (actor: SwadeActor, item: any, options: any, userId: string) => {
     //Update armor
     if (item.type === 'armor') {
-      await updateTougness(actor);
+      await updateToughness(actor);
     }
   },
 );

@@ -21,63 +21,69 @@
       </div>
       <div class="form-group">
         <label for="data.armor">{{localize "SWADE.Armor"}}</label>
-        <input
-          name="data.armor"
-          type="text"
-          value="{{item.data.armor}}"
-          placeholder="{{localize 'SWADE.Armor'}}"
-          data-dtype="Number"
-        />
+        <span class="form-fields">
+          <input
+            name="data.armor"
+            type="text"
+            value="{{item.data.armor}}"
+            placeholder="{{localize 'SWADE.Armor'}}"
+            data-dtype="Number"
+        /></span>
       </div>
       <div class="form-group">
         <label for="data.price">{{localize "SWADE.Price"}}</label>
-        <input
-          name="data.price"
-          type="text"
-          value="{{item.data.price}}"
-          placeholder="{{localize 'SWADE.Price'}}"
-          data-dtype="Number"
-        />
+        <span class="form-fields">
+          <input
+            name="data.price"
+            type="text"
+            value="{{item.data.price}}"
+            placeholder="{{localize 'SWADE.Price'}}"
+            data-dtype="Number"
+        /></span>
       </div>
       <div class="form-group">
         <label for="data.weight">{{localize "SWADE.Weight"}}</label>
-        <input
-          name="data.weight"
-          type="text"
-          value="{{item.data.weight}}"
-          placeholder="{{localize 'SWADE.Weight'}}"
-          data-dtype="Number"
-        />
+        <span class="form-fields">
+          <input
+            name="data.weight"
+            type="text"
+            value="{{item.data.weight}}"
+            placeholder="{{localize 'SWADE.Weight'}}"
+            data-dtype="Number"
+        /></span>
       </div>
       <div class="form-group">
         <label for="data.quantity">{{localize "SWADE.Quantity"}}</label>
-        <input
-          name="data.quantity"
-          type="text"
-          value="{{item.data.quantity}}"
-          placeholder="{{localize 'SWADE.Quantity'}}"
-          data-dtype="Number"
-        />
+        <span class="form-fields">
+          <input
+            name="data.quantity"
+            type="text"
+            value="{{item.data.quantity}}"
+            placeholder="{{localize 'SWADE.Quantity'}}"
+            data-dtype="Number"
+        /></span>
       </div>
       <div class="form-group">
         <label for="data.minStr">{{localize "SWADE.MinStrShort"}}</label>
-        <input
-          name="data.minStr"
-          type="text"
-          value="{{item.data.minStr}}"
-          placeholder="{{localize 'SWADE.MinStr'}}"
-          data-dtype="String"
-        />
+        <span class="form-fields">
+          <input
+            name="data.minStr"
+            type="text"
+            value="{{item.data.minStr}}"
+            placeholder="{{localize 'SWADE.MinStr'}}"
+            data-dtype="String"
+        /></span>
       </div>
       <div class="form-group">
         <label for="data.notes">{{localize "SWADE.Notes"}}</label>
-        <input
-          type="text"
-          name="data.notes"
-          value="{{item.data.notes}}"
-          placeholder="{{localize 'SWADE.Notes'}}"
-          data-dtype="String"
-        />
+        <span class="form-fields">
+          <input
+            type="text"
+            name="data.notes"
+            value="{{item.data.notes}}"
+            placeholder="{{localize 'SWADE.Notes'}}"
+            data-dtype="String"
+        /></span>
       </div>
       <header class="header-field">
         {{localize "SWADE.HitLocations"}}
@@ -134,7 +140,8 @@
       </div>
     </section>
     <section>
-      {{> "systems/swade/templates/items/partials/description.html"}}
+      {{> "systems/swade/templates/setting-fields.html"}} {{>
+      "systems/swade/templates/items/partials/description.html"}}
     </section>
   </main>
 </form>

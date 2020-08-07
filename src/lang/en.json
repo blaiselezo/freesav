@@ -106,7 +106,7 @@
   "SWADE.Unequipped": "Unequipped",
   "SWADE.Quantity": "Quantity",
   "SWADE.Weight": "Weight",
-  "SWADE.Price": "Price",
+  "SWADE.Price": "Cost",
 
   "SWADE.PP": "Power Points",
   "SWADE.PPShort": "P. Points",
@@ -161,6 +161,9 @@
   "SWADE.VehicleModsDesc": "Vehicles use Mod-Slots",
   "SWADE.VehicleEdges": "Vehicle Edges",
   "SWADE.VehicleEdgesDesc": "Vehicles use Edges and Hindrances",
+  "SWADE.SettingConf": "Setting Configurator",
+  "SWADE.SettingConfLabel": "Open Setting Configurator",
+  "SWADE.SettingConfDesc": "Fine tune the system to fit the setting you're playing",
 
   "SWADE.Formula": "Formula",
   "SWADE.SitMod": "Situational Mod",
@@ -195,5 +198,13 @@
   "SWADE.SBT": "Small Blast Template",
   "SWADE.MBT": "Medium Blast Template",
   "SWADE.LBT": "Large Blast Template",
-  "SWADE.Cone": "Cone Template"
+  "SWADE.Cone": "Cone Template",
+
+  "SWADE.GM": "Game Master",
+  "SWADE.Vehicles": "Vehicles",
+  "SWADE.AddStats": "Additional Stats",
+  "SWADE.Actors": "Actors",
+  "SWADE.Items": "Items",
+  "SWADE.Max": "Max",
+  "SWADE.Curr": "Current"
 }

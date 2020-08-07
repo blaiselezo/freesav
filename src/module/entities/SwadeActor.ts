@@ -475,6 +475,8 @@ export default class SwadeActor extends Actor {
     totalHandling = handling + wounds;
 
     // Calculate handling
+
+    //Handling is capped at a certain penalty
     if (totalHandling < CONFIG.SWADE.vehicles.maxHandlingPenalty) {
       totalHandling = CONFIG.SWADE.vehicles.maxHandlingPenalty;
     }
@@ -487,6 +489,7 @@ export default class SwadeActor extends Actor {
       additionalMods: [totalHandling],
     };
 
+    //Find the operating skill
     let skill = driver.items.find(
       (i) => i.type === 'skill' && i.name === skillName,
     ) as SwadeItem;

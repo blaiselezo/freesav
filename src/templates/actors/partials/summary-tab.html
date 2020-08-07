@@ -212,7 +212,8 @@
       {{/each}}
     </ol>
   </div>
-  <div class="gear">
+  <div class="gear resizable scrollable" data-base-size="420">
+    {{> "systems/swade/templates/setting-fields.html"}}
     <header class="header-field flexrow">
       <div>
         <span>{{ localize "SWADE.QuickAccess" }}</span>
@@ -227,7 +228,7 @@
         ></a>
       </div>
     </header>
-    <div class="quickaccess-list resizable" data-base-size="390">
+    <div class="quickaccess-list">
       <ol class="gear-list weapon-list">
         {{#each data.owned.weapons as |weapon id|}} {{#if weapon.data.equipped}}
         {{> "systems/swade/templates/actors/partials/weapon-card.html"}} {{/if}}

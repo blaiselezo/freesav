@@ -30,6 +30,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added `isWildcard` getter to `SwadeActor`
 - Added Group Rolls for NPC Extras
 - Added `currentShots` property to `weapons`. Addjusted sheets accordingly
+- Added Setting Configurator in the Settings
+- Added Capability to create custom stats.
+  - To use custom stats, create them in the Setting Configurator, then enable them in the Actor/Item Tweaks
+  - These custom stats are available on the following sheets: Character, NPC, Weapon, Armor, Shield, Gear
+  - **Attention**: Due to a quirk in Foundry's update logic I recommend you replace any tokens that don't have their token data not linked on the map with new ones from the sidebar.
 
 ### Changed
 
