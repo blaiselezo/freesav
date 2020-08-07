@@ -80,28 +80,4 @@
       margin-bottom: 0px;
     }
   }
-
-  .shot-group {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    label {
-      flex: 2;
-    }
-    span {
-      flex: 3;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      margin: 0;
-      padding: 0;
-      input {
-        flex: 1;
-      }
-      input + input {
-        margin-left: 3px;
-      }
-    }
-  }
 }
