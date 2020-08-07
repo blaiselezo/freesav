@@ -1,4 +1,8 @@
 .swade.setting-config {
+  .sheet-body {
+    overflow-x: auto;
+    max-height: 700px;
+  }
   /* Attributes */
   .attributes-header {
     padding: 5px;

@@ -4,7 +4,7 @@ export function registerSettings() {
     name: game.i18n.localize('SWADE.SettingConf'),
     label: game.i18n.localize('SWADE.SettingConfLabel'),
     hint: game.i18n.localize('SWADE.SettingConfDesc'),
-    icon: 'fas fa-bars',
+    icon: 'fas fa-globe',
     type: SettingConfigurator,
     restricted: true,
   });
