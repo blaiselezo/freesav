@@ -58,6 +58,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Fixed a bug that would remove fatigue of max wounds was set to 0 on NPC sheets
 - Fixed a small bug that would prevent item deletion from NPC sheets
 - Fixed a small bug which would cause wound penalties on vehicles to register as a bonus instead
+- Fixed a small bug which allowed observers to roll Attribute tests
 
 ## [v0.10.2]
 

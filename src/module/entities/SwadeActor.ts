@@ -60,7 +60,7 @@ export default class SwadeActor extends Actor {
   /* -------------------------------------------- */
 
   /** @override */
-  async createOwnedItem(itemData, options) {
+  async createOwnedItem(itemData, options = {}) {
     return super.createOwnedItem(itemData, options);
   }
 
@@ -71,6 +71,10 @@ export default class SwadeActor extends Actor {
     abilityId: string,
     options: IRollOptions = { event: null },
   ): Promise<any> {
+    //return early if the user doesn't have permissions
+    if (!game.user.isGM || !game.user.owner) {
+      return;
+    }
     const label = CONFIG.SWADE.attributes[abilityId].long;
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
