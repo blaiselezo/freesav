@@ -27,7 +27,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added Classification field to Vehicle Sheet
 - Added SwadeActor function `calcToughness` that calculates the toughness and then returns the value as a number
 - Added auto-calculation to toughness if armor is changed or something about the vigor die is changed.
-- Added `isWildcard` getter to `SwadeActor`
+- Added `isWildcard` getter to `SwadeActor` class
 - Added Group Rolls for NPC Extras
 - Added `currentShots` property to `weapons`. Addjusted sheets accordingly
 - Added Setting Configurator in the Settings
@@ -35,6 +35,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - To use custom stats, create them in the Setting Configurator, then enable them in the Actor/Item Tweaks
   - These custom stats are available on the following sheets: Character, NPC, Weapon, Armor, Shield, Gear
   - **Attention**: Due to a quirk in Foundry's update logic I recommend you replace any tokens that don't have their token data not linked on the map with new ones from the sidebar.
+- Added ability to automatically calculate toughness, including armor. This is determined by a toggle in the Actor Tweaks and does not work for Vehicles
 
 ### Changed
 
