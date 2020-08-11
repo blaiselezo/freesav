@@ -42,14 +42,23 @@ export default class SwadeEntityTweaks extends FormApplication {
         settingFields[key]['useField'] = true;
       }
     }
-
+    data['autoCalc'] = {
+      toughness: getProperty(
+        this.object,
+        'data.data.details.autoCalcToughness',
+      ),
+      armor: getProperty(this.object, 'data.data.details.autoCalcArmor'),
+    };
     data['settingFields'] = settingFields;
-    data['isActor'] = this.object instanceof SwadeActor;
+    data['isActor'] = this._isActor();
     data['isCharacter'] = this.object.data.type === 'character';
+    data['isNPC'] = this.object.data.type === 'npc';
     data['isVehicle'] = this.object.data.type === 'vehicle';
     data['shouldDisplayInit'] =
-      this instanceof SwadeActor ||
-      (data['isVehicle'] && game.settings.get('swade', 'vehicleEdges'));
+      this.object.data.type === 'character' ||
+      this.object.data.type === 'npc' ||
+      (this.object.data.type === 'vehicle' &&
+        game.settings.get('swade', 'vehicleEdges'));
     return data;
   }
 
@@ -68,9 +77,33 @@ export default class SwadeEntityTweaks extends FormApplication {
    */
   async _updateObject(event, formData: any) {
     event.preventDefault();
-    const prototypeFields = this._getAppropriateSettingFields();
     let expandedFormData = expandObject(formData);
+    let newAdditionalStats = this._handleAdditionalStats(expandedFormData);
+
+    //recombine the formdata
+    setProperty(expandedFormData, 'data.additionalStats', newAdditionalStats);
+    //flatten formdata
+    let flattenedFormData = flattenObject(expandedFormData);
+    // Update the actor
+    this.object.update(flattenedFormData).then((entity: Entity) => {
+      this.object.sheet.render(true);
+    });
+  }
+
+  private _getAppropriateSettingFields(): any {
+    let fields = game.settings.get('swade', 'settingFields');
+    let settingFields = {};
+    if (this.object instanceof SwadeActor) {
+      settingFields = fields.actor;
+    } else if (this.object instanceof SwadeItem) {
+      settingFields = fields.item;
+    }
+    return settingFields;
+  }
+
+  private _handleAdditionalStats(expandedFormData: any): any {
     let formFields = expandedFormData['data']['additionalStats'];
+    const prototypeFields = this._getAppropriateSettingFields();
     let newFields = duplicate(
       getProperty(this.object.data, 'data.additionalStats'),
     );
@@ -104,22 +137,14 @@ export default class SwadeEntityTweaks extends FormApplication {
         newFields[`-=${key}`] = null;
       }
     }
-    setProperty(expandedFormData, 'data.additionalStats', newFields);
-    // Update the actor
-    let flattenedFormData = flattenObject(expandedFormData);
-    this.object.update(flattenedFormData).then((entity: Entity) => {
-      this.object.sheet.render(true);
-    });
+    return newFields;
   }
 
-  private _getAppropriateSettingFields(): any {
-    let fields = game.settings.get('swade', 'settingFields');
-    let settingFields = {};
-    if (this.object instanceof SwadeActor) {
-      settingFields = fields.actor;
-    } else if (this.object instanceof SwadeItem) {
-      settingFields = fields.item;
-    }
-    return settingFields;
+  private _isActor() {
+    return (
+      this.object.data.type === 'character' ||
+      this.object.data.type === 'npc' ||
+      this.object.data.type === 'vehicle'
+    );
   }
 }
