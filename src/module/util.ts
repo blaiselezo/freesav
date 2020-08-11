@@ -182,10 +182,3 @@ export function rollPowerMacro(powerName) {
   }
   return;
 }
-
-export async function updateToughness(actor: SwadeActor) {
-  await actor.update({
-    'data.stats.toughness.armor': actor.calcArmor(),
-    'data.stats.toughness.value': actor.calcToughness(),
-  });
-}

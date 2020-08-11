@@ -10,7 +10,20 @@ export default class SwadeActor extends Actor {
    */
   prepareData() {
     super.prepareData();
-    return this.data;
+    let data = this.data;
+    let shouldAutoCalcToughness =
+      getProperty(this.data, 'data.details.autoCalcToughness') &&
+      this.data.type !== 'vehicle';
+
+    if (shouldAutoCalcToughness) {
+      setProperty(
+        this.data,
+        'data.stats.toughness.value',
+        this.calcToughness(),
+      );
+      setProperty(this.data, 'data.stats.toughness.armor', this.calcArmor());
+    }
+    return data;
   }
 
   /* -------------------------------------------- */
@@ -414,25 +427,26 @@ export default class SwadeActor extends Actor {
    */
   calcArmor(): number {
     let totalArmorVal = 0;
-    let armorList = this.items.filter(
-      (i: SwadeItem) =>
-        i.type === 'armor' &&
-        i.data.data['equipped'] &&
-        i.data.data['locations']['torso'],
-    );
+    let armorList = this.data['items'].filter((i: SwadeItem) => {
+      let isEquipped = getProperty(i.data, 'equipped');
+      let coversTorso = getProperty(i.data, 'locations.torso');
+      return i.type === 'armor' && isEquipped && coversTorso;
+    });
+
     armorList = armorList.sort((a, b) => {
-      const aValue = parseInt(a.data.data.armor);
-      const bValue = parseInt(b.data.data.armor);
+      const aValue = parseInt(a.data.armor);
+      const bValue = parseInt(b.data.armor);
       return aValue + bValue;
     });
+
     if (armorList.length === 0) {
       return totalArmorVal;
     } else if (armorList.length > 0 && armorList.length < 2) {
-      totalArmorVal = parseInt(armorList[0].data.data.armor);
+      totalArmorVal = parseInt(armorList[0].data.armor);
     } else {
       totalArmorVal =
-        parseInt(armorList[0].data.data.armor) +
-        Math.floor(parseInt(armorList[1].data.data.armor) / 2);
+        parseInt(armorList[0].data.armor) +
+        Math.floor(parseInt(armorList[1].data.armor) / 2);
     }
     return totalArmorVal;
   }
@@ -444,11 +458,17 @@ export default class SwadeActor extends Actor {
   calcToughness(includeArmor = true): number {
     let retVal = 0;
     let vigor = getProperty(this.data, 'data.attributes.vigor.die.sides');
-    let toughMod = getProperty(this.data, 'data.stats.toughness.modifier');
-    let size = getProperty(this.data, 'data.stats.size');
+    let vigMod = getProperty(this.data, 'data.attributes.vigor.die.modifier');
+    let toughMod = parseInt(
+      getProperty(this.data, 'data.stats.toughness.modifier'),
+    );
+    let size = parseInt(getProperty(this.data, 'data.stats.size'));
     retVal = vigor / 2 + 2;
-    retVal += toughMod;
     retVal += size;
+    retVal += toughMod;
+    if (vigMod > 0) {
+      retVal += Math.floor(vigMod / 2);
+    }
     if (includeArmor) {
       retVal += this.calcArmor();
     }

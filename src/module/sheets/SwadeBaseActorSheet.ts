@@ -20,7 +20,14 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
     // Edit armor modifier
     html.find('.armor-value').click((ev) => {
-      var target = ev.currentTarget.id == 'parry-value' ? 'parry' : 'toughness';
+      let target = ev.currentTarget.dataset.target;
+      let shouldAutoCalcArmor = getProperty(
+        this.actor.data,
+        'data.details.autoCalcToughness',
+      );
+      if (target === 'armor' && shouldAutoCalcArmor) {
+        target = 'toughness';
+      }
       this._modifyDefense(target);
     });
 
@@ -172,21 +179,52 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   }
 
   protected _modifyDefense(target: string) {
-    const targetLabel =
-      target == 'parry'
-        ? game.i18n.localize('SWADE.Parry')
-        : game.i18n.localize('SWADE.Tough');
+    let targetLabel;
+    let targetProperty;
+    switch (target) {
+      case 'parry':
+        targetLabel = `${game.i18n.localize(
+          'SWADE.Parry',
+        )} ${game.i18n.localize('SWADE.Mod')}`;
+        targetProperty = 'parry.modifier';
+        break;
+      case 'armor':
+        targetLabel = `${game.i18n.localize('SWADE.Armor')}`;
+        targetProperty = 'toughness.armor';
+        break;
+      case 'toughness':
+        targetLabel = `${game.i18n.localize(
+          'SWADE.Tough',
+        )} ${game.i18n.localize('SWADE.Mod')}`;
+        targetProperty = 'toughness.modifier';
+        break;
+      default:
+        targetLabel = `${game.i18n.localize(
+          'SWADE.Tough',
+        )} ${game.i18n.localize('SWADE.Mod')}`;
+        targetProperty = 'toughness.value';
+        break;
+    }
+
+    const targetPropertyPath = `data.stats.${targetProperty}`;
+    const targetPropertyValue = getProperty(
+      this.actor.data,
+      targetPropertyPath,
+    );
+
+    console.log(target, targetLabel, targetPropertyValue);
+
+    let title = `${game.i18n.localize('SWADE.Ed')} ${
+      this.actor.name
+    } ${targetLabel}`;
+
     const template = `
       <form><div class="form-group">
-        <label>${game.i18n.localize('SWADE.Mod')}</label> 
-        <input name="modifier" value="${
-          this.actor.data.data.stats[target].modifier
-        }" placeholder="0" type="text"/>
+        <label>${game.i18n.localize('SWADE.Ed')} ${targetLabel}</label> 
+        <input name="modifier" value="${targetPropertyValue}" type="text"/>
       </div></form>`;
     new Dialog({
-      title: `${game.i18n.localize('SWADE.Ed')} ${
-        this.actor.name
-      } ${targetLabel} ${game.i18n.localize('SWADE.Mod')}`,
+      title: title,
       content: template,
       buttons: {
         set: {
@@ -195,7 +233,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
           callback: (html: JQuery) => {
             let mod = html.find('input[name="modifier"]').val();
             let newData = {};
-            newData[`data.stats.${target}.modifier`] = parseInt(mod as string);
+            newData[targetPropertyPath] = parseInt(mod as string);
             this.actor.update(newData);
           },
         },

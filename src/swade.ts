@@ -32,7 +32,6 @@ import {
   rollSkillMacro,
   rollWeaponMacro,
   rollPowerMacro,
-  updateToughness,
 } from './module/util';
 
 /* ------------------------------------ */
@@ -257,10 +256,6 @@ Hooks.on(
     // Update the player list to display new bennies values
     if (updateData?.data?.bennies) {
       ui['players'].render(true);
-    }
-
-    if (updateData?.data?.attributes?.vigor) {
-      await updateToughness(actor);
     }
   },
 );
@@ -531,33 +526,3 @@ Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) => {
   ];
   measure.tools = measure.tools.concat(newButtons);
 });
-
-Hooks.on(
-  'createOwnedItem',
-  async (actor: SwadeActor, item: any, options: any, userId: string) => {
-    //Update armor
-    if (item.type === 'armor') {
-      await updateToughness(actor);
-    }
-  },
-);
-
-Hooks.on(
-  'updateOwnedItem',
-  async (actor: SwadeActor, item: any, options: any, userId: string) => {
-    //Update armor
-    if (item.type === 'armor') {
-      await updateToughness(actor);
-    }
-  },
-);
-
-Hooks.on(
-  'deleteOwnedItem',
-  async (actor: SwadeActor, item: any, options: any, userId: string) => {
-    //Update armor
-    if (item.type === 'armor') {
-      await updateToughness(actor);
-    }
-  },
-);

@@ -154,7 +154,7 @@
             placeholder="0"
             data-dtype="String"
           />
-          <div class="armor-value" id="parry-value" alt="Parry modifier">
+          <div class="armor-value" alt="Parry modifier" data-target="parry">
             {{data.stats.parry.modifier}}
           </div>
         </div>
@@ -162,16 +162,27 @@
       <div class="attribute flex3">
         <div class="attribute-label">{{localize "SWADE.Tough"}}</div>
         <div class="toughness-block">
+          {{#if data.details.autoCalcToughness}}
           <input
             id="toughness"
             name="data.stats.toughness.value"
             type="text"
-            value="{{add data.stats.toughness.value data.stats.toughness.modifier}}"
-            placeholder="0"
+            value="{{data.stats.toughness.value}}"
+            placeholder="{{localize 'SWADE.Tough'}}"
             data-dtype="String"
             disabled
           />
-          <div class="armor-value">
+          {{else}}
+          <input
+            id="toughness"
+            name="data.stats.toughness.value"
+            type="text"
+            value="{{data.stats.toughness.value}}"
+            placeholder="{{localize 'SWADE.Tough'}}"
+            data-dtype="String"
+          />
+          {{/if}}
+          <div class="armor-value" data-target="armor">
             {{data.stats.toughness.armor}}
           </div>
         </div>

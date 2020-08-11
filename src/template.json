@@ -77,7 +77,8 @@
           "conviction": {
             "value": 0,
             "active": false
-          }
+          },
+          "autoCalcToughness": false
         },
         "powerPoints": {},
         "fatigue": {

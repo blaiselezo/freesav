@@ -99,6 +99,7 @@
   "SWADE.LevelHeaded": "Level Headed",
   "SWADE.ImprovedLevelHeaded": "Improved Level Headed",
   "SWADE.AutoCalc": "Automatic Calculations",
+  "SWADE.InclArmor": "Automatically calculates Toughness, including armor",
   "SWADE.Label": "Label",
   "SWADE.HasMaxValue": "Has Max Value",
   "SWADE.Enabled": "Enabled",
