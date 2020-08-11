@@ -45,6 +45,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - NPC Hindrances now only show the Major keyword, no longer Minor
 - German localization: Shortened `Bewegungsdweite` to `Bewegung`
 - Changed size of status tickbox container from `100px` to `120px` to allow for longer words
+- Re-enabled the Arcane Background toggle on Edges, when they are owned
 
 ### Deprecated
 

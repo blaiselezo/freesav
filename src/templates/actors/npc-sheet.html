@@ -148,7 +148,23 @@
       </section>
     </div>
   </header>
-  <section class="sheet-body">
-    {{> "systems/swade/templates/actors/partials/npc-summary-tab.html"}}
-  </section>
+
+  {{#if actor.flags.swade.hasArcaneBackground}}
+  <nav class="flexrow tabs" data-group="primary">
+    <a class="item" data-tab="summary">{{localize "SWADE.Summary"}}</a>
+    <a class="item" data-tab="powers">{{localize "SWADE.Pow"}}</a>
+  </nav>
+  {{/if}}
+
+  <main class="sheet-body">
+    {{!-- Summary Tab --}}
+    <section class="tab active" data-group="primary" data-tab="summary">
+      {{> "systems/swade/templates/actors/partials/npc-summary-tab.html"}}
+    </section>
+    {{!-- Powers Tab --}} {{#if actor.flags.swade.hasArcaneBackground}}
+    <section class="tab powers" data-group="primary" data-tab="powers">
+      {{> "systems/swade/templates/actors/partials/powers-tab.html"}}
+    </section>
+    {{/if}}
+  </main>
 </form>

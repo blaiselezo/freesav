@@ -47,6 +47,15 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
         (this.position.height as number) - (this.options.height as number);
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
+
+    // Filter power list
+    const arcane = !this.options.activeArcane
+      ? 'All'
+      : this.options.activeArcane;
+    (html as JQuery).find('.arcane-tabs .arcane').removeClass('active');
+    (html as JQuery).find(`[data-arcane='${arcane}']`).addClass('active');
+    this._filterPowers(html as JQuery, arcane);
+
     return html;
   }
 
