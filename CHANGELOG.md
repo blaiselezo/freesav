@@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - These custom stats are available on the following sheets: Character, NPC, Weapon, Armor, Shield, Gear
   - **Attention**: Due to a quirk in Foundry's update logic I recommend you replace any tokens that don't have their token data not linked on the map with new ones from the sidebar.
 - Added ability to automatically calculate toughness, including armor. This is determined by a toggle in the Actor Tweaks and does not work for Vehicles
+- Added Powers Tab back into NPC Sheets
 
 ### Changed
 

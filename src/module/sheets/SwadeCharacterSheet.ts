@@ -155,14 +155,6 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
       }
     });
 
-    // Filter power list
-    html.find('.arcane-tabs .arcane').click((ev: any) => {
-      const arcane = ev.currentTarget.dataset.arcane;
-      html.find('.arcane-tabs .arcane').removeClass('active');
-      ev.currentTarget.classList.add('active');
-      this._filterPowers(html, arcane);
-    });
-
     //Input Synchronization
     html.find('.wound-input').keyup((ev) => {
       this.actor.update({ 'data.wounds.value': $(ev.currentTarget).val() });

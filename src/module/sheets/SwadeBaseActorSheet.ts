@@ -83,6 +83,14 @@ export default class SwadeBaseActorSheet extends ActorSheet {
         chat.createConvictionEndMessage(this.actor as SwadeActor);
       }
     });
+
+    // Filter power list
+    html.find('.arcane-tabs .arcane').click((ev: any) => {
+      const arcane = ev.currentTarget.dataset.arcane;
+      html.find('.arcane-tabs .arcane').removeClass('active');
+      ev.currentTarget.classList.add('active');
+      this._filterPowers(html, arcane);
+    });
   }
 
   getData() {
