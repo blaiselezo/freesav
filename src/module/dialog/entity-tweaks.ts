@@ -105,32 +105,30 @@ export default class SwadeEntityTweaks extends FormApplication {
   }
 
   private _handleAdditionalStats(expandedFormData: any): any {
-    let formFields = expandedFormData['data']['additionalStats'];
+    let formFields = expandedFormData['data']['additionalStats'] || {};
     const prototypeFields = this._getAppropriateSettingFields();
     let newFields = duplicate(
       getProperty(this.object.data, 'data.additionalStats'),
     );
     //handle setting specific fields
-    if (formFields) {
-      for (let [key, value] of Object.entries(formFields)) {
-        let fieldExistsOnEntity = getProperty(
-          this.object.data,
-          `data.additionalStats.${key}`,
-        );
-        if (value['useField'] && fieldExistsOnEntity) {
-          //update exisiting field;
-          newFields[key]['hasMaxValue'] = prototypeFields[key]['hasMaxValue'];
-          newFields[key]['dtype'] = prototypeFields[key]['dtype'];
-          if (newFields[key]['dtype'] === 'Boolean') {
-            newFields[key]['-=max'] = null;
-          }
-        } else if (value['useField'] && !fieldExistsOnEntity) {
-          //add new field
-          newFields[key] = prototypeFields[key];
-        } else {
-          //delete field
-          newFields[`-=${key}`] = null;
+    for (let [key, value] of Object.entries(formFields)) {
+      let fieldExistsOnEntity = getProperty(
+        this.object.data,
+        `data.additionalStats.${key}`,
+      );
+      if (value['useField'] && fieldExistsOnEntity) {
+        //update exisiting field;
+        newFields[key]['hasMaxValue'] = prototypeFields[key]['hasMaxValue'];
+        newFields[key]['dtype'] = prototypeFields[key]['dtype'];
+        if (newFields[key]['dtype'] === 'Boolean') {
+          newFields[key]['-=max'] = null;
         }
+      } else if (value['useField'] && !fieldExistsOnEntity) {
+        //add new field
+        newFields[key] = prototypeFields[key];
+      } else {
+        //delete field
+        newFields[`-=${key}`] = null;
       }
     }
 
@@ -142,7 +140,6 @@ export default class SwadeEntityTweaks extends FormApplication {
         newFields[`-=${key}`] = null;
       }
     }
-    console.log(newFields);
     return newFields;
   }
 
