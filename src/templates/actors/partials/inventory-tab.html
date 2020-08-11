@@ -318,7 +318,13 @@
           {{item.data.weight}}
         </div>
         <div class="item-controls">
-          {{#if ../owner}}
+          {{#if ../owner}} {{#if item.data.equippable}}
+          <a
+            class="item-control item-toggle {{#unless item.data.equipped}}item-unequipped{{/unless}}"
+            title='{{localize "SWADE.Equipped"}}'
+            ><i class="fas fa-tshirt"></i
+          ></a>
+          {{/if}}
           <a class="item-control item-edit" title='{{localize "SWADE.Ed"}}'
             ><i class="fas fa-edit"></i
           ></a>
