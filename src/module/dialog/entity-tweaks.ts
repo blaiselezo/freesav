@@ -78,10 +78,13 @@ export default class SwadeEntityTweaks extends FormApplication {
   async _updateObject(event, formData: any) {
     event.preventDefault();
     let expandedFormData = expandObject(formData);
-    let newAdditionalStats = this._handleAdditionalStats(expandedFormData);
 
     //recombine the formdata
-    setProperty(expandedFormData, 'data.additionalStats', newAdditionalStats);
+    setProperty(
+      expandedFormData,
+      'data.additionalStats',
+      this._handleAdditionalStats(expandedFormData),
+    );
     //flatten formdata
     let flattenedFormData = flattenObject(expandedFormData);
     // Update the actor
@@ -103,32 +106,31 @@ export default class SwadeEntityTweaks extends FormApplication {
 
   private _handleAdditionalStats(expandedFormData: any): any {
     let formFields = expandedFormData['data']['additionalStats'];
-    if (!formFields) {
-      return {};
-    }
     const prototypeFields = this._getAppropriateSettingFields();
     let newFields = duplicate(
       getProperty(this.object.data, 'data.additionalStats'),
     );
     //handle setting specific fields
-    for (let [key, value] of Object.entries(formFields)) {
-      let fieldExistsOnEntity = getProperty(
-        this.object.data,
-        `data.additionalStats.${key}`,
-      );
-      if (value['useField'] && fieldExistsOnEntity) {
-        //update exisiting field;
-        newFields[key]['hasMaxValue'] = prototypeFields[key]['hasMaxValue'];
-        newFields[key]['dtype'] = prototypeFields[key]['dtype'];
-        if (newFields[key]['dtype'] === 'Boolean') {
-          newFields[key]['-=max'] = null;
+    if (formFields) {
+      for (let [key, value] of Object.entries(formFields)) {
+        let fieldExistsOnEntity = getProperty(
+          this.object.data,
+          `data.additionalStats.${key}`,
+        );
+        if (value['useField'] && fieldExistsOnEntity) {
+          //update exisiting field;
+          newFields[key]['hasMaxValue'] = prototypeFields[key]['hasMaxValue'];
+          newFields[key]['dtype'] = prototypeFields[key]['dtype'];
+          if (newFields[key]['dtype'] === 'Boolean') {
+            newFields[key]['-=max'] = null;
+          }
+        } else if (value['useField'] && !fieldExistsOnEntity) {
+          //add new field
+          newFields[key] = prototypeFields[key];
+        } else {
+          //delete field
+          newFields[`-=${key}`] = null;
         }
-      } else if (value['useField'] && !fieldExistsOnEntity) {
-        //add new field
-        newFields[key] = prototypeFields[key];
-      } else {
-        //delete field
-        newFields[`-=${key}`] = null;
       }
     }
 
@@ -140,6 +142,7 @@ export default class SwadeEntityTweaks extends FormApplication {
         newFields[`-=${key}`] = null;
       }
     }
+    console.log(newFields);
     return newFields;
   }
 
