@@ -351,7 +351,9 @@ Hooks.on(
     //do stuff here for Conviction
     //get all combatants with active conviction
     let activeConvictions = combat.combatants.filter(
-      (c) => c.actor.data.data.details.conviction.active,
+      (c) =>
+        c.actor.data.type !== 'vehicle' &&
+        c.actor.data.data.details.conviction.active,
     );
     for (const conv of activeConvictions) {
       //if it's not the combatants turn then skip

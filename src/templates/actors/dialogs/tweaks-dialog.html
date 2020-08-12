@@ -91,7 +91,7 @@
     </div>
     {{/if}}
   </section>
-  {{/if}} {{#if shouldDisplayInit}}
+  {{/if}} {{#if isActor}}
   <section id="initiative">
     <h2>{{localize "SWADE.Init"}}</h2>
     <div class="form-group">
@@ -135,7 +135,7 @@
       </span>
     </div>
   </section>
-  {{/if}} {{#if isActor}} {{#unless isVehicle}}
+  {{#unless isVehicle}}
   <section id="autocalculation">
     <h2>{{localize "SWADE.AutoCalc"}}</h2>
     <div class="form-group">
@@ -152,7 +152,7 @@
       <p class="notes">{{localize "SWADE.InclArmor"}}</p>
     </div>
   </section>
-  {{/unless}}{{/if}} {{#if settingFields}}
+  {{/unless}}{{/if}}
   <section id="additionalStats">
     <h2>{{localize "SWADE.AddStats"}}</h2>
     <header class="form-group flexrow additionalStats-header">
@@ -180,7 +180,7 @@
     </div>
     {{/each}}
   </section>
-  {{/if}}
+  <br />
   <footer class="sheet-footer">
     <button type="submit">
       <i class="fas fa-save"></i>{{localize "Save Changes"}}

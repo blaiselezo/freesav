@@ -160,6 +160,11 @@
           "isOutOfControl": false,
           "isWrecked": false
         },
+        "initiative": {
+          "hasHesitant": false,
+          "hasLevelHeaded": false,
+          "hasImpLevelHeaded": false
+        },
         "additionalStats": {},
         "maxCargo": 0,
         "maxMods": 0

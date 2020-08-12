@@ -54,11 +54,6 @@ export default class SwadeEntityTweaks extends FormApplication {
     data['isCharacter'] = this.object.data.type === 'character';
     data['isNPC'] = this.object.data.type === 'npc';
     data['isVehicle'] = this.object.data.type === 'vehicle';
-    data['shouldDisplayInit'] =
-      this.object.data.type === 'character' ||
-      this.object.data.type === 'npc' ||
-      (this.object.data.type === 'vehicle' &&
-        game.settings.get('swade', 'vehicleEdges'));
     return data;
   }
 

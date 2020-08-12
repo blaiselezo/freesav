@@ -38,6 +38,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added ability to automatically calculate toughness, including armor. This is determined by a toggle in the Actor Tweaks and does not work for Vehicles. The Toughness input field is not editable while automatic toughness calculation is active.
 - Added Powers Tab back into NPC Sheets
 - On character sheets, added quantity notation to most inventory entries
+- Added Initiative capability to `vehicle` type actors. Please keep in mind that Conviction extension does not work at this time. It's heavily recommended that you only add the Operator to the Combat Tracker if you use the Conviction setting rule.
 
 ### Changed
 
