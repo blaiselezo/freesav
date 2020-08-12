@@ -301,7 +301,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       content: template,
       buttons: {
         set: {
-          icon: '<i class="fas fa-shield"></i>',
+          icon: '<i class="fas fa-check"></i>',
           label: game.i18n.localize('SWADE.Ok'),
           callback: (html: JQuery) => {
             let mod = html.find('input[name="modifier"]').val();
