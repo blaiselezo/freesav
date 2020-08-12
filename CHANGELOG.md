@@ -25,7 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added Classification field to Vehicle Sheet
-- Added SwadeActor function `calcToughness` that calculates the toughness and then returns the value as a number
+- Added `calcToughness` function to `SwadeActor` class, that calculates the toughness and then returns the value as a number
 - Added auto-calculation to toughness if armor is changed or something about the vigor die is changed.
 - Added `isWildcard` getter to `SwadeActor` class
 - Added Group Rolls for NPC Extras
@@ -34,17 +34,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added Capability to create custom stats.
   - To use custom stats, create them in the Setting Configurator, then enable them in the Actor/Item Tweaks
   - These custom stats are available on the following sheets: Character, NPC, Weapon, Armor, Shield, Gear
-  - **Attention**: Due to a quirk in Foundry's update logic I recommend you replace any tokens that don't have their token data not linked on the map with new ones from the sidebar.
-- Added ability to automatically calculate toughness, including armor. This is determined by a toggle in the Actor Tweaks and does not work for Vehicles
+  - **Attention**: Due to a quirk in Foundry's update logic I recommend you only edit unlinked actors in the sidebar and then replace existing tokens that exist on the map with new ones from the side bar
+- Added ability to automatically calculate toughness, including armor. This is determined by a toggle in the Actor Tweaks and does not work for Vehicles. The Toughness input field is not editable while automatic toughness calculation is active.
 - Added Powers Tab back into NPC Sheets
+- On character sheets, added quantity notation to most inventory entries
 
 ### Changed
 
 - Parry and Pace fields now accept non-numerical inputs
-- Toughness Field is now disabled since it's being automatically calculated.
 - Power sheet now acceptsnon-numerical input for Power Points
 - NPC Hindrances now only show the Major keyword, no longer Minor
-- German localization: Shortened `Bewegungsdweite` to `Bewegung`
+- Updated german localization (thanks to KarstenW for that one)
 - Changed size of status tickbox container from `100px` to `120px` to allow for longer words
 - Re-enabled the Arcane Background toggle on Edges, when they are owned
 
@@ -55,6 +55,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Removed
 
 - Removed Status icon two-way binding
+- Removed Notes column for misc. Items in the character sheet inventory
 
 ### Fixed
 
