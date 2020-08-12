@@ -97,74 +97,82 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     let data: any = super.getData();
 
     data.config = CONFIG.SWADE;
-    data.itemsByType = {};
-    for (const item of data.items) {
-      let list = data.itemsByType[item.type];
-      if (!list) {
-        list = [];
-        data.itemsByType[item.type] = list;
-      }
-      list.push(item);
-    }
-
-    data.data.owned.gear = this._checkNull(data.itemsByType['gear']);
-    data.data.owned.weapons = this._checkNull(data.itemsByType['weapon']);
-    data.data.owned.armors = this._checkNull(data.itemsByType['armor']);
-    data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
-    data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
-    data.data.owned.hindrances = this._checkNull(data.itemsByType['hindrance']);
-    data.data.owned.skills = this._checkNull(
-      data.itemsByType['skill'],
-    ).sort((a, b) => a.name.localeCompare(b.name));
-    data.data.owned.powers = this._checkNull(data.itemsByType['power']);
-
-    for (let attr of Object.values(data.data.additionalStats)) {
-      attr['isCheckbox'] = attr['dtype'] === 'Boolean';
-    }
-    data.hasAdditionalStatsFields =
-      Object.keys(data.data.additionalStats).length > 0;
-
-    //Checks if an Actor has a Power Egde
-    if (
-      data.data.owned.edges &&
-      data.data.owned.edges.find((edge) => edge.data.isArcaneBackground == true)
-    ) {
-      this.actor.setFlag('swade', 'hasArcaneBackground', true);
-      data.data.hasArcaneBackground = true;
-    } else {
-      this.actor.setFlag('swade', 'hasArcaneBackground', false);
-      data.data.hasArcaneBackground = false;
-    }
-
-    if (this.actor.data.type === 'character') {
-      data.powersOptions = 'class="powers-list resizable" data-base-size="545"';
-    } else {
-      data.powersOptions = 'class="powers-list"';
-    }
-
-    // Display the current active arcane
-    data.activeArcane = this.options.activeArcane;
-    data.arcanes = [];
-    const powers = data.itemsByType['power'];
-    if (powers) {
-      powers.forEach((pow: any) => {
-        if (!pow.data.arcane) return;
-        if (
-          data.arcanes.find((el: string) => el == pow.data.arcane) === undefined
-        ) {
-          data.arcanes.push(pow.data.arcane);
-          // Add powerpoints data relevant to the detected arcane
-          if (data.data.powerPoints[pow.data.arcane] === undefined) {
-            data.data.powerPoints[pow.data.arcane] = { value: 0, max: 0 };
-          }
+    if (this.actor.data.type !== 'vehicle') {
+      data.itemsByType = {};
+      for (const item of data.items) {
+        let list = data.itemsByType[item.type];
+        if (!list) {
+          list = [];
+          data.itemsByType[item.type] = list;
         }
-      });
-    }
+        list.push(item);
+      }
 
-    // Check for enabled optional rules
-    data.data.settingrules = {
-      conviction: game.settings.get('swade', 'enableConviction'),
-    };
+      data.data.owned.gear = this._checkNull(data.itemsByType['gear']);
+      data.data.owned.weapons = this._checkNull(data.itemsByType['weapon']);
+      data.data.owned.armors = this._checkNull(data.itemsByType['armor']);
+      data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
+      data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
+      data.data.owned.hindrances = this._checkNull(
+        data.itemsByType['hindrance'],
+      );
+      data.data.owned.skills = this._checkNull(
+        data.itemsByType['skill'],
+      ).sort((a, b) => a.name.localeCompare(b.name));
+      data.data.owned.powers = this._checkNull(data.itemsByType['power']);
+
+      for (let attr of Object.values(data.data.additionalStats)) {
+        attr['isCheckbox'] = attr['dtype'] === 'Boolean';
+      }
+      data.hasAdditionalStatsFields =
+        Object.keys(data.data.additionalStats).length > 0;
+
+      //Checks if an Actor has a Power Egde
+      if (
+        data.data.owned.edges &&
+        data.data.owned.edges.find(
+          (edge) => edge.data.isArcaneBackground == true,
+        )
+      ) {
+        this.actor.setFlag('swade', 'hasArcaneBackground', true);
+        data.data.hasArcaneBackground = true;
+      } else {
+        this.actor.setFlag('swade', 'hasArcaneBackground', false);
+        data.data.hasArcaneBackground = false;
+      }
+
+      if (this.actor.data.type === 'character') {
+        data.powersOptions =
+          'class="powers-list resizable" data-base-size="545"';
+      } else {
+        data.powersOptions = 'class="powers-list"';
+      }
+
+      // Display the current active arcane
+      data.activeArcane = this.options.activeArcane;
+      data.arcanes = [];
+      const powers = data.itemsByType['power'];
+      if (powers) {
+        powers.forEach((pow: any) => {
+          if (!pow.data.arcane) return;
+          if (
+            data.arcanes.find((el: string) => el == pow.data.arcane) ===
+            undefined
+          ) {
+            data.arcanes.push(pow.data.arcane);
+            // Add powerpoints data relevant to the detected arcane
+            if (data.data.powerPoints[pow.data.arcane] === undefined) {
+              data.data.powerPoints[pow.data.arcane] = { value: 0, max: 0 };
+            }
+          }
+        });
+      }
+
+      // Check for enabled optional rules
+      data.data.settingrules = {
+        conviction: game.settings.get('swade', 'enableConviction'),
+      };
+    }
 
     return data;
   }
