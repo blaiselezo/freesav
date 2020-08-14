@@ -254,156 +254,9 @@ Hooks.on(
       ui.actors.render();
     }
     // Update the player list to display new bennies values
-    if (updateData.data && updateData.data.bennies) {
+    if (updateData?.data?.bennies) {
       ui['players'].render(true);
     }
-    //if it's a status update, update the token
-    if (
-      updateData.data &&
-      updateData.data.status &&
-      (game.user.isGM || actor.owner)
-    ) {
-      const shaken = CONFIG.SWADE.statusIcons.shaken;
-      const vulnerable = CONFIG.SWADE.statusIcons.vulnerable;
-      const distracted = CONFIG.SWADE.statusIcons.distracted;
-      const actorData = actor.data as any;
-
-      for (const t of actor.getActiveTokens()) {
-        if (t.data.actorLink && t.scene.id === game.scenes.active.id) {
-          if (
-            actorData.data.status.isShaken &&
-            !t.data.effects.includes(shaken)
-          )
-            await t.toggleEffect(shaken);
-          if (
-            !actorData.data.status.isShaken &&
-            t.data.effects.includes(shaken)
-          )
-            await t.toggleEffect(shaken);
-          if (
-            actorData.data.status.isVulnerable &&
-            !t.data.effects.includes(vulnerable)
-          )
-            await t.toggleEffect(vulnerable);
-          if (
-            !actorData.data.status.isVulnerable &&
-            t.data.effects.includes(vulnerable)
-          )
-            await t.toggleEffect(vulnerable);
-          if (
-            actorData.data.status.isDistracted &&
-            !t.data.effects.includes(distracted)
-          )
-            await t.toggleEffect(distracted);
-          if (
-            !actorData.data.status.isDistracted &&
-            t.data.effects.includes(distracted)
-          )
-            await t.toggleEffect(distracted);
-        }
-      }
-    }
-  },
-);
-
-Hooks.on(
-  'preUpdateToken',
-  async (scene: Scene, token: any, updateData: any, options: any) => {
-    const shaken = CONFIG.SWADE.statusIcons.shaken;
-    const vulnerable = CONFIG.SWADE.statusIcons.vulnerable;
-    const distracted = CONFIG.SWADE.statusIcons.distracted;
-
-    // if the update is effects
-    if (updateData.effects) {
-      if (token.actorLink) {
-        // linked token
-        const tokenActor = game.actors.get(token.actorId) as SwadeActor;
-
-        await tokenActor.update({
-          'data.status': {
-            isShaken: updateData.effects.includes(shaken),
-            isVulnerable: updateData.effects.includes(vulnerable),
-            isDistracted: updateData.effects.includes(distracted),
-          },
-        });
-      } else {
-        // unlinked token
-        const newStatus = {
-          isShaken: updateData.effects.includes(shaken),
-          isVulnerable: updateData.effects.includes(vulnerable),
-          isDistracted: updateData.effects.includes(distracted),
-        };
-        updateData.actorData = {
-          data: {
-            status: newStatus,
-          },
-        };
-      }
-    } else if (
-      updateData.actorData &&
-      updateData.actorData.data &&
-      updateData.actorData.data.status
-    ) {
-      //else if the update is a toke-actor status update
-      const actorShaken = updateData.actorData.data.status.isShaken;
-      const actorVulnerable = updateData.actorData.data.status.isVulnerable;
-      const actorDistracted = updateData.actorData.data.status.isDistracted;
-
-      let newEffects = token.effects;
-
-      if (typeof actorShaken !== 'undefined') {
-        if (actorShaken && !newEffects.includes(shaken))
-          newEffects.push(shaken);
-        if (!actorShaken && newEffects.includes(shaken)) {
-          const index = newEffects.indexOf(shaken);
-          if (index > -1) newEffects.splice(index, 1);
-        }
-      }
-
-      if (typeof actorVulnerable !== 'undefined') {
-        if (actorVulnerable && !newEffects.includes(vulnerable))
-          newEffects.push(vulnerable);
-        if (!actorVulnerable && newEffects.includes(vulnerable)) {
-          const index = newEffects.indexOf(vulnerable);
-          if (index > -1) newEffects.splice(index, 1);
-        }
-      }
-      if (typeof actorDistracted !== 'undefined') {
-        if (actorDistracted && !newEffects.includes(distracted))
-          newEffects.push(distracted);
-        if (!actorDistracted && newEffects.includes(distracted)) {
-          const index = newEffects.indexOf(distracted);
-          if (index > -1) newEffects.splice(index, 1);
-        }
-      }
-      updateData.effects = [...new Set(newEffects)];
-    }
-  },
-);
-
-Hooks.on(
-  'preCreateToken',
-  async (scene: Scene, createData: any, options: any, userId: string) => {
-    // return if the token has no linked actor
-    if (!createData.actorLink) return;
-
-    const actor = game.actors.get(createData.actorId) as SwadeActor;
-
-    // return if this token has no actor
-    if (!actor) return;
-
-    const shaken = CONFIG.SWADE.statusIcons.shaken;
-    const vulnerable = CONFIG.SWADE.statusIcons.vulnerable;
-    const distracted = CONFIG.SWADE.statusIcons.distracted;
-    const actorData = actor.data as any;
-
-    const createEffects = [];
-
-    if (actorData.data.status.isShaken) createEffects.push(shaken);
-    if (actorData.data.status.isVulnerable) createEffects.push(vulnerable);
-    if (actorData.data.status.isDistracted) createEffects.push(distracted);
-
-    createData.effects = createEffects;
   },
 );
 
@@ -487,7 +340,6 @@ Hooks.on(
     if (game.settings.get('swade', 'autoInit')) {
       const combatantIds = combat.combatants.map((c) => c._id);
       await combat.rollInitiative(combatantIds);
-      combat.turns = combat.setupTurns();
     }
   },
 );
@@ -495,37 +347,12 @@ Hooks.on(
 Hooks.on(
   'updateCombat',
   async (combat: Combat, updateData, options, userId: string) => {
-    //do stuff here for Conviction
-    //get all combatants with active conviction
-    let activeConvictions = combat.combatants.filter(
-      (c) => c.actor.data.data.details.conviction.active,
-    );
-    for (const conv of activeConvictions) {
-      //if it's not the combatants turn then skip
-      const convActiveHasTurn =
-        conv.tokenId === combat.turns[updateData.turn]['tokenId'];
-      const activeGMs = game.users.filter((u) => u.isGM && u.active);
-      const firstFoundActiveGM = activeGMs[0]._id === game.userId;
-      if (
-        convActiveHasTurn &&
-        firstFoundActiveGM &&
-        game.settings.get('swade', 'enableConviction')
-      ) {
-        const template = 'systems/swade/templates/chat/conviction-card.html';
-        const html = await renderTemplate(template, { actor: conv.actor });
-        const messageData = {
-          speaker: {
-            scene: canvas.scene._id,
-            actor: conv.actor,
-            token: conv.token as any,
-            alias: conv.token.name,
-          },
-          whisper: [...conv.players, ...game.users.filter((u) => u.isGM)],
-          content: html,
-        };
-        await ChatMessage.create(messageData);
-      }
+    let string = `Round ${combat.round} - Turn ${combat.turn}\n`;
+    for (let i = 0; i < combat.turns.length; i++) {
+      const element = combat.turns[i];
+      string = string.concat(`${i}) ${element['token']['name']}\n`);
     }
+    console.log(string);
   },
 );
 

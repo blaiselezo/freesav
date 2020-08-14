@@ -1,16 +1,43 @@
 import { SwadeDice } from '../dice';
 // eslint-disable-next-line no-unused-vars
 import SwadeItem from './SwadeItem';
-import ISkillOptions from '../../interfaces/ISkillOptions';
-import ISKillOptions from '../../interfaces/ISkillOptions';
+import IRollOptions from '../../interfaces/ISkillOptions';
 
 export default class SwadeActor extends Actor {
   /**
+   * @override
    * Extends data from base Actor class
    */
   prepareData() {
     super.prepareData();
-    return this.data;
+    let data = this.data;
+    let shouldAutoCalcToughness =
+      getProperty(this.data, 'data.details.autoCalcToughness') &&
+      this.data.type !== 'vehicle';
+
+    if (shouldAutoCalcToughness) {
+      setProperty(
+        this.data,
+        'data.stats.toughness.value',
+        this.calcToughness(),
+      );
+      setProperty(this.data, 'data.stats.toughness.armor', this.calcArmor());
+    }
+    return data;
+  }
+
+  /* -------------------------------------------- */
+  /*  Getters
+  /* -------------------------------------------- */
+  get isWildcard() {
+    if (this.data.type === 'vehicle') {
+      return false;
+    } else {
+      return (
+        getProperty(this.data, 'data.wildcard') ||
+        this.data.type === 'character'
+      );
+    }
   }
 
   /* -------------------------------------------- */
@@ -46,7 +73,7 @@ export default class SwadeActor extends Actor {
   /* -------------------------------------------- */
 
   /** @override */
-  async createOwnedItem(itemData, options) {
+  async createOwnedItem(itemData, options = {}) {
     return super.createOwnedItem(itemData, options);
   }
 
@@ -55,16 +82,20 @@ export default class SwadeActor extends Actor {
   /* -------------------------------------------- */
   rollAttribute(
     abilityId: string,
-    options: ISkillOptions = { event: null },
+    options: IRollOptions = { event: null },
   ): Promise<any> {
+    //return early if the user doesn't have permissions
+    if (!game.user.isGM || !game.user.owner) {
+      return;
+    }
     const label = CONFIG.SWADE.attributes[abilityId].long;
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
     let exp = '';
-    if (this.data['data'].wildcard) {
+    if (this.isWildcard) {
       exp = `{1d${abl.die.sides}x=, 1d${abl['wild-die'].sides}x=}kh`;
     } else {
-      exp = `1d${abl.die.sides}x${abl.die.sides}`;
+      exp = `1d${abl.die.sides}x=`;
     }
 
     //Check and add Modifiers
@@ -77,7 +108,12 @@ export default class SwadeActor extends Actor {
       rollParts.push(ablMod);
     }
 
-    if (this.data.data['details']['conviction']['active']) {
+    //Conviction Modifier
+    if (
+      this.isWildcard &&
+      game.settings.get('swade', 'enableConviction') &&
+      getProperty(this.data, 'data.details.conviction.active')
+    ) {
       rollParts.push('+1d6x=');
     }
 
@@ -102,12 +138,13 @@ export default class SwadeActor extends Actor {
       title: `${game.i18n.localize(label)} ${game.i18n.localize(
         'SWADE.AttributeTest',
       )}`,
+      actor: this,
     });
   }
 
   rollSkill(
     skillId: string,
-    options: ISkillOptions = { event: null },
+    options: IRollOptions = { event: null },
   ): Promise<any> {
     let items = this.items.filter((i: Item) => i.id == skillId);
     if (!items.length) {
@@ -133,8 +170,9 @@ export default class SwadeActor extends Actor {
 
     //Conviction Modifier
     if (
-      this.data.data['details']['conviction']['active'] &&
-      game.settings.get('swade', 'enableConviction')
+      this.isWildcard &&
+      game.settings.get('swade', 'enableConviction') &&
+      getProperty(this.data, 'data.details.conviction.active')
     ) {
       rollParts.push('+1d6x=');
     }
@@ -162,10 +200,11 @@ export default class SwadeActor extends Actor {
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
       title: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
+      actor: this,
     });
   }
 
-  makeUnskilledAttempt(options: ISkillOptions = { event: null }): Promise<any> {
+  makeUnskilledAttempt(options: IRollOptions = { event: null }): Promise<any> {
     let exp = '';
     if (this.data['data'].wildcard) {
       exp = '{1d4x=, 1d6x=}kh';
@@ -342,7 +381,10 @@ export default class SwadeActor extends Actor {
     return out;
   }
 
-  // Launches a dialog to configure which initiative-modifying edges/hindrances the character has
+  /**
+   * @deprecated
+   * Launches a dialog to configure which initiative-modifying edges/hindrances the character has
+   */
   async configureInitiative() {
     const initData = this.data.data.initiative;
     const template = 'systems/swade/templates/initiative/configure-init.html';
@@ -385,27 +427,52 @@ export default class SwadeActor extends Actor {
    */
   calcArmor(): number {
     let totalArmorVal = 0;
-    let armorList = this.items.filter(
-      (i: SwadeItem) =>
-        i.type === 'armor' &&
-        i.data.data['equipped'] &&
-        i.data.data['locations']['torso'],
-    );
+    let armorList = this.data['items'].filter((i: SwadeItem) => {
+      let isEquipped = getProperty(i.data, 'equipped');
+      let coversTorso = getProperty(i.data, 'locations.torso');
+      return i.type === 'armor' && isEquipped && coversTorso;
+    });
+
     armorList = armorList.sort((a, b) => {
-      const aValue = parseInt(a.data.data.armor);
-      const bValue = parseInt(b.data.data.armor);
+      const aValue = parseInt(a.data.armor);
+      const bValue = parseInt(b.data.armor);
       return aValue + bValue;
     });
+
     if (armorList.length === 0) {
       return totalArmorVal;
     } else if (armorList.length > 0 && armorList.length < 2) {
-      totalArmorVal = parseInt(armorList[0].data.data.armor);
+      totalArmorVal = parseInt(armorList[0].data.armor);
     } else {
       totalArmorVal =
-        parseInt(armorList[0].data.data.armor) +
-        Math.floor(parseInt(armorList[1].data.data.armor) / 2);
+        parseInt(armorList[0].data.armor) +
+        Math.floor(parseInt(armorList[1].data.armor) / 2);
     }
     return totalArmorVal;
+  }
+
+  /**
+   * Calculates the Toughness value and returns it, optionally with armor
+   * @param includeArmor include armor in final value (true/false). Default is true
+   */
+  calcToughness(includeArmor = true): number {
+    let retVal = 0;
+    let vigor = getProperty(this.data, 'data.attributes.vigor.die.sides');
+    let vigMod = getProperty(this.data, 'data.attributes.vigor.die.modifier');
+    let toughMod = parseInt(
+      getProperty(this.data, 'data.stats.toughness.modifier'),
+    );
+    let size = parseInt(getProperty(this.data, 'data.stats.size'));
+    retVal = vigor / 2 + 2;
+    retVal += size;
+    retVal += toughMod;
+    if (vigMod > 0) {
+      retVal += Math.floor(vigMod / 2);
+    }
+    if (includeArmor) {
+      retVal += this.calcArmor();
+    }
+    return retVal;
   }
 
   /**
@@ -429,9 +496,11 @@ export default class SwadeActor extends Actor {
     let handling = getProperty(this.data, 'data.handling');
     let wounds = this.calcWoundPenalties();
     let totalHandling: number | string;
-    totalHandling = parseInt(handling) - wounds;
+    totalHandling = handling + wounds;
 
     // Calculate handling
+
+    //Handling is capped at a certain penalty
     if (totalHandling < CONFIG.SWADE.vehicles.maxHandlingPenalty) {
       totalHandling = CONFIG.SWADE.vehicles.maxHandlingPenalty;
     }
@@ -439,11 +508,12 @@ export default class SwadeActor extends Actor {
       totalHandling = `+${totalHandling}`;
     }
 
-    let options: ISKillOptions = {
+    let options: IRollOptions = {
       event: event,
       additionalMods: [totalHandling],
     };
 
+    //Find the operating skill
     let skill = driver.items.find(
       (i) => i.type === 'skill' && i.name === skillName,
     ) as SwadeItem;

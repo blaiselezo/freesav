@@ -53,21 +53,24 @@
       width: 100px;
       max-width: 100px;
       height: 100px;
-      margin: 5px auto 5px auto;
+      margin: 5px auto 0px auto;
       border: none;
       object-fit: contain;
       cursor: pointer;
     }
-  }
-  .reset-driver {
-    float: right;
-    margin-right: 5px;
   }
 
   .driver-box {
     flex-basis: 150px;
     padding: 3px;
     text-align: center;
+  }
+  .driver-title {
+    position: relative;
+    .reset-driver {
+      position: absolute;
+      right: 0%;
+    }
   }
 
   #crew {

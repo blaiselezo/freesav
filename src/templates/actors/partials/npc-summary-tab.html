@@ -22,7 +22,7 @@
           type="text"
           value="{{data.stats.speed.value}}"
           placeholder="0"
-          data-dtype="Number"
+          data-dtype="String"
         />
       </div>
       <div class="attribute flex3">
@@ -34,31 +34,39 @@
             value="{{data.stats.parry.value}}"
             type="text"
             placeholder="0"
-            data-dtype="Number"
+            data-dtype="String"
           />
-          {{#if (add parry data.stats.parry.modifier)}}
-          <div class="armor-value" id="parry-value">
+          <div class="armor-value" data-target="parry">
             {{add parry data.stats.parry.modifier}}
           </div>
-          {{/if}}
         </div>
       </div>
       <div class="attribute flex3">
         <div class="attribute-label">{{localize "SWADE.Tough"}}</div>
         <div class="toughness-block">
+          {{#if data.details.autoCalcToughness}}
           <input
             id="toughness"
             name="data.stats.toughness.value"
             type="text"
             value="{{data.stats.toughness.value}}"
-            placeholder="0"
+            placeholder="{{localize 'SWADE.Tough'}}"
+            data-dtype="String"
+            disabled
+          />
+          {{else}}
+          <input
+            id="toughness"
+            name="data.stats.toughness.value"
+            type="text"
+            value="{{data.stats.toughness.value}}"
+            placeholder="{{localize 'SWADE.Tough'}}"
             data-dtype="String"
           />
-          {{#if data.stats.toughness.armor}}
-          <div class="armor-value" id="armor-value">
+          {{/if}}
+          <div class="armor-value" data-target="armor">
             {{data.stats.toughness.armor}}
           </div>
-          {{/if}}
         </div>
       </div>
     </div>
@@ -131,37 +139,19 @@
       <span class="item" data-item-id="{{hindrance._id}}">
         <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
           {{#unless @first}}&nbsp;{{/unless}}{{hindrance.name}} {{#if
-          hindrance.data.major}}{{localize "SWADE.Major"}}{{else}}{{localize
-          "SWADE.Minor"}}{{/if}}{{#unless @last}},{{/unless}}
+          hindrance.data.major}}{{localize "SWADE.Major"}}{{/if}}{{#unless
+          @last}},{{/unless}}
         </a>
       </span>
       {{/each}}
     </section>
+    <section class="gear">
+      {{> "systems/swade/templates/setting-fields.html"}}
+    </section>
   </div>
   <div>
     {{!-- Right panel --}}
-    <section class="gear powers">
-      {{#if actor.flags.swade.hasArcaneBackground}}
-      <header class="header-field flexrow">
-        <div>
-          <span>{{localize "SWADE.Pow"}}</span>
-        </div>
-        <div class="header-field-add">
-          <a class="item-create" data-type="power"
-            ><i class="fa fa-plus"></i
-          ></a>
-        </div>
-      </header>
-      <div class="quickaccess-list">
-        <ol class="gear-list power-list">
-          {{#each data.owned.powers}} {{>
-          "systems/swade/templates/actors/partials/powers-card.html"
-          owner=../owner}} {{/each}}
-        </ol>
-      </div>
-      {{/if}}
-    </section>
-    <section class="inventory gear">
+    <section class="gear">
       <header class="header-field flexrow">
         <div>
           <span>{{localize "SWADE.Inv"}}</span>
@@ -195,8 +185,8 @@
         </ol>
       </div>
     </section>
-    <section class="description">
-      <header class="header-field">
+    <section class="gear">
+      <header class="header-field flexrow">
         <span>{{localize "SWADE.Desc"}}</span>
       </header>
       <div>

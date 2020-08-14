@@ -20,6 +20,52 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased v0.11.0]
+
+### Added
+
+- Added Classification field to Vehicle Sheet
+- Added `calcToughness` function to `SwadeActor` class, that calculates the toughness and then returns the value as a number
+- Added auto-calculation to toughness if armor is changed or something about the vigor die is changed.
+- Added `isWildcard` getter to `SwadeActor` class
+- Added Group Rolls for NPC Extras
+- Added `currentShots` property to `weapons`. Addjusted sheets accordingly
+- Added Setting Configurator in the Settings
+- Added Capability to create custom stats.
+  - To use custom stats, create them in the Setting Configurator, then enable them in the Actor/Item Tweaks
+  - These custom stats are available on the following sheets: Character, NPC, Weapon, Armor, Shield, Gear
+  - **Attention**: Due to a quirk in Foundry's update logic I recommend you only edit unlinked actors in the sidebar and then replace existing tokens that exist on the map with new ones from the side bar
+- Added ability to automatically calculate toughness, including armor. This is determined by a toggle in the Actor Tweaks and does not work for Vehicles. The Toughness input field is not editable while automatic toughness calculation is active.
+- Added Powers Tab back into NPC Sheets
+- On character sheets, added quantity notation to most inventory entries
+- Added Initiative capability to `vehicle` type actors. Please keep in mind that Conviction extension does not work at this time. It's heavily recommended that you only add the Operator to the Combat Tracker if you use the Conviction setting rule.
+
+### Changed
+
+- Parry and Pace fields now accept non-numerical inputs
+- Power sheet now acceptsnon-numerical input for Power Points
+- NPC Hindrances now only show the Major keyword, no longer Minor
+- Updated german localization (thanks to KarstenW for that one)
+- Changed size of status tickbox container from `100px` to `120px` to allow for longer words
+- Re-enabled the Arcane Background toggle on Edges, when they are owned
+
+### Deprecated
+
+- Started deprecation of `SwadeActor.configureInitiative()` function. It will be fully removed with v0.12.0
+
+### Removed
+
+- Removed Status icon two-way binding
+- Removed Notes column for misc. Items in the character sheet inventory
+- Removed Conviction Refresh message as there is no reliable way to get the current active combatant at the top of a round
+
+### Fixed
+
+- Fixed a bug that would remove fatigue of max wounds was set to 0 on NPC sheets
+- Fixed a small bug that would prevent item deletion from NPC sheets
+- Fixed a small bug which would cause wound penalties on vehicles to register as a bonus instead
+- Fixed a small bug which allowed observers to roll Attribute tests
+
 ## [v0.10.2]
 
 ### Added

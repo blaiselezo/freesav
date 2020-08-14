@@ -12,6 +12,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swade/templates/actors/partials/inventory-tab.html',
     'systems/swade/templates/actors/partials/powers-tab.html',
     'systems/swade/templates/actors/partials/biography-tab.html',
+    'systems/swade/templates/setting-fields.html',
 
     //Vehicle Partials
     'systems/swade/templates/actors/vehicle-partials/summary-tab.html',

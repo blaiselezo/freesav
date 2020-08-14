@@ -68,26 +68,6 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     return html;
   }
 
-  _filterPowers(html: JQuery, arcane: string) {
-    this.options.activeArcane = arcane;
-    // Show, hide powers
-    html.find('.power').each((id: number, pow: any) => {
-      if (pow.dataset.arcane == arcane || arcane == 'All') {
-        pow.classList.add('active');
-      } else {
-        pow.classList.remove('active');
-      }
-    });
-    // Show, Hide powerpoints
-    html.find('.power-counter').each((id: number, ct: any) => {
-      if (ct.dataset.arcane == arcane) {
-        ct.classList.add('active');
-      } else {
-        ct.classList.remove('active');
-      }
-    });
-  }
-
   activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
 
@@ -175,14 +155,6 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
       }
     });
 
-    // Filter power list
-    html.find('.arcane-tabs .arcane').click((ev: any) => {
-      const arcane = ev.currentTarget.dataset.arcane;
-      html.find('.arcane-tabs .arcane').removeClass('active');
-      ev.currentTarget.classList.add('active');
-      this._filterPowers(html, arcane);
-    });
-
     //Input Synchronization
     html.find('.wound-input').keyup((ev) => {
       this.actor.update({ 'data.wounds.value': $(ev.currentTarget).val() });
@@ -240,47 +212,6 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
   getData(): ActorSheetData {
     let data: any = super.getData();
 
-    data.config = CONFIG.SWADE;
-    data.itemsByType = {};
-    for (const item of data.items) {
-      let list = data.itemsByType[item.type];
-      if (!list) {
-        list = [];
-        data.itemsByType[item.type] = list;
-      }
-      list.push(item);
-    }
-
-    data.data.owned.gear = this._checkNull(data.itemsByType['gear']);
-    data.data.owned.weapons = this._checkNull(data.itemsByType['weapon']);
-    data.data.owned.armors = this._checkNull(data.itemsByType['armor']);
-    data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
-    data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
-    data.data.owned.hindrances = this._checkNull(data.itemsByType['hindrance']);
-    data.data.owned.skills = this._checkNull(
-      data.itemsByType['skill'],
-    ).sort((a, b) => a.name.localeCompare(b.name));
-    data.data.owned.powers = this._checkNull(data.itemsByType['power']);
-
-    // Display the current active arcane
-    data.activeArcane = this.options.activeArcane;
-    data.arcanes = [];
-    const powers = data.itemsByType['power'];
-    if (powers) {
-      powers.forEach((pow: any) => {
-        if (!pow.data.arcane) return;
-        if (
-          data.arcanes.find((el: string) => el == pow.data.arcane) === undefined
-        ) {
-          data.arcanes.push(pow.data.arcane);
-          // Add powerpoints data relevant to the detected arcane
-          if (data.data.powerPoints[pow.data.arcane] === undefined) {
-            data.data.powerPoints[pow.data.arcane] = { value: 0, max: 0 };
-          }
-        }
-      });
-    }
-
     const shields = data.itemsByType['shield'];
     data.parry = 0;
     if (shields) {
@@ -304,22 +235,6 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     );
     data.maxCarryCapacity = this._calcMaxCarryCapacity(data);
 
-    //Checks if an Actor has a Power Egde
-    if (
-      data.data.owned.edges &&
-      data.data.owned.edges.find((edge) => edge.data.isArcaneBackground == true)
-    ) {
-      this.actor.setFlag('swade', 'hasArcaneBackground', true);
-      data.data.hasArcaneBackground = true;
-    } else {
-      this.actor.setFlag('swade', 'hasArcaneBackground', false);
-      data.data.hasArcaneBackground = false;
-    }
-
-    // Check for enabled optional rules
-    data.data.settingrules = {
-      conviction: game.settings.get('swade', 'enableConviction'),
-    };
     return data;
   }
 

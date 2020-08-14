@@ -115,7 +115,7 @@
   .status-container {
     width: 20%;
     flex-grow: 0;
-    flex-basis: 100px;
+    flex-basis: 120px;
     display: flex;
     flex-direction: column;
     .status-item {
@@ -382,7 +382,6 @@
       }
     }
     .inventory-categories {
-      overflow: auto;
       height: 520px;
       .items-section {
         .header-field {
@@ -398,6 +397,7 @@
         .item-name {
           text-align: left;
           text-indent: 8px;
+          flex-grow: 5;
         }
         font-weight: 300;
         font-size: 12px;
@@ -419,7 +419,6 @@
         .item {
           line-height: 30px;
           height: 30px;
-          overflow: hidden;
           &:nth-child(even) {
             background: rgba(0, 0, 0, 0.1);
           }
@@ -431,10 +430,10 @@
         .item-name {
           text-indent: 8px;
           text-align: left;
-          overflow: hidden;
           height: 30px;
           margin: 0;
           line-height: 30px;
+          flex-grow: 5;
           .item-image {
             flex-basis: 30px;
             margin: 2px;
@@ -444,24 +443,35 @@
           }
           h4 {
             margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: left;
+            max-width: 180px;
           }
         }
       }
       .field-longer {
         text-indent: 8px;
         text-align: left;
-        flex-basis: 120px;
-        flex-grow: 0;
+        flex-grow: 3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .field-long {
-        flex-basis: 65px;
-        flex-grow: 0;
+        flex-grow: 2;
         text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .field-short {
-        flex-basis: 45px;
-        flex-grow: 0;
+        flex-grow: 1;
         text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .item-controls {
         flex-basis: 60px;
@@ -470,6 +480,111 @@
         margin-right: 4px;
         .item-unequipped {
           color: rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+  }
+
+  // Powers
+  .powers {
+    margin: 3px 0;
+    .header-field-add {
+      line-height: 24px;
+      margin-left: 5px;
+    }
+    .arcane-tabs {
+      display: flex;
+      .arcane {
+        cursor: pointer;
+        width: 90px;
+        height: 24px;
+        text-align: center;
+        line-height: 22px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background: $lapis-lazuli;
+        &:hover,
+        &:focus {
+          background: $charcoal;
+          text-shadow: none;
+        }
+        &.active {
+          background: $charcoal;
+        }
+      }
+    }
+    .power-counter {
+      display: none;
+      input {
+        width: 40px;
+        color: white;
+        font-weight: bold;
+        background: rgba(255, 255, 255, 0.2);
+      }
+      &.active {
+        display: block;
+      }
+    }
+    .powers-list {
+      display: flex;
+      flex-direction: row;
+      align-content: start;
+      flex-wrap: wrap;
+      overflow: auto;
+      .power {
+        display: none;
+        margin: 2px;
+        flex-grow: 0;
+        flex-basis: calc(50% - 4px);
+        height: calc(50% - 4px);
+        border: $decorative-line;
+        border-top-left-radius: 4px;
+        border-radius: 2px;
+        &.active {
+          display: block;
+        }
+        .power-header {
+          background: rgba(0, 0, 0, 0.05);
+          border-bottom: $decorative-line;
+          h4 {
+            margin: 0;
+            padding: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+          .item-image {
+            flex-grow: 0;
+            flex-basis: 25px;
+            background-size: contain;
+          }
+          .item-controls {
+            padding: 5px;
+            flex-grow: 0;
+            flex-wrap: nowrap;
+            color: black;
+            a + a {
+              margin-left: 5px;
+            }
+            .item-unequipped {
+              color: rgba(0, 0, 0, 0.2);
+            }
+          }
+        }
+        .power-content {
+          margin: 0 3px;
+          line-height: 24px;
+          padding: 5px;
+          height: calc(100% - 30px);
+          overflow-y: auto;
+          .power-details {
+            font-size: 12px;
+            line-height: 12px;
+            font-weight: 600;
+            text-indent: 5px;
+          }
+          .power-description {
+            line-height: 15px;
+          }
         }
       }
     }

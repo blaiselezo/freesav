@@ -6,6 +6,13 @@ import SwadeActor from './SwadeActor';
  * Override and extend the basic :class:`Item` implementation
  */
 export default class SwadeItem extends Item {
+  /**
+   * @override
+   */
+  get actor() {
+    return (this.options.actor as SwadeActor) || null;
+  }
+
   /* -------------------------------------------- */
   /*	Data Preparation														*/
   /* -------------------------------------------- */
@@ -19,10 +26,18 @@ export default class SwadeItem extends Item {
 
   rollDamage(options = { event: Event }) {
     const itemData = this.data.data;
-    const actor = this.actor as SwadeActor;
+    const actor = this.actor;
     const actorIsVehicle = actor.data.type === 'vehicle';
     const actorData = actor.data.data;
     const label = this.name;
+    let ap = getProperty(this.data, 'data.ap');
+
+    if (ap) {
+      ap = ` - ${game.i18n.localize('SWADE.Ap')} ${ap}`;
+    } else {
+      ap = ` - ${game.i18n.localize('SWADE.Ap')} 0`;
+    }
+
     // Intermediary roll to let it do the parsing for us
     let roll;
     if (actorIsVehicle) {
@@ -42,8 +57,8 @@ export default class SwadeItem extends Item {
 
     if (
       !actorIsVehicle &&
-      actor.data.data['details']['conviction']['active'] &&
-      game.settings.get('swade', 'enableConviction')
+      game.settings.get('swade', 'enableConviction') &&
+      getProperty(actor.data, 'data.details.conviction.active')
     ) {
       newParts.push('+1d6x=');
     }
@@ -53,9 +68,11 @@ export default class SwadeItem extends Item {
       parts: newParts,
       data: actorData,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
+      flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
+        'SWADE.Dmg',
+      )}${ap}`,
       title: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
-      item: true,
+      item: this,
     });
   }
 }

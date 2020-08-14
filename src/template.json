@@ -77,7 +77,8 @@
           "conviction": {
             "value": 0,
             "active": false
-          }
+          },
+          "autoCalcToughness": false
         },
         "powerPoints": {},
         "fatigue": {
@@ -120,7 +121,8 @@
           "hasHesitant": false,
           "hasLevelHeaded": false,
           "hasImpLevelHeaded": false
-        }
+        },
+        "additionalStats": {}
       },
       "vehicle-common": {
         "size": 0,
@@ -158,6 +160,12 @@
           "isOutOfControl": false,
           "isWrecked": false
         },
+        "initiative": {
+          "hasHesitant": false,
+          "hasLevelHeaded": false,
+          "hasImpLevelHeaded": false
+        },
+        "additionalStats": {},
         "maxCargo": 0,
         "maxMods": 0
       }
@@ -192,7 +200,8 @@
     "templates": {
       "itemDescription": {
         "description": "",
-        "notes": ""
+        "notes": "",
+        "additionalStats": {}
       },
       "physicalItem": {
         "quantity": 1,
@@ -223,7 +232,8 @@
       "rof": 1,
       "ap": 0,
       "minStr": "",
-      "shots": 0
+      "shots": 0,
+      "currentShots": 0
     },
     "armor": {
       "templates": ["itemDescription", "physicalItem", "equipable"],

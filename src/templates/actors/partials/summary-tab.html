@@ -140,7 +140,7 @@
           type="text"
           value="{{data.stats.speed.value}}"
           placeholder="0"
-          data-dtype="Number"
+          data-dtype="String"
         />
       </div>
       <div class="attribute flex3">
@@ -152,29 +152,39 @@
             value="{{data.stats.parry.value}}"
             type="text"
             placeholder="0"
-            data-dtype="Number"
+            data-dtype="String"
           />
-          {{#if (add parry data.stats.parry.modifier)}}
-          <div class="armor-value">{{add parry data.stats.parry.modifier}}</div>
-          {{/if}}
+          <div class="armor-value" alt="Parry modifier" data-target="parry">
+            {{add parry data.stats.parry.modifier}}
+          </div>
         </div>
       </div>
       <div class="attribute flex3">
         <div class="attribute-label">{{localize "SWADE.Tough"}}</div>
         <div class="toughness-block">
+          {{#if data.details.autoCalcToughness}}
           <input
             id="toughness"
             name="data.stats.toughness.value"
             type="text"
             value="{{data.stats.toughness.value}}"
-            placeholder="0"
+            placeholder="{{localize 'SWADE.Tough'}}"
+            data-dtype="String"
+            disabled
+          />
+          {{else}}
+          <input
+            id="toughness"
+            name="data.stats.toughness.value"
+            type="text"
+            value="{{data.stats.toughness.value}}"
+            placeholder="{{localize 'SWADE.Tough'}}"
             data-dtype="String"
           />
-          {{#if data.stats.toughness.armor}}
-          <div class="armor-value">
+          {{/if}}
+          <div class="armor-value" data-target="armor">
             {{data.stats.toughness.armor}}
           </div>
-          {{/if}}
         </div>
       </div>
     </div>
@@ -213,7 +223,8 @@
       {{/each}}
     </ol>
   </div>
-  <div class="gear">
+  <div class="gear resizable scrollable" data-base-size="420">
+    {{> "systems/swade/templates/setting-fields.html"}}
     <header class="header-field flexrow">
       <div>
         <span>{{ localize "SWADE.QuickAccess" }}</span>
@@ -228,7 +239,7 @@
         ></a>
       </div>
     </header>
-    <div class="quickaccess-list resizable" data-base-size="390">
+    <div class="quickaccess-list">
       <ol class="gear-list weapon-list">
         {{#each data.owned.weapons as |weapon id|}} {{#if weapon.data.equipped}}
         {{> "systems/swade/templates/actors/partials/weapon-card.html"}} {{/if}}

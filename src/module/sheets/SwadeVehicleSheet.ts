@@ -116,7 +116,6 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
           weaponData = this._createItemData('weapon', header);
           weaponData.data.isVehicular = true;
           weaponData.data.equipped = true;
-          console.log('adding weapon', weaponData);
           createdItem = await this.actor.createOwnedItem(weaponData, {});
           break;
         default:
@@ -196,7 +195,6 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
         percentage: this._calcModsPercentage(modsUsed),
       };
     }
-    console.log(data);
     return data;
   }
 
@@ -253,7 +251,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
 
     //Display the Driver data if the current user has at least Limited permission on the driver Actor
     if (userCanViewDriver) {
-      driverData.img = getProperty(driver, 'data.token.img');
+      driverData.img = driver.img;
       driverData.name = driver.name;
     } else {
       //else just show an aunknown driver

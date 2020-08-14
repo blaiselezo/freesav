@@ -29,12 +29,6 @@ export class SWADE {
     },
   };
 
-  public static statusIcons = {
-    shaken: 'icons/svg/daze.svg',
-    vulnerable: 'icons/svg/degen.svg',
-    distracted: 'icons/svg/stoned.svg',
-  };
-
   public static init = {
     defaultCardCompendium: 'swade.action-cards',
     cardTable: 'Action Cards',
@@ -58,5 +52,11 @@ export class SWADE {
 
   public static vehicles = {
     maxHandlingPenalty: -4,
+  };
+
+  public static settingConfig = {
+    id: 'settingConfig',
+    title: 'SWADE Setting Rule Configurator',
+    settings: ['enableConviction', 'vehicleMods', 'vehicleEdges', 'gmBennies'],
   };
 }

@@ -1,19 +1,30 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
-    {{!-- Item Sheet Header --}}
-    {{> "systems/swade/templates/items/partials/header-delete.html"}}
-    <section class="sheet-body">
-        <div class="form-group">
-            <label for="data.requirements.value">{{localize "SWADE.Req"}}:</label>
-            <input name="data.requirements.value" type="text" value="{{item.data.requirements.value}}"
-                placeholder="{{localize 'SWADE.Req'}}" data-dtype="String" />
-        </div>
-        {{#unless item.data.isOwned}}
-        <div class="form-group">
-            <input type="checkbox" name="data.isArcaneBackground" id="data.isArcaneBackground"
-                {{checked item.data.isArcaneBackground}} data-dtype="Boolean">
-            <label for="data.isArcaneBackground">{{localize "SWADE.ArcBack"}}</label>
-        </div>
-        {{/unless}}
-        {{> "systems/swade/templates/items/partials/description.html"}}
-    </section>
+  {{!-- Item Sheet Header --}} {{>
+  "systems/swade/templates/items/partials/header-delete.html"}}
+  <section class="sheet-body">
+    <div class="form-group">
+      <label for="data.requirements.value">{{localize "SWADE.Req"}}:</label>
+      <input
+        name="data.requirements.value"
+        type="text"
+        value="{{item.data.requirements.value}}"
+        placeholder="{{localize 'SWADE.Req'}}"
+        data-dtype="String"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="checkbox"
+        name="data.isArcaneBackground"
+        id="{{item._id}}-isArcaneBackground"
+        {{checked
+        item.data.isArcaneBackground}}
+        data-dtype="Boolean"
+      />
+      <label for="{{item._id}}-isArcaneBackground"
+        >{{localize "SWADE.ArcBack"}}</label
+      >
+    </div>
+    {{> "systems/swade/templates/items/partials/description.html"}}
+  </section>
 </form>

@@ -15,8 +15,8 @@
   "SWADE.Distr": "Distracted",
   "SWADE.Vuln": "Vulnerable",
 
-  "SWADE.SkillTest": "Skill test",
-  "SWADE.AttributeTest": "Attribute test",
+  "SWADE.SkillTest": "Skill Test",
+  "SWADE.AttributeTest": "Attribute Test",
   "SWADE.Attributes": "Attributes",
   "SWADE.Derived": "Derived Stats",
   "SWADE.AttrAgi": "Agility",
@@ -98,6 +98,11 @@
   "SWADE.Hesitant": "Hesitant",
   "SWADE.LevelHeaded": "Level Headed",
   "SWADE.ImprovedLevelHeaded": "Improved Level Headed",
+  "SWADE.AutoCalc": "Automatic Calculations",
+  "SWADE.InclArmor": "Automatically calculates Toughness, including armor",
+  "SWADE.Label": "Label",
+  "SWADE.HasMaxValue": "Has Max Value",
+  "SWADE.Enabled": "Enabled",
 
   "SWADE.Currency": "Currency",
   "SWADE.CarryWeight": "Encumbrance",
@@ -106,7 +111,7 @@
   "SWADE.Unequipped": "Unequipped",
   "SWADE.Quantity": "Quantity",
   "SWADE.Weight": "Weight",
-  "SWADE.Price": "Price",
+  "SWADE.Price": "Cost",
 
   "SWADE.PP": "Power Points",
   "SWADE.PPShort": "P. Points",
@@ -140,6 +145,7 @@
   "SWADE.Operator": "Operator",
   "SWADE.ManCheck": "Maneuver Check",
   "SWADE.AltSkill": "Alternative Skill",
+  "SWADE.Class": "Classification",
 
   "SWADE.CardSound": "Card Sound",
   "SWADE.CardSoundDesc": "Play a short card sound when dealing Initiative",
@@ -160,6 +166,9 @@
   "SWADE.VehicleModsDesc": "Vehicles use Mod-Slots",
   "SWADE.VehicleEdges": "Vehicle Edges",
   "SWADE.VehicleEdgesDesc": "Vehicles use Edges and Hindrances",
+  "SWADE.SettingConf": "Setting Configurator",
+  "SWADE.SettingConfLabel": "Open Setting Configurator",
+  "SWADE.SettingConfDesc": "Fine tune the system to fit the setting you're playing",
 
   "SWADE.Formula": "Formula",
   "SWADE.SitMod": "Situational Mod",
@@ -167,6 +176,7 @@
   "SWADE.RollExample": "eg. +1d6x= or -2",
   "SWADE.Roll": "Roll",
   "SWADE.RollRaise": "Roll Raise",
+  "SWADE.GroupRoll": "Group Roll",
   "SWADE.Ok": "Ok",
   "SWADE.Cancel": "Cancel",
   "SWADE.Redraw": "Redraw",
@@ -193,5 +203,13 @@
   "SWADE.SBT": "Small Blast Template",
   "SWADE.MBT": "Medium Blast Template",
   "SWADE.LBT": "Large Blast Template",
-  "SWADE.Cone": "Cone Template"
+  "SWADE.Cone": "Cone Template",
+
+  "SWADE.GM": "Game Master",
+  "SWADE.Vehicles": "Vehicles",
+  "SWADE.AddStats": "Additional Stats",
+  "SWADE.Actors": "Actors",
+  "SWADE.Items": "Items",
+  "SWADE.Max": "Max",
+  "SWADE.Curr": "Current"
 }
