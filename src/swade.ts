@@ -340,7 +340,6 @@ Hooks.on(
     if (game.settings.get('swade', 'autoInit')) {
       const combatantIds = combat.combatants.map((c) => c._id);
       await combat.rollInitiative(combatantIds);
-      combat.turns = combat.setupTurns();
     }
   },
 );
@@ -348,39 +347,12 @@ Hooks.on(
 Hooks.on(
   'updateCombat',
   async (combat: Combat, updateData, options, userId: string) => {
-    //do stuff here for Conviction
-    //get all combatants with active conviction
-    let activeConvictions = combat.combatants.filter(
-      (c) =>
-        c.actor.data.type !== 'vehicle' &&
-        c.actor.data.data.details.conviction.active,
-    );
-    for (const conv of activeConvictions) {
-      //if it's not the combatants turn then skip
-      const convActiveHasTurn =
-        conv.tokenId === combat.turns[updateData.turn]['tokenId'];
-      const activeGMs = game.users.filter((u) => u.isGM && u.active);
-      const firstFoundActiveGM = activeGMs[0]._id === game.userId;
-      if (
-        convActiveHasTurn &&
-        firstFoundActiveGM &&
-        game.settings.get('swade', 'enableConviction')
-      ) {
-        const template = 'systems/swade/templates/chat/conviction-card.html';
-        const html = await renderTemplate(template, { actor: conv.actor });
-        const messageData = {
-          speaker: {
-            scene: canvas.scene._id,
-            actor: conv.actor,
-            token: conv.token as any,
-            alias: conv.token.name,
-          },
-          whisper: [...conv.players, ...game.users.filter((u) => u.isGM)],
-          content: html,
-        };
-        await ChatMessage.create(messageData);
-      }
+    let string = `Round ${combat.round} - Turn ${combat.turn}\n`;
+    for (let i = 0; i < combat.turns.length; i++) {
+      const element = combat.turns[i];
+      string = string.concat(`${i}) ${element['token']['name']}\n`);
     }
+    console.log(string);
   },
 );
 

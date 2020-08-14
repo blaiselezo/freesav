@@ -57,6 +57,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Removed Status icon two-way binding
 - Removed Notes column for misc. Items in the character sheet inventory
+- Removed Conviction Refresh message as there is no reliable way to get the current active combatant at the top of a round
 
 ### Fixed
 
