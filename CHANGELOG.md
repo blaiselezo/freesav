@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.11.1]
+
+### Fixed
+
+- Fixed a small bug that would allow observers to open the Armor/Parry edit windows
+
 ## [v0.11.0]
 
 ### Added

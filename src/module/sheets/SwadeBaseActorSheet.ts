@@ -20,6 +20,10 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
     // Edit armor modifier
     html.find('.armor-value').click((ev) => {
+      //return early if the user doesn't have permissions
+      if (this.actor.permission < CONST.ENTITY_PERMISSIONS.OWNER) {
+        return;
+      }
       let target = ev.currentTarget.dataset.target;
       let shouldAutoCalcArmor = getProperty(
         this.actor.data,
