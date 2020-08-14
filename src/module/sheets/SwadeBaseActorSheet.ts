@@ -11,6 +11,9 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   activateListeners(html: JQuery): void {
     super.activateListeners(html);
 
+    // Everything below here is only needed if the sheet is editable
+    if (!this.options.editable) return;
+
     // Update Item
     html.find('.item-edit').click((ev) => {
       const li = $(ev.currentTarget).parents('.item');
@@ -20,10 +23,6 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
     // Edit armor modifier
     html.find('.armor-value').click((ev) => {
-      //return early if the user doesn't have permissions
-      if (this.actor.permission < CONST.ENTITY_PERMISSIONS.OWNER) {
-        return;
-      }
       let target = ev.currentTarget.dataset.target;
       let shouldAutoCalcArmor = getProperty(
         this.actor.data,

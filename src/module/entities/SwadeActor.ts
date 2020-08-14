@@ -84,10 +84,6 @@ export default class SwadeActor extends Actor {
     abilityId: string,
     options: IRollOptions = { event: null },
   ): Promise<any> {
-    //return early if the user doesn't have permissions
-    if (this.permission < CONST.ENTITY_PERMISSIONS.OWNER) {
-      return;
-    }
     const label = CONFIG.SWADE.attributes[abilityId].long;
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
