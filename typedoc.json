@@ -1,0 +1,11 @@
+{
+  "out": "./docs",
+  "inputFiles": ["./src"],
+  "exclude": "src/assets/*",
+  "mode": "file",
+  "tsconfig": "typedoc-tsconfig.json",
+  "includedeclarations": false,
+  "excludeExternals": true,
+  "ignoreCompilerErrors": true,
+  "disableSources": true
+}
