@@ -30,7 +30,7 @@
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
     "sass": "^1.25.0",
-    "typescript": "^3.7.5",
+    "typescript": "^3.9.7",
     "yargs": "^15.1.0"
   },
   "dependencies": {},
