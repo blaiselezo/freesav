@@ -3,5 +3,13 @@
     "target": "ES2017",
     "lib": ["DOM", "ES6", "ES2017"],
     "sourceMap": true
+  },
+  "typedocOptions": {
+    "out": "docs",
+    "exclude": "src/assets/*",
+    "mode": "file",
+    "includedeclarations": false,
+    "excludeExternals": true,
+    "ignoreCompilerErrors": true
   }
 }
