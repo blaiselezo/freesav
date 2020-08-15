@@ -9,8 +9,8 @@
     "build:watch": "gulp watch",
     "clean": "gulp clean && gulp link --clean",
     "update": "npm uninstall foundry-pc-types && npm install --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types",
-    "generate-docs": "typedoc --tsconfig typedoc-tsconfig.json --plugin none",
-    "generate-docs-as-md": "typedoc --tsconfig typedoc-tsconfig.json --plugin typedoc-plugin-markdown"
+    "generate-docs": "typedoc --options typedoc.json --plugin none",
+    "generate-docs-as-md": "typedoc --options typedoc.json --plugin typedoc-plugin-markdown"
   },
   "author": "FloRad",
   "license": "GNU GPLv3",
