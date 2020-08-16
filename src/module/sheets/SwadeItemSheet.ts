@@ -2,6 +2,8 @@ import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import SwadeItem from '../entities/SwadeItem';
 
 export default class SwadeItemSheet extends ItemSheet {
+  item: SwadeItem;
+
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 560,
@@ -28,7 +30,7 @@ export default class SwadeItemSheet extends ItemSheet {
     let buttons = super._getHeaderButtons();
 
     // Token Configuration
-    const canConfigure = game.user.isGM || this.actor.owner;
+    const canConfigure = game.user.isGM || this.item.owner;
     if (this.options.editable && canConfigure) {
       buttons = [
         {

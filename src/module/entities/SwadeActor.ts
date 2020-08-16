@@ -29,7 +29,7 @@ export default class SwadeActor extends Actor {
   /* -------------------------------------------- */
   /*  Getters
   /* -------------------------------------------- */
-  get isWildcard() {
+  get isWildcard(): boolean {
     if (this.data.type === 'vehicle') {
       return false;
     } else {

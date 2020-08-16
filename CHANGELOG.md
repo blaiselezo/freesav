@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.11.2]
+
+### Fixed
+
+- Fixed a bug that would prevent non-GMs from opening items in the sidebar
+
 ## [v0.11.1]
 
 ### Fixed
