@@ -92,7 +92,12 @@ Hooks.once('init', async function () {
   listenJournalDrop();
 
   // Preload Handlebars templates
-  await preloadHandlebarsTemplates();
+  CONFIG.SWADE.templates.preloadPromise = preloadHandlebarsTemplates().then(
+    () => {
+      console.log('Templates loaded');
+      CONFIG.SWADE.templates.templatesPreloaded = true;
+    },
+  );
 });
 
 /* ------------------------------------ */

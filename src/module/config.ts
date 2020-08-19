@@ -59,4 +59,9 @@ export class SWADE {
     title: 'SWADE Setting Rule Configurator',
     settings: ['enableConviction', 'vehicleMods', 'vehicleEdges', 'gmBennies'],
   };
+
+  public static templates = {
+    preloadPromise: null,
+    templatesPreloaded: false,
+  };
 }
