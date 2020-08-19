@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased v0.12.0]
+
+### Added
+
+- Added TypeDoc to the repository and configured two scripts to generate the documentation as either a standard web page or in Markdown format.
+
 ## [v0.11.2]
 
 ### Fixed
