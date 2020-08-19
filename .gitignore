@@ -6,3 +6,4 @@ dist/*
 !dist/packs
 !dist/packs/**
 .idea
+docs/*

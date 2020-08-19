@@ -8,7 +8,9 @@
     "build": "gulp build && gulp link",
     "build:watch": "gulp watch",
     "clean": "gulp clean && gulp link --clean",
-    "update": "npm uninstall foundry-pc-types && npm install --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types"
+    "update": "npm uninstall foundry-pc-types && npm install --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types",
+    "generate-docs": "typedoc --options typedoc.json --plugin none",
+    "generate-docs-as-md": "typedoc --options typedoc.json --plugin typedoc-plugin-markdown"
   },
   "author": "FloRad",
   "license": "GNU GPLv3",
@@ -30,6 +32,8 @@
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
     "sass": "^1.25.0",
+    "typedoc": "^0.18.0",
+    "typedoc-plugin-markdown": "^2.4.0",
     "typescript": "^3.9.7",
     "yargs": "^15.1.0"
   },
