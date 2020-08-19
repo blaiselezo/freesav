@@ -26,6 +26,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added TypeDoc to the repository and configured two scripts to generate the documentation as either a standard web page or in Markdown format.
 
+### Changed
+
+- Upgraded TypeScript to version `3.9.7`
+
 ## [v0.11.2]
 
 ### Fixed
