@@ -1,4 +1,4 @@
-import { TemplatePreset } from '../enums/TemplatePreset';
+import { TemplatePreset } from '../enums/TemplatePreset.enum';
 
 /**
  * A helper class for building MeasuredTemplates for SWADE Burst Templates
