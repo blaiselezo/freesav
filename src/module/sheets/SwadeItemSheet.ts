@@ -77,7 +77,7 @@ export default class SwadeItemSheet extends ItemSheet {
    * Start with the base item data and extending with additional properties for rendering.
    */
   getData() {
-    const data = super.getData();
+    let data: any = super.getData();
     data.data.isOwned = this.item.isOwned;
     data.config = CONFIG.SWADE;
     const actor = this.item.actor;
@@ -85,12 +85,11 @@ export default class SwadeItemSheet extends ItemSheet {
     if (ownerIsWildcard || !this.item.isOwned) {
       data.data.ownerIsWildcard = true;
     }
-
-    for (let attr of Object.values(data.data.additionalStats)) {
+    let additionalStats = data.data.additionalStats || {};
+    for (let attr of Object.values(additionalStats)) {
       attr['isCheckbox'] = attr['dtype'] === 'Boolean';
     }
-    data['hasAdditionalStatsFields'] =
-      Object.keys(data.data.additionalStats).length > 0;
+    data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
 
     // Check for enabled optional rules
     data['settingrules'] = {
