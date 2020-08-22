@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added TypeDoc to the repository and configured two scripts to generate the documentation as either a standard web page or in Markdown format.
+- Added a way to render sheets only after the templaes are fully loaded. this should help with slower connections.
 
 ### Changed
 
