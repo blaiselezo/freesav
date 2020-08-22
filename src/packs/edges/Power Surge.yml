@@ -1,0 +1,14 @@
+name: Power Surge
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.47</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Wild Card, Novice, Arcane, Background (Any), arcane skill d8+'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: 8y2m6D81ny77VC5E

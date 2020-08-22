@@ -1,0 +1,14 @@
+name: Menacing
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.50</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Novice, any one of Bloodthirsty, Mean, Ruthless, or Ugly'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: Iz7HYoFmQWZG5Tio

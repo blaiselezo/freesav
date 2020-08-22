@@ -92,10 +92,11 @@ Hooks.once('init', async function () {
   listenJournalDrop();
 
   // Preload Handlebars templates
-  CONFIG.SWADE.templates.preloadPromise = preloadHandlebarsTemplates();
-  CONFIG.SWADE.templates.preloadPromise.then(() => {
-    CONFIG.SWADE.templates.templatesPreloaded = true;
-  });
+  preloadHandlebarsTemplates();
+  // CONFIG.SWADE.templates.preloadPromise = preloadHandlebarsTemplates();
+  // CONFIG.SWADE.templates.preloadPromise.then(() => {
+  //   CONFIG.SWADE.templates.templatesPreloaded = true;
+  // });
 });
 
 /* ------------------------------------ */

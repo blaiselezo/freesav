@@ -1,0 +1,14 @@
+name: Dead Shot
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.41</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Wild Card, Novice, Athletics or Shooting d8+'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: gc6usjdFDje8BSLN

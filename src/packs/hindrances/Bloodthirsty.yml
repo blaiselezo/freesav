@@ -1,0 +1,12 @@
+_id: w9d3qLjIdvdIV12t
+name: Bloodthirsty
+permission:
+  default: 0
+  XGltUb0dWlJLkvbE: 3
+type: hindrance
+data:
+  description: <p>See SWADE p.23</p>
+  notes: ''
+  major: true
+flags: {}
+img: systems/swade/assets/icons/hindrance.svg

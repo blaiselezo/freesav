@@ -7,12 +7,17 @@ const chalk = require('chalk');
 const archiver = require('archiver');
 const stringify = require('json-stringify-pretty-compact');
 const typescript = require('typescript');
+const mergeStream = require('merge-stream');
+const through2 = require('through2');
 
 const ts = require('gulp-typescript');
 const less = require('gulp-less');
 const sass = require('gulp-sass');
 const git = require('gulp-git');
 const gyaml = require('gulp-yaml');
+const debug = require('gulp-debug');
+const concat = require('gulp-concat');
+const rename = require('gulp-rename');
 
 const argv = require('yargs').argv;
 
@@ -147,7 +152,7 @@ function buildTS() {
  */
 function buildYaml() {
   return gulp
-    .src('src/**/*.yml')
+    .src(['src/**/*.yml', '!src/packs/**/*.yml'])
     .pipe(gyaml({ space: 2, safe: true }))
     .pipe(gulp.dest('dist'));
 }
@@ -167,6 +172,44 @@ function buildSASS() {
     .src('src/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('dist'));
+}
+
+/**
+ * Build Compendiums
+ */
+function buildPack() {
+  const packFolders = fs.readdirSync('src/packs/').filter(function (file) {
+    return fs.statSync(path.join('src/packs', file)).isDirectory();
+  });
+  function makeid(length) {
+    var result = '';
+    var characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  var packs = packFolders.map(function (folder) {
+    return gulp
+      .src(path.join('src/packs/', folder, '/**/*.yml'))
+      .pipe(
+        through2.obj((file, enc, cb) => {
+          file.contents = Buffer.concat([
+            Buffer.from(`_id: ${makeid(16)}\n`),
+            file.contents,
+          ]);
+          cb(null, file);
+        }),
+      )
+      .pipe(gyaml({ space: 0, safe: true, json: true }))
+      .pipe(concat(folder + '.json'))
+      .pipe(rename(folder + '.db'))
+      .pipe(gulp.dest('dist/packs'));
+  });
+  return mergeStream.call(null, packs);
 }
 
 /**
@@ -200,7 +243,11 @@ function buildWatch() {
   gulp.watch('src/**/*.ts', { ignoreInitial: false }, buildTS);
   gulp.watch('src/**/*.less', { ignoreInitial: false }, buildLess);
   gulp.watch('src/**/*.scss', { ignoreInitial: false }, buildSASS);
-  gulp.watch('src/**/*.yml', { ignoreInitial: false }, buildYaml);
+  gulp.watch(
+    ['src/**/*.yml', '!src/packs/**/*.yml'],
+    { ignoreInitial: false },
+    buildYaml,
+  );
   gulp.watch(
     ['src/fonts', 'src/templates', 'src/packs', 'src/assets'],
     { ignoreInitial: false },
@@ -497,6 +544,7 @@ const execBuild = gulp.parallel(
   buildSASS,
   buildYaml,
   copyFiles,
+  buildPack,
 );
 
 exports.build = gulp.series(clean, execBuild);
