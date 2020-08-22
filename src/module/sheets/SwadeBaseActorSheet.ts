@@ -360,17 +360,18 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     });
   }
 
-  // /** @override */
-  // render(force?: boolean, options?: RenderOptions) {
-  //   if (!CONFIG.SWADE.templates.templatesPreloaded) {
-  //     console.log('Templates not loaded yet, waiting');
-  //     CONFIG.SWADE.templates.preloadPromise.then(() => {
-  //       console.log('Templates loaded, rendering');
-  //       super.render(force, options);
-  //     });
-  //   } else {
-  //     console.log('Templates loaded, rendering');
-  //     return super.render(force, options);
-  //   }
-  // }
+  /** @override */
+  render(force?: boolean, options?: RenderOptions) {
+    if (!CONFIG.SWADE.templates.templatesPreloaded) {
+      console.log('Templates not loaded yet, waiting');
+      CONFIG.SWADE.templates.preloadPromise.then(() => {
+        console.log('Templates loaded, rendering');
+        CONFIG.SWADE.templates.templatesPreloaded = true;
+        super.render(force, options);
+      });
+    } else {
+      console.log('Templates loaded, rendering');
+      return super.render(force, options);
+    }
+  }
 }
