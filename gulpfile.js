@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const gulp = require('gulp');
 const fs = require('fs-extra');
 const path = require('path');
@@ -10,6 +12,7 @@ const ts = require('gulp-typescript');
 const less = require('gulp-less');
 const sass = require('gulp-sass');
 const git = require('gulp-git');
+const gyaml = require('gulp-yaml');
 
 const argv = require('yargs').argv;
 
@@ -36,15 +39,15 @@ function getManifest() {
     json.root = 'dist';
   }
 
-  const modulePath = path.join(json.root, 'module.json');
-  const systemPath = path.join(json.root, 'system.json');
+  const modulePath = path.join(json.root, 'module.yml');
+  const systemPath = path.join(json.root, 'system.yml');
 
   if (fs.existsSync(modulePath)) {
     json.file = fs.readJSONSync(modulePath);
-    json.name = 'module.json';
+    json.name = 'module.yml';
   } else if (fs.existsSync(systemPath)) {
     json.file = fs.readJSONSync(systemPath);
-    json.name = 'system.json';
+    json.name = 'system.yml';
   } else {
     return;
   }
@@ -57,9 +60,9 @@ function getManifest() {
  * @returns {typescript.TransformerFactory<typescript.SourceFile>}
  */
 function createTransformer() {
-	/**
-	 * @param {typescript.Node} node
-	 */
+  /**
+   * @param {typescript.Node} node
+   */
   function shouldMutateModuleSpecifier(node) {
     if (
       !typescript.isImportDeclaration(node) &&
@@ -77,38 +80,38 @@ function createTransformer() {
     return true;
   }
 
-	/**
-	 * Transforms import/export declarations to append `.js` extension
-	 * @param {typescript.TransformationContext} context
-	 */
+  /**
+   * Transforms import/export declarations to append `.js` extension
+   * @param {typescript.TransformationContext} context
+   */
   function importTransformer(context) {
     return (node) => {
-			/**
-			 * @param {typescript.Node} node
-			 */
+      /**
+       * @param {typescript.Node} node
+       */
       function visitor(node) {
         if (shouldMutateModuleSpecifier(node)) {
           if (typescript.isImportDeclaration(node)) {
             const newModuleSpecifier = typescript.createLiteral(
-              `${node.moduleSpecifier.text}.js`
+              `${node.moduleSpecifier.text}.js`,
             );
             return typescript.updateImportDeclaration(
               node,
               node.decorators,
               node.modifiers,
               node.importClause,
-              newModuleSpecifier
+              newModuleSpecifier,
             );
           } else if (typescript.isExportDeclaration(node)) {
             const newModuleSpecifier = typescript.createLiteral(
-              `${node.moduleSpecifier.text}.js`
+              `${node.moduleSpecifier.text}.js`,
             );
             return typescript.updateExportDeclaration(
               node,
               node.decorators,
               node.modifiers,
               node.exportClause,
-              newModuleSpecifier
+              newModuleSpecifier,
             );
           }
         }
@@ -140,6 +143,16 @@ function buildTS() {
 }
 
 /**
+ * Build YAML to json
+ */
+function buildYaml() {
+  return gulp
+    .src('src/**/*.yml')
+    .pipe(gyaml({ space: 2, safe: true }))
+    .pipe(gulp.dest('dist'));
+}
+
+/**
  * Build Less
  */
 function buildLess() {
@@ -161,7 +174,6 @@ function buildSASS() {
  */
 async function copyFiles() {
   const statics = [
-    'lang',
     'fonts',
     'assets',
     'templates',
@@ -188,10 +200,11 @@ function buildWatch() {
   gulp.watch('src/**/*.ts', { ignoreInitial: false }, buildTS);
   gulp.watch('src/**/*.less', { ignoreInitial: false }, buildLess);
   gulp.watch('src/**/*.scss', { ignoreInitial: false }, buildSASS);
+  gulp.watch('src/**/*.yml', { ignoreInitial: false }, buildYaml);
   gulp.watch(
-    ['src/fonts', 'src/lang', 'src/templates', 'src/*.json'],
+    ['src/fonts', 'src/templates', 'src/packs', 'src/assets'],
     { ignoreInitial: false },
-    copyFiles
+    copyFiles,
   );
 }
 
@@ -214,10 +227,11 @@ async function clean() {
       'templates',
       'assets',
       'module',
+      'interfaces',
       `${name}.js`,
       'module.json',
       'system.json',
-      'template.json'
+      'template.json',
     );
   }
 
@@ -257,20 +271,20 @@ async function linkUserData() {
   let destDir;
   try {
     if (
-      fs.existsSync(path.resolve('.', 'dist', 'module.json')) ||
-      fs.existsSync(path.resolve('.', 'src', 'module.json'))
+      fs.existsSync(path.resolve('.', 'dist', 'module.yml')) ||
+      fs.existsSync(path.resolve('.', 'src', 'module.yml'))
     ) {
       destDir = 'modules';
     } else if (
-      fs.existsSync(path.resolve('.', 'dist', 'system.json')) ||
-      fs.existsSync(path.resolve('.', 'src', 'system.json'))
+      fs.existsSync(path.resolve('.', 'dist', 'system.yml')) ||
+      fs.existsSync(path.resolve('.', 'src', 'system.yml'))
     ) {
       destDir = 'systems';
     } else {
       throw Error(
-        `Could not find ${chalk.blueBright(
-          'module.json'
-        )} or ${chalk.blueBright('system.json')}`
+        `Could not find ${chalk.blueBright('module.yml')} or ${chalk.blueBright(
+          'system.yml',
+        )}`,
       );
     }
 
@@ -286,14 +300,12 @@ async function linkUserData() {
 
     if (argv.clean || argv.c) {
       console.log(
-        chalk.yellow(`Removing build in ${chalk.blueBright(linkDir)}`)
+        chalk.yellow(`Removing build in ${chalk.blueBright(linkDir)}`),
       );
 
       await fs.remove(linkDir);
     } else if (!fs.existsSync(linkDir)) {
-      console.log(
-        chalk.green(`Copying build to ${chalk.blueBright(linkDir)}`)
-      );
+      console.log(chalk.green(`Copying build to ${chalk.blueBright(linkDir)}`));
       await fs.symlink(path.resolve('./dist'), linkDir);
     }
     return Promise.resolve();
@@ -331,9 +343,7 @@ async function packageBuild() {
 
       zipFile.on('close', () => {
         console.log(chalk.green(zip.pointer() + ' total bytes'));
-        console.log(
-          chalk.green(`Zip file ${zipName} has been written`)
-        );
+        console.log(chalk.green(`Zip file ${zipName} has been written`));
         return resolve();
       });
 
@@ -372,11 +382,7 @@ function updateManifest(cb) {
   if (!manifest) cb(Error(chalk.red('Manifest JSON not found')));
   if (!rawURL || !repoURL)
     cb(
-      Error(
-        chalk.red(
-          'Repository URLs not configured in foundryconfig.json'
-        )
-      )
+      Error(chalk.red('Repository URLs not configured in foundryconfig.json')),
     );
 
   try {
@@ -402,7 +408,7 @@ function updateManifest(cb) {
             substring,
             Number(major) + 1,
             Number(minor) + 1,
-            Number(patch) + 1
+            Number(patch) + 1,
           );
           if (version === 'major') {
             return `${Number(major) + 1}.0.0`;
@@ -413,7 +419,7 @@ function updateManifest(cb) {
           } else {
             return '';
           }
-        }
+        },
       );
     }
 
@@ -424,10 +430,8 @@ function updateManifest(cb) {
     if (targetVersion === currentVersion) {
       return cb(
         Error(
-          chalk.red(
-            'Error: Target version is identical to current version.'
-          )
-        )
+          chalk.red('Error: Target version is identical to current version.'),
+        ),
       );
     }
     console.log(`Updating version number to '${targetVersion}'`);
@@ -452,7 +456,7 @@ function updateManifest(cb) {
     fs.writeFileSync(
       path.join(manifest.root, manifest.name),
       prettyProjectJson,
-      'utf8'
+      'utf8',
     );
 
     return cb();
@@ -470,7 +474,7 @@ function gitCommit() {
     git.commit(`v${getManifest().file.version}`, {
       args: '-a',
       disableAppendPaths: true,
-    })
+    }),
   );
 }
 
@@ -481,13 +485,19 @@ function gitTag() {
     `Updated to ${manifest.file.version}`,
     (err) => {
       if (err) throw err;
-    }
+    },
   );
 }
 
 const execGit = gulp.series(gitAdd, gitCommit, gitTag);
 
-const execBuild = gulp.parallel(buildTS, buildLess, buildSASS, copyFiles);
+const execBuild = gulp.parallel(
+  buildTS,
+  buildLess,
+  buildSASS,
+  buildYaml,
+  copyFiles,
+);
 
 exports.build = gulp.series(clean, execBuild);
 exports.watch = buildWatch;
@@ -500,5 +510,5 @@ exports.publish = gulp.series(
   updateManifest,
   execBuild,
   packageBuild,
-  execGit
+  execGit,
 );

@@ -1,0 +1,199 @@
+---
+SWADE.Name: Name
+SWADE.Tough: Toughness
+SWADE.Race: Race
+SWADE.Pace: Pace
+SWADE.Adv: Advances
+SWADE.Rank: Rank
+SWADE.Inv: Inventory
+SWADE.Summary: Summary
+SWADE.Pow: Powers
+SWADE.Wildcard: Wildcard
+SWADE.Extra: Extra
+SWADE.Bennies: Bennies
+SWADE.Shaken: Shaken
+SWADE.Distr: Distracted
+SWADE.Vuln: Vulnerable
+SWADE.SkillTest: Skill Test
+SWADE.AttributeTest: Attribute Test
+SWADE.Attributes: Attributes
+SWADE.Derived: Derived Stats
+SWADE.AttrAgi: Agility
+SWADE.AttrSma: Smarts
+SWADE.AttrSpr: Spirit
+SWADE.AttrStr: Strength
+SWADE.AttrVig: Vigor
+SWADE.AttrAgiShort: Agi
+SWADE.AttrSmaShort: Sma
+SWADE.AttrSprShort: Spi
+SWADE.AttrStrShort: Str
+SWADE.AttrVigShort: Vig
+SWADE.Skills: Skills
+SWADE.Unskilled: Unskilled
+SWADE.LinkAttr: Linked Attribute
+SWADE.Die: Die
+SWADE.WildDie: Wild Die
+SWADE.Mod: Modifier
+SWADE.BenniesSpend: Spend a Benny
+SWADE.BenniesGive: Give a Benny
+SWADE.BenniesRefresh: Refresh Bennies
+SWADE.AllBenniesRefresh: Refresh All Bennies
+SWADE.BenniesRefreshMessage: Bennies have been refreshed!
+SWADE.BenniesRefreshAllMessage: All Bennies have been refreshed!
+SWADE.BenniesGMRefreshMessage: GM Bennies have been refreshed!
+SWADE.BenniesAddMessage: was given a new Benny!
+SWADE.BenniesGMAddMessage: took an additional Benny!
+SWADE.BenniesSpendMessage: spends a Benny!
+SWADE.BenniesMax: Bennies Reset
+SWADE.EditSkill: Edit Skill
+SWADE.EdEdge: Edit Edge
+SWADE.EdHind: Edit Hindrance
+SWADE.Ed: Edit
+SWADE.Del: Delete
+SWADE.Arcane: Arcane
+SWADE.All: All
+SWADE.HasPowers: Has Powers
+SWADE.Gear: Gear
+SWADE.Weapons: Weapons
+SWADE.MeleeWeapons: Melee Weapons
+SWADE.RangedWeapons: Ranged Weapons
+SWADE.Armors: Armors
+SWADE.Armor: Armor
+SWADE.Shields: Shields
+SWADE.Dmg: Damage
+SWADE.Rng: Range
+SWADE.Ap: AP
+SWADE.APLong: Armor Piercing
+SWADE.RoF: RoF
+SWADE.Mag: Shots
+SWADE.Parry: Parry
+SWADE.Cover: Cover
+SWADE.Notes: Notes
+SWADE.MinStrLong: Minimum Strength
+SWADE.MinStr: Min. Strength
+SWADE.MinStrShort: Min.Str
+SWADE.Desc: Description
+SWADE.Special: Special Abilities
+SWADE.Details: Details
+SWADE.Equippable: Equippable
+SWADE.Misc: Misc
+SWADE.QuickAccess: Quick Access
+SWADE.Hindrances: Hindrances
+SWADE.MajHind: Major Hindrance
+SWADE.Major: '(Major)'
+SWADE.Minor: '(Minor)'
+SWADE.Edges: Edges
+SWADE.ArcBack: Arcane Background
+SWADE.Req: Requirements
+SWADE.Conv: Conviction
+SWADE.UseConv: Calls on their Conviction!
+SWADE.Hesitant: Hesitant
+SWADE.LevelHeaded: Level Headed
+SWADE.ImprovedLevelHeaded: Improved Level Headed
+SWADE.AutoCalc: Automatic Calculations
+SWADE.InclArmor: Automatically calculates Toughness, including armor
+SWADE.Label: Label
+SWADE.HasMaxValue: Has Max Value
+SWADE.Enabled: Enabled
+SWADE.Currency: Currency
+SWADE.CarryWeight: Encumbrance
+SWADE.Eqd: Eq'd
+SWADE.Equipped: Equipped
+SWADE.Unequipped: Unequipped
+SWADE.Quantity: Quantity
+SWADE.Weight: Weight
+SWADE.Price: Cost
+SWADE.PP: Power Points
+SWADE.PPShort: P. Points
+SWADE.CurPP: Current Power Points
+SWADE.MaxPP: Maximum Power Points
+SWADE.Dur: Duration
+SWADE.Trap: Trapping
+SWADE.Wound: Wound
+SWADE.Wounds: Wounds
+SWADE.WoundsMax: Max Wounds
+SWADE.Fatigue: Fatigue
+SWADE.FatigueMax: Max Fatigue
+SWADE.Incap: Incapacitated!
+SWADE.Init: Initiative
+SWADE.InitDraw: draws for Initiative!
+SWADE.JokersWild: gets Joker's Wild!
+SWADE.Handling: Handling
+SWADE.Topspeed: Top Speed
+SWADE.OutOfControl: Out of Control
+SWADE.Wrecked: Wrecked
+SWADE.Item: Item
+SWADE.Cargo: Cargo
+SWADE.MaxCargo: Maximum Cargo Weight
+SWADE.CargoWeight: Cargo Weight
+SWADE.Mods: Mods
+SWADE.ModSlots: Mod Slots
+SWADE.MaxMods: Maximum Mods
+SWADE.Operator: Operator
+SWADE.ManCheck: Maneuver Check
+SWADE.AltSkill: Alternative Skill
+SWADE.Class: Classification
+SWADE.CardSound: Card Sound
+SWADE.CardSoundDesc: Play a short card sound when dealing Initiative
+SWADE.AutoInit: Automatic Initiative
+SWADE.AutoInitDesc: Automatically draw Action Cards every round
+SWADE.CreateInitChat: Create Chat Message for Initiative
+SWADE.HideWC: Hide NPC Wildcards
+SWADE.HideWCDesc: Do not show which NPCs are Wildcards to players
+SWADE.EnableConv: Enable Conviction
+SWADE.EnableConvDesc: Enable the Conviction setting rule
+SWADE.AutoLink: Automatically Link Wildcards
+SWADE.AutoLinkDesc:
+  When enabled, NPC Wildcards will have their tokens linked when
+  you toggle them between Extra and Wildcard
+SWADE.GmBennies: GM Bennies
+SWADE.GmBenniesDesc: Sets how many Bennies the GM recieves on a refresh
+SWADE.EnableBennyNotify: Benny notifications
+SWADE.EnableBennyNotifyDesc:
+  Displays chat messages when bennies are taken, given
+  or refreshed.
+SWADE.VehicleMods: Vehicles Mods
+SWADE.VehicleModsDesc: Vehicles use Mod-Slots
+SWADE.VehicleEdges: Vehicle Edges
+SWADE.VehicleEdgesDesc: Vehicles use Edges and Hindrances
+SWADE.SettingConf: Setting Configurator
+SWADE.SettingConfLabel: Open Setting Configurator
+SWADE.SettingConfDesc: Fine tune the system to fit the setting you're playing
+SWADE.Formula: Formula
+SWADE.SitMod: Situational Mod
+SWADE.RollMode: Roll Mode
+SWADE.RollExample: eg. +1d6x= or -2
+SWADE.Roll: Roll
+SWADE.RollRaise: Roll Raise
+SWADE.GroupRoll: Group Roll
+SWADE.Ok: Ok
+SWADE.Cancel: Cancel
+SWADE.Redraw: Redraw
+SWADE.Add: Add
+SWADE.ConfigInit: Configure Initiative
+SWADE.IgnWounds: Ignore Wounds
+SWADE.Size: Size
+SWADE.Scale: Scale
+SWADE.PickACard: Pick a card
+SWADE.NoCardsLeft: There are not enough cards left in the deck!
+SWADE.OldCard: Old card
+SWADE.HitLocations: Hit Locations
+SWADE.Head: Head
+SWADE.Torso: Torso
+SWADE.Arms: Arms
+SWADE.Legs: Legs
+SWADE ConvictionActivate: Calls upon their conviction!
+SWADE.ConvictionExtend: Do you want to extend your conviction?
+SWADE.ConvictionEnd: wavers in their conviction
+SWADE.NoBennies: You don't have enough bennies!
+SWADE.SBT: Small Blast Template
+SWADE.MBT: Medium Blast Template
+SWADE.LBT: Large Blast Template
+SWADE.Cone: Cone Template
+SWADE.GM: Game Master
+SWADE.Vehicles: Vehicles
+SWADE.AddStats: Additional Stats
+SWADE.Actors: Actors
+SWADE.Items: Items
+SWADE.Max: Max
+SWADE.Curr: Current
