@@ -275,6 +275,8 @@ async function clean() {
       'assets',
       'module',
       'interfaces',
+      'enums',
+      'packs',
       `${name}.js`,
       'module.json',
       'system.json',
