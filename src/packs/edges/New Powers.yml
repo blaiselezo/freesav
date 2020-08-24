@@ -1,0 +1,14 @@
+name: New Powers
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.47</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Novice, Arcane Background (Any)'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: 70aQwQyCulKbf0YL

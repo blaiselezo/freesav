@@ -31,6 +31,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Upgraded TypeScript to version `3.9.7`
 
+## [v0.11.3]
+
+### Fixed
+
+- Fixed a bug that would prevent Item or Actor sheets from opening if they hadn't been migrated
+
 ## [v0.11.2]
 
 ### Fixed

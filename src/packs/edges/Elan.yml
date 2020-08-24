@@ -1,0 +1,14 @@
+name: Elan
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.39</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Novice, Spirit d8+'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: lKI2h2vceVTeQAMD

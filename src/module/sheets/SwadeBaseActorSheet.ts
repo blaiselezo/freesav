@@ -124,11 +124,11 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       ).sort((a, b) => a.name.localeCompare(b.name));
       data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
-      for (let attr of Object.values(data.data.additionalStats)) {
+      let additionalStats = data.data.additionalStats || {};
+      for (let attr of Object.values(additionalStats)) {
         attr['isCheckbox'] = attr['dtype'] === 'Boolean';
       }
-      data.hasAdditionalStatsFields =
-        Object.keys(data.data.additionalStats).length > 0;
+      data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
 
       //Checks if an Actor has a Power Egde
       if (
@@ -366,6 +366,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       console.log('Templates not loaded yet, waiting');
       CONFIG.SWADE.templates.preloadPromise.then(() => {
         console.log('Templates loaded, rendering');
+        CONFIG.SWADE.templates.templatesPreloaded = true;
         super.render(force, options);
       });
     } else {
