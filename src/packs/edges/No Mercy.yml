@@ -1,0 +1,14 @@
+name: No Mercy
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.43</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: Seasoned
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: YjjTY92F5kC6rVoN

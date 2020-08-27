@@ -1,0 +1,17 @@
+name: Persuasion
+permission:
+  default: 0
+  XGltUb0dWlJLkvbE: 3
+type: skill
+data:
+  description: See SWADE p.33
+  notes: ''
+  attribute: spirit
+  die:
+    sides: 4
+    modifier: ''
+  wild-die:
+    sides: 6
+flags: {}
+img: systems/swade/assets/icons/skills/convince.svg
+_id: 6nZk5RtWVTtyotyQ

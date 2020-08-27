@@ -1,0 +1,14 @@
+name: McGyver
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.49</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Novice, Smarts d6+, Notice d8+, Repair d6+'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: 5TAJiBx0yOKRwff9

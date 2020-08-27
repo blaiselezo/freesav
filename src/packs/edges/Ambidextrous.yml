@@ -1,0 +1,14 @@
+name: Ambidextrous
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.37</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Novice, Agility d8+'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: 2I7TLD0s6zwke1dJ

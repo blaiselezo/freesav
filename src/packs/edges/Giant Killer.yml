@@ -1,0 +1,14 @@
+name: Giant Killer
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.42</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: Veteran
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: lUlcviBCXkO3Fc8X

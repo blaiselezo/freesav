@@ -1,0 +1,12 @@
+name: Mute
+permission:
+  default: 0
+  XGltUb0dWlJLkvbE: 3
+type: hindrance
+data:
+  description: See SWADE p.25
+  notes: ''
+  major: true
+flags: {}
+img: systems/swade/assets/icons/hindrance.svg
+_id: QJ4oazaS04Bibbgd

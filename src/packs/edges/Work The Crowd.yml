@@ -1,0 +1,14 @@
+name: Work The Crowd
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.51</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Seasoned, Work the Room'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: ZJOIX7lBRsODyp0g

@@ -3,7 +3,5 @@ foundryconfig.json
 .htmlhintrc
 .vscode/*
 dist/*
-!dist/packs
-!dist/packs/**
 .idea
 docs/*

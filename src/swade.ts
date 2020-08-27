@@ -14,7 +14,7 @@ import { SWADE } from './module/config';
 import SwadeActor from './module/entities/SwadeActor';
 import SwadeItem from './module/entities/SwadeItem';
 import SwadeTemplate from './module/entities/SwadeTemplate';
-import { TemplatePreset } from './module/enums/TemplatePreset.enum';
+import { TemplatePreset } from './module/enums/TemplatePresetEnum';
 import { registerCustomHelpers } from './module/handlebarsHelpers';
 import { listenJournalDrop } from './module/journalDrop';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';

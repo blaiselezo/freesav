@@ -1,0 +1,14 @@
+name: Strong Willed
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.51</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Novice, Spirit d8+'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: ttlD4Gy7Dlq8yzD1
