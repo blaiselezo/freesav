@@ -33,6 +33,7 @@ import {
   rollWeaponMacro,
   rollPowerMacro,
 } from './module/util';
+import { ItemType } from './module/enums/ItemType.enum';
 
 /* ------------------------------------ */
 /* Initialize system					          */
@@ -43,7 +44,7 @@ Hooks.once('init', async function () {
   );
 
   // Record Configuration Values
-  //CONFIG.debug.hooks = true;
+  CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
 
   game.swade = {
@@ -164,8 +165,9 @@ Hooks.on(
 Hooks.on(
   'createActor',
   async (actor: SwadeActor, options: any, userId: String) => {
-    if (actor.data.type === 'character' && options.renderSheet) {
-      const skillsToFind = [
+    console.log('#################### creating actor');
+    if (actor.isWildcard && options.renderSheet) {
+      const coreSkills = [
         'Athletics',
         'Common Knowledge',
         'Notice',
@@ -173,12 +175,21 @@ Hooks.on(
         'Stealth',
         'Untrained',
       ];
+
+      const existingSkills = actor.items
+        .filter((i: SwadeItem) => i.type === ItemType.Skill)
+        .map((i: SwadeItem) => i.name);
+
+      const skillsToAdd = coreSkills.filter((s) => !existingSkills.includes(s));
+
+      console.log('################', skillsToAdd);
+
       const skillIndex = (await game.packs
         .get('swade.skills')
         .getContent()) as SwadeItem[];
       actor.createEmbeddedEntity(
         'OwnedItem',
-        skillIndex.filter((i) => skillsToFind.includes(i.data.name)),
+        skillIndex.filter((i) => skillsToAdd.includes(i.data.name)),
       );
     }
   },
