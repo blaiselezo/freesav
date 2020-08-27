@@ -95,8 +95,8 @@
           .item-image {
             height: 20px;
             flex-grow: 0;
-            background-size: contain;
             flex-basis: 20px;
+            @extend %item-background-image;
           }
           .item-controls {
             flex: 0 0 32px;

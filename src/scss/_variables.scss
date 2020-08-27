@@ -3,8 +3,8 @@ $eggshell: #eeede0;
 $anthracite: #293133;
 $dark-paste-blue: #779ecb;
 $light-pastel-blue: #dfe6f5;
-$charcoal: #2C4251;
-$lapis-lazuli: #33658A; 
+$charcoal: #2c4251;
+$lapis-lazuli: #33658a;
 
 $decorative-line: 1px solid $anthracite;
 $section-border: 1px groove $anthracite;
@@ -30,4 +30,10 @@ $section-border: 1px groove $anthracite;
   background: rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+}
+
+%item-background-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }

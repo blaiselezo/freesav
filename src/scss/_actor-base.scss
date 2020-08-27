@@ -304,8 +304,8 @@
             .item-image {
               height: 25px;
               flex-grow: 0;
-              background-size: contain;
               flex-basis: 25px;
+              @extend %item-background-image;
             }
           }
           .card-content {
@@ -427,6 +427,13 @@
           grid-area: item-equipped;
           justify-self: center;
         }
+        .item-image {
+          flex-basis: 30px;
+          height: 28px;
+          margin: 2px;
+          flex-grow: 0;
+          @extend %item-background-image;
+        }
         .item-name {
           text-indent: 8px;
           text-align: left;
@@ -434,13 +441,7 @@
           margin: 0;
           line-height: 30px;
           flex-grow: 5;
-          .item-image {
-            flex-basis: 30px;
-            margin: 2px;
-            flex-grow: 0;
-            background-size: contain;
-            background-repeat: no-repeat;
-          }
+
           h4 {
             margin: 0;
             white-space: nowrap;
@@ -555,7 +556,7 @@
           .item-image {
             flex-grow: 0;
             flex-basis: 25px;
-            background-size: contain;
+            @extend %item-background-image;
           }
           .item-controls {
             padding: 5px;
