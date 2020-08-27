@@ -33,7 +33,7 @@ import {
   rollWeaponMacro,
   rollPowerMacro,
 } from './module/util';
-import { ItemType } from './module/enums/ItemType.enum';
+import { ItemType } from './module/enums/ItemTypeEnum';
 
 /* ------------------------------------ */
 /* Initialize system					          */
@@ -44,7 +44,7 @@ Hooks.once('init', async function () {
   );
 
   // Record Configuration Values
-  CONFIG.debug.hooks = true;
+  //CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
 
   game.swade = {
@@ -165,7 +165,6 @@ Hooks.on(
 Hooks.on(
   'createActor',
   async (actor: SwadeActor, options: any, userId: String) => {
-    console.log('#################### creating actor');
     if (actor.isWildcard && options.renderSheet) {
       const coreSkills = [
         'Athletics',
@@ -182,8 +181,6 @@ Hooks.on(
 
       const skillsToAdd = coreSkills.filter((s) => !existingSkills.includes(s));
 
-      console.log('################', skillsToAdd);
-
       const skillIndex = (await game.packs
         .get('swade.skills')
         .getContent()) as SwadeItem[];
@@ -198,32 +195,33 @@ Hooks.on(
 // Mark all Wildcards in the Actors sidebars with an icon
 Hooks.on(
   'renderActorDirectory',
-  (app, html: JQuery<HTMLElement>, options: any) => {
+  (app: ActorDirectory, html: JQuery<HTMLElement>, options: any) => {
     const found = html.find('.entity-name');
 
-    let wildcards: SwadeActor[] = app.entities.filter(
-      (a: Actor) => a.data.type === 'character',
-    );
+    let wildcards = app.entities.filter(
+      (a: SwadeActor) => a.isWildcard && a.isPC,
+    ) as SwadeActor[];
 
     //if the player is not a GM, then don't mark the NPC wildcards
-    if (!game.settings.get('swade', 'hideNPCWildcards') || options.user.isGM) {
-      wildcards = wildcards.concat(
-        app.entities.filter(
-          (a) => a.data.type === 'npc' && a.data.data.wildcard,
-        ),
-      );
+    if (!game.settings.get('swade', 'hideNPCWildcards') || game.user.isGM) {
+      console.log('marking NPC wildcards');
+      const npcWildcards = app.entities.filter(
+        (a: SwadeActor) => a.isWildcard && !a.isPC,
+      ) as SwadeActor[];
+      wildcards = wildcards.concat(npcWildcards);
     }
 
-    wildcards.forEach((wc: SwadeActor) => {
-      for (let i = 0; i < found.length; i++) {
-        const element = found[i];
-        if (element.innerText === wc.data.name) {
-          element.innerHTML = `
-					<a><img src="systems/swade/assets/ui/wildcard.svg" class="wildcard-icon">${wc.data.name}</a>
+    for (let i = 0; i < found.length; i++) {
+      const element = found[i];
+      const enitityId = element.parentElement.dataset.entityId;
+      let wildcard = wildcards.find((a) => a._id === enitityId);
+
+      if (wildcard) {
+        element.innerHTML = `
+					<a><img src="systems/swade/assets/ui/wildcard.svg" class="wildcard-icon">${wildcard.data.name}</a>
 					`;
-        }
       }
-    });
+    }
   },
 );
 
@@ -232,9 +230,7 @@ Hooks.on('renderCompendium', async (app, html: JQuery<HTMLElement>, data) => {
     return;
   }
   const content = await app.getContent();
-  const wildcards = content.filter(
-    (entity: SwadeActor) => entity.data['wildcard'],
-  );
+  const wildcards = content.filter((entity: SwadeActor) => entity.isWildcard);
   const names: string[] = wildcards.map((e) => e.data.name);
 
   const found = html.find('.entry-name');

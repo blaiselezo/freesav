@@ -31,6 +31,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Upgraded TypeScript to version `3.9.7`
 
+### Fixed
+
+- Fixed a bug where actors of the same name would show up as a wildcard in the actor sidebar if any of them was a wildcard
+
 ## [v0.11.3]
 
 ### Fixed
