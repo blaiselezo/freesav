@@ -1,4 +1,5 @@
 .swade.sheet.actor {
+  min-width: 630px;
   // Profile Image
   .profile-img-container {
     width: 150px;
@@ -217,6 +218,9 @@
       padding: 2px;
       //Attributes
       .attributes-list {
+        .attribute + .attribute {
+          border-left: $decorative-line;
+        }
         margin-top: 4px;
         .attribute {
           .attribute-label {
@@ -326,7 +330,26 @@
       }
     }
 
-    //Summary
+    .left-panel {
+      flex-basis: 250px;
+      flex-grow: 0;
+      max-width: 288px;
+    }
+
+    // Summary
+    .attributes-container {
+      .attributes {
+        margin: 5px 0;
+      }
+      .secondary {
+        flex-grow: 0;
+        flex-basis: 250px;
+        .attribute + .attribute {
+          border-left: none;
+        }
+      }
+    }
+
     .skills {
       padding: 2px;
       // Skills

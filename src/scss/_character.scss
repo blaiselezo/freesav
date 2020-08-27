@@ -1,6 +1,5 @@
 .swade.sheet.actor.character {
   min-height: 768px;
-  min-width: 600px;
   .profile-img-container {
     width: 200px;
     max-width: 200px;
@@ -32,17 +31,6 @@
           height: 20px;
         }
       }
-    }
-  }
-
-  // Summary
-  .attributes-container {
-    .attributes {
-      margin: 5px 0;
-    }
-    .secondary {
-      flex-grow: 0;
-      flex-basis: 250px;
     }
   }
 

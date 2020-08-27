@@ -1,4 +1,4 @@
-<div class="attributes">
+<div class="attributes primary">
   <header class="header-field">
     <span>{{ localize "SWADE.Attributes" }}</span>
   </header>
@@ -29,7 +29,10 @@
     </div>
     <div class="attribute" data-attribute="smarts">
       <div class="attribute-label">
-        <a title="{{localize 'SWADE.Roll'}}">{{ localize "SWADE.AttrSma" }}</a>
+        <a title="{{localize 'SWADE.Roll'}}"
+          >{{ localize "SWADE.AttrSma" }} {{#if
+          data.attributes.smarts.animal}}(A){{/if}}</a
+        >
       </div>
       <div class="flexrow">
         <select

@@ -74,7 +74,7 @@
   {{> "systems/swade/templates/actors/partials/attributes.html"}}
 </section>
 <div class="flexrow">
-  <div>
+  <div class="left-panel">
     {{!-- Left panel --}}
     <section class="gear skills">
       <header class="header-field flexrow">
@@ -189,11 +189,9 @@
       <header class="header-field flexrow">
         <span>{{localize "SWADE.Desc"}}</span>
       </header>
-      <div>
-        {{editor content=data.details.biography.value
-        target="data.details.biography.value" button=true owner=owner
-        editable=editable}}
-      </div>
+      {{editor content=data.details.biography.value
+      target="data.details.biography.value" button=true owner=owner
+      editable=editable}}
     </section>
   </div>
 </div>

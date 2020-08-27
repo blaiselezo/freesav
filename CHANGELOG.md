@@ -26,10 +26,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added TypeDoc to the repository and configured two scripts to generate the documentation as either a standard web page or in Markdown format.
 - Added a way to render sheets only after the templaes are fully loaded. this should help with slower connections.
+- Added ability to set a d1 for traits
+- Added toggle for Animal smarts
 
 ### Changed
 
 - Upgraded TypeScript to version `3.9.7`
+- Adjusted character/NPC sheet layout a bit
 
 ### Fixed
 
