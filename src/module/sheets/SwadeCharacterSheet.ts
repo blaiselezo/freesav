@@ -12,7 +12,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ['swade', 'sheet', 'actor', 'character'],
-      width: 600,
+      width: 630,
       height: 768,
       tabs: [
         {

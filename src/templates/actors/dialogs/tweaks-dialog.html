@@ -14,7 +14,22 @@
         />
       </span>
     </div>
-    {{/if}}
+    {{/if}} {{#unless isVehicle}}
+    <div class="form-group" id="animalSmarts">
+      <label for="{{_id}}-animalSmarts"
+        >{{localize "SWADE.AnimalSmarts"}}</label
+      >
+      <span class="form-fields">
+        <input
+          type="checkbox"
+          name="data.attributes.smarts.animal"
+          id="{{_id}}-animalSmarts"
+          {{checked
+          data.attributes.smarts.animal}}
+        />
+      </span>
+    </div>
+    {{/unless}}
     <div class="form-group" id="maxWounds">
       <label>{{localize "SWADE.WoundsMax"}}</label>
       <span class="form-fields">

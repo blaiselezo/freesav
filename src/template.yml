@@ -19,6 +19,7 @@ Actor:
             modifier: 0
           wild-die:
             sides: 6
+          animal: false
         spirit:
           die:
             sides: 4
