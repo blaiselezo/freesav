@@ -218,14 +218,13 @@
       padding: 2px;
       //Attributes
       .attributes-list {
-        .attribute + .attribute {
-          border-left: $decorative-line;
-        }
         margin-top: 4px;
         .attribute {
           .attribute-label {
+            margin: 0px 2px 3px 3px;
             text-align: center;
             font-weight: bold;
+            border-bottom: $decorative-line;
           }
           .toughness-block {
             display: flex;
@@ -344,9 +343,6 @@
       .secondary {
         flex-grow: 0;
         flex-basis: 250px;
-        .attribute + .attribute {
-          border-left: none;
-        }
       }
     }
 
