@@ -3,6 +3,9 @@ import { SwadeDice } from '../dice';
 import SwadeItem from './SwadeItem';
 import IRollOptions from '../../interfaces/ISkillOptions';
 
+/**
+ * @noInheritDoc
+ */
 export default class SwadeActor extends Actor {
   /**
    * @override

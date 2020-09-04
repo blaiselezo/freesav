@@ -4,6 +4,9 @@ import SwadeActor from '../entities/SwadeActor';
 import SwadeItem from '../entities/SwadeItem';
 import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 
+/**
+ * @noInheritDoc
+ */
 export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
   /**
    * Extend and override the default options used by the Actor Sheet

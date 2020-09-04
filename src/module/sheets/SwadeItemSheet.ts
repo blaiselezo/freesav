@@ -1,6 +1,9 @@
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import SwadeItem from '../entities/SwadeItem';
 
+/**
+ * @noInheritDoc
+ */
 export default class SwadeItemSheet extends ItemSheet {
   item: SwadeItem;
 

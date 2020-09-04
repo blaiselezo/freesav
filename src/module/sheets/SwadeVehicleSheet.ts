@@ -5,6 +5,9 @@ import SwadeActor from '../entities/SwadeActor';
 import IDriverData from '../../interfaces/IDriverData';
 import ISKillOptions from '../../interfaces/ISkillOptions';
 
+/**
+ * @noInheritDoc
+ */
 export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
   /**
    * Extend and override the default options used by the Actor Sheet

@@ -4,7 +4,9 @@ import SwadeActor from '../entities/SwadeActor';
 import SwadeItem from '../entities/SwadeItem';
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import * as chat from '../chat';
-
+/**
+ * @noInheritDoc
+ */
 export default class SwadeBaseActorSheet extends ActorSheet {
   actor: SwadeActor;
 

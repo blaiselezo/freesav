@@ -4,6 +4,7 @@ import SwadeActor from './SwadeActor';
 
 /**
  * Override and extend the basic :class:`Item` implementation
+ * @noInheritDoc
  */
 export default class SwadeItem extends Item {
   /**

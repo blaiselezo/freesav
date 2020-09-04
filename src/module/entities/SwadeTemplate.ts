@@ -3,6 +3,7 @@ import { TemplatePreset } from '../enums/TemplatePresetEnum';
 /**
  * A helper class for building MeasuredTemplates for SWADE Burst Templates
  * @extends {MeasuredTemplate}
+ * @noInheritDoc
  */
 export default class SwadeTemplate extends MeasuredTemplate {
   /**
