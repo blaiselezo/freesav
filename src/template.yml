@@ -40,7 +40,7 @@ Actor:
             sides: 6
       stats:
         speed:
-          sprintDie: 1d6
+          runningDie: 6
           value: 6
         toughness:
           value: 0
@@ -238,6 +238,6 @@ Item:
     attribute: ''
     die:
       sides: 4
-      modifier: '0'
+      modifier: 0
     wild-die:
       sides: 6
