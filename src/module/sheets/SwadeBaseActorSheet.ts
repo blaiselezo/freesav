@@ -4,6 +4,7 @@ import SwadeActor from '../entities/SwadeActor';
 import SwadeItem from '../entities/SwadeItem';
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import * as chat from '../chat';
+import { SwadeDice } from '../dice';
 /**
  * @noInheritDoc
  */
@@ -95,6 +96,46 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       html.find('.arcane-tabs .arcane').removeClass('active');
       ev.currentTarget.classList.add('active');
       this._filterPowers(html, arcane);
+    });
+
+    //Running Die
+    html.find('.running-die').click((ev) => {
+      const runningDie = getProperty(
+        this.actor.data,
+        'data.stats.speed.runningDie',
+      );
+      const runningMod = getProperty(
+        this.actor.data,
+        'data.stats.speed.runningMod',
+      );
+      const pace = getProperty(this.actor.data, 'data.stats.speed.value');
+      let rollFormula = `1d${runningDie}`;
+
+      rollFormula = rollFormula.concat(`+${pace}`);
+
+      if (runningMod && runningMod !== 0) {
+        if (runningMod > 0) {
+          rollFormula = rollFormula.concat(`+${runningMod}`);
+        } else {
+          rollFormula = rollFormula.concat(`-${runningMod}`);
+        }
+      }
+
+      if (ev.shiftKey) {
+        new Roll(rollFormula).roll().toMessage({
+          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+          flavor: game.i18n.localize('SWADE.Running'),
+        });
+      } else {
+        SwadeDice.Roll({
+          parts: [rollFormula],
+          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+          flavor: game.i18n.localize('SWADE.Running'),
+          title: game.i18n.localize('SWADE.Running'),
+          actor: this.actor,
+          allowGroup: false,
+        });
+      }
     });
   }
 

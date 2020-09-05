@@ -41,6 +41,7 @@ Actor:
       stats:
         speed:
           runningDie: 6
+          runningMod: 0
           value: 6
         toughness:
           value: 0
