@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Upgraded TypeScript to version `3.9.7` (Repo only)
 - Adjusted character/NPC sheet layout a bit
+- Updated the SVG icons so they can be used on the canvas
 
 ### Fixed
 
