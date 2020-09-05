@@ -26,7 +26,7 @@ import { rollPowerMacro, rollSkillMacro, rollWeaponMacro } from './module/util';
 /* ------------------------------------ */
 /* Initialize system					          */
 /* ------------------------------------ */
-Hooks.once('init', async function () {
+Hooks.once('init', () => {
   console.log(
     `SWADE | Initializing Savage Worlds Adventure Edition\n${SWADE.ASCII}`,
   );
