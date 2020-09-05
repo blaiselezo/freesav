@@ -3,7 +3,7 @@ import SwadeActor from './entities/SwadeActor';
 
 export async function formatRoll(
   chatMessage: ChatMessage,
-  html: JQuery<HTMLHtmlElement>,
+  html: JQuery<HTMLElement>,
   data: any,
 ) {
   // Little helper function
