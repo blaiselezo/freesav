@@ -30,6 +30,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added toggle for Animal smarts
 - Option to roll the Running Die. Adjust the die the Tweaks. Set a die type and a modifier as necessary. Click _Pace_ on the actor sheet to roll the running die, including dialog, or shift-click to skip the dialog. **Attention** For existing actors you may need to go into the tweaks, set the proper die and then hit _Save Changes_. Actors created after this patch will have a d6 automatically.
 
+### Deprecated
+
+- started the deprecation of the util functions `isIncapacitated` and `setIncapacitationSymbol`. They will be fully removed in v0.13
+
 ### Changed
 
 - Upgraded TypeScript to version `3.9.7` (Repo only)
