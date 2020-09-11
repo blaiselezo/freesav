@@ -76,4 +76,82 @@ export default class SwadeItem extends Item {
       item: this,
     });
   }
+
+  getChatData(htmlOptions) {
+    const data = duplicate(this.data.data);
+
+    // Rich text description
+    data.description = TextEditor.enrichHTML(data.description, htmlOptions);
+
+    // Item properties
+    const props = [];
+
+    switch (this.data.type) {
+      case 'hindrance':
+        props.push(data.major ? 'Major' : 'minor');
+        break;
+      case 'weapon':
+      case 'item':
+      case 'armor':
+        props.push(data.equipped ? 'Equipped' : 'Not Equipped');
+        break;
+      case 'edge':
+        props.push(data.requirements.value);
+        props.push(data.isArcaneBackground ? 'Arcane' : '');
+        break;
+      case 'power':
+        props.push(
+          data.rank,
+          data.arcane,
+          `${data.pp}PP`,
+          data.range,
+          `dmg ${data.damage}`,
+          data.duration,
+          data.trapping,
+        );
+        break;
+    }
+
+    // Filter properties and return
+    data.properties = props.filter((p) => !!p);
+    return data;
+  }
+
+  async show() {
+    // Basic template rendering data
+    const token = this.actor.token;
+    const templateData = {
+      actor: this.actor,
+      tokenId: token ? `${token.scene._id}.${token.id}` : null,
+      item: this.data,
+      data: this.getChatData({}),
+      config: CONFIG.SWADE,
+    };
+
+    // Render the chat card template
+    const template = `systems/swade/templates/chat/item-card.html`;
+    const html = await renderTemplate(template, templateData);
+
+    // Basic chat message data
+    const chatData = {
+      user: game.user._id,
+      type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+      content: html,
+      speaker: {
+        actor: this.actor._id,
+        token: this.actor.token,
+        alias: this.actor.name,
+      },
+    };
+
+    // Toggle default roll mode
+    let rollMode = game.settings.get('core', 'rollMode');
+    if (['gmroll', 'blindroll'].includes(rollMode))
+      chatData['whisper'] = ChatMessage.getWhisperRecipients('GM');
+    if (rollMode === 'selfroll') chatData['whisper'] = [game.user._id];
+    if (rollMode === 'blindroll') chatData['blind'] = true;
+
+    // Create the chat message
+    return ChatMessage.create(chatData);
+  }
 }

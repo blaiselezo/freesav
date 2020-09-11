@@ -1,0 +1,23 @@
+<div
+  class="swade chat-card item-card"
+  data-actor-id="{{actor._id}}"
+  data-item-id="{{item._id}}"
+  data-token-id="{{tokenId}}"
+>
+  <header class="card-header flexrow">
+    <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" />
+    <h3 class="item-name"><a>{{item.name}}</a></h3>
+  </header>
+
+  <div class="card-content">
+    {{{data.description}}}
+  </div>
+
+  <div class="card-buttons"></div>
+
+  <footer class="card-footer">
+    {{#each data.properties}}
+    <span>{{this}}</span>
+    {{/each}}
+  </footer>
+</div>

@@ -126,6 +126,9 @@
         }
         .item-name {
           margin: 0;
+          height: 30px;
+          overflow: hidden;
+          word-break: break-all;
         }
         .item-controls {
           flex: 0 0 36px;
