@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './entities/SwadeActor';
+import SwadeItem from './entities/SwadeItem';
 
 export async function formatRoll(
   chatMessage: ChatMessage,
@@ -74,6 +75,10 @@ export async function formatRoll(
 
 export function chatListeners(html: JQuery<HTMLElement>) {
   html.on('click', '.card-buttons button', async (event) => {
+    // Bind item cards
+    SwadeItem._onChatCardAction(event);
+
+    // Conviction
     const element = event.currentTarget as Element;
     const actorId = $(element).parents('[data-actor-id]').attr('data-actor-id');
     const actor = game.actors.get(actorId) as SwadeActor;
@@ -89,15 +94,16 @@ export function chatListeners(html: JQuery<HTMLElement>) {
         await actor.update({ 'data.details.conviction.active': false });
         ui.notifications.warn(game.i18n.localize('SWADE.NoBennies'));
       }
-    }
-    if (action === 'no') {
+    } else if (action === 'no') {
       await actor.update({ 'data.details.conviction.active': false });
       createConvictionEndMessage(actor);
     }
-    if (game.user.isGM) {
-      game.messages.get(messageId).delete();
-    } else {
-      game.swade.sockets.deleteConvictionMessage(messageId);
+    if (['yes', 'no'].includes(action)) {
+      if (game.user.isGM) {
+        game.messages.get(messageId).delete();
+      } else {
+        game.swade.sockets.deleteConvictionMessage(messageId);
+      }
     }
   });
 }

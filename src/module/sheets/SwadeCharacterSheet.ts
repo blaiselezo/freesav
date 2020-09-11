@@ -147,7 +147,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     });
 
     //Toggle Equipmnent Card collapsible
-    html.find('.gear-card .card-header').click((ev) => {
+    html.find('.gear-card .card-header .item-name').click((ev) => {
       const card = $(ev.currentTarget).parents('.gear-card');
       const content = card.find('.card-content');
       content.toggleClass('collapsed');

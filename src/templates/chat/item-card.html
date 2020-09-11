@@ -13,7 +13,11 @@
     {{{data.description}}}
   </div>
 
-  <div class="card-buttons"></div>
+  <div class="card-buttons">
+    {{#if hasDamage}}<button data-action="damage">
+      <i class="fas fa-tint"></i> {{data.damage}}</button
+    >{{/if}}
+  </div>
 
   <footer class="card-footer">
     {{#each data.properties}}
