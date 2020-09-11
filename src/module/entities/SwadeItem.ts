@@ -90,10 +90,26 @@ export default class SwadeItem extends Item {
       case 'hindrance':
         props.push(data.major ? 'Major' : 'minor');
         break;
-      case 'weapon':
-      case 'item':
+      case 'shield':
+        props.push(
+          data.equipped
+            ? '<i class="fas fa-tshirt"></i>'
+            : '<i class="fas fa-tshirt" style="color:grey"></i>',
+        );
+        props.push(`<i class='fas fa-shield-alt'></i> ${data.parry}`);
+        props.push(`<i class='fas fa-umbrella'></i> ${data.cover}`);
+        break;
       case 'armor':
-        props.push(data.equipped ? 'Equipped' : 'Not Equipped');
+        props.push(`<i class='fas fa-shield-alt'></i> ${data.armor}`);
+        props.push(
+          data.equipped
+            ? '<i class="fas fa-tshirt"></i>'
+            : '<i class="fas fa-tshirt" style="color:grey"></i>',
+        );
+        props.push(data.locations.head ? 'Head' : '');
+        props.push(data.locations.torso ? 'Torso' : '');
+        props.push(data.locations.arms ? 'Arms' : '');
+        props.push(data.locations.legs ? 'Legs' : '');
         break;
       case 'edge':
         props.push(data.requirements.value);
@@ -104,10 +120,27 @@ export default class SwadeItem extends Item {
           data.rank,
           data.arcane,
           `${data.pp}PP`,
-          data.range,
-          `dmg ${data.damage}`,
-          data.duration,
+          `<i class='fas fa-bullseye'></i> ${data.range}`,
+          `<i class='fas fa-tint'></i> ${data.damage}`,
+          `<i class='fas fa-hourglass-half'></i> ${data.duration}`,
           data.trapping,
+        );
+        break;
+      case 'weapon':
+        props.push(
+          data.equipped
+            ? '<i class="fas fa-tshirt"></i>'
+            : '<i class="fas fa-tshirt" style="color:grey"></i>',
+        );
+        props.push(`<i class='fas fa-tint'></i> ${data.damage}`);
+        props.push(`<i class='fas fa-shield-alt'></i> ${data.ap}`);
+        props.push(`<i class='fas fa-bullseye'></i> ${data.range}`);
+        break;
+      case 'item':
+        props.push(
+          data.equipped
+            ? '<i class="fas fa-tshirt"></i>'
+            : '<i class="fas fa-tshirt" style="color:grey"></i>',
         );
         break;
     }

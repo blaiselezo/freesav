@@ -30,6 +30,12 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       item.show();
     });
 
+    html.find('.item .item-name .item-image').click(async (ev) => {
+      const li = $(ev.currentTarget).parents('.item');
+      const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
+      item.show();
+    });
+
     // Edit armor modifier
     html.find('.armor-value').click((ev) => {
       let target = ev.currentTarget.dataset.target;
