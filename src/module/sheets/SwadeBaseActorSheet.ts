@@ -24,6 +24,18 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       item.sheet.render(true);
     });
 
+    html.find('.item .item-controls .item-show').click(async (ev) => {
+      const li = $(ev.currentTarget).parents('.item');
+      const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
+      item.show();
+    });
+
+    html.find('.item .item-name .item-image').click(async (ev) => {
+      const li = $(ev.currentTarget).parents('.item');
+      const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
+      item.show();
+    });
+
     // Edit armor modifier
     html.find('.armor-value').click((ev) => {
       let target = ev.currentTarget.dataset.target;
@@ -189,7 +201,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
       if (this.actor.data.type === 'character') {
         data.powersOptions =
-          'class="powers-list resizable" data-base-size="545"';
+          'class="powers-list resizable" data-base-size="570"';
       } else {
         data.powersOptions = 'class="powers-list"';
       }
@@ -297,7 +309,8 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   protected async _onResize(event: any) {
     super._onResize(event);
     let html = $(event.path);
-    let resizable = html.find('.resizable');
+    const selector = `#${this.id} .resizable`;
+    let resizable = html.find(selector);
     resizable.each((_, el) => {
       let heightDelta =
         (this.position.height as number) - (this.options.height as number);

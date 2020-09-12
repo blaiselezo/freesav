@@ -442,33 +442,44 @@
             background: rgba(0, 0, 0, 0.1);
           }
         }
-        .item-equipped {
-          grid-area: item-equipped;
-          justify-self: center;
-        }
-        .item-image {
-          flex-basis: 30px;
-          height: 28px;
-          margin: 2px;
-          flex-grow: 0;
-          @extend %item-background-image;
-        }
         .item-name {
-          text-indent: 8px;
-          text-align: left;
-          height: 30px;
-          margin: 0;
           line-height: 30px;
-          flex-grow: 5;
+          height: 30px;
+        }
+      }
+      .item-equipped {
+        grid-area: item-equipped;
+        justify-self: center;
+      }
+      .item-image {
+        flex-basis: 30px;
+        height: 28px;
+        margin: 2px;
+        flex-grow: 0;
+        cursor: pointer;
+        @extend %item-background-image;
+      }
+      .item-name {
+        text-indent: 8px;
+        text-align: left;
+        margin: 0;
+        flex-grow: 5;
 
-          h4 {
-            margin: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: left;
-            max-width: 180px;
+        h4 {
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-align: left;
+          max-width: 180px;
+        }
+        &:hover {
+          .item-image {
+            background-image: url(/icons/svg/d20-grey.svg) !important;
           }
+        }
+        .item-image:hover {
+          background-image: url(/icons/svg/d20-black.svg) !important;
         }
       }
       .field-longer {
