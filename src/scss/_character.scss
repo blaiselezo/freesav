@@ -92,7 +92,7 @@
         margin: 2px;
         border-top-left-radius: 4px;
         .card-header .item-controls {
-          display: none;
+          flex: 0 0 20px;
         }
       }
     }
@@ -126,6 +126,9 @@
         }
         .item-name {
           margin: 0;
+          height: 30px;
+          overflow: hidden;
+          word-break: break-all;
         }
         .item-controls {
           flex: 0 0 36px;
