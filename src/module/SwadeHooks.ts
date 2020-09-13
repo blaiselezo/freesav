@@ -328,6 +328,8 @@ export default class SwadeHooks {
     if (message.isRoll && message.isContentVisible) {
       await formatRoll(message, html, data);
     }
+
+    chat.hideChatActionButtons(message, html, data);
   }
 
   public static async onRenderPlayerList(

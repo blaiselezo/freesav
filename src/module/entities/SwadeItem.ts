@@ -1,4 +1,5 @@
 import { SwadeDice } from '../dice';
+import { ItemType } from '../enums/ItemTypeEnum';
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './SwadeActor';
 
@@ -120,7 +121,7 @@ export default class SwadeItem extends Item {
           data.rank,
           data.arcane,
           `${data.pp}PP`,
-          `<i class='fas fa-bullseye'></i> ${data.range}`,
+          `<i class="fas fa-ruler"></i> ${data.range}`,
           `<i class='fas fa-tint'></i> ${data.damage}`,
           `<i class='fas fa-hourglass-half'></i> ${data.duration}`,
           data.trapping,
@@ -134,7 +135,7 @@ export default class SwadeItem extends Item {
         );
         props.push(`<i class='fas fa-tint'></i> ${data.damage}`);
         props.push(`<i class='fas fa-shield-alt'></i> ${data.ap}`);
-        props.push(`<i class='fas fa-bullseye'></i> ${data.range}`);
+        props.push(`<i class="fas fa-ruler"></i> ${data.range}`);
         break;
       case 'item':
         props.push(
@@ -160,10 +161,15 @@ export default class SwadeItem extends Item {
       data: this.getChatData({}),
       config: CONFIG.SWADE,
       hasDamage: this.data.data.damage,
+      trait: this.data.data.trait,
+      hasTraitRoll:
+        [ItemType.Weapon.toString(), ItemType.Power.toString()].includes(
+          this.data.type,
+        ) && this.data.data.trait,
     };
 
     // Render the chat card template
-    const template = `systems/swade/templates/chat/item-card.html`;
+    const template = 'systems/swade/templates/chat/item-card.html';
     const html = await renderTemplate(template, templateData);
 
     // Basic chat message data
@@ -223,14 +229,25 @@ export default class SwadeItem extends Item {
     }
 
     // Attack and Damage Rolls
-    if (action === 'damage') await item.rollDamage({ event });
-    // else if (action === 'formula') await item.rollFormula({ event });
+    if (action === 'damage') {
+      await item.rollDamage({ event });
+    } else if (action === 'formula') {
+      let skill = actor.items.find(
+        (i: SwadeItem) =>
+          i.type === ItemType.Skill && i.name === item.data.data.trait,
+      );
+      if (skill) {
+        await actor.rollSkill(skill.id);
+      } else {
+        await actor.makeUnskilledAttempt();
+      }
+    }
 
     // Re-enable the button
     button.disabled = false;
   }
 
-  static _getChatCardActor(card) {
+  static _getChatCardActor(card): SwadeActor {
     // Case 1 - a synthetic actor from a Token
     const tokenKey = card.dataset.tokenId;
     if (tokenKey) {
@@ -240,12 +257,12 @@ export default class SwadeItem extends Item {
       const tokenData = scene.getEmbeddedEntity('Token', tokenId);
       if (!tokenData) return null;
       const token = new Token(tokenData);
-      return token.actor;
+      return token.actor as SwadeActor;
     }
 
     // Case 2 - use Actor ID directory
     const actorId = card.dataset.actorId;
-    return game.actors.get(actorId) || null;
+    return (game.actors.get(actorId) as SwadeActor) || (null as SwadeActor);
   }
 
   static _getChatCardTargets(card) {

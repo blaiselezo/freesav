@@ -9,12 +9,14 @@
     <h3 class="item-name"><a>{{item.name}}</a></h3>
   </header>
 
-  <div class="card-content">
+  <div class="card-content" style="display: none;">
     {{{data.description}}}
   </div>
 
   <div class="card-buttons">
-    {{#if hasDamage}}<button data-action="damage">
+    {{#if hasTraitRoll}}<button data-action="formula">
+      <i class="fas fa-bullseye"></i>{{trait}}</button
+    >{{/if}} {{#if hasDamage}}<button data-action="damage">
       <i class="fas fa-tint"></i> {{data.damage}}</button
     >{{/if}}
   </div>

@@ -74,6 +74,15 @@ export async function formatRoll(
 }
 
 export function chatListeners(html: JQuery<HTMLElement>) {
+  html.on('click', '.card-header .item-name', (event) => {
+    let target = $(event.currentTarget).parents('.item-card');
+    let actor = game.actors.get(target.data('actorId')) as SwadeActor;
+    if (actor && (game.user.isGM || actor.hasPerm(game.user, 2))) {
+      let desc = target.find('.card-content');
+      desc.slideToggle();
+    }
+  });
+
   html.on('click', '.card-buttons button', async (event) => {
     // Bind item cards
     SwadeItem._onChatCardAction(event);
@@ -107,6 +116,31 @@ export function chatListeners(html: JQuery<HTMLElement>) {
     }
   });
 }
+
+/**
+ * Hide the display of chat card action buttons which cannot be performed by the user
+ */
+export function hideChatActionButtons(
+  message: ChatMessage,
+  html: JQuery<HTMLElement>,
+  data: any,
+) {
+  const chatCard = html.find('.swade.chat-card');
+  if (chatCard.length > 0) {
+    // If the user is the message author or the actor owner, proceed
+    let actor = game.actors.get(data.message.speaker.actor);
+    if (actor && actor.owner) return;
+    else if (game.user.isGM || data.author.id === game.user.id) return;
+
+    // Otherwise conceal action buttons except for saving throw
+    const buttons = chatCard.find('button[data-action]');
+    buttons.each((i, btn) => {
+      if (btn.dataset.action === 'save') return;
+      btn.style.display = 'none';
+    });
+  }
+}
+
 /**
  * Creates an end message for Conviction
  * @param actor The Actor whose conviction is ending
