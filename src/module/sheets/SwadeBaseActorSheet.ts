@@ -201,7 +201,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
       if (this.actor.data.type === 'character') {
         data.powersOptions =
-          'class="powers-list resizable" data-base-size="570"';
+          'class="powers-list resizable" data-base-size="560"';
       } else {
         data.powersOptions = 'class="powers-list"';
       }
