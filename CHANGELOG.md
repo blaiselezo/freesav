@@ -33,6 +33,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Deprecated
 
 - started the deprecation of the util functions `isIncapacitated` and `setIncapacitationSymbol`. They will be fully removed in v0.13
+- Finished deprecation of `SwadeActor.configureInitiative()`
 
 ### Changed
 
