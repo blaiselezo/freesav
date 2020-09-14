@@ -65,14 +65,15 @@
         {{localize "SWADE.AddStats"}}
       </h2>
       <h3>{{localize "SWADE.Actors"}}</h3>
-      <hr />
       <ul class="stats-container">
         <li class="attribute attributes-header">
           <span class="attribute-key">Stat Key</span>
           <span class="attribute-label">Label</span>
           <span class="attribute-dtype">Data Type</span>
           <span class="attribute-maxValue">Has Max Value</span>
-          <span class="attribute-autoApply">Auto Apply</span>
+          <span class="attribute-autoEnable"
+            >Auto enable on Entity creation</span
+          >
           <a class="attribute-control" data-action="createChar"
             ><i class="fas fa-plus"></i
           ></a>
@@ -99,30 +100,37 @@
             <option value="{{t}}">{{t}}</option>
             {{/each}} {{/select}}
           </select>
-          <div style="border-bottom: none; text-align: center;">
-            <input
-              class="attribute-maxValue"
-              type="checkbox"
-              name="actorSettingStats.{{key}}.hasMaxValue"
-              {{checked
-              attr.hasMaxValue}}
-            />
-          </div>
+          <input
+            class="attribute-maxValue"
+            type="checkbox"
+            name="actorSettingStats.{{key}}.hasMaxValue"
+            {{checked
+            attr.hasMaxValue}}
+          />
+          <input
+            class="attribute-autoEnable"
+            type="checkbox"
+            name="actorSettingStats.{{key}}.autoEnable"
+            {{checked
+            attr.autoEnable}}
+          />
           <a class="attribute-control" data-action="delete"
             ><i class="fas fa-trash"></i
           ></a>
         </li>
         {{/each}}
       </ul>
-      <h3>{{localize "SWADE.Items"}}</h3>
       <hr />
+      <h3>{{localize "SWADE.Items"}}</h3>
       <ul class="stats-container">
         <li class="attribute attributes-header">
           <span class="attribute-key">Stat Key</span>
           <span class="attribute-label">Label</span>
           <span class="attribute-dtype">Data Type</span>
           <span class="attribute-maxValue">Has Max Value</span>
-          <span class="attribute-autoApply">Auto Apply</span>
+          <span class="attribute-autoEnable"
+            >Auto enable on Entity creation</span
+          >
           <a class="attribute-control" data-action="createItem"
             ><i class="fas fa-plus"></i
           ></a>
@@ -146,15 +154,20 @@
             <option value="{{t}}">{{t}}</option>
             {{/each}} {{/select}}
           </select>
-          <div style="border-bottom: none; text-align: center;">
-            <input
-              class="attribute-maxValue"
-              type="checkbox"
-              name="itemSettingStats.{{key}}.hasMaxValue"
-              {{checked
-              attr.hasMaxValue}}
-            />
-          </div>
+          <input
+            class="attribute-maxValue"
+            type="checkbox"
+            name="itemSettingStats.{{key}}.hasMaxValue"
+            {{checked
+            attr.hasMaxValue}}
+          />
+          <input
+            class="attribute-autoEnable"
+            type="checkbox"
+            name="itemSettingStats.{{key}}.autoEnable"
+            {{checked
+            attr.autoEnable}}
+          />
           <a class="attribute-control" data-action="delete"
             ><i class="fas fa-trash"></i
           ></a>
