@@ -161,11 +161,11 @@ export default class SwadeItem extends Item {
       data: this.getChatData({}),
       config: CONFIG.SWADE,
       hasDamage: this.data.data.damage,
-      trait: this.data.data.trait,
-      hasTraitRoll:
+      skill: this.data.data.skill,
+      hasSkillRoll:
         [ItemType.Weapon.toString(), ItemType.Power.toString()].includes(
           this.data.type,
-        ) && this.data.data.trait,
+        ) && this.data.data.skill,
     };
 
     // Render the chat card template
@@ -234,7 +234,7 @@ export default class SwadeItem extends Item {
     } else if (action === 'formula') {
       let skill = actor.items.find(
         (i: SwadeItem) =>
-          i.type === ItemType.Skill && i.name === item.data.data.trait,
+          i.type === ItemType.Skill && i.name === item.data.data.skill,
       );
       if (skill) {
         await actor.rollSkill(skill.id);

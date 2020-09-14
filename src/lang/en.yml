@@ -33,6 +33,7 @@ SWADE.AttrSprShort: Spi
 SWADE.AttrStrShort: Str
 SWADE.AttrVigShort: Vig
 SWADE.Skills: Skills
+SWADE.Skill: Skill
 SWADE.Unskilled: Unskilled
 SWADE.LinkAttr: Linked Attribute
 SWADE.Die: Die
