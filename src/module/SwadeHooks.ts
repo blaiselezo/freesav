@@ -60,6 +60,17 @@ export default class SwadeHooks {
     if (!createData.img) {
       createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
     }
+
+    //Set default additional Stats
+    const statsPrototypes = game.settings.get('swade', 'settingFields').item;
+    let additionalStats = {};
+    for (let key in statsPrototypes) {
+      if (statsPrototypes[key].autoEnable) {
+        additionalStats[key] = statsPrototypes[key];
+        additionalStats[key].useField = true;
+      }
+    }
+    createData.data = { additionalStats };
   }
 
   public static onPreCreateOwnedItem(
@@ -68,12 +79,38 @@ export default class SwadeHooks {
     options: any,
     userId: string,
   ) {
-    {
-      //Set default image if no image already exists
-      if (!createData.img) {
-        createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
+    //Set default image if no image already exists
+    if (!createData.img) {
+      createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
+    }
+
+    //Set default additional Stats
+    const statsPrototypes = game.settings.get('swade', 'settingFields').item;
+    let additionalStats = {};
+    for (let key in statsPrototypes) {
+      if (statsPrototypes[key].autoEnable) {
+        additionalStats[key] = statsPrototypes[key];
+        additionalStats[key].useField = true;
       }
     }
+    createData.data = { additionalStats };
+  }
+
+  public static onPreCreateActor(
+    createData: any,
+    options: any,
+    userId: string,
+  ) {
+    //Set default additional Stats
+    const statsPrototypes = game.settings.get('swade', 'settingFields').actor;
+    let additionalStats = {};
+    for (let key in statsPrototypes) {
+      if (statsPrototypes[key].autoEnable) {
+        additionalStats[key] = statsPrototypes[key];
+        additionalStats[key].useField = true;
+      }
+    }
+    createData.data = { additionalStats };
   }
 
   public static async onCreateActor(
@@ -100,6 +137,10 @@ export default class SwadeHooks {
       const skillIndex = (await game.packs
         .get('swade.skills')
         .getContent()) as SwadeItem[];
+
+      //TODO Fix this
+      console.log(skillIndex.filter((i) => skillsToAdd.includes(i.data.name)));
+
       actor.createEmbeddedEntity(
         'OwnedItem',
         skillIndex.filter((i) => skillsToAdd.includes(i.data.name)),

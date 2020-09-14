@@ -108,6 +108,12 @@ Hooks.on(
 );
 
 Hooks.on(
+  'preCreateActor',
+  async (createData: any, options: any, userId: string) =>
+    SwadeHooks.onPreCreateActor(createData, options, userId),
+);
+
+Hooks.on(
   'createActor',
   async (actor: SwadeActor, options: any, userId: string) =>
     SwadeHooks.onCreateActor(actor, options, userId),
