@@ -83,6 +83,8 @@ export default class SwadeItem extends Item {
 
     // Rich text description
     data.description = TextEditor.enrichHTML(data.description, htmlOptions);
+    data.notes = TextEditor.enrichHTML(data.notes, htmlOptions);
+    console.log(data.notes);
 
     // Item properties
     const props = [];
@@ -99,6 +101,9 @@ export default class SwadeItem extends Item {
         );
         props.push(`<i class='fas fa-shield-alt'></i> ${data.parry}`);
         props.push(`<i class='fas fa-umbrella'></i> ${data.cover}`);
+        props.push(
+          data.notes ? `<i class="fas fa-sticky-note"></i> ${data.notes}` : '',
+        );
         break;
       case 'armor':
         props.push(`<i class='fas fa-shield-alt'></i> ${data.armor}`);
@@ -107,10 +112,14 @@ export default class SwadeItem extends Item {
             ? '<i class="fas fa-tshirt"></i>'
             : '<i class="fas fa-tshirt" style="color:grey"></i>',
         );
+        props.push(
+          data.notes ? `<i class="fas fa-sticky-note"></i> ${data.notes}` : '',
+        );
         props.push(data.locations.head ? 'Head' : '');
         props.push(data.locations.torso ? 'Torso' : '');
         props.push(data.locations.arms ? 'Arms' : '');
         props.push(data.locations.legs ? 'Legs' : '');
+
         break;
       case 'edge':
         props.push(data.requirements.value);
@@ -136,6 +145,9 @@ export default class SwadeItem extends Item {
         props.push(`<i class='fas fa-tint'></i> ${data.damage}`);
         props.push(`<i class='fas fa-shield-alt'></i> ${data.ap}`);
         props.push(`<i class="fas fa-ruler"></i> ${data.range}`);
+        props.push(
+          data.notes ? `<i class="fas fa-sticky-note"></i> ${data.notes}` : '',
+        );
         break;
       case 'item':
         props.push(
