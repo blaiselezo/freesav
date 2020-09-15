@@ -5,7 +5,7 @@
     width: 200px;
     max-width: 200px;
     height: 200px;
-    margin: 2px;
+    margin: $small-spacing;
   }
 
   .vitals {
@@ -35,11 +35,19 @@
     }
   }
 
+  .tab.active {
+    display: grid;
+    grid-gap: $grid-gap;
+  }
+
+  .summary-grid-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: $grid-gap;
+  }
+
   // Summary
   .attributes-container {
-    .attributes {
-      margin: 5px 0;
-    }
     .secondary {
       flex-grow: 0;
       flex-basis: 250px;
@@ -47,9 +55,6 @@
   }
 
   .skills {
-    flex-basis: 250px;
-    flex-grow: 0;
-    max-width: 288px;
     .skills-list {
       height: 350px;
       overflow: auto;
@@ -98,10 +103,9 @@
   }
 
   .gear {
-    padding: 2px;
     .gear-list {
       .gear-card {
-        margin: 2px;
+        margin: $small-spacing;
         border-top-left-radius: 4px;
         .card-header .item-controls {
           display: none;

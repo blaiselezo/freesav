@@ -214,14 +214,17 @@
     }
 
     .attributes {
-      padding: 2px;
+      //padding: 2px;
       //Attributes
       .attributes-list {
         margin-top: 4px;
         .attribute {
+          margin: 0 2px;
           .attribute-label {
             text-align: center;
             font-weight: bold;
+            border-bottom: solid #444 2px;
+            margin-bottom: 2px;
           }
           .toughness-block {
             display: flex;
@@ -260,7 +263,8 @@
           }
           input {
             text-align: center;
-            margin: 0 3px;
+            margin: 0;
+            width: 100%;
             height: 28px;
             @extend %standalone-input-field;
           }
