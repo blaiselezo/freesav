@@ -40,10 +40,12 @@
     grid-gap: $grid-gap;
   }
 
-  .summary-grid-row {
+  .grid-row {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     grid-gap: $grid-gap;
+    &.--grid-row-summary {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   // Summary
