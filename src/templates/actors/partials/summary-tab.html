@@ -25,31 +25,6 @@
       />
     </div>
   </div>
-  <div class="bennies flexrow">
-    <div>
-      <a><i class="benny-subtract fas fa-minus"></i></a>
-    </div>
-    <div class="benny-tracker">
-      <strong>{{localize "SWADE.Bennies"}}</strong>
-      <input
-        class="bennies-current"
-        name="data.bennies.value"
-        type="text"
-        value="{{data.bennies.value}}"
-        data-dtype="Number"
-      />
-      <input
-        class="bennies-max"
-        name="data.bennies.max"
-        type="text"
-        value="{{data.bennies.max}}"
-        data-dtype="Number"
-      />
-    </div>
-    <div>
-      <a><i class="benny-add fas fa-plus"></i></a>
-    </div>
-  </div>
   <div class="vitals-container">
     <strong>{{localize "SWADE.Wounds"}}</strong>
     <input
@@ -115,8 +90,34 @@
       >
     </div>
   </div>
+  <div class="bennies flexrow">
+    <div>
+      <a><i class="benny-subtract fas fa-minus"></i></a>
+    </div>
+    <div class="benny-tracker">
+      <strong>{{localize "SWADE.Bennies"}}</strong>
+      <input
+        class="bennies-current"
+        name="data.bennies.value"
+        type="text"
+        value="{{data.bennies.value}}"
+        data-dtype="Number"
+      />
+      <input
+        class="bennies-max"
+        name="data.bennies.max"
+        type="text"
+        value="{{data.bennies.max}}"
+        data-dtype="Number"
+      />
+    </div>
+    <div>
+      <a><i class="benny-add fas fa-plus"></i></a>
+    </div>
+  </div>
 </section>
-<section class="flexrow attributes-container">
+<section class="flexrow grid-row --grid-row-summary attributes-container">
+  {{> "systems/swade/templates/actors/partials/attributes.html"}}
   <div class="attributes secondary">
     <header class="header-field">
       <span>{{ localize "SWADE.Derived" }}</span>
@@ -189,9 +190,8 @@
       </div>
     </div>
   </div>
-  {{> "systems/swade/templates/actors/partials/attributes.html"}}
 </section>
-<section class="flexrow">
+<section class="flexrow grid-row --grid-row-summary">
   <div class="skills">
     <header class="header-field flexrow">
       <div>
