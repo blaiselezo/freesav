@@ -9,6 +9,13 @@ $lapis-lazuli: #33658a;
 $decorative-line: 1px solid $anthracite;
 $section-border: 1px groove $anthracite;
 
+//Spacing variables
+$small-spacing: 2px;
+$medium-spacing: 5px;
+
+//Grid variables
+$grid-gap: $medium-spacing;
+
 %header-field {
   padding: 5px;
   background: $light-grey;
