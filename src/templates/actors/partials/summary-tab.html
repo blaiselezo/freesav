@@ -54,40 +54,40 @@
   </div>
   <div class="status-container">
     <div class="status-item">
-      <input
-        type="checkbox"
-        name="data.status.isShaken"
-        id="data.status.isShaken-{{actor._id}}"
-        {{checked
-        actor.data.status.isShaken}}
-      />
-      <label for="data.status.isShaken-{{actor._id}}"
-        >{{localize "SWADE.Shaken"}}</label
-      >
+      <label class="check-container"
+        >{{localize "SWADE.Shaken"}}
+        <input
+          type="checkbox"
+          name="data.status.isShaken"
+          {{checked
+          actor.data.status.isShaken}}
+        />
+        <span class="checkmark"></span>
+      </label>
     </div>
     <div class="status-item">
-      <input
-        type="checkbox"
-        name="data.status.isDistracted"
-        id="data.status.isDistracted-{{actor._id}}"
-        {{checked
-        actor.data.status.isDistracted}}
-      />
-      <label for="data.status.isDistracted-{{actor._id}}"
-        >{{localize "SWADE.Distr"}}</label
-      >
+      <label class="check-container"
+        >{{localize "SWADE.Distr"}}
+        <input
+          type="checkbox"
+          name="data.status.isDistracted"
+          {{checked
+          actor.data.status.isDistracted}}
+        />
+        <span class="checkmark"></span>
+      </label>
     </div>
     <div class="status-item">
-      <input
-        type="checkbox"
-        name="data.status.isVulnerable"
-        id="data.status.isVulnerable-{{actor._id}}"
-        {{checked
-        actor.data.status.isVulnerable}}
-      />
-      <label for="data.status.isVulnerable-{{actor._id}}"
-        >{{localize "SWADE.Vuln"}}</label
-      >
+      <label class="check-container"
+        >{{localize "SWADE.Vuln"}}
+        <input
+          type="checkbox"
+          name="data.status.isVulnerable"
+          {{checked
+          actor.data.status.isVulnerable}}
+        />
+        <span class="checkmark"></span>
+      </label>
     </div>
   </div>
   <div class="bennies flexrow">
@@ -134,7 +134,9 @@
         />
       </div>
       <div class="attribute flex2">
-        <div class="attribute-label">{{localize "SWADE.Pace"}}</div>
+        <a class="running-die" title="{{localize 'SWADE.RollRun'}}"
+          ><div class="attribute-label">{{localize "SWADE.Pace"}}</div></a
+        >
         <input
           id="pace"
           name="data.stats.speed.value"
@@ -223,7 +225,7 @@
       {{/each}}
     </ol>
   </div>
-  <div class="gear resizable scrollable" data-base-size="420">
+  <div class="gear resizable scrollable" data-base-size="435">
     {{> "systems/swade/templates/setting-fields.html"}}
     <header class="header-field flexrow">
       <div>

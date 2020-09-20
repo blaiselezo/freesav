@@ -12,6 +12,7 @@ export class SwadeDice {
     title = null,
     item = null as SwadeItem,
     actor = null as SwadeActor,
+    allowGroup = false,
   } = {}) {
     let rolled = false;
     let filtered = parts.filter(function (el) {
@@ -62,7 +63,7 @@ export class SwadeDice {
 
     if (item) {
       buttons.extra.label = game.i18n.localize('SWADE.RollRaise');
-    } else if (actor && !actor.isWildcard) {
+    } else if (actor && !actor.isWildcard && allowGroup) {
       buttons.extra.label = game.i18n.localize('SWADE.GroupRoll');
     } else {
       delete buttons.extra;
@@ -92,13 +93,14 @@ export class SwadeDice {
     data = {},
     speaker = null,
     flavor = '',
+    allowGroup = false,
   }): Roll {
     let rollMode = game.settings.get('core', 'rollMode');
     let groupRoll = actor && raise;
     // Optionally include a situational bonus
     if (form !== null) data['bonus'] = form.bonus.value;
     if (data['bonus']) rollParts.push(data['bonus']);
-    if (groupRoll) {
+    if (groupRoll && allowGroup) {
       rollParts[0] = `{${rollParts[0]}, 1d6x=}kh`;
       flavor = `${flavor} ${game.i18n.localize('SWADE.GroupRoll')}`;
     } else if (raise) {

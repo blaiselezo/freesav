@@ -38,3 +38,9 @@ $grid-gap: $medium-spacing;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
+
+%item-background-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

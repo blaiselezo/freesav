@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { SwadeDice } from '../dice';
-// eslint-disable-next-line no-unused-vars
+import IRollOptions from '../../interfaces/IRollOptions';
 import SwadeItem from './SwadeItem';
-import IRollOptions from '../../interfaces/ISkillOptions';
 
+/**
+ * @noInheritDoc
+ */
 export default class SwadeActor extends Actor {
   /**
    * @override
@@ -135,57 +138,38 @@ export default class SwadeActor extends Actor {
         'SWADE.AttributeTest',
       )}`,
       actor: this,
+      allowGroup: true,
     });
   }
 
   rollSkill(
     skillId: string,
-    options: IRollOptions = { event: null },
+    options: IRollOptions = { event: null, rof: 1 },
+    tempSkill?: SwadeItem,
   ): Promise<any> {
-    let items = this.items.filter((i: Item) => i.id == skillId);
-    if (!items.length) {
+    let skill;
+    skill = this.items.find((i: SwadeItem) => i.id == skillId) as SwadeItem;
+    if (tempSkill) {
+      skill = tempSkill;
+    }
+
+    if (!skill) {
       return;
     }
-    let skillData = items[0].data['data'];
-    let exp = '';
-    if (this.data['data'].wildcard) {
-      exp = `{1d${skillData['die'].sides}x=, 1d${skillData['wild-die'].sides}x=}kh`;
+
+    let rollParts = [];
+
+    let skillData = getProperty(skill, 'data.data');
+
+    if (options.rof > 1) {
+      rollParts = this._handleRepeatingSKill(skill, options);
     } else {
-      exp = `1d${skillData['die'].sides}x=`;
+      rollParts = this._handleSimpleSkill(skill, options);
     }
 
-    //Check and add Modifiers
-    let rollParts = [exp] as any[];
-    let itemMod = parseInt(skillData['die'].modifier);
-    if (!isNaN(itemMod) && itemMod !== 0) {
-      if (itemMod > 0) {
-        rollParts.push('+');
-      }
-      rollParts.push(itemMod);
-    }
-
-    //Conviction Modifier
-    if (
-      this.isWildcard &&
-      game.settings.get('swade', 'enableConviction') &&
-      getProperty(this.data, 'data.details.conviction.active')
-    ) {
-      rollParts.push('+1d6x=');
-    }
-
-    // Wound and Fatigue Penalties
-    const woundPenalties = this.calcWoundPenalties();
-    if (woundPenalties !== 0) rollParts.push(woundPenalties);
-
-    const fatiguePenalties = this.calcFatiguePenalties();
-    if (fatiguePenalties !== 0) rollParts.push(fatiguePenalties);
-
-    const statusPenalties = this.calcStatusPenalties();
-    if (statusPenalties !== 0) rollParts.push(statusPenalties);
-
-    //Additional Mods
-    if (options.additionalMods) {
-      rollParts = rollParts.concat(options.additionalMods);
+    let flavour = '';
+    if (options.flavour) {
+      flavour = ` - ${options.flavour}`;
     }
 
     // Roll and return
@@ -194,63 +178,36 @@ export default class SwadeActor extends Actor {
       parts: rollParts,
       data: skillData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
-      title: `${items[0].name} ${game.i18n.localize('SWADE.SkillTest')}`,
+      flavor: `${skill.name} ${game.i18n.localize(
+        'SWADE.SkillTest',
+      )}${flavour}`,
+      title: `${skill.name} ${game.i18n.localize('SWADE.SkillTest')}`,
       actor: this,
+      allowGroup: options.rof < 1,
     });
   }
 
-  makeUnskilledAttempt(options: IRollOptions = { event: null }): Promise<any> {
-    let exp = '';
-    if (this.data['data'].wildcard) {
-      exp = '{1d4x=, 1d6x=}kh';
-    } else {
-      exp = '1d4x=';
-    }
+  async makeUnskilledAttempt(
+    options: IRollOptions = { event: null },
+  ): Promise<any> {
+    let unSkill = (await Item.create(
+      {
+        name: game.i18n.localize('SWADE.Unskilled'),
+        type: 'skill',
+        data: {
+          die: {
+            sides: 4,
+            modifier: '-2',
+          },
+          'wild-die': {
+            sides: 6,
+          },
+        },
+      },
+      { temporary: true },
+    )) as SwadeItem;
 
-    let rollParts = [exp] as any[];
-
-    //Unskilled Penalty
-    rollParts.push('- 2');
-
-    //Conviction Modifier
-    if (
-      this.data.data['details']['conviction']['active'] &&
-      game.settings.get('swade', 'enableConviction')
-    ) {
-      rollParts.push('+1d6x=');
-    }
-
-    // Wound and Fatigue Penalties
-    const woundPenalties = this.calcWoundPenalties();
-    if (woundPenalties !== 0) rollParts.push(woundPenalties);
-
-    const fatiguePenalties = this.calcFatiguePenalties();
-    if (fatiguePenalties !== 0) rollParts.push(fatiguePenalties);
-
-    const statusPenalties = this.calcStatusPenalties();
-    if (statusPenalties !== 0) rollParts.push(statusPenalties);
-
-    //Additional Mods
-    if (options.additionalMods) {
-      rollParts = rollParts.concat(options.additionalMods);
-    }
-
-    let skillData = {};
-
-    // Roll and return
-    return SwadeDice.Roll({
-      event: options.event,
-      parts: rollParts,
-      data: skillData,
-      speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${game.i18n.localize('SWADE.Unskilled')} ${game.i18n.localize(
-        'SWADE.SkillTest',
-      )}`,
-      title: `${game.i18n.localize('SWADE.Unskilled')} ${game.i18n.localize(
-        'SWADE.SkillTest',
-      )}`,
-    });
+    return this.rollSkill('', options, unSkill);
   }
 
   async spendBenny() {
@@ -378,47 +335,6 @@ export default class SwadeActor extends Actor {
   }
 
   /**
-   * @deprecated
-   * Launches a dialog to configure which initiative-modifying edges/hindrances the character has
-   */
-  async configureInitiative() {
-    const initData = this.data.data.initiative;
-    const template = 'systems/swade/templates/initiative/configure-init.html';
-    const html = await renderTemplate(template, initData);
-    const d = new Dialog({
-      title: 'Configure Initiative',
-      content: html,
-      buttons: {
-        ok: {
-          icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize('SWADE.Ok'),
-          callback: async (html: JQuery<HTMLElement>) => {
-            await this.update({
-              'data.initiative': {
-                hasLevelHeaded: (html as JQuery)
-                  .find('#hasLevelHeaded')
-                  .is(':checked'),
-                hasImpLevelHeaded: (html as JQuery)
-                  .find('#hasImpLevelHeaded')
-                  .is(':checked'),
-                hasHesitant: (html as JQuery)
-                  .find('#hasHesitant')
-                  .is(':checked'),
-              },
-            });
-          },
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize('SWADE.Cancel'),
-        },
-      },
-      default: 'cancel',
-    });
-    d.render(true);
-  }
-
-  /**
    * Calculates the correct armor value based on SWADE v5.5 and returns that value
    */
   calcArmor(): number {
@@ -504,7 +420,7 @@ export default class SwadeActor extends Actor {
       totalHandling = `+${totalHandling}`;
     }
 
-    let options: IRollOptions = {
+    let options = {
       event: event,
       additionalMods: [totalHandling],
     };
@@ -519,5 +435,103 @@ export default class SwadeActor extends Actor {
     } else {
       driver.makeUnskilledAttempt(options);
     }
+  }
+
+  private _handleSimpleSkill(skill: SwadeItem, options: IRollOptions) {
+    let skillData = getProperty(skill, 'data.data');
+    let exp = '';
+    let wildDie = `1d${skillData['wild-die'].sides}x=`;
+    if (this.isWildcard) {
+      exp = `{1d${skillData.die.sides}x=, ${wildDie}}kh`;
+    } else {
+      exp = `1d${skillData.die.sides}x=`;
+    }
+
+    //Check and add Modifiers
+    let rollParts = [exp] as any[];
+
+    let itemMod = parseInt(skillData['die'].modifier);
+    if (!isNaN(itemMod) && itemMod !== 0) {
+      if (itemMod > 0) {
+        rollParts.push('+');
+      }
+      rollParts.push(itemMod);
+    }
+    //Additional Mods
+    if (options.additionalMods) {
+      rollParts = rollParts.concat(options.additionalMods);
+    }
+
+    //Conviction Modifier
+    if (
+      this.isWildcard &&
+      game.settings.get('swade', 'enableConviction') &&
+      getProperty(this.data, 'data.details.conviction.active')
+    ) {
+      rollParts.push('+1d6x=');
+    }
+
+    // Wound and Fatigue Penalties
+    const woundPenalties = this.calcWoundPenalties();
+    if (woundPenalties !== 0) rollParts.push(woundPenalties);
+
+    const fatiguePenalties = this.calcFatiguePenalties();
+    if (fatiguePenalties !== 0) rollParts.push(fatiguePenalties);
+
+    const statusPenalties = this.calcStatusPenalties();
+    if (statusPenalties !== 0) rollParts.push(statusPenalties);
+
+    return rollParts;
+  }
+
+  private _handleRepeatingSKill(skill: SwadeItem, options: IRollOptions) {
+    let skillData = getProperty(skill, 'data.data');
+    let exp = '';
+    let skillDice = [];
+
+    let mods = [];
+
+    //Conviction Modifier
+    if (
+      this.isWildcard &&
+      game.settings.get('swade', 'enableConviction') &&
+      getProperty(this.data, 'data.details.conviction.active')
+    ) {
+      mods.push('+1d6x=');
+    }
+
+    // Wound and Fatigue Penalties
+    const woundPenalties = this.calcWoundPenalties();
+    if (woundPenalties !== 0) mods.push(woundPenalties);
+
+    const fatiguePenalties = this.calcFatiguePenalties();
+    if (fatiguePenalties !== 0) mods.push(fatiguePenalties);
+
+    const statusPenalties = this.calcStatusPenalties();
+    if (statusPenalties !== 0) mods.push(statusPenalties);
+
+    let skillMod: string | number = parseInt(skillData['die'].modifier) || '';
+    if (skillMod > 0) {
+      skillMod = '+'.concat(skillMod.toString());
+    }
+    mods.push(skillMod);
+
+    if (options.additionalMods) {
+      mods = mods.concat(options.additionalMods);
+    }
+
+    for (let i = 0; i < options.rof; i++) {
+      skillDice.push(`1d${skillData.die.sides}x=${mods.join('')}`);
+    }
+
+    let wildDie = `1d${skillData['wild-die'].sides}x=`;
+    if (this.isWildcard) {
+      exp = `{${skillDice.join(', ')}, ${wildDie}${mods.join('')}}kh${
+        options.rof
+      }`;
+    } else {
+      exp = `{${skillDice.join(', ')}}kh${options.rof}`;
+    }
+    return [exp];
   }
 }

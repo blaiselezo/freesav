@@ -7,38 +7,44 @@
         <span>{{localize "SWADE.Details"}}</span>
       </header>
       <div class="form-group">
-        <input
-          type="checkbox"
-          name="data.equippable"
-          id="data.equippable"
-          {{checked
-          item.data.equippable}}
-          data-dtype="Boolean"
-        />
-        <label for="data.equippable">{{localize "SWADE.Equippable"}}</label>
+        <label class="check-container"
+          >{{localize "SWADE.Equippable"}}
+          <input
+            type="checkbox"
+            name="data.equippable"
+            {{checked
+            item.data.equippable}}
+            data-dtype="Boolean"
+          />
+          <span class="checkmark"></span>
+        </label>
       </div>
       <div class="form-group">
-        <input
-          type="checkbox"
-          name="data.isVehicular"
-          id="data.isVehicular"
-          {{checked
-          item.data.isVehicular}}
-          data-dtype="Boolean"
-        />
-        <label for="data.isVehicular">Is Vehicle Mod</label>
+        <label class="check-container"
+          >{{localize "SWADE.VehicleMod"}}
+          <input
+            type="checkbox"
+            name="data.isVehicular"
+            {{checked
+            item.data.isVehicular}}
+            data-dtype="Boolean"
+          />
+          <span class="checkmark"></span>
+        </label>
       </div>
       {{#if (canBeEquipped item)}}
       <div class="form-group">
-        <input
-          type="checkbox"
-          name="data.equipped"
-          id="data.equipped"
-          {{checked
-          item.data.equipped}}
-          data-dtype="Boolean"
-        />
-        <label for="data.equipped">{{localize "SWADE.Equipped"}}</label>
+        <label class="check-container"
+          >{{localize "SWADE.Equipped"}}
+          <input
+            type="checkbox"
+            name="data.equipped"
+            {{checked
+            item.data.equipped}}
+            data-dtype="Boolean"
+          />
+          <span class="checkmark"></span>
+        </label>
       </div>
       {{/if}}
       <div class="form-group">

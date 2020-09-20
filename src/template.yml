@@ -19,6 +19,7 @@ Actor:
             modifier: 0
           wild-die:
             sides: 6
+          animal: false
         spirit:
           die:
             sides: 4
@@ -39,7 +40,8 @@ Actor:
             sides: 6
       stats:
         speed:
-          sprintDie: 1d6
+          runningDie: 6
+          runningMod: 0
           value: 6
         toughness:
           value: 0
@@ -170,6 +172,12 @@ Item:
     vehicular:
       isVehicular: false
       mods: 1
+    actions:
+      actions:
+        skill: ''
+        skillMod: ''
+        dmgMod: ''
+        additional: {}
   gear:
     templates:
       - itemDescription
@@ -182,6 +190,7 @@ Item:
       - physicalItem
       - equipable
       - vehicular
+      - actions
     damage: ''
     range: ''
     rof: 1
@@ -189,6 +198,7 @@ Item:
     minStr: ''
     shots: 0
     currentShots: 0
+    skill: ''
   armor:
     templates:
       - itemDescription
@@ -223,6 +233,7 @@ Item:
     templates:
       - itemDescription
       - equipable
+      - actions
     rank: ''
     pp: 0
     damage: ''
@@ -230,6 +241,7 @@ Item:
     duration: ''
     trapping: ''
     arcane: ''
+    skill: ''
     modifiers: []
   skill:
     templates:
@@ -237,6 +249,6 @@ Item:
     attribute: ''
     die:
       sides: 4
-      modifier: '0'
+      modifier: 0
     wild-die:
       sides: 6

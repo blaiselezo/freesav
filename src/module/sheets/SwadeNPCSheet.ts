@@ -3,13 +3,16 @@ import SwadeActor from '../entities/SwadeActor';
 import * as chat from '../chat';
 import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 
+/**
+ * @noInheritDoc
+ */
 export default class SwadeNPCSheet extends SwadeBaseActorSheet {
   actor: SwadeActor;
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ['swade', 'sheet', 'actor', 'npc'],
-      width: 600,
+      width: 660,
       height: 600,
       tabs: [
         {

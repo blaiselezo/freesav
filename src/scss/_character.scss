@@ -1,6 +1,5 @@
 .swade.sheet.actor.character {
   min-height: 768px;
-  min-width: 600px;
   .profile-img-container {
     width: 200px;
     max-width: 200px;
@@ -9,7 +8,7 @@
   }
 
   .vitals {
-    height: 72px;
+    height: 80px;
     .bennies {
       flex-grow: 0;
       flex-basis: 100px;
@@ -38,14 +37,6 @@
   .tab.active {
     display: grid;
     grid-gap: $grid-gap;
-  }
-
-  .grid-row {
-    display: grid;
-    grid-gap: $grid-gap;
-    &.--grid-row-summary {
-      grid-template-columns: repeat(2, 1fr);
-    }
   }
 
   // Summary
@@ -110,7 +101,7 @@
         margin: $small-spacing;
         border-top-left-radius: 4px;
         .card-header .item-controls {
-          display: none;
+          flex: 0 0 20px;
         }
       }
     }
@@ -144,6 +135,9 @@
         }
         .item-name {
           margin: 0;
+          height: 30px;
+          overflow: hidden;
+          word-break: break-all;
         }
         .item-controls {
           flex: 0 0 36px;

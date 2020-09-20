@@ -4,7 +4,10 @@ import SwadeActor from '../entities/SwadeActor';
 import SwadeItem from '../entities/SwadeItem';
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import * as chat from '../chat';
-
+import { SwadeDice } from '../dice';
+/**
+ * @noInheritDoc
+ */
 export default class SwadeBaseActorSheet extends ActorSheet {
   actor: SwadeActor;
 
@@ -19,6 +22,18 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.getOwnedItem(li.data('itemId'));
       item.sheet.render(true);
+    });
+
+    html.find('.item .item-controls .item-show').click(async (ev) => {
+      const li = $(ev.currentTarget).parents('.item');
+      const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
+      item.show();
+    });
+
+    html.find('.item .item-name .item-image').click(async (ev) => {
+      const li = $(ev.currentTarget).parents('.item');
+      const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
+      item.show();
     });
 
     // Edit armor modifier
@@ -94,6 +109,46 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       ev.currentTarget.classList.add('active');
       this._filterPowers(html, arcane);
     });
+
+    //Running Die
+    html.find('.running-die').click((ev) => {
+      const runningDie = getProperty(
+        this.actor.data,
+        'data.stats.speed.runningDie',
+      );
+      const runningMod = getProperty(
+        this.actor.data,
+        'data.stats.speed.runningMod',
+      );
+      const pace = getProperty(this.actor.data, 'data.stats.speed.value');
+      let rollFormula = `1d${runningDie}`;
+
+      rollFormula = rollFormula.concat(`+${pace}`);
+
+      if (runningMod && runningMod !== 0) {
+        if (runningMod > 0) {
+          rollFormula = rollFormula.concat(`+${runningMod}`);
+        } else {
+          rollFormula = rollFormula.concat(`-${runningMod}`);
+        }
+      }
+
+      if (ev.shiftKey) {
+        new Roll(rollFormula).roll().toMessage({
+          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+          flavor: game.i18n.localize('SWADE.Running'),
+        });
+      } else {
+        SwadeDice.Roll({
+          parts: [rollFormula],
+          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+          flavor: game.i18n.localize('SWADE.Running'),
+          title: game.i18n.localize('SWADE.Running'),
+          actor: this.actor,
+          allowGroup: false,
+        });
+      }
+    });
   }
 
   getData() {
@@ -124,12 +179,6 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       ).sort((a, b) => a.name.localeCompare(b.name));
       data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
-      let additionalStats = data.data.additionalStats || {};
-      for (let attr of Object.values(additionalStats)) {
-        attr['isCheckbox'] = attr['dtype'] === 'Boolean';
-      }
-      data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
-
       //Checks if an Actor has a Power Egde
       if (
         data.data.owned.edges &&
@@ -146,7 +195,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
       if (this.actor.data.type === 'character') {
         data.powersOptions =
-          'class="powers-list resizable" data-base-size="545"';
+          'class="powers-list resizable" data-base-size="560"';
       } else {
         data.powersOptions = 'class="powers-list"';
       }
@@ -177,6 +226,11 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       };
     }
 
+    let additionalStats = data.data.additionalStats || {};
+    for (let attr of Object.values(additionalStats)) {
+      attr['isCheckbox'] = attr['dtype'] === 'Boolean';
+    }
+    data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
     return data;
   }
 
@@ -254,7 +308,8 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   protected async _onResize(event: any) {
     super._onResize(event);
     let html = $(event.path);
-    let resizable = html.find('.resizable');
+    const selector = `#${this.id} .resizable`;
+    let resizable = html.find(selector);
     resizable.each((_, el) => {
       let heightDelta =
         (this.position.height as number) - (this.options.height as number);
@@ -295,8 +350,6 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       this.actor.data,
       targetPropertyPath,
     );
-
-    console.log(target, targetLabel, targetPropertyValue);
 
     let title = `${game.i18n.localize('SWADE.Ed')} ${
       this.actor.name

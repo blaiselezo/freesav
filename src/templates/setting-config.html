@@ -65,20 +65,21 @@
         {{localize "SWADE.AddStats"}}
       </h2>
       <h3>{{localize "SWADE.Actors"}}</h3>
-      <hr />
-      <header class="attributes-header flexrow">
-        <span class="attribute-key">Stat Key</span>
-        <span class="attribute-label">Label</span>
-        <span class="attribute-dtype">Data Type</span>
-        <span class="attribute-maxValue">Has Max Value</span>
-        <a class="attribute-control" data-action="createChar"
-          ><i class="fas fa-plus"></i
-        ></a>
-      </header>
-
-      <ol class="attributes-list">
+      <ul class="stats-container">
+        <li class="attribute attributes-header">
+          <span class="attribute-key">Stat Key</span>
+          <span class="attribute-label">Label</span>
+          <span class="attribute-dtype">Data Type</span>
+          <span class="attribute-maxValue">Has Max Value</span>
+          <!-- <span class="attribute-autoEnable"
+            >Auto enable on Entity creation</span
+          > -->
+          <a class="attribute-control" data-action="createChar"
+            ><i class="fas fa-plus"></i
+          ></a>
+        </li>
         {{#each actorSettingStats as |attr key|}}
-        <li class="attribute flexrow" data-attribute="{{key}}">
+        <li class="attribute" data-attribute="{{key}}">
           <input
             class="attribute-key"
             type="text"
@@ -99,39 +100,43 @@
             <option value="{{t}}">{{t}}</option>
             {{/each}} {{/select}}
           </select>
-          <div
+          <input
             class="attribute-maxValue"
-            style="border-bottom: none; text-align: center;"
-          >
-            <input
-              type="checkbox"
-              name="actorSettingStats.{{key}}.hasMaxValue"
-              {{checked
-              attr.hasMaxValue}}
-            />
-          </div>
+            type="checkbox"
+            name="actorSettingStats.{{key}}.hasMaxValue"
+            {{checked
+            attr.hasMaxValue}}
+          />
+          <!-- <input
+            class="attribute-autoEnable"
+            type="checkbox"
+            name="actorSettingStats.{{key}}.autoEnable"
+            {{checked
+            attr.autoEnable}}
+          /> -->
           <a class="attribute-control" data-action="delete"
             ><i class="fas fa-trash"></i
           ></a>
         </li>
         {{/each}}
-      </ol>
-      <br />
-      <h3>{{localize "SWADE.Items"}}</h3>
+      </ul>
       <hr />
-      <header class="attributes-header flexrow">
-        <span class="attribute-key">Stat Key</span>
-        <span class="attribute-label">Label</span>
-        <span class="attribute-dtype">Data Type</span>
-        <span class="attribute-maxValue">Has Max Value</span>
-        <a class="attribute-control" data-action="createItem"
-          ><i class="fas fa-plus"></i
-        ></a>
-      </header>
-
-      <ol class="attributes-list">
+      <h3>{{localize "SWADE.Items"}}</h3>
+      <ul class="stats-container">
+        <li class="attribute attributes-header">
+          <span class="attribute-key">Stat Key</span>
+          <span class="attribute-label">Label</span>
+          <span class="attribute-dtype">Data Type</span>
+          <span class="attribute-maxValue">Has Max Value</span>
+          <!-- <span class="attribute-autoEnable"
+            >Auto enable on Entity creation</span
+          > -->
+          <a class="attribute-control" data-action="createItem"
+            ><i class="fas fa-plus"></i
+          ></a>
+        </li>
         {{#each itemSettingStats as |attr key|}}
-        <li class="attribute flexrow" data-attribute="{{key}}">
+        <li class="attribute" data-attribute="{{key}}">
           <input
             class="attribute-key"
             type="text"
@@ -149,24 +154,28 @@
             <option value="{{t}}">{{t}}</option>
             {{/each}} {{/select}}
           </select>
-          <div style="border-bottom: none; text-align: center;">
-            <input
-              class="attribute-maxValue"
-              type="checkbox"
-              name="itemSettingStats.{{key}}.hasMaxValue"
-              {{checked
-              attr.hasMaxValue}}
-            />
-          </div>
+          <input
+            class="attribute-maxValue"
+            type="checkbox"
+            name="itemSettingStats.{{key}}.hasMaxValue"
+            {{checked
+            attr.hasMaxValue}}
+          />
+          <!-- <input
+            class="attribute-autoEnable"
+            type="checkbox"
+            name="itemSettingStats.{{key}}.autoEnable"
+            {{checked
+            attr.autoEnable}}
+          /> -->
           <a class="attribute-control" data-action="delete"
             ><i class="fas fa-trash"></i
           ></a>
         </li>
         {{/each}}
-      </ol>
+      </ul>
     </section>
   </main>
-  <br />
   <footer class="sheet-footer flexrow">
     <button type="submit" name="submit" id="submit">
       <i class="far fa-save"></i>{{localize "SETTINGS.Save"}}

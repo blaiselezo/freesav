@@ -3,6 +3,9 @@ SWADE.Name: Name
 SWADE.Tough: Toughness
 SWADE.Race: Race
 SWADE.Pace: Pace
+SWADE.Running: Running
+SWADE.RunningDie: Running Die
+SWADE.RollRun: Click to run
 SWADE.Adv: Advances
 SWADE.Rank: Rank
 SWADE.Inv: Inventory
@@ -20,6 +23,7 @@ SWADE.Attributes: Attributes
 SWADE.Derived: Derived Stats
 SWADE.AttrAgi: Agility
 SWADE.AttrSma: Smarts
+SWADE.AnimalSmarts: Animal Smarts
 SWADE.AttrSpr: Spirit
 SWADE.AttrStr: Strength
 SWADE.AttrVig: Vigor
@@ -29,6 +33,7 @@ SWADE.AttrSprShort: Spi
 SWADE.AttrStrShort: Str
 SWADE.AttrVigShort: Vig
 SWADE.Skills: Skills
+SWADE.Skill: Skill
 SWADE.Unskilled: Unskilled
 SWADE.LinkAttr: Linked Attribute
 SWADE.Die: Die
@@ -60,7 +65,12 @@ SWADE.RangedWeapons: Ranged Weapons
 SWADE.Armors: Armors
 SWADE.Armor: Armor
 SWADE.Shields: Shields
+
+#####################
+# Items
+#####################
 SWADE.Dmg: Damage
+SWADE.DmgOver: Damage Override
 SWADE.Rng: Range
 SWADE.Ap: AP
 SWADE.APLong: Armor Piercing
@@ -69,6 +79,15 @@ SWADE.Mag: Shots
 SWADE.Parry: Parry
 SWADE.Cover: Cover
 SWADE.Notes: Notes
+SWADE.ActionsEffects: Actions & Effects
+SWADE.Actions: Actions
+SWADE.DmgModUni: Damage Modifier (universal)
+SWADE.SkillModUni: Skill Modifier (universal)
+SWADE.HitLocations: Hit Locations
+SWADE.Head: Head
+SWADE.Torso: Torso
+SWADE.Arms: Arms
+SWADE.Legs: Legs
 SWADE.MinStrLong: Minimum Strength
 SWADE.MinStr: Min. Strength
 SWADE.MinStrShort: Min.Str
@@ -118,6 +137,10 @@ SWADE.Incap: Incapacitated!
 SWADE.Init: Initiative
 SWADE.InitDraw: draws for Initiative!
 SWADE.JokersWild: gets Joker's Wild!
+
+#####################
+# Vehicles
+#####################
 SWADE.Handling: Handling
 SWADE.Topspeed: Top Speed
 SWADE.OutOfControl: Out of Control
@@ -133,6 +156,12 @@ SWADE.Operator: Operator
 SWADE.ManCheck: Maneuver Check
 SWADE.AltSkill: Alternative Skill
 SWADE.Class: Classification
+SWADE.Vehicular: Vehicular Weapon
+SWADE.VehicleMod: Vehicle Mod
+
+#####################
+# Setttings
+#####################
 SWADE.CardSound: Card Sound
 SWADE.CardSoundDesc: Play a short card sound when dealing Initiative
 SWADE.AutoInit: Automatic Initiative
@@ -159,6 +188,7 @@ SWADE.VehicleEdgesDesc: Vehicles use Edges and Hindrances
 SWADE.SettingConf: Setting Configurator
 SWADE.SettingConfLabel: Open Setting Configurator
 SWADE.SettingConfDesc: Fine tune the system to fit the setting you're playing
+
 SWADE.Formula: Formula
 SWADE.SitMod: Situational Mod
 SWADE.RollMode: Roll Mode
@@ -177,11 +207,7 @@ SWADE.Scale: Scale
 SWADE.PickACard: Pick a card
 SWADE.NoCardsLeft: There are not enough cards left in the deck!
 SWADE.OldCard: Old card
-SWADE.HitLocations: Hit Locations
-SWADE.Head: Head
-SWADE.Torso: Torso
-SWADE.Arms: Arms
-SWADE.Legs: Legs
+
 SWADE ConvictionActivate: Calls upon their conviction!
 SWADE.ConvictionExtend: Do you want to extend your conviction?
 SWADE.ConvictionEnd: wavers in their conviction

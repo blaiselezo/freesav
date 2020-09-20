@@ -1,29 +1,110 @@
 .dice-roll {
-    .dice-result {
-        .dice-formula {
-            height: 30px;
-            .dice {
-                margin: 2px;
-                display: inline-flex;
-                width: 25px;
-                height: 25px;
-                label {
-                    font-weight: bold;
-                    text-align: center;
-                    width: 100%;
-                    z-index: 1;
-                }
-                img {
-                    position: absolute;
-                    width: 25px;
-                    height: 25px;
-                    border: none;
-                }
-            }
-            .modifier {
-                margin: 2px;
-                display: inline-flex;
-            }
-        }    
+  .dice-result {
+    .dice-formula {
+      height: 30px;
+      .dice {
+        margin: 2px;
+        display: inline-flex;
+        width: 25px;
+        height: 25px;
+        label {
+          font-weight: bold;
+          text-align: center;
+          width: 100%;
+          z-index: 1;
+        }
+        img {
+          position: absolute;
+          width: 25px;
+          height: 25px;
+          border: none;
+        }
+      }
+      .modifier {
+        margin: 2px;
+        display: inline-flex;
+      }
     }
+  }
+}
+
+.swade.chat-card {
+  font-style: normal;
+  font-size: 12px;
+
+  .card-header {
+    padding: 3px 0;
+    border-top: 2px groove #fff;
+    border-bottom: 2px groove #fff;
+
+    img {
+      flex: 0 0 36px;
+      margin-right: 5px;
+      border: none;
+      object-fit: cover;
+    }
+
+    h3 {
+      flex: 1;
+      margin: 0;
+      line-height: 36px;
+      color: #111;
+      overflow: hidden;
+      height: 30px;
+      word-break: break-all;
+      &:hover {
+        color: #111;
+      }
+    }
+  }
+
+  .card-content {
+    margin: 5px 0;
+    h3 {
+      font-size: 12px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    > * {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+  }
+
+  .card-buttons {
+    margin: 5px 0;
+
+    span {
+      display: block;
+      line-height: 28px;
+      text-align: center;
+      border: 1px solid black;
+    }
+
+    button {
+      font-size: 12px;
+      height: 24px;
+      line-height: 20px;
+      margin: 2px 0;
+    }
+  }
+
+  .card-footer {
+    padding: 3px 0 0;
+    border-top: 2px groove #fff;
+
+    span {
+      border-right: 2px groove #fff;
+      padding: 0 5px 0 0;
+      font-size: 10px;
+
+      &:last-child {
+        border-right: none;
+        padding-right: 0;
+      }
+    }
+  }
 }

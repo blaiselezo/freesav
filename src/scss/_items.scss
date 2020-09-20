@@ -14,7 +14,6 @@
 
   // Profile Image
   .profile-img-container {
-    position: relative;
     width: 64x;
     max-width: 64px;
     height: 64x;
@@ -24,13 +23,7 @@
       border: none;
     }
     .profile-img {
-      height: inherit;
-      width: inherit;
       object-fit: contain;
-      cursor: pointer;
-    }
-    .fade-in-05 {
-      opacity: 0.5;
     }
   }
 
@@ -79,5 +72,55 @@
       @extend %header-field;
       margin-bottom: 0px;
     }
+  }
+
+  .actions-container {
+    display: grid;
+    gap: $grid-gap;
+
+    grid-template-columns: repeat(2, 1fr) 32px;
+    grid-template-rows: auto;
+    grid-template-areas:
+      'action-name action-type action-delete'
+      'input-left input-right .';
+    padding: $small-spacing 0;
+  }
+
+  .actions-container + .actions-container {
+    border-top: $decorative-line;
+  }
+
+  .action-name {
+    grid-area: action-name;
+    label {
+      text-align: center;
+    }
+  }
+  .action-type {
+    grid-area: action-type;
+    label {
+      text-align: center;
+    }
+  }
+  .action-input-left {
+    grid-area: input-left;
+    label {
+      text-align: center;
+    }
+    input {
+      place-self: center;
+    }
+  }
+  .action-input-right {
+    grid-area: input-right;
+    label {
+      text-align: center;
+    }
+    input {
+      place-self: center;
+    }
+  }
+  .action-delete {
+    place-self: center;
   }
 }

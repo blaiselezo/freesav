@@ -26,10 +26,32 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added TypeDoc to the repository and configured two scripts to generate the documentation as either a standard web page or in Markdown format.
 - Added a way to render sheets only after the templaes are fully loaded. this should help with slower connections.
+- Added ability to set a d1 for traits
+- Added toggle for Animal smarts
+- Option to roll the Running Die. Adjust the die the Tweaks. Set a die type and a modifier as necessary. Click _Pace_ on the actor sheet to roll the running die, including dialog, or shift-click to skip the dialog. **Attention** For existing actors you may need to go into the tweaks, set the proper die and then hit _Save Changes_. Actors created after this patch will have a d6 automatically.
+- Added the ability to create chat cards for edges and inventory items. (Thanks to U~Man for that)
+- Added the ability to add a skill and modifiers to a weapon or power
+- Added the ability to define actions on a weapon or item. There are two types of actions; skill and damage, each allowing you to pre-define some custom shortcuts for attacks
+- Additional stats are now present on all items and actors
+- Added the ability for players to spend bennies directly from the player list
+
+### Deprecated
+
+- started the deprecation of the util functions `isIncapacitated` and `setIncapacitationSymbol`. They will be fully removed in v0.13
+- Finished deprecation of `SwadeActor.configureInitiative()`
 
 ### Changed
 
-- Upgraded TypeScript to version `3.9.7`
+- Upgraded TypeScript to version `3.9.7` (Repo only)
+- Adjusted character/NPC sheet layout a bit
+- Updated the SVG icons so they can be used on the canvas
+- Changed design and makeup of checkboxes as they were causing issues with unlinked actors
+- Changed input type of currency field so it accepts non-numeric inputs
+
+### Fixed
+
+- Fixed a bug where actors of the same name would show up as a wildcard in the actor sidebar if any of them was a wildcard
+- Fixed a small bug which could occasionally cause errors when handling additional stats for entities in compendiums
 
 ## [v0.11.3]
 
