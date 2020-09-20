@@ -32,6 +32,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added the ability to create chat cards for edges and inventory items. (Thanks to U~Man for that)
 - Added the ability to add a skill and modifiers to a weapon or power
 - Added the ability to define actions on a weapon or item. There are two types of actions; skill and damage, each allowing you to pre-define some custom shortcuts for attacks
+- Additional stats are now present on all items and actors
+- Added the ability for players to spend bennies directly from the player list
 
 ### Deprecated
 
