@@ -1,0 +1,14 @@
+name: Rock and Roll!
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.44</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Seasoned, Shooting d8+'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: znkrz8gcPKNr2m5W

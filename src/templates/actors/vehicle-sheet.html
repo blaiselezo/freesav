@@ -105,28 +105,30 @@
           />
         </div>
         <div class="status-item">
-          <input
-            type="checkbox"
-            name="data.status.isOutOfControl"
-            id="data.status.isOutOfControl-{{actor._id}}"
-            {{checked
-            actor.data.status.isOutOfControl}}
-          />
-          <label for="data.status.isOutOfControl-{{actor._id}}"
-            >{{localize "SWADE.OutOfControl"}}</label
-          >
+          <label class="check-container"
+            >{{localize "SWADE.OutOfControl"}}
+            <input
+              type="checkbox"
+              name="data.status.isOutOfControl"
+              {{checked
+              actor.data.status.isOutOfControl}}
+              data-dtype="Boolean"
+            />
+            <span class="checkmark"></span>
+          </label>
         </div>
         <div class="status-item">
-          <input
-            type="checkbox"
-            name="data.status.isWrecked"
-            id="data.status.isWrecked-{{actor._id}}"
-            {{checked
-            actor.data.status.isWrecked}}
-          />
-          <label for="data.status.isWrecked-{{actor._id}}"
-            >{{localize "SWADE.Wrecked"}}</label
-          >
+          <label class="check-container"
+            >{{localize "SWADE.Wrecked"}}
+            <input
+              type="checkbox"
+              name="data.status.isWrecked"
+              {{checked
+              actor.data.status.isWrecked}}
+              data-dtype="Boolean"
+            />
+            <span class="checkmark"></span>
+          </label>
         </div>
       </section>
     </div>

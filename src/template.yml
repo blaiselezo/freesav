@@ -1,0 +1,254 @@
+---
+Actor:
+  types:
+    - character
+    - npc
+    - vehicle
+  templates:
+    common:
+      attributes:
+        agility:
+          die:
+            sides: 4
+            modifier: 0
+          wild-die:
+            sides: 6
+        smarts:
+          die:
+            sides: 4
+            modifier: 0
+          wild-die:
+            sides: 6
+          animal: false
+        spirit:
+          die:
+            sides: 4
+            modifier: 0
+          wild-die:
+            sides: 6
+        strength:
+          die:
+            sides: 4
+            modifier: 0
+          wild-die:
+            sides: 6
+        vigor:
+          die:
+            sides: 4
+            modifier: 0
+          wild-die:
+            sides: 6
+      stats:
+        speed:
+          runningDie: 6
+          runningMod: 0
+          value: 6
+        toughness:
+          value: 0
+          armor: 0
+          modifier: 0
+        parry:
+          value: 0
+          modifier: 0
+        size: 0
+      details:
+        biography:
+          value: ''
+        species:
+          name: ''
+        currency: 500
+        conviction:
+          value: 0
+          active: false
+        autoCalcToughness: false
+      powerPoints: {}
+      fatigue:
+        value: 0
+        min: 0
+        max: 2
+      wounds:
+        value: 0
+        min: 0
+        max: 3
+        ignored: 0
+      advances:
+        value: 0
+        rank: Novice
+        details: ''
+      bennies:
+        value: 3
+        max: 3
+      owned:
+        gear: []
+        weapons: []
+        armors: []
+        shields: []
+        edges: []
+        hindrances: []
+        skills: []
+        powers: []
+        inventory: []
+      status:
+        isShaken: false
+        isDistracted: false
+        isVulnerable: false
+      initiative:
+        hasHesitant: false
+        hasLevelHeaded: false
+        hasImpLevelHeaded: false
+      additionalStats: {}
+    vehicle-common:
+      size: 0
+      scale: 0
+      classification: ''
+      handling: 0
+      cost: 0
+      topspeed: 0
+      description: ''
+      toughness:
+        total: 0
+        armor: 0
+      wounds:
+        value: 0
+        max: 3
+        ignored: 0
+      crew:
+        required:
+          value: 1
+          max: 1
+        optional:
+          value: 0
+          max: 0
+      driver:
+        id: ''
+        skill: ''
+        skillAlternative: ''
+      status:
+        isOutOfControl: false
+        isWrecked: false
+      initiative:
+        hasHesitant: false
+        hasLevelHeaded: false
+        hasImpLevelHeaded: false
+      additionalStats: {}
+      maxCargo: 0
+      maxMods: 0
+  character:
+    templates:
+      - common
+    wildcard: true
+  npc:
+    templates:
+      - common
+    wildcard: false
+    bennies:
+      value: 2
+      max: 2
+  vehicle:
+    templates:
+      - vehicle-common
+Item:
+  types:
+    - weapon
+    - armor
+    - shield
+    - gear
+    - edge
+    - hindrance
+    - skill
+    - power
+  templates:
+    itemDescription:
+      description: ''
+      notes: ''
+      additionalStats: {}
+    physicalItem:
+      quantity: 1
+      weight: 0
+      price: 0
+    equipable:
+      equippable: false
+      equipped: false
+    vehicular:
+      isVehicular: false
+      mods: 1
+    actions:
+      actions:
+        skill: ''
+        skillMod: ''
+        dmgMod: ''
+        additional: {}
+  gear:
+    templates:
+      - itemDescription
+      - physicalItem
+      - equipable
+      - vehicular
+  weapon:
+    templates:
+      - itemDescription
+      - physicalItem
+      - equipable
+      - vehicular
+      - actions
+    damage: ''
+    range: ''
+    rof: 1
+    ap: 0
+    minStr: ''
+    shots: 0
+    currentShots: 0
+    skill: ''
+  armor:
+    templates:
+      - itemDescription
+      - physicalItem
+      - equipable
+    minStr: ''
+    armor: 0
+    locations:
+      head: false
+      torso: true
+      arms: false
+      legs: false
+  shield:
+    templates:
+      - itemDescription
+      - physicalItem
+      - equipable
+    minStr: ''
+    parry: 0
+    cover: 0
+  edge:
+    templates:
+      - itemDescription
+    isArcaneBackground: false
+    requirements:
+      value: ''
+  hindrance:
+    templates:
+      - itemDescription
+    major: false
+  power:
+    templates:
+      - itemDescription
+      - equipable
+      - actions
+    rank: ''
+    pp: 0
+    damage: ''
+    range: ''
+    duration: ''
+    trapping: ''
+    arcane: ''
+    skill: ''
+    modifiers: []
+  skill:
+    templates:
+      - itemDescription
+    attribute: ''
+    die:
+      sides: 4
+      modifier: 0
+    wild-die:
+      sides: 6

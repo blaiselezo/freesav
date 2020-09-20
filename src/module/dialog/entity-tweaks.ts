@@ -100,7 +100,8 @@ export default class SwadeEntityTweaks extends FormApplication {
   }
 
   private _handleAdditionalStats(expandedFormData: any): any {
-    let formFields = expandedFormData['data']['additionalStats'] || {};
+    let formFields =
+      getProperty(expandedFormData, 'data.additionalStats') || {};
     const prototypeFields = this._getAppropriateSettingFields();
     let newFields = duplicate(
       getProperty(this.object.data, 'data.additionalStats'),

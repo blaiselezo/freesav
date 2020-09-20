@@ -1,0 +1,82 @@
+<header class="header-field flexrow">
+  <div>
+    <span>{{localize "SWADE.Actions"}}</span>
+  </div>
+  <div class="header-field-add">
+    <a class="action-create"><i class="fa fa-plus"></i></a>
+  </div>
+</header>
+{{#each data.actions.additional as |attr key|}}
+<section class="actions-container">
+  <div class="action-name form-group">
+    <label>{{localize "SWADE.Name"}}</label>
+    <span class="form-fields">
+      <input
+        type="text"
+        name="data.actions.additional.{{key}}.name"
+        value="{{attr.name}}"
+    /></span>
+  </div>
+  <div class="action-type form-group">
+    <label>{{localize "Type"}}</label>
+    <span class="form-fields">
+      <select name="data.actions.additional.{{key}}.type">
+        {{#select attr.type}}
+        <option value="skill">{{localize "SWADE.Skill"}}</option>
+        <option value="damage">{{localize "SWADE.Dmg"}}</option>
+        {{/select}}
+      </select>
+    </span>
+  </div>
+  <a
+    class="action-delete"
+    title="{{localize 'Delete'}}"
+    data-action-key="{{key}}"
+    ><i class="fas fa-trash"></i
+  ></a>
+  {{#if (eq attr.type "skill")}}
+  <div class="action-input-left form-group">
+    <label>{{localize "SWADE.RoF"}}</label>
+    <span class="form-fields">
+      <input
+        type="text"
+        name="data.actions.additional.{{key}}.rof"
+        value="{{attr.rof}}"
+      />
+    </span>
+  </div>
+  <div class="action-input-right form-group">
+    <label>{{localize "SWADE.Skill"}} {{localize "SWADE.Mod"}}</label>
+    <span class="form-fields">
+      <input
+        type="text"
+        name="data.actions.additional.{{key}}.skillMod"
+        value="{{attr.skillMod}}"
+      />
+    </span>
+  </div>
+  {{else}}
+  <div class="action-input-left form-group">
+    <label>{{localize "SWADE.DmgOver"}}</label>
+    <span class="form-fields">
+      <input
+        type="text"
+        name="data.actions.additional.{{key}}.dmgOverride"
+        value="{{attr.dmgOverride}}"
+      />
+    </span>
+  </div>
+  <div class="action-input-right form-group">
+    <label>{{localize "SWADE.Dmg"}} {{localize "SWADE.Mod"}}</label>
+    <span class="form-fields">
+      <input
+        type="text"
+        name="data.actions.additional.{{key}}.dmgMod"
+        value="{{attr.dmgMod}}"
+      />
+    </span>
+  </div>
+  {{/if}}
+</section>
+{{/each}}
+<br />

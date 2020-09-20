@@ -123,6 +123,12 @@ export default class Bennies {
       if (user.isGM) {
         span.innerHTML = user.getFlag('swade', 'bennies');
       } else if (user.character) {
+        span.onmouseleave = Bennies.updateBenny;
+        span.onclick = this.spendEvent;
+        span.onmouseover = () => {
+          span.innerHTML = '-';
+        };
+        span.title = game.i18n.localize('SWADE.BenniesSpend');
         span.innerHTML = user.character.data.data.bennies.value;
       } else {
         return;

@@ -3,6 +3,11 @@ import SwadeItem from './entities/SwadeItem';
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './entities/SwadeActor';
 
+/**
+ * @deprecated
+ * @param wounds
+ * @param fatigue
+ */
 export function isIncapacitated(wounds, fatigue): boolean {
   if (
     (parseInt(wounds.max) > 0 &&
@@ -14,6 +19,11 @@ export function isIncapacitated(wounds, fatigue): boolean {
   return false;
 }
 
+/**
+ * @deprecated
+ * @param data
+ * @param html
+ */
 export function setIncapacitationSymbol(
   data: any,
   html: JQuery<HTMLElement>,

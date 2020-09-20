@@ -1,4 +1,4 @@
-<section class="flexrow attributes-container">
+<section class="flexrow grid-row --grid-row-npc-summary attributes-container">
   <div class="attributes secondary">
     <header class="header-field">
       <span>{{ localize "SWADE.Derived" }}</span>
@@ -15,7 +15,9 @@
         />
       </div>
       <div class="attribute flex2">
-        <div class="attribute-label">{{localize "SWADE.Pace"}}</div>
+        <a class="running-die" title="{{localize 'SWADE.RollRun'}}"
+          ><div class="attribute-label">{{localize "SWADE.Pace"}}</div></a
+        >
         <input
           id="pace"
           name="data.stats.speed.value"
@@ -74,7 +76,7 @@
   {{> "systems/swade/templates/actors/partials/attributes.html"}}
 </section>
 <div class="flexrow">
-  <div>
+  <div class="left-panel">
     {{!-- Left panel --}}
     <section class="gear skills">
       <header class="header-field flexrow">
@@ -189,11 +191,9 @@
       <header class="header-field flexrow">
         <span>{{localize "SWADE.Desc"}}</span>
       </header>
-      <div>
-        {{editor content=data.details.biography.value
-        target="data.details.biography.value" button=true owner=owner
-        editable=editable}}
-      </div>
+      {{editor content=data.details.biography.value
+      target="data.details.biography.value" button=true owner=owner
+      editable=editable}}
     </section>
   </div>
 </div>

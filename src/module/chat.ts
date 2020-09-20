@@ -1,9 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './entities/SwadeActor';
+import SwadeItem from './entities/SwadeItem';
 
 export async function formatRoll(
   chatMessage: ChatMessage,
-  html: JQuery<HTMLHtmlElement>,
+  html: JQuery<HTMLElement>,
   data: any,
 ) {
   // Little helper function
@@ -73,7 +74,20 @@ export async function formatRoll(
 }
 
 export function chatListeners(html: JQuery<HTMLElement>) {
+  html.on('click', '.card-header .item-name', (event) => {
+    let target = $(event.currentTarget).parents('.item-card');
+    let actor = game.actors.get(target.data('actorId')) as SwadeActor;
+    if (actor && (game.user.isGM || actor.hasPerm(game.user, 'OBSERVER'))) {
+      let desc = target.find('.card-content');
+      desc.slideToggle();
+    }
+  });
+
   html.on('click', '.card-buttons button', async (event) => {
+    // Bind item cards
+    SwadeItem._onChatCardAction(event);
+
+    // Conviction
     const element = event.currentTarget as Element;
     const actorId = $(element).parents('[data-actor-id]').attr('data-actor-id');
     const actor = game.actors.get(actorId) as SwadeActor;
@@ -89,18 +103,44 @@ export function chatListeners(html: JQuery<HTMLElement>) {
         await actor.update({ 'data.details.conviction.active': false });
         ui.notifications.warn(game.i18n.localize('SWADE.NoBennies'));
       }
-    }
-    if (action === 'no') {
+    } else if (action === 'no') {
       await actor.update({ 'data.details.conviction.active': false });
       createConvictionEndMessage(actor);
     }
-    if (game.user.isGM) {
-      game.messages.get(messageId).delete();
-    } else {
-      game.swade.sockets.deleteConvictionMessage(messageId);
+    if (['yes', 'no'].includes(action)) {
+      if (game.user.isGM) {
+        game.messages.get(messageId).delete();
+      } else {
+        game.swade.sockets.deleteConvictionMessage(messageId);
+      }
     }
   });
 }
+
+/**
+ * Hide the display of chat card action buttons which cannot be performed by the user
+ */
+export function hideChatActionButtons(
+  message: ChatMessage,
+  html: JQuery<HTMLElement>,
+  data: any,
+) {
+  const chatCard = html.find('.swade.chat-card');
+  if (chatCard.length > 0) {
+    // If the user is the message author or the actor owner, proceed
+    let actor = game.actors.get(data.message.speaker.actor);
+    if (actor && actor.owner) return;
+    else if (game.user.isGM || data.author.id === game.user.id) return;
+
+    // Otherwise conceal action buttons except for saving throw
+    const buttons = chatCard.find('button[data-action]');
+    buttons.each((i, btn) => {
+      if (btn.dataset.action === 'save') return;
+      btn.style.display = 'none';
+    });
+  }
+}
+
 /**
  * Creates an end message for Conviction
  * @param actor The Actor whose conviction is ending

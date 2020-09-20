@@ -4,6 +4,9 @@ import SwadeActor from '../entities/SwadeActor';
 import SwadeItem from '../entities/SwadeItem';
 import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 
+/**
+ * @noInheritDoc
+ */
 export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
   /**
    * Extend and override the default options used by the Actor Sheet
@@ -12,7 +15,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ['swade', 'sheet', 'actor', 'character'],
-      width: 600,
+      width: 630,
       height: 768,
       tabs: [
         {
@@ -144,7 +147,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     });
 
     //Toggle Equipmnent Card collapsible
-    html.find('.gear-card .card-header').click((ev) => {
+    html.find('.gear-card .card-header .item-name').click((ev) => {
       const card = $(ev.currentTarget).parents('.gear-card');
       const content = card.find('.card-content');
       content.toggleClass('collapsed');
