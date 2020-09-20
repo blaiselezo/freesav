@@ -46,6 +46,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Adjusted character/NPC sheet layout a bit
 - Updated the SVG icons so they can be used on the canvas
 - Changed design and makeup of checkboxes as they were causing issues with unlinked actors
+- Changed input type of currency field so it accepts non-numeric inputs
 
 ### Fixed
 
