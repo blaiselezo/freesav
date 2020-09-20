@@ -44,15 +44,15 @@ function getManifest() {
     json.root = 'dist';
   }
 
-  const modulePath = path.join(json.root, 'module.yml');
-  const systemPath = path.join(json.root, 'system.yml');
+  const modulePath = path.join(json.root, 'module.json');
+  const systemPath = path.join(json.root, 'system.json');
 
   if (fs.existsSync(modulePath)) {
     json.file = fs.readJSONSync(modulePath);
-    json.name = 'module.yml';
+    json.name = 'module.json';
   } else if (fs.existsSync(systemPath)) {
     json.file = fs.readJSONSync(systemPath);
-    json.name = 'system.yml';
+    json.name = 'system.json';
   } else {
     return;
   }
@@ -323,20 +323,20 @@ async function linkUserData() {
   let destDir;
   try {
     if (
-      fs.existsSync(path.resolve('.', 'dist', 'module.yml')) ||
-      fs.existsSync(path.resolve('.', 'src', 'module.yml'))
+      fs.existsSync(path.resolve('.', 'dist', 'module.json')) ||
+      fs.existsSync(path.resolve('.', 'src', 'module.json'))
     ) {
       destDir = 'modules';
     } else if (
-      fs.existsSync(path.resolve('.', 'dist', 'system.yml')) ||
-      fs.existsSync(path.resolve('.', 'src', 'system.yml'))
+      fs.existsSync(path.resolve('.', 'dist', 'system.json')) ||
+      fs.existsSync(path.resolve('.', 'src', 'system.json'))
     ) {
       destDir = 'systems';
     } else {
       throw Error(
-        `Could not find ${chalk.blueBright('module.yml')} or ${chalk.blueBright(
-          'system.yml',
-        )}`,
+        `Could not find ${chalk.blueBright(
+          'module.json',
+        )} or ${chalk.blueBright('system.json')}`,
       );
     }
 
