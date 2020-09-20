@@ -200,11 +200,11 @@ export default class SwadeItem extends Item {
       data: this.getChatData({}),
       config: CONFIG.SWADE,
       hasDamage: this.data.data.damage,
-      skill: this.data.data.actions.skill,
+      skill: getProperty(this.data, 'data.actions.skill'),
       hasSkillRoll:
         [ItemType.Weapon.toString(), ItemType.Power.toString()].includes(
           this.data.type,
-        ) && this.data.data.actions.skill,
+        ) && getProperty(this.data, 'data.actions.skill'),
     };
 
     // Render the chat card template

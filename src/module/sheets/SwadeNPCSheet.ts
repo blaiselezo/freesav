@@ -12,7 +12,7 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ['swade', 'sheet', 'actor', 'npc'],
-      width: 630,
+      width: 660,
       height: 600,
       tabs: [
         {
