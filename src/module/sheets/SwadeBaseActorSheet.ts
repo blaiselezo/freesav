@@ -179,12 +179,6 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       ).sort((a, b) => a.name.localeCompare(b.name));
       data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
-      let additionalStats = data.data.additionalStats || {};
-      for (let attr of Object.values(additionalStats)) {
-        attr['isCheckbox'] = attr['dtype'] === 'Boolean';
-      }
-      data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
-
       //Checks if an Actor has a Power Egde
       if (
         data.data.owned.edges &&
@@ -232,6 +226,11 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       };
     }
 
+    let additionalStats = data.data.additionalStats || {};
+    for (let attr of Object.values(additionalStats)) {
+      attr['isCheckbox'] = attr['dtype'] === 'Boolean';
+    }
+    data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
     return data;
   }
 

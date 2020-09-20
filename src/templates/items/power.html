@@ -86,7 +86,8 @@
           data-dtype="String"
           style="margin: 2px 0;"
         />
-        {{editor content=data.description target="data.description" button=true
+        {{> "systems/swade/templates/setting-fields.html"}} {{editor
+        content=data.description target="data.description" button=true
         owner=owner editable=editable}}
       </section>
     </div>
