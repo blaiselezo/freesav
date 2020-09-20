@@ -1,5 +1,6 @@
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import SwadeItem from '../entities/SwadeItem';
+import { ItemType } from '../enums/ItemTypeEnum';
 
 /**
  * @noInheritDoc
@@ -12,6 +13,13 @@ export default class SwadeItemSheet extends ItemSheet {
       width: 560,
       height: 'auto',
       classes: ['swade', 'sheet', 'item'],
+      tabs: [
+        {
+          navSelector: '.tabs',
+          contentSelector: '.sheet-body',
+          initial: 'summary',
+        },
+      ],
       resizable: true,
     });
   }
@@ -73,6 +81,33 @@ export default class SwadeItemSheet extends ItemSheet {
         entity: { type: 'Item', id: this.item.id },
       }).render(true);
     });
+
+    html.find('.action-create').click((ev) => {
+      const actionKey = 'data.actions.additional.'.concat(randomID());
+      console.log(actionKey);
+      this.item.update(
+        {
+          _id: this.item._id,
+          ['data.actions.additional.'.concat(randomID())]: {
+            name: 'New Action',
+            type: 'skill',
+          },
+        },
+        {},
+      );
+    });
+    html.find('.action-delete').click((ev) => {
+      const key = ev.currentTarget.dataset.actionKey;
+      this.item.update(
+        {
+          _id: this.item._id,
+          'data.actions.additional': {
+            [`-=${key}`]: null,
+          },
+        },
+        {},
+      );
+    });
   }
 
   /**
@@ -98,6 +133,11 @@ export default class SwadeItemSheet extends ItemSheet {
     data['settingrules'] = {
       modSlots: game.settings.get('swade', 'vehicleMods'),
     };
+
+    data['displayTabs'] = [
+      ItemType.Weapon.toString(),
+      ItemType.Power.toString(),
+    ].includes(this.item.type);
     return data;
   }
 }

@@ -1,3 +1,4 @@
+import IRollOptions from '../../interfaces/IRollOptions';
 import { SwadeDice } from '../dice';
 import { ItemType } from '../enums/ItemTypeEnum';
 // eslint-disable-next-line no-unused-vars
@@ -26,7 +27,7 @@ export default class SwadeItem extends Item {
     super.prepareData();
   }
 
-  rollDamage(options = { event: Event }) {
+  rollDamage(options?: IRollOptions) {
     const itemData = this.data.data;
     const actor = this.actor;
     const actorIsVehicle = actor.data.type === 'vehicle';
@@ -42,10 +43,20 @@ export default class SwadeItem extends Item {
 
     // Intermediary roll to let it do the parsing for us
     let roll;
+    let rollParts = [itemData.damage];
+    if (options.dmgOverride) {
+      rollParts = [options.dmgOverride];
+    }
+
+    //Additional Mods
+    if (options.additionalMods) {
+      rollParts = rollParts.concat(options.additionalMods);
+    }
+
     if (actorIsVehicle) {
-      roll = new Roll(itemData.damage).roll();
+      roll = new Roll(rollParts.join('')).roll();
     } else {
-      roll = new Roll(itemData.damage, actor.getRollShortcuts()).roll();
+      roll = new Roll(rollParts.join(''), actor.getRollShortcuts()).roll();
     }
     let newParts = [];
     roll.parts.forEach((part) => {
@@ -57,12 +68,18 @@ export default class SwadeItem extends Item {
       }
     });
 
+    //Conviction Modifier
     if (
       !actorIsVehicle &&
       game.settings.get('swade', 'enableConviction') &&
       getProperty(actor.data, 'data.details.conviction.active')
     ) {
       newParts.push('+1d6x=');
+    }
+
+    let flavour = '';
+    if (options.flavour) {
+      flavour = ` - ${options.flavour}`;
     }
     // Roll and return
     return SwadeDice.Roll({
@@ -72,7 +89,7 @@ export default class SwadeItem extends Item {
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
         'SWADE.Dmg',
-      )}${ap}`,
+      )}${ap}${flavour}`,
       title: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
       item: this,
     });
@@ -84,14 +101,13 @@ export default class SwadeItem extends Item {
     // Rich text description
     data.description = TextEditor.enrichHTML(data.description, htmlOptions);
     data.notes = TextEditor.enrichHTML(data.notes, htmlOptions);
-    console.log(data.notes);
 
     // Item properties
     const props = [];
 
     switch (this.data.type) {
       case 'hindrance':
-        props.push(data.major ? 'Major' : 'minor');
+        props.push(data.major ? 'Major' : 'Minor');
         break;
       case 'shield':
         props.push(
@@ -160,6 +176,17 @@ export default class SwadeItem extends Item {
 
     // Filter properties and return
     data.properties = props.filter((p) => !!p);
+
+    //Additional actions
+    data.actions = [];
+    const actions = getProperty(this.data, 'data.actions.additional');
+    for (let action in actions) {
+      data.actions.push({
+        key: action,
+        type: actions[action].type,
+        name: actions[action].name,
+      });
+    }
     return data;
   }
 
@@ -173,11 +200,11 @@ export default class SwadeItem extends Item {
       data: this.getChatData({}),
       config: CONFIG.SWADE,
       hasDamage: this.data.data.damage,
-      skill: this.data.data.skill,
+      skill: this.data.data.actions.skill,
       hasSkillRoll:
         [ItemType.Weapon.toString(), ItemType.Power.toString()].includes(
           this.data.type,
-        ) && this.data.data.skill,
+        ) && this.data.data.actions.skill,
     };
 
     // Render the chat card template
@@ -240,19 +267,36 @@ export default class SwadeItem extends Item {
       targets = this._getChatCardTargets(card);
     }
 
+    let skill;
     // Attack and Damage Rolls
-    if (action === 'damage') {
-      await item.rollDamage({ event });
-    } else if (action === 'formula') {
-      let skill = actor.items.find(
-        (i: SwadeItem) =>
-          i.type === ItemType.Skill && i.name === item.data.data.skill,
-      );
-      if (skill) {
-        await actor.rollSkill(skill.id);
-      } else {
-        await actor.makeUnskilledAttempt();
-      }
+    switch (action) {
+      case 'damage':
+        await item.rollDamage({
+          event,
+          additionalMods: [getProperty(item.data, 'data.actions.dmgMod')],
+        });
+        break;
+      case 'formula':
+        skill = actor.items.find(
+          (i: SwadeItem) =>
+            i.type === ItemType.Skill &&
+            i.name === getProperty(item.data, 'data.actions.skill'),
+        );
+        if (skill) {
+          await actor.rollSkill(skill.id, {
+            event,
+            additionalMods: [getProperty(item.data, 'data.actions.skillMod')],
+          });
+        } else {
+          await actor.makeUnskilledAttempt({
+            event,
+            additionalMods: [getProperty(item.data, 'data.actions.skillMod')],
+          });
+        }
+        break;
+      default:
+        await this._handleAdditionalActions(item, actor, action);
+        break;
     }
 
     // Re-enable the button
@@ -286,5 +330,69 @@ export default class SwadeItem extends Item {
     );
     if (character && controlled.length === 0) targets.push(character);
     return targets;
+  }
+
+  /**
+   * Handles misc actions
+   * @param item The item that this action is used on
+   * @param actor The actor who has the item
+   * @param action The action key
+   */
+  static async _handleAdditionalActions(
+    item: SwadeItem,
+    actor: SwadeActor,
+    action: string,
+  ) {
+    const availableActions = getProperty(item.data, 'data.actions.additional');
+    let actionToUse = availableActions[action];
+
+    // if there isn't actually any action then return early
+    if (!actionToUse) {
+      return;
+    }
+
+    if (actionToUse.type === 'skill') {
+      // Do skill stuff
+      let skill = actor.items.find(
+        (i: SwadeItem) =>
+          i.type === ItemType.Skill &&
+          i.name === getProperty(item.data, 'data.actions.skill'),
+      );
+
+      let actionSkillMod = '';
+      if (actionToUse.skillMod && parseInt(actionToUse.skillMod) !== 0) {
+        actionSkillMod = actionToUse.skillMod;
+      }
+
+      if (skill) {
+        await actor.rollSkill(skill.id, {
+          flavour: actionToUse.name,
+          rof: actionToUse.rof,
+          additionalMods: [
+            getProperty(item.data, 'data.actions.skillMod'),
+            actionSkillMod,
+          ],
+        });
+      } else {
+        await actor.makeUnskilledAttempt({
+          flavour: actionToUse.name,
+          rof: actionToUse.rof,
+          additionalMods: [
+            getProperty(item.data, 'data.actions.skillMod'),
+            actionSkillMod,
+          ],
+        });
+      }
+    } else if (actionToUse.type === 'damage') {
+      //Do Damage stuff
+      item.rollDamage({
+        dmgOverride: actionToUse.dmgOverride,
+        flavour: actionToUse.name,
+        additionalMods: [
+          getProperty(item.data, 'data.actions.dmgMod'),
+          actionToUse.dmgMod,
+        ],
+      });
+    }
   }
 }

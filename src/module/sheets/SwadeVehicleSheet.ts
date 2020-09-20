@@ -1,9 +1,8 @@
-import SwadeBaseActorSheet from './SwadeBaseActorSheet';
+import IDriverData from '../../interfaces/IDriverData';
+import SwadeActor from '../entities/SwadeActor';
 // eslint-disable-next-line no-unused-vars
 import SwadeItem from '../entities/SwadeItem';
-import SwadeActor from '../entities/SwadeActor';
-import IDriverData from '../../interfaces/IDriverData';
-import ISKillOptions from '../../interfaces/ISkillOptions';
+import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 
 /**
  * @noInheritDoc

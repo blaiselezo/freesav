@@ -60,17 +60,6 @@ export default class SwadeHooks {
     if (!createData.img) {
       createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
     }
-
-    //Set default additional Stats
-    const statsPrototypes = game.settings.get('swade', 'settingFields').item;
-    let additionalStats = {};
-    for (let key in statsPrototypes) {
-      if (statsPrototypes[key].autoEnable) {
-        additionalStats[key] = statsPrototypes[key];
-        additionalStats[key].useField = true;
-      }
-    }
-    createData.data = { additionalStats };
   }
 
   public static onPreCreateOwnedItem(
@@ -83,17 +72,6 @@ export default class SwadeHooks {
     if (!createData.img) {
       createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
     }
-
-    //Set default additional Stats
-    const statsPrototypes = game.settings.get('swade', 'settingFields').item;
-    let additionalStats = {};
-    for (let key in statsPrototypes) {
-      if (statsPrototypes[key].autoEnable) {
-        additionalStats[key] = statsPrototypes[key];
-        additionalStats[key].useField = true;
-      }
-    }
-    createData.data = { additionalStats };
   }
 
   public static onPreCreateActor(

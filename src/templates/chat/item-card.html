@@ -19,6 +19,17 @@
     >{{/if}} {{#if hasDamage}}<button data-action="damage">
       <i class="fas fa-tint"></i> {{data.damage}}</button
     >{{/if}}
+    <hr />
+    {{#each data.actions as |attr key|}} {{#if (eq attr.type "skill")}}
+    <button data-action="{{attr.key}}">
+      <i class="fas fa-bullseye"></i> {{attr.name}}
+    </button>
+    {{/if}} {{/each}} {{#each data.actions as |attr key|}} {{#if (eq attr.type
+    "damage")}}
+    <button data-action="{{attr.key}}">
+      <i class="fas fa-tint"></i> {{attr.name}}
+    </button>
+    {{/if}} {{/each}}
   </div>
 
   <footer class="card-footer">

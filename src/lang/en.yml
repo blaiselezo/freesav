@@ -65,7 +65,12 @@ SWADE.RangedWeapons: Ranged Weapons
 SWADE.Armors: Armors
 SWADE.Armor: Armor
 SWADE.Shields: Shields
+
+#####################
+# Items
+#####################
 SWADE.Dmg: Damage
+SWADE.DmgOver: Damage Override
 SWADE.Rng: Range
 SWADE.Ap: AP
 SWADE.APLong: Armor Piercing
@@ -74,6 +79,10 @@ SWADE.Mag: Shots
 SWADE.Parry: Parry
 SWADE.Cover: Cover
 SWADE.Notes: Notes
+SWADE.ActionsEffects: Actions & Effects
+SWADE.Actions: Actions
+SWADE.DmgModUni: Damage Modifier (universal)
+SWADE.SkillModUni: Skill Modifier (universal)
 SWADE.HitLocations: Hit Locations
 SWADE.Head: Head
 SWADE.Torso: Torso

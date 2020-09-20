@@ -172,6 +172,12 @@ Item:
     vehicular:
       isVehicular: false
       mods: 1
+    actions:
+      actions:
+        skill: ''
+        skillMod: ''
+        dmgMod: ''
+        additional: {}
   gear:
     templates:
       - itemDescription
@@ -184,6 +190,7 @@ Item:
       - physicalItem
       - equipable
       - vehicular
+      - actions
     damage: ''
     range: ''
     rof: 1
@@ -226,6 +233,7 @@ Item:
     templates:
       - itemDescription
       - equipable
+      - actions
     rank: ''
     pp: 0
     damage: ''
