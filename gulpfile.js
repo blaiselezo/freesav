@@ -44,15 +44,15 @@ function getManifest() {
     json.root = 'dist';
   }
 
-  const modulePath = path.join(json.root, 'module.yml');
-  const systemPath = path.join(json.root, 'system.yml');
+  const modulePath = path.join(json.root, 'module.json');
+  const systemPath = path.join(json.root, 'system.json');
 
   if (fs.existsSync(modulePath)) {
     json.file = fs.readJSONSync(modulePath);
-    json.name = 'module.yml';
+    json.name = 'module.json';
   } else if (fs.existsSync(systemPath)) {
     json.file = fs.readJSONSync(systemPath);
-    json.name = 'system.yml';
+    json.name = 'system.json';
   } else {
     return;
   }
