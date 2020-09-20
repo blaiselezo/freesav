@@ -39,14 +39,6 @@
     grid-gap: $grid-gap;
   }
 
-  .grid-row {
-    display: grid;
-    grid-gap: $grid-gap;
-    &.--grid-row-summary {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
   // Summary
   .attributes-container {
     .secondary {

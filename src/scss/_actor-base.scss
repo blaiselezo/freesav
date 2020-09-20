@@ -1,5 +1,5 @@
 .swade.sheet.actor {
-  min-width: 630px;
+  min-width: 660px;
   // Profile Image
   .profile-img-container {
     width: 150px;
@@ -389,6 +389,17 @@
           padding: 3px;
         }
       }
+    }
+  }
+
+  .grid-row {
+    display: grid;
+    grid-gap: $grid-gap;
+    &.--grid-row-summary {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    &.--grid-row-npc-summary {
+      grid-template-columns: 40% auto;
     }
   }
 

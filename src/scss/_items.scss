@@ -14,7 +14,6 @@
 
   // Profile Image
   .profile-img-container {
-    position: relative;
     width: 64x;
     max-width: 64px;
     height: 64x;
@@ -24,13 +23,7 @@
       border: none;
     }
     .profile-img {
-      height: inherit;
-      width: inherit;
       object-fit: contain;
-      cursor: pointer;
-    }
-    .fade-in-05 {
-      opacity: 0.5;
     }
   }
 
