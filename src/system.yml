@@ -1,5 +1,6 @@
 ---
 name: swade
+type: system
 title: Savage Worlds Adventure Edition
 description:
   A comprehensive gamesystem for running Savage Worlds Adventure Edition
@@ -8,7 +9,6 @@ version: 0.11.2
 minimumCoreVersion: 0.6.0
 compatibleCoreVersion: 0.6.6
 author: FloRad
-templateVersion: 2
 esmodules:
   - swade.js
 styles:
