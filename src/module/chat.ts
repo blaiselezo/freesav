@@ -77,7 +77,7 @@ export function chatListeners(html: JQuery<HTMLElement>) {
   html.on('click', '.card-header .item-name', (event) => {
     let target = $(event.currentTarget).parents('.item-card');
     let actor = game.actors.get(target.data('actorId')) as SwadeActor;
-    if (actor && (game.user.isGM || actor.hasPerm(game.user, 2))) {
+    if (actor && (game.user.isGM || actor.hasPerm(game.user, 'OBSERVER'))) {
       let desc = target.find('.card-content');
       desc.slideToggle();
     }
