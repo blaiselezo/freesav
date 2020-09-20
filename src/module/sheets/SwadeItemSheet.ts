@@ -83,8 +83,6 @@ export default class SwadeItemSheet extends ItemSheet {
     });
 
     html.find('.action-create').click((ev) => {
-      const actionKey = 'data.actions.additional.'.concat(randomID());
-      console.log(actionKey);
       this.item.update(
         {
           _id: this.item._id,

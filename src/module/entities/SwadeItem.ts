@@ -27,7 +27,7 @@ export default class SwadeItem extends Item {
     super.prepareData();
   }
 
-  rollDamage(options?: IRollOptions) {
+  rollDamage(options: IRollOptions = {}) {
     const itemData = this.data.data;
     const actor = this.actor;
     const actorIsVehicle = actor.data.type === 'vehicle';

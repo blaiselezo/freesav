@@ -458,7 +458,6 @@ export default class SwadeActor extends Actor {
       rollParts.push(itemMod);
     }
     //Additional Mods
-    console.log('options');
     if (options.additionalMods) {
       rollParts = rollParts.concat(options.additionalMods);
     }
