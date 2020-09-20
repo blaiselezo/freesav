@@ -19,7 +19,6 @@ export default class SwadeHooks {
     for (let o of toLocalize) {
       CONFIG.SWADE[o] = Object.entries(CONFIG.SWADE[o]).reduce(
         (obj, e: any) => {
-          console.log(e);
           obj[e[0]] = game.i18n.localize(e[1]);
           return obj;
         },
@@ -116,9 +115,6 @@ export default class SwadeHooks {
         .get('swade.skills')
         .getContent()) as SwadeItem[];
 
-      //TODO Fix this
-      console.log(skillIndex.filter((i) => skillsToAdd.includes(i.data.name)));
-
       actor.createEmbeddedEntity(
         'OwnedItem',
         skillIndex.filter((i) => skillsToAdd.includes(i.data.name)),
@@ -140,7 +136,6 @@ export default class SwadeHooks {
 
     //if the player is not a GM, then don't mark the NPC wildcards
     if (!game.settings.get('swade', 'hideNPCWildcards') || game.user.isGM) {
-      console.log('marking NPC wildcards');
       const npcWildcards = app.entities.filter(
         (a: SwadeActor) => a.isWildcard && !a.isPC,
       ) as SwadeActor[];

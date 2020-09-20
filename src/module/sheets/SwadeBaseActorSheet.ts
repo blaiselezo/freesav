@@ -352,8 +352,6 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       targetPropertyPath,
     );
 
-    console.log(target, targetLabel, targetPropertyValue);
-
     let title = `${game.i18n.localize('SWADE.Ed')} ${
       this.actor.name
     } ${targetLabel}`;

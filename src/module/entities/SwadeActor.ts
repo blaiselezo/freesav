@@ -162,10 +162,8 @@ export default class SwadeActor extends Actor {
     let skillData = getProperty(skill, 'data.data');
 
     if (options.rof > 1) {
-      console.log('repeating');
       rollParts = this._handleRepeatingSKill(skill, options);
     } else {
-      console.log('simple');
       rollParts = this._handleSimpleSkill(skill, options);
     }
 
