@@ -1,12 +1,25 @@
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import SwadeItem from '../entities/SwadeItem';
+import { ItemType } from '../enums/ItemTypeEnum';
 
+/**
+ * @noInheritDoc
+ */
 export default class SwadeItemSheet extends ItemSheet {
+  item: SwadeItem;
+
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 560,
       height: 'auto',
       classes: ['swade', 'sheet', 'item'],
+      tabs: [
+        {
+          navSelector: '.tabs',
+          contentSelector: '.sheet-body',
+          initial: 'summary',
+        },
+      ],
       resizable: true,
     });
   }
@@ -28,7 +41,7 @@ export default class SwadeItemSheet extends ItemSheet {
     let buttons = super._getHeaderButtons();
 
     // Token Configuration
-    const canConfigure = game.user.isGM || this.actor.owner;
+    const canConfigure = game.user.isGM || this.item.owner;
     if (this.options.editable && canConfigure) {
       buttons = [
         {
@@ -68,6 +81,31 @@ export default class SwadeItemSheet extends ItemSheet {
         entity: { type: 'Item', id: this.item.id },
       }).render(true);
     });
+
+    html.find('.action-create').click((ev) => {
+      this.item.update(
+        {
+          _id: this.item._id,
+          ['data.actions.additional.'.concat(randomID())]: {
+            name: 'New Action',
+            type: 'skill',
+          },
+        },
+        {},
+      );
+    });
+    html.find('.action-delete').click((ev) => {
+      const key = ev.currentTarget.dataset.actionKey;
+      this.item.update(
+        {
+          _id: this.item._id,
+          'data.actions.additional': {
+            [`-=${key}`]: null,
+          },
+        },
+        {},
+      );
+    });
   }
 
   /**
@@ -75,7 +113,7 @@ export default class SwadeItemSheet extends ItemSheet {
    * Start with the base item data and extending with additional properties for rendering.
    */
   getData() {
-    const data = super.getData();
+    let data: any = super.getData();
     data.data.isOwned = this.item.isOwned;
     data.config = CONFIG.SWADE;
     const actor = this.item.actor;
@@ -83,17 +121,21 @@ export default class SwadeItemSheet extends ItemSheet {
     if (ownerIsWildcard || !this.item.isOwned) {
       data.data.ownerIsWildcard = true;
     }
-
-    for (let attr of Object.values(data.data.additionalStats)) {
+    let additionalStats = data.data.additionalStats || {};
+    for (let attr of Object.values(additionalStats)) {
       attr['isCheckbox'] = attr['dtype'] === 'Boolean';
     }
-    data['hasAdditionalStatsFields'] =
-      Object.keys(data.data.additionalStats).length > 0;
+    data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
 
     // Check for enabled optional rules
     data['settingrules'] = {
       modSlots: game.settings.get('swade', 'vehicleMods'),
     };
+
+    data['displayTabs'] = [
+      ItemType.Weapon.toString(),
+      ItemType.Power.toString(),
+    ].includes(this.item.type);
     return data;
   }
 }

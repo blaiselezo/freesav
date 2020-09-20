@@ -109,46 +109,62 @@
         {{/if}}
         <div class="status-container">
           <div class="status-item">
-            <input
-              type="checkbox"
-              name="data.status.isShaken"
-              id="data.status.isShaken-{{actor._id}}"
-              {{checked
-              actor.data.status.isShaken}}
-            />
-            <label for="data.status.isShaken-{{actor._id}}"
-              >{{localize "SWADE.Shaken"}}</label
-            >
+            <label class="check-container"
+              >{{localize "SWADE.Shaken"}}
+              <input
+                type="checkbox"
+                name="data.status.isShaken"
+                {{checked
+                actor.data.status.isShaken}}
+              />
+              <span class="checkmark"></span>
+            </label>
           </div>
           <div class="status-item">
-            <input
-              type="checkbox"
-              name="data.status.isDistracted"
-              id="data.status.isDistracted-{{actor._id}}"
-              {{checked
-              actor.data.status.isDistracted}}
-            />
-            <label for="data.status.isDistracted-{{actor._id}}"
-              >{{localize "SWADE.Distr"}}</label
-            >
+            <label class="check-container"
+              >{{localize "SWADE.Distr"}}
+              <input
+                type="checkbox"
+                name="data.status.isDistracted"
+                {{checked
+                actor.data.status.isDistracted}}
+              />
+              <span class="checkmark"></span>
+            </label>
           </div>
           <div class="status-item">
-            <input
-              type="checkbox"
-              name="data.status.isVulnerable"
-              id="data.status.isVulnerable-{{actor._id}}"
-              {{checked
-              actor.data.status.isVulnerable}}
-            />
-            <label for="data.status.isVulnerable-{{actor._id}}"
-              >{{localize "SWADE.Vuln"}}</label
-            >
+            <label class="check-container"
+              >{{localize "SWADE.Vuln"}}
+              <input
+                type="checkbox"
+                name="data.status.isVulnerable"
+                {{checked
+                actor.data.status.isVulnerable}}
+              />
+              <span class="checkmark"></span>
+            </label>
           </div>
         </div>
       </section>
     </div>
   </header>
-  <section class="sheet-body">
-    {{> "systems/swade/templates/actors/partials/npc-summary-tab.html"}}
-  </section>
+
+  {{#if actor.flags.swade.hasArcaneBackground}}
+  <nav class="flexrow tabs" data-group="primary">
+    <a class="item" data-tab="summary">{{localize "SWADE.Summary"}}</a>
+    <a class="item" data-tab="powers">{{localize "SWADE.Pow"}}</a>
+  </nav>
+  {{/if}}
+
+  <main class="sheet-body">
+    {{!-- Summary Tab --}}
+    <section class="tab active" data-group="primary" data-tab="summary">
+      {{> "systems/swade/templates/actors/partials/npc-summary-tab.html"}}
+    </section>
+    {{!-- Powers Tab --}} {{#if actor.flags.swade.hasArcaneBackground}}
+    <section class="tab powers" data-group="primary" data-tab="powers">
+      {{> "systems/swade/templates/actors/partials/powers-tab.html"}}
+    </section>
+    {{/if}}
+  </main>
 </form>

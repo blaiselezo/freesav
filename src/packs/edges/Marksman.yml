@@ -1,0 +1,14 @@
+name: Marksman
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.43</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Seasoned, Athletics d8+ or Shooting d8+'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: oiB4NuoF8sU11s80

@@ -20,30 +20,85 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased v0.11.0]
+## [v0.12.0]
+
+### Added
+
+- Added TypeDoc to the repository and configured two scripts to generate the documentation as either a standard web page or in Markdown format.
+- Added a way to render sheets only after the templaes are fully loaded. this should help with slower connections.
+- Added ability to set a d1 for traits
+- Added toggle for Animal smarts
+- Option to roll the Running Die. Adjust the die the Tweaks. Set a die type and a modifier as necessary. Click _Pace_ on the actor sheet to roll the running die, including dialog, or shift-click to skip the dialog. **Attention** For existing actors you may need to go into the tweaks, set the proper die and then hit _Save Changes_. Actors created after this patch will have a d6 automatically.
+- Added the ability to create chat cards for edges and inventory items. (Thanks to U~Man for that)
+- Added the ability to add a skill and modifiers to a weapon or power
+- Added the ability to define actions on a weapon or item. There are two types of actions; skill and damage, each allowing you to pre-define some custom shortcuts for attacks
+- Additional stats are now present on all items and actors
+- Added the ability for players to spend bennies directly from the player list
+
+### Deprecated
+
+- started the deprecation of the util functions `isIncapacitated` and `setIncapacitationSymbol`. They will be fully removed in v0.13
+- Finished deprecation of `SwadeActor.configureInitiative()`
+
+### Changed
+
+- Upgraded TypeScript to version `3.9.7` (Repo only)
+- Adjusted character/NPC sheet layout a bit
+- Updated the SVG icons so they can be used on the canvas
+- Changed design and makeup of checkboxes as they were causing issues with unlinked actors
+- Changed input type of currency field so it accepts non-numeric inputs
+
+### Fixed
+
+- Fixed a bug where actors of the same name would show up as a wildcard in the actor sidebar if any of them was a wildcard
+- Fixed a small bug which could occasionally cause errors when handling additional stats for entities in compendiums
+
+## [v0.11.3]
+
+### Fixed
+
+- Fixed a bug that would prevent Item or Actor sheets from opening if they hadn't been migrated
+
+## [v0.11.2]
+
+### Fixed
+
+- Fixed a bug that would prevent non-GMs from opening items in the sidebar
+
+## [v0.11.1]
+
+### Fixed
+
+- Fixed a small bug that would allow observers to open the Armor/Parry edit windows
+
+## [v0.11.0]
 
 ### Added
 
 - Added Classification field to Vehicle Sheet
-- Added SwadeActor function `calcToughness` that calculates the toughness and then returns the value as a number
+- Added `calcToughness` function to `SwadeActor` class, that calculates the toughness and then returns the value as a number
 - Added auto-calculation to toughness if armor is changed or something about the vigor die is changed.
-- Added `isWildcard` getter to `SwadeActor`
+- Added `isWildcard` getter to `SwadeActor` class
 - Added Group Rolls for NPC Extras
 - Added `currentShots` property to `weapons`. Addjusted sheets accordingly
 - Added Setting Configurator in the Settings
 - Added Capability to create custom stats.
   - To use custom stats, create them in the Setting Configurator, then enable them in the Actor/Item Tweaks
   - These custom stats are available on the following sheets: Character, NPC, Weapon, Armor, Shield, Gear
-  - **Attention**: Due to a quirk in Foundry's update logic I recommend you replace any tokens that don't have their token data not linked on the map with new ones from the sidebar.
+  - **Attention**: Due to a quirk in Foundry's update logic I recommend you only edit unlinked actors in the sidebar and then replace existing tokens that exist on the map with new ones from the side bar
+- Added ability to automatically calculate toughness, including armor. This is determined by a toggle in the Actor Tweaks and does not work for Vehicles. The Toughness input field is not editable while automatic toughness calculation is active.
+- Added Powers Tab back into NPC Sheets
+- On character sheets, added quantity notation to most inventory entries
+- Added Initiative capability to `vehicle` type actors. Please keep in mind that Conviction extension does not work at this time. It's heavily recommended that you only add the Operator to the Combat Tracker if you use the Conviction setting rule.
 
 ### Changed
 
 - Parry and Pace fields now accept non-numerical inputs
-- Toughness Field is now disabled since it's being automatically calculated.
 - Power sheet now acceptsnon-numerical input for Power Points
 - NPC Hindrances now only show the Major keyword, no longer Minor
-- German localization: Shortened `Bewegungsdweite` to `Bewegung`
+- Updated german localization (thanks to KarstenW for that one)
 - Changed size of status tickbox container from `100px` to `120px` to allow for longer words
+- Re-enabled the Arcane Background toggle on Edges, when they are owned
 
 ### Deprecated
 
@@ -52,6 +107,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Removed
 
 - Removed Status icon two-way binding
+- Removed Notes column for misc. Items in the character sheet inventory
+- Removed Conviction Refresh message as there is no reliable way to get the current active combatant at the top of a round
 
 ### Fixed
 

@@ -7,17 +7,17 @@
         <span>{{localize "SWADE.Details"}}</span>
       </header>
       <div class="form-group">
-        <input
-          type="checkbox"
-          name="data.equipped"
-          id="data.equipped-{{item._id}}"
-          {{checked
-          item.data.equipped}}
-          data-dtype="Boolean"
-        />
-        <label for="data.equipped-{{item._id}}"
-          >{{localize "SWADE.Equipped"}}</label
-        >
+        <label class="check-container"
+          >{{localize "SWADE.Equipped"}}
+          <input
+            type="checkbox"
+            name="data.equipped"
+            {{checked
+            item.data.equipped}}
+            data-dtype="Boolean"
+          />
+          <span class="checkmark"></span>
+        </label>
       </div>
       <div class="form-group">
         <label for="data.armor">{{localize "SWADE.Armor"}}</label>
@@ -91,50 +91,58 @@
       <div>
         <div class="flexrow">
           <div class="form-group">
-            <input
-              type="checkbox"
-              name="data.locations.head"
-              id="data.locations.head"
-              {{checked
-              item.data.locations.head}}
-              data-dtype="Boolean"
-            />
-            <label for="data.locations.head">{{localize "SWADE.Head"}}</label>
+            <label class="check-container"
+              >{{localize "SWADE.Head"}}
+              <input
+                type="checkbox"
+                name="data.locations.head"
+                {{checked
+                item.data.locations.head}}
+                data-dtype="Boolean"
+              />
+              <span class="checkmark"></span>
+            </label>
           </div>
           <div class="form-group">
-            <input
-              type="checkbox"
-              name="data.locations.torso"
-              id="data.locations.torso"
-              {{checked
-              item.data.locations.torso}}
-              data-dtype="Boolean"
-            />
-            <label for="data.locations.torso">{{localize "SWADE.Torso"}}</label>
+            <label class="check-container"
+              >{{localize "SWADE.Torso"}}
+              <input
+                type="checkbox"
+                name="data.locations.torso"
+                {{checked
+                item.data.locations.torso}}
+                data-dtype="Boolean"
+              />
+              <span class="checkmark"></span>
+            </label>
           </div>
         </div>
         <div class="flexrow">
           <div class="form-group">
-            <input
-              type="checkbox"
-              name="data.locations.arms"
-              id="data.locations.arms"
-              {{checked
-              item.data.locations.arms}}
-              data-dtype="Boolean"
-            />
-            <label for="data.locations.arms">{{localize "SWADE.Arms"}}</label>
+            <label class="check-container"
+              >{{localize "SWADE.Arms"}}
+              <input
+                type="checkbox"
+                name="data.locations.arms"
+                {{checked
+                item.data.locations.arms}}
+                data-dtype="Boolean"
+              />
+              <span class="checkmark"></span>
+            </label>
           </div>
           <div class="form-group">
-            <input
-              type="checkbox"
-              name="data.locations.legs"
-              id="data.locations.legs"
-              {{checked
-              item.data.locations.legs}}
-              data-dtype="Boolean"
-            />
-            <label for="data.locations.legs">{{localize "SWADE.Legs"}}</label>
+            <label class="check-container"
+              >{{localize "SWADE.Legs"}}
+              <input
+                type="checkbox"
+                name="data.locations.legs"
+                {{checked
+                item.data.locations.legs}}
+                data-dtype="Boolean"
+              />
+              <span class="checkmark"></span>
+            </label>
           </div>
         </div>
       </div>

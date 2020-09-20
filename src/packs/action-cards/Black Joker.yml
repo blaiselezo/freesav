@@ -1,0 +1,12 @@
+name: Black Joker
+permission:
+  default: 0
+  XGltUb0dWlJLkvbE: 3
+flags:
+  swade:
+    cardValue: 99
+    suitValue: 99
+    isJoker: true
+content: '&#127183;'
+img: systems/swade/assets/pokerDeck/black_joker.svg
+_id: PAa2OWq9MhVW18zp

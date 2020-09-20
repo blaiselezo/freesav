@@ -1,0 +1,14 @@
+name: Master Tactician
+permission:
+  default: 0
+type: edge
+data:
+  description: <p>See SWADE p.45</p>
+  notes: ''
+  isArcaneBackground: false
+  requirements:
+    value: 'Veteran, Tactician'
+sort: 100001
+flags: {}
+img: systems/swade/assets/icons/edge.svg
+_id: gVsfVKyC2Lia6aT0

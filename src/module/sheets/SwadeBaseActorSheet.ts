@@ -4,18 +4,36 @@ import SwadeActor from '../entities/SwadeActor';
 import SwadeItem from '../entities/SwadeItem';
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import * as chat from '../chat';
-
+import { SwadeDice } from '../dice';
+/**
+ * @noInheritDoc
+ */
 export default class SwadeBaseActorSheet extends ActorSheet {
   actor: SwadeActor;
 
   activateListeners(html: JQuery): void {
     super.activateListeners(html);
 
+    // Everything below here is only needed if the sheet is editable
+    if (!this.options.editable) return;
+
     // Update Item
     html.find('.item-edit').click((ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.getOwnedItem(li.data('itemId'));
       item.sheet.render(true);
+    });
+
+    html.find('.item .item-controls .item-show').click(async (ev) => {
+      const li = $(ev.currentTarget).parents('.item');
+      const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
+      item.show();
+    });
+
+    html.find('.item .item-name .item-image').click(async (ev) => {
+      const li = $(ev.currentTarget).parents('.item');
+      const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
+      item.show();
     });
 
     // Edit armor modifier
@@ -83,16 +101,136 @@ export default class SwadeBaseActorSheet extends ActorSheet {
         chat.createConvictionEndMessage(this.actor as SwadeActor);
       }
     });
+
+    // Filter power list
+    html.find('.arcane-tabs .arcane').click((ev: any) => {
+      const arcane = ev.currentTarget.dataset.arcane;
+      html.find('.arcane-tabs .arcane').removeClass('active');
+      ev.currentTarget.classList.add('active');
+      this._filterPowers(html, arcane);
+    });
+
+    //Running Die
+    html.find('.running-die').click((ev) => {
+      const runningDie = getProperty(
+        this.actor.data,
+        'data.stats.speed.runningDie',
+      );
+      const runningMod = getProperty(
+        this.actor.data,
+        'data.stats.speed.runningMod',
+      );
+      const pace = getProperty(this.actor.data, 'data.stats.speed.value');
+      let rollFormula = `1d${runningDie}`;
+
+      rollFormula = rollFormula.concat(`+${pace}`);
+
+      if (runningMod && runningMod !== 0) {
+        if (runningMod > 0) {
+          rollFormula = rollFormula.concat(`+${runningMod}`);
+        } else {
+          rollFormula = rollFormula.concat(`-${runningMod}`);
+        }
+      }
+
+      if (ev.shiftKey) {
+        new Roll(rollFormula).roll().toMessage({
+          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+          flavor: game.i18n.localize('SWADE.Running'),
+        });
+      } else {
+        SwadeDice.Roll({
+          parts: [rollFormula],
+          speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+          flavor: game.i18n.localize('SWADE.Running'),
+          title: game.i18n.localize('SWADE.Running'),
+          actor: this.actor,
+          allowGroup: false,
+        });
+      }
+    });
   }
 
   getData() {
     let data: any = super.getData();
 
-    for (let attr of Object.values(data.data.additionalStats)) {
+    data.config = CONFIG.SWADE;
+    if (this.actor.data.type !== 'vehicle') {
+      data.itemsByType = {};
+      for (const item of data.items) {
+        let list = data.itemsByType[item.type];
+        if (!list) {
+          list = [];
+          data.itemsByType[item.type] = list;
+        }
+        list.push(item);
+      }
+
+      data.data.owned.gear = this._checkNull(data.itemsByType['gear']);
+      data.data.owned.weapons = this._checkNull(data.itemsByType['weapon']);
+      data.data.owned.armors = this._checkNull(data.itemsByType['armor']);
+      data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
+      data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
+      data.data.owned.hindrances = this._checkNull(
+        data.itemsByType['hindrance'],
+      );
+      data.data.owned.skills = this._checkNull(
+        data.itemsByType['skill'],
+      ).sort((a, b) => a.name.localeCompare(b.name));
+      data.data.owned.powers = this._checkNull(data.itemsByType['power']);
+
+      //Checks if an Actor has a Power Egde
+      if (
+        data.data.owned.edges &&
+        data.data.owned.edges.find(
+          (edge) => edge.data.isArcaneBackground == true,
+        )
+      ) {
+        this.actor.setFlag('swade', 'hasArcaneBackground', true);
+        data.data.hasArcaneBackground = true;
+      } else {
+        this.actor.setFlag('swade', 'hasArcaneBackground', false);
+        data.data.hasArcaneBackground = false;
+      }
+
+      if (this.actor.data.type === 'character') {
+        data.powersOptions =
+          'class="powers-list resizable" data-base-size="560"';
+      } else {
+        data.powersOptions = 'class="powers-list"';
+      }
+
+      // Display the current active arcane
+      data.activeArcane = this.options.activeArcane;
+      data.arcanes = [];
+      const powers = data.itemsByType['power'];
+      if (powers) {
+        powers.forEach((pow: any) => {
+          if (!pow.data.arcane) return;
+          if (
+            data.arcanes.find((el: string) => el == pow.data.arcane) ===
+            undefined
+          ) {
+            data.arcanes.push(pow.data.arcane);
+            // Add powerpoints data relevant to the detected arcane
+            if (data.data.powerPoints[pow.data.arcane] === undefined) {
+              data.data.powerPoints[pow.data.arcane] = { value: 0, max: 0 };
+            }
+          }
+        });
+      }
+
+      // Check for enabled optional rules
+      data.data.settingrules = {
+        conviction: game.settings.get('swade', 'enableConviction'),
+      };
+    }
+
+    let additionalStats = data.data.additionalStats || {};
+    for (let attr of Object.values(additionalStats)) {
       attr['isCheckbox'] = attr['dtype'] === 'Boolean';
     }
-    data.hasAdditionalStatsFields =
-      Object.keys(data.data.additionalStats).length > 0;
+    data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
     return data;
   }
 
@@ -170,7 +308,8 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   protected async _onResize(event: any) {
     super._onResize(event);
     let html = $(event.path);
-    let resizable = html.find('.resizable');
+    const selector = `#${this.id} .resizable`;
+    let resizable = html.find(selector);
     resizable.each((_, el) => {
       let heightDelta =
         (this.position.height as number) - (this.options.height as number);
@@ -212,8 +351,6 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       targetPropertyPath,
     );
 
-    console.log(target, targetLabel, targetPropertyValue);
-
     let title = `${game.i18n.localize('SWADE.Ed')} ${
       this.actor.name
     } ${targetLabel}`;
@@ -228,7 +365,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       content: template,
       buttons: {
         set: {
-          icon: '<i class="fas fa-shield"></i>',
+          icon: '<i class="fas fa-check"></i>',
           label: game.i18n.localize('SWADE.Ok'),
           callback: (html: JQuery) => {
             let mod = html.find('input[name="modifier"]').val();
@@ -254,5 +391,40 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       });
     });
     return retVal;
+  }
+
+  protected _filterPowers(html: JQuery, arcane: string) {
+    this.options.activeArcane = arcane;
+    // Show, hide powers
+    html.find('.power').each((id: number, pow: any) => {
+      if (pow.dataset.arcane == arcane || arcane == 'All') {
+        pow.classList.add('active');
+      } else {
+        pow.classList.remove('active');
+      }
+    });
+    // Show, Hide powerpoints
+    html.find('.power-counter').each((id: number, ct: any) => {
+      if (ct.dataset.arcane == arcane) {
+        ct.classList.add('active');
+      } else {
+        ct.classList.remove('active');
+      }
+    });
+  }
+
+  /** @override */
+  render(force?: boolean, options?: RenderOptions) {
+    if (!CONFIG.SWADE.templates.templatesPreloaded) {
+      console.log('Templates not loaded yet, waiting');
+      CONFIG.SWADE.templates.preloadPromise.then(() => {
+        console.log('Templates loaded, rendering');
+        CONFIG.SWADE.templates.templatesPreloaded = true;
+        super.render(force, options);
+      });
+    } else {
+      console.log('Templates loaded, rendering');
+      return super.render(force, options);
+    }
   }
 }

@@ -54,11 +54,6 @@ export default class SwadeEntityTweaks extends FormApplication {
     data['isCharacter'] = this.object.data.type === 'character';
     data['isNPC'] = this.object.data.type === 'npc';
     data['isVehicle'] = this.object.data.type === 'vehicle';
-    data['shouldDisplayInit'] =
-      this.object.data.type === 'character' ||
-      this.object.data.type === 'npc' ||
-      (this.object.data.type === 'vehicle' &&
-        game.settings.get('swade', 'vehicleEdges'));
     return data;
   }
 
@@ -78,10 +73,13 @@ export default class SwadeEntityTweaks extends FormApplication {
   async _updateObject(event, formData: any) {
     event.preventDefault();
     let expandedFormData = expandObject(formData);
-    let newAdditionalStats = this._handleAdditionalStats(expandedFormData);
 
     //recombine the formdata
-    setProperty(expandedFormData, 'data.additionalStats', newAdditionalStats);
+    setProperty(
+      expandedFormData,
+      'data.additionalStats',
+      this._handleAdditionalStats(expandedFormData),
+    );
     //flatten formdata
     let flattenedFormData = flattenObject(expandedFormData);
     // Update the actor
@@ -102,10 +100,8 @@ export default class SwadeEntityTweaks extends FormApplication {
   }
 
   private _handleAdditionalStats(expandedFormData: any): any {
-    let formFields = expandedFormData['data']['additionalStats'];
-    if (!formFields) {
-      return {};
-    }
+    let formFields =
+      getProperty(expandedFormData, 'data.additionalStats') || {};
     const prototypeFields = this._getAppropriateSettingFields();
     let newFields = duplicate(
       getProperty(this.object.data, 'data.additionalStats'),

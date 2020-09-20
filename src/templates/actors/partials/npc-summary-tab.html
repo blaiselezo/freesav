@@ -1,4 +1,4 @@
-<section class="flexrow attributes-container">
+<section class="flexrow grid-row --grid-row-npc-summary attributes-container">
   <div class="attributes secondary">
     <header class="header-field">
       <span>{{ localize "SWADE.Derived" }}</span>
@@ -15,7 +15,9 @@
         />
       </div>
       <div class="attribute flex2">
-        <div class="attribute-label">{{localize "SWADE.Pace"}}</div>
+        <a class="running-die" title="{{localize 'SWADE.RollRun'}}"
+          ><div class="attribute-label">{{localize "SWADE.Pace"}}</div></a
+        >
         <input
           id="pace"
           name="data.stats.speed.value"
@@ -74,7 +76,7 @@
   {{> "systems/swade/templates/actors/partials/attributes.html"}}
 </section>
 <div class="flexrow">
-  <div>
+  <div class="left-panel">
     {{!-- Left panel --}}
     <section class="gear skills">
       <header class="header-field flexrow">
@@ -150,27 +152,7 @@
     </section>
   </div>
   <div>
-    {{!-- Right panel --}} {{#if actor.flags.swade.hasArcaneBackground}}
-    <section class="gear powers">
-      <header class="header-field flexrow">
-        <div>
-          <span>{{localize "SWADE.Pow"}}</span>
-        </div>
-        <div class="header-field-add">
-          <a class="item-create" data-type="power"
-            ><i class="fa fa-plus"></i
-          ></a>
-        </div>
-      </header>
-      <div class="quickaccess-list">
-        <ol class="gear-list power-list">
-          {{#each data.owned.powers}} {{>
-          "systems/swade/templates/actors/partials/powers-card.html"
-          owner=../owner}} {{/each}}
-        </ol>
-      </div>
-    </section>
-    {{/if}}
+    {{!-- Right panel --}}
     <section class="gear">
       <header class="header-field flexrow">
         <div>
@@ -209,11 +191,9 @@
       <header class="header-field flexrow">
         <span>{{localize "SWADE.Desc"}}</span>
       </header>
-      <div>
-        {{editor content=data.details.biography.value
-        target="data.details.biography.value" button=true owner=owner
-        editable=editable}}
-      </div>
+      {{editor content=data.details.biography.value
+      target="data.details.biography.value" button=true owner=owner
+      editable=editable}}
     </section>
   </div>
 </div>

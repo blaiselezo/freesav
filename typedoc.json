@@ -1,0 +1,9 @@
+{
+  "mode": "file",
+  "out": "docs",
+  "exclude": "src/assets/*",
+  "includeDeclarations": false,
+  "excludeExternals": true,
+  "ignoreCompilerErrors": true,
+  "disableSources": true
+}

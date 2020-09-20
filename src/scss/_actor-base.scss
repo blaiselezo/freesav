@@ -1,4 +1,5 @@
 .swade.sheet.actor {
+  min-width: 660px;
   // Profile Image
   .profile-img-container {
     width: 150px;
@@ -118,6 +119,7 @@
     flex-basis: 120px;
     display: flex;
     flex-direction: column;
+    text-align: left;
     .status-item {
       padding: 4px;
     }
@@ -214,14 +216,18 @@
     }
 
     .attributes {
-      padding: 2px;
+      //padding: 2px;
       //Attributes
       .attributes-list {
         margin-top: 4px;
         .attribute {
+          margin: 0 2px;
           .attribute-label {
+            margin: 0px 2px 3px 3px;
             text-align: center;
             font-weight: bold;
+            border-bottom: solid #444 2px;
+            margin-bottom: 2px;
           }
           .toughness-block {
             display: flex;
@@ -260,7 +266,8 @@
           }
           input {
             text-align: center;
-            margin: 0 3px;
+            margin: 0;
+            width: 100%;
             height: 28px;
             @extend %standalone-input-field;
           }
@@ -304,8 +311,8 @@
             .item-image {
               height: 25px;
               flex-grow: 0;
-              background-size: contain;
               flex-basis: 25px;
+              @extend %item-background-image;
             }
           }
           .card-content {
@@ -326,9 +333,25 @@
       }
     }
 
-    //Summary
+    .left-panel {
+      flex-basis: 250px;
+      flex-grow: 0;
+      max-width: 288px;
+    }
+
+    // Summary
+    .attributes-container {
+      .attributes {
+        margin: 5px 0;
+      }
+      .secondary {
+        flex-grow: 0;
+        flex-basis: 250px;
+      }
+    }
+
     .skills {
-      padding: 2px;
+      padding: $small-spacing;
       // Skills
       .skills-list {
         list-style: none;
@@ -338,6 +361,7 @@
     }
 
     .gear {
+      padding: $small-spacing;
       .gear-list {
         list-style: none;
         margin: 0;
@@ -365,6 +389,17 @@
           padding: 3px;
         }
       }
+    }
+  }
+
+  .grid-row {
+    display: grid;
+    grid-gap: $grid-gap;
+    &.--grid-row-summary {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    &.--grid-row-npc-summary {
+      grid-template-columns: 40% auto;
     }
   }
 
@@ -397,6 +432,7 @@
         .item-name {
           text-align: left;
           text-indent: 8px;
+          flex-grow: 5;
         }
         font-weight: 300;
         font-size: 12px;
@@ -422,48 +458,63 @@
             background: rgba(0, 0, 0, 0.1);
           }
         }
-        .item-equipped {
-          grid-area: item-equipped;
-          justify-self: center;
-        }
         .item-name {
-          text-indent: 8px;
-          text-align: left;
-          height: 30px;
-          margin: 0;
           line-height: 30px;
+          height: 30px;
+        }
+      }
+      .item-equipped {
+        grid-area: item-equipped;
+        justify-self: center;
+      }
+      .item-image {
+        flex-basis: 30px;
+        height: 28px;
+        margin: 2px;
+        flex-grow: 0;
+        cursor: pointer;
+        @extend %item-background-image;
+      }
+      .item-name {
+        text-indent: 8px;
+        text-align: left;
+        margin: 0;
+        flex-grow: 5;
+
+        h4 {
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-align: left;
+          max-width: 180px;
+        }
+        &:hover {
           .item-image {
-            flex-basis: 30px;
-            margin: 2px;
-            flex-grow: 0;
-            background-size: contain;
-            background-repeat: no-repeat;
+            background-image: url(/icons/svg/d20-grey.svg) !important;
           }
-          h4 {
-            margin: 0;
-          }
+        }
+        .item-image:hover {
+          background-image: url(/icons/svg/d20-black.svg) !important;
         }
       }
       .field-longer {
         text-indent: 8px;
         text-align: left;
-        flex-basis: 120px;
-        flex-grow: 0;
+        flex-grow: 3;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
       .field-long {
-        flex-basis: 65px;
-        flex-grow: 0;
+        flex-grow: 2;
         text-align: center;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
       .field-short {
-        flex-basis: 45px;
-        flex-grow: 0;
+        flex-grow: 1;
         text-align: center;
         white-space: nowrap;
         overflow: hidden;
@@ -476,6 +527,111 @@
         margin-right: 4px;
         .item-unequipped {
           color: rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+  }
+
+  // Powers
+  .powers {
+    margin: 3px 0;
+    .header-field-add {
+      line-height: 24px;
+      margin-left: 5px;
+    }
+    .arcane-tabs {
+      display: flex;
+      .arcane {
+        cursor: pointer;
+        width: 90px;
+        height: 24px;
+        text-align: center;
+        line-height: 22px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background: $lapis-lazuli;
+        &:hover,
+        &:focus {
+          background: $charcoal;
+          text-shadow: none;
+        }
+        &.active {
+          background: $charcoal;
+        }
+      }
+    }
+    .power-counter {
+      display: none;
+      input {
+        width: 40px;
+        color: white;
+        font-weight: bold;
+        background: rgba(255, 255, 255, 0.2);
+      }
+      &.active {
+        display: block;
+      }
+    }
+    .powers-list {
+      display: flex;
+      flex-direction: row;
+      align-content: start;
+      flex-wrap: wrap;
+      overflow: auto;
+      .power {
+        display: none;
+        margin: 2px;
+        flex-grow: 0;
+        flex-basis: calc(50% - 4px);
+        height: 250px;
+        border: $decorative-line;
+        border-top-left-radius: 4px;
+        border-radius: 2px;
+        &.active {
+          display: block;
+        }
+        .power-header {
+          background: rgba(0, 0, 0, 0.05);
+          border-bottom: $decorative-line;
+          h4 {
+            margin: 0;
+            padding: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+          .item-image {
+            flex-grow: 0;
+            flex-basis: 25px;
+            @extend %item-background-image;
+          }
+          .item-controls {
+            padding: 5px;
+            flex-grow: 0;
+            flex-wrap: nowrap;
+            color: black;
+            a + a {
+              margin-left: 5px;
+            }
+            .item-unequipped {
+              color: rgba(0, 0, 0, 0.2);
+            }
+          }
+        }
+        .power-content {
+          margin: 0 3px;
+          line-height: 24px;
+          padding: 5px;
+          height: calc(100% - 30px);
+          overflow-y: auto;
+          .power-details {
+            font-size: 12px;
+            line-height: 12px;
+            font-weight: 600;
+            text-indent: 5px;
+          }
+          .power-description {
+            line-height: 15px;
+          }
         }
       }
     }

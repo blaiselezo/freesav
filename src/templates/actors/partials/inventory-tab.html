@@ -12,7 +12,7 @@
       type="text"
       value="{{data.details.currency}}"
       placeholder="{{localize 'SWADE.Currency'}}"
-      data-dtype="Number"
+      data-dtype="String"
     />
   </div>
 </div>
@@ -20,10 +20,12 @@
   {{!-- This is melee weapons only --}}
   <div class="items-section">
     <li class="item-titles flexrow melee-columns">
-      <div class="item-name">{{localize "SWADE.MeleeWeapons"}}</div>
+      <div class="item-name">
+        {{localize "SWADE.MeleeWeapons"}}
+      </div>
       <div class="field-long">{{localize "SWADE.Dmg"}}</div>
       <div class="field-short">{{localize "SWADE.Ap"}}</div>
-      <div class="field-longer">{{localize "SWADE.Notes"}}</div>
+      <div class="field-long">{{localize "SWADE.Notes"}}</div>
       <div class="field-short">{{localize "SWADE.Weight"}}</div>
       <div class="item-controls">
         <a class="item-create" data-type="weapon"
@@ -40,8 +42,11 @@
             class="item-image"
             style="background-image: url({{item.img}})"
           ></div>
-          <h4 title="{{item.name}}">
-            {{item.name~}}
+          <h4
+            title="{{item.name~}} {{#if (gte item.data.quantity 2)}} (x{{item.data.quantity}}) {{/if}}"
+          >
+            {{item.name~}} {{#if (gte item.data.quantity 2)}}
+            (x{{item.data.quantity}}) {{/if}}
           </h4>
         </div>
         <div class="field-long">
@@ -52,7 +57,7 @@
         <div class="field-short">
           {{item.data.ap}}
         </div>
-        <div class="field-longer" title="{{item.data.notes}}">
+        <div class="field-long" title="{{item.data.notes}}">
           {{item.data.notes}}
         </div>
         <div class="field-short">
@@ -84,7 +89,9 @@
   <div class="items-section">
     {{!-- This is ranged weapons only --}}
     <li class="item-titles flexrow">
-      <div class="item-name">{{localize "SWADE.RangedWeapons"}}</div>
+      <div class="item-name">
+        {{localize "SWADE.RangedWeapons"}}
+      </div>
       <div class="field-long">{{localize "SWADE.Rng"}}</div>
       <div class="field-long">{{localize "SWADE.Dmg"}}</div>
       <div class="field-short">{{localize "SWADE.Ap"}}</div>
@@ -110,8 +117,11 @@
             class="item-image"
             style="background-image: url({{item.img}})"
           ></div>
-          <h4 title="{{item.name}}">
-            {{item.name~}}
+          <h4
+            title="{{item.name~}} {{#if (gte item.data.quantity 2)}} (x{{item.data.quantity}}) {{/if}}"
+          >
+            {{item.name~}} {{#if (gte item.data.quantity 2)}}
+            (x{{item.data.quantity}}) {{/if}}
           </h4>
         </div>
         <div class="field-long">
@@ -128,7 +138,10 @@
         <div class="field-short">
           {{item.data.rof}}
         </div>
-        <div class="field-long">
+        <div
+          class="field-long"
+          title="{{item.data.currentShots}} / {{item.data.shots}}"
+        >
           {{item.data.currentShots}} / {{item.data.shots}}
         </div>
         <div class="field-short">
@@ -158,7 +171,7 @@
       <div class="item-name">{{localize "SWADE.Armors"}}</div>
       <div class="field-short">{{localize "SWADE.Armor"}}</div>
       <div class="field-short">{{localize "SWADE.MinStrShort"}}</div>
-      <div class="field-longer">{{localize "SWADE.Notes"}}</div>
+      <div class="field-long">{{localize "SWADE.Notes"}}</div>
       <div class="field-short">{{localize "SWADE.Weight"}}</div>
       <div class="item-controls">
         <a class="item-create" data-type="armor"
@@ -175,8 +188,11 @@
             class="item-image"
             style="background-image: url({{item.img}})"
           ></div>
-          <h4 title="{{item.name}}">
-            {{item.name~}}
+          <h4
+            title="{{item.name~}} {{#if (gte item.data.quantity 2)}} (x{{item.data.quantity}}) {{/if}}"
+          >
+            {{item.name~}} {{#if (gte item.data.quantity 2)}}
+            (x{{item.data.quantity}}) {{/if}}
           </h4>
         </div>
         <div class="field-short">
@@ -185,7 +201,7 @@
         <div class="field-short">
           {{item.data.minStr}}
         </div>
-        <div class="field-longer" title="{{item.data.notes}}">
+        <div class="field-long" title="{{item.data.notes}}">
           {{item.data.notes}}
         </div>
         <div class="field-short">
@@ -232,8 +248,11 @@
             class="item-image"
             style="background-image: url({{item.img}})"
           ></div>
-          <h4 title="{{item.name}}">
-            {{item.name~}}
+          <h4
+            title="{{item.name~}} {{#if (gte item.data.quantity 2)}} (x{{item.data.quantity}}) {{/if}}"
+          >
+            {{item.name~}} {{#if (gte item.data.quantity 2)}}
+            (x{{item.data.quantity}}) {{/if}}
           </h4>
         </div>
         <div class="field-short">
@@ -271,7 +290,6 @@
     {{!-- This is misc items only --}}
     <li class="item-titles flexrow">
       <div class="item-name">{{localize "SWADE.Misc"}}</div>
-      <div class="field-longer">{{localize "SWADE.Notes"}}</div>
       <div class="field-short">{{localize "SWADE.Quantity"}}</div>
       <div class="field-short">{{localize "SWADE.Weight"}}</div>
       <div class="item-controls">
@@ -293,9 +311,6 @@
             {{item.name~}}
           </h4>
         </div>
-        <div class="field-longer" title="{{item.data.notes}}">
-          {{item.data.notes}}
-        </div>
         <div class="field-short">
           {{item.data.quantity}}
         </div>
@@ -303,7 +318,13 @@
           {{item.data.weight}}
         </div>
         <div class="item-controls">
-          {{#if ../owner}}
+          {{#if ../owner}} {{#if item.data.equippable}}
+          <a
+            class="item-control item-toggle {{#unless item.data.equipped}}item-unequipped{{/unless}}"
+            title='{{localize "SWADE.Equipped"}}'
+            ><i class="fas fa-tshirt"></i
+          ></a>
+          {{/if}}
           <a class="item-control item-edit" title='{{localize "SWADE.Ed"}}'
             ><i class="fas fa-edit"></i
           ></a>
