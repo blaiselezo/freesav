@@ -48,6 +48,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Fixed a bug where actors of the same name would show up as a wildcard in the actor sidebar if any of them was a wildcard
+- Fixed a small bug which could occasionally cause errors when handling additional stats for entities in compendiums
 
 ## [v0.11.3]
 
