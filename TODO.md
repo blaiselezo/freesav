@@ -6,4 +6,4 @@
 - [x] Check Sheet item creation dialogs
 - [x] Fix roll dialogs
 - [x] Fix item creation dialog
-- [ ] Fix macro creation drag handler
+- [x] Fix macro creation drag handler

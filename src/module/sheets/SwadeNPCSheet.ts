@@ -67,7 +67,7 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
 
     // Drag events for macros.
     if (this.actor.owner) {
-      let handler = (ev) => this._onDragItemStart(ev);
+      let handler = (ev) => this._onDragStart(ev);
       // Find all items on the character sheet.
       html.find('span.item.skill').each((i, li) => {
         // Add draggable attribute and dragstart listener.
