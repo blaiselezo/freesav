@@ -440,11 +440,12 @@ export default class SwadeActor extends Actor {
   private _handleSimpleSkill(skill: SwadeItem, options: IRollOptions) {
     let skillData = getProperty(skill, 'data.data');
     let exp = '';
-    let wildDie = `1d${skillData['wild-die'].sides}x=`;
+    let wildDie = `1d${skillData['wild-die'].sides}x=[Wild Die]`;
+    let skillDie = `1d${skillData.die.sides}x=[${skill.name}]`;
     if (this.isWildcard) {
-      exp = `{1d${skillData.die.sides}x=, ${wildDie}}kh`;
+      exp = `{${skillDie}, ${wildDie}}kh`;
     } else {
-      exp = `1d${skillData.die.sides}x=`;
+      exp = skillDie;
     }
 
     //Check and add Modifiers
