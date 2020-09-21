@@ -20,6 +20,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Added support for chat message popout for item chat cards
+
+### Fixed
+
+- Fix roll dialogs
+- Fix item creation dialog
+- Fix macro creation drag handler
+
 ## [v0.12.0]
 
 ### Added
