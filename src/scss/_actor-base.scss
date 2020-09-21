@@ -223,7 +223,6 @@
         .attribute {
           margin: 0 2px;
           .attribute-label {
-            margin: 0px 2px 3px 3px;
             text-align: center;
             font-weight: bold;
             border-bottom: solid #444 2px;
@@ -336,7 +335,6 @@
     .left-panel {
       flex-basis: 250px;
       flex-grow: 0;
-      max-width: 288px;
     }
 
     // Summary
@@ -351,7 +349,6 @@
     }
 
     .skills {
-      padding: $small-spacing;
       // Skills
       .skills-list {
         list-style: none;
@@ -361,7 +358,6 @@
     }
 
     .gear {
-      padding: $small-spacing;
       .gear-list {
         list-style: none;
         margin: 0;
@@ -395,11 +391,9 @@
   .grid-row {
     display: grid;
     grid-gap: $grid-gap;
-    &.--grid-row-summary {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    &.--grid-row-summary,
     &.--grid-row-npc-summary {
-      grid-template-columns: 40% auto;
+      grid-template-columns: 55% 45%;
     }
   }
 
