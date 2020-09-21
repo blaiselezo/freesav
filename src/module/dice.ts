@@ -32,7 +32,6 @@ export class SwadeDice {
         label: game.i18n.localize('SWADE.Roll'),
         icon: '<i class="fas fa-dice"></i>',
         callback: (html) => {
-          console.log();
           roll = this._handleRoll({
             form: html,
             rollParts: filtered,
