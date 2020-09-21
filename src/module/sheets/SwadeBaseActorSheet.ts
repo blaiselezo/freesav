@@ -267,11 +267,12 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   protected async _chooseItemType(
     choices = ['weapon', 'armor', 'shield', 'gear'],
   ) {
-    let templateData = { upper: '', lower: '', types: choices },
+    let templateData = { upper: '', lower: '', types: choices, hasTypes: true },
       dlg = await renderTemplate(
         'templates/sidebar/entity-create.html',
         templateData,
       );
+    console.log(dlg);
     //Create Dialog window
     return new Promise((resolve) => {
       new Dialog({

@@ -5,5 +5,5 @@
 - [ ] Add basics for active effects API
 - [x] Check Sheet item creation dialogs
 - [x] Fix roll dialogs
-- [ ] Fix item creation dialog
+- [x] Fix item creation dialog
 - [ ] Fix macro creation drag handler
