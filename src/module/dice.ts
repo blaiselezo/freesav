@@ -32,8 +32,9 @@ export class SwadeDice {
         label: game.i18n.localize('SWADE.Roll'),
         icon: '<i class="fas fa-dice"></i>',
         callback: (html) => {
+          console.log();
           roll = this._handleRoll({
-            form: html[0].children[0],
+            form: html,
             rollParts: filtered,
             speaker,
             flavor,
@@ -46,7 +47,7 @@ export class SwadeDice {
         icon: '<i class="far fa-plus-square"></i>',
         callback: (html) => {
           roll = this._handleRoll({
-            form: html[0].children[0],
+            form: html,
             raise: true,
             actor: actor,
             rollParts: filtered,
@@ -98,7 +99,7 @@ export class SwadeDice {
     let rollMode = game.settings.get('core', 'rollMode');
     let groupRoll = actor && raise;
     // Optionally include a situational bonus
-    if (form !== null) data['bonus'] = form.bonus.value;
+    if (form !== null) data['bonus'] = form.find('#bonus').val();
     if (data['bonus']) rollParts.push(data['bonus']);
     if (groupRoll && allowGroup) {
       rollParts[0] = `{${rollParts[0]}, 1d6x=}kh`;
@@ -109,7 +110,7 @@ export class SwadeDice {
 
     const roll = new Roll(rollParts.join(''), data).roll();
     // Convert the roll to a chat message and return the roll
-    rollMode = form ? form.rollMode.value : rollMode;
+    rollMode = form ? form.find('#rollMode').val() : rollMode;
     roll.toMessage(
       {
         speaker: speaker,

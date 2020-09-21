@@ -4,3 +4,5 @@
 - [ ] Adjust new Dice api to label dice and possibly make explosion syntax look better
 - [ ] Add basics for active effects API
 - [ ] Check Sheet item creation dialogs
+- [x] Fix roll dialogs
+- [ ] Fix item creation dialog
