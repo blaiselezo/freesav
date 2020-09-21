@@ -221,6 +221,7 @@ export default class SwadeItem extends Item {
         token: this.actor.token,
         alias: this.actor.name,
       },
+      flags: { 'core.canPopout': true },
     };
 
     // Toggle default roll mode
