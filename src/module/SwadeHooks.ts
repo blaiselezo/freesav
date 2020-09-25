@@ -78,16 +78,7 @@ export default class SwadeHooks {
     options: any,
     userId: string,
   ) {
-    //Set default additional Stats
-    const statsPrototypes = game.settings.get('swade', 'settingFields').actor;
-    let additionalStats = {};
-    for (let key in statsPrototypes) {
-      if (statsPrototypes[key].autoEnable) {
-        additionalStats[key] = statsPrototypes[key];
-        additionalStats[key].useField = true;
-      }
-    }
-    createData.data = { additionalStats };
+    //NO-OP
   }
 
   public static async onCreateActor(

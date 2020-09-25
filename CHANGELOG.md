@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.12.1]
+
+### Fixed
+
+- Fixed a bug which would overwrite actor creation data
+
 ## [v0.12.0]
 
 ### Added
