@@ -42,6 +42,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Fix item creation dialog
 - Fix macro creation drag handler
 - Fixed a small bug which could lead to the wrong modifiers on a running die
+- Fixed dice roll formatting in the chatlog
 
 ## [v0.12.0]
 
