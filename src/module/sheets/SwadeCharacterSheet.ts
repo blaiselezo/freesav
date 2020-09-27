@@ -99,7 +99,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     }
 
     // Delete Item
-    html.find('.item-delete').click(async (ev) => {
+    html.find('.item-delete').on('click', async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const ownedItem = this.actor.getOwnedItem(li.data('itemId'));
       const template = `
@@ -123,7 +123,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     });
 
     //Show Description of an Edge/Hindrance
-    html.find('.edge').click((ev) => {
+    html.find('.edge').on('click', (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item: any = this.actor.getOwnedItem(li.data('itemId')).data;
       html.find('#edge-description')[0].innerHTML = TextEditor.enrichHTML(
@@ -133,7 +133,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     });
 
     //Toggle Equipment
-    html.find('.item-toggle').click(async (ev) => {
+    html.find('.item-toggle').on('click', async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
       await this.actor.updateOwnedItem(
@@ -147,7 +147,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     });
 
     //Toggle Equipmnent Card collapsible
-    html.find('.gear-card .card-header .item-name').click((ev) => {
+    html.find('.gear-card .card-header .item-name').on('click', (ev) => {
       const card = $(ev.currentTarget).parents('.gear-card');
       const content = card.find('.card-content');
       content.toggleClass('collapsed');
@@ -159,23 +159,23 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
     });
 
     //Input Synchronization
-    html.find('.wound-input').keyup((ev) => {
+    html.find('.wound-input').on('keyup', (ev) => {
       this.actor.update({ 'data.wounds.value': $(ev.currentTarget).val() });
     });
 
-    html.find('.fatigue-input').keyup((ev) => {
+    html.find('.fatigue-input').on('keyup', (ev) => {
       this.actor.update({ 'data.fatigue.value': $(ev.currentTarget).val() });
     });
 
     // Roll Skill
-    html.find('.skill-label a').click((event) => {
+    html.find('.skill-label a').on('click', (event) => {
       let element = event.currentTarget as Element;
       let item = element.parentElement.parentElement.dataset.itemId;
       this.actor.rollSkill(item, { event: event });
     });
 
     // Add new object
-    html.find('.item-create').click(async (event) => {
+    html.find('.item-create').on('click', async (event) => {
       event.preventDefault();
       const header = event.currentTarget;
       let type = header.dataset.type;

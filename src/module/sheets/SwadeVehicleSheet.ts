@@ -51,7 +51,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     }
 
     //Toggle Equipmnent Card collapsible
-    html.find('.gear-card .card-header .item-name').click((ev) => {
+    html.find('.gear-card .card-header .item-name').on('click', (ev) => {
       const card = $(ev.currentTarget).parents('.gear-card');
       const content = card.find('.card-content');
       content.toggleClass('collapsed');
@@ -63,7 +63,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     });
 
     // Delete Item
-    html.find('.item-delete').click(async (ev) => {
+    html.find('.item-delete').on('click', async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const ownedItem = this.actor.getOwnedItem(li.data('itemId'));
       const template = `
@@ -87,7 +87,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     });
 
     // Add new object
-    html.find('.item-create').click(async (event) => {
+    html.find('.item-create').on('click', async (event) => {
       event.preventDefault();
       const header = event.currentTarget;
       let type = header.dataset.type;
@@ -131,24 +131,24 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     });
 
     //Reset the Driver
-    html.find('.reset-driver').click(async () => {
+    html.find('.reset-driver').on('click', async () => {
       await this._resetDriver();
     });
 
     // Open driver sheet
-    html.find('.driver-img').click(async () => {
+    html.find('.driver-img').on('click', async () => {
       await this._openDriverSheet();
     });
 
     //Input Synchronization
-    html.find('.wound-input').keyup((ev) => {
+    html.find('.wound-input').on('keyup', (ev) => {
       this.actor.update({ 'data.wounds.value': $(ev.currentTarget).val() });
     });
 
     //Maneuver Check
     html
       .find('#maneuverCheck')
-      .click((event) => this.actor.rollManeuverCheck(event));
+      .on('click', (event) => this.actor.rollManeuverCheck(event));
   }
 
   getData(): ActorSheetData {

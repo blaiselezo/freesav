@@ -26,11 +26,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added support for chat message popout for item chat cards
 
+### Changed
+
+- Changed all the listeners on the sheet classes to no longer use depreceated jQuery Methods
+
 ### Fixed
 
 - Fix roll dialogs
 - Fix item creation dialog
 - Fix macro creation drag handler
+- Fixed a small bug which could lead to the wrong modifiers on a running die
 
 ## [v0.12.0]
 
