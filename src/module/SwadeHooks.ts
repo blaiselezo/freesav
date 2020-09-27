@@ -9,6 +9,10 @@ import { ActorType } from './enums/ActorTypeEnum';
 import { ItemType } from './enums/ItemTypeEnum';
 import { TemplatePreset } from './enums/TemplatePresetEnum';
 import { SwadeSetup } from './setup/setupHandler';
+import SwadeBaseActorSheet from './sheets/SwadeBaseActorSheet';
+import SwadeCharacterSheet from './sheets/SwadeCharacterSheet';
+import SwadeNPCSheet from './sheets/SwadeNPCSheet';
+import SwadeVehicleSheet from './sheets/SwadeVehicleSheet';
 import { createActionCardTable, createSwadeMacro } from './util';
 
 export default class SwadeHooks {
@@ -152,21 +156,25 @@ export default class SwadeHooks {
     data: any,
   ) {
     //Mark Wildcards in the compendium
-    if (app.metadata.entity !== 'Actor') {
+    if (app.entity === 'Actor') {
       const content = await app.getContent();
       const wildcards = content.filter(
         (entity: SwadeActor) => entity.isWildcard,
       );
-      const names: string[] = wildcards.map((e) => e.data.name);
+      const ids: string[] = wildcards.map((e) => e._id);
 
-      const found = html.find('.entry-name');
+      const found = html.find('.directory-item');
       found.each((i, el) => {
-        const name = names.find((name) => name === el.innerText);
-        if (!name) {
-          return;
+        let entryId = el.dataset.entryId;
+        if (ids.includes(entryId)) {
+          const entityName = el.children[1];
+          entityName.children[0].insertAdjacentHTML(
+            'afterbegin',
+            '<img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">',
+          );
         }
-        el.innerHTML = `<a><img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">${name}</a>`;
       });
+      return false;
     }
   }
 
@@ -207,16 +215,16 @@ export default class SwadeHooks {
     html: JQuery<HTMLElement>,
     data: any,
   ) {
-    const currentCombat = data.combats[data.currentIndex - 1];
+    const currentCombat = data.combats[data.currentIndex - 1] || data.combat;
     html.find('.combatant').each((i, el) => {
       const combId = el.getAttribute('data-combatant-id');
       const combatant = currentCombat.data.combatants.find(
         (c) => c._id == combId,
       );
       const initdiv = el.getElementsByClassName('token-initiative');
-      if (combatant.hasRolled) {
+      if (combatant.initiative && combatant.initiative !== 0) {
         initdiv[0].innerHTML = `<span class="initiative">${combatant.flags.swade.cardString}</span>`;
-      } else if (!data.user.isGM) {
+      } else if (!game.user.isGM) {
         initdiv[0].innerHTML = '';
       }
     });
@@ -266,7 +274,7 @@ export default class SwadeHooks {
     });
 
     const resetComs = combat.combatants.map((c) => {
-      c.initiative = null;
+      c.initiative = 0;
       c.hasRolled = false;
       c.flags.swade.cardValue = null;
       c.flags.swade.suitValue = null;
@@ -450,5 +458,17 @@ export default class SwadeHooks {
       },
     ];
     measure.tools = measure.tools.concat(newButtons);
+  }
+
+  public static onDropActorSheetData(
+    actor: SwadeActor,
+    sheet: SwadeCharacterSheet | SwadeNPCSheet | SwadeVehicleSheet,
+    data: any,
+  ) {
+    if (data.type === 'Actor' && actor.data.type === ActorType.Vehicle) {
+      let vehicleSheet = sheet as SwadeVehicleSheet;
+      vehicleSheet.setDriver(data.id);
+      return false;
+    }
   }
 }

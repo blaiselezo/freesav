@@ -198,7 +198,6 @@ Item:
     minStr: ''
     shots: 0
     currentShots: 0
-    skill: ''
   armor:
     templates:
       - itemDescription

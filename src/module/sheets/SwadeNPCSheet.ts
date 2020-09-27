@@ -67,7 +67,7 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
 
     // Drag events for macros.
     if (this.actor.owner) {
-      let handler = (ev) => this._onDragItemStart(ev);
+      let handler = (ev) => this._onDragStart(ev);
       // Find all items on the character sheet.
       html.find('span.item.skill').each((i, li) => {
         // Add draggable attribute and dragstart listener.
@@ -89,28 +89,28 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    // Update Item via reigh-click
-    html.find('.contextmenu-edit').contextmenu((ev) => {
+    // Update Item via right-click
+    html.find('.contextmenu-edit').on('contextmenu', (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.getOwnedItem(li.data('itemId'));
       item.sheet.render(true);
     });
 
     // Delete Item
-    html.find('.item-delete').click((ev) => {
+    html.find('.item-delete').on('click', (ev) => {
       const li = $(ev.currentTarget).parents('.gear-card');
       this.actor.deleteOwnedItem(li.data('itemId'));
     });
 
     // Roll Skill
-    html.find('.skill.item a').click((event) => {
+    html.find('.skill.item a').on('click', (event) => {
       let element = event.currentTarget as Element;
       let item = element.parentElement.dataset.itemId;
       this.actor.rollSkill(item, { event: event });
     });
 
     // Add new object
-    html.find('.item-create').click(async (event) => {
+    html.find('.item-create').on('click', async (event) => {
       event.preventDefault();
       const header = event.currentTarget;
       let type = header.dataset.type;
@@ -148,7 +148,7 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
     });
 
     //Toggle Equipmnent Card collapsible
-    html.find('.gear-card .card-header .item-name').click((ev) => {
+    html.find('.gear-card .card-header .item-name').on('click', (ev) => {
       const card = $(ev.currentTarget).parents('.gear-card');
       const content = card.find('.card-content');
       content.toggleClass('collapsed');
@@ -160,7 +160,7 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
     });
 
     //Toggle Conviction
-    html.find('.conviction-toggle').click(async () => {
+    html.find('.conviction-toggle').on('click', async () => {
       const current = this.actor.data.data['details']['conviction'][
         'value'
       ] as number;

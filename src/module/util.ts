@@ -1,41 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 import SwadeItem from './entities/SwadeItem';
-// eslint-disable-next-line no-unused-vars
-import SwadeActor from './entities/SwadeActor';
-
-/**
- * @deprecated
- * @param wounds
- * @param fatigue
- */
-export function isIncapacitated(wounds, fatigue): boolean {
-  if (
-    (parseInt(wounds.max) > 0 &&
-      parseInt(wounds.value) >= parseInt(wounds.max)) ||
-    parseInt(fatigue.value) >= parseInt(fatigue.max)
-  ) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * @deprecated
- * @param data
- * @param html
- */
-export function setIncapacitationSymbol(
-  data: any,
-  html: JQuery<HTMLElement>,
-): void {
-  const container = html.find('.incap-container');
-  const isIncap = isIncapacitated(data.data.wounds, data.data.fatigue);
-  if (isIncap) {
-    container.css('opacity', '1');
-  } else {
-    container.css('opacity', '0');
-  }
-}
 
 export async function createActionCardTable(
   rebuild?: boolean,

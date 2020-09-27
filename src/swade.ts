@@ -188,3 +188,11 @@ Hooks.on('getUserContextOptions', (html: JQuery, context: any[]) =>
 Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) =>
   SwadeHooks.onGetSceneControlButtons(sceneControlButtons),
 );
+
+Hooks.on('renderChatPopout', (app, html: JQuery<HTMLElement>, data) =>
+  SwadeHooks.onRenderChatLog(app, html, data),
+);
+
+Hooks.on('dropActorSheetData', (actor, sheet, data) =>
+  SwadeHooks.onDropActorSheetData(actor, sheet, data),
+);

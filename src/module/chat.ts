@@ -27,37 +27,34 @@ export async function formatRoll(
       dice: true,
     });
   };
-
   let roll = JSON.parse(data.message.roll);
   let chatData = { dice: [], modifiers: [] };
-  for (let i = 0; i < roll.parts.length; i++) {
-    if (roll.parts[i].class == 'DicePool') {
+
+  //don't format older messages anymore
+  if (roll.parts) return;
+  for (let i = 0; i < roll.terms.length; i++) {
+    if (roll.terms[i].class === 'DicePool') {
       // Format the dice pools
-      let pool = roll.parts[i].rolls;
+      let pool = roll.terms[i].rolls;
       let faces = 0;
       // Compute dice from the pool
       pool.forEach((pooldie: any) => {
-        faces = pooldie.dice[0].faces;
+        faces = pooldie.terms[0].faces;
         pushDice(chatData, pooldie.total, faces);
       });
-    } else if (
-      typeof roll.parts[i] == 'string' &&
-      roll.parts[i].substring(0, 2) == '_d'
-    ) {
+    } else if (roll.terms[i].class === 'Die') {
       // Grab the right dice
-      let idice = parseInt(roll.parts[i].substring(2));
-      let faces = roll.dice[idice].faces;
+      let faces = roll.terms[i].faces;
       let totalDice = 0;
-      roll.dice[idice].rolls.forEach((roll: any) => {
-        totalDice += roll.roll;
+      roll.terms[i].results.forEach((result) => {
+        totalDice += result.result;
       });
-      faces = roll.dice[idice].faces;
       pushDice(chatData, totalDice, faces);
     } else {
-      if (roll.parts[i]) {
+      if (roll.terms[i]) {
         chatData.dice.push({
           img: null,
-          result: roll.parts[i],
+          result: roll.terms[i],
           color: 'black',
           dice: false,
         });

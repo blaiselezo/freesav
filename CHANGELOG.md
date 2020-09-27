@@ -20,6 +20,32 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Added support for chat message popout for item chat cards
+- Added more localization to Item Chat Cards
+
+### Changed
+
+- Changed all the listeners on the sheet classes to no longer use depreceated jQuery Methods
+- Updated the Vehicle sheet driver logic to use the new `dropActorSheetData` drop
+
+### Deprecated
+
+- Finished the deprecation of the util functions `isIncapacitated` and `setIncapacitationSymbol`
+
+### Fixed
+
+- Fix roll dialogs
+- Fix item creation dialog
+- Fix macro creation drag handler
+- Fixed a small bug which could lead to the wrong modifiers on a running die
+- Fixed dice roll formatting in the chatlog
+- Fixed initiative display
+- Fixed a bug which would cause an infinite update cycle when opening actor sheets from a compendium
+
 ## [v0.12.1]
 
 ### Fixed
