@@ -391,7 +391,7 @@ export default class SwadeActor extends Actor {
    * Helper Function for Vehicle Actors, to roll Maneuevering checks
    */
   rollManeuverCheck(event: any = null) {
-    let driverId = getProperty(this.data, 'data.driver.id');
+    let driverId = getProperty(this.data, 'data.driver.id') as string;
     let driver = game.actors.get(driverId) as SwadeActor;
 
     //Return early if no driver was found
