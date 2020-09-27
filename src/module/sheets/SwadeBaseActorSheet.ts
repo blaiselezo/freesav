@@ -9,7 +9,9 @@ import { SwadeDice } from '../dice';
  * @noInheritDoc
  */
 export default class SwadeBaseActorSheet extends ActorSheet {
-  actor: SwadeActor;
+  get actor(): SwadeActor {
+    return super.actor as SwadeActor;
+  }
 
   activateListeners(html: JQuery): void {
     super.activateListeners(html);
@@ -263,16 +265,23 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   protected async _chooseItemType(
     choices = ['weapon', 'armor', 'shield', 'gear'],
   ) {
-    let templateData = { upper: '', lower: '', types: choices, hasTypes: true },
+    let templateData = {
+        types: choices,
+        hasTypes: true,
+        name: game.i18n
+          .localize('ENTITY.New')
+          .replace('{entity}', game.i18n.localize('ENTITY.Item')),
+      },
       dlg = await renderTemplate(
         'templates/sidebar/entity-create.html',
         templateData,
       );
-    console.log(dlg);
     //Create Dialog window
     return new Promise((resolve) => {
       new Dialog({
-        title: '',
+        title: game.i18n
+          .localize('ENTITY.Create')
+          .replace('{entity}', game.i18n.localize('ENTITY.Item')),
         content: dlg,
         buttons: {
           ok: {
