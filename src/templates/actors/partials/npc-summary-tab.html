@@ -1,4 +1,5 @@
 <section class="flexrow grid-row --grid-row-npc-summary attributes-container">
+  {{> "systems/swade/templates/actors/partials/attributes.html"}}
   <div class="attributes secondary">
     <header class="header-field">
       <span>{{ localize "SWADE.Derived" }}</span>
@@ -73,9 +74,8 @@
       </div>
     </div>
   </div>
-  {{> "systems/swade/templates/actors/partials/attributes.html"}}
 </section>
-<div class="flexrow">
+<div class="flexrow grid-row --grid-row-npc-summary">
   <div class="left-panel">
     {{!-- Left panel --}}
     <section class="gear skills">
