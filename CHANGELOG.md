@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 - Changed all the listeners on the sheet classes to no longer use depreceated jQuery Methods
+- Updated the Vehicle sheet driver logic to use the new `dropActorSheetData` drop
 
 ### Fixed
 

@@ -192,3 +192,7 @@ Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) =>
 Hooks.on('renderChatPopout', (app, html: JQuery<HTMLElement>, data) =>
   SwadeHooks.onRenderChatLog(app, html, data),
 );
+
+Hooks.on('dropActorSheetData', (actor, sheet, data) =>
+  SwadeHooks.onDropActorSheetData(actor, sheet, data),
+);

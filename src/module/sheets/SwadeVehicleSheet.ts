@@ -217,18 +217,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     ];
   }
 
-  async _onDrop(event): Promise<any> {
-    let data;
-    try {
-      data = JSON.parse(event.dataTransfer.getData('text/plain'));
-      if (data.type === 'Actor') await this._setDriver(data.id);
-    } catch (err) {
-      return;
-    }
-    return super._onDrop(event);
-  }
-
-  private async _setDriver(id: string): Promise<void> {
+  async setDriver(id: string): Promise<void> {
     let driver = game.actors.get(id);
     if (driver && driver.data.type !== 'vehicle') {
       await this.actor.update({ 'data.driver.id': id });

@@ -9,6 +9,10 @@ import { ActorType } from './enums/ActorTypeEnum';
 import { ItemType } from './enums/ItemTypeEnum';
 import { TemplatePreset } from './enums/TemplatePresetEnum';
 import { SwadeSetup } from './setup/setupHandler';
+import SwadeBaseActorSheet from './sheets/SwadeBaseActorSheet';
+import SwadeCharacterSheet from './sheets/SwadeCharacterSheet';
+import SwadeNPCSheet from './sheets/SwadeNPCSheet';
+import SwadeVehicleSheet from './sheets/SwadeVehicleSheet';
 import { createActionCardTable, createSwadeMacro } from './util';
 
 export default class SwadeHooks {
@@ -459,5 +463,17 @@ export default class SwadeHooks {
       },
     ];
     measure.tools = measure.tools.concat(newButtons);
+  }
+
+  public static onDropActorSheetData(
+    actor: SwadeActor,
+    sheet: SwadeCharacterSheet | SwadeNPCSheet | SwadeVehicleSheet,
+    data: any,
+  ) {
+    if (data.type === 'Actor' && actor.data.type === ActorType.Vehicle) {
+      let vehicleSheet = sheet as SwadeVehicleSheet;
+      vehicleSheet.setDriver(data.id);
+    }
+    return false;
   }
 }
