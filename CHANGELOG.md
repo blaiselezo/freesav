@@ -44,6 +44,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Fixed a small bug which could lead to the wrong modifiers on a running die
 - Fixed dice roll formatting in the chatlog
 
+## [v0.12.1]
+
+### Fixed
+
+- Fixed a bug which would overwrite actor creation data
+
 ## [v0.12.0]
 
 ### Added
