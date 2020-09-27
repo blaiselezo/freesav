@@ -156,21 +156,25 @@ export default class SwadeHooks {
     data: any,
   ) {
     //Mark Wildcards in the compendium
-    if (app.metadata.entity !== 'Actor') {
+    if (app.entity === 'Actor') {
       const content = await app.getContent();
       const wildcards = content.filter(
         (entity: SwadeActor) => entity.isWildcard,
       );
-      const names: string[] = wildcards.map((e) => e.data.name);
+      const ids: string[] = wildcards.map((e) => e._id);
 
-      const found = html.find('.entry-name');
+      const found = html.find('.directory-item');
       found.each((i, el) => {
-        const name = names.find((name) => name === el.innerText);
-        if (!name) {
-          return;
+        let entryId = el.dataset.entryId;
+        if (ids.includes(entryId)) {
+          const entityName = el.children[1];
+          entityName.children[0].insertAdjacentHTML(
+            'afterbegin',
+            '<img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">',
+          );
         }
-        el.innerHTML = `<a><img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">${name}</a>`;
       });
+      return false;
     }
   }
 
