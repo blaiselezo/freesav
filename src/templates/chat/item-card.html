@@ -18,7 +18,7 @@
       <i class="fas fa-bullseye"></i>{{skill}}</button
     >{{/if}} {{#if hasDamage}}<button data-action="damage">
       <i class="fas fa-tint"></i> {{data.damage}}</button
-    >{{/if}}
+    >{{/if}} {{#if data.hasAdditionalActions}}
     <hr />
     {{#each data.actions as |attr key|}} {{#if (eq attr.type "skill")}}
     <button data-action="{{attr.key}}">
@@ -29,7 +29,7 @@
     <button data-action="{{attr.key}}">
       <i class="fas fa-tint"></i> {{attr.name}}
     </button>
-    {{/if}} {{/each}}
+    {{/if}} {{/each}} {{/if}}
   </div>
 
   <footer class="card-footer">

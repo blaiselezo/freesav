@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added support for chat message popout for item chat cards
+- Added more localization to Item Chat Cards
 
 ### Changed
 
