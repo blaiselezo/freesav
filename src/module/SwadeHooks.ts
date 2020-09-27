@@ -470,10 +470,11 @@ export default class SwadeHooks {
     sheet: SwadeCharacterSheet | SwadeNPCSheet | SwadeVehicleSheet,
     data: any,
   ) {
+    console.log(actor, sheet, data);
     if (data.type === 'Actor' && actor.data.type === ActorType.Vehicle) {
       let vehicleSheet = sheet as SwadeVehicleSheet;
       vehicleSheet.setDriver(data.id);
+      return false;
     }
-    return false;
   }
 }
