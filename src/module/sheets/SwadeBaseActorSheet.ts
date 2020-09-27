@@ -178,18 +178,10 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
       //Checks if an Actor has a Power Egde
-      if (
-        data.data.owned.edges &&
-        data.data.owned.edges.find(
-          (edge) => edge.data.isArcaneBackground == true,
-        )
-      ) {
-        this.actor.setFlag('swade', 'hasArcaneBackground', true);
-        data.data.hasArcaneBackground = true;
-      } else {
-        this.actor.setFlag('swade', 'hasArcaneBackground', false);
-        data.data.hasArcaneBackground = false;
-      }
+      data.hasArcaneBackground =
+        typeof data.data.owned.edges.find(
+          (edge) => edge.data.isArcaneBackground === true,
+        ) !== 'undefined';
 
       if (this.actor.data.type === 'character') {
         data.powersOptions =

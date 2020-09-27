@@ -44,6 +44,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Fixed a small bug which could lead to the wrong modifiers on a running die
 - Fixed dice roll formatting in the chatlog
 - Fixed initiative display
+- Fixed a bug which would cause an infinite update cycle when opening actor sheets from a compendium
 
 ## [v0.12.1]
 
