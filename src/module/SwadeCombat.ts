@@ -94,7 +94,8 @@ export async function rollInitiative(
     };
     combatantUpdates.push({
       _id: c._id,
-      initiative: 0,
+      initiative:
+        card.getFlag('swade', 'suitValue') + card.getFlag('swade', 'cardValue'),
       'flags.swade': newflags,
     });
 

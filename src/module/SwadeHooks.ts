@@ -211,16 +211,17 @@ export default class SwadeHooks {
     html: JQuery<HTMLElement>,
     data: any,
   ) {
-    const currentCombat = data.combats[data.currentIndex - 1];
+    const currentCombat = data.combats[data.currentIndex - 1] || data.combat;
     html.find('.combatant').each((i, el) => {
       const combId = el.getAttribute('data-combatant-id');
       const combatant = currentCombat.data.combatants.find(
         (c) => c._id == combId,
       );
       const initdiv = el.getElementsByClassName('token-initiative');
-      if (combatant.hasRolled) {
+      console.log(combatant);
+      if (combatant.initiative && combatant.initiative !== 0) {
         initdiv[0].innerHTML = `<span class="initiative">${combatant.flags.swade.cardString}</span>`;
-      } else if (!data.user.isGM) {
+      } else if (!game.user.isGM) {
         initdiv[0].innerHTML = '';
       }
     });
@@ -270,7 +271,7 @@ export default class SwadeHooks {
     });
 
     const resetComs = combat.combatants.map((c) => {
-      c.initiative = null;
+      c.initiative = 0;
       c.hasRolled = false;
       c.flags.swade.cardValue = null;
       c.flags.swade.suitValue = null;
