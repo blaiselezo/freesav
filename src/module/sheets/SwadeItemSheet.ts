@@ -6,7 +6,9 @@ import { ItemType } from '../enums/ItemTypeEnum';
  * @noInheritDoc
  */
 export default class SwadeItemSheet extends ItemSheet {
-  item: SwadeItem;
+  get item(): SwadeItem {
+    return super.item as SwadeItem;
+  }
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -74,7 +76,7 @@ export default class SwadeItemSheet extends ItemSheet {
       this.item.actor.deleteOwnedItem(itemId);
     });
 
-    html.find('.profile-img').on('contextmenu', (e) => {
+    html.find('.profile-img').on('contextmenu', () => {
       new ImagePopout(this.item.img, {
         title: this.item.name,
         shareable: true,
@@ -82,7 +84,7 @@ export default class SwadeItemSheet extends ItemSheet {
       }).render(true);
     });
 
-    html.find('.action-create').on('click', (ev) => {
+    html.find('.action-create').on('click', () => {
       this.item.update(
         {
           _id: this.item._id,
