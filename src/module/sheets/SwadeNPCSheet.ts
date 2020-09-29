@@ -243,15 +243,6 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
         }
       });
     }
-    //Checks if an Actor has a Power Egde
-    if (
-      data.data.owned.edges &&
-      data.data.owned.edges.find((edge) => edge.data.isArcaneBackground == true)
-    ) {
-      this.actor.setFlag('swade', 'hasArcaneBackground', true);
-    } else {
-      this.actor.setFlag('swade', 'hasArcaneBackground', false);
-    }
 
     // Check for enabled optional rules
     data.data.settingrules = {
