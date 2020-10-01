@@ -457,7 +457,7 @@ export default class SwadeHooks {
         },
       },
     ];
-    measure.tools = measure.tools.concat(newButtons);
+    measure.tools.splice(measure.tools.length - 1, 0, ...newButtons);
   }
 
   public static onDropActorSheetData(
