@@ -126,13 +126,13 @@ export default class SwadeHooks {
     const found = html.find('.entity-name');
 
     let wildcards = app.entities.filter(
-      (a: SwadeActor) => a.isWildcard && a.isPC,
+      (a: SwadeActor) => a.isWildcard && a.hasPlayerOwner,
     ) as SwadeActor[];
 
     //if the player is not a GM, then don't mark the NPC wildcards
     if (!game.settings.get('swade', 'hideNPCWildcards') || game.user.isGM) {
       const npcWildcards = app.entities.filter(
-        (a: SwadeActor) => a.isWildcard && !a.isPC,
+        (a: SwadeActor) => a.isWildcard && !a.hasPlayerOwner,
       ) as SwadeActor[];
       wildcards = wildcards.concat(npcWildcards);
     }
