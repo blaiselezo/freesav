@@ -466,8 +466,11 @@ export default class SwadeHooks {
     data: any,
   ) {
     if (data.type === 'Actor' && actor.data.type === ActorType.Vehicle) {
-      let vehicleSheet = sheet as SwadeVehicleSheet;
-      vehicleSheet.setDriver(data.id);
+      const vehicleSheet = sheet as SwadeVehicleSheet;
+      const activeTab = getProperty(vehicleSheet, '_tabs')[0].active;
+      if (activeTab === 'summary') {
+        vehicleSheet.setDriver(data.id);
+      }
       return false;
     }
   }
