@@ -2,7 +2,7 @@
 <fieldset style="margin-bottom: 3px;">
   <div style="display: grid; grid-template-columns: repeat(4, 1fr);">
     {{#each cardList as |card| }} {{#unless card.isJoker}}
-    <label>
+    <label title="{{card.name}}">
       <input
         type="radio"
         name="ActionCard"
@@ -22,7 +22,7 @@
     style="display: grid; grid-template-columns: repeat({{numberOfJokers}}, 1fr); justify-items: center;"
   >
     {{#each cardList as |card| }} {{#if card.isJoker}}
-    <label>
+    <label title="{{card.name}}">
       <input
         type="radio"
         name="ActionCard"
