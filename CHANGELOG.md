@@ -20,6 +20,37 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.13]
+
+### Added
+
+- Added support for chat message popout for item chat cards
+- Added more localization to Item Chat Cards
+- Added ability to assign any card to a combatant via combatant config
+- Added image to Action Cards Table. Won't apply to currently existing tables, so either delete the table and re-load the world or set it manually
+
+### Changed
+
+- Changed all the listeners on the sheet classes to no longer use depreceated jQuery Methods
+- Updated the Vehicle sheet driver logic to use the new `dropActorSheetData` drop
+- Updated Combatant sorting in Combat tracker to be in line with the new method structure
+- Moved template presets up in menu so the `Delete All` button is last
+- Replaced all instances of the new depreceated `Actor#isPC` with the new `Entity#hasPlayerOwner` property
+
+### Deprecated
+
+- Finished the deprecation of the util functions `isIncapacitated` and `setIncapacitationSymbol`
+
+### Fixed
+
+- Fix roll dialogs
+- Fix item creation dialog
+- Fix macro creation drag handler
+- Fixed a small bug which could lead to the wrong modifiers on a running die
+- Fixed dice roll formatting in the chatlog
+- Fixed initiative display
+- Fixed a bug which would cause an infinite update cycle when opening actor sheets from a compendium
+
 ## [v0.12.1]
 
 ### Fixed

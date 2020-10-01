@@ -9,6 +9,10 @@ import { ActorType } from './enums/ActorTypeEnum';
 import { ItemType } from './enums/ItemTypeEnum';
 import { TemplatePreset } from './enums/TemplatePresetEnum';
 import { SwadeSetup } from './setup/setupHandler';
+import SwadeBaseActorSheet from './sheets/SwadeBaseActorSheet';
+import SwadeCharacterSheet from './sheets/SwadeCharacterSheet';
+import SwadeNPCSheet from './sheets/SwadeNPCSheet';
+import SwadeVehicleSheet from './sheets/SwadeVehicleSheet';
 import { createActionCardTable, createSwadeMacro } from './util';
 
 export default class SwadeHooks {
@@ -122,13 +126,13 @@ export default class SwadeHooks {
     const found = html.find('.entity-name');
 
     let wildcards = app.entities.filter(
-      (a: SwadeActor) => a.isWildcard && a.isPC,
+      (a: SwadeActor) => a.isWildcard && a.hasPlayerOwner,
     ) as SwadeActor[];
 
     //if the player is not a GM, then don't mark the NPC wildcards
     if (!game.settings.get('swade', 'hideNPCWildcards') || game.user.isGM) {
       const npcWildcards = app.entities.filter(
-        (a: SwadeActor) => a.isWildcard && !a.isPC,
+        (a: SwadeActor) => a.isWildcard && !a.hasPlayerOwner,
       ) as SwadeActor[];
       wildcards = wildcards.concat(npcWildcards);
     }
@@ -152,21 +156,25 @@ export default class SwadeHooks {
     data: any,
   ) {
     //Mark Wildcards in the compendium
-    if (app.metadata.entity !== 'Actor') {
+    if (app.entity === 'Actor') {
       const content = await app.getContent();
       const wildcards = content.filter(
         (entity: SwadeActor) => entity.isWildcard,
       );
-      const names: string[] = wildcards.map((e) => e.data.name);
+      const ids: string[] = wildcards.map((e) => e._id);
 
-      const found = html.find('.entry-name');
+      const found = html.find('.directory-item');
       found.each((i, el) => {
-        const name = names.find((name) => name === el.innerText);
-        if (!name) {
-          return;
+        let entryId = el.dataset.entryId;
+        if (ids.includes(entryId)) {
+          const entityName = el.children[1];
+          entityName.children[0].insertAdjacentHTML(
+            'afterbegin',
+            '<img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">',
+          );
         }
-        el.innerHTML = `<a><img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">${name}</a>`;
       });
+      return false;
     }
   }
 
@@ -207,16 +215,16 @@ export default class SwadeHooks {
     html: JQuery<HTMLElement>,
     data: any,
   ) {
-    const currentCombat = data.combats[data.currentIndex - 1];
+    const currentCombat = data.combats[data.currentIndex - 1] || data.combat;
     html.find('.combatant').each((i, el) => {
       const combId = el.getAttribute('data-combatant-id');
       const combatant = currentCombat.data.combatants.find(
         (c) => c._id == combId,
       );
       const initdiv = el.getElementsByClassName('token-initiative');
-      if (combatant.hasRolled) {
+      if (combatant.initiative && combatant.initiative !== 0) {
         initdiv[0].innerHTML = `<span class="initiative">${combatant.flags.swade.cardString}</span>`;
-      } else if (!data.user.isGM) {
+      } else if (!game.user.isGM) {
         initdiv[0].innerHTML = '';
       }
     });
@@ -266,7 +274,7 @@ export default class SwadeHooks {
     });
 
     const resetComs = combat.combatants.map((c) => {
-      c.initiative = null;
+      c.initiative = 0;
       c.hasRolled = false;
       c.flags.swade.cardValue = null;
       c.flags.swade.suitValue = null;
@@ -449,6 +457,109 @@ export default class SwadeHooks {
         },
       },
     ];
-    measure.tools = measure.tools.concat(newButtons);
+    measure.tools.splice(measure.tools.length - 1, 0, ...newButtons);
+  }
+
+  public static onDropActorSheetData(
+    actor: SwadeActor,
+    sheet: SwadeCharacterSheet | SwadeNPCSheet | SwadeVehicleSheet,
+    data: any,
+  ) {
+    if (data.type === 'Actor' && actor.data.type === ActorType.Vehicle) {
+      const vehicleSheet = sheet as SwadeVehicleSheet;
+      const activeTab = getProperty(vehicleSheet, '_tabs')[0].active;
+      if (activeTab === 'summary') {
+        vehicleSheet.setDriver(data.id);
+      }
+      return false;
+    }
+  }
+
+  public static async onRenderCombatantConfig(
+    app: FormApplication,
+    html: JQuery<HTMLElement>,
+    options: any,
+  ) {
+    // resize the element so it'll fit the new stuff
+    html.css({ height: 'auto' });
+
+    //remove the old initiative input
+    html.find('input[name="initiative"]').parents('div.form-group').remove();
+
+    //grab cards and sort them
+    const cardPack = game.packs.get(
+      game.settings.get('swade', 'cardDeck'),
+    ) as Compendium;
+    let cards = (await cardPack.getContent()).sort((a, b) => {
+      const cardA = a.getFlag('swade', 'cardValue');
+      const cardB = b.getFlag('swade', 'cardValue');
+      let card = cardA - cardB;
+      if (card !== 0) return card;
+      const suitA = a.getFlag('swade', 'suitValue');
+      const suitB = b.getFlag('swade', 'suitValue');
+      let suit = suitA - suitB;
+      return suit;
+    }) as JournalEntry[];
+
+    //prep list of cards for selection
+    let cardTable = game.tables.getName(CONFIG.SWADE.init.cardTable);
+
+    let cardList = [];
+    for (let card of cards) {
+      const cardValue = card.getFlag('swade', 'cardValue') as number;
+      const suitValue = card.getFlag('swade', 'suitValue') as number;
+      const color =
+        suitValue === 2 || suitValue === 3 ? 'color: red;' : 'color: black;';
+      const isDealt =
+        options.object.flags.swade &&
+        options.object.flags.swade.cardValue === cardValue &&
+        options.object.flags.swade.suitValue === suitValue;
+      const isAvailable = cardTable.results.find((r) => r.text === card.name)
+        .drawn
+        ? 'text-decoration: line-through;'
+        : '';
+
+      cardList.push({
+        cardValue,
+        suitValue,
+        isDealt,
+        color,
+        isAvailable,
+        name: card.name,
+        cardString: getProperty(card, 'data.content'),
+        isJoker: card.getFlag('swade', 'isJoker'),
+      });
+    }
+    const numberOfJokers = cards.filter((c) => c.getFlag('swade', 'isJoker'))
+      .length;
+
+    //render and inject new HTML
+    const path = 'systems/swade/templates/combatant-config-cardlist.html';
+    $(await renderTemplate(path, { cardList, numberOfJokers })).insertBefore(
+      `#${options.options.id} footer`,
+    );
+
+    //Attach click event to button which will call the combatant update as we can't easily modify the submit function of the FormApplication
+    html.find('footer button').on('click', (ev) => {
+      const selectedCard = html.find('input[name=ActionCard]:checked');
+      if (selectedCard.length === 0) {
+        return;
+      }
+      const cardValue = selectedCard.data().cardValue as number;
+      const suitValue = selectedCard.data().suitValue as number;
+      const hasJoker = selectedCard.data().isJoker;
+
+      game.combat.updateEmbeddedEntity('Combatant', {
+        _id: options.object._id,
+        initiative: suitValue + cardValue,
+        'flags.swade': {
+          cardValue,
+          suitValue,
+          hasJoker,
+          cardString: selectedCard.val(),
+        },
+      });
+    });
+    return false;
   }
 }

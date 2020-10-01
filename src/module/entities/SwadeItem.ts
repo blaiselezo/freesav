@@ -131,10 +131,12 @@ export default class SwadeItem extends Item {
         props.push(
           data.notes ? `<i class="fas fa-sticky-note"></i> ${data.notes}` : '',
         );
-        props.push(data.locations.head ? 'Head' : '');
-        props.push(data.locations.torso ? 'Torso' : '');
-        props.push(data.locations.arms ? 'Arms' : '');
-        props.push(data.locations.legs ? 'Legs' : '');
+        props.push(data.locations.head ? game.i18n.localize('SWADE.Head') : '');
+        props.push(
+          data.locations.torso ? game.i18n.localize('SWADE.Torso') : '',
+        );
+        props.push(data.locations.arms ? game.i18n.localize('SWADE.Arms') : '');
+        props.push(data.locations.legs ? game.i18n.localize('SWADE.Legs') : '');
 
         break;
       case 'edge':
@@ -147,7 +149,7 @@ export default class SwadeItem extends Item {
           data.arcane,
           `${data.pp}PP`,
           `<i class="fas fa-ruler"></i> ${data.range}`,
-          `<i class='fas fa-tint'></i> ${data.damage}`,
+          data.damage ? `<i class='fas fa-tint'></i> ${data.damage}` : '',
           `<i class='fas fa-hourglass-half'></i> ${data.duration}`,
           data.trapping,
         );
@@ -158,7 +160,9 @@ export default class SwadeItem extends Item {
             ? '<i class="fas fa-tshirt"></i>'
             : '<i class="fas fa-tshirt" style="color:grey"></i>',
         );
-        props.push(`<i class='fas fa-tint'></i> ${data.damage}`);
+        props.push(
+          data.damage ? `<i class='fas fa-tint'></i> ${data.damage}` : '',
+        );
         props.push(`<i class='fas fa-shield-alt'></i> ${data.ap}`);
         props.push(`<i class="fas fa-ruler"></i> ${data.range}`);
         props.push(
@@ -178,8 +182,9 @@ export default class SwadeItem extends Item {
     data.properties = props.filter((p) => !!p);
 
     //Additional actions
-    data.actions = [];
     const actions = getProperty(this.data, 'data.actions.additional');
+    data.hasAdditionalActions = actions && Object.keys(actions).length > 0;
+    data.actions = [];
     for (let action in actions) {
       data.actions.push({
         key: action,
@@ -221,6 +226,7 @@ export default class SwadeItem extends Item {
         token: this.actor.token,
         alias: this.actor.name,
       },
+      flags: { 'core.canPopout': true },
     };
 
     // Toggle default roll mode

@@ -9,7 +9,9 @@ import { SwadeDice } from '../dice';
  * @noInheritDoc
  */
 export default class SwadeBaseActorSheet extends ActorSheet {
-  actor: SwadeActor;
+  get actor(): SwadeActor {
+    return super.actor as SwadeActor;
+  }
 
   activateListeners(html: JQuery): void {
     super.activateListeners(html);
@@ -18,26 +20,26 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     if (!this.options.editable) return;
 
     // Update Item
-    html.find('.item-edit').click((ev) => {
+    html.find('.item-edit').on('click', (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.getOwnedItem(li.data('itemId'));
       item.sheet.render(true);
     });
 
-    html.find('.item .item-controls .item-show').click(async (ev) => {
+    html.find('.item .item-controls .item-show').on('click', async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
       item.show();
     });
 
-    html.find('.item .item-name .item-image').click(async (ev) => {
+    html.find('.item .item-name .item-image').on('click', async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
       item.show();
     });
 
     // Edit armor modifier
-    html.find('.armor-value').click((ev) => {
+    html.find('.armor-value').on('click', (ev) => {
       let target = ev.currentTarget.dataset.target;
       let shouldAutoCalcArmor = getProperty(
         this.actor.data,
@@ -50,14 +52,14 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     });
 
     // Roll attribute
-    html.find('.attribute-label a').click((event) => {
+    html.find('.attribute-label a').on('click', (event) => {
       let element = event.currentTarget as Element;
       let attribute = element.parentElement.parentElement.dataset.attribute;
       this.actor.rollAttribute(attribute, { event: event });
     });
 
     // Roll Damage
-    html.find('.damage-roll').click((event) => {
+    html.find('.damage-roll').on('click', (event) => {
       let element = event.currentTarget as Element;
       let itemId = $(element).parents('[data-item-id]').attr('data-item-id');
       const item = this.actor.getOwnedItem(itemId) as SwadeItem;
@@ -65,17 +67,17 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     });
 
     //Add Benny
-    html.find('.benny-add').click(() => {
+    html.find('.benny-add').on('click', () => {
       this.actor.getBenny();
     });
 
     //Remove Benny
-    html.find('.benny-subtract').click(() => {
+    html.find('.benny-subtract').on('click', () => {
       this.actor.spendBenny();
     });
 
     //Toggle Conviction
-    html.find('.conviction-toggle').click(async () => {
+    html.find('.conviction-toggle').on('click', async () => {
       const current = this.actor.data.data['details']['conviction'][
         'value'
       ] as number;
@@ -103,7 +105,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     });
 
     // Filter power list
-    html.find('.arcane-tabs .arcane').click((ev: any) => {
+    html.find('.arcane-tabs .arcane').on('click', (ev: any) => {
       const arcane = ev.currentTarget.dataset.arcane;
       html.find('.arcane-tabs .arcane').removeClass('active');
       ev.currentTarget.classList.add('active');
@@ -111,7 +113,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     });
 
     //Running Die
-    html.find('.running-die').click((ev) => {
+    html.find('.running-die').on('click', (ev) => {
       const runningDie = getProperty(
         this.actor.data,
         'data.stats.speed.runningDie',
@@ -126,11 +128,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       rollFormula = rollFormula.concat(`+${pace}`);
 
       if (runningMod && runningMod !== 0) {
-        if (runningMod > 0) {
-          rollFormula = rollFormula.concat(`+${runningMod}`);
-        } else {
-          rollFormula = rollFormula.concat(`-${runningMod}`);
-        }
+        rollFormula = rollFormula.concat(runningMod);
       }
 
       if (ev.shiftKey) {
@@ -180,18 +178,10 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       data.data.owned.powers = this._checkNull(data.itemsByType['power']);
 
       //Checks if an Actor has a Power Egde
-      if (
-        data.data.owned.edges &&
-        data.data.owned.edges.find(
-          (edge) => edge.data.isArcaneBackground == true,
-        )
-      ) {
-        this.actor.setFlag('swade', 'hasArcaneBackground', true);
-        data.data.hasArcaneBackground = true;
-      } else {
-        this.actor.setFlag('swade', 'hasArcaneBackground', false);
-        data.data.hasArcaneBackground = false;
-      }
+      data.hasArcaneBackground =
+        typeof data.data.owned.edges.find(
+          (edge) => edge.data.isArcaneBackground === true,
+        ) !== 'undefined';
 
       if (this.actor.data.type === 'character') {
         data.powersOptions =
@@ -267,7 +257,13 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   protected async _chooseItemType(
     choices = ['weapon', 'armor', 'shield', 'gear'],
   ) {
-    let templateData = { upper: '', lower: '', types: choices },
+    let templateData = {
+        types: choices,
+        hasTypes: true,
+        name: game.i18n
+          .localize('ENTITY.New')
+          .replace('{entity}', game.i18n.localize('ENTITY.Item')),
+      },
       dlg = await renderTemplate(
         'templates/sidebar/entity-create.html',
         templateData,
@@ -275,7 +271,9 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     //Create Dialog window
     return new Promise((resolve) => {
       new Dialog({
-        title: '',
+        title: game.i18n
+          .localize('ENTITY.Create')
+          .replace('{entity}', game.i18n.localize('ENTITY.Item')),
         content: dlg,
         buttons: {
           ok: {

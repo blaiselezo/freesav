@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './entities/SwadeActor';
 import * as chat from './chat';
+import { ActorType } from './enums/ActorTypeEnum';
 
 export default class Bennies {
   static async spendEvent(ev: MouseEvent) {
@@ -62,7 +63,8 @@ export default class Bennies {
     }
 
     const npcWildcardsToRefresh = game.actors.filter(
-      (a) => !a.isPC && a.data.type === 'npc' && a.data.data['wildcard'],
+      (a: SwadeActor) =>
+        !a.hasPlayerOwner && a.data.type === ActorType.NPC && a.isWildcard,
     ) as SwadeActor[];
     for (let actor of npcWildcardsToRefresh) {
       await actor.refreshBennies(false);

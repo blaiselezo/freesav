@@ -6,7 +6,9 @@ import { ItemType } from '../enums/ItemTypeEnum';
  * @noInheritDoc
  */
 export default class SwadeItemSheet extends ItemSheet {
-  item: SwadeItem;
+  get item(): SwadeItem {
+    return super.item as SwadeItem;
+  }
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -67,14 +69,14 @@ export default class SwadeItemSheet extends ItemSheet {
     super.activateListeners(html);
 
     // Delete Item from within Sheet. Only really used for Skills, Edges, Hindrances and Powers
-    html.find('.item-delete').click((ev) => {
+    html.find('.item-delete').on('click', (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const itemId = li.data('itemId');
       this.close();
       this.item.actor.deleteOwnedItem(itemId);
     });
 
-    html.find('.profile-img').contextmenu((e) => {
+    html.find('.profile-img').on('contextmenu', () => {
       new ImagePopout(this.item.img, {
         title: this.item.name,
         shareable: true,
@@ -82,7 +84,7 @@ export default class SwadeItemSheet extends ItemSheet {
       }).render(true);
     });
 
-    html.find('.action-create').click((ev) => {
+    html.find('.action-create').on('click', () => {
       this.item.update(
         {
           _id: this.item._id,
@@ -94,7 +96,7 @@ export default class SwadeItemSheet extends ItemSheet {
         {},
       );
     });
-    html.find('.action-delete').click((ev) => {
+    html.find('.action-delete').on('click', (ev) => {
       const key = ev.currentTarget.dataset.actionKey;
       this.item.update(
         {

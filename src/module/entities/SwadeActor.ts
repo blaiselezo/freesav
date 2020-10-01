@@ -391,7 +391,7 @@ export default class SwadeActor extends Actor {
    * Helper Function for Vehicle Actors, to roll Maneuevering checks
    */
   rollManeuverCheck(event: any = null) {
-    let driverId = getProperty(this.data, 'data.driver.id');
+    let driverId = getProperty(this.data, 'data.driver.id') as string;
     let driver = game.actors.get(driverId) as SwadeActor;
 
     //Return early if no driver was found
@@ -440,11 +440,13 @@ export default class SwadeActor extends Actor {
   private _handleSimpleSkill(skill: SwadeItem, options: IRollOptions) {
     let skillData = getProperty(skill, 'data.data');
     let exp = '';
+    // TODO Add dice names once spaces problem has been fixed
     let wildDie = `1d${skillData['wild-die'].sides}x=`;
+    let skillDie = `1d${skillData.die.sides}x=`;
     if (this.isWildcard) {
-      exp = `{1d${skillData.die.sides}x=, ${wildDie}}kh`;
+      exp = `{${skillDie}, ${wildDie}}kh`;
     } else {
-      exp = `1d${skillData.die.sides}x=`;
+      exp = skillDie;
     }
 
     //Check and add Modifiers
@@ -519,7 +521,7 @@ export default class SwadeActor extends Actor {
     if (options.additionalMods) {
       mods = mods.concat(options.additionalMods);
     }
-
+    // TODO Add dice names once spaces problem has been fixed
     for (let i = 0; i < options.rof; i++) {
       skillDice.push(`1d${skillData.die.sides}x=${mods.join('')}`);
     }

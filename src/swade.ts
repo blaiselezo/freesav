@@ -18,7 +18,7 @@ import SwadeCharacterSheet from './module/sheets/SwadeCharacterSheet';
 import SwadeItemSheet from './module/sheets/SwadeItemSheet';
 import SwadeNPCSheet from './module/sheets/SwadeNPCSheet';
 import SwadeVehicleSheet from './module/sheets/SwadeVehicleSheet';
-import { rollInitiative, setupTurns } from './module/SwadeCombat';
+import { rollInitiative, _sortCombatants } from './module/SwadeCombat';
 import SwadeHooks from './module/SwadeHooks';
 import { SwadeSocketHandler } from './module/SwadeSocketHandler';
 import { rollPowerMacro, rollSkillMacro, rollWeaponMacro } from './module/util';
@@ -49,7 +49,7 @@ Hooks.once('init', () => {
 
   //Overwrite method prototypes
   Combat.prototype.rollInitiative = rollInitiative;
-  Combat.prototype.setupTurns = setupTurns;
+  Combat.prototype._sortCombatants = _sortCombatants;
   MeasuredTemplate.prototype._getConeShape = getSwadeConeShape;
 
   // Register custom classes
@@ -187,4 +187,18 @@ Hooks.on('getUserContextOptions', (html: JQuery, context: any[]) =>
 
 Hooks.on('getSceneControlButtons', (sceneControlButtons: any[]) =>
   SwadeHooks.onGetSceneControlButtons(sceneControlButtons),
+);
+
+Hooks.on('renderChatPopout', (app, html: JQuery<HTMLElement>, data) =>
+  SwadeHooks.onRenderChatLog(app, html, data),
+);
+
+Hooks.on('dropActorSheetData', (actor, sheet, data) =>
+  SwadeHooks.onDropActorSheetData(actor, sheet, data),
+);
+
+Hooks.on(
+  'renderCombatantConfig',
+  async (app: FormApplication, html: JQuery<HTMLElement>, options: any) =>
+    SwadeHooks.onRenderCombatantConfig(app, html, options),
 );
