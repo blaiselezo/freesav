@@ -35,6 +35,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Updated the Vehicle sheet driver logic to use the new `dropActorSheetData` drop
 - Updated Combatant sorting in Combat tracker to be in line with the new method structure
 - Moved template presets up in menu so the `Delete All` button is last
+- Replaced all instances of the new depreceated `Actor#isPC` with the new `Entity#hasPlayerOwner` property
 
 ### Deprecated
 
