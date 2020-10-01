@@ -16,6 +16,7 @@ export async function createActionCardTable(
   //If the table doesn't exist, create it
   if (!cardTable) {
     const tableData = {
+      img: 'systems/swade/assets/ui/wildcard.svg',
       name: CONFIG.SWADE.init.cardTable,
       replacement: false,
       displayRoll: false,
