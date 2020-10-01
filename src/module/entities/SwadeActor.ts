@@ -91,10 +91,14 @@ export default class SwadeActor extends Actor {
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
     let exp = '';
+    let attrDie = `1d${abl.die.sides}x=[${game.i18n.localize(label)}]`;
+    let wildDie = `1d${abl['wild-die'].sides}x=[${game.i18n.localize(
+      'SWADE.WildDie',
+    )}]`;
     if (this.isWildcard) {
-      exp = `{1d${abl.die.sides}x=, 1d${abl['wild-die'].sides}x=}kh`;
+      exp = `{${attrDie}, ${wildDie}}kh`;
     } else {
-      exp = `1d${abl.die.sides}x=`;
+      exp = attrDie;
     }
 
     //Check and add Modifiers
@@ -440,9 +444,11 @@ export default class SwadeActor extends Actor {
   private _handleSimpleSkill(skill: SwadeItem, options: IRollOptions) {
     let skillData = getProperty(skill, 'data.data');
     let exp = '';
-    // TODO Add dice names once spaces problem has been fixed
-    let wildDie = `1d${skillData['wild-die'].sides}x=`;
-    let skillDie = `1d${skillData.die.sides}x=`;
+
+    let wildDie = `1d${skillData['wild-die'].sides}x=[${game.i18n.localize(
+      'SWADE.WildDie',
+    )}]`;
+    let skillDie = `1d${skillData.die.sides}x=[${skill.name}]`;
     if (this.isWildcard) {
       exp = `{${skillDie}, ${wildDie}}kh`;
     } else {
@@ -521,12 +527,15 @@ export default class SwadeActor extends Actor {
     if (options.additionalMods) {
       mods = mods.concat(options.additionalMods);
     }
-    // TODO Add dice names once spaces problem has been fixed
     for (let i = 0; i < options.rof; i++) {
-      skillDice.push(`1d${skillData.die.sides}x=${mods.join('')}`);
+      skillDice.push(
+        `1d${skillData.die.sides}x=[${skill.name}]${mods.join('')}`,
+      );
     }
 
-    let wildDie = `1d${skillData['wild-die'].sides}x=`;
+    let wildDie = `1d${skillData['wild-die'].sides}x=[${game.i18n.localize(
+      'SWADE.WildDie',
+    )}]`;
     if (this.isWildcard) {
       exp = `{${skillDice.join(', ')}, ${wildDie}${mods.join('')}}kh${
         options.rof

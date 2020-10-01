@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.14]
+
+### Added
+
+- Added Skill and Attribute names to dice
+
 ## [v0.13]
 
 ### Added
