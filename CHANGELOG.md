@@ -27,11 +27,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added support for chat message popout for item chat cards
 - Added more localization to Item Chat Cards
 - Added ability to assign any card to a combatant via combatant config
+- Added image to Action Cards Table. Won't apply to currently existing tables, so either delete the table and re-load the world or set it manually
 
 ### Changed
 
 - Changed all the listeners on the sheet classes to no longer use depreceated jQuery Methods
 - Updated the Vehicle sheet driver logic to use the new `dropActorSheetData` drop
+- Updated Combatant sorting in Combat tracker to be in line with the new method structure
 
 ### Deprecated
 
