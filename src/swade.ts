@@ -18,7 +18,7 @@ import SwadeCharacterSheet from './module/sheets/SwadeCharacterSheet';
 import SwadeItemSheet from './module/sheets/SwadeItemSheet';
 import SwadeNPCSheet from './module/sheets/SwadeNPCSheet';
 import SwadeVehicleSheet from './module/sheets/SwadeVehicleSheet';
-import { rollInitiative, setupTurns } from './module/SwadeCombat';
+import { rollInitiative, _sortCombatants } from './module/SwadeCombat';
 import SwadeHooks from './module/SwadeHooks';
 import { SwadeSocketHandler } from './module/SwadeSocketHandler';
 import { rollPowerMacro, rollSkillMacro, rollWeaponMacro } from './module/util';
@@ -49,7 +49,7 @@ Hooks.once('init', () => {
 
   //Overwrite method prototypes
   Combat.prototype.rollInitiative = rollInitiative;
-  Combat.prototype.setupTurns = setupTurns;
+  Combat.prototype._sortCombatants = _sortCombatants;
   MeasuredTemplate.prototype._getConeShape = getSwadeConeShape;
 
   // Register custom classes

@@ -156,51 +156,21 @@ export async function rollInitiative(
   return this;
 }
 
-export function setupTurns(): [] {
-  const scene = game.scenes.get(this.data['scene']);
-  const players = game.users.players;
-  // Populate additional data for each combatant
-  let turns = this.data['combatants']
-    .map((c) => {
-      c.token = scene.getEmbeddedEntity('Token', c.tokenId, {
-        strict: false,
-      });
-      if (!c.token) return c;
-      c.actor = Actor.fromToken(new Token(c.token, scene));
-      c.players = c.actor
-        ? players.filter((u) => c.actor.hasPerm(u, 'OWNER'))
-        : [];
-      c.owner = game.user.isGM || (c.actor ? c.actor.owner : false);
-      c.visible = c.owner || !c.hidden;
-      return c;
-    })
-    .filter((c) => c.token);
-  // Sort turns into initiative order: (1) Card Value, (2) Card Suit, (3) Token Name, (4) Token ID
-  turns = turns.sort((a, b) => {
-    if (a.flags.swade && b.flags.swade) {
-      const cardA = a.flags.swade.cardValue;
-      const cardB = b.flags.swade.cardValue;
-      let card = cardB - cardA;
-      if (card !== 0) return card;
-      const suitA = a.flags.swade.suitValue;
-      const suitB = b.flags.swade.suitValue;
-      let suit = suitB - suitA;
-      return suit;
-    }
-    let [an, bn] = [a.token.name || '', b.token.name || ''];
-    let cn = an.localeCompare(bn);
-    if (cn !== 0) return cn;
-    return a.tokenId - b.tokenId;
-  });
-  // Ensure the current turn is bounded
-  this.data['turn'] = Math.min(
-    turns.length - 1,
-    Math.max(this.data['turn'], 0),
-  );
-  this.turns = turns;
-  // When turns change, tracked resources also change
-  if (ui.combat) ui.combat.updateTrackedResources();
-  return this.turns;
+export function _sortCombatants(a, b) {
+  if (a.flags.swade && b.flags.swade) {
+    const cardA = a.flags.swade.cardValue;
+    const cardB = b.flags.swade.cardValue;
+    let card = cardB - cardA;
+    if (card !== 0) return card;
+    const suitA = a.flags.swade.suitValue;
+    const suitB = b.flags.swade.suitValue;
+    let suit = suitB - suitA;
+    return suit;
+  }
+  let [an, bn] = [a.token.name || '', b.token.name || ''];
+  let cn = an.localeCompare(bn);
+  if (cn !== 0) return cn;
+  return a.tokenId - b.tokenId;
 }
 
 /**
