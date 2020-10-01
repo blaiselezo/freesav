@@ -13,4 +13,12 @@ In order to submit an effective bug report, please include the following informa
 
 > Please provide a description of your issue below. Including console error messages, screenshots or videos can be particularly helpful.
 
-/label ~bug
+### Relevant logs and/or screenshots
+
+> If you have them, please provide relevant logs or screenshots
+
+### Possible Solution and/or Root Cause
+
+> If you have any possible leads to the Root Cause or suggestions for fixes thgen please provide them here
+
+/label ~Bug
