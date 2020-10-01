@@ -207,6 +207,7 @@ SWADE.Scale: Scale
 SWADE.PickACard: Pick a card
 SWADE.NoCardsLeft: There are not enough cards left in the deck!
 SWADE.OldCard: Old card
+SWADE.ActionCard: Action Card
 
 SWADE ConvictionActivate: Calls upon their conviction!
 SWADE.ConvictionExtend: Do you want to extend your conviction?
