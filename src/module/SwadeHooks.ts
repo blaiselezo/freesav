@@ -471,4 +471,91 @@ export default class SwadeHooks {
       return false;
     }
   }
+
+  public static async onRenderCombatantConfig(
+    app: FormApplication,
+    html: JQuery<HTMLElement>,
+    options: any,
+  ) {
+    // resize the element so it'll fit the new stuff
+    html.css({ height: 'auto' });
+
+    //remove the old initiative input
+    html.find('input[name="initiative"]').parents('div.form-group').remove();
+
+    //grab cards and sort them
+    const cardPack = game.packs.get(
+      game.settings.get('swade', 'cardDeck'),
+    ) as Compendium;
+    let cards = (await cardPack.getContent()).sort((a, b) => {
+      const cardA = a.getFlag('swade', 'cardValue');
+      const cardB = b.getFlag('swade', 'cardValue');
+      let card = cardA - cardB;
+      if (card !== 0) return card;
+      const suitA = a.getFlag('swade', 'suitValue');
+      const suitB = b.getFlag('swade', 'suitValue');
+      let suit = suitA - suitB;
+      return suit;
+    }) as JournalEntry[];
+
+    //prep list of cards for selection
+    let cardTable = game.tables.getName(CONFIG.SWADE.init.cardTable);
+
+    let cardList = [];
+    for (let card of cards) {
+      const cardValue = card.getFlag('swade', 'cardValue') as number;
+      const suitValue = card.getFlag('swade', 'suitValue') as number;
+      const color =
+        suitValue === 2 || suitValue === 3 ? 'color: red;' : 'color: black;';
+      const isDealt =
+        options.object.flags.swade &&
+        options.object.flags.swade.cardValue === cardValue &&
+        options.object.flags.swade.suitValue === suitValue;
+      const isAvailable = cardTable.results.find((r) => r.text === card.name)
+        .drawn
+        ? 'text-decoration: line-through;'
+        : '';
+
+      cardList.push({
+        cardValue,
+        suitValue,
+        isDealt,
+        color,
+        isAvailable,
+        cardString: getProperty(card, 'data.content'),
+        isJoker: card.getFlag('swade', 'isJoker'),
+      });
+    }
+    const numberOfJokers = cards.filter((c) => c.getFlag('swade', 'isJoker'))
+      .length;
+
+    //render and inject new HTML
+    const path = 'systems/swade/templates/combatant-config-cardlist.html';
+    $(await renderTemplate(path, { cardList, numberOfJokers })).insertBefore(
+      `#${options.options.id} footer`,
+    );
+
+    //Attach click event to button which will call the combatant update as we can't easily modify the submit function of the FormApplication
+    html.find('footer button').on('click', (ev) => {
+      const selectedCard = html.find('input[name=ActionCard]:checked');
+      if (selectedCard.length === 0) {
+        return;
+      }
+      const cardValue = selectedCard.data().cardValue as number;
+      const suitValue = selectedCard.data().suitValue as number;
+      const hasJoker = selectedCard.data().isJoker;
+
+      game.combat.updateEmbeddedEntity('Combatant', {
+        _id: options.object._id,
+        initiative: suitValue + cardValue,
+        'flags.swade': {
+          cardValue,
+          suitValue,
+          hasJoker,
+          cardString: selectedCard.val(),
+        },
+      });
+    });
+    return false;
+  }
 }

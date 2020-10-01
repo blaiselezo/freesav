@@ -196,3 +196,9 @@ Hooks.on('renderChatPopout', (app, html: JQuery<HTMLElement>, data) =>
 Hooks.on('dropActorSheetData', (actor, sheet, data) =>
   SwadeHooks.onDropActorSheetData(actor, sheet, data),
 );
+
+Hooks.on(
+  'renderCombatantConfig',
+  async (app: FormApplication, html: JQuery<HTMLElement>, options: any) =>
+    SwadeHooks.onRenderCombatantConfig(app, html, options),
+);
