@@ -184,7 +184,6 @@ export default class SwadeHooks {
     options: any,
     userId: string,
   ) {
-    //TODO revise maybe?
     //wildcards will be linked, extras unlinked
     if (
       updateData.data &&
