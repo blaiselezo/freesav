@@ -148,9 +148,10 @@ export default class SwadeActor extends Actor {
 
   rollSkill(
     skillId: string,
-    options: IRollOptions = { event: null, rof: 1 },
+    options: IRollOptions = { event: null },
     tempSkill?: SwadeItem,
   ): Promise<any> {
+    if (!options.rof) options.rof = 1;
     let skill;
     skill = this.items.find((i: SwadeItem) => i.id == skillId) as SwadeItem;
     if (tempSkill) {
@@ -187,7 +188,7 @@ export default class SwadeActor extends Actor {
       )}${flavour}`,
       title: `${skill.name} ${game.i18n.localize('SWADE.SkillTest')}`,
       actor: this,
-      allowGroup: options.rof < 1,
+      allowGroup: true,
     });
   }
 

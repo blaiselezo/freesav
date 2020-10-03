@@ -50,6 +50,7 @@ export class SwadeDice {
             raise: true,
             actor: actor,
             rollParts: filtered,
+            allowGroup: actor && !actor.isWildcard && allowGroup,
             speaker,
             flavor,
           });
@@ -101,7 +102,9 @@ export class SwadeDice {
     if (form !== null) data['bonus'] = form.find('#bonus').val();
     if (data['bonus']) rollParts.push(data['bonus']);
     if (groupRoll && allowGroup) {
-      rollParts[0] = `{${rollParts[0]}, 1d6x=}kh`;
+      rollParts[0] = `{${rollParts[0]}, 1d6x=[${game.i18n.localize(
+        'SWADE.WildDie',
+      )}]}kh`;
       flavor = `${flavor} ${game.i18n.localize('SWADE.GroupRoll')}`;
     } else if (raise) {
       rollParts.push('+1d6x=');

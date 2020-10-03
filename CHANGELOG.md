@@ -26,6 +26,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added Skill and Attribute names to dice
 
+### Fixed
+
+- Fixed a small bug which would cause Group Rolls not to behave properly
+
 ## [v0.13]
 
 ### Added
