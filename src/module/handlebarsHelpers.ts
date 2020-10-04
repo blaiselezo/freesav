@@ -1,15 +1,6 @@
 import SwadeItem from './entities/SwadeItem';
 
 export const registerCustomHelpers = function () {
-  // Common helpers
-  Handlebars.registerHelper('eq', (lh, rh) => {
-    return lh == rh;
-  });
-
-  Handlebars.registerHelper('gt', (lh, rh) => {
-    return lh >= rh;
-  });
-
   Handlebars.registerHelper('add', (lh, rh) => {
     return lh + rh;
   });
