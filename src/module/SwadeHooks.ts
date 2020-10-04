@@ -36,7 +36,9 @@ export default class SwadeHooks {
     game.packs
       .filter((p) => p.entity === 'JournalEntry')
       .forEach((p) => {
-        packChoices[p.collection] = p.metadata.label;
+        packChoices[
+          p.collection
+        ] = `${p.metadata.label} (${p.metadata.package})`;
       });
 
     game.settings.register('swade', 'cardDeck', {
