@@ -239,7 +239,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     if (this.options.editable && canConfigure) {
       buttons = [
         {
-          label: 'Tweaks',
+          label: game.i18n.localize('SWADE.Tweaks'),
           class: 'configure-actor',
           icon: 'fas fa-dice',
           onclick: (ev) => this._onConfigureEntity(ev),
