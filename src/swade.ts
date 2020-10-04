@@ -8,6 +8,7 @@
 
 import { getSwadeConeShape } from './module/cone';
 import { SWADE } from './module/config';
+import SwadeEntityTweaks from './module/dialog/entity-tweaks';
 import SwadeActor from './module/entities/SwadeActor';
 import SwadeItem from './module/entities/SwadeItem';
 import { registerCustomHelpers } from './module/handlebarsHelpers';
@@ -38,6 +39,7 @@ Hooks.once('init', () => {
   game.swade = {
     SwadeActor,
     SwadeItem,
+    SwadeEntityTweaks,
     rollSkillMacro,
     rollWeaponMacro,
     rollPowerMacro,

@@ -9,6 +9,9 @@ import { SwadeDice } from '../dice';
  * @noInheritDoc
  */
 export default class SwadeBaseActorSheet extends ActorSheet {
+  /**
+   * @override
+   */
   get actor(): SwadeActor {
     return super.actor as SwadeActor;
   }
