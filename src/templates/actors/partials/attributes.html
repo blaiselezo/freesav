@@ -87,8 +87,9 @@
           data-dtype="Number"
           style="background-image:url('systems/swade/assets/dice/d{{data.attributes.strength.die.sides}}-grey.svg')"
         >
-          {{#select data.attributes.strength.die.sides}} {{>
-          "systems/swade/templates/die-sides-options.html"}} {{/select}}
+          {{#select data.attributes.strength.die.sides}}
+          <option value="1">1</option>
+          {{> "systems/swade/templates/die-sides-options.html"}} {{/select}}
         </select>
         <input
           name="data.attributes.strength.die.modifier"
