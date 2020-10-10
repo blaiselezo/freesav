@@ -62,7 +62,7 @@ export default class SwadeItem extends Item {
     roll.parts.forEach((part) => {
       if (part instanceof Die) {
         let split = part.formula.split('d');
-        newParts.push(`${split[0]}d${part.faces}x=`);
+        newParts.push(`${split[0]}d${part.faces}x`);
       } else {
         newParts.push(part);
       }
@@ -74,7 +74,7 @@ export default class SwadeItem extends Item {
       game.settings.get('swade', 'enableConviction') &&
       getProperty(actor.data, 'data.details.conviction.active')
     ) {
-      newParts.push('+1d6x=');
+      newParts.push('+1d6x');
     }
 
     let flavour = '';

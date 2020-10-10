@@ -91,8 +91,8 @@ export default class SwadeActor extends Actor {
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
     let exp = '';
-    let attrDie = `1d${abl.die.sides}x=[${game.i18n.localize(label)}]`;
-    let wildDie = `1d${abl['wild-die'].sides}x=[${game.i18n.localize(
+    let attrDie = `1d${abl.die.sides}x[${game.i18n.localize(label)}]`;
+    let wildDie = `1d${abl['wild-die'].sides}x[${game.i18n.localize(
       'SWADE.WildDie',
     )}]`;
     if (this.isWildcard) {
@@ -117,7 +117,7 @@ export default class SwadeActor extends Actor {
       game.settings.get('swade', 'enableConviction') &&
       getProperty(this.data, 'data.details.conviction.active')
     ) {
-      rollParts.push('+1d6x=');
+      rollParts.push('+1d6x');
     }
 
     const woundPenalties = this.calcWoundPenalties();
@@ -326,14 +326,14 @@ export default class SwadeActor extends Actor {
     const attr = this.data.data.attributes;
     for (const name of ['agility', 'smarts', 'spirit', 'strength', 'vigor']) {
       out[name.substring(0, 3)] =
-        `1d${attr[name].die.sides}x=` +
+        `1d${attr[name].die.sides}x` +
         (attr[name].die.modifier[0] != 0
           ? (['+', '-'].indexOf(attr[name].die.modifier[0]) < 0 ? '+' : '') +
             attr[name].die.modifier
           : '') +
         // wild-die
         (bAddWildDie && attr[name]['wild-die'].sides
-          ? `+1d${attr[name]['wild-die'].sides}x=`
+          ? `+1d${attr[name]['wild-die'].sides}x`
           : '');
     } //fr
     return out;
@@ -446,10 +446,10 @@ export default class SwadeActor extends Actor {
     let skillData = getProperty(skill, 'data.data');
     let exp = '';
 
-    let wildDie = `1d${skillData['wild-die'].sides}x=[${game.i18n.localize(
+    let wildDie = `1d${skillData['wild-die'].sides}x[${game.i18n.localize(
       'SWADE.WildDie',
     )}]`;
-    let skillDie = `1d${skillData.die.sides}x=[${skill.name}]`;
+    let skillDie = `1d${skillData.die.sides}x[${skill.name}]`;
     if (this.isWildcard) {
       exp = `{${skillDie}, ${wildDie}}kh`;
     } else {
@@ -477,7 +477,7 @@ export default class SwadeActor extends Actor {
       game.settings.get('swade', 'enableConviction') &&
       getProperty(this.data, 'data.details.conviction.active')
     ) {
-      rollParts.push('+1d6x=');
+      rollParts.push('+1d6x');
     }
 
     // Wound and Fatigue Penalties
@@ -506,7 +506,7 @@ export default class SwadeActor extends Actor {
       game.settings.get('swade', 'enableConviction') &&
       getProperty(this.data, 'data.details.conviction.active')
     ) {
-      mods.push('+1d6x=');
+      mods.push('+1d6x');
     }
 
     // Wound and Fatigue Penalties
@@ -530,11 +530,11 @@ export default class SwadeActor extends Actor {
     }
     for (let i = 0; i < options.rof; i++) {
       skillDice.push(
-        `1d${skillData.die.sides}x=[${skill.name}]${mods.join('')}`,
+        `1d${skillData.die.sides}x[${skill.name}]${mods.join('')}`,
       );
     }
 
-    let wildDie = `1d${skillData['wild-die'].sides}x=[${game.i18n.localize(
+    let wildDie = `1d${skillData['wild-die'].sides}x[${game.i18n.localize(
       'SWADE.WildDie',
     )}]`;
     if (this.isWildcard) {
