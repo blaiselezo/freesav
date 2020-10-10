@@ -1,5 +1,5 @@
 import IRollOptions from '../../interfaces/IRollOptions';
-import { SwadeDice } from '../dice';
+import SwadeDice from '../dice';
 import { ItemType } from '../enums/ItemTypeEnum';
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './SwadeActor';

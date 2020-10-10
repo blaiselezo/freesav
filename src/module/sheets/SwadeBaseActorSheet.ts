@@ -4,7 +4,7 @@ import SwadeActor from '../entities/SwadeActor';
 import SwadeItem from '../entities/SwadeItem';
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import * as chat from '../chat';
-import { SwadeDice } from '../dice';
+import SwadeDice from '../dice';
 /**
  * @noInheritDoc
  */
@@ -97,7 +97,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
             actor: this.actor,
             alias: this.actor.name,
           },
-          content: game.i18n.localize('SWADE ConvictionActivate'),
+          content: game.i18n.localize('SWADE.ConvictionActivate'),
         });
       } else {
         await this.actor.update({

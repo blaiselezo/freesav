@@ -1,7 +1,7 @@
 import SwadeItem from './entities/SwadeItem';
 import SwadeActor from './entities/SwadeActor';
 
-export class SwadeDice {
+export default class SwadeDice {
   // eslint-disable-next-line no-unused-vars
   static async Roll({
     parts = [],

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { SwadeDice } from '../dice';
+import SwadeDice from '../dice';
 import IRollOptions from '../../interfaces/IRollOptions';
 import SwadeItem from './SwadeItem';
 
