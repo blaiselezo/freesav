@@ -195,10 +195,11 @@ export default class SwadeActor extends Actor {
   async makeUnskilledAttempt(
     options: IRollOptions = { event: null },
   ): Promise<any> {
-    let unSkill = (await Item.create(
+    let tempSkill = new Item(
       {
         name: game.i18n.localize('SWADE.Unskilled'),
         type: 'skill',
+        flags: {},
         data: {
           die: {
             sides: 4,
@@ -210,9 +211,9 @@ export default class SwadeActor extends Actor {
         },
       },
       { temporary: true },
-    )) as SwadeItem;
+    ) as SwadeItem;
 
-    return this.rollSkill('', options, unSkill);
+    return this.rollSkill('', options, tempSkill);
   }
 
   async spendBenny() {
