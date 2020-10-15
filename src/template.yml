@@ -78,20 +78,13 @@ Actor:
       bennies:
         value: 3
         max: 3
-      owned:
-        gear: []
-        weapons: []
-        armors: []
-        shields: []
-        edges: []
-        hindrances: []
-        skills: []
-        powers: []
-        inventory: []
       status:
         isShaken: false
         isDistracted: false
         isVulnerable: false
+        isStunned: false
+        isEntangled: false
+        isBound: false
       initiative:
         hasHesitant: false
         hasLevelHeaded: false

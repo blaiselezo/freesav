@@ -32,6 +32,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added package name to Action deck selection
 - Simplified explosion syntax from `x=` to `x`
+- Refactored `getData` of all actor sheets take out duplicate or unused sections
 
 ### Fixed
 

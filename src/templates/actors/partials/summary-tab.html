@@ -204,7 +204,7 @@
       </div>
     </header>
     <ol class="skills-list resizable" data-base-size="390">
-      {{#each data.owned.skills as |skill id|}}
+      {{#each itemsByType.skill as |skill id|}}
       <li class="item skill flexrow" data-item-id="{{skill._id}}">
         <label class="skill-label"
           ><a title="{{localize 'SWADE.Roll'}}">{{skill.name}}</a></label
@@ -243,24 +243,24 @@
     </header>
     <div class="quickaccess-list">
       <ol class="gear-list weapon-list">
-        {{#each data.owned.weapons as |weapon id|}} {{#if weapon.data.equipped}}
+        {{#each itemsByType.weapon as |weapon id|}} {{#if weapon.data.equipped}}
         {{> "systems/swade/templates/actors/partials/weapon-card.html"}} {{/if}}
         {{/each}}
       </ol>
       {{#if hasArcaneBackground}}
       <ol class="gear-list power-list">
-        {{#each data.owned.powers as |power id|}} {{#if power.data.equipped}}
+        {{#each itemsByType.power as |power id|}} {{#if power.data.equipped}}
         {{> "systems/swade/templates/actors/partials/powers-card.html"}} {{/if}}
         {{/each}}
       </ol>
       {{/if}}
       <ol class="gear-list armor-list">
-        {{#each data.owned.armors as |armor id|}} {{#if armor.data.equipped}}
+        {{#each itemsByType.armor as |armor id|}} {{#if armor.data.equipped}}
         {{> "systems/swade/templates/actors/partials/armor-card.html"}} {{/if}}
         {{/each}}
       </ol>
       <ol class="gear-list shield-list">
-        {{#each data.owned.shields as |shield id|}} {{#if shield.data.equipped}}
+        {{#each itemsByType.shield as |shield id|}} {{#if shield.data.equipped}}
         {{> "systems/swade/templates/actors/partials/shield-card.html"}} {{/if}}
         {{/each}}
       </ol>

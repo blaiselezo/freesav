@@ -155,36 +155,26 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   getData() {
     let data: any = super.getData();
 
+    data.itemsByType = {};
+    for (const type of game.system.entityTypes.Item) {
+      data.itemsByType[type] = data.items.filter((i) => i.type === type) || [];
+    }
+
     data.config = CONFIG.SWADE;
     if (this.actor.data.type !== 'vehicle') {
-      data.itemsByType = {};
-      for (const item of data.items) {
-        let list = data.itemsByType[item.type];
-        if (!list) {
-          list = [];
-          data.itemsByType[item.type] = list;
-        }
-        list.push(item);
-      }
+      //Encumbrance
+      data.inventoryWeight = this._calcInventoryWeight([
+        ...data.itemsByType['gear'],
+        ...data.itemsByType['weapon'],
+        ...data.itemsByType['armor'],
+        ...data.itemsByType['shield'],
+      ]);
+      data.maxCarryCapacity = this._calcMaxCarryCapacity();
 
-      data.data.owned.gear = this._checkNull(data.itemsByType['gear']);
-      data.data.owned.weapons = this._checkNull(data.itemsByType['weapon']);
-      data.data.owned.armors = this._checkNull(data.itemsByType['armor']);
-      data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
-      data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
-      data.data.owned.hindrances = this._checkNull(
-        data.itemsByType['hindrance'],
-      );
-      data.data.owned.skills = this._checkNull(
-        data.itemsByType['skill'],
-      ).sort((a, b) => a.name.localeCompare(b.name));
-      data.data.owned.powers = this._checkNull(data.itemsByType['power']);
-
-      //Checks if an Actor has a Power Egde
+      //Checks if an Actor has a Arcane Background
       data.hasArcaneBackground =
-        typeof data.data.owned.edges.find(
-          (edge) => edge.data.isArcaneBackground === true,
-        ) !== 'undefined';
+        data.itemsByType['edge'].filter((e) => e.data.isArcaneBackground)
+          .length > 0;
 
       if (this.actor.data.type === 'character') {
         data.powersOptions =
@@ -386,12 +376,24 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
   protected _calcInventoryWeight(items): number {
     let retVal = 0;
-    items.forEach((category: any) => {
-      category.forEach((i: any) => {
-        retVal += i.data.weight * i.data.quantity;
-      });
+    items.forEach((i: any) => {
+      retVal += i.data.weight * i.data.quantity;
     });
     return retVal;
+  }
+
+  private _calcMaxCarryCapacity(): number {
+    const strengthDie = getProperty(
+      this.actor.data,
+      'data.attributes.strength.die',
+    );
+    let capacity = 20 + 10 * (strengthDie.sides - 4);
+
+    if (strengthDie.modifier > 0) {
+      capacity = capacity + 20 * strengthDie.modifier;
+    }
+
+    return capacity;
   }
 
   protected _filterPowers(html: JQuery, arcane: string) {

@@ -90,7 +90,7 @@
         </div>
       </header>
       <div class="skills-list">
-        {{#each data.owned.skills as |skill id|}}
+        {{#each itemsByType.skill as |skill id|}}
         <span
           class="skill item"
           data-item-id="{{skill._id}}"
@@ -117,7 +117,7 @@
           <a class="item-create" data-type="edge"><i class="fa fa-plus"></i></a>
         </div>
       </header>
-      {{#each data.owned.edges as |edge id|}}
+      {{#each itemsByType.edge as |edge id|}}
       <span class="item" data-item-id="{{edge._id}}">
         <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
           {{#unless @first}}&nbsp;{{/unless}}{{edge.name}}{{#unless
@@ -137,7 +137,7 @@
           ></a>
         </div>
       </header>
-      {{#each data.owned.hindrances as |hindrance id|}}
+      {{#each itemsByType.hindrance as |hindrance id|}}
       <span class="item" data-item-id="{{hindrance._id}}">
         <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
           {{#unless @first}}&nbsp;{{/unless}}{{hindrance.name}} {{#if
@@ -166,22 +166,22 @@
       </header>
       <div class="quickaccess-list">
         <ol class="gear-list weapon-list">
-          {{#each data.owned.weapons}} {{>
+          {{#each itemsByType.weapon}} {{>
           "systems/swade/templates/actors/partials/weapon-card.html"
           owner=../owner}} {{/each}}
         </ol>
         <ol class="gear-list armor-list">
-          {{#each data.owned.armors}} {{>
+          {{#each itemsByType.armor}} {{>
           "systems/swade/templates/actors/partials/armor-card.html"
           owner=../owner}} {{/each}}
         </ol>
         <ol class="gear-list shield-list">
-          {{#each data.owned.shields}} {{>
+          {{#each itemsByType.shield}} {{>
           "systems/swade/templates/actors/partials/shield-card.html"
           owner=../owner}} {{/each}}
         </ol>
         <ol class="gear-list items-list">
-          {{#each data.owned.gear}} {{>
+          {{#each itemsByType.gear}} {{>
           "systems/swade/templates/actors/partials/misc-card.html"
           owner=../owner}} {{/each}}
         </ol>

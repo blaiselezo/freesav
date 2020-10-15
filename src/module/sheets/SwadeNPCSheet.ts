@@ -194,46 +194,6 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
     // Everything below here is only needed if user is not limited
     if (this.actor.limited) return data;
 
-    data.itemsByType = {};
-    for (const item of data.items) {
-      let list = data.itemsByType[item.type];
-      if (!list) {
-        list = [];
-        data.itemsByType[item.type] = list;
-      }
-      list.push(item);
-    }
-
-    data.data.owned.gear = this._checkNull(data.itemsByType['gear']);
-    data.data.owned.weapons = this._checkNull(data.itemsByType['weapon']);
-    data.data.owned.armors = this._checkNull(data.itemsByType['armor']);
-    data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
-    data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
-    data.data.owned.hindrances = this._checkNull(data.itemsByType['hindrance']);
-    data.data.owned.skills = this._checkNull(
-      data.itemsByType['skill'],
-    ).sort((a, b) => a.name.localeCompare(b.name));
-    data.data.owned.powers = this._checkNull(data.itemsByType['power']);
-
-    // Display the current active arcane
-    data.activeArcane = this.options.activeArcane;
-    data.arcanes = [];
-    const powers = data.itemsByType['power'];
-    if (powers) {
-      powers.forEach((pow: any) => {
-        if (!pow.data.arcane) return;
-        if (
-          data.arcanes.find((el: string) => el == pow.data.arcane) === undefined
-        ) {
-          data.arcanes.push(pow.data.arcane);
-          // Add powerpoints data relevant to the detected arcane
-          if (data.data.powerPoints[pow.data.arcane] === undefined) {
-            data.data.powerPoints[pow.data.arcane] = { value: 0, max: 0 };
-          }
-        }
-      });
-    }
-
     const shields = data.itemsByType['shield'];
     data.parry = 0;
     if (shields) {
@@ -243,13 +203,6 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
         }
       });
     }
-
-    // Check for enabled optional rules
-    data.data.settingrules = {
-      conviction:
-        game.settings.get('swade', 'enableConviction') && data.data.wildcard,
-    };
-    data.config = CONFIG.SWADE;
     return data;
   }
 }

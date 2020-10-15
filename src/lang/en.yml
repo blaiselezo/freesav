@@ -68,11 +68,13 @@ SWADE.Arcane: Arcane
 SWADE.All: All
 SWADE.HasPowers: Has Powers
 SWADE.Gear: Gear
+SWADE.Weapon: Weapon
 SWADE.Weapons: Weapons
 SWADE.MeleeWeapons: Melee Weapons
 SWADE.RangedWeapons: Ranged Weapons
 SWADE.Armors: Armors
 SWADE.Armor: Armor
+SWADE.Shield: Shield
 SWADE.Shields: Shields
 
 #####################
