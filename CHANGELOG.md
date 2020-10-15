@@ -39,6 +39,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Fixed a small bug which would cause Group Rolls not to behave properly
 - Fixed a styling error with Item sheets
+- Fixed a bug which caused sheet-inline item creation dialogs to not work properly
 
 ### Removed
 
