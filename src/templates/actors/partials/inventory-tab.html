@@ -34,8 +34,7 @@
       </div>
     </li>
     <ol class="item-list">
-      {{#each itemsByType.inventory.weapon as |item|}} {{#if (isEmpty
-      item.data.range)}}
+      {{#each itemsByType.weapon as |item|}} {{#if (isEmpty item.data.range)}}
       <li class="item weapon flexrow melee-columns" data-item-id="{{item._id}}">
         <div class="item-name flexrow rollable">
           <div
