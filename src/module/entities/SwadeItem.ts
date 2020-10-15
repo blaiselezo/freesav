@@ -401,4 +401,8 @@ export default class SwadeItem extends Item {
       });
     }
   }
+
+  getRollData() {
+    return {};
+  }
 }
