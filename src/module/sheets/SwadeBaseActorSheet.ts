@@ -154,13 +154,14 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
   getData() {
     let data: any = super.getData();
+    data.config = CONFIG.SWADE;
 
     data.itemsByType = {};
     for (const type of game.system.entityTypes.Item) {
       data.itemsByType[type] = data.items.filter((i) => i.type === type) || [];
     }
+    data.itemsByType['skill'].sort((a, b) => a.name.localeCompare(b.name));
 
-    data.config = CONFIG.SWADE;
     if (this.actor.data.type !== 'vehicle') {
       //Encumbrance
       data.inventoryWeight = this._calcInventoryWeight([
