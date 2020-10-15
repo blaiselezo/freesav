@@ -131,7 +131,10 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       rollFormula = rollFormula.concat(`+${pace}`);
 
       if (runningMod && runningMod !== 0) {
-        rollFormula = rollFormula.concat(runningMod);
+        rollFormula =
+          runningMod > 0
+            ? rollFormula.concat(`+${runningMod}`)
+            : rollFormula.concat(runningMod);
       }
 
       if (ev.shiftKey) {
@@ -248,9 +251,15 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     }).render(true);
   }
 
-  protected async _chooseItemType(
-    choices = ['weapon', 'armor', 'shield', 'gear'],
-  ) {
+  protected async _chooseItemType(choices?: any) {
+    if (!choices) {
+      choices = {
+        weapon: game.i18n.localize('SWADE.Weapon'),
+        armor: game.i18n.localize('SWADE.Armor'),
+        shield: game.i18n.localize('SWADE.Shield'),
+        gear: game.i18n.localize('SWADE.Gear'),
+      };
+    }
     let templateData = {
         types: choices,
         hasTypes: true,
