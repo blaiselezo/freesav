@@ -37,6 +37,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Fixed a small bug which would cause Group Rolls not to behave properly
+- Fixed a styling error with Item sheets
 
 ### Removed
 
