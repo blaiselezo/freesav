@@ -198,6 +198,7 @@ Item:
       - equipable
     minStr: ''
     armor: 0
+    isNaturalArmor: false
     locations:
       head: false
       torso: true

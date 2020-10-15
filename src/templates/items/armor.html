@@ -85,6 +85,19 @@
             data-dtype="String"
         /></span>
       </div>
+      <div class="form-group">
+        <label class="check-container"
+          >{{localize "SWADE.NaturalArmor"}}
+          <input
+            type="checkbox"
+            name="data.isNaturalArmor"
+            {{checked
+            item.data.isNaturalArmor}}
+            data-dtype="Boolean"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
       <header class="header-field">
         {{localize "SWADE.HitLocations"}}
       </header>
