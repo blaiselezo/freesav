@@ -1,4 +1,12 @@
 ---
+#***************************
+# General
+#***************************
+SWADE.CommunityCharSheet: Community Character Sheet
+SWADE.CommunityNPCSheet: Community NPC Sheet
+SWADE.CommunityVicSheet: Community Vehicle Sheet
+SWADE.CommunityItemSheet: Community Item Sheet
+
 SWADE.Name: Name
 SWADE.Tough: Toughness
 SWADE.Race: Race

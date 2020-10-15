@@ -67,17 +67,23 @@ Hooks.once('init', () => {
   Actors.registerSheet('swade', SwadeCharacterSheet, {
     types: ['character'],
     makeDefault: true,
+    label: game.i18n.localize('SWADE.CommunityCharSheet'),
   });
   Actors.registerSheet('swade', SwadeNPCSheet, {
     types: ['npc'],
     makeDefault: true,
+    label: game.i18n.localize('SWADE.CommunityNPCSheet'),
   });
   Actors.registerSheet('swade', SwadeVehicleSheet, {
     types: ['vehicle'],
     makeDefault: true,
+    label: game.i18n.localize('SWADE.CommunityVicSheet'),
   });
   Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('swade', SwadeItemSheet, { makeDefault: true });
+  Items.registerSheet('swade', SwadeItemSheet, {
+    makeDefault: true,
+    label: game.i18n.localize('SWADE.CommunityItemSheet'),
+  });
 
   // Drop a journal image to a tile (for cards)
   listenJournalDrop();

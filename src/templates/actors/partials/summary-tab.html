@@ -247,7 +247,7 @@
         {{> "systems/swade/templates/actors/partials/weapon-card.html"}} {{/if}}
         {{/each}}
       </ol>
-      {{#if data.hasArcaneBackground}}
+      {{#if hasArcaneBackground}}
       <ol class="gear-list power-list">
         {{#each data.owned.powers as |power id|}} {{#if power.data.equipped}}
         {{> "systems/swade/templates/actors/partials/powers-card.html"}} {{/if}}
