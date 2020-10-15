@@ -27,6 +27,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added Skill and Attribute names to dice
 - Added `SwadeEntityTweaks` class to game object as `game.swade.SwadeEntityTweaks`.
 - Added labels to the various Sheet classes
+- Added natural armor capabilities
 
 ### Changed
 
