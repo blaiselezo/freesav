@@ -16,7 +16,7 @@ export default class SwadeDice {
     item = null as SwadeItem,
     actor = null as SwadeActor,
     allowGroup = false,
-  } = {}) {
+  } = {}): Promise<Roll> {
     let rolled = false;
     let filtered = parts.filter(function (el) {
       return el != '' && el;
@@ -83,7 +83,7 @@ export default class SwadeDice {
         buttons: buttons,
         default: 'ok',
         close: () => {
-          resolve(rolled ? roll : false);
+          resolve(rolled ? roll : null);
         },
       }).render(true);
     });

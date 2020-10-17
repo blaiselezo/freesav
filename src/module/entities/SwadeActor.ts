@@ -86,7 +86,7 @@ export default class SwadeActor extends Actor {
   rollAttribute(
     abilityId: string,
     options: IRollOptions = { event: null },
-  ): Promise<any> {
+  ): Promise<Roll> | Roll {
     const label = CONFIG.SWADE.attributes[abilityId].long;
     let actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
@@ -129,6 +129,10 @@ export default class SwadeActor extends Actor {
     const statusPenalties = this.calcStatusPenalties();
     if (statusPenalties !== 0) rollParts.push(statusPenalties);
 
+    if (options.suppressChat) {
+      return new Roll(rollParts.join());
+    }
+
     // Roll and return
     return SwadeDice.Roll({
       event: options.event,
@@ -150,7 +154,7 @@ export default class SwadeActor extends Actor {
     skillId: string,
     options: IRollOptions = { event: null },
     tempSkill?: SwadeItem,
-  ): Promise<any> {
+  ): Promise<Roll> | Roll {
     if (!options.rof) options.rof = 1;
     let skill;
     skill = this.items.find((i: SwadeItem) => i.id == skillId) as SwadeItem;
@@ -175,6 +179,10 @@ export default class SwadeActor extends Actor {
     let flavour = '';
     if (options.flavour) {
       flavour = ` - ${options.flavour}`;
+    }
+
+    if (options.suppressChat) {
+      return new Roll(rollParts.join());
     }
 
     // Roll and return

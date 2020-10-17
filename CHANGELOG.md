@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added labels to the various Sheet classes
 - Added natural armor capabilities
 - Added Localization for Actor and Item types (english only)
+- Added `suppressChat` option to `Actor.rollSkill`, `Actor.rollAttribute` and `Item.RollDamage` options. When this option is set to true, the method returns an unroll `Roll` class instead of opening the Dialog and rolling. Example: `actor.rollSkill(randomSkillID, {suppressChat: true})`
 
 ### Changed
 
