@@ -7,6 +7,24 @@ SWADE.CommunityNPCSheet: Community NPC Sheet
 SWADE.CommunityVicSheet: Community Vehicle Sheet
 SWADE.CommunityItemSheet: Community Item Sheet
 
+#***************************
+# Entity Labels
+#***************************
+# Actor
+ACTOR.TypeCharacter: Character
+ACTOR.TypeNpc: NPC
+ACTOR.TypeVehicle: Vehicle
+
+# Item
+ITEM.TypeWeapon: Weapon
+ITEM.TypeArmor: Armor
+ITEM.TypeShield: Shield
+ITEM.TypeGear: Gear
+ITEM.TypeEdge: Edge
+ITEM.TypeHindrance: Hindrance
+ITEM.TypeSkill: Skill
+ITEM.TypePower: Power
+
 SWADE.Name: Name
 SWADE.Tough: Toughness
 SWADE.Race: Race
@@ -42,7 +60,6 @@ SWADE.AttrSprShort: Spi
 SWADE.AttrStrShort: Str
 SWADE.AttrVigShort: Vig
 SWADE.Skills: Skills
-SWADE.Skill: Skill
 SWADE.Unskilled: Unskilled
 SWADE.LinkAttr: Linked Attribute
 SWADE.Die: Die
@@ -67,19 +84,16 @@ SWADE.Del: Delete
 SWADE.Arcane: Arcane
 SWADE.All: All
 SWADE.HasPowers: Has Powers
-SWADE.Gear: Gear
-SWADE.Weapon: Weapon
 SWADE.Weapons: Weapons
 SWADE.MeleeWeapons: Melee Weapons
 SWADE.RangedWeapons: Ranged Weapons
 SWADE.Armors: Armors
-SWADE.Armor: Armor
-SWADE.Shield: Shield
 SWADE.Shields: Shields
 
 #####################
 # Items
 #####################
+SWADE.Armor: Armor
 SWADE.Dmg: Damage
 SWADE.DmgOver: Damage Override
 SWADE.Rng: Range

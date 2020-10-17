@@ -194,7 +194,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
       if (type == 'choice') {
         let choices = {};
         header.dataset.choices.split(',').forEach((c) => {
-          choices[c] = game.i18n.localize(`SWADE.${c.capitalize()}`);
+          choices[c] = game.i18n.localize(`ITEM.Type${c.capitalize()}`);
         });
         this._chooseItemType(choices).then(async (dialogInput: any) => {
           const itemData = createItem(dialogInput.type, dialogInput.name);

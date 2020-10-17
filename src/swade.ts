@@ -55,34 +55,35 @@ Hooks.once('init', () => {
   MeasuredTemplate.prototype._getConeShape = getSwadeConeShape;
 
   // Register custom classes
+  //CONFIG.Combat.entityClass = SwadeCombat;
   CONFIG.Actor.entityClass = SwadeActor;
   CONFIG.Item.entityClass = SwadeItem;
-  //CONFIG.Combat.entityClass = SwadeCombat;
 
   // Register custom system settings
   registerSettings();
 
   // Register sheets
   Actors.unregisterSheet('core', ActorSheet);
+  Items.unregisterSheet('core', ItemSheet);
+
   Actors.registerSheet('swade', SwadeCharacterSheet, {
     types: ['character'],
     makeDefault: true,
-    label: game.i18n.localize('SWADE.CommunityCharSheet'),
+    label: 'SWADE.CommunityCharSheet',
   });
   Actors.registerSheet('swade', SwadeNPCSheet, {
     types: ['npc'],
     makeDefault: true,
-    label: game.i18n.localize('SWADE.CommunityNPCSheet'),
+    label: 'SWADE.CommunityNPCSheet',
   });
   Actors.registerSheet('swade', SwadeVehicleSheet, {
     types: ['vehicle'],
     makeDefault: true,
-    label: game.i18n.localize('SWADE.CommunityVicSheet'),
+    label: 'SWADE.CommunityVicSheet',
   });
-  Items.unregisterSheet('core', ItemSheet);
   Items.registerSheet('swade', SwadeItemSheet, {
     makeDefault: true,
-    label: game.i18n.localize('SWADE.CommunityItemSheet'),
+    label: 'SWADE.CommunityItemSheet',
   });
 
   // Drop a journal image to a tile (for cards)

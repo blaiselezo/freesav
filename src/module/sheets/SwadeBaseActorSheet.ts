@@ -254,10 +254,10 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   protected async _chooseItemType(choices?: any) {
     if (!choices) {
       choices = {
-        weapon: game.i18n.localize('SWADE.Weapon'),
-        armor: game.i18n.localize('SWADE.Armor'),
-        shield: game.i18n.localize('SWADE.Shield'),
-        gear: game.i18n.localize('SWADE.Gear'),
+        weapon: game.i18n.localize('ITEM.TypeWeapon'),
+        armor: game.i18n.localize('ITEM.TypeArmor'),
+        shield: game.i18n.localize('ITEM.TypeShield'),
+        gear: game.i18n.localize('ITEM.TypeGear'),
       };
     }
     let templateData = {
