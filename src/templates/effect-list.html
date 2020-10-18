@@ -1,5 +1,5 @@
 <ul class="effects-list">
-  {{#each entity.effects}}
+  {{#each entity.effects}} {{#unless origin}}
   <li class="flexrow" data-effect-id="{{_id}}">
     <img src="{{icon}}" alt="{{label}}" class="effect-icon" />
     <span class="effect-label">{{label}}</span>
@@ -18,5 +18,5 @@
       </a>
     </span>
   </li>
-  {{/each}}
+  {{/unless}} {{/each}}
 </ul>
