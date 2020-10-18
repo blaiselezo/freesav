@@ -43,6 +43,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Fixed a styling error with Item sheets
 - Fixed a bug which caused sheet-inline item creation dialogs to not work properly
 - Fixed a bug which would cause skill rolls to throw a permission error when players were making an unskilled attempt
+- Fixed a small bug which would cause some token values of actors to be overwritten on import
 
 ### Removed
 
