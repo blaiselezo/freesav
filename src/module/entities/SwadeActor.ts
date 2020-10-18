@@ -12,8 +12,33 @@ export default class SwadeActor extends Actor {
    * Extends data from base Actor class
    */
   prepareData() {
-    let data = this.data;
+    this.data = duplicate(this['_data']);
+    if (!this.data.img) this.data.img = CONST.DEFAULT_TOKEN;
+    if (!this.data.name) this.data.name = 'New ' + this.entity;
+    this.prepareBaseData();
+    this.prepareEmbeddedEntities();
+    this.applyActiveEffects();
+    this.prepareDerivedData();
 
+    //die type bounding for attributes
+    let attributes = getProperty(this.data, 'data.attributes') || {};
+    for (let attribute in attributes) {
+      let dieSides = getProperty(
+        this.data,
+        `data.attributes.${attribute}.die.sides`,
+      );
+      if (dieSides < 4 && dieSides !== 1) {
+        dieSides = 4;
+      } else if (dieSides > 12) {
+        dieSides = 12;
+      }
+    }
+  }
+
+  /**
+   * @override
+   */
+  prepareBaseData() {
     //auto calculations
     let shouldAutoCalcToughness =
       getProperty(this.data, 'data.details.autoCalcToughness') &&
@@ -23,27 +48,29 @@ export default class SwadeActor extends Actor {
       setProperty(
         this.data,
         'data.stats.toughness.value',
-        this.calcToughness(),
+        this.calcToughness(true),
       );
       setProperty(this.data, 'data.stats.toughness.armor', this.calcArmor());
     }
-    //apply active effects and generall data preparation
-    super.prepareData();
+  }
 
-    //die type bounding for attributes
-    let attributes = getProperty(data, 'data.attributes');
-    for (let attribute in attributes) {
-      let dieSides = getProperty(
-        data,
-        `data.attributes.${attribute}.die.sides`,
+  /**
+   * @override
+   */
+  prepareDerivedData() {
+    //auto calculations
+    let shouldAutoCalcToughness =
+      getProperty(this.data, 'data.details.autoCalcToughness') &&
+      this.data.type !== 'vehicle';
+
+    if (shouldAutoCalcToughness) {
+      setProperty(
+        this.data,
+        'data.stats.toughness.value',
+        this.calcToughness(true),
       );
-      if (dieSides < 4 && dieSides !== 1) {
-        dieSides = 4;
-      } else if (dieSides > 12) {
-        dieSides = 12;
-      }
+      setProperty(this.data, 'data.stats.toughness.armor', this.calcArmor());
     }
-    return data;
   }
 
   /* -------------------------------------------- */

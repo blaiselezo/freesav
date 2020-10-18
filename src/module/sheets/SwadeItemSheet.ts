@@ -112,14 +112,19 @@ export default class SwadeItemSheet extends ItemSheet {
     html.find('.effect-action').on('click', (ev) => {
       const a = ev.currentTarget;
       const effectId = a.closest('li').dataset.effectId;
-      const effect = this.item['effects'].get(effectId);
+      const effect = this.item['effects'].get(effectId) as ActiveEffect;
       const action = a.dataset.action;
-
       if (this.item.isOwned) {
-        console.log("I'm on an actor!");
+        //FIXME once this is supported in Foundry
+        ui.notifications.info(
+          'Editing of Active Effects on an owned Item is not yet supported',
+        );
       } else {
         switch (action) {
           case 'edit':
+            //FIXME when 0.7.5 releases use this instead:
+            //effect.sheet.render(true)
+            console.log(this.item['effects']);
             return new ActiveEffectConfig(effect).render(true);
           case 'delete':
             return effect.delete();
@@ -127,6 +132,20 @@ export default class SwadeItemSheet extends ItemSheet {
             return effect.update({ disabled: !effect.data.disabled });
         }
       }
+    });
+
+    html.find('.add-effect').on('click', async (ev) => {
+      let transfer = $(ev.currentTarget).data('transfer');
+      let id = (
+        await this.item.createEmbeddedEntity('ActiveEffect', {
+          label: game.i18n
+            .localize('ENTITY.New')
+            .replace('{entity}', game.i18n.localize('Active Effect')),
+          icon: '/icons/svg/mystery-man.svg',
+          transfer: transfer,
+        })
+      )._id;
+      return new ActiveEffectConfig(this.item['effects'].get(id)).render(true);
     });
   }
 

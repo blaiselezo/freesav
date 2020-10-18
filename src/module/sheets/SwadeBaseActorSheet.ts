@@ -153,11 +153,46 @@ export default class SwadeBaseActorSheet extends ActorSheet {
         });
       }
     });
+
+    html.find('.effect-action').on('click', (ev) => {
+      const a = ev.currentTarget;
+      const effectId = a.closest('li').dataset.effectId;
+      const effect = this.actor['effects'].get(effectId) as ActiveEffect;
+      const action = a.dataset.action;
+
+      switch (action) {
+        case 'edit':
+          //FIXME when 0.7.5 releases use this instead:
+          //effect.sheet.render(true)
+          console.log(this.actor['effects']);
+          return new ActiveEffectConfig(effect).render(true);
+        case 'delete':
+          return effect.delete();
+        case 'toggle':
+          return effect.update({ disabled: !effect.data.disabled });
+      }
+    });
+
+    html.find('.add-effect').on('click', async (ev) => {
+      let transfer = $(ev.currentTarget).data('transfer');
+      let id = (
+        await this.actor.createEmbeddedEntity('ActiveEffect', {
+          label: game.i18n
+            .localize('ENTITY.New')
+            .replace('{entity}', game.i18n.localize('Active Effect')),
+          icon: '/icons/svg/mystery-man-black.svg',
+          transfer: transfer,
+        })
+      )._id;
+      return new ActiveEffectConfig(this.actor['effects'].get(id)).render(true);
+    });
   }
 
   getData() {
     let data: any = super.getData();
     data.config = CONFIG.SWADE;
+
+    console.log(getProperty(this.actor.data, 'data.stats.toughness'));
 
     data.itemsByType = {};
     for (const type of game.system.entityTypes.Item) {

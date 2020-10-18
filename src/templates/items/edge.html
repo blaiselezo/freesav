@@ -27,7 +27,12 @@
     </div>
     {{> "systems/swade/templates/setting-fields.html"}} {{>
     "systems/swade/templates/items/partials/description.html"}}
-    <header class="header-field">Effects</header>
+    <header class="header-field flexrow">
+      <span style="flex: 1;">Effects</span>
+      <a class="header-field-add add-effect" data-transfer="true">
+        <i class="fa fa-plus"></i>
+      </a>
+    </header>
     {{> "systems/swade/templates/effect-list.html"}}
   </section>
 </form>
