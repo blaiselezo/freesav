@@ -192,8 +192,6 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     let data: any = super.getData();
     data.config = CONFIG.SWADE;
 
-    console.log(getProperty(this.actor.data, 'data.stats.toughness'));
-
     data.itemsByType = {};
     for (const type of game.system.entityTypes.Item) {
       data.itemsByType[type] = data.items.filter((i) => i.type === type) || [];

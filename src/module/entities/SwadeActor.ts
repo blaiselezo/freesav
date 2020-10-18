@@ -19,20 +19,6 @@ export default class SwadeActor extends Actor {
     this.prepareEmbeddedEntities();
     this.applyActiveEffects();
     this.prepareDerivedData();
-
-    //die type bounding for attributes
-    let attributes = getProperty(this.data, 'data.attributes') || {};
-    for (let attribute in attributes) {
-      let dieSides = getProperty(
-        this.data,
-        `data.attributes.${attribute}.die.sides`,
-      );
-      if (dieSides < 4 && dieSides !== 1) {
-        dieSides = 4;
-      } else if (dieSides > 12) {
-        dieSides = 12;
-      }
-    }
   }
 
   /**
@@ -45,12 +31,10 @@ export default class SwadeActor extends Actor {
       this.data.type !== 'vehicle';
 
     if (shouldAutoCalcToughness) {
-      setProperty(
-        this.data,
-        'data.stats.toughness.value',
-        this.calcToughness(true),
-      );
-      setProperty(this.data, 'data.stats.toughness.armor', this.calcArmor());
+      const toughnessKey = 'data.stats.toughness.value';
+      const armorKey = 'data.stats.toughness.armor';
+      setProperty(this.data, toughnessKey, this.calcToughness());
+      setProperty(this.data, armorKey, this.calcArmor());
     }
   }
 
@@ -58,18 +42,29 @@ export default class SwadeActor extends Actor {
    * @override
    */
   prepareDerivedData() {
-    //auto calculations
-    let shouldAutoCalcToughness =
-      getProperty(this.data, 'data.details.autoCalcToughness') &&
-      this.data.type !== 'vehicle';
+    //return early for Vehicles
+    if (this.data.type === 'vehicle') return;
 
-    if (shouldAutoCalcToughness) {
-      setProperty(
+    //modify pace with wounds
+    //TODO add setting to make this toggle-able
+    const wounds = getProperty(this.data, 'data.wounds.value');
+    const pace = getProperty(this.data, 'data.stats.speed.value');
+    let adjustedPace = parseInt(pace) - parseInt(wounds);
+    if (adjustedPace < 1) adjustedPace = 1;
+    setProperty(this.data, 'data.stats.speed.value', adjustedPace);
+
+    //die type bounding for attributes
+    let attributes = getProperty(this.data, 'data.attributes');
+    for (let attribute in attributes) {
+      let sides = getProperty(
         this.data,
-        'data.stats.toughness.value',
-        this.calcToughness(true),
+        `data.attributes.${attribute}.die.sides`,
       );
-      setProperty(this.data, 'data.stats.toughness.armor', this.calcArmor());
+      if (sides < 4 && sides !== 1) {
+        setProperty(this.data, `data.attributes.${attribute}.die.sides`, 4);
+      } else if (sides > 12) {
+        setProperty(this.data, `data.attributes.${attribute}.die.sides`, 12);
+      }
     }
   }
 

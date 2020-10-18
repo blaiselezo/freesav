@@ -143,7 +143,7 @@
           type="text"
           value="{{data.stats.speed.value}}"
           placeholder="0"
-          data-dtype="String"
+          data-dtype="Number"
         />
       </div>
       <div class="attribute flex3">
@@ -155,7 +155,7 @@
             value="{{data.stats.parry.value}}"
             type="text"
             placeholder="0"
-            data-dtype="String"
+            data-dtype="Number"
           />
           <div class="armor-value" alt="Parry modifier" data-target="parry">
             {{add parry data.stats.parry.modifier}}
@@ -171,7 +171,7 @@
             type="text"
             value="{{data.stats.toughness.value}}"
             placeholder="{{localize 'SWADE.Tough'}}"
-            data-dtype="String"
+            data-dtype="Number"
             {{disabled
             data.details.autoCalcToughness}}
           />
@@ -225,7 +225,7 @@
         ></a>
       </div>
     </header>
-    {{log this.entity}} {{> "systems/swade/templates/effect-list.html"}}
+    {{> "systems/swade/templates/effect-list.html"}}
     <header class="header-field flexrow">
       <div>{{ localize "SWADE.QuickAccess" }}</div>
       <div class="header-field-add">
