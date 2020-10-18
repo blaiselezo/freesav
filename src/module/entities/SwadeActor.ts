@@ -55,13 +55,14 @@ export default class SwadeActor extends Actor {
       link = true;
     }
     data.token = data.token || {};
-    mergeObject(data.token, {
-      vision: true,
-      dimSight: 30,
-      brightSight: 0,
-      actorLink: link,
-      disposition: 1,
-    });
+    mergeObject(
+      data.token,
+      {
+        vision: true,
+        actorLink: link,
+      },
+      { overwrite: false },
+    );
 
     return super.create(data, options);
   }
