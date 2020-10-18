@@ -165,7 +165,6 @@
       <div class="attribute flex3">
         <div class="attribute-label">{{localize "SWADE.Tough"}}</div>
         <div class="toughness-block">
-          {{#if data.details.autoCalcToughness}}
           <input
             id="toughness"
             name="data.stats.toughness.value"
@@ -173,18 +172,9 @@
             value="{{data.stats.toughness.value}}"
             placeholder="{{localize 'SWADE.Tough'}}"
             data-dtype="String"
-            disabled
+            {{disabled
+            data.details.autoCalcToughness}}
           />
-          {{else}}
-          <input
-            id="toughness"
-            name="data.stats.toughness.value"
-            type="text"
-            value="{{data.stats.toughness.value}}"
-            placeholder="{{localize 'SWADE.Tough'}}"
-            data-dtype="String"
-          />
-          {{/if}}
           <div class="armor-value" data-target="armor">
             {{data.stats.toughness.armor}}
           </div>
@@ -228,9 +218,16 @@
   <div class="gear resizable scrollable" data-base-size="435">
     {{> "systems/swade/templates/setting-fields.html"}}
     <header class="header-field flexrow">
-      <div>
-        <span>{{ localize "SWADE.QuickAccess" }}</span>
+      <div>{{ localize "SWADE.Effects" }}</div>
+      <div class="header-field-add">
+        <a class="add-effect" data-transfer="false"
+          ><i class="fa fa-plus"></i
+        ></a>
       </div>
+    </header>
+    {{log this.entity}} {{> "systems/swade/templates/effect-list.html"}}
+    <header class="header-field flexrow">
+      <div>{{ localize "SWADE.QuickAccess" }}</div>
       <div class="header-field-add">
         <a
           class="item-create"
