@@ -397,7 +397,20 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       this.actor.data,
       'data.attributes.strength.die',
     );
-    let capacity = 20 + 10 * (strengthDie.sides - 4);
+
+    let stepAdjust =
+      getProperty(
+        this.actor.data,
+        'data.attributes.strength.encumbranceSteps',
+      ) * 2;
+
+    if (stepAdjust < 0) stepAdjust = 0;
+
+    let encumbDie = strengthDie.sides + stepAdjust;
+
+    if (encumbDie > 12) encumbDie > 12;
+
+    let capacity = 20 + 10 * (encumbDie - 4);
 
     if (strengthDie.modifier > 0) {
       capacity = capacity + 20 * strengthDie.modifier;

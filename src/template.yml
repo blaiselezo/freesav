@@ -26,12 +26,14 @@ Actor:
             modifier: 0
           wild-die:
             sides: 6
+          unShakeBonus: 0
         strength:
           die:
             sides: 4
             modifier: 0
           wild-die:
             sides: 6
+          encumbranceSteps: 0
         vigor:
           die:
             sides: 4

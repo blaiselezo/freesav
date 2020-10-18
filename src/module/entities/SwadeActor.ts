@@ -12,8 +12,9 @@ export default class SwadeActor extends Actor {
    * Extends data from base Actor class
    */
   prepareData() {
-    super.prepareData();
     let data = this.data;
+
+    //auto calculations
     let shouldAutoCalcToughness =
       getProperty(this.data, 'data.details.autoCalcToughness') &&
       this.data.type !== 'vehicle';
@@ -25,6 +26,22 @@ export default class SwadeActor extends Actor {
         this.calcToughness(),
       );
       setProperty(this.data, 'data.stats.toughness.armor', this.calcArmor());
+    }
+    //apply active effects and generall data preparation
+    super.prepareData();
+
+    //die type bounding for attributes
+    let attributes = getProperty(data, 'data.attributes');
+    for (let attribute in attributes) {
+      let dieSides = getProperty(
+        data,
+        `data.attributes.${attribute}.die.sides`,
+      );
+      if (dieSides < 4 && dieSides !== 1) {
+        dieSides = 4;
+      } else if (dieSides > 12) {
+        dieSides = 12;
+      }
     }
     return data;
   }

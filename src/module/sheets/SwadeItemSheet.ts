@@ -108,6 +108,26 @@ export default class SwadeItemSheet extends ItemSheet {
         {},
       );
     });
+
+    html.find('.effect-action').on('click', (ev) => {
+      const a = ev.currentTarget;
+      const effectId = a.closest('li').dataset.effectId;
+      const effect = this.item['effects'].get(effectId);
+      const action = a.dataset.action;
+
+      if (this.item.isOwned) {
+        console.log("I'm on an actor!");
+      } else {
+        switch (action) {
+          case 'edit':
+            return new ActiveEffectConfig(effect).render(true);
+          case 'delete':
+            return effect.delete();
+          case 'toggle':
+            return effect.update({ disabled: !effect.data.disabled });
+        }
+      }
+    });
   }
 
   /**
