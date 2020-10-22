@@ -112,7 +112,7 @@ export default class SwadeItemSheet extends ItemSheet {
     html.find('.effect-action').on('click', (ev) => {
       const a = ev.currentTarget;
       const effectId = a.closest('li').dataset.effectId;
-      const effect = this.item['effects'].get(effectId) as ActiveEffect;
+      const effect = this.item['effects'].get(effectId) as any;
       const action = a.dataset.action;
       if (this.item.isOwned) {
         //FIXME once this is supported in Foundry
@@ -122,10 +122,7 @@ export default class SwadeItemSheet extends ItemSheet {
       } else {
         switch (action) {
           case 'edit':
-            //FIXME when 0.7.5 releases use this instead:
-            //effect.sheet.render(true)
-            console.log(this.item['effects']);
-            return new ActiveEffectConfig(effect).render(true);
+            return effect.sheet.render(true);
           case 'delete':
             return effect.delete();
           case 'toggle':
