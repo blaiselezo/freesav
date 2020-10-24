@@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added package name to Action deck selection
 - Simplified explosion syntax from `x=` to `x`
 - Refactored `getData` of all actor sheets take out duplicate or unused sections
+- [POTENTIALL BREAKING]Changed data typers of input fields for attributes and derived values to `Number`. This was a necessary step in order to make Active Effects work properly.
 
 ### Fixed
 

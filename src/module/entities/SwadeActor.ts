@@ -68,20 +68,6 @@ export default class SwadeActor extends Actor {
   }
 
   /* -------------------------------------------- */
-
-  /** @override */
-  async update(data, options = {}) {
-    return super.update(data, options);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  async createOwnedItem(itemData, options = {}) {
-    return super.createOwnedItem(itemData, options);
-  }
-
-  /* -------------------------------------------- */
   /*  Rolls                                       */
   /* -------------------------------------------- */
   rollAttribute(
