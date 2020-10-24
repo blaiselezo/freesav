@@ -155,6 +155,17 @@
     {{!-- Right panel --}}
     <section class="gear">
       <header class="header-field flexrow">
+        <div>{{ localize "SWADE.Effects" }}</div>
+        <div class="header-field-add">
+          <a class="add-effect" data-transfer="false"
+            ><i class="fa fa-plus"></i
+          ></a>
+        </div>
+      </header>
+      {{> "systems/swade/templates/effect-list.html"}}
+    </section>
+    <section class="gear">
+      <header class="header-field flexrow">
         <div>
           <span>{{localize "SWADE.Inv"}}</span>
         </div>

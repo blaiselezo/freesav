@@ -15,9 +15,24 @@ export default class SwadeActor extends Actor {
     this.data = duplicate(this['_data']);
     if (!this.data.img) this.data.img = CONST.DEFAULT_TOKEN;
     if (!this.data.name) this.data.name = 'New ' + this.entity;
+
     this.prepareBaseData();
+
+    const shouldAutoCalcToughness =
+      getProperty(this.data, 'data.details.autoCalcToughness') &&
+      this.data.type !== 'vehicle';
+    const toughnessKey = 'data.stats.toughness.value';
+    const armorKey = 'data.stats.toughness.armor';
+
     this.prepareEmbeddedEntities();
     this.applyActiveEffects();
+
+    if (shouldAutoCalcToughness) {
+      const adjustedToughness = getProperty(this.data, toughnessKey);
+      const adjustedArmor = getProperty(this.data, armorKey);
+      setProperty(this.data, toughnessKey, adjustedToughness + adjustedArmor);
+    }
+
     this.prepareDerivedData();
   }
 
@@ -26,14 +41,14 @@ export default class SwadeActor extends Actor {
    */
   prepareBaseData() {
     //auto calculations
-    let shouldAutoCalcToughness =
+    const shouldAutoCalcToughness =
       getProperty(this.data, 'data.details.autoCalcToughness') &&
       this.data.type !== 'vehicle';
 
     if (shouldAutoCalcToughness) {
       const toughnessKey = 'data.stats.toughness.value';
       const armorKey = 'data.stats.toughness.armor';
-      setProperty(this.data, toughnessKey, this.calcToughness());
+      setProperty(this.data, toughnessKey, this.calcToughness(false));
       setProperty(this.data, armorKey, this.calcArmor());
     }
   }
@@ -387,10 +402,16 @@ export default class SwadeActor extends Actor {
       return i.type === 'armor' && isEquipped && !isNaturalArmor && coversTorso;
     });
 
-    armorList = armorList.sort((a, b) => {
+    armorList.sort((a, b) => {
       const aValue = parseInt(a.data.armor);
       const bValue = parseInt(b.data.armor);
-      return aValue + bValue;
+      if (aValue < bValue) {
+        return 1;
+      }
+      if (aValue > bValue) {
+        return -1;
+      }
+      return 0;
     });
 
     const naturalArmors = this.data['items'].filter((i: SwadeItem) => {
