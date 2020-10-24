@@ -1,42 +1,54 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
   {{!-- Item Sheet Header --}} {{>
   "systems/swade/templates/items/partials/header-delete.html"}}
-  <section class="sheet-body">
-    <div class="form-group">
-      <label for="die">{{localize "SWADE.Die"}}</label>
-      <span class="form-fields">
-        <select name="data.die.sides" id="die" data-dtype="Number">
-          {{#select item.data.die.sides}} {{>
-          "systems/swade/templates/die-sides-options.html"}} {{/select}}
-        </select>
-        <input
-          name="data.die.modifier"
-          type="text"
-          value="{{item.data.die.modifier}}"
-          placeholder="{{localize 'SWADE.Mod'}}"
-          data-dtype="String"
-      /></span>
+  <main class="sheet-body">
+    <div class="tab active" data-group="primary" data-tab="summary">
+      <div class="form-group">
+        <label for="die">{{localize "SWADE.Die"}}</label>
+        <span class="form-fields">
+          <select name="data.die.sides" id="die" data-dtype="Number">
+            {{#select item.data.die.sides}} {{>
+            "systems/swade/templates/die-sides-options.html"}} {{/select}}
+          </select>
+          <input
+            name="data.die.modifier"
+            type="text"
+            value="{{item.data.die.modifier}}"
+            placeholder="{{localize 'SWADE.Mod'}}"
+            data-dtype="String"
+        /></span>
+      </div>
+      <div class="form-group">
+        <label for="attribute">{{localize "SWADE.LinkAttr"}}</label>
+        <span class="form-fields">
+          <select name="data.attribute" id="attribute" data-dtype="String">
+            {{#select item.data.attribute}} {{>
+            "systems/swade/templates/attribute-select.html"}} {{/select}}
+          </select></span
+        >
+      </div>
+      {{#if item.data.ownerIsWildcard}}
+      <div class="form-group">
+        <label for="wild-die">{{localize "SWADE.WildDie"}}</label>
+        <span class="form-fields">
+          <select name="data.wild-die.sides" id="wild-die" data-dtype="Number">
+            {{#select item.data.wild-die.sides}} {{>
+            "systems/swade/templates/die-sides-options.html"}} {{/select}}
+          </select></span
+        >
+      </div>
+      {{/if}} {{> "systems/swade/templates/setting-fields.html"}} {{>
+      "systems/swade/templates/items/partials/description.html"}}
     </div>
-    <div class="form-group">
-      <label for="attribute">{{localize "SWADE.LinkAttr"}}</label>
-      <span class="form-fields">
-        <select name="data.attribute" id="attribute" data-dtype="String">
-          {{#select item.data.attribute}} {{>
-          "systems/swade/templates/attribute-select.html"}} {{/select}}
-        </select></span
-      >
+    <div class="tab" data-group="primary" data-tab="actions-effects">
+      <header class="header-field flexrow">
+        <span style="flex: 1;">{{localize "SWADE.Effects"}}</span>
+        <a class="header-field-add add-effect" data-transfer="true">
+          <i class="fa fa-plus"></i>
+        </a>
+      </header>
+      {{> "systems/swade/templates/effect-list.html"}}
+      <br />
     </div>
-    {{#if item.data.ownerIsWildcard}}
-    <div class="form-group">
-      <label for="wild-die">{{localize "SWADE.WildDie"}}</label>
-      <span class="form-fields">
-        <select name="data.wild-die.sides" id="wild-die" data-dtype="Number">
-          {{#select item.data.wild-die.sides}} {{>
-          "systems/swade/templates/die-sides-options.html"}} {{/select}}
-        </select></span
-      >
-    </div>
-    {{/if}} {{> "systems/swade/templates/setting-fields.html"}} {{>
-    "systems/swade/templates/items/partials/description.html"}}
-  </section>
+  </main>
 </form>

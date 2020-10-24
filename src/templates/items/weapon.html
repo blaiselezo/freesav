@@ -171,40 +171,15 @@
       </section>
     </div>
     <div class="tab" data-group="primary" data-tab="actions-effects">
-      <div class="form-group">
-        <label>{{localize "SWADE.Skill"}}</label>
-        <span class="form-fields">
-          <input
-            name="data.actions.skill"
-            type="text"
-            value="{{item.data.actions.skill}}"
-            placeholder="{{localize 'SWADE.Skill'}}"
-            data-dtype="String"
-        /></span>
-      </div>
-      <div class="form-group">
-        <label>{{localize "SWADE.SkillModUni"}}</label>
-        <span class="form-fields">
-          <input
-            name="data.actions.skillMod"
-            type="text"
-            value="{{item.data.actions.skillMod}}"
-            placeholder="{{localize 'SWADE.RollExample'}}"
-            data-dtype="String"
-        /></span>
-      </div>
-      <div class="form-group">
-        <label>{{localize "SWADE.DmgModUni"}}</label>
-        <span class="form-fields">
-          <input
-            name="data.actions.dmgMod"
-            type="text"
-            value="{{item.data.actions.dmgMod}}"
-            placeholder="{{localize 'SWADE.RollExample'}}"
-            data-dtype="String"
-        /></span>
-      </div>
       {{> "systems/swade/templates/items/partials/actions.html"}}
+      <header class="header-field flexrow">
+        <span style="flex: 1;">{{localize "SWADE.Effects"}}</span>
+        <a class="header-field-add add-effect" data-transfer="true">
+          <i class="fa fa-plus"></i>
+        </a>
+      </header>
+      {{> "systems/swade/templates/effect-list.html"}}
+      <br />
     </div>
   </main>
 </form>

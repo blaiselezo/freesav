@@ -169,11 +169,6 @@ export default class SwadeItemSheet extends ItemSheet {
     data['settingrules'] = {
       modSlots: game.settings.get('swade', 'vehicleMods'),
     };
-
-    data['displayTabs'] = [
-      ItemType.Weapon.toString(),
-      ItemType.Power.toString(),
-    ].includes(this.item.type);
     return data;
   }
 }
