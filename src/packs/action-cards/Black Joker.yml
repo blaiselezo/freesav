@@ -7,6 +7,6 @@ flags:
     cardValue: 99
     suitValue: 99
     isJoker: true
-content: '&#127183;'
+content: 'Blk J'
 img: systems/swade/assets/pokerDeck/black_joker.svg
 _id: PAa2OWq9MhVW18zp

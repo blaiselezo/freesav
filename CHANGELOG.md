@@ -43,6 +43,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Simplified explosion syntax from `x=` to `x`
 - Refactored `getData` of all actor sheets take out duplicate or unused sections
 - [POTENTIALLY BREAKING] Changed data types of input fields for attributes and derived values to `Number`. This was a necessary step in order to make Active Effects work properly.
+- Changed display text of the Red and Black Joker action cards to "Red J" and "Blk J" respectively to improve readability
 
 ### Fixed
 
