@@ -32,7 +32,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added `suppressChat` option to `Actor.rollSkill`, `Actor.rollAttribute` and `Item.RollDamage` options. When this option is set to true, the method returns an unroll `Roll` class instead of opening the Dialog and rolling. Example: `actor.rollSkill(randomSkillID, {suppressChat: true})`
 - Added logic that will optionally adjust pace with the wounds
 - Added support for active effects, including UI.
-  - **Attention** Should an active effect that modifies something like parry or pace not work it may because the data is still saved as a string. To fix this first enter some bogus value into the field and then the proper base value. This will force the field to update the datatype correctly and the Active Effect should now work properly
+  - **Attention** Should an active effect that modifies something like parry or pace not work it may because the data is still saved as a string. To fix this first enter some bogus value into the field and then the proper base value. This will force the field to update the datatype correctly and the Active Effect should now work properly.
+  - **Attention** Editing an Active Effect on an item that is owned by a character is not currently possible as it isn't directly supported in Foundry Core
 - Added two new modifier fields to the data model for `character` and `npc` type actors. Both are primarily meant for active effects
   - `data.strength.encumbranceSteps` - Used for Edges which modify the strength die for the purpose of calculating encumbrance. setting this value to 1 means the strength die is considered 1 step higher for the purpose of encumbrance (up to a maximum of a d12)
   - `data.spirit.unShakeBonus` - Should be used for edges which give a bonus or penalty to the unshaking test
