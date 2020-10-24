@@ -62,7 +62,7 @@ Actor:
         conviction:
           value: 0
           active: false
-        autoCalcToughness: false
+        autoCalcToughness: true
       powerPoints: {}
       fatigue:
         value: 0
