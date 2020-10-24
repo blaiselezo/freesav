@@ -46,12 +46,13 @@ export default class SwadeActor extends Actor {
     if (this.data.type === 'vehicle') return;
 
     //modify pace with wounds
-    //TODO add setting to make this toggle-able
-    const wounds = getProperty(this.data, 'data.wounds.value');
-    const pace = getProperty(this.data, 'data.stats.speed.value');
-    let adjustedPace = parseInt(pace) - parseInt(wounds);
-    if (adjustedPace < 1) adjustedPace = 1;
-    setProperty(this.data, 'data.stats.speed.value', adjustedPace);
+    if (game.settings.get('swade', 'enableWoundPace')) {
+      const wounds = getProperty(this.data, 'data.wounds.value');
+      const pace = getProperty(this.data, 'data.stats.speed.value');
+      let adjustedPace = parseInt(pace) - parseInt(wounds);
+      if (adjustedPace < 1) adjustedPace = 1;
+      setProperty(this.data, 'data.stats.speed.value', adjustedPace);
+    }
 
     //die type bounding for attributes
     let attributes = getProperty(this.data, 'data.attributes');

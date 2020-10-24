@@ -197,6 +197,8 @@ SWADE.HideWC: Hide NPC Wildcards
 SWADE.HideWCDesc: Do not show which NPCs are Wildcards to players
 SWADE.EnableConv: Enable Conviction
 SWADE.EnableConvDesc: Enable the Conviction setting rule
+SWADE.EnableWoundPace: Adjust Pace with Wounds
+SWADE.EnableWoundPaceDesc: When enabled, Pace is automatically affected by Wounds
 SWADE.AutoLink: Automatically Link Wildcards
 SWADE.AutoLinkDesc:
   When enabled, NPC Wildcards will have their tokens linked when

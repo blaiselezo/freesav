@@ -30,6 +30,19 @@
         </div>
         <p class="notes">{{localize "SWADE.EnableConvDesc"}}</p>
       </div>
+      <div class="form-group">
+        <label>{{localize "SWADE.EnableWoundPace"}}</label>
+        <div class="form-fields">
+          <input
+            type="checkbox"
+            name="settingRules.enableWoundPace"
+            data-dtype="Boolean"
+            {{checked
+            settingRules.enableWoundPace}}
+          />
+        </div>
+        <p class="notes">{{localize "SWADE.EnableWoundPaceDesc"}}</p>
+      </div>
     </section>
     <section id="vehicles">
       <h2 class="module-header">{{localize "SWADE.Vehicles"}}</h2>

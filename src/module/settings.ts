@@ -71,6 +71,15 @@ export function registerSettings() {
     config: false,
   });
 
+  game.settings.register('swade', 'enableWoundPace', {
+    name: game.i18n.localize('SWADE.EnableWoundPace'),
+    hint: game.i18n.localize('SWADE.EnableWoundPaceDesc'),
+    default: true,
+    scope: 'world',
+    type: Boolean,
+    config: false,
+  });
+
   game.settings.register('swade', 'gmBennies', {
     name: game.i18n.localize('SWADE.GmBennies'),
     hint: game.i18n.localize('SWADE.GmBenniesDesc'),
