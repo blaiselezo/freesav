@@ -25,7 +25,7 @@
           type="text"
           value="{{data.stats.speed.value}}"
           placeholder="0"
-          data-dtype="String"
+          data-dtype="Number"
         />
       </div>
       <div class="attribute flex3">
@@ -37,7 +37,7 @@
             value="{{data.stats.parry.value}}"
             type="text"
             placeholder="0"
-            data-dtype="String"
+            data-dtype="Number"
           />
           <div class="armor-value" data-target="parry">
             {{add parry data.stats.parry.modifier}}
@@ -54,7 +54,7 @@
             type="text"
             value="{{data.stats.toughness.value}}"
             placeholder="{{localize 'SWADE.Tough'}}"
-            data-dtype="String"
+            data-dtype="Number"
             disabled
           />
           {{else}}
@@ -64,7 +64,7 @@
             type="text"
             value="{{data.stats.toughness.value}}"
             placeholder="{{localize 'SWADE.Tough'}}"
-            data-dtype="String"
+            data-dtype="Number"
           />
           {{/if}}
           <div class="armor-value" data-target="armor">
