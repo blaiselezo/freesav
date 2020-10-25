@@ -3,7 +3,7 @@
   "type": "system",
   "title": "Savage Worlds Adventure Edition",
   "description": "A comprehensive gamesystem for running Savage Worlds Adventure Edition games",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "minimumCoreVersion": "0.7.3",
   "compatibleCoreVersion": "0.7.3",
   "author": "FloRad",

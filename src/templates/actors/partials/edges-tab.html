@@ -11,7 +11,7 @@
       </div>
     </header>
     <ol class="hindrances items-list">
-      {{#each data.owned.hindrances as |hindrance id|}}
+      {{#each itemsByType.hindrance as |hindrance id|}}
       <li class="item flexrow" data-item-id="{{hindrance._id}}">
         <img src="{{hindrance.img}}" width="24" height="24" />
         <a class="item-control edge item-name" title="{{hindrance.name}}"
@@ -38,7 +38,7 @@
       </div>
     </header>
     <ol class="edges items-list resizable" data-base-size="390">
-      {{#each data.owned.edges as |edge id|}}
+      {{#each itemsByType.edge as |edge id|}}
       <li class="item flexrow" data-item-id="{{edge._id}}">
         <img src="{{edge.img}}" width="24" height="24" />
         <a class="item-control edge item-name" title="{{edge.name}}"

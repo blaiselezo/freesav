@@ -143,7 +143,7 @@
           type="text"
           value="{{data.stats.speed.value}}"
           placeholder="0"
-          data-dtype="String"
+          data-dtype="Number"
         />
       </div>
       <div class="attribute flex3">
@@ -155,7 +155,7 @@
             value="{{data.stats.parry.value}}"
             type="text"
             placeholder="0"
-            data-dtype="String"
+            data-dtype="Number"
           />
           <div class="armor-value" alt="Parry modifier" data-target="parry">
             {{add parry data.stats.parry.modifier}}
@@ -165,26 +165,16 @@
       <div class="attribute flex3">
         <div class="attribute-label">{{localize "SWADE.Tough"}}</div>
         <div class="toughness-block">
-          {{#if data.details.autoCalcToughness}}
           <input
             id="toughness"
             name="data.stats.toughness.value"
             type="text"
             value="{{data.stats.toughness.value}}"
             placeholder="{{localize 'SWADE.Tough'}}"
-            data-dtype="String"
-            disabled
+            data-dtype="Number"
+            {{disabled
+            data.details.autoCalcToughness}}
           />
-          {{else}}
-          <input
-            id="toughness"
-            name="data.stats.toughness.value"
-            type="text"
-            value="{{data.stats.toughness.value}}"
-            placeholder="{{localize 'SWADE.Tough'}}"
-            data-dtype="String"
-          />
-          {{/if}}
           <div class="armor-value" data-target="armor">
             {{data.stats.toughness.armor}}
           </div>
@@ -204,7 +194,7 @@
       </div>
     </header>
     <ol class="skills-list resizable" data-base-size="390">
-      {{#each data.owned.skills as |skill id|}}
+      {{#each itemsByType.skill as |skill id|}}
       <li class="item skill flexrow" data-item-id="{{skill._id}}">
         <label class="skill-label"
           ><a title="{{localize 'SWADE.Roll'}}">{{skill.name}}</a></label
@@ -228,9 +218,16 @@
   <div class="gear resizable scrollable" data-base-size="435">
     {{> "systems/swade/templates/setting-fields.html"}}
     <header class="header-field flexrow">
-      <div>
-        <span>{{ localize "SWADE.QuickAccess" }}</span>
+      <div>{{ localize "SWADE.Effects" }}</div>
+      <div class="header-field-add">
+        <a class="add-effect" data-transfer="false"
+          ><i class="fa fa-plus"></i
+        ></a>
       </div>
+    </header>
+    {{> "systems/swade/templates/effect-list.html"}}
+    <header class="header-field flexrow" style="margin-top: 2px;">
+      <div>{{ localize "SWADE.QuickAccess" }}</div>
       <div class="header-field-add">
         <a
           class="item-create"
@@ -243,24 +240,24 @@
     </header>
     <div class="quickaccess-list">
       <ol class="gear-list weapon-list">
-        {{#each data.owned.weapons as |weapon id|}} {{#if weapon.data.equipped}}
+        {{#each itemsByType.weapon as |weapon id|}} {{#if weapon.data.equipped}}
         {{> "systems/swade/templates/actors/partials/weapon-card.html"}} {{/if}}
         {{/each}}
       </ol>
-      {{#if data.hasArcaneBackground}}
+      {{#if hasArcaneBackground}}
       <ol class="gear-list power-list">
-        {{#each data.owned.powers as |power id|}} {{#if power.data.equipped}}
+        {{#each itemsByType.power as |power id|}} {{#if power.data.equipped}}
         {{> "systems/swade/templates/actors/partials/powers-card.html"}} {{/if}}
         {{/each}}
       </ol>
       {{/if}}
       <ol class="gear-list armor-list">
-        {{#each data.owned.armors as |armor id|}} {{#if armor.data.equipped}}
+        {{#each itemsByType.armor as |armor id|}} {{#if armor.data.equipped}}
         {{> "systems/swade/templates/actors/partials/armor-card.html"}} {{/if}}
         {{/each}}
       </ol>
       <ol class="gear-list shield-list">
-        {{#each data.owned.shields as |shield id|}} {{#if shield.data.equipped}}
+        {{#each itemsByType.shield as |shield id|}} {{#if shield.data.equipped}}
         {{> "systems/swade/templates/actors/partials/shield-card.html"}} {{/if}}
         {{/each}}
       </ol>

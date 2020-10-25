@@ -1,7 +1,10 @@
 import SwadeItem from './entities/SwadeItem';
 import SwadeActor from './entities/SwadeActor';
 
-export class SwadeDice {
+/**
+ * A helper class for dice interactions
+ */
+export default class SwadeDice {
   // eslint-disable-next-line no-unused-vars
   static async Roll({
     parts = [],
@@ -13,7 +16,7 @@ export class SwadeDice {
     item = null as SwadeItem,
     actor = null as SwadeActor,
     allowGroup = false,
-  } = {}) {
+  } = {}): Promise<Roll> {
     let rolled = false;
     let filtered = parts.filter(function (el) {
       return el != '' && el;
@@ -50,6 +53,7 @@ export class SwadeDice {
             raise: true,
             actor: actor,
             rollParts: filtered,
+            allowGroup: actor && !actor.isWildcard && allowGroup,
             speaker,
             flavor,
           });
@@ -79,7 +83,7 @@ export class SwadeDice {
         buttons: buttons,
         default: 'ok',
         close: () => {
-          resolve(rolled ? roll : false);
+          resolve(rolled ? roll : null);
         },
       }).render(true);
     });
@@ -101,7 +105,9 @@ export class SwadeDice {
     if (form !== null) data['bonus'] = form.find('#bonus').val();
     if (data['bonus']) rollParts.push(data['bonus']);
     if (groupRoll && allowGroup) {
-      rollParts[0] = `{${rollParts[0]}, 1d6x=}kh`;
+      rollParts[0] = `{${rollParts[0]}, 1d6x=[${game.i18n.localize(
+        'SWADE.WildDie',
+      )}]}kh`;
       flavor = `${flavor} ${game.i18n.localize('SWADE.GroupRoll')}`;
     } else if (raise) {
       rollParts.push('+1d6x=');

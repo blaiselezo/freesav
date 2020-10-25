@@ -115,8 +115,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
         title: game.i18n.localize('SWADE.Del'),
         content: template,
         yes: async () => {
-          await this.actor.deleteOwnedItem(ownedItem.id);
-          li.slideUp(200, () => this.render(false));
+          li.slideUp(200, () => this.actor.deleteOwnedItem(ownedItem.id));
         },
         no: () => {},
       });
@@ -148,14 +147,10 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
 
     //Toggle Equipmnent Card collapsible
     html.find('.gear-card .card-header .item-name').on('click', (ev) => {
-      const card = $(ev.currentTarget).parents('.gear-card');
-      const content = card.find('.card-content');
-      content.toggleClass('collapsed');
-      if (content.hasClass('collapsed')) {
-        content.slideUp();
-      } else {
-        content.slideDown();
-      }
+      $(ev.currentTarget)
+        .parents('.gear-card')
+        .find('.card-content')
+        .slideToggle();
     });
 
     //Input Synchronization
@@ -197,7 +192,10 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
 
       // Getting back to main logic
       if (type == 'choice') {
-        const choices = header.dataset.choices.split(',');
+        let choices = {};
+        header.dataset.choices.split(',').forEach((c) => {
+          choices[c] = game.i18n.localize(`ITEM.Type${c.capitalize()}`);
+        });
         this._chooseItemType(choices).then(async (dialogInput: any) => {
           const itemData = createItem(dialogInput.type, dialogInput.name);
           createdItem = await this.actor.createOwnedItem(itemData, {});
@@ -225,31 +223,7 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
       });
     }
 
-    //Checks if relevant arrays are not null and combines them into an inventory array
-    data.data.owned.inventory = {
-      gear: data.data.owned.gear,
-      weapons: data.data.owned.weapons,
-      armors: data.data.owned.armors,
-      shields: data.data.owned.shields,
-    };
-
-    data.inventoryWeight = this._calcInventoryWeight(
-      Object.values(data.data.owned.inventory),
-    );
-    data.maxCarryCapacity = this._calcMaxCarryCapacity(data);
-
     return data;
-  }
-
-  private _calcMaxCarryCapacity(data: any): number {
-    const strengthDie = data.data.attributes.strength.die;
-    let capacity = 20 + 10 * (strengthDie.sides - 4);
-
-    if (strengthDie.modifier > 0) {
-      capacity = capacity + 20 * strengthDie.modifier;
-    }
-
-    return capacity;
   }
 
   private _toggleEquipped(id: string, item: any): any {

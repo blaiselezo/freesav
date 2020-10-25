@@ -108,6 +108,42 @@ export default class SwadeItemSheet extends ItemSheet {
         {},
       );
     });
+
+    html.find('.effect-action').on('click', (ev) => {
+      const a = ev.currentTarget;
+      const effectId = a.closest('li').dataset.effectId;
+      const effect = this.item['effects'].get(effectId) as any;
+      const action = a.dataset.action;
+      if (this.item.isOwned) {
+        //FIXME once this is supported in Foundry
+        ui.notifications.info(
+          'Editing of Active Effects on an owned Item is not yet supported',
+        );
+      } else {
+        switch (action) {
+          case 'edit':
+            return effect.sheet.render(true);
+          case 'delete':
+            return effect.delete();
+          case 'toggle':
+            return effect.update({ disabled: !effect.data.disabled });
+        }
+      }
+    });
+
+    html.find('.add-effect').on('click', async (ev) => {
+      let transfer = $(ev.currentTarget).data('transfer');
+      let id = (
+        await this.item.createEmbeddedEntity('ActiveEffect', {
+          label: game.i18n
+            .localize('ENTITY.New')
+            .replace('{entity}', game.i18n.localize('Active Effect')),
+          icon: '/icons/svg/mystery-man.svg',
+          transfer: transfer,
+        })
+      )._id;
+      return new ActiveEffectConfig(this.item['effects'].get(id)).render(true);
+    });
   }
 
   /**
@@ -119,7 +155,7 @@ export default class SwadeItemSheet extends ItemSheet {
     data.data.isOwned = this.item.isOwned;
     data.config = CONFIG.SWADE;
     const actor = this.item.actor;
-    const ownerIsWildcard = actor && actor.data['data'].wildcard;
+    const ownerIsWildcard = actor && actor.isWildcard;
     if (ownerIsWildcard || !this.item.isOwned) {
       data.data.ownerIsWildcard = true;
     }
@@ -133,11 +169,6 @@ export default class SwadeItemSheet extends ItemSheet {
     data['settingrules'] = {
       modSlots: game.settings.get('swade', 'vehicleMods'),
     };
-
-    data['displayTabs'] = [
-      ItemType.Weapon.toString(),
-      ItemType.Power.toString(),
-    ].includes(this.item.type);
     return data;
   }
 }

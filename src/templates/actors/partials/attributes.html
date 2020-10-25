@@ -23,7 +23,7 @@
           type="text"
           value="{{data.attributes.agility.die.modifier}}"
           placeholder="{{localize 'SWADE.Mod'}}"
-          data-dtype="String"
+          data-dtype="Number"
         />
       </div>
     </div>
@@ -49,7 +49,7 @@
           type="text"
           value="{{data.attributes.smarts.die.modifier}}"
           placeholder="{{localize 'SWADE.Mod'}}"
-          data-dtype="String"
+          data-dtype="Number"
         />
       </div>
     </div>
@@ -72,7 +72,7 @@
           type="text"
           value="{{data.attributes.spirit.die.modifier}}"
           placeholder="{{localize 'SWADE.Mod'}}"
-          data-dtype="String"
+          data-dtype="Number"
         />
       </div>
     </div>
@@ -87,15 +87,16 @@
           data-dtype="Number"
           style="background-image:url('systems/swade/assets/dice/d{{data.attributes.strength.die.sides}}-grey.svg')"
         >
-          {{#select data.attributes.strength.die.sides}} {{>
-          "systems/swade/templates/die-sides-options.html"}} {{/select}}
+          {{#select data.attributes.strength.die.sides}}
+          <option value="1">1</option>
+          {{> "systems/swade/templates/die-sides-options.html"}} {{/select}}
         </select>
         <input
           name="data.attributes.strength.die.modifier"
           type="text"
           value="{{data.attributes.strength.die.modifier}}"
           placeholder="{{localize 'SWADE.Mod'}}"
-          data-dtype="String"
+          data-dtype="Number"
         />
       </div>
     </div>
@@ -118,7 +119,7 @@
           type="text"
           value="{{data.attributes.vigor.die.modifier}}"
           placeholder="{{localize 'SWADE.Mod'}}"
-          data-dtype="String"
+          data-dtype="Number"
         />
       </div>
     </div>

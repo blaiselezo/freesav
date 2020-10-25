@@ -4,4 +4,5 @@ export default interface IRollOptions {
   flavour?: string;
   dmgOverride?: string;
   additionalMods?: (string | number)[];
+  suppressChat?: boolean;
 }

@@ -1,4 +1,30 @@
 ---
+#***************************
+# General
+#***************************
+SWADE.CommunityCharSheet: Community Character Sheet
+SWADE.CommunityNPCSheet: Community NPC Sheet
+SWADE.CommunityVicSheet: Community Vehicle Sheet
+SWADE.CommunityItemSheet: Community Item Sheet
+
+#***************************
+# Entity Labels
+#***************************
+# Actor
+ACTOR.TypeCharacter: Character
+ACTOR.TypeNpc: NPC
+ACTOR.TypeVehicle: Vehicle
+
+# Item
+ITEM.TypeWeapon: Weapon
+ITEM.TypeArmor: Armor
+ITEM.TypeShield: Shield
+ITEM.TypeGear: Gear
+ITEM.TypeEdge: Edge
+ITEM.TypeHindrance: Hindrance
+ITEM.TypeSkill: Skill
+ITEM.TypePower: Power
+
 SWADE.Name: Name
 SWADE.Tough: Toughness
 SWADE.Race: Race
@@ -27,13 +53,13 @@ SWADE.AnimalSmarts: Animal Smarts
 SWADE.AttrSpr: Spirit
 SWADE.AttrStr: Strength
 SWADE.AttrVig: Vigor
+SWADE.Tweaks: Tweaks
 SWADE.AttrAgiShort: Agi
 SWADE.AttrSmaShort: Sma
 SWADE.AttrSprShort: Spi
 SWADE.AttrStrShort: Str
 SWADE.AttrVigShort: Vig
 SWADE.Skills: Skills
-SWADE.Skill: Skill
 SWADE.Unskilled: Unskilled
 SWADE.LinkAttr: Linked Attribute
 SWADE.Die: Die
@@ -58,17 +84,16 @@ SWADE.Del: Delete
 SWADE.Arcane: Arcane
 SWADE.All: All
 SWADE.HasPowers: Has Powers
-SWADE.Gear: Gear
 SWADE.Weapons: Weapons
 SWADE.MeleeWeapons: Melee Weapons
 SWADE.RangedWeapons: Ranged Weapons
 SWADE.Armors: Armors
-SWADE.Armor: Armor
 SWADE.Shields: Shields
 
 #####################
 # Items
 #####################
+SWADE.Armor: Armor
 SWADE.Dmg: Damage
 SWADE.DmgOver: Damage Override
 SWADE.Rng: Range
@@ -83,6 +108,7 @@ SWADE.ActionsEffects: Actions & Effects
 SWADE.Actions: Actions
 SWADE.DmgModUni: Damage Modifier (universal)
 SWADE.SkillModUni: Skill Modifier (universal)
+SWADE.NaturalArmor: Natural Armor
 SWADE.HitLocations: Hit Locations
 SWADE.Head: Head
 SWADE.Torso: Torso
@@ -97,6 +123,7 @@ SWADE.Details: Details
 SWADE.Equippable: Equippable
 SWADE.Misc: Misc
 SWADE.QuickAccess: Quick Access
+SWADE.Effects: Active Effects
 SWADE.Hindrances: Hindrances
 SWADE.MajHind: Major Hindrance
 SWADE.Major: '(Major)'
@@ -171,6 +198,8 @@ SWADE.HideWC: Hide NPC Wildcards
 SWADE.HideWCDesc: Do not show which NPCs are Wildcards to players
 SWADE.EnableConv: Enable Conviction
 SWADE.EnableConvDesc: Enable the Conviction setting rule
+SWADE.EnableWoundPace: Adjust Pace with Wounds
+SWADE.EnableWoundPaceDesc: When enabled, Pace is automatically affected by Wounds
 SWADE.AutoLink: Automatically Link Wildcards
 SWADE.AutoLinkDesc:
   When enabled, NPC Wildcards will have their tokens linked when
@@ -209,7 +238,7 @@ SWADE.NoCardsLeft: There are not enough cards left in the deck!
 SWADE.OldCard: Old card
 SWADE.ActionCard: Action Card
 
-SWADE ConvictionActivate: Calls upon their conviction!
+SWADE.ConvictionActivate: Calls upon their conviction!
 SWADE.ConvictionExtend: Do you want to extend your conviction?
 SWADE.ConvictionEnd: wavers in their conviction
 SWADE.NoBennies: You don't have enough bennies!

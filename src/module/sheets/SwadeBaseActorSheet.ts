@@ -4,11 +4,14 @@ import SwadeActor from '../entities/SwadeActor';
 import SwadeItem from '../entities/SwadeItem';
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import * as chat from '../chat';
-import { SwadeDice } from '../dice';
+import SwadeDice from '../dice';
 /**
  * @noInheritDoc
  */
 export default class SwadeBaseActorSheet extends ActorSheet {
+  /**
+   * @override
+   */
   get actor(): SwadeActor {
     return super.actor as SwadeActor;
   }
@@ -94,7 +97,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
             actor: this.actor,
             alias: this.actor.name,
           },
-          content: game.i18n.localize('SWADE ConvictionActivate'),
+          content: game.i18n.localize('SWADE.ConvictionActivate'),
         });
       } else {
         await this.actor.update({
@@ -128,7 +131,10 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       rollFormula = rollFormula.concat(`+${pace}`);
 
       if (runningMod && runningMod !== 0) {
-        rollFormula = rollFormula.concat(runningMod);
+        rollFormula =
+          runningMod > 0
+            ? rollFormula.concat(`+${runningMod}`)
+            : rollFormula.concat(runningMod);
       }
 
       if (ev.shiftKey) {
@@ -147,41 +153,62 @@ export default class SwadeBaseActorSheet extends ActorSheet {
         });
       }
     });
+
+    html.find('.effect-action').on('click', (ev) => {
+      const a = ev.currentTarget;
+      const effectId = a.closest('li').dataset.effectId;
+      const effect = this.actor['effects'].get(effectId) as any;
+      const action = a.dataset.action;
+
+      switch (action) {
+        case 'edit':
+          return effect.sheet.render(true);
+        case 'delete':
+          return effect.delete();
+        case 'toggle':
+          return effect.update({ disabled: !effect.data.disabled });
+      }
+    });
+
+    html.find('.add-effect').on('click', async (ev) => {
+      let transfer = $(ev.currentTarget).data('transfer');
+      let id = (
+        await this.actor.createEmbeddedEntity('ActiveEffect', {
+          label: game.i18n
+            .localize('ENTITY.New')
+            .replace('{entity}', game.i18n.localize('Active Effect')),
+          icon: '/icons/svg/mystery-man-black.svg',
+          transfer: transfer,
+        })
+      )._id;
+      return new ActiveEffectConfig(this.actor['effects'].get(id)).render(true);
+    });
   }
 
   getData() {
     let data: any = super.getData();
-
     data.config = CONFIG.SWADE;
+
+    data.itemsByType = {};
+    for (const type of game.system.entityTypes.Item) {
+      data.itemsByType[type] = data.items.filter((i) => i.type === type) || [];
+    }
+    data.itemsByType['skill'].sort((a, b) => a.name.localeCompare(b.name));
+
     if (this.actor.data.type !== 'vehicle') {
-      data.itemsByType = {};
-      for (const item of data.items) {
-        let list = data.itemsByType[item.type];
-        if (!list) {
-          list = [];
-          data.itemsByType[item.type] = list;
-        }
-        list.push(item);
-      }
+      //Encumbrance
+      data.inventoryWeight = this._calcInventoryWeight([
+        ...data.itemsByType['gear'],
+        ...data.itemsByType['weapon'],
+        ...data.itemsByType['armor'],
+        ...data.itemsByType['shield'],
+      ]);
+      data.maxCarryCapacity = this._calcMaxCarryCapacity();
 
-      data.data.owned.gear = this._checkNull(data.itemsByType['gear']);
-      data.data.owned.weapons = this._checkNull(data.itemsByType['weapon']);
-      data.data.owned.armors = this._checkNull(data.itemsByType['armor']);
-      data.data.owned.shields = this._checkNull(data.itemsByType['shield']);
-      data.data.owned.edges = this._checkNull(data.itemsByType['edge']);
-      data.data.owned.hindrances = this._checkNull(
-        data.itemsByType['hindrance'],
-      );
-      data.data.owned.skills = this._checkNull(
-        data.itemsByType['skill'],
-      ).sort((a, b) => a.name.localeCompare(b.name));
-      data.data.owned.powers = this._checkNull(data.itemsByType['power']);
-
-      //Checks if an Actor has a Power Egde
+      //Checks if an Actor has a Arcane Background
       data.hasArcaneBackground =
-        typeof data.data.owned.edges.find(
-          (edge) => edge.data.isArcaneBackground === true,
-        ) !== 'undefined';
+        data.itemsByType['edge'].filter((e) => e.data.isArcaneBackground)
+          .length > 0;
 
       if (this.actor.data.type === 'character') {
         data.powersOptions =
@@ -236,7 +263,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     if (this.options.editable && canConfigure) {
       buttons = [
         {
-          label: 'Tweaks',
+          label: game.i18n.localize('SWADE.Tweaks'),
           class: 'configure-actor',
           icon: 'fas fa-dice',
           onclick: (ev) => this._onConfigureEntity(ev),
@@ -254,9 +281,15 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     }).render(true);
   }
 
-  protected async _chooseItemType(
-    choices = ['weapon', 'armor', 'shield', 'gear'],
-  ) {
+  protected async _chooseItemType(choices?: any) {
+    if (!choices) {
+      choices = {
+        weapon: game.i18n.localize('ITEM.TypeWeapon'),
+        armor: game.i18n.localize('ITEM.TypeArmor'),
+        shield: game.i18n.localize('ITEM.TypeShield'),
+        gear: game.i18n.localize('ITEM.TypeGear'),
+      };
+    }
     let templateData = {
         types: choices,
         hasTypes: true,
@@ -383,12 +416,37 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
   protected _calcInventoryWeight(items): number {
     let retVal = 0;
-    items.forEach((category: any) => {
-      category.forEach((i: any) => {
-        retVal += i.data.weight * i.data.quantity;
-      });
+    items.forEach((i: any) => {
+      retVal += i.data.weight * i.data.quantity;
     });
     return retVal;
+  }
+
+  private _calcMaxCarryCapacity(): number {
+    const strengthDie = getProperty(
+      this.actor.data,
+      'data.attributes.strength.die',
+    );
+
+    let stepAdjust =
+      getProperty(
+        this.actor.data,
+        'data.attributes.strength.encumbranceSteps',
+      ) * 2;
+
+    if (stepAdjust < 0) stepAdjust = 0;
+
+    let encumbDie = strengthDie.sides + stepAdjust;
+
+    if (encumbDie > 12) encumbDie > 12;
+
+    let capacity = 20 + 10 * (encumbDie - 4);
+
+    if (strengthDie.modifier > 0) {
+      capacity = capacity + 20 * strengthDie.modifier;
+    }
+
+    return capacity;
   }
 
   protected _filterPowers(html: JQuery, arcane: string) {

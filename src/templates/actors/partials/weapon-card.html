@@ -25,7 +25,7 @@
     <div>{{localize "SWADE.Rng"}}: {{data.range}}</div>
     {{/unless}} {{#unless (isEmpty data.shots)}}
     <div>{{localize "SWADE.Mag"}}: {{data.shots}}</div>
-    {{/unless}} {{#if (gt data.rof 2)}}
+    {{/unless}} {{#if (gt data.rof 1)}}
     <div>{{localize "SWADE.RoF"}}: {{data.rof}}</div>
     {{/if}} {{#unless (eq data.ap 0)}}
     <div>{{localize "SWADE.Ap"}}: {{data.ap}}</div>

@@ -26,12 +26,14 @@ Actor:
             modifier: 0
           wild-die:
             sides: 6
+          unShakeBonus: 0
         strength:
           die:
             sides: 4
             modifier: 0
           wild-die:
             sides: 6
+          encumbranceSteps: 0
         vigor:
           die:
             sides: 4
@@ -60,7 +62,7 @@ Actor:
         conviction:
           value: 0
           active: false
-        autoCalcToughness: false
+        autoCalcToughness: true
       powerPoints: {}
       fatigue:
         value: 0
@@ -78,20 +80,13 @@ Actor:
       bennies:
         value: 3
         max: 3
-      owned:
-        gear: []
-        weapons: []
-        armors: []
-        shields: []
-        edges: []
-        hindrances: []
-        skills: []
-        powers: []
-        inventory: []
       status:
         isShaken: false
         isDistracted: false
         isVulnerable: false
+        isStunned: false
+        isEntangled: false
+        isBound: false
       initiative:
         hasHesitant: false
         hasLevelHeaded: false
@@ -205,6 +200,7 @@ Item:
       - equipable
     minStr: ''
     armor: 0
+    isNaturalArmor: false
     locations:
       head: false
       torso: true

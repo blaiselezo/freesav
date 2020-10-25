@@ -1,5 +1,5 @@
 import IRollOptions from '../../interfaces/IRollOptions';
-import { SwadeDice } from '../dice';
+import SwadeDice from '../dice';
 import { ItemType } from '../enums/ItemTypeEnum';
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './SwadeActor';
@@ -27,7 +27,7 @@ export default class SwadeItem extends Item {
     super.prepareData();
   }
 
-  rollDamage(options: IRollOptions = {}) {
+  rollDamage(options: IRollOptions = {}): Promise<Roll> | Roll {
     const itemData = this.data.data;
     const actor = this.actor;
     const actorIsVehicle = actor.data.type === 'vehicle';
@@ -62,7 +62,7 @@ export default class SwadeItem extends Item {
     roll.parts.forEach((part) => {
       if (part instanceof Die) {
         let split = part.formula.split('d');
-        newParts.push(`${split[0]}d${part.faces}x=`);
+        newParts.push(`${split[0]}d${part.faces}x`);
       } else {
         newParts.push(part);
       }
@@ -74,13 +74,18 @@ export default class SwadeItem extends Item {
       game.settings.get('swade', 'enableConviction') &&
       getProperty(actor.data, 'data.details.conviction.active')
     ) {
-      newParts.push('+1d6x=');
+      newParts.push('+1d6x');
     }
 
     let flavour = '';
     if (options.flavour) {
       flavour = ` - ${options.flavour}`;
     }
+
+    if (options.suppressChat) {
+      return new Roll(newParts.join());
+    }
+
     // Roll and return
     return SwadeDice.Roll({
       event: options.event,
@@ -400,5 +405,9 @@ export default class SwadeItem extends Item {
         ],
       });
     }
+  }
+
+  getRollData() {
+    return {};
   }
 }

@@ -34,8 +34,7 @@
       </div>
     </li>
     <ol class="item-list">
-      {{#each data.owned.inventory.weapons as |item|}} {{#if (isEmpty
-      item.data.range)}}
+      {{#each itemsByType.weapon as |item|}} {{#if (isEmpty item.data.range)}}
       <li class="item weapon flexrow melee-columns" data-item-id="{{item._id}}">
         <div class="item-name flexrow rollable">
           <div
@@ -106,7 +105,7 @@
     </li>
 
     <ol class="item-list">
-      {{#each data.owned.inventory.weapons as |item|}} {{#unless (isEmpty
+      {{#each itemsByType.weapon as |item|}} {{#unless (isEmpty
       item.data.range)}}
       <li
         class="item weapon flexrow ranged-columns"
@@ -181,7 +180,7 @@
     </li>
 
     <ol class="item-list">
-      {{#each data.owned.inventory.armors as |item|}}
+      {{#each itemsByType.armor as |item|}}
       <li class="item flexrow armor-columns" data-item-id="{{item._id}}">
         <div class="item-name flexrow">
           <div
@@ -241,7 +240,7 @@
     </li>
 
     <ol class="item-list">
-      {{#each data.owned.inventory.shields as |item|}}
+      {{#each itemsByType.shield as |item|}}
       <li class="item flexrow shield-columns" data-item-id="{{item._id}}">
         <div class="item-name flexrow">
           <div
@@ -300,7 +299,7 @@
     </li>
 
     <ol class="item-list">
-      {{#each data.owned.inventory.gear as |item|}}
+      {{#each itemsByType.gear as |item|}}
       <li class="item flexrow" data-item-id="{{item._id}}">
         <div class="item-name flexrow">
           <div

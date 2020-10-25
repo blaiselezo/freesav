@@ -57,7 +57,13 @@ export class SWADE {
   public static settingConfig = {
     id: 'settingConfig',
     title: 'SWADE Setting Rule Configurator',
-    settings: ['enableConviction', 'vehicleMods', 'vehicleEdges', 'gmBennies'],
+    settings: [
+      'enableConviction',
+      'vehicleMods',
+      'vehicleEdges',
+      'gmBennies',
+      'enableWoundPace',
+    ],
   };
 
   public static templates = {

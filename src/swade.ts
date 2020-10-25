@@ -8,6 +8,7 @@
 
 import { getSwadeConeShape } from './module/cone';
 import { SWADE } from './module/config';
+import SwadeEntityTweaks from './module/dialog/entity-tweaks';
 import SwadeActor from './module/entities/SwadeActor';
 import SwadeItem from './module/entities/SwadeItem';
 import { registerCustomHelpers } from './module/handlebarsHelpers';
@@ -38,6 +39,7 @@ Hooks.once('init', () => {
   game.swade = {
     SwadeActor,
     SwadeItem,
+    SwadeEntityTweaks,
     rollSkillMacro,
     rollWeaponMacro,
     rollPowerMacro,
@@ -53,29 +55,36 @@ Hooks.once('init', () => {
   MeasuredTemplate.prototype._getConeShape = getSwadeConeShape;
 
   // Register custom classes
+  //CONFIG.Combat.entityClass = SwadeCombat;
   CONFIG.Actor.entityClass = SwadeActor;
   CONFIG.Item.entityClass = SwadeItem;
-  //CONFIG.Combat.entityClass = SwadeCombat;
 
   // Register custom system settings
   registerSettings();
 
   // Register sheets
   Actors.unregisterSheet('core', ActorSheet);
+  Items.unregisterSheet('core', ItemSheet);
+
   Actors.registerSheet('swade', SwadeCharacterSheet, {
     types: ['character'],
     makeDefault: true,
+    label: 'SWADE.CommunityCharSheet',
   });
   Actors.registerSheet('swade', SwadeNPCSheet, {
     types: ['npc'],
     makeDefault: true,
+    label: 'SWADE.CommunityNPCSheet',
   });
   Actors.registerSheet('swade', SwadeVehicleSheet, {
     types: ['vehicle'],
     makeDefault: true,
+    label: 'SWADE.CommunityVicSheet',
   });
-  Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('swade', SwadeItemSheet, { makeDefault: true });
+  Items.registerSheet('swade', SwadeItemSheet, {
+    makeDefault: true,
+    label: 'SWADE.CommunityItemSheet',
+  });
 
   // Drop a journal image to a tile (for cards)
   listenJournalDrop();

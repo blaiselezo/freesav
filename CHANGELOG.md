@@ -20,6 +20,44 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.14]
+
+### Added
+
+- Added Skill and Attribute names to dice when rolling
+- Added `SwadeEntityTweaks` class to game object as `game.swade.SwadeEntityTweaks`.
+- Added labels to the various Sheet classes
+- Added natural armor capabilities
+- Added Localization for Actor and Item types (english only)
+- Added `suppressChat` option to `Actor.rollSkill`, `Actor.rollAttribute` and `Item.RollDamage` options. When this option is set to true, the method returns an unroll `Roll` class instead of opening the Dialog and rolling. Example: `actor.rollSkill(randomSkillID, {suppressChat: true})`
+- Added logic that will optionally adjust pace with the wounds
+- Added support for active effects, including UI.
+  - **Attention** Should an active effect that modifies something like parry or pace not work it may because the data is still saved as a string. To fix this first enter some bogus value into the field and then the proper base value. This will force the field to update the datatype correctly and the Active Effect should now work properly.
+  - **Attention** Editing an Active Effect on an item that is owned by a character is not currently possible as it isn't directly supported in Foundry Core
+- Added two new modifier fields to the data model for `character` and `npc` type actors. Both are primarily meant for active effects
+  - `data.strength.encumbranceSteps` - Used for Edges which modify the strength die for the purpose of calculating encumbrance. setting this value to 1 means the strength die is considered 1 step higher for the purpose of encumbrance (up to a maximum of a d12)
+  - `data.spirit.unShakeBonus` - Should be used for edges which give a bonus or penalty to the unshaking test
+
+### Changed
+
+- Added package name to Action deck selection
+- Simplified explosion syntax from `x=` to `x`
+- Refactored `getData` of all actor sheets take out duplicate or unused sections
+- [POTENTIALLY BREAKING] Changed data types of input fields for attributes and derived values to `Number`. This was a necessary step in order to make Active Effects work properly.
+- Changed display text of the Red and Black Joker action cards to "Red J" and "Blk J" respectively to improve readability
+
+### Fixed
+
+- Fixed a small bug which would cause Group Rolls not to behave properly
+- Fixed a styling error with Item sheets
+- Fixed a bug which caused sheet-inline item creation dialogs to not work properly
+- Fixed a bug which would cause skill rolls to throw a permission error when players were making an unskilled attempt
+- Fixed a small bug which would cause some token values of actors to be overwritten on import
+
+### Removed
+
+- Removed Handlebars helpers that overwrote helpers defined by Foundry core
+
 ## [v0.13]
 
 ### Added
@@ -35,7 +73,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Updated the Vehicle sheet driver logic to use the new `dropActorSheetData` drop
 - Updated Combatant sorting in Combat tracker to be in line with the new method structure
 - Moved template presets up in menu so the `Delete All` button is last
-- Replaced all instances of the new depreceated `Actor#isPC` with the new `Entity#hasPlayerOwner` property
+- Replaced all instances of the now depreceated `Actor#isPC` with the new `Entity#hasPlayerOwner` property
+- Turned on toughness calculation by default for PCs/NPCs made after this patch
 
 ### Deprecated
 
