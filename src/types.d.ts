@@ -1,13 +1,5 @@
-declare interface Roll {
-  options: any;
-}
-
 declare interface BaseEntityData {
   data: any;
-}
-
-declare interface Die {
-  formula: any;
 }
 
 declare interface ItemSheetData {
