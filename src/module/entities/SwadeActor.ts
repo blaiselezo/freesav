@@ -171,14 +171,15 @@ export default class SwadeActor extends Actor {
     const statusPenalties = this.calcStatusPenalties();
     if (statusPenalties !== 0) rollParts.push(statusPenalties);
 
+    const roll = new Roll(rollParts.join());
+
     if (options.suppressChat) {
-      return new Roll(rollParts.join());
+      return roll;
     }
 
     // Roll and return
     return SwadeDice.Roll({
-      event: options.event,
-      parts: rollParts,
+      roll: roll,
       data: actorData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
@@ -198,7 +199,7 @@ export default class SwadeActor extends Actor {
     tempSkill?: SwadeItem,
   ): Promise<Roll> | Roll {
     if (!options.rof) options.rof = 1;
-    let skill;
+    let skill: SwadeItem;
     skill = this.items.find((i: SwadeItem) => i.id == skillId) as SwadeItem;
     if (tempSkill) {
       skill = tempSkill;
@@ -208,14 +209,14 @@ export default class SwadeActor extends Actor {
       return;
     }
 
-    let rollParts = [];
-
     let skillData = getProperty(skill, 'data.data');
 
-    if (options.rof > 1) {
-      rollParts = this._handleRepeatingSKill(skill, options);
+    let skillRoll = null;
+
+    if (options.rof && options.rof > 1) {
+      skillRoll = this._handleComplexSkill(skill, options);
     } else {
-      rollParts = this._handleSimpleSkill(skill, options);
+      skillRoll = this._handleSimpleSkill(skill, options);
     }
 
     let flavour = '';
@@ -224,13 +225,12 @@ export default class SwadeActor extends Actor {
     }
 
     if (options.suppressChat) {
-      return new Roll(rollParts.join());
+      return skillRoll;
     }
 
     // Roll and return
     return SwadeDice.Roll({
-      event: options.event,
-      parts: rollParts,
+      roll: skillRoll,
       data: skillData,
       speaker: ChatMessage.getSpeaker({ actor: this }),
       flavor: `${skill.name} ${game.i18n.localize(
@@ -512,108 +512,136 @@ export default class SwadeActor extends Actor {
     }
   }
 
-  private _handleSimpleSkill(skill: SwadeItem, options: IRollOptions) {
-    let skillData = getProperty(skill, 'data.data');
-    let exp = '';
+  protected _handleComplexSkill(skill: SwadeItem, options: IRollOptions): Roll {
+    if (!options.rof) options.rof = 1;
+    const skillData = getProperty(skill, 'data.data');
 
-    let wildDie = `1d${skillData['wild-die'].sides}x[${game.i18n.localize(
-      'SWADE.WildDie',
-    )}]`;
-    let skillDie = `1d${skillData.die.sides}x[${skill.name}]`;
-    if (this.isWildcard) {
-      exp = `{${skillDie}, ${wildDie}}kh`;
-    } else {
-      exp = skillDie;
-    }
+    const rolls: Roll[] = [];
 
-    //Check and add Modifiers
-    let rollParts = [exp] as any[];
-
-    let itemMod = parseInt(skillData['die'].modifier);
-    if (!isNaN(itemMod) && itemMod !== 0) {
-      if (itemMod > 0) {
-        rollParts.push('+');
-      }
-      rollParts.push(itemMod);
-    }
-    //Additional Mods
-    if (options.additionalMods) {
-      rollParts = rollParts.concat(options.additionalMods);
-    }
-
-    //Conviction Modifier
-    if (
-      this.isWildcard &&
-      game.settings.get('swade', 'enableConviction') &&
-      getProperty(this.data, 'data.details.conviction.active')
-    ) {
-      rollParts.push('+1d6x');
-    }
-
-    // Wound and Fatigue Penalties
-    const woundPenalties = this.calcWoundPenalties();
-    if (woundPenalties !== 0) rollParts.push(woundPenalties);
-
-    const fatiguePenalties = this.calcFatiguePenalties();
-    if (fatiguePenalties !== 0) rollParts.push(fatiguePenalties);
-
-    const statusPenalties = this.calcStatusPenalties();
-    if (statusPenalties !== 0) rollParts.push(statusPenalties);
-
-    return rollParts;
-  }
-
-  private _handleRepeatingSKill(skill: SwadeItem, options: IRollOptions) {
-    let skillData = getProperty(skill, 'data.data');
-    let exp = '';
-    let skillDice = [];
-
-    let mods = [];
-
-    //Conviction Modifier
-    if (
-      this.isWildcard &&
-      game.settings.get('swade', 'enableConviction') &&
-      getProperty(this.data, 'data.details.conviction.active')
-    ) {
-      mods.push('+1d6x');
-    }
-
-    // Wound and Fatigue Penalties
-    const woundPenalties = this.calcWoundPenalties();
-    if (woundPenalties !== 0) mods.push(woundPenalties);
-
-    const fatiguePenalties = this.calcFatiguePenalties();
-    if (fatiguePenalties !== 0) mods.push(fatiguePenalties);
-
-    const statusPenalties = this.calcStatusPenalties();
-    if (statusPenalties !== 0) mods.push(statusPenalties);
-
-    let skillMod: string | number = parseInt(skillData['die'].modifier) || '';
-    if (skillMod > 0) {
-      skillMod = '+'.concat(skillMod.toString());
-    }
-    mods.push(skillMod);
-
-    if (options.additionalMods) {
-      mods = mods.concat(options.additionalMods);
-    }
     for (let i = 0; i < options.rof; i++) {
-      skillDice.push(
-        `1d${skillData.die.sides}x[${skill.name}]${mods.join('')}`,
+      let skillRoll = new Roll('');
+      skillRoll.terms.push(
+        this._buildTraitDie(skillData.die.sides, skill.name),
+      );
+      rolls.push(skillRoll);
+    }
+
+    let kh = options.rof > 1 ? `kh${options.rof}` : 'kh';
+
+    let dicePool = new DicePool({
+      rolls: rolls,
+      modifiers: [kh],
+    });
+
+    if (this.isWildcard) {
+      const wildRoll = new Roll('');
+      wildRoll.terms.push(
+        this._buildTraitDie(
+          skillData['wild-die'].sides,
+          game.i18n.localize('SWADE.WildDie'),
+        ),
+      );
+      dicePool.rolls.push(wildRoll);
+    }
+
+    const finalRoll = new Roll('');
+    finalRoll.terms.push(dicePool);
+
+    //Skill modifier
+    let itemMod = parseInt(skillData.die.modifier);
+    if (!isNaN(itemMod) && itemMod !== 0) {
+      finalRoll.terms.push(itemMod.signedString());
+    }
+
+    //Conviction Modifier
+    if (
+      this.isWildcard &&
+      game.settings.get('swade', 'enableConviction') &&
+      getProperty(this.data, 'data.details.conviction.active')
+    ) {
+      finalRoll.terms.push(
+        this._buildTraitDie(6, game.i18n.localize('SWEADE.Conv')),
       );
     }
 
-    let wildDie = `1d${skillData['wild-die'].sides}x[${game.i18n.localize(
-      'SWADE.WildDie',
-    )}]`;
-    if (this.isWildcard) {
-      exp = `{${skillDice.join(', ')}, ${wildDie}${mods.join('')}}kh${
-        options.rof
-      }`;
-    } else {
-      exp = `{${skillDice.join(', ')}}kh${options.rof}`;
+    // Wound and Fatigue Penalties
+    const woundPenalties = this.calcWoundPenalties();
+    if (woundPenalties !== 0)
+      finalRoll.terms.push(woundPenalties.signedString());
+
+    const fatiguePenalties = this.calcFatiguePenalties();
+    if (fatiguePenalties !== 0)
+      finalRoll.terms.push(woundPenalties.signedString());
+
+    const statusPenalties = this.calcStatusPenalties();
+    if (statusPenalties !== 0)
+      finalRoll.terms.push(woundPenalties.signedString());
+
+    //Additional Mods
+    if (options.additionalMods) {
+      options.additionalMods.forEach((v) => {
+        if (typeof v === 'string') {
+          finalRoll.terms.push(v);
+        } else {
+          finalRoll.terms.push(v.signedString());
+        }
+      });
     }
-    return [exp];
+
+    return finalRoll;
+  }
+
+  protected _handleSimpleSkill(skill: SwadeItem, options: IRollOptions) {
+    const skillData = getProperty(skill, 'data.data');
+
+    const skillRoll = new Roll('');
+    skillRoll.terms.push(this._buildTraitDie(skillData.die.sides, skill.name));
+
+    if (this.isWildcard) {
+      return this._handleComplexSkill(skill, options);
+    } else {
+      //Skill modifier
+      let itemMod = parseInt(skillData.die.modifier);
+      if (!isNaN(itemMod) && itemMod !== 0) {
+        skillRoll.terms.push(itemMod.signedString());
+      }
+
+      // Wound and Fatigue Penalties
+      const woundPenalties = this.calcWoundPenalties();
+      if (woundPenalties !== 0)
+        skillRoll.terms.push(woundPenalties.signedString());
+
+      const fatiguePenalties = this.calcFatiguePenalties();
+      if (fatiguePenalties !== 0)
+        skillRoll.terms.push(woundPenalties.signedString());
+
+      const statusPenalties = this.calcStatusPenalties();
+      if (statusPenalties !== 0)
+        skillRoll.terms.push(woundPenalties.signedString());
+
+      //Additional Mods
+      if (options.additionalMods) {
+        options.additionalMods.forEach((v) => {
+          if (typeof v === 'string') {
+            skillRoll.terms.push(v);
+          } else {
+            skillRoll.terms.push(v.signedString());
+          }
+        });
+      }
+      return skillRoll;
+    }
+  }
+
+  private _buildTraitDie(
+    sides: number,
+    flavor: string,
+    modifiers: string[] = [],
+  ): Die {
+    return new Die({
+      faces: sides,
+      modifiers: ['x', ...modifiers],
+      options: { flavor: flavor },
+    });
   }
 }
