@@ -166,6 +166,12 @@ SWADE.InitDraw: draws for Initiative!
 SWADE.JokersWild: gets Joker's Wild!
 
 #####################
+# Roll Modifiers
+#####################
+SWADE.Addi: Additional
+SWADE.Status: Status
+
+#####################
 # Vehicles
 #####################
 SWADE.Handling: Handling

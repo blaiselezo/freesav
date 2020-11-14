@@ -66,8 +66,6 @@ export default class SwadeItem extends Item {
       }
     });
 
-    roll = new Roll(newParts.join(''));
-
     //Conviction Modifier
     if (
       !actorIsVehicle &&
@@ -76,6 +74,8 @@ export default class SwadeItem extends Item {
     ) {
       newParts.push('+1d6x');
     }
+
+    roll = new Roll(newParts.join(''));
 
     let flavour = '';
     if (options.flavour) {
@@ -96,6 +96,7 @@ export default class SwadeItem extends Item {
       )}${ap}${flavour}`,
       title: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
       item: this,
+      flags: { swade: { colorMessage: false } },
     });
   }
 

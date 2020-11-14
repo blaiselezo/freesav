@@ -7,13 +7,15 @@ export async function formatRoll(
   html: JQuery<HTMLElement>,
   data: any,
 ) {
+  const colorMessage = chatMessage.getFlag('swade', 'colorMessage');
+
   // Little helper function
-  let pushDice = (chatData, total, faces) => {
+  let pushDice = (chatData, total, faces, red?: boolean) => {
     let color = 'black';
     if (total > faces) {
       color = 'green';
     }
-    if (total == 1) {
+    if (red) {
       color = 'red';
     }
     let img = null;
@@ -27,6 +29,22 @@ export async function formatRoll(
       dice: true,
     });
   };
+
+  //helper function that determines if a roll contained at least one result of 1
+  let rollIsRed = (roll?: Roll) => {
+    let retVal = roll.terms.some((d: Die) => {
+      if (d['class'] !== 'Die') return false;
+      return d.results.some((r) => r['result'] === 1);
+    });
+    return retVal;
+  };
+
+  //helper function that determines if a roll contained at least one result of 1
+  let dieIsRed = (die?: Die) => {
+    if (die['class'] !== 'Die') return false;
+    return die.results.some((r) => r['result'] === 1);
+  };
+
   let roll = JSON.parse(data.message.roll);
   let chatData = { dice: [], modifiers: [] };
 
@@ -38,9 +56,14 @@ export async function formatRoll(
       let pool = roll.terms[i].rolls;
       let faces = 0;
       // Compute dice from the pool
-      pool.forEach((pooldie: any) => {
-        faces = pooldie.terms[0].faces;
-        pushDice(chatData, pooldie.total, faces);
+      pool.forEach((poolRoll: Roll) => {
+        faces = poolRoll.terms[0]['faces'];
+        pushDice(
+          chatData,
+          poolRoll.total,
+          faces,
+          colorMessage && rollIsRed(poolRoll),
+        );
       });
     } else if (roll.terms[i].class === 'Die') {
       // Grab the right dice
@@ -49,7 +72,12 @@ export async function formatRoll(
       roll.terms[i].results.forEach((result) => {
         totalDice += result.result;
       });
-      pushDice(chatData, totalDice, faces);
+      pushDice(
+        chatData,
+        totalDice,
+        faces,
+        colorMessage && dieIsRed(roll.terms[i]),
+      );
     } else {
       if (roll.terms[i]) {
         chatData.dice.push({

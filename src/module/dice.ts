@@ -11,6 +11,7 @@ interface RollHelperData {
   item?: SwadeItem;
   actor?: SwadeActor;
   allowGroup?: boolean;
+  flags?: object;
 }
 
 interface RollHandlerData {
@@ -22,6 +23,7 @@ interface RollHandlerData {
   actor?: SwadeActor;
   data?: object;
   allowGroup?: boolean;
+  flags?: object;
 }
 
 /**
@@ -37,6 +39,7 @@ export default class SwadeDice {
     item,
     actor,
     allowGroup,
+    flags,
   }: RollHelperData): Promise<Roll> {
     const template = 'systems/swade/templates/chat/roll-dialog.html';
     let dialogData = {
@@ -56,8 +59,8 @@ export default class SwadeDice {
             roll: roll,
             speaker,
             flavor,
+            flags,
           });
-          console.log('********************');
         },
       },
       extra: {
@@ -72,6 +75,7 @@ export default class SwadeDice {
             allowGroup: actor && !actor.isWildcard && allowGroup,
             speaker,
             flavor,
+            flags,
           });
         },
       },
@@ -99,7 +103,6 @@ export default class SwadeDice {
         buttons: buttons,
         default: 'ok',
         close: () => {
-          console.log('#####################');
           resolve(finalRoll);
         },
       }).render(true);
@@ -115,33 +118,43 @@ export default class SwadeDice {
     speaker = null,
     flavor = '',
     allowGroup = false,
+    flags,
   }: RollHandlerData): Roll {
     let rollMode = game.settings.get('core', 'rollMode');
     let groupRoll = actor && raise;
     // Optionally include a situational bonus
     if (form) data['bonus'] = form.find('#bonus').val();
     if (data['bonus']) roll.terms.push(data['bonus']);
-
     if (groupRoll && allowGroup) {
-      //TODO Group roll
+      //Group roll
+      let tempRoll = new Roll('');
+      let wildRoll = new Roll('');
+
+      tempRoll.terms.push(roll.terms[0]);
+      let wildDie = new Die({
+        faces: 6,
+        modifiers: ['x'],
+        options: { flavor: game.i18n.localize('SWADE.WildDie') },
+      });
+      wildRoll.terms.push(wildDie);
+      let pool = new DicePool({
+        rolls: [tempRoll, wildRoll],
+        modifiers: ['kh'],
+      });
+      roll.terms[0] = pool;
       flavor = `${flavor} ${game.i18n.localize('SWADE.GroupRoll')}`;
     } else if (raise) {
-      roll.terms.push('+1d6x=');
+      roll.terms.push('+');
+      roll.terms.push(new Die({ modifiers: ['x'] }));
     }
-    console.info('before roll', roll);
-    let retVal;
-    try {
-      retVal = roll.roll();
-    } catch (error) {
-      console.error(error);
-    }
-    console.log('after roll', roll);
+    let retVal = roll.roll();
     // Convert the roll to a chat message and return the roll
     rollMode = form ? form.find('#rollMode').val() : rollMode;
     retVal.toMessage(
       {
         speaker: speaker,
         flavor: flavor,
+        flags: flags,
       },
       { rollMode },
     );
