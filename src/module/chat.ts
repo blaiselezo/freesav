@@ -34,7 +34,7 @@ export async function formatRoll(
   let rollIsRed = (roll?: Roll) => {
     let retVal = roll.terms.some((d: Die) => {
       if (d['class'] !== 'Die') return false;
-      return d.results.some((r) => r['result'] === 1);
+      return d.results[0]['result'] === 1;
     });
     return retVal;
   };
@@ -42,7 +42,7 @@ export async function formatRoll(
   //helper function that determines if a roll contained at least one result of 1
   let dieIsRed = (die?: Die) => {
     if (die['class'] !== 'Die') return false;
-    return die.results.some((r) => r['result'] === 1);
+    return die.results[0]['result'] === 1;
   };
 
   let roll = JSON.parse(data.message.roll);
