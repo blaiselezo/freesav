@@ -28,8 +28,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Changed
 
+- Changed the way dice results are displayed. The chat message now displays the rolls as following
+  - If applicable, Modifiers are displayed as a list in the flavour text
+  - In the middle the adjusted dice rolls, with all the modifiers already applied. Should a roll contain a natural 1 the result will be colored red so you can at a glance tell if you're dealing with snake eyes or Innocent Bystander
+  - When clicking to expand the roll you can now see the unmodified dice rolls, in case you want to reference them
 - Changed version compatability for Foundry VTT `0.7.7`
-- Refactored the dice rolling logic to take more advantage of the Foundry VTT Dice API. This should also take care of most parsing issues for rolls triggered via the sheet and chat cards.
+- Refactored the dice rolling logic to take more advantage of the Foundry VTT Dice API. This should also take care of most parsing issues for rolls triggered via the sheet and chat cards
 
 ## [v0.14]
 
