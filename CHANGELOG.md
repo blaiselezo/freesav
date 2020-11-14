@@ -20,6 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.14.1]
+
+### Added
+
+- Added additional translation options
+
+### Changed
+
+- Changed version compatability for Foundry VTT `0.7.7`
+- Refactored the dice rolling logic to take more advantage of the Foundry VTT Dice API. This should also take care of most parsing issues for rolls triggered via the sheet and chat cards.
+
 ## [v0.14]
 
 ### Added
