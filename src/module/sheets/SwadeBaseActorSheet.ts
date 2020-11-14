@@ -137,14 +137,16 @@ export default class SwadeBaseActorSheet extends ActorSheet {
             : rollFormula.concat(runningMod);
       }
 
+      const runningRoll = new Roll(rollFormula);
+
       if (ev.shiftKey) {
-        new Roll(rollFormula).roll().toMessage({
+        runningRoll.roll().toMessage({
           speaker: ChatMessage.getSpeaker({ actor: this.actor }),
           flavor: game.i18n.localize('SWADE.Running'),
         });
       } else {
         SwadeDice.Roll({
-          parts: [rollFormula],
+          roll: runningRoll,
           speaker: ChatMessage.getSpeaker({ actor: this.actor }),
           flavor: game.i18n.localize('SWADE.Running'),
           title: game.i18n.localize('SWADE.Running'),

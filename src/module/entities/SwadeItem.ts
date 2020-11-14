@@ -41,7 +41,6 @@ export default class SwadeItem extends Item {
       ap = ` - ${game.i18n.localize('SWADE.Ap')} 0`;
     }
 
-    // Intermediary roll to let it do the parsing for us
     let roll;
     let rollParts = [itemData.damage];
     if (options.dmgOverride) {
@@ -54,17 +53,16 @@ export default class SwadeItem extends Item {
     }
 
     if (actorIsVehicle) {
-      roll = new Roll(rollParts.join('')).roll();
+      roll = new Roll(rollParts.join(''));
     } else {
-      roll = new Roll(rollParts.join(''), actor.getRollShortcuts()).roll();
+      roll = new Roll(rollParts.join(''), actor.getRollShortcuts());
     }
     let newParts = [];
-    roll.parts.forEach((part) => {
-      if (part instanceof Die) {
-        let split = part.formula.split('d');
-        newParts.push(`${split[0]}d${part.faces}x`);
+    roll.terms.forEach((term) => {
+      if (term instanceof Die) {
+        newParts.push(`${term['number']}d${term.faces}x`);
       } else {
-        newParts.push(part);
+        newParts.push(term);
       }
     });
 
@@ -77,6 +75,8 @@ export default class SwadeItem extends Item {
       newParts.push('+1d6x');
     }
 
+    roll = new Roll(newParts.join(''));
+
     let flavour = '';
     if (options.flavour) {
       flavour = ` - ${options.flavour}`;
@@ -88,8 +88,7 @@ export default class SwadeItem extends Item {
 
     // Roll and return
     return SwadeDice.Roll({
-      event: options.event,
-      parts: newParts,
+      roll: roll,
       data: actorData,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `${game.i18n.localize(label)} ${game.i18n.localize(
@@ -97,6 +96,7 @@ export default class SwadeItem extends Item {
       )}${ap}${flavour}`,
       title: `${game.i18n.localize(label)} ${game.i18n.localize('SWADE.Dmg')}`,
       item: this,
+      flags: { swade: { colorMessage: false } },
     });
   }
 
