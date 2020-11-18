@@ -80,9 +80,6 @@
 
     grid-template-columns: repeat(2, 1fr) 32px;
     grid-template-rows: auto;
-    grid-template-areas:
-      'action-name action-type action-delete'
-      'input-left input-right .';
     padding: $small-spacing 0;
   }
 
@@ -91,19 +88,19 @@
   }
 
   .action-name {
-    grid-area: action-name;
+    grid-column: 1;
     label {
       text-align: center;
     }
   }
   .action-type {
-    grid-area: action-type;
+    grid-column: 2;
     label {
       text-align: center;
     }
   }
   .action-input-left {
-    grid-area: input-left;
+    grid-column: 1;
     label {
       text-align: center;
     }
@@ -112,7 +109,7 @@
     }
   }
   .action-input-right {
-    grid-area: input-right;
+    grid-column: 2;
     label {
       text-align: center;
     }
@@ -121,6 +118,7 @@
     }
   }
   .action-delete {
+    grid-column: 3;
     place-self: center;
   }
 }

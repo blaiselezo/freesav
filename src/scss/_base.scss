@@ -99,7 +99,8 @@
   }
   //End of Checkbox styling
 
-  input[type='text'] {
+  input[type='text'],
+  input[type='number'] {
     @extend %standalone-input-field;
   }
 }

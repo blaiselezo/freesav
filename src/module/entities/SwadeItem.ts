@@ -281,7 +281,7 @@ export default class SwadeItem extends Item {
       targets = this._getChatCardTargets(card);
     }
 
-    let skill;
+    let skill: SwadeItem = null;
     // Attack and Damage Rolls
     switch (action) {
       case 'damage':
@@ -296,17 +296,7 @@ export default class SwadeItem extends Item {
             i.type === ItemType.Skill &&
             i.name === getProperty(item.data, 'data.actions.skill'),
         );
-        if (skill) {
-          await actor.rollSkill(skill.id, {
-            event,
-            additionalMods: [getProperty(item.data, 'data.actions.skillMod')],
-          });
-        } else {
-          await actor.makeUnskilledAttempt({
-            event,
-            additionalMods: [getProperty(item.data, 'data.actions.skillMod')],
-          });
-        }
+        await this._doSkillAction(skill, item, actor);
         break;
       default:
         await this._handleAdditionalActions(item, actor, action);
@@ -373,6 +363,15 @@ export default class SwadeItem extends Item {
           i.name === getProperty(item.data, 'data.actions.skill'),
       );
 
+      let altSkill = actor.items.find(
+        (i: SwadeItem) =>
+          i.type === ItemType.Skill && i.name === actionToUse.skillOverride,
+      );
+
+      if (altSkill) {
+        skill = altSkill;
+      }
+
       let actionSkillMod = '';
       if (actionToUse.skillMod && parseInt(actionToUse.skillMod) !== 0) {
         actionSkillMod = actionToUse.skillMod;
@@ -412,5 +411,21 @@ export default class SwadeItem extends Item {
 
   getRollData() {
     return {};
+  }
+
+  static async _doSkillAction(
+    skill: SwadeItem,
+    item: SwadeItem,
+    actor: SwadeActor,
+  ) {
+    if (skill) {
+      await actor.rollSkill(skill.id, {
+        additionalMods: [getProperty(item.data, 'data.actions.skillMod')],
+      });
+    } else {
+      await actor.makeUnskilledAttempt({
+        additionalMods: [getProperty(item.data, 'data.actions.skillMod')],
+      });
+    }
   }
 }

@@ -75,6 +75,7 @@
         type="text"
         name="data.actions.additional.{{key}}.rof"
         value="{{attr.rof}}"
+        data-dtype="Number"
       />
     </span>
   </div>
@@ -85,6 +86,26 @@
         type="text"
         name="data.actions.additional.{{key}}.skillMod"
         value="{{attr.skillMod}}"
+      />
+    </span>
+  </div>
+  <div class="action-input-left form-group">
+    <label> {{localize "SWADE.AltSkill"}}</label>
+    <span class="form-fields">
+      <input
+        type="text"
+        name="data.actions.additional.{{key}}.skillOverride"
+        value="{{attr.skillOverride}}"
+      />
+    </span>
+  </div>
+  <div class="action-input-right form-group">
+    <label>{{localize "SWADE.ShotsUsed"}}</label>
+    <span class="form-fields">
+      <input
+        type="number"
+        name="data.actions.additional.{{key}}.shotsUsed"
+        value="{{attr.shotsUsed}}"
       />
     </span>
   </div>

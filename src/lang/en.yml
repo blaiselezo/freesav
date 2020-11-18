@@ -108,6 +108,7 @@ SWADE.ActionsEffects: Actions & Effects
 SWADE.Actions: Actions
 SWADE.DmgModUni: Damage Modifier (universal)
 SWADE.SkillModUni: Skill Modifier (universal)
+SWADE.ShotsUsed: Shots Used
 SWADE.NaturalArmor: Natural Armor
 SWADE.HitLocations: Hit Locations
 SWADE.Head: Head

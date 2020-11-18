@@ -25,6 +25,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added Actions to `Shield` type items
+- Added ability to define skill override in an action, so the action uses an alternative skill
+- Added ability to record how many shots are fired by using this action. This does nothing for now, but can be used by macros or features down the line
+- Added additional translation options
 
 ## [v0.14.1]
 
