@@ -29,6 +29,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added ability to record how many shots are fired by using this action. This does nothing for now, but can be used by macros or features down the line
 - Added additional translation options
 
+### Fixed
+
+- Fixed a small bug that would cause rolls to crash when attributes had a modifier with value `null`
+
 ## [v0.14.1]
 
 ### Added

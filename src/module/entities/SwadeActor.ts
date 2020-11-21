@@ -386,8 +386,8 @@ export default class SwadeActor extends Actor {
     for (const name of ['agility', 'smarts', 'spirit', 'strength', 'vigor']) {
       out[name.substring(0, 3)] =
         `1d${attr[name].die.sides}x` +
-        (attr[name].die.modifier[0] != 0
-          ? (['+', '-'].indexOf(attr[name].die.modifier[0]) < 0 ? '+' : '') +
+        (attr[name].die.modifier != 0
+          ? (['+', '-'].indexOf(attr[name].die.modifier) < 0 ? '+' : '') +
             attr[name].die.modifier
           : '') +
         // wild-die
