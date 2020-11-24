@@ -94,7 +94,6 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
 
       let modData;
       let weaponData;
-      let createdItem: Item;
 
       switch (type) {
         case 'choice':
@@ -104,7 +103,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
               header,
               dialogInput.name,
             );
-            createdItem = await this.actor.createOwnedItem(itemData, {});
+            await this.actor.createOwnedItem(itemData, { renderSheet: true });
           });
           break;
         case 'mod':
@@ -112,22 +111,20 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
           modData.data.isVehicular = true;
           modData.data.equipped = true;
           modData.name = `New ${type.capitalize()}`;
-          createdItem = await this.actor.createOwnedItem(modData, {});
+          await this.actor.createOwnedItem(modData, { renderSheet: true });
           break;
         case 'vehicle-weapon':
           weaponData = this._createItemData('weapon', header);
           weaponData.data.isVehicular = true;
           weaponData.data.equipped = true;
-          createdItem = await this.actor.createOwnedItem(weaponData, {});
+          await this.actor.createOwnedItem(weaponData, { renderSheet: true });
           break;
         default:
-          createdItem = await this.actor.createOwnedItem(
-            this._createItemData(type, header),
-            {},
-          );
+          await this.actor.createOwnedItem(this._createItemData(type, header), {
+            renderSheet: true,
+          });
           break;
       }
-      this.actor.getOwnedItem(createdItem._id).sheet.render(true);
     });
 
     //Reset the Driver

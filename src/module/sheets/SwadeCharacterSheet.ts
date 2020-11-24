@@ -174,7 +174,6 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
       event.preventDefault();
       const header = event.currentTarget;
       let type = header.dataset.type;
-      let createdItem: Item;
 
       // item creation helper func
       let createItem = function (
@@ -198,14 +197,12 @@ export default class SwadeCharacterSheet extends SwadeBaseActorSheet {
         });
         this._chooseItemType(choices).then(async (dialogInput: any) => {
           const itemData = createItem(dialogInput.type, dialogInput.name);
-          createdItem = await this.actor.createOwnedItem(itemData, {});
-          this.actor.getOwnedItem(createdItem._id).sheet.render(true);
+          await this.actor.createOwnedItem(itemData, { renderSheet: true });
         });
         return;
       } else {
         const itemData = createItem(type);
-        createdItem = await this.actor.createOwnedItem(itemData, {});
-        this.actor.getOwnedItem(createdItem._id).sheet.render(true);
+        await this.actor.createOwnedItem(itemData, { renderSheet: true });
       }
     });
   }

@@ -7,8 +7,6 @@ import SwadeBaseActorSheet from './SwadeBaseActorSheet';
  * @noInheritDoc
  */
 export default class SwadeNPCSheet extends SwadeBaseActorSheet {
-  actor: SwadeActor;
-
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ['swade', 'sheet', 'actor', 'npc'],
@@ -114,7 +112,6 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
       event.preventDefault();
       const header = event.currentTarget;
       let type = header.dataset.type;
-      let createdItem: Item;
 
       // item creation helper func
       let createItem = function (
@@ -135,15 +132,13 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
         this._chooseItemType().then(async (dialogInput: any) => {
           let itemData = createItem(dialogInput.type, dialogInput.name);
           itemData.data.equipped = true;
-          createdItem = await this.actor.createOwnedItem(itemData, {});
-          this.actor.getOwnedItem(createdItem._id).sheet.render(true);
+          await this.actor.createOwnedItem(itemData, { renderSheet: true });
         });
         return;
       } else {
         let itemData = createItem(type);
         itemData.data.equipped = true;
-        createdItem = await this.actor.createOwnedItem(itemData, {});
-        this.actor.getOwnedItem(createdItem._id).sheet.render(true);
+        await this.actor.createOwnedItem(itemData, { renderSheet: true });
       }
     });
 

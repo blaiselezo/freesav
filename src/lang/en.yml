@@ -43,6 +43,9 @@ SWADE.Bennies: Bennies
 SWADE.Shaken: Shaken
 SWADE.Distr: Distracted
 SWADE.Vuln: Vulnerable
+SWADE.Stunned: Stunned
+SWADE.Entangled: Entangled
+SWADE.Bound: Bound
 SWADE.SkillTest: Skill Test
 SWADE.AttributeTest: Attribute Test
 SWADE.Attributes: Attributes
