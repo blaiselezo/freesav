@@ -9,27 +9,30 @@
 </section>
 <section class="vitals flexrow">
   <div class="vitals-container">
-    <div>
-      <input
-        type="text"
-        value="{{data.wounds.value}}"
-        data-dtype="Number"
-        class="wound-input"
-        maxlength="4"
-        size="4"
-        class="vitals-value"
-      />
-      <span class="vital-name">{{localize "SWADE.Wounds"}}</span>
-      <input
-        type="range"
-        name="data.wounds.value"
-        min="0"
-        max="{{data.wounds.max}}"
-        class="slider wound-slider"
-        value="{{data.wounds.value}}"
-        data-dtype="Number"
-        style="direction: ltr;"
-      />
+    <div class="flexcol">
+      <div class="vital-name">{{localize "SWADE.Wounds"}}</div>
+      <span class="flexrow">
+        <input
+          type="number"
+          value="{{data.wounds.value}}"
+          data-dtype="Number"
+          class="wound-input"
+          maxlength="4"
+          size="4"
+          class="vitals-value"
+        />
+        <span class="seperator">/</span>
+        <input
+          type="number"
+          value="{{data.wounds.max}}"
+          data-dtype="Number"
+          class="wound-input"
+          maxlength="4"
+          size="4"
+          class="vitals-value"
+          disabled
+        />
+      </span>
     </div>
     <button type="button" id="maneuverCheck">
       {{localize "SWADE.ManCheck"}}

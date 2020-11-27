@@ -1,55 +1,40 @@
 <section class="vitals flexrow">
-  <div class="vitals-container">
-    <strong>{{localize "SWADE.Fatigue"}}</strong>
-    <input
-      type="range"
-      name="data.fatigue.value"
-      min="0"
-      max="{{data.fatigue.max}}"
-      class="slider fatigue-slider"
-      value="{{data.fatigue.value}}"
-    />
-    <div class="flexrow vitals-value">
-      <input
-        type="text"
-        value="{{data.fatigue.value}}"
-        data-dtype="Number"
-        class="fatigue-input"
-      />
-      <span>/</span>
-      <input
-        type="text"
-        name="data.fatigue.max"
-        value="{{data.fatigue.max}}"
-        data-dtype="Number"
-      />
+  <div class="vitals-container flexrow">
+    <div class="vitals-value flexcol">
+      <span class="vital-label">{{localize "SWADE.Wounds"}}</span>
+      <span class="flexrow">
+        <input
+          type="number"
+          value="{{data.wounds.value}}"
+          name="data.wounds.value"
+          data-dtype="Number"
+        />
+        <span class="max-value">/</span>
+        <input
+          type="number"
+          value="{{data.wounds.max}}"
+          data-dtype="Number"
+          disabled
+        />
+      </span>
     </div>
-  </div>
-  <div class="vitals-container">
-    <strong>{{localize "SWADE.Wounds"}}</strong>
-    <input
-      type="range"
-      name="data.wounds.value"
-      min="0"
-      max="{{data.wounds.max}}"
-      class="slider wound-slider"
-      value="{{data.wounds.value}}"
-      data-dtype="Number"
-    />
-    <div class="flexrow vitals-value">
-      <input
-        type="text"
-        value="{{data.wounds.value}}"
-        data-dtype="Number"
-        class="wound-input"
-      />
-      <span>/</span>
-      <input
-        type="text"
-        name="data.wounds.max"
-        value="{{data.wounds.max}}"
-        data-dtype="Number"
-      />
+    <div class="vitals-value flexcol">
+      <span class="vital-label">{{localize "SWADE.Fatigue"}}</span>
+      <span class="flexrow">
+        <input
+          type="number"
+          value="{{data.fatigue.value}}"
+          name="data.fatigue.value"
+          data-dtype="Number"
+        />
+        <span class="max-value">/</span>
+        <input
+          type="number"
+          value="{{data.fatigue.max}}"
+          data-dtype="Number"
+          disabled
+        />
+      </span>
     </div>
   </div>
   <div class="status-container">
@@ -90,24 +75,55 @@
       </label>
     </div>
   </div>
+  <div class="status-container">
+    <div class="status-item">
+      <label class="check-container"
+        >{{localize "SWADE.Stunned"}}
+        <input
+          type="checkbox"
+          name="data.status.isStunned"
+          {{checked
+          actor.data.status.isStunned}}
+        />
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="status-item">
+      <label class="check-container"
+        >{{localize "SWADE.Entangled"}}
+        <input
+          type="checkbox"
+          name="data.status.isEntangled"
+          {{checked
+          actor.data.status.isEntangled}}
+        />
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="status-item">
+      <label class="check-container"
+        >{{localize "SWADE.Bound"}}
+        <input
+          type="checkbox"
+          name="data.status.isBound"
+          {{checked
+          actor.data.status.isBound}}
+        />
+        <span class="checkmark"></span>
+      </label>
+    </div>
+  </div>
   <div class="bennies flexrow">
     <div>
       <a><i class="benny-subtract fas fa-minus"></i></a>
     </div>
     <div class="benny-tracker">
-      <strong>{{localize "SWADE.Bennies"}}</strong>
+      <span class="benny-label">{{localize "SWADE.Bennies"}}</span>
       <input
         class="bennies-current"
         name="data.bennies.value"
-        type="text"
+        type="number"
         value="{{data.bennies.value}}"
-        data-dtype="Number"
-      />
-      <input
-        class="bennies-max"
-        name="data.bennies.max"
-        type="text"
-        value="{{data.bennies.max}}"
         data-dtype="Number"
       />
     </div>

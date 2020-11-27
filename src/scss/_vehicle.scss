@@ -32,13 +32,18 @@
   }
   .vitals {
     flex-basis: 200px;
+    justify-content: space-evenly;
     .vital-name {
       font-weight: bold;
     }
     .wound-input {
-      flex: 0;
       flex-basis: 50px;
       width: 50px;
+    }
+    .seperator {
+      padding-top: $medium-spacing;
+      font-size: 30px;
+      line-height: 25px;
     }
   }
 

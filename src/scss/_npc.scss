@@ -37,12 +37,15 @@
     height: 200px;
   }
 
-  .vitals {
-    .vitals-container {
-      margin: 10px 8px;
-      padding: 3px;
-      text-align: center;
-      .counter {
+  .vitals-container {
+    margin: 10px 8px;
+    padding: 3px;
+    text-align: center;
+    .counter {
+      line-height: 25px;
+      .seperator {
+        padding-top: $medium-spacing;
+        font-size: 30px;
         line-height: 25px;
       }
     }

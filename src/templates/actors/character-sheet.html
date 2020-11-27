@@ -3,14 +3,13 @@
   <header class="sheet-header">
     <div class="header-fields">
       <div class="charline">
-        <h1 class="charname">
-          <input
-            name="name"
-            type="text"
-            value="{{actor.name}}"
-            placeholder="{{localize 'SWADE.Name'}}"
-          />
-        </h1>
+        <input
+          class="charname"
+          name="name"
+          type="text"
+          value="{{actor.name}}"
+          placeholder="{{localize 'SWADE.Name'}}"
+        />
         {{#if actor.data.settingrules.conviction}}
         <div class="conviction">
           <a

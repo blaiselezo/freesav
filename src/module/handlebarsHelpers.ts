@@ -1,8 +1,9 @@
 import SwadeItem from './entities/SwadeItem';
 
 export const registerCustomHelpers = function () {
-  Handlebars.registerHelper('add', (lh, rh) => {
-    return lh + rh;
+  Handlebars.registerHelper('add', function (a, b) {
+    let result = parseInt(a) + parseInt(b);
+    return result.signedString();
   });
   Handlebars.registerHelper('isEmpty', (element) => {
     if (typeof element === undefined) return true;

@@ -27,16 +27,12 @@
     //Actor Name
     .charline {
       width: 100%;
-      display: inline-flex;
       .charname {
+        flex: 3;
+        font-size: 40px;
         height: 100%;
         margin: 0;
-        input {
-          width: 100%;
-          height: 100%;
-          margin: 0;
-          border: 1px solid transparent;
-        }
+        border: 1px solid transparent;
       }
       .conviction {
         text-align: center;
@@ -127,70 +123,20 @@
 
   .vitals-container {
     padding: 3px;
+    .vital-label {
+      line-height: 30px;
+      font-weight: bold;
+    }
+    input {
+      font-size: 30px;
+      height: 40px;
+      width: 20px;
+    }
+    .max-value {
+      font-size: 30px;
+    }
     .vitals-value {
       padding: 0 10px;
-    }
-
-    .slider {
-      -webkit-appearance: none; /* Override default CSS styles */
-      appearance: none;
-      height: 16px;
-      width: 100%;
-      outline: none; /* Remove outline */
-      opacity: 0.7;
-      margin-bottom: 5px;
-      cursor: pointer;
-
-      &::-webkit-slider-thumb {
-        position: relative;
-        height: 20px;
-        width: 20px;
-        margin-top: -5px;
-        background: $anthracite;
-        border-radius: 50%;
-        border: 2px solid darkgrey;
-      }
-
-      &::-webkit-slider-runnable-track {
-        border: none;
-        box-shadow: none;
-        height: 10px;
-      }
-
-      &::-moz-range-thumb {
-        position: relative;
-        height: 20px;
-        width: 20px;
-        margin-top: -5px;
-        background: $anthracite;
-        border-radius: 50%;
-        border: 2px solid darkgrey;
-      }
-
-      &::-moz-slider-runnable-track {
-        border: none;
-        box-shadow: none;
-        height: 10px;
-      }
-    }
-
-    .fatigue-slider {
-      &::-webkit-slider-runnable-track {
-        background: steelblue;
-      }
-      &::-moz-slider-runnable-track {
-        background: steelblue;
-      }
-    }
-
-    .wound-slider {
-      direction: rtl;
-      &::-webkit-slider-runnable-track {
-        background: #ff5349;
-      }
-      &::-moz-slider-runnable-track {
-        background: #ff5349;
-      }
     }
   }
 

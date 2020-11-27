@@ -10,16 +10,38 @@
       />
     </div>
     <div class="header-fields">
-      <div class="charline">
-        <h1 class="charname">
-          <input
-            name="name"
-            type="text"
-            value="{{actor.name}}"
-            placeholder="{{localize 'SWADE.Name'}}"
-          />
-        </h1>
-        {{#if actor.data.settingrules.conviction}}
+      <div class="charline flexrow">
+        <input
+          class="charname"
+          name="name"
+          type="text"
+          value="{{actor.name}}"
+          placeholder="{{localize 'SWADE.Name'}}"
+        />
+        {{#if actor.data.wildcard}}
+        <div class="vitals-container">
+          <div>
+            <strong>{{localize "SWADE.Bennies"}}</strong>
+          </div>
+          <div class="counter flexrow">
+            <input
+              class="bennies-current"
+              name="data.bennies.value"
+              type="number"
+              value="{{data.bennies.value}}"
+              data-dtype="Number"
+            />
+            <span class="seperator"> /</span>
+            <input
+              class="bennies-max"
+              name="data.bennies.max"
+              type="number"
+              value="{{data.bennies.max}}"
+              data-dtype="Number"
+            />
+          </div>
+        </div>
+        {{/if}} {{#if actor.data.settingrules.conviction}}
         <div class="conviction">
           <a
             class="conviction-toggle {{#if data.details.conviction.active}}pulse{{/if}}"
@@ -41,20 +63,19 @@
         {{/if}}
       </div>
       <section class="vitals flexrow">
-        {{#if actor.data.fatigue.max}}
         <div class="vitals-container">
           <strong>{{localize "SWADE.Fatigue"}}</strong>
           <div class="counter flexrow">
             <input
-              type="text"
+              type="number"
               name="data.fatigue.value"
               value="{{data.fatigue.value}}"
               data-dtype="Number"
               class="vitals-input"
             />
-            <span>/</span>
+            <span class="seperator">/</span>
             <input
-              type="text"
+              type="number"
               name="data.fatigue.max"
               value="{{data.fatigue.max}}"
               data-dtype="Number"
@@ -62,43 +83,19 @@
             />
           </div>
         </div>
-        {{/if}} {{#if actor.data.wildcard}}
-        <div class="vitals-container">
-          <div>
-            <strong>{{localize "SWADE.Bennies"}}</strong>
-          </div>
-          <div class="counter flexrow">
-            <input
-              class="bennies-current"
-              name="data.bennies.value"
-              type="text"
-              value="{{data.bennies.value}}"
-              data-dtype="Number"
-            />
-            <span>/</span>
-            <input
-              class="bennies-max"
-              name="data.bennies.max"
-              type="text"
-              value="{{data.bennies.max}}"
-              data-dtype="Number"
-            />
-          </div>
-        </div>
-        {{/if}} {{#if actor.data.wounds.max}}
         <div class="vitals-container">
           <strong>{{localize "SWADE.Wounds"}}</strong>
           <div class="counter flexrow">
             <input
-              type="text"
+              type="number"
               name="data.wounds.value"
               value="{{data.wounds.value}}"
               data-dtype="Number"
               class="vitals-input"
             />
-            <span>/</span>
+            <span class="seperator">/</span>
             <input
-              type="text"
+              type="number"
               name="data.wounds.max"
               value="{{data.wounds.max}}"
               data-dtype="Number"
@@ -106,7 +103,6 @@
             />
           </div>
         </div>
-        {{/if}}
         <div class="status-container">
           <div class="status-item">
             <label class="check-container"
@@ -140,6 +136,44 @@
                 name="data.status.isVulnerable"
                 {{checked
                 actor.data.status.isVulnerable}}
+              />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="status-container">
+          <div class="status-item">
+            <label class="check-container"
+              >{{localize "SWADE.Stunned"}}
+              <input
+                type="checkbox"
+                name="data.status.isStunned"
+                {{checked
+                actor.data.status.isStunned}}
+              />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="status-item">
+            <label class="check-container"
+              >{{localize "SWADE.Entangled"}}
+              <input
+                type="checkbox"
+                name="data.status.isEntangled"
+                {{checked
+                actor.data.status.isEntangled}}
+              />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="status-item">
+            <label class="check-container"
+              >{{localize "SWADE.Bound"}}
+              <input
+                type="checkbox"
+                name="data.status.isBound"
+                {{checked
+                actor.data.status.isBound}}
               />
               <span class="checkmark"></span>
             </label>
