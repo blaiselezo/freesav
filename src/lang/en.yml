@@ -46,6 +46,7 @@ SWADE.Vuln: Vulnerable
 SWADE.Stunned: Stunned
 SWADE.Entangled: Entangled
 SWADE.Bound: Bound
+SWADE.TraitMod: Trait Mod
 SWADE.SkillTest: Skill Test
 SWADE.AttributeTest: Attribute Test
 SWADE.Attributes: Attributes

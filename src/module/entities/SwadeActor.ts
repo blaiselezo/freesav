@@ -611,7 +611,10 @@ export default class SwadeActor extends Actor {
     //Skill modifier
     let itemMod = parseInt(data.die.modifier);
     if (!isNaN(itemMod) && itemMod !== 0) {
-      mods.push({ label: 'Skill Mod', value: itemMod.signedString() });
+      mods.push({
+        label: game.i18n.localize('SWADE.TraitMod'),
+        value: itemMod.signedString(),
+      });
     }
 
     // Wound and Fatigue Penalties

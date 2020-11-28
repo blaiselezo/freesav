@@ -32,6 +32,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Fixed a small bug that would cause rolls to crash when attributes had a modifier with value `null`
+- Fixed a small bug which would prevent vehicle sheets from rendering under certain circumstances.
 
 ## [v0.14.1]
 
