@@ -225,7 +225,8 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     let driverId = getProperty(this.actor.data, 'data.driver.id');
     let driver = game.actors.get(driverId) as SwadeActor;
     let userCanViewDriver =
-      game.user.isGM || driver.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
+      game.user.isGM ||
+      (driver && driver.permission >= CONST.ENTITY_PERMISSIONS.LIMITED);
     let driverData: IDriverData = {
       img: 'icons/svg/mystery-man.svg',
       name: 'No Driver',
