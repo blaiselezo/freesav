@@ -216,12 +216,11 @@ export default class SwadeHooks {
     html: JQuery<HTMLElement>,
     data: any,
   ) {
-    const currentCombat = data.combats[data.currentIndex - 1] || data.combat;
+    const currentCombat: Combat =
+      data.combats[data.currentIndex - 1] || data.combat;
     html.find('.combatant').each((i, el) => {
       const combId = el.getAttribute('data-combatant-id');
-      const combatant = currentCombat.data.combatants.find(
-        (c) => c._id == combId,
-      );
+      const combatant = currentCombat.combatants.find((c) => c._id == combId);
       const initdiv = el.getElementsByClassName('token-initiative');
       if (combatant.initiative && combatant.initiative !== 0) {
         initdiv[0].innerHTML = `<span class="initiative">${combatant.flags.swade.cardString}</span>`;
