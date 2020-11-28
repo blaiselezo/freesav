@@ -29,6 +29,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added ability to record how many shots are fired by using this action. This does nothing for now, but can be used by macros or features down the line
 - Added additional translation options
 
+### Changed
+
+- Changed unknown driver display to black icon to differentiate from an actor that has the default icon
+
 ### Fixed
 
 - Fixed a small bug that would cause rolls to crash when attributes had a modifier with value `null`
