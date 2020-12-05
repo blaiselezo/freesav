@@ -15,7 +15,6 @@ const less = require('gulp-less');
 const sass = require('gulp-sass');
 const git = require('gulp-git');
 const gyaml = require('gulp-yaml');
-const debug = require('gulp-debug');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 
