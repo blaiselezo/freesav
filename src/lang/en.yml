@@ -37,7 +37,7 @@ SWADE.Rank: Rank
 SWADE.Inv: Inventory
 SWADE.Summary: Summary
 SWADE.Pow: Powers
-SWADE.Wildcard: Wildcard
+SWADE.WildCard: Wild Card
 SWADE.Extra: Extra
 SWADE.Bennies: Bennies
 SWADE.Shaken: Shaken
@@ -205,16 +205,16 @@ SWADE.CardSoundDesc: Play a short card sound when dealing Initiative
 SWADE.AutoInit: Automatic Initiative
 SWADE.AutoInitDesc: Automatically draw Action Cards every round
 SWADE.CreateInitChat: Create Chat Message for Initiative
-SWADE.HideWC: Hide NPC Wildcards
-SWADE.HideWCDesc: Do not show which NPCs are Wildcards to players
+SWADE.HideWC: Hide NPC Wild Cards
+SWADE.HideWCDesc: Do not show which NPCs are Wild Cards to players
 SWADE.EnableConv: Enable Conviction
 SWADE.EnableConvDesc: Enable the Conviction setting rule
 SWADE.EnableWoundPace: Adjust Pace with Wounds
 SWADE.EnableWoundPaceDesc: When enabled, Pace is automatically affected by Wounds
-SWADE.AutoLink: Automatically Link Wildcards
+SWADE.AutoLink: Automatically Link Wild Cards
 SWADE.AutoLinkDesc:
-  When enabled, NPC Wildcards will have their tokens linked when
-  you toggle them between Extra and Wildcard
+  When enabled, NPC Wild Cards will have their tokens linked when
+  you toggle them between Extra and Wild Card
 SWADE.GmBennies: GM Bennies
 SWADE.GmBenniesDesc: Sets how many Bennies the GM recieves on a refresh
 SWADE.EnableBennyNotify: Benny notifications
