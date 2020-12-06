@@ -1,0 +1,214 @@
+<section class="flexrow">
+  <div>
+    {{localize "SSO.CarryWeight"}}
+    <strong>{{inventoryWeight}} / {{maxCarryCapacity}}</strong>
+  </div>
+  <div class="form-group currency">
+    <label>{{localize "SSO.Currency"}}</label>
+    <span class="form-fields">
+      <input
+        name="data.details.currency"
+        type="text"
+        value="{{data.details.currency}}"
+        placeholder="{{localize 'SSO.Currency'}}"
+      />
+    </span>
+  </div>
+</section>
+<section class="inventory">
+  <header class="header weapon">
+    <span class="header-name">{{localize "SSO.Weapons"}}</span>
+    <span class="damage">{{localize "SSO.Dmg"}}</span>
+    <span class="ap">{{localize "SSO.Ap"}}</span>
+    <span class="note" style="text-align: center;"
+      >{{localize "SSO.Notes"}}</span
+    >
+    <span class="weight">{{localize "SSO.Weight"}}</span>
+    <span class="item-controls">
+      <button type="button" class="item-create" data-type="weapon">
+        <i class="fa fa-plus"></i>{{localize "SSO.Add"}}
+      </button>
+    </span>
+  </header>
+  <ul>
+    {{#each itemsByType.weapon as |item|}}
+    <li class="item weapon" data-item-id="{{item._id}}">
+      <img class="item-img" src="{{item.img}}" />
+      <button
+        type="button"
+        class="name flexrow item-show"
+        title="{{item.name}}"
+      >
+        {{#if (gte item.data.quantity 2)}} (x{{item.data.quantity}}) {{/if}}
+        {{item.name}}
+      </button>
+      <span class="damage">
+        {{#if item.data.damage}}
+        <button type="button" class="damage-roll">{{item.data.damage}}</button>
+        {{/if}}
+      </span>
+      <span class="ap">{{item.data.ap}}</span>
+      <span class="note">{{enrich item.data.notes}}</span>
+      <span class="weight">{{times item.data.weight item.data.quantity}}</span>
+      <span class="item-controls">
+        {{#if ../owner}}
+        <button
+          type="button"
+          class="item-toggle {{#unless item.data.equipped}}item-unequipped{{/unless}}"
+        >
+          <i class="fas fa-tshirt"></i>
+        </button>
+        <button type="button" class="item-edit">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button type="button" class="item-delete">
+          <i class="fas fa-trash"></i>
+        </button>
+        {{/if}}
+      </span>
+    </li>
+    {{/each}}
+  </ul>
+
+  <header class="header armor">
+    <span class="header-name">{{localize "SSO.Armors"}}</span>
+    <span class="bonus">{{localize "SSO.Armor"}}</span>
+    <span class="min-str">{{localize "SSO.MinStr"}}</span>
+    <span class="note" style="text-align: center;"
+      >{{localize "SSO.Notes"}}</span
+    >
+    <span class="weight">{{localize "SSO.Weight"}}</span>
+    <span class="item-controls">
+      <button type="button" class="item-create" data-type="armor">
+        <i class="fa fa-plus"></i>{{localize "SSO.Add"}}
+      </button>
+    </span>
+  </header>
+  <ul>
+    {{#each itemsByType.armor as |item|}}
+    <li class="item armor" data-item-id="{{item._id}}">
+      <img class="item-img" src="{{item.img}}" />
+      <button
+        type="button"
+        class="name flexrow item-show"
+        title="{{item.name}}"
+      >
+        {{#if (gte item.data.quantity 2)}} (x{{item.data.quantity}}) {{/if}}
+        {{item.name}}
+      </button>
+      <span class="bonus"> {{item.data.armor}} </span>
+      <span class="min-str">{{item.data.minStr}}</span>
+      <span class="note">{{enrich item.data.notes}}</span>
+      <span class="weight">{{times item.data.weight item.data.quantity}}</span>
+      <span class="item-controls">
+        {{#if ../owner}}
+        <button
+          type="button"
+          class="item-toggle {{#unless item.data.equipped}}item-unequipped{{/unless}}"
+        >
+          <i class="fas fa-tshirt"></i>
+        </button>
+        <button type="button" class="item-edit">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button type="button" class="item-delete">
+          <i class="fas fa-trash"></i>
+        </button>
+        {{/if}}
+      </span>
+    </li>
+    {{/each}}
+  </ul>
+
+  <header class="header shield">
+    <span class="header-name">{{localize "SSO.Shields"}}</span>
+    <span class="parry">{{localize "SSO.Parry"}}</span>
+    <span class="cover">{{localize "SSO.Cover"}}</span>
+    <span class="note" style="text-align: center;"
+      >{{localize "SSO.Notes"}}</span
+    >
+    <span class="weight">{{localize "SSO.Weight"}}</span>
+    <span class="item-controls">
+      <button type="button" class="item-create" data-type="shield">
+        <i class="fa fa-plus"></i>{{localize "SSO.Add"}}
+      </button>
+    </span>
+  </header>
+  <ul>
+    {{#each itemsByType.shield as |item|}}
+    <li class="item shield" data-item-id="{{item._id}}">
+      <img class="item-img" src="{{item.img}}" />
+      <button
+        type="button"
+        class="name flexrow item-show"
+        title="{{item.name}}"
+      >
+        {{#if (gte item.data.quantity 2)}} (x{{item.data.quantity}}) {{/if}}
+        {{item.name}}
+      </button>
+      <span class="parry">{{item.data.parry}}</span>
+      <span class="cover">{{enrich item.data.cover}}</span>
+      <span class="weight">{{times item.data.weight item.data.quantity}}</span>
+      <span class="item-controls">
+        {{#if ../owner}}
+        <button
+          type="button"
+          class="item-toggle {{#unless item.data.equipped}}item-unequipped{{/unless}}"
+        >
+          <i class="fas fa-tshirt"></i>
+        </button>
+        <button type="button" class="item-edit">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button type="button" class="item-delete">
+          <i class="fas fa-trash"></i>
+        </button>
+        {{/if}}
+      </span>
+    </li>
+    {{/each}}
+  </ul>
+
+  <header class="header misc">
+    <span class="header-name">{{localize "SSO.Misc"}}</span>
+    <span class="weight">{{localize "SSO.Weight"}}</span>
+    <span class="item-controls">
+      <button type="button" class="item-create" data-type="gear">
+        <i class="fa fa-plus"></i>{{localize "SSO.Add"}}
+      </button>
+    </span>
+  </header>
+  <ul>
+    {{#each itemsByType.gear as |item|}}
+    <li class="item misc" data-item-id="{{item._id}}">
+      <img class="item-img" src="{{item.img}}" />
+      <button
+        type="button"
+        class="name flexrow item-show"
+        title="{{item.name}}"
+      >
+        {{#if (gte item.data.quantity 2)}} (x{{item.data.quantity}}) {{/if}}
+        {{item.name}}
+      </button>
+      <span class="weight">{{times item.data.weight item.data.quantity}}</span>
+      <span class="item-controls">
+        {{#if ../owner}} {{#if item.data.equippable}}
+        <button
+          type="button"
+          class="item-toggle {{#unless item.data.equipped}}item-unequipped{{/unless}}"
+        >
+          <i class="fas fa-tshirt"></i>
+        </button>
+        {{/if}}
+        <button type="button" class="item-edit">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button type="button" class="item-delete">
+          <i class="fas fa-trash"></i>
+        </button>
+        {{/if}}
+      </span>
+    </li>
+    {{/each}}
+  </ul>
+</section>

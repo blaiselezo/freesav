@@ -1,0 +1,28 @@
+<li class="gear-card item power" data-item-id="{{_id}}">
+  <header class="flexrow card-header">
+    <div class="item-image" style="background-image: url('{{img}}')"></div>
+    <button type="button" class="item-name">{{name}}</button>
+    <div class="item-controls">
+      <button type="button" class="item-control item-show">
+        <i class="far fa-comment-alt"></i>
+      </button>
+    </div>
+  </header>
+  <div class="card-content" style="display: none;">
+    {{#if data.damage}}
+    <div>
+      <a class="damage-roll" title="{{localize 'SSO.Roll'}}"
+        >{{localize "SSO.Dmg"}}: {{data.damage}}</a
+      >
+    </div>
+    {{/if}} {{#if data.pp}}
+    <div>{{localize "SSO.PP"}}: {{data.pp}}</div>
+    {{/if}} {{#if data.range}}
+    <div>{{localize "SSO.Rng"}}: {{data.range}}</div>
+    {{/if}} {{#if data.duration}}
+    <div class="flexrow ellipsize">
+      <div>{{localize "SSO.Dur"}}: {{data.duration}}</div>
+    </div>
+    {{/if}}
+  </div>
+</li>

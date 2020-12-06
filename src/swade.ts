@@ -119,8 +119,7 @@ Hooks.once('ready', async () => SwadeHooks.onReady());
 Hooks.once('diceSoNiceReady', (dice3d) => {
   dice3d.addSystem({ id: 'swade-benny', name: 'Savage Worlds Benny' }, false);
 
-  const bennyLabelFront =
-    'modules/swade-sheet-official/assets/benny/benny-chip-front.png';
+  const bennyLabelFront = 'systems/swade/assets/benny/benny-chip-front.png';
 
   dice3d.addDicePreset(
     {

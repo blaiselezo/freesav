@@ -1,0 +1,30 @@
+<li class="gear-card item" data-item-id="{{_id}}">
+  <header class="card-header flexrow">
+    <div class="item-image" style="background-image: url('{{img}}')"></div>
+    <button type="button" class="item-name">{{name}}</button>
+    <div class="item-controls">
+      <button type="button" class="item-control item-show">
+        <i class="far fa-comment-alt"></i>
+      </button>
+    </div>
+  </header>
+  <div class="card-content" style="display: none;">
+    {{#unless (isEmpty data.damage)}}
+    <div>
+      <a class="damage-roll" title="{{localize 'SSO.Roll'}}"
+        >{{localize "SSO.Dmg"}}: {{data.damage}}</a
+      >
+    </div>
+    {{/unless}} {{#unless (isEmpty data.range)}}
+    <div>{{localize "SSO.Rng"}}: {{data.range}}</div>
+    {{/unless}} {{#unless (isEmpty data.shots)}}
+    <div>{{localize "SSO.Mag"}}: {{data.shots}}</div>
+    {{/unless}} {{#if (gt data.rof 1)}}
+    <div>{{localize "SSO.RoF"}}: {{data.rof}}</div>
+    {{/if}} {{#unless (eq data.ap 0)}}
+    <div>{{localize "SSO.Ap"}}: {{data.ap}}</div>
+    {{/unless}} {{#unless (isEmpty data.notes)}}
+    <div>{{localize "SSO.Notes"}}: {{enrich data.notes}}</div>
+    {{/unless}}
+  </div>
+</li>

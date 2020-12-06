@@ -1,3 +1,6 @@
+import SwadeActor from '../../entities/SwadeActor';
+import SwadeItem from '../../entities/SwadeItem';
+
 export default class CharacterSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -16,7 +19,7 @@ export default class CharacterSheet extends ActorSheet {
   }
 
   get template() {
-    return 'modules/swade-sheet-official/templates/sheet.html';
+    return 'systems/swade/templates/official/sheet.html';
   }
 
   /**
@@ -220,6 +223,7 @@ export default class CharacterSheet extends ActorSheet {
           break;
         case 'effect':
           this._createActiveEffect();
+          break;
         default:
           const itemData = createItem(type);
           await this.actor.createOwnedItem(itemData, { renderSheet: true });
