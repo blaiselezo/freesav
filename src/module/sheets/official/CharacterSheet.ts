@@ -431,7 +431,6 @@ export default class CharacterSheet extends ActorSheet {
         }
       });
     }
-    console.log(data);
     // Check for enabled optional rules
     data.settingrules = {
       conviction: game.settings.get('swade', 'enableConviction'),
