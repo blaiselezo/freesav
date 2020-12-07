@@ -33,6 +33,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 - Changed unknown driver display to black icon to differentiate from an actor that has the default icon
+- Changed Roll Data (the shortcuts with the `@` notation). You can now easily access the following values:
+  - all attributes of the selected token (@str, @agi, etc),
+  - all skills of the selected token. Names are all lower case, spaces are replaced with dashes and all non-alphanumeric characters (everything that isn't a number or a to z) is removed. E.g. `Language (Native)` can be called with `@language-native`
+  - Traits will also include their modifier shoud they have one
+  - Current Wounds
+  - Current Fatige
 
 ### Removed
 

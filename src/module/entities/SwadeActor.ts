@@ -408,7 +408,9 @@ export default class SwadeActor extends Actor {
       const skillDie = getProperty(skill.data, 'data.die.sides');
       let skillMod = getProperty(skill.data, 'data.die.modifier');
       skillMod = skillMod !== 0 ? parseInt(skillMod).signedString() : '';
-      retVal[skill.name.slugify({})] = `1d${skillDie}x${skillMod}`;
+      retVal[
+        skill.name.slugify({ strict: true })
+      ] = `1d${skillDie}x${skillMod}`;
     }
     retVal['wounds'] = getProperty(this.data, 'data.wounds.value') || 0;
     retVal['fatigue'] = getProperty(this.data, 'data.fatigue.value') || 0;
