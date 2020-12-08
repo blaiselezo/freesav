@@ -11,7 +11,7 @@ SWADE.CommunityItemSheet: Community Item Sheet
 # Entity Labels
 #***************************
 # Actor
-ACTOR.TypeCharacter: Character
+ACTOR.TypeCharacter: Player Character
 ACTOR.TypeNpc: NPC
 ACTOR.TypeVehicle: Vehicle
 
