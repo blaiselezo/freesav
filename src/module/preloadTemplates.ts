@@ -41,6 +41,26 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swade/templates/items/partials/description.html',
     'systems/swade/templates/items/partials/actions.html',
     'systems/swade/templates/effect-list.html',
+
+    //official sheet
+    //main sheet
+    'systems/swade/templates/official/sheet.html',
+
+    //tabs
+    'systems/swade/templates/official/tabs/summary.html',
+    'systems/swade/templates/official/tabs/edges.html',
+    'systems/swade/templates/official/tabs/inventory.html',
+    'systems/swade/templates/official/tabs/powers.html',
+    'systems/swade/templates/official/tabs/description.html',
+
+    //misc partials
+    'systems/swade/templates/official/partials/attributes.html',
+    'systems/swade/templates/official/partials/weapon-card.html',
+    'systems/swade/templates/official/partials/powers-card.html',
+    'systems/swade/templates/official/partials/armor-card.html',
+    'systems/swade/templates/official/partials/shield-card.html',
+    'systems/swade/templates/official/partials/misc-card.html',
+    'systems/swade/templates/official/partials/setting-fields.html',
   ];
 
   return loadTemplates(templatePaths);

@@ -1,0 +1,17 @@
+<li class="gear-card item" data-item-id="{{_id}}">
+  <header class="flexrow card-header">
+    <div class="item-image" style="background-image: url('{{img}}')"></div>
+    <button type="button" class="item-name">{{name}}</button>
+    <div class="item-controls">
+      <button type="button" class="item-control item-show">
+        <i class="far fa-comment-alt"></i>
+      </button>
+    </div>
+  </header>
+  <div class="card-content" style="display: none;">
+    <div>{{localize "SSO.Armor"}}: {{data.armor}}</div>
+    {{#unless (isEmpty data.notes)}}
+    <div>{{data.notes}}</div>
+    {{/unless}}
+  </div>
+</li>

@@ -399,6 +399,25 @@ export default class SwadeActor extends Actor {
   }
 
   /**
+   * @override
+   */
+  getRollData() {
+    let retVal = this.getRollShortcuts();
+    let skills = this.items.filter((i: Item) => i.type === 'skill') as Item[];
+    for (let skill of skills) {
+      const skillDie = getProperty(skill.data, 'data.die.sides');
+      let skillMod = getProperty(skill.data, 'data.die.modifier');
+      skillMod = skillMod !== 0 ? parseInt(skillMod).signedString() : '';
+      retVal[
+        skill.name.slugify({ strict: true })
+      ] = `1d${skillDie}x${skillMod}`;
+    }
+    retVal['wounds'] = getProperty(this.data, 'data.wounds.value') || 0;
+    retVal['fatigue'] = getProperty(this.data, 'data.fatigue.value') || 0;
+    return retVal;
+  }
+
+  /**
    * Calculates the correct armor value based on SWADE v5.5 and returns that value
    */
   calcArmor(): number {

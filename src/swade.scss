@@ -1,4 +1,5 @@
 @import 'scss/variables';
+@import 'scss/fonts';
 @import 'scss/base';
 @import 'scss/actor-base';
 @import 'scss/character';
@@ -9,3 +10,9 @@
 @import 'scss/core';
 @import 'scss/setting-config';
 @import 'scss/tweaks';
+
+//official sheet
+@import 'scss/official/mixins';
+@import 'scss/official/variables';
+@import 'scss/official/sheet';
+@import 'scss/official/checkmark';

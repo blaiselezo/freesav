@@ -1,0 +1,111 @@
+<form class="{{cssClass}}" autocomplete="off">
+  {{!-- Sheet Header --}}
+  <header class="sheet-header-official">
+    <div class="flexrow">
+      <label>
+        <span class="sr-only">{{localize 'Name'}}</span>
+        <input
+          type="text"
+          name="name"
+          class="charname"
+          value="{{actor.name}}"
+          placeholder="{{localize 'Name'}}"
+      /></label>
+      <img
+        src="systems/swade/assets/peg_logo.webp"
+        id="peg-logo"
+        alt="{{localize 'SSO.PEGLogo'}}"
+      />
+      <img
+        src="systems/swade/assets/swade_logo.webp"
+        id="swade-logo"
+        alt="{{localize 'SSO.SWADELogo'}}"
+      />
+      {{#if settingrules.conviction}}
+      <div id="conviction">
+        <button type="button" class="conviction-toggle">
+          <strong class="{{#if data.details.conviction.active}}pulse{{/if}}"
+            >{{localize "SSO.Conviction"}}{{#if
+            data.details.conviction.active}}&nbsp;{{localize
+            "SSO.Active"}}{{/if}}</strong
+          >
+        </button>
+        <div>
+          <input
+            type="Number"
+            name="data.details.conviction.value"
+            value="{{data.details.conviction.value}}"
+            class="character-detail"
+            data-dtype="Number"
+          />
+        </div>
+      </div>
+      {{/if}}
+    </div>
+    <div class="flexrow char-details">
+      <label class="character-detail">
+        <span class="sr-only">{{localize 'SSO.Race'}}</span>
+        <input
+          type="text"
+          name="data.details.species.name"
+          value="{{actor.data.details.species.name}}"
+          placeholder="{{localize 'SSO.Race'}}"
+        />
+      </label>
+      <label class="character-detail">
+        <span class="sr-only">{{localize 'SSO.Rank'}}</span>
+        <input
+          type="text"
+          name="data.advances.rank"
+          value="{{actor.data.advances.rank}}"
+          placeholder="{{localize 'SSO.Rank'}}"
+      /></label>
+      <label class="flexrow advances character-detail">
+        {{localize 'SSO.Advances'}}
+        <input
+          type="number"
+          name="data.advances.value"
+          value="{{actor.data.advances.value}}"
+        />
+      </label>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="tabs" data-group="primary">
+    <a class="item" data-tab="summary">{{localize "SSO.Summary"}}</a>
+    <a class="item" data-tab="edges">{{localize "SSO.Edges"}}</a>
+    <a class="item" data-tab="inventory">{{localize "SSO.Inventory"}}</a>
+    {{#if hasArcaneBackground}}
+    <a class="item" data-tab="powers">{{localize "SSO.Powers"}}</a>
+    {{/if}}
+    <a class="item" data-tab="description">{{localize "SSO.Desc"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <main class="sheet-body">
+    {{!-- Summary Tab --}}
+    <span class="tab active" data-group="primary" data-tab="summary">
+      {{> "systems/swade/templates/official/tabs/summary.html"}}
+    </span>
+
+    {{!-- Edges/Hindrances Tab --}}
+    <span class="tab" data-group="primary" data-tab="edges">
+      {{> "systems/swade/templates/official/tabs/edges.html"}}
+    </span>
+
+    {{!-- Inventory Tab --}}
+    <span class="tab" data-group="primary" data-tab="inventory">
+      {{> "systems/swade/templates/official/tabs/inventory.html"}}
+    </span>
+
+    {{!-- Powers Tab --}} {{#if hasArcaneBackground}}
+    <span class="tab" data-group="primary" data-tab="powers">
+      {{> "systems/swade/templates/official/tabs/powers.html"}}
+    </span>
+    {{/if}} {{!-- Biography Tab --}}
+    <span class="tab" data-group="primary" data-tab="description">
+      {{> "systems/swade/templates/official/tabs/description.html"}}
+    </span>
+  </main>
+</form>

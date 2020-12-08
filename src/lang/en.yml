@@ -264,3 +264,114 @@ SWADE.Actors: Actors
 SWADE.Items: Items
 SWADE.Max: Max
 SWADE.Curr: Current
+#####################
+# Official Sheet
+#####################
+#***************************
+# General
+#***************************
+SSO.Roll: Roll
+SSO.Edit: Edit
+SSO.OfficialSheet: Savage Worlds Official Sheet by Pinnacle
+SSO.Add: Add
+SSO.Expand: Expand
+
+#***************************
+# Sheet Header
+#***************************
+SSO.Race: Race
+SSO.Rank: Rank
+SSO.Advances: Advances
+SSO.Conviction: Conviction
+SSO.Active: Active
+SSO.PEGLogo: Pinnacle Entertainment Group Logo
+SSO.SWADELogo: Savage Worlds Adventure Edition Logo
+SSO.ConvictionActivate: Something something Conviction activated
+
+#***************************
+# Sheet Tabs
+#***************************
+SSO.Summary: Summary
+SSO.Edges: Edges
+SSO.Inventory: Inventory
+SSO.Powers: Powers
+SSO.Desc: Description
+
+#***************************
+# Summary Tab
+#***************************
+SSO.Attributes: Attributes
+SSO.Derived: Derived
+SSO.Skills: Skills
+SSO.QuickAccess: Quick Access & Effects
+SSO.Wounds: Wounds
+SSO.Fatigue: Fatigue
+SSO.Bennies: Bennies
+SSO.SpendBennie: Spend Benny
+SSO.AddBennie: Add Benny
+SSO.CurrentBennies: Current Bennies
+
+# Status boxes
+SSO.Shaken: Shaken
+SSO.Distr: Distracted
+SSO.Vuln: Vulnerable
+SSO.Stunned: Stunned
+SSO.Bound: Bound
+SSO.Entangled: Entangled
+
+# Attributes
+SSO.AttrAgi: Agility
+SSO.AttrSma: Smarts
+SSO.AttrSpi: Spirit
+SSO.AttrStr: Strength
+SSO.AttrVig: Vigor
+
+# Derived Stats
+SSO.Size: Size
+SSO.Parry: Parry
+SSO.Tough: Toughness
+SSO.Pace: Pace
+SSO.Running: Running
+
+# Item Cards
+SSO.Dmg: Damage
+SSO.Mag: Shots
+SSO.Rng: Range
+SSO.RoF: RoF
+SSO.Ap: AP
+SSO.PP: PP
+SSO.Dur: Duration
+SSO.Cover: Cover
+SSO.Notes: Notes
+SSO.Armor: Armor
+SSO.MinStr: Min. Str
+
+#***************************
+# Inventory Tab
+#***************************
+SSO.Currency: Currency
+SSO.CarryWeight: Encumbrance
+
+#***************************
+# Description Tab
+#***************************
+SSO.Biography: Biography
+SSO.Weapons: Weapons
+SSO.Armors: Armors
+SSO.Shields: Shields
+SSO.Misc: Misc
+SSO.Weight: Weight
+
+#***************************
+# Edges Tab
+#***************************
+SSO.Hindrances: Hindrances
+SSO.General: General
+
+#***************************
+# Powers Tab
+#***************************
+SSO.CurPP: Current Power Points
+SSO.MaxPP: Max Power Points
+SSO.Trapping: Trapping
+SSO.Power: Power

@@ -5,6 +5,11 @@ export const registerCustomHelpers = function () {
     let result = parseInt(a) + parseInt(b);
     return result.signedString();
   });
+
+  Handlebars.registerHelper('times', function (a, b) {
+    return a * b;
+  });
+
   Handlebars.registerHelper('isEmpty', (element) => {
     if (typeof element === undefined) return true;
     if (Array.isArray(element) && element.length) return false;
