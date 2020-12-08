@@ -3,7 +3,7 @@
   "type": "system",
   "title": "Savage Worlds Adventure Edition",
   "description": "<p>by <a href=\"https://www.peginc.com/\" target=\"_blank\">Pinnacle Entertainment Group, Inc.</a></p><p>A comprehensive gamesystem for running <cite><em>Savage Worlds Adventure Edition</em></cite> games</p>",
-  "version": "0.14.1",
+  "version": "0.15.0",
   "minimumCoreVersion": "0.7.5",
   "compatibleCoreVersion": "0.7.8",
   "author": "FloRad",
@@ -59,7 +59,7 @@
   "socket": true,
   "gridDistance": 1,
   "gridUnits": "in",
-  "url": "https://gitlab.com/peginc/savage-worlds-adventure-edition",
-  "manifest": "https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json",
-  "download": "https://gitlab.com/florad-foundry/swade/-/raw/v0.14.1/package/swade-v0.14.1.zip"
+  "url": "https://gitlab.com/peginc/swade",
+  "manifest": "https://gitlab.com/peginc/savage-worlds-adventure-edition/-/raw/master/system.json",
+  "download": "https://gitlab.com/peginc/savage-worlds-adventure-edition/-/raw/v0.15.0/swade-v0.15.0.zip"
 }
