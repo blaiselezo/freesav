@@ -70,7 +70,6 @@ Hooks.once('init', () => {
 
   Actors.registerSheet('swade', SwadeCharacterSheet, {
     types: ['character'],
-    makeDefault: true,
     label: 'SWADE.CommunityCharSheet',
   });
 
