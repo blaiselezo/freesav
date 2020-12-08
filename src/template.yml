@@ -139,6 +139,8 @@ Actor:
     bennies:
       value: 2
       max: 2
+    wounds:
+      max: 0
   vehicle:
     templates:
       - vehicle-common
