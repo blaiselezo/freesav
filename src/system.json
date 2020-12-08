@@ -59,7 +59,7 @@
   "socket": true,
   "gridDistance": 1,
   "gridUnits": "in",
-  "url": "https://gitlab.com/peginc/swade",
+  "url": "https://gitlab.com/peginc/savage-worlds-adventure-edition",
   "manifest": "https://gitlab.com/peginc/savage-worlds-adventure-edition/-/raw/master/system.json",
   "download": "https://gitlab.com/peginc/savage-worlds-adventure-edition/-/raw/v0.15.0/swade-v0.15.0.zip"
 }
