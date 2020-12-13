@@ -2,9 +2,9 @@
 
 # Savage Worlds Adventure Edition for Foundry VTT
 
-<img title="Minimum core version" src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json&label=core&query=minimumCoreVersion&suffix=%2B&style=flat-square&color=important">
-<img title="Latest compatible version" src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json&label=compatible&query=compatibleCoreVersion&style=flat-square&color=important">
-<img src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json&label=version&query=version&style=flat-square&color=success">
+<img title="Minimum core version" src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/peginc/swade/-/raw/master/src/system.json&label=core&query=minimumCoreVersion&suffix=%2B&style=flat-square&color=important">
+<img title="Latest compatible version" src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/peginc/swade/-/raw/master/src/system.json&label=compatible&query=compatibleCoreVersion&style=flat-square&color=important">
+<img src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/peginc/swade/-/raw/master/src/system.json&label=version&query=version&style=flat-square&color=success">
 
 [![Donate via Ko-Fi](https://img.shields.io/badge/support-ko--fi-ff4646?style=flat-square&logo=ko-fi)](https://ko-fi.com/florad)
 [![Twitter Follow](https://img.shields.io/badge/follow-%40FloRadical-blue.svg?style=flat-square&logo=twitter)](https://twitter.com/FloRadical)
@@ -20,10 +20,10 @@ _[Read the FAQ](/FAQ.md) for questions not answered below._
 To install the SWADE system for Foundry Virtual Tabletop, simply paste the following URL into the **Install System**
 dialog on the Setup menu of the application.
 
-https://gitlab.com/florad-foundry/swade/-/raw/master/src/system.json
+https://gitlab.com/peginc/swade/-/raw/master/src/system.json
 
 If you wish to manually install the system, extract it into the `Data/systems/swade` folder.
-You may do this by downloading a zip archive from the [Releases Page](https://gitlab.com/florad-foundry/swade/-/releases).
+You may do this by downloading a zip archive from the [Releases Page](https://gitlab.com/peginc/swade/-/releases).
 
 ## Local Build Instructions
 
