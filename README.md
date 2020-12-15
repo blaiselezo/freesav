@@ -8,7 +8,6 @@ _by Pinnacle Entertainment Group, Inc._
 <img title="Latest compatible version" src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/peginc/swade/-/raw/master/src/system.json&label=compatible&query=compatibleCoreVersion&style=flat-square&color=important">
 <img src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/peginc/swade/-/raw/master/src/system.json&label=version&query=version&style=flat-square&color=success">
 
-
 ![Savage Worlds Adventure Edition for Foundry Virtual Tabletop](https://gitlab.com/peginc/swade/-/raw/master/images/logos/SWADE_FVTT.png)
 
 </div>
@@ -76,6 +75,8 @@ Please reach out in the `#swade` channel on the [Foundry VTT Discord server](htt
 [Read the FAQ](/FAQ.md) for questions not answered above.
 
 ## License Notice
+
+_Savage Worlds_, all unique characters, creatures, and locations, artwork, logos, and the Pinnacle logo are © 2020 Great White Games, LLC; DBA Pinnacle Entertainment Group. Distributed by Studio 2 Publishing, Inc.
 
 Pinnacle Entertainment Group, Inc. reserves the rights for the following assets in this repository and any game system built from it. The assets are only to be used in Foundry VTT for the purpose of playing _Savage Worlds Adventure Edition_
 
