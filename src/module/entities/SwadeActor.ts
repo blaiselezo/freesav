@@ -102,7 +102,7 @@ export default class SwadeActor extends Actor {
     return (
       this.items.filter(
         (i: SwadeItem) =>
-          i.type === 'edge' && i.data['isArcaneBackground'] === true,
+          i.type === 'edge' && i.data.data['isArcaneBackground'] === true,
       ).length > 0
     );
   }
