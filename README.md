@@ -48,6 +48,25 @@ reach out on the Foundry Community Discord with any questions.
 
 ## License Notice
 
-<img src="https://www.peginc.com/wp-content/uploads/2019/01/SW_LOGO_FP_2018.png" alt="Savage Worlds Fan Product Logo" width="200">
+Pinnacle Entertainment Group, Inc reserves the rights for the following assets in this repository and any game system built from it. The assets are only to be used in Foundry VTT for the purpose of playing _Savage Worlds Adventure Edition_
 
-This game references the Savage Worlds game system, available from Pinnacle Entertainment Group at www.peginc.com. Savage Worlds and all associated logos and trademarks are copyrights of Pinnacle Entertainment Group. Used with permission. Pinnacle makes no representation or warranty as to the quality, viability, or suitability for purpose of this product.
+- d4.svg, 
+- d6.svg, 
+- d8.svg, 
+- d10.svg, 
+- d12.svg, 
+- bennie.webp, 
+- char-bg.webp, 
+- circle_fatigue.webp, 
+- circle_wounds.webp, 
+- header_bg.webp, 
+- main_bg.webp, 
+- peg_logo.webp,
+- sheet_armor.svg,
+- sheet_parry.svg,
+- sheet_toughness.svg,
+- skills_bg.webp,
+- skills_footer.webp,
+- skills_header.webp,
+- swade_logo.webp
+- benny-chip-front.png
