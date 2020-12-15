@@ -24,6 +24,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
+- Added the getter `hasArcaneBackground` accessor to the `SwadeActor` class which returns a boolean
+
+### Fixed
+
+- Fixed a sdmall bug which would prevent chat cards to be posted from vehicle actors
+
+## [v0.15.0]
+
+### Added
+
 - Added official character sheet. For more information visit `<insert link here>`
 - Added Actions to `Shield` type items
 - Added ability to define skill override in an action, so the action uses an alternative skill
