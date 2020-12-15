@@ -2,13 +2,7 @@
 
 _by Pinnacle Entertainment Group, Inc._
 
-<style scoped>
-.center {
-    display: flex; flex-direction: column; align-items: center;
-}
-</style>
-
-<div class="center">
+<div align="center">
 
 <img title="Minimum core version" src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/peginc/swade/-/raw/master/src/system.json&label=core&query=minimumCoreVersion&suffix=%2B&style=flat-square&color=important">
 <img title="Latest compatible version" src="https://img.shields.io/badge/dynamic/json?url=https://gitlab.com/peginc/swade/-/raw/master/src/system.json&label=compatible&query=compatibleCoreVersion&style=flat-square&color=important">
@@ -20,7 +14,7 @@ _by Pinnacle Entertainment Group, Inc._
 
 This game system supports and enhances the play experience of _Savage Worlds Adventure Edition_ in [Foundry VTT](https://foundryvtt.com/).
 
-<div class="center">
+<div align="center">
 
 ![Chat cards in action](https://gitlab.com/peginc/swade/-/raw/master/images/chat-cards.gif)
 
@@ -28,7 +22,7 @@ This game system supports and enhances the play experience of _Savage Worlds Adv
 
 Designed to feel at home among the pages of the core rules, the character sheet offers a refreshed design, UI improvements, and additional features to streamline and improve your game.
 
-<div class="center">
+<div align="center">
 
 ![New Character Sheet Design](https://gitlab.com/peginc/swade/-/raw/master/images/new-sheet-design.gif)
 
@@ -36,7 +30,7 @@ Designed to feel at home among the pages of the core rules, the character sheet 
 
 Those who use the popular [_Dice So Nice!_ module](https://foundryvtt.com/packages/dice-so-nice/) will see some additional “benefits” as well.
 
-<div class="center">
+<div align="center">
 
 ![Spending a Benny](https://gitlab.com/peginc/swade/-/raw/master/images/benny.gif)
 
