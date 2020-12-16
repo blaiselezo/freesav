@@ -70,4 +70,12 @@ export class SWADE {
     preloadPromise: null,
     templatesPreloaded: false,
   };
+
+  public static statusEffects = [
+    {
+      icon: 'icons/svg/skull.svg',
+      id: 'dead',
+      label: 'EFFECT.StatusDead',
+    },
+  ];
 }

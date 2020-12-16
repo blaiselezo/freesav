@@ -225,8 +225,9 @@ export default class CharacterSheet extends ActorSheet {
           this._createActiveEffect();
           break;
         default:
-          const itemData = createItem(type);
-          await this.actor.createOwnedItem(itemData, { renderSheet: true });
+          await this.actor.createOwnedItem(createItem(type), {
+            renderSheet: true,
+          });
           break;
       }
     });
