@@ -28,7 +28,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Fixed
 
-- Fixed a sdmall bug which would prevent chat cards to be posted from vehicle actors
+- Fixed a small bug which would prevent chat cards to be posted from vehicle actors
+- Fixed a small issue that would cause multiple instances of Core Skills to be created on an actor when multiple GMs are logged in
 
 ## [v0.15.0]
 
