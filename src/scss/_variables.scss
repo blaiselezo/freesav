@@ -6,12 +6,27 @@ $light-pastel-blue: #dfe6f5;
 $charcoal: #2c4251;
 $lapis-lazuli: #33658a;
 
+$header-text: rgba(151, 40, 36, 1);
+$input-bg-light: rgba(203, 192, 175, 1);
+$input-bg-dark: rgba(172, 165, 146, 1);
+$light-grey: rgba(59, 59, 59, 0.5);
+$dark-grey: rgba(59, 59, 59, 1);
+
 $decorative-line: 1px solid $anthracite;
 $section-border: 1px groove $anthracite;
+$solid-line: 2px solid $light-grey;
 
 //Spacing variables
 $small-spacing: 2px;
 $medium-spacing: 5px;
+$large-spacing: 10px;
+
+//font-sizes
+$smallest-font: 12px;
+$small-font: 14px;
+$medium-font: 16px;
+$large-font: 24px;
+$section-header: 20px;
 
 //Grid variables
 $grid-gap: $medium-spacing;
