@@ -33,12 +33,11 @@ $grid-gap: $medium-spacing;
 
 %header-field {
   padding: 5px;
-  background: $light-grey;
+  background: $header-text;
   border: $decorative-line;
   border-top-right-radius: 2px;
   border-top-left-radius: 2px;
   text-align: center;
-  background: $charcoal;
   color: $light-pastel-blue;
   .header-field-add {
     flex-grow: 0;

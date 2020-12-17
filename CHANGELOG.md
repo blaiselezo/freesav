@@ -26,6 +26,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added the getter `hasArcaneBackground` accessor to the `SwadeActor` class which returns a boolean
 
+### Changed
+
+- Changed the color scheme of the community sheets to more closely resemble the official sheet
+
 ### Fixed
 
 - Fixed a small bug which would prevent chat cards to be posted from vehicle actors
