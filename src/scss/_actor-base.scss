@@ -376,7 +376,7 @@
         }
         font-weight: 300;
         font-size: 12px;
-        background: #2c4251;
+        background: $header-text;
         color: white;
       }
       .item-list {
@@ -488,15 +488,15 @@
         text-align: center;
         line-height: 22px;
         overflow: hidden;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        background: $lapis-lazuli;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        background: $header-text;
         &:hover,
         &:focus {
-          background: $charcoal;
+          background: $dark-grey;
           text-shadow: none;
         }
         &.active {
-          background: $charcoal;
+          background: $dark-grey;
         }
       }
     }
@@ -504,7 +504,7 @@
       display: none;
       input {
         width: 40px;
-        color: white;
+        color: $light-pastel-blue;
         font-weight: bold;
         background: rgba(255, 255, 255, 0.2);
       }

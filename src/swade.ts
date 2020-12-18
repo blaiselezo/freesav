@@ -60,6 +60,7 @@ Hooks.once('init', () => {
   //CONFIG.Combat.entityClass = SwadeCombat;
   CONFIG.Actor.entityClass = SwadeActor;
   CONFIG.Item.entityClass = SwadeItem;
+  CONFIG.statusEffects = SWADE.statusEffects;
 
   // Register custom system settings
   registerSettings();
@@ -68,16 +69,15 @@ Hooks.once('init', () => {
   Actors.unregisterSheet('core', ActorSheet);
   Items.unregisterSheet('core', ItemSheet);
 
-  Actors.registerSheet('swade', SwadeCharacterSheet, {
-    types: ['character'],
-    makeDefault: true,
-    label: 'SWADE.CommunityCharSheet',
-  });
-
   Actors.registerSheet('swade', CharacterSheet, {
     types: ['character'],
     makeDefault: true,
     label: game.i18n.localize('SSO.OfficialSheet'),
+  });
+
+  Actors.registerSheet('swade', SwadeCharacterSheet, {
+    types: ['character'],
+    label: 'SWADE.CommunityCharSheet',
   });
 
   Actors.registerSheet('swade', SwadeNPCSheet, {

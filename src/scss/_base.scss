@@ -1,6 +1,8 @@
 .swade.sheet {
   .window-content {
-    background: $light-pastel-blue;
+    background-image: url('./assets/main_bg.webp');
+    background-repeat: repeat;
+    background-position: left top;
   }
 
   // Content Tabs
@@ -9,18 +11,18 @@
 
     .item {
       border: 1px solid $charcoal;
-      background: $lapis-lazuli;
+      background: $header-text;
       border-radius: 4px 4px 0 0;
       margin: 0 5px -1px;
       padding: 4px;
       color: $light-pastel-blue;
       &:hover,
       &:focus {
-        background: $charcoal;
+        background: $input-bg-dark;
         text-shadow: none;
       }
       &.active {
-        background: $charcoal;
+        background: $input-bg-dark;
         border-bottom: 0;
         text-shadow: none;
       }
@@ -32,72 +34,6 @@
       }
     }
   }
-
-  // Generic checkbox styling
-  .check-container {
-    display: block;
-    position: relative;
-    padding-left: 30px;
-    cursor: pointer;
-    font-size: 14px;
-    line-height: 20px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
-    input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      height: 0;
-      width: 0;
-    }
-  }
-
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #ccc;
-  }
-
-  .check-container {
-    &:hover input ~ .checkmark {
-      background-color: #2d3748;
-    }
-
-    input:checked ~ .checkmark {
-      background-color: #2d3748;
-    }
-  }
-
-  .checkmark:after {
-    content: '';
-    position: absolute;
-    display: none;
-  }
-
-  .check-container {
-    input:checked ~ .checkmark:after {
-      display: block;
-    }
-
-    .checkmark:after {
-      left: 6px;
-      top: 2px;
-      width: 5px;
-      height: 10px;
-      border: solid #ccc;
-      border-width: 0 3px 3px 0;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
-    }
-  }
-  //End of Checkbox styling
 
   input[type='text'],
   input[type='number'] {

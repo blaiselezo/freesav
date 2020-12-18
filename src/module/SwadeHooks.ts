@@ -92,6 +92,11 @@ export default class SwadeHooks {
     options: any,
     userId: string,
   ) {
+    // Return early if we are NOT a GM OR we are not the player that triggered the update AND that player IS a GM
+    const user = game.users.get(userId) as User;
+    if (!game.user.isGM || (game.userId !== userId && user.isGM)) {
+      return;
+    }
     if (actor.isWildcard && options.renderSheet) {
       const coreSkills = [
         'Athletics',

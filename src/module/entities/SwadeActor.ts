@@ -98,6 +98,15 @@ export default class SwadeActor extends Actor {
     }
   }
 
+  get hasArcaneBackground(): boolean {
+    return (
+      this.items.filter(
+        (i: SwadeItem) =>
+          i.type === 'edge' && i.data.data['isArcaneBackground'] === true,
+      ).length > 0
+    );
+  }
+
   /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
   /* -------------------------------------------- */
@@ -380,7 +389,8 @@ export default class SwadeActor extends Actor {
    */
   getRollShortcuts(bAddWildDie = false) {
     let out = {};
-
+    //return early if the actor is a vehicle
+    if (this.data.type === 'vehicle') return out;
     // Attributes
     const attr = this.data.data.attributes;
     for (const name of ['agility', 'smarts', 'spirit', 'strength', 'vigor']) {

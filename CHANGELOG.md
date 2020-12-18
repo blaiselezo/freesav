@@ -24,6 +24,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
+- Added the getter `hasArcaneBackground` accessor to the `SwadeActor` class which returns a boolean
+- Added SWADE-Specific status icons
+- Added additional translation options
+
+### Changed
+
+- Changed the color scheme of the community sheets to more closely resemble the official sheet
+
+### Fixed
+
+- Fixed a small bug which would prevent chat cards to be posted from vehicle actors
+- Fixed a small issue that would cause multiple instances of Core Skills to be created on an actor when multiple GMs are logged in
+
+## [v0.15.0]
+
+### Added
+
 - Added official character sheet. For more information visit `<insert link here>`
 - Added Actions to `Shield` type items
 - Added ability to define skill override in an action, so the action uses an alternative skill

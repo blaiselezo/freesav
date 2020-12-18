@@ -225,8 +225,9 @@ export default class CharacterSheet extends ActorSheet {
           this._createActiveEffect();
           break;
         default:
-          const itemData = createItem(type);
-          await this.actor.createOwnedItem(itemData, { renderSheet: true });
+          await this.actor.createOwnedItem(createItem(type), {
+            renderSheet: true,
+          });
           break;
       }
     });
@@ -378,9 +379,7 @@ export default class CharacterSheet extends ActorSheet {
     data.maxCarryCapacity = this._calcMaxCarryCapacity();
 
     //Checks if the Actor has an Arcane Background
-    data.hasArcaneBackground =
-      data.itemsByType['edge'].filter((e) => e.data.isArcaneBackground === true)
-        .length > 0;
+    data.hasArcaneBackground = this.actor.hasArcaneBackground;
 
     //Deal with ABs and Powers
     const powers = {
