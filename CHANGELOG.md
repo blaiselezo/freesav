@@ -20,7 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.15.2]
+
+### Added
+
+- Added compatability for Foundry 0.7.9
+
+### Fixed
+
+- Fixed a small error in the token status effects
+
+## [v0.15.1]
 
 ### Added
 

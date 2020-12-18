@@ -134,7 +134,7 @@ export class SWADE {
     },
     {
       icon: 'systems/swade/assets/icons/status/status_vulnerable.svg',
-      id: 'encumbered',
+      id: 'vulnerable',
       label: 'SWADE.Vuln',
     },
     {
