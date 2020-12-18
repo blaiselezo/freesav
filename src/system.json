@@ -60,6 +60,6 @@
   "gridDistance": 1,
   "gridUnits": "in",
   "url": "https://gitlab.com/peginc/swade",
-  "manifest": "https://gitlab.com/peginc/savage-worlds-adventure-edition/-/raw/master/src/system.json",
-  "download": "https://gitlab.com/peginc/savage-worlds-adventure-edition/-/raw/v0.15.1/package/swade-v0.15.1.zip"
+  "manifest": "https://gitlab.com/peginc/swade/-/raw/master/src/system.json",
+  "download": "https://gitlab.com/peginc/swade/-/raw/v0.15.1/package/swade-v0.15.1.zip"
 }
