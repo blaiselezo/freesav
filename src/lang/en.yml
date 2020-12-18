@@ -40,12 +40,6 @@ SWADE.Pow: Powers
 SWADE.WildCard: Wild Card
 SWADE.Extra: Extra
 SWADE.Bennies: Bennies
-SWADE.Shaken: Shaken
-SWADE.Distr: Distracted
-SWADE.Vuln: Vulnerable
-SWADE.Stunned: Stunned
-SWADE.Entangled: Entangled
-SWADE.Bound: Bound
 SWADE.TraitMod: Trait Mod
 SWADE.SkillTest: Skill Test
 SWADE.AttributeTest: Attribute Test
@@ -93,6 +87,34 @@ SWADE.MeleeWeapons: Melee Weapons
 SWADE.RangedWeapons: Ranged Weapons
 SWADE.Armors: Armors
 SWADE.Shields: Shields
+
+#####################
+# Status
+#####################
+SWADE.Shaken: Shaken
+SWADE.Distr: Distracted
+SWADE.Vuln: Vulnerable
+SWADE.Stunned: Stunned
+SWADE.Entangled: Entangled
+SWADE.Bound: Bound
+SWADE.Aiming: Aiming
+SWADE.Berserk: Berserk
+SWADE.Defending: Defending
+SWADE.Flying: Flying
+SWADE.Holding: Holding
+SWADE.Frightened: Frightened
+SWADE.Encumbered: Encumbered
+SWADE.Prone: Prone
+SWADE.BleedingOut: Bleeding Out
+SWADE.Diseased: Diseased
+SWADE.HeartAttack: Heart Attack
+SWADE.OnFire: On Fire
+SWADE.Poisoned: Poisoned
+SWADE.CoverShield: Cover - Shield
+SWADE.Reach: Reach
+SWADE.Torch: Torch
+SWADE.Invisible: Invisible
+SWADE.Smite: Smite
 
 #####################
 # Items

@@ -24,7 +24,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
-- Added the getter `hasArcaneBackground` accessor to the `SwadeActor` class which returns a boolean
+- Added the getter `hasArcaneBackground` accessor to the `SwadeActor` class which returns a boolea
+- Added SWADE-Specific status icons.
+- Added additional translation options
 
 ### Changed
 
