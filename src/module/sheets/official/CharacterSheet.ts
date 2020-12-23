@@ -54,6 +54,11 @@ export default class CharacterSheet extends ActorSheet {
         li.setAttribute('draggable', 'true');
         li.addEventListener('dragstart', handler, false);
       });
+      html.find('li.item.misc').each((i, li) => {
+        // Add draggable attribute and dragstart listener.
+        li.setAttribute('draggable', 'true');
+        li.addEventListener('dragstart', handler, false);
+      });
       html.find('li.item.power').each((i, li) => {
         // Add draggable attribute and dragstart listener.
         li.setAttribute('draggable', 'true');

@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+### Added
+
+- Added Drag&Drop functionality to Misc items in the Inventory of the character sheet
+
 ### Fixed
 
 - Implicit dice such as `d4` now explode properly again
