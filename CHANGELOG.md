@@ -26,6 +26,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added Drag&Drop functionality to Misc items in the Inventory of the character sheet
 
+### Changed
+
+- Restricted autopopulation of core skills to player characters only
+
 ### Fixed
 
 - Implicit dice such as `d4` now explode properly again
