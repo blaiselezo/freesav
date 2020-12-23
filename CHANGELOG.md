@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Implicit dice such as `d4` now explode properly again
 - Fixed an unintentional linebreak on the community character sheet
+- Fixed a small issue where using the `suppressChat` option on a damage roll would break the roll
 
 ## [v0.15.2]
 

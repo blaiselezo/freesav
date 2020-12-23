@@ -83,7 +83,7 @@ export default class SwadeItem extends Item {
     }
 
     if (options.suppressChat) {
-      return new Roll(newParts.join());
+      return new Roll(newParts.join(''));
     }
 
     // Roll and return
