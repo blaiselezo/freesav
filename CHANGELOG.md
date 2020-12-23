@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Fixed
+
+- Implicit dice such as `d4` now explode properly again
+
 ## [v0.15.2]
 
 ### Added
