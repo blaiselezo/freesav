@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Implicit dice such as `d4` now explode properly again
+- Fixed an unintentional linebreak on the community character sheet
 
 ## [v0.15.2]
 
