@@ -20,6 +20,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Added Drag&Drop functionality to Misc items in the Inventory of the character sheet
+
+### Changed
+
+- Restricted autopopulation of core skills to player characters only
+
+### Fixed
+
+- Implicit dice such as `d4` now explode properly again
+- Fixed an unintentional linebreak on the community character sheet
+- Fixed a small issue where using the `suppressChat` option on a damage roll would break the roll
+
 ## [v0.15.2]
 
 ### Added

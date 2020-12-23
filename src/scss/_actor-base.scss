@@ -27,6 +27,7 @@
     //Actor Name
     .charline {
       width: 100%;
+      display: flex;
       .charname {
         flex: 3;
         font-size: 40px;

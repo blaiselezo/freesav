@@ -97,31 +97,36 @@ export default class SwadeHooks {
     if (!game.user.isGM || (game.userId !== userId && user.isGM)) {
       return;
     }
-    if (actor.isWildcard && options.renderSheet) {
-      const coreSkills = [
-        'Athletics',
-        'Common Knowledge',
-        'Notice',
-        'Persuasion',
-        'Stealth',
-        'Untrained',
-      ];
 
-      const existingSkills = actor.items
-        .filter((i: SwadeItem) => i.type === ItemType.Skill)
-        .map((i: SwadeItem) => i.name);
-
-      const skillsToAdd = coreSkills.filter((s) => !existingSkills.includes(s));
-
-      const skillIndex = (await game.packs
-        .get('swade.skills')
-        .getContent()) as SwadeItem[];
-
-      actor.createEmbeddedEntity(
-        'OwnedItem',
-        skillIndex.filter((i) => skillsToAdd.includes(i.data.name)),
-      );
+    // Return early if the actor is not a player character
+    if (actor.data.type !== ActorType.Character) {
+      return;
     }
+    const coreSkills = [
+      'Athletics',
+      'Common Knowledge',
+      'Notice',
+      'Persuasion',
+      'Stealth',
+      'Untrained',
+    ];
+
+    //Get and map the existing skills on the actor to an array of names
+    const existingSkills = actor.items
+      .filter((i: SwadeItem) => i.type === ItemType.Skill)
+      .map((i: SwadeItem) => i.name);
+
+    //Filter the expected
+    const skillsToAdd = coreSkills.filter((s) => !existingSkills.includes(s));
+
+    const skillIndex = (await game.packs
+      .get('swade.skills')
+      .getContent()) as SwadeItem[];
+
+    actor.createEmbeddedEntity(
+      'OwnedItem',
+      skillIndex.filter((i) => skillsToAdd.includes(i.data.name)),
+    );
   }
 
   public static onRenderActorDirectory(
