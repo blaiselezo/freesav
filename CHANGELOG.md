@@ -20,6 +20,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Added warnings to all item types which display when any action related to an Active Effect is taken on an owned Item
+
+### Removed
+
+- Removed ability to interact with Active Effects on skill Items
+
 ## [v0.15.3]
 
 ### Added

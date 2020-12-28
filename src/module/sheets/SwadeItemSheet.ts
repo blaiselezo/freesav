@@ -117,7 +117,7 @@ export default class SwadeItemSheet extends ItemSheet {
       if (this.item.isOwned) {
         //FIXME once this is supported in Foundry
         ui.notifications.info(
-          'Editing of Active Effects on an owned Item is not yet supported',
+          'Active Effects on owned Items are currently not supported',
         );
       } else {
         switch (action) {
@@ -132,17 +132,26 @@ export default class SwadeItemSheet extends ItemSheet {
     });
 
     html.find('.add-effect').on('click', async (ev) => {
-      let transfer = $(ev.currentTarget).data('transfer');
-      let id = (
-        await this.item.createEmbeddedEntity('ActiveEffect', {
-          label: game.i18n
-            .localize('ENTITY.New')
-            .replace('{entity}', game.i18n.localize('Active Effect')),
-          icon: '/icons/svg/mystery-man.svg',
-          transfer: transfer,
-        })
-      )._id;
-      return new ActiveEffectConfig(this.item['effects'].get(id)).render(true);
+      if (this.item.isOwned) {
+        //FIXME once this is supported in Foundry
+        ui.notifications.info(
+          'Active Effects on owned Items are currently not supported',
+        );
+      } else {
+        let transfer = $(ev.currentTarget).data('transfer');
+        let id = (
+          await this.item.createEmbeddedEntity('ActiveEffect', {
+            label: game.i18n
+              .localize('ENTITY.New')
+              .replace('{entity}', game.i18n.localize('Active Effect')),
+            icon: '/icons/svg/mystery-man.svg',
+            transfer: transfer,
+          })
+        )._id;
+        return new ActiveEffectConfig(this.item['effects'].get(id)).render(
+          true,
+        );
+      }
     });
   }
 
@@ -164,6 +173,7 @@ export default class SwadeItemSheet extends ItemSheet {
       attr['isCheckbox'] = attr['dtype'] === 'Boolean';
     }
     data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
+    data.displayNav = this.item.type !== ItemType.Skill;
 
     // Check for enabled optional rules
     data['settingrules'] = {
