@@ -72,7 +72,7 @@ Hooks.once('init', () => {
   Actors.registerSheet('swade', CharacterSheet, {
     types: ['character'],
     makeDefault: true,
-    label: game.i18n.localize('SSO.OfficialSheet'),
+    label: game.i18n.localize('SWADE.OfficialSheet'),
   });
 
   Actors.registerSheet('swade', SwadeCharacterSheet, {

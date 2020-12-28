@@ -1,16 +1,17 @@
 <span class="powers">
   <div class="section-header">
     <button type="button" class="item-create controls" data-type="power">
-      <i class="fa fa-plus"></i>{{localize "SSO.Add"}} {{localize "SSO.Power"}}
+      <i class="fa fa-plus"></i>{{localize "SWADE.Add"}} {{localize
+      "ITEM.TypePower"}}
     </button>
   </div>
   {{#if powers.hasPowersWithoutArcane}}
   <header class="section-header">
-    <span class="name">{{localize "SSO.General"}}</span>
+    <span class="name">{{localize "SWADE.General"}}</span>
     <span class="pp-counter controls">
       PP:&nbsp;
       <label>
-        <span class="sr-only">{{localize "SSO.CurPP"}}</span>
+        <span class="sr-only">{{localize "SWADE.CurPP"}}</span>
         <input
           type="number"
           name="data.powerPoints.value"
@@ -19,7 +20,7 @@
       </label>
       /
       <label>
-        <span class="sr-only">{{localize "SSO.CurPP"}}</span>
+        <span class="sr-only">{{localize "SWADE.CurPP"}}</span>
         <input
           type="number"
           name="data.powerPoints.max"
@@ -57,16 +58,16 @@
         <span class="power-details">
           {{#if data.damage}}
           <button type="button" class="damage-roll">
-            {{localize "SSO.Dmg"}}: {{data.damage}}
+            {{localize "SWADE.Dmg"}}: {{data.damage}}
           </button>
           {{/if}}
-          <span>{{localize "SSO.Rank"}}: {{data.rank}}&nbsp;</span>
-          <span>{{localize "SSO.PP"}}: {{data.pp}}&nbsp;</span>
-          <span>{{localize "SSO.Rng"}}: {{data.range}}&nbsp;</span>
-          <span>{{localize "SSO.Dur"}}: {{data.duration}}&nbsp;</span>
+          <span>{{localize "SWADE.Rank"}}: {{data.rank}}&nbsp;</span>
+          <span>{{localize "SWADE.PP"}}: {{data.pp}}&nbsp;</span>
+          <span>{{localize "SWADE.Rng"}}: {{data.range}}&nbsp;</span>
+          <span>{{localize "SWADE.Dur"}}: {{data.duration}}&nbsp;</span>
         </span>
         <div class="trapping">
-          {{localize "SSO.Trapping"}}: {{data.trapping}}
+          {{localize "SWADE.Trapping"}}: {{data.trapping}}
         </div>
         {{enrich data.description}}
       </div>
@@ -79,7 +80,7 @@
     <span class="pp-counter controls">
       PP:&nbsp;
       <label>
-        <span class="sr-only">{{localize "SSO.CurPP"}}</span>
+        <span class="sr-only">{{localize "SWADE.CurPP"}}</span>
         <input
           type="number"
           name="{{arcane.valuePath}}"
@@ -88,7 +89,7 @@
       </label>
       /
       <label>
-        <span class="sr-only">{{localize "SSO.MaxPP"}}</span>
+        <span class="sr-only">{{localize "SWADE.MaxPP"}}</span>
         <input type="number" name="{{arcane.maxPath}}" value="{{arcane.max}}" />
       </label>
     </span>
@@ -122,16 +123,16 @@
         <span class="power-details">
           {{#if data.damage}}
           <button type="button" class="damage-roll">
-            {{localize "SSO.Dmg"}}: {{data.damage}}
+            {{localize "SWADE.Dmg"}}: {{data.damage}}
           </button>
           {{/if}}
-          <span>{{localize "SSO.Rank"}}: {{data.rank}}&nbsp;</span>
-          <span>{{localize "SSO.PP"}}: {{data.pp}}&nbsp;</span>
-          <span>{{localize "SSO.Rng"}}: {{data.range}}&nbsp;</span>
-          <span>{{localize "SSO.Dur"}}: {{data.duration}}&nbsp;</span>
+          <span>{{localize "SWADE.Rank"}}: {{data.rank}}&nbsp;</span>
+          <span>{{localize "SWADE.PP"}}: {{data.pp}}&nbsp;</span>
+          <span>{{localize "SWADE.Rng"}}: {{data.range}}&nbsp;</span>
+          <span>{{localize "SWADE.Dur"}}: {{data.duration}}&nbsp;</span>
         </span>
         <div class="trapping">
-          {{localize "SSO.Trapping"}}: {{data.trapping}}
+          {{localize "SWADE.Trapping"}}: {{data.trapping}}
         </div>
         {{enrich data.description}}
       </div>

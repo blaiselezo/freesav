@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Removed
 
 - Removed ability to interact with Active Effects on skill Items
+- Removed Translations with `SSO` prefix and unified translation under the `SWADE` prefix. Adjusted Official sheet accordingly
 
 ### Fixed
 
