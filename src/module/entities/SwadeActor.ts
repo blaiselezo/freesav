@@ -3,6 +3,7 @@ import SwadeDice from '../dice';
 import IRollOptions from '../../interfaces/IRollOptions';
 import SwadeItem from './SwadeItem';
 import { ActorType } from '../enums/ActorTypeEnum';
+import { ItemType } from '../enums/ItemTypeEnum';
 
 /**
  * @noInheritDoc
@@ -93,7 +94,7 @@ export default class SwadeActor extends Actor {
   /*  Getters
   /* -------------------------------------------- */
   get isWildcard(): boolean {
-    if (this.data.type === 'vehicle') {
+    if (this.data.type === ActorType.Vehicle) {
       return false;
     } else {
       return (
@@ -107,7 +108,8 @@ export default class SwadeActor extends Actor {
     return (
       this.items.filter(
         (i: SwadeItem) =>
-          i.type === 'edge' && i.data.data['isArcaneBackground'] === true,
+          i.type === ItemType.Edge &&
+          i.data.data['isArcaneBackground'] === true,
       ).length > 0
     );
   }
@@ -120,7 +122,7 @@ export default class SwadeActor extends Actor {
   static async create(data, options = {}) {
     let link = false;
 
-    if (data.type === 'character') {
+    if (data.type === ActorType.Character) {
       link = true;
     }
     data.token = data.token || {};
