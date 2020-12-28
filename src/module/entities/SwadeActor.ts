@@ -2,6 +2,7 @@
 import SwadeDice from '../dice';
 import IRollOptions from '../../interfaces/IRollOptions';
 import SwadeItem from './SwadeItem';
+import { ActorType } from '../enums/ActorTypeEnum';
 
 /**
  * @noInheritDoc
@@ -43,7 +44,7 @@ export default class SwadeActor extends Actor {
     //auto calculations
     const shouldAutoCalcToughness =
       getProperty(this.data, 'data.details.autoCalcToughness') &&
-      this.data.type !== 'vehicle';
+      this.data.type !== ActorType.Vehicle;
 
     if (shouldAutoCalcToughness) {
       const toughnessKey = 'data.stats.toughness.value';
@@ -58,14 +59,18 @@ export default class SwadeActor extends Actor {
    */
   prepareDerivedData() {
     //return early for Vehicles
-    if (this.data.type === 'vehicle') return;
+    if (this.data.type === ActorType.Vehicle) return;
 
     //modify pace with wounds
     if (game.settings.get('swade', 'enableWoundPace')) {
-      const wounds = getProperty(this.data, 'data.wounds.value');
-      const pace = getProperty(this.data, 'data.stats.speed.value');
-      let adjustedPace = parseInt(pace) - parseInt(wounds);
+      const wounds = parseInt(getProperty(this.data, 'data.wounds.value'));
+      const pace = parseInt(getProperty(this.data, 'data.stats.speed.value'));
+      //bound maximum wound penalty to -3
+      const woundsToUse = wounds < 3 ? wounds : 3;
+
+      let adjustedPace = pace - woundsToUse;
       if (adjustedPace < 1) adjustedPace = 1;
+
       setProperty(this.data, 'data.stats.speed.value', adjustedPace);
     }
 
@@ -93,7 +98,7 @@ export default class SwadeActor extends Actor {
     } else {
       return (
         getProperty(this.data, 'data.wildcard') ||
-        this.data.type === 'character'
+        this.data.type === ActorType.Character
       );
     }
   }

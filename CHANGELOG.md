@@ -30,6 +30,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Removed ability to interact with Active Effects on skill Items
 
+### Fixed
+
+- Fixed maximum wound penalty for pace
+
 ## [v0.15.3]
 
 ### Added
