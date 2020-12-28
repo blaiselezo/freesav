@@ -21,7 +21,7 @@ export default class SwadeActor extends Actor {
 
     const shouldAutoCalcToughness =
       getProperty(this.data, 'data.details.autoCalcToughness') &&
-      this.data.type !== 'vehicle';
+      this.data.type !== ActorType.Vehicle;
     const toughnessKey = 'data.stats.toughness.value';
     const armorKey = 'data.stats.toughness.armor';
 
@@ -66,7 +66,7 @@ export default class SwadeActor extends Actor {
       const wounds = parseInt(getProperty(this.data, 'data.wounds.value'));
       const pace = parseInt(getProperty(this.data, 'data.stats.speed.value'));
       //bound maximum wound penalty to -3
-      const woundsToUse = wounds < 3 ? wounds : 3;
+      const woundsToUse = Math.min(wounds, 3);
 
       let adjustedPace = pace - woundsToUse;
       if (adjustedPace < 1) adjustedPace = 1;
