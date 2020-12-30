@@ -26,10 +26,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added warnings to all item types which display when any action related to an Active Effect is taken on an owned Item
 
+### Changed
+
+- Changed background color of SVG skill and `Item` to be more in line with the _Savage Worlds_ color scheme
+
 ### Removed
 
 - Removed ability to interact with Active Effects on skill Items
 - Removed Translations with `SSO` prefix and unified translation under the `SWADE` prefix. Adjusted Official sheet accordingly
+- Removed unused gradient definitions from skill and `Item` SVG icons
 
 ### Fixed
 
