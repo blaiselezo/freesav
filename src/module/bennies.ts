@@ -21,7 +21,12 @@ export default class Bennies {
       if (game.settings.get('swade', 'notifyBennies')) {
         ChatMessage.create(chatData);
       }
-      user.setFlag('swade', 'bennies', value - 1);
+      user.setFlag('swade', 'bennies', value - 1).then(() => {
+        if (game.dice3d) {
+          const benny = new Roll('1dB').roll();
+          game.dice3d.showForRoll(benny, game.user, true, null, false);
+        }
+      });
     } else if (user.character) {
       user.character.spendBenny();
     }

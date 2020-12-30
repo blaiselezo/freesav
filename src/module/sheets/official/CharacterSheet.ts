@@ -101,12 +101,7 @@ export default class CharacterSheet extends ActorSheet {
     });
 
     html.find('.spend-benny').on('click', () => {
-      this.actor.spendBenny().then(() => {
-        if (game.dice3d) {
-          const benny = new Roll('1dB').roll();
-          game.dice3d.showForRoll(benny, game.user, true, null, false);
-        }
-      });
+      this.actor.spendBenny();
     });
 
     //Roll Attribute

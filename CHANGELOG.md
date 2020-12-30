@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added warnings to all item types which display when any action related to an Active Effect is taken on an owned Item
+- Added Benny spending animation to all sheets as well as to the player view
 
 ### Changed
 

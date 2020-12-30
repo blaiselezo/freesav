@@ -291,6 +291,9 @@ export default class SwadeActor extends Actor {
   }
 
   async spendBenny() {
+    let currentBennies = getProperty(this.data, 'data.bennies.value');
+    //return early if there no bennies to spend
+    if (currentBennies < 1) return;
     let message = await renderTemplate(CONFIG.SWADE.bennies.templates.spend, {
       target: this,
       speaker: game.user,
@@ -301,11 +304,10 @@ export default class SwadeActor extends Actor {
     if (game.settings.get('swade', 'notifyBennies')) {
       ChatMessage.create(chatData);
     }
-    let actorData = this.data as any;
-    if (actorData.data.bennies.value > 0) {
-      await this.update({
-        'data.bennies.value': actorData.data.bennies.value - 1,
-      });
+    await this.update({ 'data.bennies.value': currentBennies - 1 });
+    if (game.dice3d) {
+      const benny = new Roll('1dB').roll();
+      game.dice3d.showForRoll(benny, game.user, true, null, false);
     }
   }
 
