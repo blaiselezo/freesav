@@ -254,6 +254,8 @@ SWADE.VehicleEdgesDesc: Vehicles use Edges and Hindrances
 SWADE.SettingConf: Setting Configurator
 SWADE.SettingConfLabel: Open Setting Configurator
 SWADE.SettingConfDesc: Fine tune the system to fit the setting you're playing
+SWADE.ShowBennyAnimation: Show Benny Animation
+SWADE.ShowBennyAnimationDesc: Play an animation when spending a Benny. Only available if Dice So Nice! is installed
 
 SWADE.Formula: Formula
 SWADE.SitMod: Situational Mod

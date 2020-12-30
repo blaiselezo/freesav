@@ -572,4 +572,29 @@ export default class SwadeHooks {
     });
     return false;
   }
+
+  public static onDiceSoNiceInit(dice3d: any) {
+    game.settings.register('swade', 'dsnShowBennyAnimation', {
+      name: game.i18n.localize('SWADE.ShowBennyAnimation'),
+      hint: game.i18n.localize('SWADE.ShowBennyAnimationDesc'),
+      default: true,
+      scope: 'client',
+      type: Boolean,
+      config: true,
+    });
+  }
+
+  public static onDiceSoNiceReady(dice3d: any) {
+    const bennyLabelFront = 'systems/swade/assets/benny/benny-chip-front.png';
+
+    dice3d.addDicePreset(
+      {
+        type: 'db',
+        labels: [bennyLabelFront, bennyLabelFront],
+        system: 'standard',
+        colorset: 'black',
+      },
+      'd2',
+    );
+  }
 }

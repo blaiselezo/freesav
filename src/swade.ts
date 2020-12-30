@@ -116,22 +116,6 @@ Hooks.once('setup', () => SwadeHooks.onSetup());
 /* ------------------------------------ */
 Hooks.once('ready', async () => SwadeHooks.onReady());
 
-Hooks.once('diceSoNiceReady', (dice3d) => {
-  dice3d.addSystem({ id: 'swade-benny', name: 'Savage Worlds Benny' }, false);
-
-  const bennyLabelFront = 'systems/swade/assets/benny/benny-chip-front.png';
-
-  dice3d.addDicePreset(
-    {
-      type: 'db',
-      labels: [bennyLabelFront, bennyLabelFront],
-      system: 'standard',
-      colorset: 'black',
-    },
-    'd2',
-  );
-});
-
 Hooks.on('preCreateItem', (createData: any, options: any, userId: string) =>
   SwadeHooks.onPreCreateItem(createData, options, userId),
 );
@@ -237,3 +221,11 @@ Hooks.on(
   async (app: FormApplication, html: JQuery<HTMLElement>, options: any) =>
     SwadeHooks.onRenderCombatantConfig(app, html, options),
 );
+
+Hooks.once('diceSoNiceInit', (dice3d: any) => {
+  SwadeHooks.onDiceSoNiceInit(dice3d);
+});
+
+Hooks.once('diceSoNiceReady', (dice3d: any) => {
+  SwadeHooks.onDiceSoNiceReady(dice3d);
+});

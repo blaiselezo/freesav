@@ -305,7 +305,7 @@ export default class SwadeActor extends Actor {
       ChatMessage.create(chatData);
     }
     await this.update({ 'data.bennies.value': currentBennies - 1 });
-    if (game.dice3d) {
+    if (!!game.dice3d && game.settings.get('swade', 'dsnShowBennyAnimation')) {
       const benny = new Roll('1dB').roll();
       game.dice3d.showForRoll(benny, game.user, true, null, false);
     }

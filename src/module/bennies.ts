@@ -22,7 +22,10 @@ export default class Bennies {
         ChatMessage.create(chatData);
       }
       user.setFlag('swade', 'bennies', value - 1).then(() => {
-        if (game.dice3d) {
+        if (
+          !!game.dice3d &&
+          game.settings.get('swade', 'dsnShowBennyAnimation')
+        ) {
           const benny = new Roll('1dB').roll();
           game.dice3d.showForRoll(benny, game.user, true, null, false);
         }
