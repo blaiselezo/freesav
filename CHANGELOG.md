@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Removed
 
 - Removed ability to interact with Active Effects on skill Items
+- Removed ability to interact with Active Effects on owned Items entirely
 - Removed Translations with `SSO` prefix and unified translation under the `SWADE` prefix. Adjusted Official sheet accordingly
 - Removed unused gradient definitions from skill and `Item` SVG icons
 
