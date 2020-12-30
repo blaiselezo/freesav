@@ -14,6 +14,8 @@ import SwadeCharacterSheet from './sheets/SwadeCharacterSheet';
 import SwadeNPCSheet from './sheets/SwadeNPCSheet';
 import SwadeVehicleSheet from './sheets/SwadeVehicleSheet';
 import { createActionCardTable, createSwadeMacro } from './util';
+// @ts-ignore
+import { COLORSETS } from '/modules/dice-so-nice/DiceColors.js';
 
 export default class SwadeHooks {
   public static onSetup() {
@@ -421,6 +423,7 @@ export default class SwadeHooks {
 
   public static onGetSceneControlButtons(sceneControlButtons: any[]) {
     const measure = sceneControlButtons.find((a) => a.name === 'measure');
+    let template: SwadeTemplate = null;
     const newButtons = [
       {
         name: 'swcone',
@@ -429,7 +432,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
-          const template = SwadeTemplate.fromPreset(TemplatePreset.CONE);
+          template = SwadeTemplate.fromPreset(TemplatePreset.CONE);
           if (template) template.drawPreview(event);
         },
       },
@@ -440,7 +443,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
-          const template = SwadeTemplate.fromPreset(TemplatePreset.SBT);
+          template = SwadeTemplate.fromPreset(TemplatePreset.SBT);
           if (template) template.drawPreview(event);
         },
       },
@@ -451,7 +454,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
-          const template = SwadeTemplate.fromPreset(TemplatePreset.MBT);
+          template = SwadeTemplate.fromPreset(TemplatePreset.MBT);
           if (template) template.drawPreview(event);
         },
       },
@@ -462,7 +465,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
-          const template = SwadeTemplate.fromPreset(TemplatePreset.LBT);
+          template = SwadeTemplate.fromPreset(TemplatePreset.LBT);
           if (template) template.drawPreview(event);
         },
       },
@@ -574,6 +577,7 @@ export default class SwadeHooks {
   }
 
   public static onDiceSoNiceInit(dice3d: any) {
+    console.log(COLORSETS);
     game.settings.register('swade', 'dsnShowBennyAnimation', {
       name: game.i18n.localize('SWADE.ShowBennyAnimation'),
       hint: game.i18n.localize('SWADE.ShowBennyAnimationDesc'),
@@ -585,12 +589,13 @@ export default class SwadeHooks {
   }
 
   public static onDiceSoNiceReady(dice3d: any) {
-    const bennyLabelFront = 'systems/swade/assets/benny/benny-chip-front.png';
-
     dice3d.addDicePreset(
       {
         type: 'db',
-        labels: [bennyLabelFront, bennyLabelFront],
+        labels: [
+          CONFIG.SWADE.bennyTextures.front,
+          CONFIG.SWADE.bennyTextures.back,
+        ],
         system: 'standard',
         colorset: 'black',
       },

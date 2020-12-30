@@ -193,4 +193,9 @@ export class SWADE {
       label: 'SWADE.Smite',
     },
   ];
+
+  public static bennyTextures = {
+    front: 'systems/swade/assets/benny/benny-chip-front.png',
+    back: 'systems/swade/assets/benny/benny-chip-front.png',
+  };
 }
