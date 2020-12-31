@@ -245,7 +245,9 @@ export default class SwadeItem extends Item {
     if (rollMode === 'blindroll') chatData['blind'] = true;
 
     // Create the chat message
-    return ChatMessage.create(chatData);
+    let ChatCard = ChatMessage.create(chatData);
+    Hooks.call('swadeChatCard', this.actor, this, await ChatCard);
+    return ChatCard;
   }
 
   static async _onChatCardAction(event) {
@@ -282,10 +284,11 @@ export default class SwadeItem extends Item {
     }
 
     let skill: SwadeItem = null;
+    let roll: Promise<Roll> | Roll = null;
     // Attack and Damage Rolls
     switch (action) {
       case 'damage':
-        await item.rollDamage({
+        roll = await item.rollDamage({
           event,
           additionalMods: [getProperty(item.data, 'data.actions.dmgMod')],
         });
@@ -296,13 +299,13 @@ export default class SwadeItem extends Item {
             i.type === ItemType.Skill &&
             i.name === getProperty(item.data, 'data.actions.skill'),
         );
-        await this._doSkillAction(skill, item, actor);
+        roll = await this._doSkillAction(skill, item, actor);
         break;
       default:
-        await this._handleAdditionalActions(item, actor, action);
+        roll = await this._handleAdditionalActions(item, actor, action);
         break;
     }
-
+    Hooks.call('swadeChatCardAction', actor, item, action, roll);
     // Re-enable the button
     button.disabled = false;
   }
@@ -378,7 +381,7 @@ export default class SwadeItem extends Item {
       }
 
       if (skill) {
-        await actor.rollSkill(skill.id, {
+        return actor.rollSkill(skill.id, {
           flavour: actionToUse.name,
           rof: actionToUse.rof,
           additionalMods: [
@@ -387,7 +390,7 @@ export default class SwadeItem extends Item {
           ],
         });
       } else {
-        await actor.makeUnskilledAttempt({
+        return actor.makeUnskilledAttempt({
           flavour: actionToUse.name,
           rof: actionToUse.rof,
           additionalMods: [
@@ -398,7 +401,7 @@ export default class SwadeItem extends Item {
       }
     } else if (actionToUse.type === 'damage') {
       //Do Damage stuff
-      item.rollDamage({
+      return item.rollDamage({
         dmgOverride: actionToUse.dmgOverride,
         flavour: actionToUse.name,
         additionalMods: [
@@ -417,13 +420,13 @@ export default class SwadeItem extends Item {
     skill: SwadeItem,
     item: SwadeItem,
     actor: SwadeActor,
-  ) {
+  ): Promise<Roll> {
     if (skill) {
-      await actor.rollSkill(skill.id, {
+      return actor.rollSkill(skill.id, {
         additionalMods: [getProperty(item.data, 'data.actions.skillMod')],
       });
     } else {
-      await actor.makeUnskilledAttempt({
+      return actor.makeUnskilledAttempt({
         additionalMods: [getProperty(item.data, 'data.actions.skillMod')],
       });
     }
