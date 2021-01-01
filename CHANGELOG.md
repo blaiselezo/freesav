@@ -44,6 +44,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Fixed maximum wound penalty for pace
+- Checkbox styles are properly scoped to the system now
 
 ## [v0.15.3]
 
