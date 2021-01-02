@@ -245,8 +245,8 @@ export default class SwadeItem extends Item {
     if (rollMode === 'blindroll') chatData['blind'] = true;
 
     // Create the chat message
-    let ChatCard = ChatMessage.create(chatData);
-    Hooks.call('swadeChatCard', this.actor, this, await ChatCard);
+    let ChatCard = await ChatMessage.create(chatData);
+    Hooks.call('swadeChatCard', this.actor, this, ChatCard);
     return ChatCard;
   }
 
