@@ -292,6 +292,7 @@ export default class SwadeItem extends Item {
           event,
           additionalMods: [getProperty(item.data, 'data.actions.dmgMod')],
         });
+        Hooks.call('swadeAction', actor, item, action, roll);
         break;
       case 'formula':
         skill = actor.items.find(
@@ -300,12 +301,14 @@ export default class SwadeItem extends Item {
             i.name === getProperty(item.data, 'data.actions.skill'),
         );
         roll = await this._doSkillAction(skill, item, actor);
+        Hooks.call('swadeAction', actor, item, action, roll);
         break;
       default:
         roll = await this._handleAdditionalActions(item, actor, action);
+        // No need to call the hook here, as _handleAdditionalActions already calls the hook
+        // This is so an external API can directly use _handleAdditionalActions to use an action and still fire the hook
         break;
     }
-    Hooks.call('swadeChatCardAction', actor, item, action, roll);
     // Re-enable the button
     button.disabled = false;
   }
@@ -358,6 +361,8 @@ export default class SwadeItem extends Item {
       return;
     }
 
+    let roll = undefined;
+
     if (actionToUse.type === 'skill') {
       // Do skill stuff
       let skill = actor.items.find(
@@ -379,9 +384,8 @@ export default class SwadeItem extends Item {
       if (actionToUse.skillMod && parseInt(actionToUse.skillMod) !== 0) {
         actionSkillMod = actionToUse.skillMod;
       }
-
       if (skill) {
-        return actor.rollSkill(skill.id, {
+        roll = await actor.rollSkill(skill.id, {
           flavour: actionToUse.name,
           rof: actionToUse.rof,
           additionalMods: [
@@ -390,7 +394,7 @@ export default class SwadeItem extends Item {
           ],
         });
       } else {
-        return actor.makeUnskilledAttempt({
+        roll = await actor.makeUnskilledAttempt({
           flavour: actionToUse.name,
           rof: actionToUse.rof,
           additionalMods: [
@@ -401,7 +405,7 @@ export default class SwadeItem extends Item {
       }
     } else if (actionToUse.type === 'damage') {
       //Do Damage stuff
-      return item.rollDamage({
+      roll = await item.rollDamage({
         dmgOverride: actionToUse.dmgOverride,
         flavour: actionToUse.name,
         additionalMods: [
@@ -410,6 +414,8 @@ export default class SwadeItem extends Item {
         ],
       });
     }
+    Hooks.call('swadeAction', actor, item, action, roll);
+    return roll;
   }
 
   getRollData() {
