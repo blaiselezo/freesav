@@ -73,6 +73,11 @@ export class SWADE {
 
   public static statusEffects = [
     {
+      icon: 'systems/swade/assets/icons/status/status_shaken.svg',
+      id: 'aiming',
+      label: 'SWADE.Shaken',
+    },
+    {
       icon: 'systems/swade/assets/icons/status/status_aiming.svg',
       id: 'aiming',
       label: 'SWADE.Aiming',

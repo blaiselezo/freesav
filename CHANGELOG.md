@@ -27,6 +27,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added warnings to all item types which display when any action related to an Active Effect is taken on an owned Item
 - Added Benny spending animation to all sheets as well as to the player view
 - Added option to toggle whether the Benny spending animation should be played. This setting can be found in the system settings and is only available if DSN is installed
+- Added Shaken icon
 - Added additional translation options
 
 ### Changed
