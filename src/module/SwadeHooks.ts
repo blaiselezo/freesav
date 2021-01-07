@@ -593,7 +593,18 @@ export default class SwadeHooks {
       config: false,
     });
 
-    game.settings.register('swade', 'dsnCustomWildDie', {
+    game.settings.register('swade', 'dsnCustomWildDieOptions', {
+      default: {
+        font: 'auto',
+        material: 'auto',
+        texture: 'none',
+      },
+      scope: 'client',
+      type: Object,
+      config: false,
+    });
+
+    game.settings.register('swade', 'dsnCustomWildDieColors', {
       default: {
         labelColor: '#000000',
         diceColor: game.user['color'],
@@ -616,6 +627,32 @@ export default class SwadeHooks {
   }
 
   public static onDiceSoNiceReady(dice3d: any) {
+    const customWilDieColors = game.settings.get(
+      'swade',
+      'dsnCustomWildDieColors',
+    );
+
+    const customWilDieOptions = game.settings.get(
+      'swade',
+      'dsnCustomWildDieOptions',
+    );
+
+    dice3d.addColorset(
+      {
+        name: 'customWildDie',
+        description: 'DICESONICE.ColorCustom',
+        category: 'DICESONICE.Colors',
+        foreground: customWilDieColors.labelColor,
+        background: customWilDieColors.diceColor,
+        outline: customWilDieColors.outlineColor,
+        edge: customWilDieColors.edgeColor,
+        texture: customWilDieOptions.texture,
+        material: customWilDieOptions.material,
+        font: customWilDieOptions.font,
+      },
+      'no',
+    );
+
     dice3d.addDicePreset(
       {
         type: 'db',

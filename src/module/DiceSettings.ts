@@ -6,9 +6,14 @@ import { COLORSETS, TEXTURELIST } from '/modules/dice-so-nice/DiceColors.js';
  */
 export default class DiceSettings extends FormApplication {
   config: any;
+  customWildDieDefaultColors: any;
   constructor(object = {}, options = { parent: null }) {
     super(object, options);
     this.config = CONFIG.SWADE.diceConfig;
+    this.customWildDieDefaultColors = game.settings.get(
+      'swade',
+      'dsnCustomWildDieColors',
+    );
   }
 
   static get defaultOptions() {
@@ -34,7 +39,9 @@ export default class DiceSettings extends FormApplication {
     super.activateListeners(html);
 
     html.find('#reset').on('click', () => this._resetSettings());
-    html.find('#submit').on('click', () => this.close());
+    html
+      .find('#submit')
+      .on('click', () => this.close().then(() => location.reload()));
   }
 
   /**
@@ -55,7 +62,7 @@ export default class DiceSettings extends FormApplication {
 
     return {
       settings,
-      hasCustomWildDie: settings['dsnWildDie'].value !== 'custom',
+      hasCustomWildDie: settings['dsnWildDie'].value !== 'customWildDie',
       textureList: this._prepareTextureList(),
       fontList: this._prepareFontList(),
       materialList: this._prepareMaterialList(),
@@ -63,19 +70,28 @@ export default class DiceSettings extends FormApplication {
   }
 
   async _updateObject(event, formData): Promise<void> {
-    console.log(formData);
-    let expandedFormdata = expandObject(formData) as any;
+    const expandedFormdata = expandObject(formData) as any;
+    console.log(expandedFormdata);
     //handle basic settings
     for (const [key, value] of Object.entries(expandedFormdata.swade)) {
+      console.log(key, value);
       await game.settings.set('swade', key, value);
     }
     //handle custom wild die
-    if (expandedFormdata.swade.dsnWildDie === 'custom') {
-      await game.settings.set('swade', 'dsnCustomWildDie', {
-        diceColor: expandedFormdata.diceColor,
-        edgeColor: expandedFormdata.edgeColor,
-        labelColor: expandedFormdata.labelColor,
-        outlineColor: expandedFormdata.outlineColor,
+    if (expandedFormdata.swade.dsnWildDie === 'customWildDie') {
+      await game.settings.set('swade', 'dsnCustomWildDieColors', {
+        diceColor:
+          expandedFormdata.diceColor ||
+          this.customWildDieDefaultColors.diceColor,
+        edgeColor:
+          expandedFormdata.edgeColor ||
+          this.customWildDieDefaultColors.edgeColor,
+        labelColor:
+          expandedFormdata.labelColor ||
+          this.customWildDieDefaultColors.labelColor,
+        outlineColor:
+          expandedFormdata.outlineColor ||
+          this.customWildDieDefaultColors.outlineColor,
       });
     }
     this.render(true);
@@ -92,12 +108,13 @@ export default class DiceSettings extends FormApplication {
   }
 
   private _prepareColorsetList() {
-    const sets = this._deepCopyColorsets(COLORSETS);
-    sets['none'] = {
+    let sets = this._deepCopyColorsets(COLORSETS);
+    sets.none = {
       name: 'none',
       category: 'DICESONICE.Colors',
       description: 'SWADE.DSNNone',
     };
+    delete sets.custom;
     let groupedSetsList = Object.values(sets) as any[];
     groupedSetsList.sort((set1: any, set2: any) => {
       if (
@@ -152,7 +169,7 @@ export default class DiceSettings extends FormApplication {
     };
   }
 
-  private _deepCopyColorsets(colorsets: any) {
+  private _deepCopyColorsets(colorsets: any): any {
     let deepCopy = {};
     for (const [key, value] of Object.entries(colorsets)) {
       deepCopy[duplicate(key)] = {

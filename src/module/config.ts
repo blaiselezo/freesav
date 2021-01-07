@@ -69,7 +69,12 @@ export class SWADE {
   public static diceConfig = {
     id: 'diceConfig',
     title: 'SWADE Dice Settings',
-    settings: ['dsnShowBennyAnimation', 'dsnWildDie', 'dsnCustomWildDie'],
+    settings: [
+      'dsnShowBennyAnimation',
+      'dsnWildDie',
+      'dsnCustomWildDieColors',
+      'dsnCustomWildDieOptions',
+    ],
   };
 
   public static templates = {
