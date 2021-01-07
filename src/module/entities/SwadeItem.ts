@@ -246,7 +246,7 @@ export default class SwadeItem extends Item {
 
     // Create the chat message
     let ChatCard = await ChatMessage.create(chatData);
-    Hooks.call('swadeChatCard', this.actor, this, ChatCard);
+    Hooks.call('swadeChatCard', this.actor, this, ChatCard, game.user.id);
     return ChatCard;
   }
 
@@ -292,7 +292,7 @@ export default class SwadeItem extends Item {
           event,
           additionalMods: [getProperty(item.data, 'data.actions.dmgMod')],
         });
-        Hooks.call('swadeAction', actor, item, action, roll);
+        Hooks.call('swadeAction', actor, item, action, roll, game.user.id);
         break;
       case 'formula':
         skill = actor.items.find(
@@ -301,7 +301,7 @@ export default class SwadeItem extends Item {
             i.name === getProperty(item.data, 'data.actions.skill'),
         );
         roll = await this._doSkillAction(skill, item, actor);
-        Hooks.call('swadeAction', actor, item, action, roll);
+        Hooks.call('swadeAction', actor, item, action, roll, game.user.id);
         break;
       default:
         roll = await this._handleAdditionalActions(item, actor, action);
@@ -414,7 +414,7 @@ export default class SwadeItem extends Item {
         ],
       });
     }
-    Hooks.call('swadeAction', actor, item, action, roll);
+    Hooks.call('swadeAction', actor, item, action, roll, game.user.id);
     return roll;
   }
 
