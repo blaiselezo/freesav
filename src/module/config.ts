@@ -66,6 +66,12 @@ export class SWADE {
     ],
   };
 
+  public static diceConfig = {
+    id: 'diceConfig',
+    title: 'SWADE Dice Settings',
+    settings: ['dsnShowBennyAnimation', 'dsnWildDie', 'dsnCustomWildDie'],
+  };
+
   public static templates = {
     preloadPromise: null,
     templatesPreloaded: false,
