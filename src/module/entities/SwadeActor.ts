@@ -264,7 +264,7 @@ export default class SwadeActor extends Actor {
 
   async makeUnskilledAttempt(
     options: IRollOptions = { event: null },
-  ): Promise<any> {
+  ): Promise<Roll> {
     let tempSkill = new Item(
       {
         name: game.i18n.localize('SWADE.Unskilled'),
