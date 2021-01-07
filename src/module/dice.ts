@@ -148,7 +148,7 @@ export default class SwadeDice {
       roll.terms.push(new Die({ modifiers: ['x'] }));
     }
     let retVal = roll.roll();
-    //This is a workaround to add the DSN Wild Die until the bug
+    //This is a workaround to add the DSN Wild Die until the bug which resets the options object is resolved
     roll.terms.forEach((v) => {
       if (v['rolls']) {
         v['rolls'].forEach((r: Roll) => {
