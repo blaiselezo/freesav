@@ -162,11 +162,7 @@ export default class SwadeActor extends Actor {
     //If the Actor is a wildcard the build a dicepool, otherwise build a Roll
     if (this.isWildcard) {
       let wildRoll = new Roll('');
-      let wildDie = this._buildTraitDie(
-        abl['wild-die'].sides,
-        game.i18n.localize('SWADE.WildDie'),
-      );
-      wildRoll.terms.push(wildDie);
+      wildRoll.terms.push(this._buildWildDie(abl['wild-die'].sides));
       let wildCardPool = new DicePool({
         rolls: [attrRoll, wildRoll],
         modifiers: ['kh'],
@@ -603,12 +599,7 @@ export default class SwadeActor extends Actor {
 
     if (this.isWildcard) {
       let wildRoll = new Roll('');
-      wildRoll.terms.push(
-        this._buildTraitDie(
-          skillData['wild-die'].sides,
-          game.i18n.localize('SWADE.WildDie'),
-        ),
-      );
+      wildRoll.terms.push(this._buildWildDie(skillData['wild-die'].sides));
       rollMods.forEach((m) => wildRoll.terms.push(m.value));
       dicePool.rolls.push(wildRoll);
     }
@@ -641,6 +632,27 @@ export default class SwadeActor extends Actor {
       modifiers: ['x', ...modifiers],
       options: { flavor: flavor },
     });
+  }
+
+  private _buildWildDie(sides = 6, modifiers: any[] = []): Die {
+    let die = new Die({
+      faces: sides,
+      modifiers: ['x', ...modifiers],
+      options: { flavor: game.i18n.localize('SWADE.WildDie') },
+    });
+    if (game.dice3d) {
+      /**
+       * TODO
+       * This doesn't seem to currently work due to an apparent bug in the Foundry roll API
+       * which removes property from the options object during the roll evaluation
+       * I'll keep it here anyway so we have it ready when the bug is fixed
+       */
+      const colorPreset = game.settings.get('swade', 'dsnWildDie');
+      if (colorPreset !== 'none') {
+        die.options['colorset'] = colorPreset;
+      }
+    }
+    return die;
   }
 
   private _buildTraitRollModifiers(data: any, options: IRollOptions) {
