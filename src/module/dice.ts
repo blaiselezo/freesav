@@ -148,6 +148,26 @@ export default class SwadeDice {
       roll.terms.push(new Die({ modifiers: ['x'] }));
     }
     let retVal = roll.roll();
+    //This is a workaround to add the DSN Wild Die until the bug which resets the options object is resolved
+    roll.terms.forEach((v) => {
+      if (v['rolls']) {
+        v['rolls'].forEach((r: Roll) => {
+          r.terms.forEach((d: Die) => {
+            if (
+              d.options['flavor'] ===
+                game.i18n.localize('SWADE.WildDie').replace(' ', '') &&
+              !!game.dice3d
+            ) {
+              const colorPreset = game.settings.get('swade', 'dsnWildDie');
+              if (colorPreset !== 'none') {
+                d.options['colorset'] = colorPreset;
+              }
+            }
+          });
+        });
+      }
+    });
+    //End of Workaround
     // Convert the roll to a chat message and return the roll
     rollMode = form ? form.find('#rollMode').val() : rollMode;
     retVal.toMessage(

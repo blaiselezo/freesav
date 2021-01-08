@@ -2,6 +2,7 @@
 import Bennies from './bennies';
 import * as chat from './chat';
 import { formatRoll } from './chat';
+import DiceSettings from './DiceSettings';
 import SwadeActor from './entities/SwadeActor';
 import SwadeItem from './entities/SwadeItem';
 import SwadeTemplate from './entities/SwadeTemplate';
@@ -9,13 +10,10 @@ import { ActorType } from './enums/ActorTypeEnum';
 import { ItemType } from './enums/ItemTypeEnum';
 import { TemplatePreset } from './enums/TemplatePresetEnum';
 import { SwadeSetup } from './setup/setupHandler';
-import SwadeBaseActorSheet from './sheets/SwadeBaseActorSheet';
 import SwadeCharacterSheet from './sheets/SwadeCharacterSheet';
 import SwadeNPCSheet from './sheets/SwadeNPCSheet';
 import SwadeVehicleSheet from './sheets/SwadeVehicleSheet';
 import { createActionCardTable, createSwadeMacro } from './util';
-// @ts-ignore
-import { COLORSETS } from '/modules/dice-so-nice/DiceColors.js';
 
 export default class SwadeHooks {
   public static onSetup() {
@@ -577,18 +575,84 @@ export default class SwadeHooks {
   }
 
   public static onDiceSoNiceInit(dice3d: any) {
-    console.log(COLORSETS);
     game.settings.register('swade', 'dsnShowBennyAnimation', {
       name: game.i18n.localize('SWADE.ShowBennyAnimation'),
       hint: game.i18n.localize('SWADE.ShowBennyAnimationDesc'),
       default: true,
       scope: 'client',
       type: Boolean,
-      config: true,
+      config: false,
+    });
+
+    game.settings.register('swade', 'dsnWildDie', {
+      name: game.i18n.localize('SWADE.WildDiePreset'),
+      hint: game.i18n.localize('SWADE.WildDiePresetDesc'),
+      default: 'none',
+      scope: 'client',
+      type: String,
+      config: false,
+    });
+
+    game.settings.register('swade', 'dsnCustomWildDieOptions', {
+      default: {
+        font: 'auto',
+        material: 'auto',
+        texture: 'none',
+      },
+      scope: 'client',
+      type: Object,
+      config: false,
+    });
+
+    game.settings.register('swade', 'dsnCustomWildDieColors', {
+      default: {
+        labelColor: '#000000',
+        diceColor: game.user['color'],
+        outlineColor: game.user['color'],
+        edgeColor: game.user['color'],
+      },
+      scope: 'client',
+      type: Object,
+      config: false,
+    });
+
+    game.settings.registerMenu('swade', 'dice-config', {
+      name: game.i18n.localize('SWADE.DiceConf'),
+      label: game.i18n.localize('SWADE.DiceConfLabel'),
+      hint: game.i18n.localize('SWADE.DiceConfDesc'),
+      icon: 'fas fa-dice',
+      type: DiceSettings,
+      restricted: false,
     });
   }
 
   public static onDiceSoNiceReady(dice3d: any) {
+    const customWilDieColors = game.settings.get(
+      'swade',
+      'dsnCustomWildDieColors',
+    );
+
+    const customWilDieOptions = game.settings.get(
+      'swade',
+      'dsnCustomWildDieOptions',
+    );
+
+    dice3d.addColorset(
+      {
+        name: 'customWildDie',
+        description: 'DICESONICE.ColorCustom',
+        category: 'DICESONICE.Colors',
+        foreground: customWilDieColors.labelColor,
+        background: customWilDieColors.diceColor,
+        outline: customWilDieColors.outlineColor,
+        edge: customWilDieColors.edgeColor,
+        texture: customWilDieOptions.texture,
+        material: customWilDieOptions.material,
+        font: customWilDieOptions.font,
+      },
+      'no',
+    );
+
     dice3d.addDicePreset(
       {
         type: 'db',
