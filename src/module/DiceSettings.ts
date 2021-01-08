@@ -155,6 +155,7 @@ export default class DiceSettings extends FormApplication {
     game.dice3d.box.dicefactory.fontFamilies.forEach((font) => {
       fontList[font] = font;
     });
+    fontList['auto'] = game.i18n.localize('DICESONICE.FontAuto');
     return fontList;
   }
 
