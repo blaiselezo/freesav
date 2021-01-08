@@ -151,17 +151,17 @@ export default class SwadeDice {
     //This is a workaround to add the DSN Wild Die until the bug which resets the options object is resolved
     roll.terms.forEach((v) => {
       if (v['rolls']) {
-        v['rolls'].forEach((r: Roll) => {
-          r.terms.forEach((d: Die) => {
+        v['rolls'].forEach((roll: Roll) => {
+          roll.terms.forEach((term: Die | string | number) => {
             if (
-              d.options['flavor'] ===
-                game.i18n.localize('SWADE.WildDie').replace(' ', '') &&
-              !!game.dice3d
+              term instanceof Die &&
+              !!game.dice3d &&
+              term.options['flavor'] ===
+                game.i18n.localize('SWADE.WildDie').replace(' ', '')
             ) {
               const colorPreset = game.settings.get('swade', 'dsnWildDie');
-              if (colorPreset !== 'none') {
-                d.options['colorset'] = colorPreset;
-              }
+              if (colorPreset !== 'none')
+                term.options['colorset'] = colorPreset;
             }
           });
         });
