@@ -289,9 +289,13 @@ export default class SwadeItem extends Item {
     button.disabled = true;
     const card = button.closest('.chat-card');
     const messageId = card.closest('.message').dataset.messageId;
-    CONFIG.SWADE['itemCardMessageId'] = messageId;
     const message = game.messages.get(messageId);
     const action = button.dataset.action;
+
+    //save the message ID if we're doing automated ammo management
+    if (game.settings.get('swade', 'ammoManagement')) {
+      CONFIG.SWADE['itemCardMessageId'];
+    }
 
     // Validate permission to proceed with the roll
     const isTargetted = action === 'save';
@@ -538,6 +542,7 @@ export default class SwadeItem extends Item {
   static async _refreshItemCard() {
     //get ChatMessage and remove temporarily stored id from CONFIG object
     const message = game.messages.get(CONFIG.SWADE['itemCardMessageId']);
+    delete CONFIG.SWADE['itemCardMessageId'];
 
     const messageContent = new DOMParser().parseFromString(
       getProperty(message, 'data.content'),
