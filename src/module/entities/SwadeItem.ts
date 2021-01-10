@@ -280,7 +280,7 @@ export default class SwadeItem extends Item {
     return {};
   }
 
-  static async _onChatCardAction(event, app?: Application) {
+  static async _onChatCardAction(event) {
     event.preventDefault();
 
     // Extract card data
@@ -518,8 +518,6 @@ export default class SwadeItem extends Item {
   static async _refreshItemCard() {
     //get ChatMessage and remove temporarily stored id from CONFIG object
     const message = game.messages.get(CONFIG.SWADE['itemCardMessageId']);
-
-    console.log(message);
 
     const messageContent = new DOMParser().parseFromString(
       getProperty(message, 'data.content'),
