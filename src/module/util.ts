@@ -157,3 +157,14 @@ export function rollPowerMacro(powerName) {
   }
   return;
 }
+
+/**
+ *
+ * @param string The string to look for
+ * @param localize Switch which determines if the string is a localization key
+ */
+export function notificationExists(string: string, localize = false): boolean {
+  let stringToFind = string;
+  if (localize) stringToFind = game.i18n.localize(string);
+  return ui.notifications.active.find((n) => n.text() === stringToFind);
+}

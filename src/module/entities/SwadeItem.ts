@@ -1,6 +1,7 @@
 import IRollOptions from '../../interfaces/IRollOptions';
 import SwadeDice from '../dice';
 import { ItemType } from '../enums/ItemTypeEnum';
+import { notificationExists } from '../util';
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './SwadeActor';
 
@@ -331,7 +332,17 @@ export default class SwadeItem extends Item {
             i.type === ItemType.Skill &&
             i.name === getProperty(item.data, 'data.actions.skill'),
         );
-        roll = await this._doSkillAction(skill, item, actor);
+        if (
+          game.settings.get('swade', 'ammoManagement') &&
+          getProperty(item.data, 'data.currentShots') < 1
+        ) {
+          //check to see we're not posting the message twice
+          if (!notificationExists('SWADE.NotEnoughAmmo', true)) {
+            ui.notifications.warn(game.i18n.localize('SWADE.NotEnoughAmmo'));
+          }
+        } else {
+          roll = await this._doSkillAction(skill, item, actor);
+        }
         if (roll) await this._subtractShots(actor, item.id, 1);
         Hooks.call('swadeAction', actor, item, action, roll, game.user.id);
         break;
@@ -340,14 +351,20 @@ export default class SwadeItem extends Item {
           getProperty(item.data, 'data.currentShots') >=
           getProperty(item.data, 'data.shots')
         ) {
-          ui.notifications.info(game.i18n.localize('SWADE.ReloadUnneeded'));
+          //check to see we're not posting the message twice
+          if (!notificationExists('SWADE.ReloadUnneeded', true)) {
+            ui.notifications.info(game.i18n.localize('SWADE.ReloadUnneeded'));
+          }
           break;
         }
         await actor.updateOwnedItem({
           _id: item.id,
           'data.currentShots': getProperty(item.data, 'data.shots'),
         });
-        ui.notifications.info(game.i18n.localize('SWADE.ReloadSuccess'));
+        //check to see we're not posting the message twice
+        if (!notificationExists('SWADE.ReloadSuccess', true)) {
+          ui.notifications.info(game.i18n.localize('SWADE.ReloadSuccess'));
+        }
         break;
       default:
         roll = await this._handleAdditionalActions(item, actor, action);
@@ -442,7 +459,10 @@ export default class SwadeItem extends Item {
         !!actionToUse.shotsUsed &&
         currentShots < actionToUse.shotsUsed
       ) {
-        ui.notifications.warn(game.i18n.localize('SWADE.NotEnoughAmmo'));
+        //check to see we're not posting the message twice
+        if (!notificationExists('SWADE.NotEnoughAmmo', true)) {
+          ui.notifications.warn(game.i18n.localize('SWADE.NotEnoughAmmo'));
+        }
         return null;
       }
       if (skill) {
