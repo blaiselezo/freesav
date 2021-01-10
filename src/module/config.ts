@@ -86,7 +86,7 @@ export const SWADE = {
   statusEffects: [
     {
       icon: 'systems/swade/assets/icons/status/status_shaken.svg',
-      id: 'aiming',
+      id: 'shaken',
       label: 'SWADE.Shaken',
     },
     {
