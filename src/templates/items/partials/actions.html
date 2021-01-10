@@ -31,6 +31,17 @@
       data-dtype="String"
   /></span>
 </div>
+{{#if isWeapon}}
+<div class="form-group">
+  <label>{{localize "SWADE.Ammo"}}</label>
+  <span class="form-fields">
+    <select name="data.ammo">
+      {{#select data.ammo}} {{selectOptions ammoChoices selected=data.ammo}}
+      {{/select}}
+    </select>
+  </span>
+</div>
+{{/if}}
 <header class="header-field flexrow">
   <div>
     <span>{{localize "SWADE.Actions"}}</span>

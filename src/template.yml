@@ -195,6 +195,8 @@ Item:
     minStr: ''
     shots: 0
     currentShots: 0
+    ammoType: ''
+    autoReload: false
   armor:
     templates:
       - itemDescription

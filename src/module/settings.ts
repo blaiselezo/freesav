@@ -65,7 +65,16 @@ export function registerSettings() {
   game.settings.register('swade', 'ammoManagement', {
     name: game.i18n.localize('SWADE.AmmoManagement'),
     hint: game.i18n.localize('SWADE.AmmoManagementDesc'),
-    default: true,
+    default: false,
+    scope: 'client',
+    type: Boolean,
+    config: true,
+  });
+
+  game.settings.register('swade', 'ammoFromInventory', {
+    name: game.i18n.localize('SWADE.AmmoFromInventory'),
+    hint: game.i18n.localize('SWADE.AmmoFromInventoryDesc'),
+    default: false,
     scope: 'client',
     type: Boolean,
     config: true,

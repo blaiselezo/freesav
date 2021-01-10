@@ -187,8 +187,7 @@
         class="name flexrow item-show"
         title="{{item.name}}"
       >
-        {{#if (gte item.data.quantity 2)}} (x{{item.data.quantity}}) {{/if}}
-        {{item.name}}
+        (x{{item.data.quantity}}) {{item.name}}
       </button>
       <span class="weight">{{times item.data.weight item.data.quantity}}</span>
       <span class="item-controls">

@@ -189,6 +189,8 @@ export default class SwadeItem extends Item {
     //Additional actions
     const actions = getProperty(this.data, 'data.actions.additional');
     data.hasAdditionalActions = !!actions && Object.keys(actions).length > 0;
+    const ammo = this.actor.getOwnedItem(getProperty(this.data, 'data.ammo'));
+    data.ammoType = ammo ? ammo.name : '';
 
     data.actions = [];
     for (let action in actions) {
@@ -210,11 +212,15 @@ export default class SwadeItem extends Item {
       item: this.data,
       data: this.getChatData({}),
       config: CONFIG.SWADE,
-      hasAmmoManagement: game.settings.get('swade', 'ammoManagement'),
+      hasAmmoManagement:
+        this.type === ItemType.Weapon &&
+        game.settings.get('swade', 'ammoManagement') &&
+        !getProperty(this.data, 'data.autoReload'),
       hasReloadButton:
         game.settings.get('swade', 'ammoManagement') &&
         this.type === ItemType.Weapon &&
-        getProperty(this.data, 'data.shots') > 0,
+        getProperty(this.data, 'data.shots') > 0 &&
+        !getProperty(this.data, 'data.autoReload'),
       hasDamage: !!this.data.data.damage,
       skill: getProperty(this.data, 'data.actions.skill'),
       hasSkillRoll:
@@ -294,7 +300,7 @@ export default class SwadeItem extends Item {
 
     //save the message ID if we're doing automated ammo management
     if (game.settings.get('swade', 'ammoManagement')) {
-      CONFIG.SWADE['itemCardMessageId'];
+      CONFIG.SWADE['itemCardMessageId'] = messageId;
     }
 
     // Validate permission to proceed with the roll
@@ -322,6 +328,13 @@ export default class SwadeItem extends Item {
     let skill: SwadeItem = null;
     let roll: Promise<Roll> | Roll = null;
     // Attack and Damage Rolls
+
+    const hasAutoReload = getProperty(item.data, 'data.autoReload');
+    const ammo = actor.getOwnedItem(getProperty(item.data, 'data.ammo'));
+    let canAutoReload =
+      ammo && getProperty(actor.getOwnedItem(ammo.id), 'data.quantity') <= 0;
+    const ammoManagement = game.settings.get('swade', 'ammoManagement');
+
     switch (action) {
       case 'damage':
         roll = await item.rollDamage({
@@ -337,8 +350,10 @@ export default class SwadeItem extends Item {
             i.name === getProperty(item.data, 'data.actions.skill'),
         );
         if (
-          game.settings.get('swade', 'ammoManagement') &&
-          getProperty(item.data, 'data.currentShots') < 1
+          (ammoManagement && hasAutoReload && !canAutoReload) ||
+          (ammoManagement &&
+            !getProperty(item.data, 'data.autoReload') &&
+            getProperty(item.data, 'data.currentShots') < 1)
         ) {
           //check to see we're not posting the message twice
           if (!notificationExists('SWADE.NotEnoughAmmo', true)) {
@@ -361,14 +376,7 @@ export default class SwadeItem extends Item {
           }
           break;
         }
-        await actor.updateOwnedItem({
-          _id: item.id,
-          'data.currentShots': getProperty(item.data, 'data.shots'),
-        });
-        //check to see we're not posting the message twice
-        if (!notificationExists('SWADE.ReloadSuccess', true)) {
-          ui.notifications.info(game.i18n.localize('SWADE.ReloadSuccess'));
-        }
+        await this._reloadWeapon(actor, item);
         break;
       default:
         roll = await this._handleAdditionalActions(item, actor, action);
@@ -422,6 +430,7 @@ export default class SwadeItem extends Item {
     action: string,
   ) {
     const availableActions = getProperty(item.data, 'data.actions.additional');
+    const ammoManagement = game.settings.get('swade', 'ammoManagement');
     let actionToUse = availableActions[action];
 
     // if there isn't actually any action then return early
@@ -458,10 +467,17 @@ export default class SwadeItem extends Item {
         actionSkillMod = actionToUse.skillMod;
       }
       const currentShots = getProperty(item.data, 'data.currentShots');
+
+      //do autoreload stuff if applicable
+      const hasAutoReload = getProperty(item.data, 'data.autoReload');
+      const ammo = actor.getOwnedItem(getProperty(item.data, 'data.ammo'));
+      let canAutoReload =
+        ammo && getProperty(actor.getOwnedItem(ammo.id), 'data.quantity') <= 0;
       if (
-        game.settings.get('swade', 'ammoManagement') &&
-        !!actionToUse.shotsUsed &&
-        currentShots < actionToUse.shotsUsed
+        (ammoManagement && hasAutoReload && !canAutoReload) ||
+        (game.settings.get('swade', 'ammoManagement') &&
+          !!actionToUse.shotsUsed &&
+          currentShots < actionToUse.shotsUsed)
       ) {
         //check to see we're not posting the message twice
         if (!notificationExists('SWADE.NotEnoughAmmo', true)) {
@@ -530,12 +546,65 @@ export default class SwadeItem extends Item {
 
     const item = actor.items.get(itemId) as SwadeItem;
     const currentShots = parseInt(getProperty(item.data, 'data.currentShots'));
+    const hasAutoReload = getProperty(item.data, 'data.autoReload') as boolean;
 
-    if (!!shotsUsed && currentShots - shotsUsed >= 0) {
+    if (hasAutoReload) {
+      const ammo = actor.getOwnedItem(getProperty(item.data, 'data.ammo'));
+      if (!ammo) return;
+      const current = getProperty(ammo.data, 'data.quantity');
+      const newQuantity = current - (shotsUsed || 1);
+
+      await actor.updateOwnedItem({
+        _id: ammo.id,
+        'data.quantity': newQuantity,
+      });
+    } else if (!!shotsUsed && currentShots - shotsUsed >= 0) {
       await actor.updateOwnedItem({
         _id: itemId,
         'data.currentShots': currentShots - shotsUsed,
       });
+    }
+  }
+
+  static async _reloadWeapon(actor: SwadeActor, weapon: SwadeItem) {
+    const ammoId = getProperty(weapon.data, 'data.ammo') as string;
+    const ammo = actor.getOwnedItem(ammoId);
+    //return if there's no ammo set
+    if (!ammoId || !ammo) {
+      if (!notificationExists('SWADE.NoAmmoSet', true)) {
+        ui.notifications.info(game.i18n.localize('SWADE.NoAmmoSet'));
+      }
+      return;
+    }
+    const ammoInInventory = getProperty(ammo.data, 'data.quantity') as number;
+    const shots = parseInt(getProperty(weapon.data, 'data.shots'));
+    const missingAmmo = shots - getProperty(weapon.data, 'data.currentShots');
+
+    let leftoverAmmoInInventory = ammoInInventory - missingAmmo;
+    let ammoInMagazine = shots;
+
+    if (ammoInInventory < missingAmmo) {
+      ammoInMagazine =
+        getProperty(weapon.data, 'data.currentShots') + ammoInInventory;
+      leftoverAmmoInInventory = 0;
+      if (!notificationExists('SWADE.NotEnoughAmmoToReload', true)) {
+        ui.notifications.warn('SWADE.NotEnoughAmmoToReload');
+      }
+    }
+
+    //update the weapon
+    await actor.updateOwnedItem({
+      _id: weapon.id,
+      'data.currentShots': ammoInMagazine,
+    });
+    //update the ammo item
+    await actor.updateOwnedItem({
+      _id: ammo.id,
+      'data.quantity': leftoverAmmoInInventory,
+    });
+    //check to see we're not posting the message twice
+    if (!notificationExists('SWADE.ReloadSuccess', true)) {
+      ui.notifications.info(game.i18n.localize('SWADE.ReloadSuccess'));
     }
   }
 
