@@ -149,7 +149,8 @@ export default class SwadeDice {
     }
     let retVal = roll.roll();
     //This is a workaround to add the DSN Wild Die until the bug which resets the options object is resolved
-    roll.terms.forEach((v) => {
+    for (let v of roll.terms) {
+      if (v instanceof Die) continue;
       if (v['rolls']) {
         v['rolls'].forEach((roll: Roll) => {
           roll.terms.forEach((term: Die | string | number) => {
@@ -166,7 +167,7 @@ export default class SwadeDice {
           });
         });
       }
-    });
+    }
     //End of Workaround
     // Convert the roll to a chat message and return the roll
     rollMode = form ? form.find('#rollMode').val() : rollMode;

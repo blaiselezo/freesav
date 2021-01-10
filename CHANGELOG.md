@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added a new Configuration Submenu for _Dice So Nice!_ related settings.
 - Added option to toggle whether the Benny spending animation should be played. This setting can be found in the new Dice Configuration system settings submenu and is only available if DSN is installed
 - Added the ability to set a custom Wild Die color theme. This setting can be found in the new Dice Configuration system settings submenu and is only available if DSN is installed
+- Added Ammo Management. Ammo management is a system option per player that is turned on by default. When activated it allows you to to track how many shots are expended by an attack as well as reload the gun if it's empty. When active you cannot perform an action unless you have enough ammunition in the magazine
 - Added Shaken icon
 - Added additional translation options
 

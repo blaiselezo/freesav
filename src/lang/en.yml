@@ -251,6 +251,8 @@ SWADE.ShowBennyAnimation: Show Benny Animation
 SWADE.ShowBennyAnimationDesc: Play an animation when spending a Benny. Only available if Dice So Nice! is installed
 SWADE.WildDiePreset: Wild Die Theme
 SWADE.WildDiePresetDesc: Select a DSN Theme for your Wild Die. Select 'Custom' if you want to create your own or 'None' if you don't want your Wild Die to look differently. Please keep in mind that self-created Wild Dies currently can only be seen by you. Other players will see them differently.
+SWADE.AmmoManagement: Ammunition Management
+SWADE.AmmoManagementDesc: When turned on, and applicable, actions subtract ammunition from the magazine of the weapon. Item cards also gain a new reload button and you will not be able to roll an attack if not enough ammunition is available
 
 # Settings Submenus
 SWADE.SettingConf: Setting Configurator
@@ -297,3 +299,7 @@ SWADE.Max: Max
 SWADE.Curr: Current
 
 SWADE.DSNNone: '- None -'
+SWADE.Reload: Reload
+SWADE.ReloadUnneeded: The weapon is already fully loaded
+SWADE.ReloadSuccess: The weapon has been successfully reloaded
+SWADE.NotEnoughAmmo: You don't have enough ammunition for this action!

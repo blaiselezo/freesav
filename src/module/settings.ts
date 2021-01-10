@@ -62,6 +62,15 @@ export function registerSettings() {
     config: true,
   });
 
+  game.settings.register('swade', 'ammoManagement', {
+    name: game.i18n.localize('SWADE.AmmoManagement'),
+    hint: game.i18n.localize('SWADE.AmmoManagementDesc'),
+    default: true,
+    scope: 'client',
+    type: Boolean,
+    config: true,
+  });
+
   game.settings.register('swade', 'enableConviction', {
     name: game.i18n.localize('SWADE.EnableConv'),
     hint: game.i18n.localize('SWADE.EnableConvDesc'),

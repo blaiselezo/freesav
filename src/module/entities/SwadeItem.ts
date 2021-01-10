@@ -110,7 +110,7 @@ export default class SwadeItem extends Item {
     // Item properties
     const props = [];
 
-    switch (this.data.type) {
+    switch (this.type) {
       case 'hindrance':
         props.push(data.major ? 'Major' : 'Minor');
         break;
@@ -182,13 +182,13 @@ export default class SwadeItem extends Item {
         );
         break;
     }
-
     // Filter properties and return
     data.properties = props.filter((p) => !!p);
 
     //Additional actions
     const actions = getProperty(this.data, 'data.actions.additional');
-    data.hasAdditionalActions = actions && Object.keys(actions).length > 0;
+    data.hasAdditionalActions = !!actions && Object.keys(actions).length > 0;
+
     data.actions = [];
     for (let action in actions) {
       data.actions.push({
@@ -209,7 +209,12 @@ export default class SwadeItem extends Item {
       item: this.data,
       data: this.getChatData({}),
       config: CONFIG.SWADE,
-      hasDamage: this.data.data.damage,
+      hasAmmoManagement: game.settings.get('swade', 'ammoManagement'),
+      hasReloadButton:
+        game.settings.get('swade', 'ammoManagement') &&
+        this.type === ItemType.Weapon &&
+        getProperty(this.data, 'data.shots') > 0,
+      hasDamage: !!this.data.data.damage,
       skill: getProperty(this.data, 'data.actions.skill'),
       hasSkillRoll:
         [
@@ -217,7 +222,7 @@ export default class SwadeItem extends Item {
           ItemType.Power.toString(),
           ItemType.Shield.toString(),
         ].includes(this.data.type) &&
-        getProperty(this.data, 'data.actions.skill'),
+        !!getProperty(this.data, 'data.actions.skill'),
     };
 
     // Render the chat card template
@@ -250,7 +255,32 @@ export default class SwadeItem extends Item {
     return ChatCard;
   }
 
-  static async _onChatCardAction(event) {
+  private makeExplodable(expresion) {
+    // Make all dice of a roll able to explode
+    // Code from the SWADE system
+    const reg_exp = /\d*d\d+[^kdrxc]/g;
+    expresion = expresion + ' '; // Just because of my poor reg_exp foo
+    let dice_strings = expresion.match(reg_exp);
+    let used = [];
+    if (dice_strings) {
+      dice_strings.forEach((match) => {
+        if (used.indexOf(match) === -1) {
+          expresion = expresion.replace(
+            new RegExp(match.slice(0, -1), 'g'),
+            match.slice(0, -1) + 'x',
+          );
+          used.push(match);
+        }
+      });
+    }
+    return expresion;
+  }
+
+  getRollData() {
+    return {};
+  }
+
+  static async _onChatCardAction(event, app?: Application) {
     event.preventDefault();
 
     // Extract card data
@@ -258,6 +288,7 @@ export default class SwadeItem extends Item {
     button.disabled = true;
     const card = button.closest('.chat-card');
     const messageId = card.closest('.message').dataset.messageId;
+    CONFIG.SWADE['itemCardMessageId'] = messageId;
     const message = game.messages.get(messageId);
     const action = button.dataset.action;
 
@@ -301,7 +332,22 @@ export default class SwadeItem extends Item {
             i.name === getProperty(item.data, 'data.actions.skill'),
         );
         roll = await this._doSkillAction(skill, item, actor);
+        if (roll) await this._subtractShots(actor, item.id, 1);
         Hooks.call('swadeAction', actor, item, action, roll, game.user.id);
+        break;
+      case 'reload':
+        if (
+          getProperty(item.data, 'data.currentShots') >=
+          getProperty(item.data, 'data.shots')
+        ) {
+          ui.notifications.info(game.i18n.localize('SWADE.ReloadUnneeded'));
+          break;
+        }
+        await actor.updateOwnedItem({
+          _id: item.id,
+          'data.currentShots': getProperty(item.data, 'data.shots'),
+        });
+        ui.notifications.info(game.i18n.localize('SWADE.ReloadSuccess'));
         break;
       default:
         roll = await this._handleAdditionalActions(item, actor, action);
@@ -309,6 +355,7 @@ export default class SwadeItem extends Item {
         // This is so an external API can directly use _handleAdditionalActions to use an action and still fire the hook
         break;
     }
+    this._refreshItemCard();
     // Re-enable the button
     button.disabled = false;
   }
@@ -376,13 +423,27 @@ export default class SwadeItem extends Item {
           i.type === ItemType.Skill && i.name === actionToUse.skillOverride,
       );
 
-      if (altSkill) {
-        skill = altSkill;
+      //try to find the skill override. If the alternative skill is not available then trigger an unskilled attempt
+      if (actionToUse.skillOverride) {
+        if (altSkill) {
+          skill = altSkill;
+        } else {
+          skill = null;
+        }
       }
 
       let actionSkillMod = '';
       if (actionToUse.skillMod && parseInt(actionToUse.skillMod) !== 0) {
         actionSkillMod = actionToUse.skillMod;
+      }
+      const currentShots = getProperty(item.data, 'data.currentShots');
+      if (
+        game.settings.get('swade', 'ammoManagement') &&
+        !!actionToUse.shotsUsed &&
+        currentShots < actionToUse.shotsUsed
+      ) {
+        ui.notifications.warn(game.i18n.localize('SWADE.NotEnoughAmmo'));
+        return null;
       }
       if (skill) {
         roll = await actor.rollSkill(skill.id, {
@@ -403,6 +464,8 @@ export default class SwadeItem extends Item {
           ],
         });
       }
+      if (roll)
+        await this._subtractShots(actor, item.id, actionToUse.shotsUsed || 0);
     } else if (actionToUse.type === 'damage') {
       //Do Damage stuff
       roll = await item.rollDamage({
@@ -416,10 +479,6 @@ export default class SwadeItem extends Item {
     }
     Hooks.call('swadeAction', actor, item, action, roll, game.user.id);
     return roll;
-  }
-
-  getRollData() {
-    return {};
   }
 
   static async _doSkillAction(
@@ -438,24 +497,59 @@ export default class SwadeItem extends Item {
     }
   }
 
-  private makeExplodable(expresion) {
-    // Make all dice of a roll able to explode
-    // Code from the SWADE system
-    const reg_exp = /\d*d\d+[^kdrxc]/g;
-    expresion = expresion + ' '; // Just because of my poor reg_exp foo
-    let dice_strings = expresion.match(reg_exp);
-    let used = [];
-    if (dice_strings) {
-      dice_strings.forEach((match) => {
-        if (used.indexOf(match) === -1) {
-          expresion = expresion.replace(
-            new RegExp(match.slice(0, -1), 'g'),
-            match.slice(0, -1) + 'x',
-          );
-          used.push(match);
-        }
+  static async _subtractShots(
+    actor: SwadeActor,
+    itemId: string,
+    shotsUsed?: number,
+  ): Promise<void> {
+    if (!game.settings.get('swade', 'ammoManagement')) return;
+
+    const item = actor.items.get(itemId) as SwadeItem;
+    const currentShots = parseInt(getProperty(item.data, 'data.currentShots'));
+
+    if (!!shotsUsed && currentShots - shotsUsed >= 0) {
+      await actor.updateOwnedItem({
+        _id: itemId,
+        'data.currentShots': currentShots - shotsUsed,
       });
     }
-    return expresion;
+  }
+
+  static async _refreshItemCard() {
+    //get ChatMessage and remove temporarily stored id from CONFIG object
+    const message = game.messages.get(CONFIG.SWADE['itemCardMessageId']);
+
+    console.log(message);
+
+    const messageContent = new DOMParser().parseFromString(
+      getProperty(message, 'data.content'),
+      'text/html',
+    );
+
+    const messageData = $(messageContent)
+      .find('.chat-card.item-card')
+      .first()
+      .data();
+
+    const item = game.actors
+      .get(messageData.actorId)
+      .getOwnedItem(messageData.itemId);
+
+    const currentShots = getProperty(item.data, 'data.currentShots');
+    const maxShots = getProperty(item.data, 'data.shots');
+
+    //update message content
+    $(messageContent)
+      .find('.ammo-counter .current-shots')
+      .first()
+      .text(currentShots);
+    $(messageContent).find('.ammo-counter .max-shots').first().text(maxShots);
+
+    //update the message and render the chatlog/chat popout
+    await message.update({ content: messageContent.body.innerHTML });
+    ui['chat'].render(true);
+    for (const app in message.apps) {
+      message.apps[app].render(true);
+    }
   }
 }
