@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './entities/SwadeActor';
 import SwadeItem from './entities/SwadeItem';
+import ItemChatCardHelper from './ItemChatCardHelper';
 
 export async function formatRoll(
   chatMessage: ChatMessage,
@@ -110,7 +111,7 @@ export function chatListeners(html: JQuery<HTMLElement>) {
 
   html.on('click', '.card-buttons button', async (event) => {
     // Bind item cards
-    SwadeItem._onChatCardAction(event);
+    ItemChatCardHelper.onChatCardAction(event);
 
     // Conviction
     const element = event.currentTarget as Element;
@@ -121,7 +122,10 @@ export function chatListeners(html: JQuery<HTMLElement>) {
       .attr('data-message-id');
     const action = element.getAttribute('data-action');
     if (action === 'yes') {
-      const currentBennies = actor.data.data.bennies.value;
+      const currentBennies = getProperty(
+        actor.data,
+        'data.bennies.value',
+      ) as number;
       if (actor.data.data.bennies.value) {
         await actor.update({ 'data.bennies.value': currentBennies - 1 });
       } else {
