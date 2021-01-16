@@ -106,7 +106,7 @@ export default class ItemChatCardHelper {
         // This is so an external API can directly use _handleAdditionalActions to use an action and still fire the hook
         break;
     }
-    this.refreshItemCard();
+    this.refreshItemCard(actor);
     // Re-enable the button
     button.disabled = false;
   }
@@ -269,10 +269,16 @@ export default class ItemChatCardHelper {
     const item = actor.items.get(itemId) as SwadeItem;
     const currentShots = parseInt(getProperty(item.data, 'data.currentShots'));
     const hasAutoReload = getProperty(item.data, 'data.autoReload') as boolean;
+    const isPC = actor.data.type === ActorType.Character;
     const isNPC = actor.data.type === ActorType.NPC;
+    const isVehicle = actor.data.type === ActorType.Vehicle;
     const npcAmmoFromInventory = game.settings.get(
       'swade',
       'npcAmmo',
+    ) as boolean;
+    const vehicleAmmoFromInventory = game.settings.get(
+      'swade',
+      'vehicleAmmo',
     ) as boolean;
     const useAmmoFromInventory = game.settings.get(
       'swade',
@@ -281,7 +287,12 @@ export default class ItemChatCardHelper {
 
     //handle Auto Reload
     if (hasAutoReload) {
-      if (isNPC && !npcAmmoFromInventory) return;
+      if (
+        (isNPC && !npcAmmoFromInventory) ||
+        (isVehicle && !vehicleAmmoFromInventory) ||
+        (isPC && !useAmmoFromInventory)
+      )
+        return;
       const ammo = actor.items.find(
         (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
       );
@@ -304,10 +315,16 @@ export default class ItemChatCardHelper {
 
   static async reloadWeapon(actor: SwadeActor, weapon: SwadeItem) {
     const ammoName = getProperty(weapon.data, 'data.ammo') as string;
+    const isPC = actor.data.type === ActorType.Character;
     const isNPC = actor.data.type === ActorType.NPC;
+    const isVehicle = actor.data.type === ActorType.Vehicle;
     const npcAmmoFromInventory = game.settings.get(
       'swade',
       'npcAmmo',
+    ) as boolean;
+    const vehicleAmmoFromInventory = game.settings.get(
+      'swade',
+      'vehicleAmmo',
     ) as boolean;
     const useAmmoFromInventory = game.settings.get(
       'swade',
@@ -315,7 +332,9 @@ export default class ItemChatCardHelper {
     ) as boolean;
 
     const doReload =
-      (isNPC && npcAmmoFromInventory) || (!isNPC && useAmmoFromInventory);
+      (isVehicle && vehicleAmmoFromInventory) ||
+      (isNPC && npcAmmoFromInventory) ||
+      (isPC && useAmmoFromInventory);
 
     const ammo = actor.items.find((i: Item) => i.name === ammoName);
 
@@ -372,7 +391,7 @@ export default class ItemChatCardHelper {
     }
   }
 
-  static async refreshItemCard() {
+  static async refreshItemCard(actor: SwadeActor) {
     //get ChatMessage and remove temporarily stored id from CONFIG object
     const message = game.messages.get(CONFIG.SWADE['itemCardMessageId']);
     delete CONFIG.SWADE['itemCardMessageId'];
@@ -387,9 +406,7 @@ export default class ItemChatCardHelper {
       .first()
       .data();
 
-    const item = game.actors
-      .get(messageData.actorId)
-      .getOwnedItem(messageData.itemId);
+    const item = actor.getOwnedItem(messageData.itemId);
 
     const currentShots = getProperty(item.data, 'data.currentShots');
     const maxShots = getProperty(item.data, 'data.shots');

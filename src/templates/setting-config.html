@@ -59,7 +59,7 @@
         <p class="notes">{{localize "SWADE.AmmoManagementDesc"}}</p>
       </div>
       <div class="form-group">
-        <label>{{localize "SWADE.AmmoFromInventory"}}</label>
+        <label>{{localize "SWADE.PCAmmoFromInventory"}}</label>
         <div class="form-fields">
           <input
             type="checkbox"
@@ -69,7 +69,7 @@
             settingRules.ammoFromInventory}}
           />
         </div>
-        <p class="notes">{{localize "SWADE.AmmoFromInventoryDesc"}}</p>
+        <p class="notes">{{localize "SWADE.PCAmmoFromInventoryDesc"}}</p>
       </div>
       <div class="form-group">
         <label>{{localize "SWADE.NPCAmmoFromInventory"}}</label>
@@ -80,6 +80,18 @@
             data-dtype="Boolean"
             {{checked
             settingRules.npcAmmo}}
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{localize "SWADE.VehicleAmmoFromInventory"}}</label>
+        <div class="form-fields">
+          <input
+            type="checkbox"
+            name="settingRules.vehiceAmmo"
+            data-dtype="Boolean"
+            {{checked
+            settingRules.vehiceAmmo}}
           />
         </div>
       </div>

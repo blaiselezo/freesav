@@ -67,6 +67,7 @@ export const SWADE = {
       'ammoManagement',
       'ammoFromInventory',
       'npcAmmo',
+      'vehicleAmmo',
     ],
   },
 

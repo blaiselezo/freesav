@@ -72,8 +72,8 @@ export function registerSettings() {
   });
 
   game.settings.register('swade', 'ammoFromInventory', {
-    name: game.i18n.localize('SWADE.AmmoFromInventory'),
-    hint: game.i18n.localize('SWADE.AmmoFromInventoryDesc'),
+    name: game.i18n.localize('SWADE.PCAmmoFromInventory'),
+    hint: game.i18n.localize('SWADE.PCAmmoFromInventoryDesc'),
     default: false,
     scope: 'world',
     type: Boolean,
@@ -81,7 +81,15 @@ export function registerSettings() {
   });
 
   game.settings.register('swade', 'npcAmmo', {
-    name: game.i18n.localize('SWADE.AmmoFromInventory'),
+    name: game.i18n.localize('SWADE.NPCAmmoFromInventory'),
+    default: false,
+    scope: 'world',
+    type: Boolean,
+    config: false,
+  });
+
+  game.settings.register('swade', 'vehicleAmmo', {
+    name: game.i18n.localize('SWADE.VehicleAmmoFromInventory'),
     default: false,
     scope: 'world',
     type: Boolean,
