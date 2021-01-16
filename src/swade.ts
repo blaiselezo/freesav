@@ -2,8 +2,8 @@
 /**
  * This is the TypeScript entry file for Foundry VTT.
  * Author: FloRad
- * Content License: Savage Worlds Fan License
- * Software License: GNU GENERAL PUBLIC LICENSE Version 3
+ * Content License: All Rights Reserved Pinnacle Entertainment, Inc
+ * Software License: Apache License, Version 2.0
  */
 
 import Benny from './module/Benny';
