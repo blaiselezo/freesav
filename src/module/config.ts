@@ -66,6 +66,7 @@ export const SWADE = {
       'enableWoundPace',
       'ammoManagement',
       'ammoFromInventory',
+      'npcAmmo',
     ],
   },
 

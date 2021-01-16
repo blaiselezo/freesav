@@ -253,8 +253,10 @@ SWADE.WildDiePreset: Wild Die Theme
 SWADE.WildDiePresetDesc: Select a DSN Theme for your Wild Die. Select 'Custom' if you want to create your own or 'None' if you don't want your Wild Die to look differently. Please keep in mind that self-created Wild Dies currently can only be seen by you. Other players will see them differently.
 SWADE.AmmoManagement: Ammunition Management
 SWADE.AmmoManagementDesc: When turned on, and applicable, actions subtract ammunition from the magazine of the weapon. Item cards also gain a new reload button and you will not be able to roll an attack if not enough ammunition is available
-SWADE.AmmoFromInventory: Use Ammo from Inventory
+SWADE.AmmoFromInventory: Use Ammunition from Inventory
 SWADE.AmmoFromInventoryDesc: When activated the option to set a `Gear` Item can be set to be used as ammunition and will be used when reloading the weapon
+SWADE.NPCAmmoFromInventory: NPCs use ammunition from their inventory
+
 # Settings Submenus
 SWADE.SettingConf: Setting Configurator
 SWADE.SettingConfLabel: Open Setting Configurator

@@ -71,6 +71,18 @@
         </div>
         <p class="notes">{{localize "SWADE.AmmoFromInventoryDesc"}}</p>
       </div>
+      <div class="form-group">
+        <label>{{localize "SWADE.NPCAmmoFromInventory"}}</label>
+        <div class="form-fields">
+          <input
+            type="checkbox"
+            name="settingRules.npcAmmo"
+            data-dtype="Boolean"
+            {{checked
+            settingRules.npcAmmo}}
+          />
+        </div>
+      </div>
       <section id="ammo"></section>
     </section>
     <section id="vehicles">

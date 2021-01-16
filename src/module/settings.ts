@@ -66,7 +66,7 @@ export function registerSettings() {
     name: game.i18n.localize('SWADE.AmmoManagement'),
     hint: game.i18n.localize('SWADE.AmmoManagementDesc'),
     default: false,
-    scope: 'client',
+    scope: 'world',
     type: Boolean,
     config: false,
   });
@@ -75,7 +75,15 @@ export function registerSettings() {
     name: game.i18n.localize('SWADE.AmmoFromInventory'),
     hint: game.i18n.localize('SWADE.AmmoFromInventoryDesc'),
     default: false,
-    scope: 'client',
+    scope: 'world',
+    type: Boolean,
+    config: false,
+  });
+
+  game.settings.register('swade', 'npcAmmo', {
+    name: game.i18n.localize('SWADE.AmmoFromInventory'),
+    default: false,
+    scope: 'world',
     type: Boolean,
     config: false,
   });
