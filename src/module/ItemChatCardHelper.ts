@@ -1,5 +1,6 @@
 import SwadeActor from './entities/SwadeActor';
 import SwadeItem from './entities/SwadeItem';
+import { ActorType } from './enums/ActorTypeEnum';
 import { ItemType } from './enums/ItemTypeEnum';
 import { notificationExists } from './util';
 
@@ -267,10 +268,15 @@ export default class ItemChatCardHelper {
     const item = actor.items.get(itemId) as SwadeItem;
     const currentShots = parseInt(getProperty(item.data, 'data.currentShots'));
     const hasAutoReload = getProperty(item.data, 'data.autoReload') as boolean;
+    const useAmmoFromInventory = game.settings.get(
+      'swade',
+      'ammoFromInventory',
+    ) as boolean;
 
+    //handle Auto Reload
     if (hasAutoReload) {
       const ammo = actor.getOwnedItem(getProperty(item.data, 'data.ammo'));
-      if (!ammo) return;
+      if (!ammo && !useAmmoFromInventory) return;
       const current = getProperty(ammo.data, 'data.quantity');
       const newQuantity = current - (shotsUsed || 1);
 
@@ -278,6 +284,7 @@ export default class ItemChatCardHelper {
         _id: ammo.id,
         'data.quantity': newQuantity,
       });
+      //handle normal reload
     } else if (!!shotsUsed && currentShots - shotsUsed >= 0) {
       await actor.updateOwnedItem({
         _id: itemId,
@@ -288,28 +295,50 @@ export default class ItemChatCardHelper {
 
   static async reloadWeapon(actor: SwadeActor, weapon: SwadeItem) {
     const ammoId = getProperty(weapon.data, 'data.ammo') as string;
+    const isNPC = actor.data.type === ActorType.NPC;
+    const npcAmmoFromInventory = game.settings.get(
+      'swade',
+      'npcAmmo',
+    ) as boolean;
+    const useAmmoFromInventory = game.settings.get(
+      'swade',
+      'ammoFromInventory',
+    ) as boolean;
+
+    const doReload =
+      (isNPC && npcAmmoFromInventory) || (!isNPC && useAmmoFromInventory);
+
     const ammo = actor.getOwnedItem(ammoId);
+
     //return if there's no ammo set
-    if (!ammoId || !ammo) {
+    if (doReload && (!ammoId || !ammo)) {
       if (!notificationExists('SWADE.NoAmmoSet', true)) {
         ui.notifications.info(game.i18n.localize('SWADE.NoAmmoSet'));
       }
       return;
     }
-    const ammoInInventory = getProperty(ammo.data, 'data.quantity') as number;
+
     const shots = parseInt(getProperty(weapon.data, 'data.shots'));
-    const missingAmmo = shots - getProperty(weapon.data, 'data.currentShots');
-
-    let leftoverAmmoInInventory = ammoInInventory - missingAmmo;
     let ammoInMagazine = shots;
+    const ammoInInventory = getProperty(ammo, 'data.data.quantity') as number;
+    const missingAmmo = shots - getProperty(weapon.data, 'data.currentShots');
+    let leftoverAmmoInInventory = ammoInInventory - missingAmmo;
 
-    if (ammoInInventory < missingAmmo) {
-      ammoInMagazine =
-        getProperty(weapon.data, 'data.currentShots') + ammoInInventory;
-      leftoverAmmoInInventory = 0;
-      if (!notificationExists('SWADE.NotEnoughAmmoToReload', true)) {
-        ui.notifications.warn('SWADE.NotEnoughAmmoToReload');
+    if (doReload) {
+      if (ammoInInventory < missingAmmo) {
+        ammoInMagazine =
+          getProperty(weapon.data, 'data.currentShots') + ammoInInventory;
+        leftoverAmmoInInventory = 0;
+        if (!notificationExists('SWADE.NotEnoughAmmoToReload', true)) {
+          ui.notifications.warn('SWADE.NotEnoughAmmoToReload');
+        }
       }
+
+      //update the ammo item
+      await actor.updateOwnedItem({
+        _id: ammo.id,
+        'data.quantity': leftoverAmmoInInventory,
+      });
     }
 
     //update the weapon
@@ -317,11 +346,7 @@ export default class ItemChatCardHelper {
       _id: weapon.id,
       'data.currentShots': ammoInMagazine,
     });
-    //update the ammo item
-    await actor.updateOwnedItem({
-      _id: ammo.id,
-      'data.quantity': leftoverAmmoInInventory,
-    });
+
     //check to see we're not posting the message twice
     if (!notificationExists('SWADE.ReloadSuccess', true)) {
       ui.notifications.info(game.i18n.localize('SWADE.ReloadSuccess'));
