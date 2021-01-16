@@ -269,6 +269,11 @@ export default class ItemChatCardHelper {
     const item = actor.items.get(itemId) as SwadeItem;
     const currentShots = parseInt(getProperty(item.data, 'data.currentShots'));
     const hasAutoReload = getProperty(item.data, 'data.autoReload') as boolean;
+    const isNPC = actor.data.type === ActorType.NPC;
+    const npcAmmoFromInventory = game.settings.get(
+      'swade',
+      'npcAmmo',
+    ) as boolean;
     const useAmmoFromInventory = game.settings.get(
       'swade',
       'ammoFromInventory',
@@ -276,6 +281,7 @@ export default class ItemChatCardHelper {
 
     //handle Auto Reload
     if (hasAutoReload) {
+      if (isNPC && !npcAmmoFromInventory) return;
       const ammo = actor.items.find(
         (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
       );
