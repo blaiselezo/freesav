@@ -50,11 +50,12 @@ export default class ItemChatCardHelper {
     let roll: Promise<Roll> | Roll = null;
     // Attack and Damage Rolls
 
-    const hasAutoReload = getProperty(item.data, 'data.autoReload');
-    const ammo = actor.getOwnedItem(getProperty(item.data, 'data.ammo'));
-    let canAutoReload =
-      ammo && getProperty(actor.getOwnedItem(ammo.id), 'data.quantity') <= 0;
     const ammoManagement = game.settings.get('swade', 'ammoManagement');
+    const hasAutoReload = getProperty(item.data, 'data.autoReload');
+    const ammo = actor.items.find(
+      (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
+    ) as Item;
+    const canAutoReload = !!ammo && getProperty(ammo, 'data.data.quantity') > 0;
 
     switch (action) {
       case 'damage':
@@ -66,14 +67,14 @@ export default class ItemChatCardHelper {
         break;
       case 'formula':
         skill = actor.items.find(
-          (i: SwadeItem) =>
+          (i: Item) =>
             i.type === ItemType.Skill &&
             i.name === getProperty(item.data, 'data.actions.skill'),
         );
         if (
           (ammoManagement && hasAutoReload && !canAutoReload) ||
           (ammoManagement &&
-            !getProperty(item.data, 'data.autoReload') &&
+            !hasAutoReload &&
             getProperty(item.data, 'data.currentShots') < 1)
         ) {
           //check to see we're not posting the message twice
@@ -275,7 +276,9 @@ export default class ItemChatCardHelper {
 
     //handle Auto Reload
     if (hasAutoReload) {
-      const ammo = actor.getOwnedItem(getProperty(item.data, 'data.ammo'));
+      const ammo = actor.items.find(
+        (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
+      );
       if (!ammo && !useAmmoFromInventory) return;
       const current = getProperty(ammo.data, 'data.quantity');
       const newQuantity = current - (shotsUsed || 1);
@@ -311,7 +314,7 @@ export default class ItemChatCardHelper {
     const ammo = actor.items.find((i: Item) => i.name === ammoName);
 
     //return if there's no ammo set
-    if (doReload && (!ammoName || !ammo)) {
+    if (doReload && !ammoName) {
       if (!notificationExists('SWADE.NoAmmoSet', true)) {
         ui.notifications.info(game.i18n.localize('SWADE.NoAmmoSet'));
       }
@@ -325,12 +328,22 @@ export default class ItemChatCardHelper {
     let leftoverAmmoInInventory = ammoInInventory - missingAmmo;
 
     if (doReload) {
+      if (!ammo) {
+        if (!notificationExists('SWADE.NotEnoughAmmoToReload', true)) {
+          ui.notifications.warn(
+            game.i18n.localize('SWADE.NotEnoughAmmoToReload'),
+          );
+        }
+        return;
+      }
       if (ammoInInventory < missingAmmo) {
         ammoInMagazine =
           getProperty(weapon.data, 'data.currentShots') + ammoInInventory;
         leftoverAmmoInInventory = 0;
         if (!notificationExists('SWADE.NotEnoughAmmoToReload', true)) {
-          ui.notifications.warn('SWADE.NotEnoughAmmoToReload');
+          ui.notifications.warn(
+            game.i18n.localize('SWADE.NotEnoughAmmoToReload'),
+          );
         }
       }
 
