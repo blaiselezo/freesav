@@ -43,6 +43,35 @@
         </div>
         <p class="notes">{{localize "SWADE.EnableWoundPaceDesc"}}</p>
       </div>
+      <h3>Ammo</h3>
+      <hr />
+      <div class="form-group">
+        <label>{{localize "SWADE.AmmoManagement"}}</label>
+        <div class="form-fields">
+          <input
+            type="checkbox"
+            name="settingRules.ammoManagement"
+            data-dtype="Boolean"
+            {{checked
+            settingRules.ammoManagement}}
+          />
+        </div>
+        <p class="notes">{{localize "SWADE.AmmoManagementDesc"}}</p>
+      </div>
+      <div class="form-group">
+        <label>{{localize "SWADE.AmmoFromInventory"}}</label>
+        <div class="form-fields">
+          <input
+            type="checkbox"
+            name="settingRules.ammoFromInventory"
+            data-dtype="Boolean"
+            {{checked
+            settingRules.ammoFromInventory}}
+          />
+        </div>
+        <p class="notes">{{localize "SWADE.AmmoFromInventoryDesc"}}</p>
+      </div>
+      <section id="ammo"></section>
     </section>
     <section id="vehicles">
       <h2 class="module-header">{{localize "SWADE.Vehicles"}}</h2>

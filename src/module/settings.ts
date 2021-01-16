@@ -68,7 +68,7 @@ export function registerSettings() {
     default: false,
     scope: 'client',
     type: Boolean,
-    config: true,
+    config: false,
   });
 
   game.settings.register('swade', 'ammoFromInventory', {
@@ -77,7 +77,7 @@ export function registerSettings() {
     default: false,
     scope: 'client',
     type: Boolean,
-    config: true,
+    config: false,
   });
 
   game.settings.register('swade', 'enableConviction', {

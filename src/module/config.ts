@@ -64,6 +64,8 @@ export const SWADE = {
       'vehicleEdges',
       'gmBennies',
       'enableWoundPace',
+      'ammoManagement',
+      'ammoFromInventory',
     ],
   },
 
