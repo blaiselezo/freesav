@@ -184,11 +184,6 @@ export default class SwadeItemSheet extends ItemSheet {
     switch (this.item.type) {
       case 'weapon':
         data['isWeapon'] = true && game.settings.get('swade', 'ammoManagement');
-        if (!this.item.isOwned) break;
-        data['ammoChoices'] = { none: '' };
-        this.item.actor.items
-          .filter((item) => item.type === ItemType.Gear)
-          .forEach((gear) => (data.ammoChoices[gear.id] = gear.name));
         break;
       default:
         break;

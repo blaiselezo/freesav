@@ -206,6 +206,7 @@ export default class SwadeItem extends Item {
   async show() {
     // Basic template rendering data
     const token = this.actor.token;
+    const ammoManagement = game.settings.get('swade', 'ammoManagement');
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.scene._id}.${token.id}` : null,
@@ -214,10 +215,10 @@ export default class SwadeItem extends Item {
       config: CONFIG.SWADE,
       hasAmmoManagement:
         this.type === ItemType.Weapon &&
-        game.settings.get('swade', 'ammoManagement') &&
+        ammoManagement &&
         !getProperty(this.data, 'data.autoReload'),
       hasReloadButton:
-        game.settings.get('swade', 'ammoManagement') &&
+        ammoManagement &&
         this.type === ItemType.Weapon &&
         getProperty(this.data, 'data.shots') > 0 &&
         !getProperty(this.data, 'data.autoReload'),

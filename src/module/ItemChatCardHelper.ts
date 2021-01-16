@@ -294,7 +294,7 @@ export default class ItemChatCardHelper {
   }
 
   static async reloadWeapon(actor: SwadeActor, weapon: SwadeItem) {
-    const ammoId = getProperty(weapon.data, 'data.ammo') as string;
+    const ammoName = getProperty(weapon.data, 'data.ammo') as string;
     const isNPC = actor.data.type === ActorType.NPC;
     const npcAmmoFromInventory = game.settings.get(
       'swade',
@@ -308,10 +308,10 @@ export default class ItemChatCardHelper {
     const doReload =
       (isNPC && npcAmmoFromInventory) || (!isNPC && useAmmoFromInventory);
 
-    const ammo = actor.getOwnedItem(ammoId);
+    const ammo = actor.items.find((i: Item) => i.name === ammoName);
 
     //return if there's no ammo set
-    if (doReload && (!ammoId || !ammo)) {
+    if (doReload && (!ammoName || !ammo)) {
       if (!notificationExists('SWADE.NoAmmoSet', true)) {
         ui.notifications.info(game.i18n.localize('SWADE.NoAmmoSet'));
       }
