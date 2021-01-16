@@ -195,7 +195,7 @@ export default class ItemChatCardHelper {
       const ammo = actor.items.find(
         (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
       );
-      let canAutoReload =
+      const canAutoReload =
         !!ammo &&
         getProperty(actor.getOwnedItem(ammo.id), 'data.quantity') <= 0;
       if (
