@@ -192,9 +192,12 @@ export default class ItemChatCardHelper {
 
       //do autoreload stuff if applicable
       const hasAutoReload = getProperty(item.data, 'data.autoReload');
-      const ammo = actor.getOwnedItem(getProperty(item.data, 'data.ammo'));
+      const ammo = actor.items.find(
+        (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
+      );
       let canAutoReload =
-        ammo && getProperty(actor.getOwnedItem(ammo.id), 'data.quantity') <= 0;
+        !!ammo &&
+        getProperty(actor.getOwnedItem(ammo.id), 'data.quantity') <= 0;
       if (
         (ammoManagement && hasAutoReload && !canAutoReload) ||
         (game.settings.get('swade', 'ammoManagement') &&
