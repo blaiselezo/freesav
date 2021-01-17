@@ -302,11 +302,15 @@ SWADE.Items: Items
 SWADE.Max: Max
 SWADE.Curr: Current
 
+##DSN
 SWADE.DSNNone: '- None -'
+
+# Ammo Management
 SWADE.Reload: Reload
+SWADE.Ammo: Ammunition
 SWADE.ReloadUnneeded: The weapon is already fully loaded
 SWADE.ReloadSuccess: The weapon has been successfully reloaded
 SWADE.NotEnoughAmmo: You don't have enough ammunition for this action!
 SWADE.NotEnoughAmmoToReload: There's not enough ammo for a full reload
 SWADE.AutoReload: Doesn't need Reload action
-SWADE.NoAmmoSet: There is not Ammunition set
+SWADE.NoAmmoSet: There is not ammunition set

@@ -56,6 +56,27 @@ export default class ItemChatCardHelper {
       (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
     ) as Item;
     const canAutoReload = !!ammo && getProperty(ammo, 'data.data.quantity') > 0;
+    const enoughShots = getProperty(item.data, 'data.currentShots') < 1;
+    const isPC = actor.data.type === ActorType.Character;
+    const isNPC = actor.data.type === ActorType.NPC;
+    const isVehicle = actor.data.type === ActorType.Vehicle;
+    const npcAmmoFromInventory = game.settings.get(
+      'swade',
+      'npcAmmo',
+    ) as boolean;
+    const vehicleAmmoFromInventory = game.settings.get(
+      'swade',
+      'vehicleAmmo',
+    ) as boolean;
+    const useAmmoFromInventory = game.settings.get(
+      'swade',
+      'ammoFromInventory',
+    ) as boolean;
+
+    const doReload =
+      (isVehicle && vehicleAmmoFromInventory) ||
+      (isNPC && npcAmmoFromInventory) ||
+      (isPC && useAmmoFromInventory);
 
     switch (action) {
       case 'damage':
@@ -72,10 +93,8 @@ export default class ItemChatCardHelper {
             i.name === getProperty(item.data, 'data.actions.skill'),
         );
         if (
-          (ammoManagement && hasAutoReload && !canAutoReload) ||
-          (ammoManagement &&
-            !hasAutoReload &&
-            getProperty(item.data, 'data.currentShots') < 1)
+          (doReload && hasAutoReload && !canAutoReload) ||
+          (doReload && !hasAutoReload && enoughShots)
         ) {
           //check to see we're not posting the message twice
           if (!notificationExists('SWADE.NotEnoughAmmo', true)) {
@@ -267,8 +286,6 @@ export default class ItemChatCardHelper {
     itemId: string,
     shotsUsed?: number,
   ): Promise<void> {
-    if (!game.settings.get('swade', 'ammoManagement')) return;
-
     const item = actor.items.get(itemId) as SwadeItem;
     const currentShots = parseInt(getProperty(item.data, 'data.currentShots'));
     const hasAutoReload = getProperty(item.data, 'data.autoReload') as boolean;
@@ -288,14 +305,14 @@ export default class ItemChatCardHelper {
       'ammoFromInventory',
     ) as boolean;
 
+    const doReload =
+      (isNPC && !npcAmmoFromInventory) ||
+      (isVehicle && !vehicleAmmoFromInventory) ||
+      (isPC && !useAmmoFromInventory);
+
     //handle Auto Reload
     if (hasAutoReload) {
-      if (
-        (isNPC && !npcAmmoFromInventory) ||
-        (isVehicle && !vehicleAmmoFromInventory) ||
-        (isPC && !useAmmoFromInventory)
-      )
-        return;
+      if (doReload) return;
       const ammo = actor.items.find(
         (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
       );
@@ -308,7 +325,7 @@ export default class ItemChatCardHelper {
         'data.quantity': newQuantity,
       });
       //handle normal reload
-    } else if (!!shotsUsed && currentShots - shotsUsed >= 0) {
+    } else if (doReload && !!shotsUsed && currentShots - shotsUsed >= 0) {
       await actor.updateOwnedItem({
         _id: itemId,
         'data.currentShots': currentShots - shotsUsed,
