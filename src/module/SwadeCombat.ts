@@ -173,6 +173,25 @@ export function _sortCombatants(a, b) {
   return a.tokenId - b.tokenId;
 }
 
+export async function resetAll() {
+  const updates = this.data.combatants.map((c) => {
+    return {
+      _id: c._id,
+      initiative: null,
+      flags: {
+        swade: {
+          suitValue: null,
+          cardValue: null,
+          hasJoker: false,
+          cardString: null,
+        },
+      },
+    };
+  });
+  await this.updateEmbeddedEntity('Combatant', updates);
+  return this.update({ turn: 0 });
+}
+
 /**
  * Draws cards
  * @param count number of cards to draw

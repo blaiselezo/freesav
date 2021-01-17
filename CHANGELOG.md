@@ -48,6 +48,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Fixed maximum wound penalty for pace
 - Checkbox styles are properly scoped to the system now
+- Fixed a small bug which would not reset initiative properly when clicking the `Reset All` button in the Combat Tracker
 
 ## [v0.15.3]
 
