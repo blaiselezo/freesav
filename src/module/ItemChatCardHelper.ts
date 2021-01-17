@@ -58,7 +58,7 @@ export default class ItemChatCardHelper {
     const canAutoReload = !!ammo && getProperty(ammo, 'data.data.quantity') > 0;
     const enoughShots = getProperty(item.data, 'data.currentShots') < 1;
 
-    const doReload = this.doReload(actor) && ammoManagement;
+    const doReload = this.isReloadPossible(actor) && ammoManagement;
 
     switch (action) {
       case 'damage':
@@ -276,7 +276,7 @@ export default class ItemChatCardHelper {
       'ammoFromInventory',
     ) as boolean;
 
-    const doReload = this.doReload(actor);
+    const doReload = this.isReloadPossible(actor);
 
     //handle Auto Reload
     if (hasAutoReload) {
@@ -303,7 +303,7 @@ export default class ItemChatCardHelper {
 
   static async reloadWeapon(actor: SwadeActor, weapon: SwadeItem) {
     const ammoName = getProperty(weapon.data, 'data.ammo') as string;
-    const doReload = this.doReload(actor);
+    const doReload = this.isReloadPossible(actor);
 
     const ammo = actor.items.find((i: Item) => i.name === ammoName);
 
@@ -395,7 +395,7 @@ export default class ItemChatCardHelper {
     }
   }
 
-  static doReload(actor: SwadeActor): boolean {
+  static isReloadPossible(actor: SwadeActor): boolean {
     const isPC = actor.data.type === ActorType.Character;
     const isNPC = actor.data.type === ActorType.NPC;
     const isVehicle = actor.data.type === ActorType.Vehicle;
