@@ -77,6 +77,12 @@ export default class SwadeHooks {
     if (!createData.img) {
       createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
     }
+    if (
+      createData.type === ItemType.Skill &&
+      typeof options.renderSheet !== 'undefined'
+    ) {
+      options.renderSheet = true;
+    }
   }
 
   public static onPreCreateActor(
