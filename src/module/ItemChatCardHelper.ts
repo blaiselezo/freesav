@@ -57,26 +57,8 @@ export default class ItemChatCardHelper {
     ) as Item;
     const canAutoReload = !!ammo && getProperty(ammo, 'data.data.quantity') > 0;
     const enoughShots = getProperty(item.data, 'data.currentShots') < 1;
-    const isPC = actor.data.type === ActorType.Character;
-    const isNPC = actor.data.type === ActorType.NPC;
-    const isVehicle = actor.data.type === ActorType.Vehicle;
-    const npcAmmoFromInventory = game.settings.get(
-      'swade',
-      'npcAmmo',
-    ) as boolean;
-    const vehicleAmmoFromInventory = game.settings.get(
-      'swade',
-      'vehicleAmmo',
-    ) as boolean;
-    const useAmmoFromInventory = game.settings.get(
-      'swade',
-      'ammoFromInventory',
-    ) as boolean;
 
-    const doReload =
-      (isVehicle && vehicleAmmoFromInventory) ||
-      (isNPC && npcAmmoFromInventory) ||
-      (isPC && useAmmoFromInventory);
+    const doReload = this.doReload(actor) && ammoManagement;
 
     switch (action) {
       case 'damage':
@@ -289,26 +271,12 @@ export default class ItemChatCardHelper {
     const item = actor.items.get(itemId) as SwadeItem;
     const currentShots = parseInt(getProperty(item.data, 'data.currentShots'));
     const hasAutoReload = getProperty(item.data, 'data.autoReload') as boolean;
-    const isPC = actor.data.type === ActorType.Character;
-    const isNPC = actor.data.type === ActorType.NPC;
-    const isVehicle = actor.data.type === ActorType.Vehicle;
-    const npcAmmoFromInventory = game.settings.get(
-      'swade',
-      'npcAmmo',
-    ) as boolean;
-    const vehicleAmmoFromInventory = game.settings.get(
-      'swade',
-      'vehicleAmmo',
-    ) as boolean;
     const useAmmoFromInventory = game.settings.get(
       'swade',
       'ammoFromInventory',
     ) as boolean;
 
-    const doReload =
-      (isNPC && !npcAmmoFromInventory) ||
-      (isVehicle && !vehicleAmmoFromInventory) ||
-      (isPC && !useAmmoFromInventory);
+    const doReload = this.doReload(actor);
 
     //handle Auto Reload
     if (hasAutoReload) {
@@ -335,26 +303,7 @@ export default class ItemChatCardHelper {
 
   static async reloadWeapon(actor: SwadeActor, weapon: SwadeItem) {
     const ammoName = getProperty(weapon.data, 'data.ammo') as string;
-    const isPC = actor.data.type === ActorType.Character;
-    const isNPC = actor.data.type === ActorType.NPC;
-    const isVehicle = actor.data.type === ActorType.Vehicle;
-    const npcAmmoFromInventory = game.settings.get(
-      'swade',
-      'npcAmmo',
-    ) as boolean;
-    const vehicleAmmoFromInventory = game.settings.get(
-      'swade',
-      'vehicleAmmo',
-    ) as boolean;
-    const useAmmoFromInventory = game.settings.get(
-      'swade',
-      'ammoFromInventory',
-    ) as boolean;
-
-    const doReload =
-      (isVehicle && vehicleAmmoFromInventory) ||
-      (isNPC && npcAmmoFromInventory) ||
-      (isPC && useAmmoFromInventory);
+    const doReload = this.doReload(actor);
 
     const ammo = actor.items.find((i: Item) => i.name === ammoName);
 
@@ -444,5 +393,28 @@ export default class ItemChatCardHelper {
     for (const app in message.apps) {
       message.apps[app].render(true);
     }
+  }
+
+  static doReload(actor: SwadeActor): boolean {
+    const isPC = actor.data.type === ActorType.Character;
+    const isNPC = actor.data.type === ActorType.NPC;
+    const isVehicle = actor.data.type === ActorType.Vehicle;
+    const npcAmmoFromInventory = game.settings.get(
+      'swade',
+      'npcAmmo',
+    ) as boolean;
+    const vehicleAmmoFromInventory = game.settings.get(
+      'swade',
+      'vehicleAmmo',
+    ) as boolean;
+    const useAmmoFromInventory = game.settings.get(
+      'swade',
+      'ammoFromInventory',
+    ) as boolean;
+    return (
+      (isVehicle && vehicleAmmoFromInventory) ||
+      (isNPC && npcAmmoFromInventory) ||
+      (isPC && useAmmoFromInventory)
+    );
   }
 }
