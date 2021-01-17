@@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Changed background color of SVG skill and `Item` to be more in line with the _Savage Worlds_ color scheme
 - Increased width of Power Point input fields on the Official CHaracter sheet.
+- Turned the `SwadeCombat` file into a proper class that extends `Combat`
 
 ### Removed
 
@@ -48,6 +49,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Fixed maximum wound penalty for pace
 - Checkbox styles are properly scoped to the system now
+- Fixed a small bug which would not reset initiative properly when clicking the `Reset All` button in the Combat Tracker
 
 ## [v0.15.3]
 
