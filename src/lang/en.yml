@@ -135,6 +135,7 @@ SWADE.Cover: Cover
 SWADE.Notes: Notes
 SWADE.ActionsEffects: Actions & Effects
 SWADE.Actions: Actions
+SWADE.Ammo: Ammo Item
 SWADE.DmgModUni: Damage Modifier (universal)
 SWADE.SkillModUni: Skill Modifier (universal)
 SWADE.ShotsUsed: Shots Used
