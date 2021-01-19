@@ -46,20 +46,6 @@ export default class ItemChatCardHelper {
       targets = this.getChatCardTargets(card);
     }
 
-    let skill: SwadeItem = null;
-    let roll: Promise<Roll> | Roll = null;
-    // Attack and Damage Rolls
-
-    const ammoManagement = game.settings.get('swade', 'ammoManagement');
-    const hasAutoReload = getProperty(item.data, 'data.autoReload');
-    const ammo = actor.items.find(
-      (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
-    ) as Item;
-    const canAutoReload = !!ammo && getProperty(ammo, 'data.data.quantity') > 0;
-    const enoughShots = getProperty(item.data, 'data.currentShots') < 1;
-
-    const doReload = this.isReloadPossible(actor) && ammoManagement;
-
     await this.handleAction(item, actor, action);
 
     /*
@@ -165,6 +151,15 @@ export default class ItemChatCardHelper {
       (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
     ) as Item;
 
+    // Attack and Damage Rolls
+    const ammoManagement = game.settings.get('swade', 'ammoManagement');
+    const hasAutoReload = getProperty(item.data, 'data.autoReload');
+
+    const canAutoReload = !!ammo && getProperty(ammo, 'data.data.quantity') > 0;
+    const enoughShots = getProperty(item.data, 'data.currentShots') < 1;
+
+    const doReload = this.isReloadPossible(actor) && ammoManagement;
+
     switch (action) {
       case 'damage':
         roll = await item.rollDamage({
@@ -178,7 +173,18 @@ export default class ItemChatCardHelper {
             i.type === ItemType.Skill &&
             i.name === getProperty(item.data, 'data.actions.skill'),
         );
-        roll = await this.doSkillAction(skill, item, actor);
+        if (
+          (doReload && hasAutoReload && !canAutoReload) ||
+          (doReload && !hasAutoReload && enoughShots)
+        ) {
+          //check to see we're not posting the message twice
+          if (!notificationExists('SWADE.NotEnoughAmmo', true)) {
+            ui.notifications.warn(game.i18n.localize('SWADE.NotEnoughAmmo'));
+          }
+        } else {
+          roll = await this.doSkillAction(skill, item, actor);
+        }
+        if (roll) await this.subtractShots(actor, item.id, 1);
         Hooks.call('swadeAction', actor, item, action, roll, game.user.id);
         break;
       case 'reload':
