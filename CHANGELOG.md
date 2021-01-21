@@ -39,6 +39,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Increased width of Power Point input fields on the Official CHaracter sheet.
 - Turned the `SwadeCombat` file into a proper class that extends `Combat`
 - Skills will now always open their sheet when created on an actor, even when drag&dropped onto the sheet from somewhere.
+- Generalized the operation skill dropdown on vehicles by adding the possible skills as an array to the `CONFIG.SWADE.vehicles` object
 
 ### Removed
 
