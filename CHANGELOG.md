@@ -30,6 +30,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added option to toggle whether the Benny spending animation should be played. This setting can be found in the new Dice Configuration system settings submenu and is only available if DSN is installed
 - Added the ability to set a custom Wild Die color theme. This setting can be found in the new Dice Configuration system settings submenu and is only available if DSN is installed
 - Added Ammo Management. Ammo management is a system option per player that is turned on by default. When activated it allows you to to track how many shots are expended by an attack as well as reload the gun if it's empty. When active you cannot perform an action unless you have enough ammunition in the magazine. Weapons have recieved 2 new options. One marks the weapon if it doesn't need to be reloaded, such as bows. The other is a text field that lets you enter the name of an item that is used as ammunition.
+- Expanded Power Chat Card to now include options to directly adjust PP. This can be used to easily spend PP without having to do it via the character sheet
 - Added Shaken icon
 - Added additional translation options
 
