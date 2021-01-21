@@ -77,10 +77,7 @@ export default class SwadeHooks {
     if (!createData.img) {
       createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
     }
-    if (
-      createData.type === ItemType.Skill &&
-      typeof options.renderSheet !== 'undefined'
-    ) {
+    if (createData.type === ItemType.Skill && options.renderSheet !== null) {
       options.renderSheet = true;
     }
   }
@@ -132,6 +129,7 @@ export default class SwadeHooks {
     actor.createEmbeddedEntity(
       'OwnedItem',
       skillIndex.filter((i) => skillsToAdd.includes(i.data.name)),
+      { renderSheet: null },
     );
   }
 
