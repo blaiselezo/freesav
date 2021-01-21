@@ -47,58 +47,8 @@ export default class ItemChatCardHelper {
     }
 
     await this.handleAction(item, actor, action);
+    await this.refreshItemCard(actor);
 
-    /*
-    switch (action) {
-      case 'damage':
-        roll = await item.rollDamage({
-          event,
-          additionalMods: [getProperty(item.data, 'data.actions.dmgMod')],
-        });
-        Hooks.call('swadeAction', actor, item, action, roll, game.user.id);
-        break;
-      case 'formula':
-        skill = actor.items.find(
-          (i: Item) =>
-            i.type === ItemType.Skill &&
-            i.name === getProperty(item.data, 'data.actions.skill'),
-        );
-        if (
-          (doReload && hasAutoReload && !canAutoReload) ||
-          (doReload && !hasAutoReload && enoughShots)
-        ) {
-          //check to see we're not posting the message twice
-          if (!notificationExists('SWADE.NotEnoughAmmo', true)) {
-            ui.notifications.warn(game.i18n.localize('SWADE.NotEnoughAmmo'));
-          }
-        } else {
-          roll = await this.doSkillAction(skill, item, actor);
-        }
-        if (roll) await this.subtractShots(actor, item.id, 1);
-        Hooks.call('swadeAction', actor, item, action, roll, game.user.id);
-        break;
-      case 'reload':
-        if (
-          getProperty(item.data, 'data.currentShots') >=
-          getProperty(item.data, 'data.shots')
-        ) {
-          //check to see we're not posting the message twice
-          if (!notificationExists('SWADE.ReloadUnneeded', true)) {
-            ui.notifications.info(game.i18n.localize('SWADE.ReloadUnneeded'));
-          }
-          break;
-        }
-        await this.reloadWeapon(actor, item);
-        break;
-      default:
-        roll = await this.handleAdditionalActions(item, actor, action);
-        // No need to call the hook here, as _handleAdditionalActions already calls the hook
-        // This is so an external API can directly use _handleAdditionalActions to use an action and still fire the hook
-        break;
-    }
-    */
-
-    this.refreshItemCard(actor);
     // Re-enable the button
     button.disabled = false;
   }
@@ -152,7 +102,8 @@ export default class ItemChatCardHelper {
     ) as Item;
 
     // Attack and Damage Rolls
-    const ammoManagement = game.settings.get('swade', 'ammoManagement');
+    const ammoManagement =
+      game.settings.get('swade', 'ammoManagement') && !item.isMeleeWeapon;
     const hasAutoReload = getProperty(item.data, 'data.autoReload');
 
     const canAutoReload = !!ammo && getProperty(ammo, 'data.data.quantity') > 0;
@@ -221,7 +172,8 @@ export default class ItemChatCardHelper {
     action: string,
   ) {
     const availableActions = getProperty(item.data, 'data.actions.additional');
-    const ammoManagement = game.settings.get('swade', 'ammoManagement');
+    const ammoManagement =
+      game.settings.get('swade', 'ammoManagement') && !item.isMeleeWeapon;
     let actionToUse = availableActions[action];
 
     // if there isn't actually any action then return early
@@ -229,7 +181,7 @@ export default class ItemChatCardHelper {
       return;
     }
 
-    let roll = undefined;
+    let roll = null;
 
     if (actionToUse.type === 'skill') {
       // Do skill stuff
@@ -268,10 +220,9 @@ export default class ItemChatCardHelper {
         !!ammo &&
         getProperty(actor.getOwnedItem(ammo.id), 'data.quantity') <= 0;
       if (
-        (ammoManagement && hasAutoReload && !canAutoReload) ||
-        (game.settings.get('swade', 'ammoManagement') &&
-          !!actionToUse.shotsUsed &&
-          currentShots < actionToUse.shotsUsed)
+        ammoManagement &&
+        ((hasAutoReload && !canAutoReload) ||
+          (!!actionToUse.shotsUsed && currentShots < actionToUse.shotsUsed))
       ) {
         //check to see we're not posting the message twice
         if (!notificationExists('SWADE.NotEnoughAmmo', true)) {
