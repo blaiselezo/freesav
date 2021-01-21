@@ -44,7 +44,7 @@
     </button>
     {{/if}} {{#if (eq item.type "power")}}
     <span class="flexcol">
-      <input type="number" class="pp-adjust" value="0" />
+      <input type="number" class="pp-adjust" value="{{data.pp}}" />
       <span class="flexrow" style="display: flex;">
         <button data-action="pp-adjust" data-adjust="plus">
           &plus; {{localize "SWADE.PP"}}

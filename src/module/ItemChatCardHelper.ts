@@ -426,10 +426,6 @@ export default class ItemChatCardHelper {
       //update message content
       $(messageContent).find('.pp-counter .current-pp').first().text(currentPP);
       $(messageContent).find('.pp-counter .max-pp').first().text(maxPP);
-      $(messageContent)
-        .find('.pp-input')
-        .first()
-        .val($(messageContent).find('.pp-input').first().val());
     }
 
     //update the message and render the chatlog/chat popout
