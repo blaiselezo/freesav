@@ -124,7 +124,7 @@ export function chatListeners(html: JQuery<HTMLElement>) {
     //handle Power Item Card PP adjustment
     if (action === 'pp-adjust') {
       const ppToAdjust = $(element)
-        .parents('.flexcol')
+        .closest('.flexcol')
         .find('input.pp-adjust')
         .val() as string;
       const adjustment = element.getAttribute('data-adjust') as string;
