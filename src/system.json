@@ -63,5 +63,7 @@
   "manifest": "https://gitlab.com/peginc/swade/-/raw/master/src/system.json",
   "download": "https://gitlab.com/peginc/swade/-/raw/v0.15.3/package/swade-v0.15.3.zip",
   "readme": "https://gitlab.com/peginc/swade/-/wikis/home",
-  "bugs": "https://gitlab.com/peginc/swade/-/issues"
+  "bugs": "https://gitlab.com/peginc/swade/-/issues",
+  "changelog": "https://gitlab.com/peginc/swade/-/releases",
+  "license": "https://gitlab.com/peginc/swade/-/blob/master/LICENSE.md"
 }
