@@ -307,8 +307,11 @@ SWADE.Curr: Current
 ##DSN
 SWADE.DSNNone: '- None -'
 
-# Ammo Management
+# Item Chat Cards
 SWADE.Reload: Reload
+SWADE.Refresh: Refresh this card
+
+# Ammo Management
 SWADE.Ammo: Ammunition
 SWADE.ReloadUnneeded: The weapon is already fully loaded
 SWADE.ReloadSuccess: The weapon has been successfully reloaded

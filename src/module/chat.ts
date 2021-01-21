@@ -137,8 +137,9 @@ export function chatListeners(html: JQuery<HTMLElement>) {
         newPP += parseInt(ppToAdjust);
       } else if (adjustment === 'minus') {
         newPP -= parseInt(ppToAdjust);
+      } else if (adjustment === 'refresh') {
+        await ItemChatCardHelper.refreshItemCard(actor, messageId);
       }
-      console.log(newPP);
       await actor.update({ [key]: newPP });
       await ItemChatCardHelper.refreshItemCard(actor, messageId);
     }

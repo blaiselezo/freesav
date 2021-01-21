@@ -22,7 +22,7 @@
   {{/if}} {{#if (eq item.type "power")}}
   <div class="pp-counter">
     {{#if data.arcane}}{{data.arcane}}{{/if}} {{localize "SWADE.PP"}}:
-    <span class="current-pp">{{powerPoints.max}}</span>&nbsp;/&nbsp;<span
+    <span class="current-pp">{{powerPoints.current}}</span>&nbsp;/&nbsp;<span
       class="max-pp"
       >{{powerPoints.max}}
     </span>
@@ -51,6 +51,13 @@
         </button>
         <button data-action="pp-adjust" data-adjust="minus">
           &minus; {{localize "SWADE.PP"}}
+        </button>
+        <button
+          data-action="pp-adjust"
+          data-adjust="refresh"
+          title=" {{localize 'SWADE.Refresh'}}"
+        >
+          <i class="fas fa-sync"></i>
         </button>
       </span>
     </span>
