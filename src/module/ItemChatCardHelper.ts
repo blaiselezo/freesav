@@ -379,13 +379,18 @@ export default class ItemChatCardHelper {
     }
   }
 
-  static async refreshItemCard(actor: SwadeActor) {
+  static async refreshItemCard(actor: SwadeActor, messageId?: string) {
     //get ChatMessage and remove temporarily stored id from CONFIG object
-    const message = game.messages.get(CONFIG.SWADE['itemCardMessageId']);
+    let message;
+    if (messageId) {
+      message = game.messages.get(messageId);
+    } else {
+      message = game.messages.get(CONFIG.SWADE['itemCardMessageId']);
+      delete CONFIG.SWADE['itemCardMessageId'];
+    }
     if (!message) {
       return;
     } //solves for the case where ammo management isn't turned on so there's no errors
-    delete CONFIG.SWADE['itemCardMessageId'];
 
     const messageContent = new DOMParser().parseFromString(
       getProperty(message, 'data.content'),
@@ -398,16 +403,34 @@ export default class ItemChatCardHelper {
       .data();
 
     const item = actor.getOwnedItem(messageData.itemId);
+    if (item.type === ItemType.Weapon) {
+      const currentShots = getProperty(item.data, 'data.currentShots');
+      const maxShots = getProperty(item.data, 'data.shots');
 
-    const currentShots = getProperty(item.data, 'data.currentShots');
-    const maxShots = getProperty(item.data, 'data.shots');
+      //update message content
+      $(messageContent)
+        .find('.ammo-counter .current-shots')
+        .first()
+        .text(currentShots);
+      $(messageContent).find('.ammo-counter .max-shots').first().text(maxShots);
+    }
 
-    //update message content
-    $(messageContent)
-      .find('.ammo-counter .current-shots')
-      .first()
-      .text(currentShots);
-    $(messageContent).find('.ammo-counter .max-shots').first().text(maxShots);
+    if (item.type === ItemType.Power) {
+      const arcane = getProperty(item.data, 'data.arcane');
+      let currentPP = getProperty(actor.data, 'data.powerPoints.value');
+      let maxPP = getProperty(actor.data, 'data.powerPoints.max');
+      if (arcane) {
+        currentPP = getProperty(actor.data, `data.powerPoints.${arcane}.value`);
+        maxPP = getProperty(actor.data, `data.powerPoints.${arcane}.max`);
+      }
+      //update message content
+      $(messageContent).find('.pp-counter .current-pp').first().text(currentPP);
+      $(messageContent).find('.pp-counter .max-pp').first().text(maxPP);
+      $(messageContent)
+        .find('.pp-input')
+        .first()
+        .val($(messageContent).find('.pp-input').first().val());
+    }
 
     //update the message and render the chatlog/chat popout
     await message.update({ content: messageContent.body.innerHTML });

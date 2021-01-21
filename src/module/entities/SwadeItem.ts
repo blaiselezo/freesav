@@ -1,7 +1,6 @@
 import IRollOptions from '../../interfaces/IRollOptions';
 import SwadeDice from '../dice';
 import { ItemType } from '../enums/ItemTypeEnum';
-import { notificationExists } from '../util';
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './SwadeActor';
 
@@ -198,8 +197,6 @@ export default class SwadeItem extends Item {
     //Additional actions
     const actions = getProperty(this.data, 'data.actions.additional');
     data.hasAdditionalActions = !!actions && Object.keys(actions).length > 0;
-    const ammo = this.actor.getOwnedItem(getProperty(this.data, 'data.ammo'));
-    data.ammoType = ammo ? ammo.name : '';
 
     data.actions = [];
     for (let action in actions) {
@@ -232,7 +229,7 @@ export default class SwadeItem extends Item {
         this.type === ItemType.Weapon &&
         getProperty(this.data, 'data.shots') > 0 &&
         !getProperty(this.data, 'data.autoReload'),
-      hasDamage: !!this.data.data.damage,
+      hasDamage: !!getProperty(this.data, 'data.damage'),
       skill: getProperty(this.data, 'data.actions.skill'),
       hasSkillRoll:
         [
@@ -241,6 +238,7 @@ export default class SwadeItem extends Item {
           ItemType.Shield.toString(),
         ].includes(this.data.type) &&
         !!getProperty(this.data, 'data.actions.skill'),
+      powerPoints: this._getPowerPoints(),
     };
 
     // Render the chat card template
@@ -296,5 +294,21 @@ export default class SwadeItem extends Item {
 
   getRollData() {
     return {};
+  }
+
+  private _getPowerPoints(): any {
+    if (this.type !== ItemType.Power) return {};
+
+    const arcane = getProperty(this.data, 'data.arcane');
+    let current = getProperty(this.actor.data, 'data.powerPoints.value');
+    let max = getProperty(this.actor.data, 'data.powerPoints.max');
+    if (arcane) {
+      current = getProperty(
+        this.actor.data,
+        `data.powerPoints.${arcane}.value`,
+      );
+      max = getProperty(this.actor.data, `data.powerPoints.${arcane}.max`);
+    }
+    return { current, max };
   }
 }

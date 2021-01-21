@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './entities/SwadeActor';
-import SwadeItem from './entities/SwadeItem';
 import ItemChatCardHelper from './ItemChatCardHelper';
 
 export async function formatRoll(
@@ -110,17 +109,42 @@ export function chatListeners(html: JQuery<HTMLElement>) {
   });
 
   html.on('click', '.card-buttons button', async (event) => {
-    // Bind item cards
-    ItemChatCardHelper.onChatCardAction(event);
-
-    // Conviction
     const element = event.currentTarget as Element;
     const actorId = $(element).parents('[data-actor-id]').attr('data-actor-id');
+    const itemId = $(element).parents('[data-item-id]').attr('data-item-id');
     const actor = game.actors.get(actorId) as SwadeActor;
+    const action = element.getAttribute('data-action');
     const messageId = $(element)
       .parents('[data-message-id]')
       .attr('data-message-id');
-    const action = element.getAttribute('data-action');
+
+    // Bind item cards
+    ItemChatCardHelper.onChatCardAction(event);
+
+    //handle Power Item Card PP adjustment
+    if (action === 'pp-adjust') {
+      const ppToAdjust = $(element)
+        .parents('.flexcol')
+        .find('input.pp-adjust')
+        .val() as string;
+      const adjustment = element.getAttribute('data-adjust') as string;
+      const power = actor.getOwnedItem(itemId);
+      let key = 'data.powerPoints.value';
+      const arcane = getProperty(power.data, 'data.arcane');
+      if (arcane) key = `data.powerPoints.${arcane}.value`;
+      let newPP = getProperty(actor.data, key);
+      if (adjustment === 'plus') {
+        newPP += parseInt(ppToAdjust);
+      } else if (adjustment === 'minus') {
+        newPP -= parseInt(ppToAdjust);
+      }
+      console.log(newPP);
+      await actor.update({ [key]: newPP });
+      await ItemChatCardHelper.refreshItemCard(actor, messageId);
+    }
+
+    // Conviction
+
     if (action === 'yes') {
       const currentBennies = getProperty(
         actor.data,
