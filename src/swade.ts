@@ -2,8 +2,8 @@
 /**
  * This is the TypeScript entry file for Foundry VTT.
  * Author: FloRad
- * Content License: Savage Worlds Fan License
- * Software License: GNU GENERAL PUBLIC LICENSE Version 3
+ * Content License: All Rights Reserved Pinnacle Entertainment, Inc
+ * Software License: Apache License, Version 2.0
  */
 
 import Benny from './module/Benny';
@@ -13,6 +13,7 @@ import SwadeEntityTweaks from './module/dialog/entity-tweaks';
 import SwadeActor from './module/entities/SwadeActor';
 import SwadeItem from './module/entities/SwadeItem';
 import { registerCustomHelpers } from './module/handlebarsHelpers';
+import ItemChatCardHelper from './module/ItemChatCardHelper';
 import { listenJournalDrop } from './module/journalDrop';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { registerSettings } from './module/settings';
@@ -23,7 +24,7 @@ import SwadeNPCSheet from './module/sheets/SwadeNPCSheet';
 import SwadeVehicleSheet from './module/sheets/SwadeVehicleSheet';
 import SwadeCombat from './module/SwadeCombat';
 import SwadeHooks from './module/SwadeHooks';
-import { SwadeSocketHandler } from './module/SwadeSocketHandler';
+import SwadeSocketHandler from './module/SwadeSocketHandler';
 import { rollPowerMacro, rollSkillMacro, rollWeaponMacro } from './module/util';
 
 /* ------------------------------------ */
@@ -46,6 +47,7 @@ Hooks.once('init', () => {
     rollWeaponMacro,
     rollPowerMacro,
     sockets: new SwadeSocketHandler(),
+    itemChatCardHelper: ItemChatCardHelper,
   };
 
   //Register custom Handlebars helpers

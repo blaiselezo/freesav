@@ -34,6 +34,19 @@
           </label>
         </div>
         <div class="form-group">
+          <label class="check-container"
+            >{{localize "SWADE.AutoReload"}}
+            <input
+              type="checkbox"
+              name="data.autoReload"
+              {{checked
+              item.data.autoReload}}
+              data-dtype="Boolean"
+            />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="form-group">
           <label for="data.shots">{{localize "SWADE.Mag"}}</label>
           <span class="form-fields">
             <input

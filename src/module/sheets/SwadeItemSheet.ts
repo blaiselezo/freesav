@@ -96,6 +96,7 @@ export default class SwadeItemSheet extends ItemSheet {
         {},
       );
     });
+
     html.find('.action-delete').on('click', (ev) => {
       const key = ev.currentTarget.dataset.actionKey;
       this.item.update(
@@ -179,6 +180,14 @@ export default class SwadeItemSheet extends ItemSheet {
     data['settingrules'] = {
       modSlots: game.settings.get('swade', 'vehicleMods'),
     };
+
+    switch (this.item.type) {
+      case 'weapon':
+        data['isWeapon'] = true && game.settings.get('swade', 'ammoManagement');
+        break;
+      default:
+        break;
+    }
     return data;
   }
 }

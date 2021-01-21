@@ -9,16 +9,35 @@
     <h3 class="item-name"><a>{{item.name}}</a></h3>
   </header>
 
+  {{#if hasAmmoManagement}}
+  <div class="ammo-counter">
+    {{localize "SWADE.Mag"}}:
+    <span class="current-shots">{{data.currentShots}}</span>&nbsp;/&nbsp;<span
+      class="max-shots"
+      >{{data.shots}}</span
+    >
+    {{#if data.ammoType}}&nbsp;- &nbsp;{{data.ammoType}}{{/if}}
+  </div>
+  {{/if}}
+
   <div class="card-content" style="display: none;">
     {{{data.description}}}
   </div>
 
   <div class="card-buttons">
-    {{#if hasSkillRoll}}<button data-action="formula">
-      <i class="fas fa-bullseye"></i>{{skill}}</button
-    >{{/if}} {{#if hasDamage}}<button data-action="damage">
-      <i class="fas fa-tint"></i> {{data.damage}}</button
-    >{{/if}} {{#if data.hasAdditionalActions}}
+    {{#if hasSkillRoll}}
+    <button data-action="formula">
+      <i class="fas fa-bullseye"></i>{{skill}}
+    </button>
+    {{/if}} {{#if hasDamage}}
+    <button data-action="damage">
+      <i class="fas fa-tint"></i> {{data.damage}}
+    </button>
+    {{/if}} {{#if hasReloadButton}}
+    <button data-action="reload">
+      <i class="fas fa-redo-alt"></i> {{localize "SWADE.Reload"}}
+    </button>
+    {{/if}} {{#if data.hasAdditionalActions}}
     <hr />
     {{#each data.actions as |attr key|}} {{#if (eq attr.type "skill")}}
     <button data-action="{{attr.key}}">
