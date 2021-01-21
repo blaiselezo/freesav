@@ -153,6 +153,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
 
     data.config = CONFIG.SWADE;
     data.itemsByType = {};
+    data.opSkills = this._buildOpSkillList();
     for (const item of data.items) {
       let list = data.itemsByType[item.type];
       if (!list) {
@@ -305,5 +306,14 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
       p = 100;
     }
     return p;
+  }
+
+  private _buildOpSkillList(): any {
+    let retVal = {};
+    const opSkills = CONFIG.SWADE.vehicles.opSkills as string[];
+    for (let skill of opSkills) {
+      retVal[skill] = skill;
+    }
+    return retVal;
   }
 }

@@ -1,13 +1,7 @@
 <div id="opSkill">
   <label>{{localize "SWADE.OpSkill"}}</label>
   <select name="data.driver.skill">
-    {{#select data.driver.skill}}
-    <option value=""></option>
-    <option value="Boating">Boating</option>
-    <option value="Driving">Driving</option>
-    <option value="Piloting">Piloting</option>
-    <option value="Riding">Riding</option>
-    {{/select}}
+    {{#select data.driver.skill}} {{selectOptions opSkills}} {{/select}}
   </select>
   {{#if (isEmpty data.driver.skill)}}
   <label>{{localize "SWADE.AltSkill"}}</label>

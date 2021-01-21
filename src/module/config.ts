@@ -53,6 +53,7 @@ export const SWADE = {
 
   vehicles: {
     maxHandlingPenalty: -4,
+    opSkills: ['', 'Boating', 'Driving', 'Piloting', 'Riding'],
   },
 
   settingConfig: {
