@@ -13,8 +13,17 @@ export default class SwadeItem extends Item {
   /**
    * @override
    */
-  get actor() {
+  get actor(): SwadeActor {
     return (this.options.actor as SwadeActor) || null;
+  }
+
+  get isMeleeWeapon(): boolean {
+    const shots = getProperty(this.data, 'data.shots');
+    const currentShots = getProperty(this.data, 'data.currentShots');
+    return (
+      this.type === ItemType.Weapon &&
+      ((!shots && !currentShots) || (shots === '0' && currentShots === '0'))
+    );
   }
 
   /* -------------------------------------------- */
@@ -215,6 +224,7 @@ export default class SwadeItem extends Item {
       config: CONFIG.SWADE,
       hasAmmoManagement:
         this.type === ItemType.Weapon &&
+        !this.isMeleeWeapon &&
         ammoManagement &&
         !getProperty(this.data, 'data.autoReload'),
       hasReloadButton:
