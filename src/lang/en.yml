@@ -222,6 +222,7 @@ SWADE.AltSkill: Alternative Skill
 SWADE.Class: Classification
 SWADE.Vehicular: Vehicular Weapon
 SWADE.VehicleMod: Vehicle Mod
+SWADE.OpSkill: Operation Skill
 
 #####################
 # Setttings
