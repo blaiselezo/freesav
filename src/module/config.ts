@@ -99,6 +99,11 @@ export const SWADE = {
       label: 'SWADE.Shaken',
     },
     {
+      icon: 'icons/svg/skull.svg',
+      id: 'incapacitated',
+      label: 'SWADE.Incap',
+    },
+    {
       icon: 'systems/swade/assets/icons/status/status_aiming.svg',
       id: 'aiming',
       label: 'SWADE.Aiming',
