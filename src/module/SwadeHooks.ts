@@ -160,7 +160,7 @@ export default class SwadeHooks {
 
       if (wildcard) {
         element.innerHTML = `
-					<a><img src="systems/swade/assets/ui/wildcard.svg" class="wildcard-icon">${wildcard.data.name}</a>
+					<a><img src="${CONFIG.SWADE.wildCardIcons.regular}" class="wildcard-icon">${wildcard.data.name}</a>
 					`;
       }
     }
@@ -186,7 +186,7 @@ export default class SwadeHooks {
           const entityName = el.children[1];
           entityName.children[0].insertAdjacentHTML(
             'afterbegin',
-            '<img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">',
+            `<img src="${CONFIG.SWADE.wildCardIcons.compendium}" class="wildcard-icon">`,
           );
         }
       });
@@ -661,8 +661,8 @@ export default class SwadeHooks {
       {
         type: 'db',
         labels: [
-          CONFIG.SWADE.bennyTextures.front,
-          CONFIG.SWADE.bennyTextures.back,
+          CONFIG.SWADE.bennies.textures.front,
+          CONFIG.SWADE.bennies.textures.back,
         ],
         system: 'standard',
         colorset: 'black',

@@ -49,6 +49,10 @@ export const SWADE = {
       spend: 'systems/swade/templates/chat/benny-spend.html',
       gmadd: 'systems/swade/templates/chat/benny-gmadd.html',
     },
+    textures: {
+      front: 'systems/swade/assets/benny/benny-chip-front.png',
+      back: 'systems/swade/assets/benny/benny-chip-front.png',
+    },
   },
 
   vehicles: {
@@ -216,8 +220,8 @@ export const SWADE = {
     },
   ],
 
-  bennyTextures: {
-    front: 'systems/swade/assets/benny/benny-chip-front.png',
-    back: 'systems/swade/assets/benny/benny-chip-front.png',
+  wildCardIcons: {
+    regular: 'systems/swade/assets/ui/wildcard.svg',
+    compendium: 'systems/swade/assets/ui/wildcard-dark.svg',
   },
 };
