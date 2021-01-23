@@ -20,6 +20,49 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.16.0]
+
+### Added
+
+- Added warnings to all item types which display when any action related to an Active Effect is taken on an owned Item
+- Added Benny spending animation to all sheets as well as to the player view
+- Added a new Configuration Submenu for _Dice So Nice!_ related settings.
+- Added option to toggle whether the Benny spending animation should be played. This setting can be found in the new Dice Configuration system settings submenu and is only available if DSN is installed
+- Added the ability to set a custom Wild Die color theme. This setting can be found in the new Dice Configuration system settings submenu and is only available if DSN is installed
+- Added Ammo Management. Ammo management is a system option per player that is turned on by default. When activated it allows you to to track how many shots are expended by an attack as well as reload the gun if it's empty. When active you cannot perform an action unless you have enough ammunition in the magazine. Weapons have recieved 2 new options. One marks the weapon if it doesn't need to be reloaded, such as bows. The other is a text field that lets you enter the name of an item that is used as ammunition.
+- Expanded Power Chat Card to now include options to directly adjust PP. This can be used to easily spend PP without having to do it via the character sheet
+- Added Shaken icon
+- Added Incapacitated icon
+- Added additional translation options
+
+### Changed
+
+- Changed background color of SVG skill and `Item` to be more in line with the _Savage Worlds_ color scheme
+- Increased width of Power Point input fields on the Official CHaracter sheet.
+- Turned the `SwadeCombat` file into a proper class that extends `Combat`
+- Skills will now always open their sheet when created on an actor, even when drag&dropped onto the sheet from somewhere.
+- Generalized the operation skill dropdown on vehicles by adding the possible skills as an array to the `CONFIG.SWADE.vehicles` object
+- Moved paths to Wild Card icon files to `CONFIG.SWADE.wildCardIcons` which means modules can now add their own custom wildcard icons. Testing showed the ideal place is the `setup` Hook.
+- Parametrized paths to the benny textures in `CONFIG.SWADE.bennies.textures`. Can be used the same way as the wildcard icons
+- Updated a few strings in the german translation
+
+### Deprecated
+
+- Started deprecation of the polish translation as I cannot maintain it. It will be removed from the game system with v0.17.0
+
+### Removed
+
+- Removed ability to interact with Active Effects on skill Items
+- Removed ability to interact with Active Effects on owned Items entirely
+- Removed Translations with `SSO` prefix and unified translation under the `SWADE` prefix. Adjusted Official sheet accordingly
+- Removed unused gradient definitions from skill and `Item` SVG icons
+
+### Fixed
+
+- Fixed maximum wound penalty for pace
+- Checkbox styles are properly scoped to the system now
+- Fixed a small bug which would not reset initiative properly when clicking the `Reset All` button in the Combat Tracker
+
 ## [v0.15.3]
 
 ### Added

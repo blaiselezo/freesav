@@ -172,7 +172,7 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
             actor: this.actor,
             alias: this.actor.name,
           },
-          content: game.i18n.localize('SWADE ConvictionActivate'),
+          content: game.i18n.localize('SWADE.ConvictionActivate'),
         });
       } else {
         await this.actor.update({

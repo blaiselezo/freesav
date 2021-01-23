@@ -1,4 +1,4 @@
-export class SwadeSocketHandler {
+export default class SwadeSocketHandler {
   SWADE = 'system.swade';
 
   constructor() {

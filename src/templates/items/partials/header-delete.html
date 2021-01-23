@@ -26,9 +26,11 @@
     </div>
   </div>
 </header>
+{{#if displayNav}}
 <nav class="flexrow tabs" data-group="primary" style="margin-bottom: 5px;">
   <a class="item" data-tab="summary">{{localize "SWADE.Desc"}}</a>
-  <a class="item" data-tab="actions-effects"
-    >{{localize "SWADE.ActionsEffects"}}</a
-  >
+  <a class="item" data-tab="actions-effects">
+    {{localize "SWADE.ActionsEffects"}}
+  </a>
 </nav>
+{{/if}}

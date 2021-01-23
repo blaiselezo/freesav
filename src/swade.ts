@@ -2,8 +2,8 @@
 /**
  * This is the TypeScript entry file for Foundry VTT.
  * Author: FloRad
- * Content License: Savage Worlds Fan License
- * Software License: GNU GENERAL PUBLIC LICENSE Version 3
+ * Content License: All Rights Reserved Pinnacle Entertainment, Inc
+ * Software License: Apache License, Version 2.0
  */
 
 import Benny from './module/Benny';
@@ -13,6 +13,7 @@ import SwadeEntityTweaks from './module/dialog/entity-tweaks';
 import SwadeActor from './module/entities/SwadeActor';
 import SwadeItem from './module/entities/SwadeItem';
 import { registerCustomHelpers } from './module/handlebarsHelpers';
+import ItemChatCardHelper from './module/ItemChatCardHelper';
 import { listenJournalDrop } from './module/journalDrop';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
 import { registerSettings } from './module/settings';
@@ -21,9 +22,9 @@ import SwadeCharacterSheet from './module/sheets/SwadeCharacterSheet';
 import SwadeItemSheet from './module/sheets/SwadeItemSheet';
 import SwadeNPCSheet from './module/sheets/SwadeNPCSheet';
 import SwadeVehicleSheet from './module/sheets/SwadeVehicleSheet';
-import { rollInitiative, _sortCombatants } from './module/SwadeCombat';
+import SwadeCombat from './module/SwadeCombat';
 import SwadeHooks from './module/SwadeHooks';
-import { SwadeSocketHandler } from './module/SwadeSocketHandler';
+import SwadeSocketHandler from './module/SwadeSocketHandler';
 import { rollPowerMacro, rollSkillMacro, rollWeaponMacro } from './module/util';
 
 /* ------------------------------------ */
@@ -46,20 +47,20 @@ Hooks.once('init', () => {
     rollWeaponMacro,
     rollPowerMacro,
     sockets: new SwadeSocketHandler(),
+    itemChatCardHelper: ItemChatCardHelper,
   };
 
   //Register custom Handlebars helpers
   registerCustomHelpers();
 
   //Overwrite method prototypes
-  Combat.prototype.rollInitiative = rollInitiative;
-  Combat.prototype._sortCombatants = _sortCombatants;
   MeasuredTemplate.prototype._getConeShape = getSwadeConeShape;
 
   // Register custom classes
   //CONFIG.Combat.entityClass = SwadeCombat;
   CONFIG.Actor.entityClass = SwadeActor;
   CONFIG.Item.entityClass = SwadeItem;
+  CONFIG.Combat.entityClass = SwadeCombat;
   CONFIG.statusEffects = SWADE.statusEffects;
 
   // Register custom system settings
@@ -72,7 +73,7 @@ Hooks.once('init', () => {
   Actors.registerSheet('swade', CharacterSheet, {
     types: ['character'],
     makeDefault: true,
-    label: game.i18n.localize('SSO.OfficialSheet'),
+    label: game.i18n.localize('SWADE.OfficialSheet'),
   });
 
   Actors.registerSheet('swade', SwadeCharacterSheet, {
@@ -115,22 +116,6 @@ Hooks.once('setup', () => SwadeHooks.onSetup());
 /* When ready						              	*/
 /* ------------------------------------ */
 Hooks.once('ready', async () => SwadeHooks.onReady());
-
-Hooks.once('diceSoNiceReady', (dice3d) => {
-  dice3d.addSystem({ id: 'swade-benny', name: 'Savage Worlds Benny' }, false);
-
-  const bennyLabelFront = 'systems/swade/assets/benny/benny-chip-front.png';
-
-  dice3d.addDicePreset(
-    {
-      type: 'db',
-      labels: [bennyLabelFront, bennyLabelFront],
-      system: 'standard',
-      colorset: 'black',
-    },
-    'd2',
-  );
-});
 
 Hooks.on('preCreateItem', (createData: any, options: any, userId: string) =>
   SwadeHooks.onPreCreateItem(createData, options, userId),
@@ -237,3 +222,11 @@ Hooks.on(
   async (app: FormApplication, html: JQuery<HTMLElement>, options: any) =>
     SwadeHooks.onRenderCombatantConfig(app, html, options),
 );
+
+Hooks.once('diceSoNiceInit', (dice3d: any) => {
+  SwadeHooks.onDiceSoNiceInit(dice3d);
+});
+
+Hooks.once('diceSoNiceReady', (dice3d: any) => {
+  SwadeHooks.onDiceSoNiceReady(dice3d);
+});

@@ -1,12 +1,13 @@
-export class SWADE {
-  public static ASCII = `███████╗██╗    ██╗ █████╗ ██████╗ ███████╗
-██╔════╝██║    ██║██╔══██╗██╔══██╗██╔════╝
-███████╗██║ █╗ ██║███████║██║  ██║█████╗  
-╚════██║██║███╗██║██╔══██║██║  ██║██╔══╝  
-███████║╚███╔███╔╝██║  ██║██████╔╝███████╗
-╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝`;
+export const SWADE = {
+  ASCII: `
+  ███████╗██╗    ██╗ █████╗ ██████╗ ███████╗
+  ██╔════╝██║    ██║██╔══██╗██╔══██╗██╔════╝
+  ███████╗██║ █╗ ██║███████║██║  ██║█████╗  
+  ╚════██║██║███╗██║██╔══██║██║  ██║██╔══╝  
+  ███████║╚███╔███╔╝██║  ██║██████╔╝███████╗
+  ╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝`,
 
-  public static attributes = {
+  attributes: {
     agility: {
       long: 'SWADE.AttrAgi',
       short: 'SWADE.AttrAgiShort',
@@ -27,20 +28,20 @@ export class SWADE {
       long: 'SWADE.AttrVig',
       short: 'SWADE.AttrVigShort',
     },
-  };
+  },
 
-  public static init = {
+  init: {
     defaultCardCompendium: 'swade.action-cards',
     cardTable: 'Action Cards',
-  };
+  },
 
-  public static packChoices = {};
+  packChoices: {},
 
-  public static imagedrop = {
+  imagedrop: {
     height: 300,
-  };
+  },
 
-  public static bennies = {
+  bennies: {
     templates: {
       refresh: 'systems/swade/templates/chat/benny-refresh.html',
       refreshAll: 'systems/swade/templates/chat/benny-refresh-all.html',
@@ -48,13 +49,18 @@ export class SWADE {
       spend: 'systems/swade/templates/chat/benny-spend.html',
       gmadd: 'systems/swade/templates/chat/benny-gmadd.html',
     },
-  };
+    textures: {
+      front: 'systems/swade/assets/benny/benny-chip-front.png',
+      back: 'systems/swade/assets/benny/benny-chip-front.png',
+    },
+  },
 
-  public static vehicles = {
+  vehicles: {
     maxHandlingPenalty: -4,
-  };
+    opSkills: ['', 'Boating', 'Driving', 'Piloting', 'Riding'],
+  },
 
-  public static settingConfig = {
+  settingConfig: {
     id: 'settingConfig',
     title: 'SWADE Setting Rule Configurator',
     settings: [
@@ -63,15 +69,40 @@ export class SWADE {
       'vehicleEdges',
       'gmBennies',
       'enableWoundPace',
+      'ammoManagement',
+      'ammoFromInventory',
+      'npcAmmo',
+      'vehicleAmmo',
     ],
-  };
+  },
 
-  public static templates = {
+  diceConfig: {
+    id: 'diceConfig',
+    title: 'SWADE Dice Settings',
+    settings: [
+      'dsnShowBennyAnimation',
+      'dsnWildDie',
+      'dsnCustomWildDieColors',
+      'dsnCustomWildDieOptions',
+    ],
+  },
+
+  templates: {
     preloadPromise: null,
     templatesPreloaded: false,
-  };
+  },
 
-  public static statusEffects = [
+  statusEffects: [
+    {
+      icon: 'systems/swade/assets/icons/status/status_shaken.svg',
+      id: 'shaken',
+      label: 'SWADE.Shaken',
+    },
+    {
+      icon: 'icons/svg/skull.svg',
+      id: 'incapacitated',
+      label: 'SWADE.Incap',
+    },
     {
       icon: 'systems/swade/assets/icons/status/status_aiming.svg',
       id: 'aiming',
@@ -192,5 +223,10 @@ export class SWADE {
       id: 'smite',
       label: 'SWADE.Smite',
     },
-  ];
-}
+  ],
+
+  wildCardIcons: {
+    regular: 'systems/swade/assets/ui/wildcard.svg',
+    compendium: 'systems/swade/assets/ui/wildcard-dark.svg',
+  },
+};

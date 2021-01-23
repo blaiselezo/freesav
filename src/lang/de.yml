@@ -1,4 +1,32 @@
 ---
+#***************************
+# General
+#***************************
+SWADE.CommunityCharSheet: Community Charakterbogen
+SWADE.CommunityNPCSheet: Community NSC Bogen
+SWADE.CommunityVicSheet: Community Fahrzeugbogen
+SWADE.CommunityItemSheet: Community Gegenstandsbogen
+SWADE.Expand: Ausklappen
+SWADE.ModHint: Bitte stell sicher das alle Modifikatoren ein + oder - enthalten
+
+#***************************
+# Entity Labels
+#***************************
+# Actor
+ACTOR.TypeCharacter: Spielercharakter
+ACTOR.TypeNpc: NSC
+ACTOR.TypeVehicle: Fahrzeug
+
+# Item
+ITEM.TypeWeapon: Waffe
+ITEM.TypeArmor: Rüstung
+ITEM.TypeShield: Schild
+ITEM.TypeGear: Ausrüstung
+ITEM.TypeEdge: Talent
+ITEM.TypeHindrance: Handicap
+ITEM.TypeSkill: Fertigkeit
+ITEM.TypePower: Macht
+
 SWADE.Name: Name
 SWADE.Tough: Robustheit
 SWADE.Race: Spezies
@@ -8,7 +36,7 @@ SWADE.Rank: Rang
 SWADE.Inv: Inventar
 SWADE.Summary: Übersicht
 SWADE.Pow: Mächte
-SWADE.Wildcard: Wildcard
+SWADE.WildCard: Wildcard
 SWADE.Extra: Statist
 SWADE.Bennies: Bennys
 SWADE.Shaken: Angeschl.
@@ -53,7 +81,6 @@ SWADE.Del: Löschen
 SWADE.Arcane: Arkan
 SWADE.All: Alle
 SWADE.HasPowers: hat Mächte
-SWADE.Gear: Ausrüstung
 SWADE.Weapons: Waffen
 SWADE.MeleeWeapons: Nahkampfwaffen
 SWADE.RangedWeapons: Fernkampfwaffen
@@ -73,6 +100,7 @@ SWADE.MinStrLong: Mindeststärke
 SWADE.MinStr: Min.Stärke
 SWADE.MinStrShort: Min.STR
 SWADE.Desc: Beschreibung
+SWADE.Biography: Biographie
 SWADE.Special: Spez. Fähigkeiten
 SWADE.Details: Details
 SWADE.Equippable: Ausrüstbar
@@ -80,8 +108,8 @@ SWADE.Misc: Sonstiges
 SWADE.QuickAccess: Schnellzugriff
 SWADE.Hindrances: Handicaps
 SWADE.MajHind: Schweres Handicap
-SWADE.Major: '(Schwer)'
-SWADE.Minor: '(Leicht)'
+SWADE.Major: (Schwer)
+SWADE.Minor: (Leicht)
 SWADE.Edges: Talente
 SWADE.ArcBack: Arkaner Hintergrund
 SWADE.Req: Vorausetzungen
@@ -133,19 +161,19 @@ SWADE.AutoInit: Automatische Initiative
 SWADE.AutoInitDesc: Aktionskarten jede Runde automatisch ziehen
 SWADE.CreateInitChat: Chatnachrichten für die Initiative erstellen
 SWADE.HideWC: NSC Wildcards verstecken
-SWADE.HideWCDesc: Den Spielern nicht anzeigen, welche NSCs Wildcards sind
+SWADE.HideWCDesc: 'Den Spielern nicht anzeigen, welche NSCs Wildcards sind'
 SWADE.EnableConv: Entschlossenheit verwenden
 SWADE.EnableConvDesc: Die Regel Entschlossenheit verwenden
 SWADE.AutoLink: Automat. Wildcards verlinken
-SWADE.AutoLinkDesc:
-  Wenn aktiv, bleibt bei NSC-Wildcards der Token beim Umschalten
-  zwischen Statist und Wildcard verknüpft
+SWADE.AutoLinkDesc: >-
+  Wenn aktiv, bleibt bei NSC-Wildcards der Token beim Umschalten zwischen
+  Statist und Wildcard verknüpft
 SWADE.GmBennies: SL Bennies
-SWADE.GmBenniesDesc: Stellt ein, wie viele Bennys der SL beim Zurücksetzen erhält
+SWADE.GmBenniesDesc: 'Stellt ein, wie viele Bennys der SL beim Zurücksetzen erhält'
 SWADE.EnableBennyNotify: Benny Mitteilung
-SWADE.EnableBennyNotifyDesc:
-  Chat-Nachricht ausgeben, wenn Bennys erhalten, eingesetzt
-  oder zurückgesetzt werden.
+SWADE.EnableBennyNotifyDesc: >-
+  Chat-Nachricht ausgeben, wenn Bennys erhalten, eingesetzt oder zurückgesetzt
+  werden.
 SWADE.VehicleMods: Fahrzeug Mod.
 SWADE.VehicleModsDesc: Fahrzeuge nutzen Mod.-Plätze
 SWADE.VehicleEdges: Fahrzeug Talente
@@ -159,7 +187,7 @@ SWADE.RollRaise: Steigerung
 SWADE.Ok: OK
 SWADE.Cancel: Abbrechen
 SWADE.Redraw: Neu ziehen
-SWADE.Add: Hinzufügen
+SWADE.Add: Neu
 SWADE.ConfigInit: Initiative konfigurieren
 SWADE.IgnWounds: Ignoriere Wunden
 SWADE.Size: Größe
@@ -172,7 +200,7 @@ SWADE.Head: Kopf
 SWADE.Torso: Torso
 SWADE.Arms: Arme
 SWADE.Legs: Beine
-SWADE ConvictionActivate: Entschlossenheit auslösen!
+SWADE.ConvictionActivate: Entschlossenheit auslösen!
 SWADE.ConvictionExtend: Möchtest du deine Entschlossenheit einsetzen?
 SWADE.ConvictionEnd: schwankt in der Überzeugung
 SWADE.NoBennies: Du hast nicht genug Bennys!

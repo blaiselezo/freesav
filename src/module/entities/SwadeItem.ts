@@ -12,8 +12,17 @@ export default class SwadeItem extends Item {
   /**
    * @override
    */
-  get actor() {
+  get actor(): SwadeActor {
     return (this.options.actor as SwadeActor) || null;
+  }
+
+  get isMeleeWeapon(): boolean {
+    const shots = getProperty(this.data, 'data.shots');
+    const currentShots = getProperty(this.data, 'data.currentShots');
+    return (
+      this.type === ItemType.Weapon &&
+      ((!shots && !currentShots) || (shots === '0' && currentShots === '0'))
+    );
   }
 
   /* -------------------------------------------- */
@@ -110,7 +119,7 @@ export default class SwadeItem extends Item {
     // Item properties
     const props = [];
 
-    switch (this.data.type) {
+    switch (this.type) {
       case 'hindrance':
         props.push(data.major ? 'Major' : 'Minor');
         break;
@@ -182,13 +191,13 @@ export default class SwadeItem extends Item {
         );
         break;
     }
-
     // Filter properties and return
     data.properties = props.filter((p) => !!p);
 
     //Additional actions
     const actions = getProperty(this.data, 'data.actions.additional');
-    data.hasAdditionalActions = actions && Object.keys(actions).length > 0;
+    data.hasAdditionalActions = !!actions && Object.keys(actions).length > 0;
+
     data.actions = [];
     for (let action in actions) {
       data.actions.push({
@@ -203,13 +212,24 @@ export default class SwadeItem extends Item {
   async show() {
     // Basic template rendering data
     const token = this.actor.token;
+    const ammoManagement = game.settings.get('swade', 'ammoManagement');
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.scene._id}.${token.id}` : null,
       item: this.data,
       data: this.getChatData({}),
       config: CONFIG.SWADE,
-      hasDamage: this.data.data.damage,
+      hasAmmoManagement:
+        this.type === ItemType.Weapon &&
+        !this.isMeleeWeapon &&
+        ammoManagement &&
+        !getProperty(this.data, 'data.autoReload'),
+      hasReloadButton:
+        ammoManagement &&
+        this.type === ItemType.Weapon &&
+        getProperty(this.data, 'data.shots') > 0 &&
+        !getProperty(this.data, 'data.autoReload'),
+      hasDamage: !!getProperty(this.data, 'data.damage'),
       skill: getProperty(this.data, 'data.actions.skill'),
       hasSkillRoll:
         [
@@ -217,7 +237,8 @@ export default class SwadeItem extends Item {
           ItemType.Power.toString(),
           ItemType.Shield.toString(),
         ].includes(this.data.type) &&
-        getProperty(this.data, 'data.actions.skill'),
+        !!getProperty(this.data, 'data.actions.skill'),
+      powerPoints: this._getPowerPoints(),
     };
 
     // Render the chat card template
@@ -245,188 +266,9 @@ export default class SwadeItem extends Item {
     if (rollMode === 'blindroll') chatData['blind'] = true;
 
     // Create the chat message
-    return ChatMessage.create(chatData);
-  }
-
-  static async _onChatCardAction(event) {
-    event.preventDefault();
-
-    // Extract card data
-    const button = event.currentTarget;
-    button.disabled = true;
-    const card = button.closest('.chat-card');
-    const messageId = card.closest('.message').dataset.messageId;
-    const message = game.messages.get(messageId);
-    const action = button.dataset.action;
-
-    // Validate permission to proceed with the roll
-    const isTargetted = action === 'save';
-    if (!(isTargetted || game.user.isGM || message.isAuthor)) return;
-
-    // Get the Actor from a synthetic Token
-    const actor = this._getChatCardActor(card);
-    if (!actor) return;
-
-    // Get the Item
-    const item = actor.getOwnedItem(card.dataset.itemId) as SwadeItem;
-    if (!item) {
-      return ui.notifications.error(
-        `The requested item ${card.dataset.itemId} no longer exists on Actor ${actor.name}`,
-      );
-    }
-
-    // Get card targets
-    let targets = [];
-    if (isTargetted) {
-      targets = this._getChatCardTargets(card);
-    }
-
-    let skill: SwadeItem = null;
-    // Attack and Damage Rolls
-    switch (action) {
-      case 'damage':
-        await item.rollDamage({
-          event,
-          additionalMods: [getProperty(item.data, 'data.actions.dmgMod')],
-        });
-        break;
-      case 'formula':
-        skill = actor.items.find(
-          (i: SwadeItem) =>
-            i.type === ItemType.Skill &&
-            i.name === getProperty(item.data, 'data.actions.skill'),
-        );
-        await this._doSkillAction(skill, item, actor);
-        break;
-      default:
-        await this._handleAdditionalActions(item, actor, action);
-        break;
-    }
-
-    // Re-enable the button
-    button.disabled = false;
-  }
-
-  static _getChatCardActor(card): SwadeActor {
-    // Case 1 - a synthetic actor from a Token
-    const tokenKey = card.dataset.tokenId;
-    if (tokenKey) {
-      const [sceneId, tokenId] = tokenKey.split('.');
-      const scene = game.scenes.get(sceneId);
-      if (!scene) return null;
-      const tokenData = scene.getEmbeddedEntity('Token', tokenId);
-      if (!tokenData) return null;
-      const token = new Token(tokenData);
-      return token.actor as SwadeActor;
-    }
-
-    // Case 2 - use Actor ID directory
-    const actorId = card.dataset.actorId;
-    return (game.actors.get(actorId) as SwadeActor) || (null as SwadeActor);
-  }
-
-  static _getChatCardTargets(card) {
-    const character = game.user.character;
-    const controlled = canvas.tokens.controlled;
-    const targets = controlled.reduce(
-      (arr, t) => (t.actor ? arr.concat([t.actor]) : arr),
-      [],
-    );
-    if (character && controlled.length === 0) targets.push(character);
-    return targets;
-  }
-
-  /**
-   * Handles misc actions
-   * @param item The item that this action is used on
-   * @param actor The actor who has the item
-   * @param action The action key
-   */
-  static async _handleAdditionalActions(
-    item: SwadeItem,
-    actor: SwadeActor,
-    action: string,
-  ) {
-    const availableActions = getProperty(item.data, 'data.actions.additional');
-    let actionToUse = availableActions[action];
-
-    // if there isn't actually any action then return early
-    if (!actionToUse) {
-      return;
-    }
-
-    if (actionToUse.type === 'skill') {
-      // Do skill stuff
-      let skill = actor.items.find(
-        (i: SwadeItem) =>
-          i.type === ItemType.Skill &&
-          i.name === getProperty(item.data, 'data.actions.skill'),
-      );
-
-      let altSkill = actor.items.find(
-        (i: SwadeItem) =>
-          i.type === ItemType.Skill && i.name === actionToUse.skillOverride,
-      );
-
-      if (altSkill) {
-        skill = altSkill;
-      }
-
-      let actionSkillMod = '';
-      if (actionToUse.skillMod && parseInt(actionToUse.skillMod) !== 0) {
-        actionSkillMod = actionToUse.skillMod;
-      }
-
-      if (skill) {
-        await actor.rollSkill(skill.id, {
-          flavour: actionToUse.name,
-          rof: actionToUse.rof,
-          additionalMods: [
-            getProperty(item.data, 'data.actions.skillMod'),
-            actionSkillMod,
-          ],
-        });
-      } else {
-        await actor.makeUnskilledAttempt({
-          flavour: actionToUse.name,
-          rof: actionToUse.rof,
-          additionalMods: [
-            getProperty(item.data, 'data.actions.skillMod'),
-            actionSkillMod,
-          ],
-        });
-      }
-    } else if (actionToUse.type === 'damage') {
-      //Do Damage stuff
-      item.rollDamage({
-        dmgOverride: actionToUse.dmgOverride,
-        flavour: actionToUse.name,
-        additionalMods: [
-          getProperty(item.data, 'data.actions.dmgMod'),
-          actionToUse.dmgMod,
-        ],
-      });
-    }
-  }
-
-  getRollData() {
-    return {};
-  }
-
-  static async _doSkillAction(
-    skill: SwadeItem,
-    item: SwadeItem,
-    actor: SwadeActor,
-  ) {
-    if (skill) {
-      await actor.rollSkill(skill.id, {
-        additionalMods: [getProperty(item.data, 'data.actions.skillMod')],
-      });
-    } else {
-      await actor.makeUnskilledAttempt({
-        additionalMods: [getProperty(item.data, 'data.actions.skillMod')],
-      });
-    }
+    let ChatCard = await ChatMessage.create(chatData);
+    Hooks.call('swadeChatCard', this.actor, this, ChatCard, game.user.id);
+    return ChatCard;
   }
 
   private makeExplodable(expresion) {
@@ -448,5 +290,25 @@ export default class SwadeItem extends Item {
       });
     }
     return expresion;
+  }
+
+  getRollData() {
+    return {};
+  }
+
+  private _getPowerPoints(): any {
+    if (this.type !== ItemType.Power) return {};
+
+    const arcane = getProperty(this.data, 'data.arcane');
+    let current = getProperty(this.actor.data, 'data.powerPoints.value');
+    let max = getProperty(this.actor.data, 'data.powerPoints.max');
+    if (arcane) {
+      current = getProperty(
+        this.actor.data,
+        `data.powerPoints.${arcane}.value`,
+      );
+      max = getProperty(this.actor.data, `data.powerPoints.${arcane}.max`);
+    }
+    return { current, max };
   }
 }

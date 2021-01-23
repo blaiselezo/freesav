@@ -87,7 +87,7 @@ export default class CharacterSheet extends ActorSheet {
             actor: this.actor,
             alias: this.actor.name,
           },
-          content: game.i18n.localize('SSO.ConvictionActivate'),
+          content: game.i18n.localize('SWADE.ConvictionActivate'),
         });
       } else {
         await this.actor.update({
@@ -101,12 +101,7 @@ export default class CharacterSheet extends ActorSheet {
     });
 
     html.find('.spend-benny').on('click', () => {
-      this.actor.spendBenny().then(() => {
-        if (game.dice3d) {
-          const benny = new Roll('1dB').roll();
-          game.dice3d.showForRoll(benny, game.user, true, null, false);
-        }
-      });
+      this.actor.spendBenny();
     });
 
     //Roll Attribute
@@ -144,7 +139,7 @@ export default class CharacterSheet extends ActorSheet {
 
       new Roll(rollFormula).roll().toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: game.i18n.localize('SSO.Running'),
+        flavor: game.i18n.localize('SWADE.Running'),
       });
     });
 

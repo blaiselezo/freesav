@@ -9,16 +9,63 @@
     <h3 class="item-name"><a>{{item.name}}</a></h3>
   </header>
 
+  {{#if hasAmmoManagement}}
+  <div class="ammo-counter">
+    {{localize "SWADE.Mag"}}:
+    <span class="current-shots">{{data.currentShots}}</span>&nbsp;/&nbsp;<span
+      class="max-shots"
+      >{{data.shots}}</span
+    >
+    {{#if data.ammo}}&nbsp;- &nbsp;{{data.ammo}}{{/if}}
+  </div>
+
+  {{/if}} {{#if (eq item.type "power")}}
+  <div class="pp-counter">
+    {{#if data.arcane}}{{data.arcane}}{{/if}} {{localize "SWADE.PP"}}:
+    <span class="current-pp">{{powerPoints.current}}</span>&nbsp;/&nbsp;<span
+      class="max-pp"
+      >{{powerPoints.max}}
+    </span>
+  </div>
+  {{/if}}
+
   <div class="card-content" style="display: none;">
     {{{data.description}}}
   </div>
 
   <div class="card-buttons">
-    {{#if hasSkillRoll}}<button data-action="formula">
-      <i class="fas fa-bullseye"></i>{{skill}}</button
-    >{{/if}} {{#if hasDamage}}<button data-action="damage">
-      <i class="fas fa-tint"></i> {{data.damage}}</button
-    >{{/if}} {{#if data.hasAdditionalActions}}
+    {{#if hasSkillRoll}}
+    <button data-action="formula">
+      <i class="fas fa-bullseye"></i>{{skill}}
+    </button>
+    {{/if}} {{#if hasDamage}}
+    <button data-action="damage">
+      <i class="fas fa-tint"></i> {{data.damage}}
+    </button>
+    {{/if}} {{#if (eq item.type "power")}}
+    <span class="flexcol">
+      <input type="number" class="pp-adjust" value="{{data.pp}}" />
+      <span class="flexrow" style="display: flex;">
+        <button data-action="pp-adjust" data-adjust="plus">
+          &plus; {{localize "SWADE.PP"}}
+        </button>
+        <button data-action="pp-adjust" data-adjust="minus">
+          &minus; {{localize "SWADE.PP"}}
+        </button>
+        <button
+          data-action="pp-adjust"
+          data-adjust="refresh"
+          title=" {{localize 'SWADE.Refresh'}}"
+        >
+          <i class="fas fa-sync"></i>
+        </button>
+      </span>
+    </span>
+    {{/if}}{{#if hasReloadButton}}
+    <button data-action="reload">
+      <i class="fas fa-redo-alt"></i> {{localize "SWADE.Reload"}}
+    </button>
+    {{/if}} {{#if data.hasAdditionalActions}}
     <hr />
     {{#each data.actions as |attr key|}} {{#if (eq attr.type "skill")}}
     <button data-action="{{attr.key}}">

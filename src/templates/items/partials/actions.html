@@ -18,6 +18,7 @@
       value="{{item.data.actions.skillMod}}"
       placeholder="{{localize 'SWADE.RollExample'}}"
       data-dtype="String"
+      title="{{localize 'SWADE.ModHint'}}"
   /></span>
 </div>
 <div class="form-group">
@@ -28,9 +29,23 @@
       type="text"
       value="{{item.data.actions.dmgMod}}"
       placeholder="{{localize 'SWADE.RollExample'}}"
+      title="{{localize 'SWADE.ModHint'}}"
       data-dtype="String"
   /></span>
 </div>
+{{#if isWeapon}}
+<div class="form-group">
+  <label>{{localize "SWADE.Ammo"}}</label>
+  <span class="form-fields">
+    <input
+      type="text"
+      name="data.ammo"
+      value="{{item.data.ammo}}"
+      data-dtype="String"
+    />
+  </span>
+</div>
+{{/if}}
 <header class="header-field flexrow">
   <div>
     <span>{{localize "SWADE.Actions"}}</span>
@@ -86,6 +101,7 @@
         type="text"
         name="data.actions.additional.{{key}}.skillMod"
         value="{{attr.skillMod}}"
+        title="{{localize 'SWADE.ModHint'}}"
       />
     </span>
   </div>
@@ -127,6 +143,7 @@
         type="text"
         name="data.actions.additional.{{key}}.dmgMod"
         value="{{attr.dmgMod}}"
+        title="{{localize 'SWADE.ModHint'}}"
       />
     </span>
   </div>

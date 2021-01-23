@@ -2,6 +2,8 @@
 import SwadeDice from '../dice';
 import IRollOptions from '../../interfaces/IRollOptions';
 import SwadeItem from './SwadeItem';
+import { ActorType } from '../enums/ActorTypeEnum';
+import { ItemType } from '../enums/ItemTypeEnum';
 
 /**
  * @noInheritDoc
@@ -20,7 +22,7 @@ export default class SwadeActor extends Actor {
 
     const shouldAutoCalcToughness =
       getProperty(this.data, 'data.details.autoCalcToughness') &&
-      this.data.type !== 'vehicle';
+      this.data.type !== ActorType.Vehicle;
     const toughnessKey = 'data.stats.toughness.value';
     const armorKey = 'data.stats.toughness.armor';
 
@@ -43,7 +45,7 @@ export default class SwadeActor extends Actor {
     //auto calculations
     const shouldAutoCalcToughness =
       getProperty(this.data, 'data.details.autoCalcToughness') &&
-      this.data.type !== 'vehicle';
+      this.data.type !== ActorType.Vehicle;
 
     if (shouldAutoCalcToughness) {
       const toughnessKey = 'data.stats.toughness.value';
@@ -58,14 +60,18 @@ export default class SwadeActor extends Actor {
    */
   prepareDerivedData() {
     //return early for Vehicles
-    if (this.data.type === 'vehicle') return;
+    if (this.data.type === ActorType.Vehicle) return;
 
     //modify pace with wounds
     if (game.settings.get('swade', 'enableWoundPace')) {
-      const wounds = getProperty(this.data, 'data.wounds.value');
-      const pace = getProperty(this.data, 'data.stats.speed.value');
-      let adjustedPace = parseInt(pace) - parseInt(wounds);
+      const wounds = parseInt(getProperty(this.data, 'data.wounds.value'));
+      const pace = parseInt(getProperty(this.data, 'data.stats.speed.value'));
+      //bound maximum wound penalty to -3
+      const woundsToUse = Math.min(wounds, 3);
+
+      let adjustedPace = pace - woundsToUse;
       if (adjustedPace < 1) adjustedPace = 1;
+
       setProperty(this.data, 'data.stats.speed.value', adjustedPace);
     }
 
@@ -88,12 +94,12 @@ export default class SwadeActor extends Actor {
   /*  Getters
   /* -------------------------------------------- */
   get isWildcard(): boolean {
-    if (this.data.type === 'vehicle') {
+    if (this.data.type === ActorType.Vehicle) {
       return false;
     } else {
       return (
         getProperty(this.data, 'data.wildcard') ||
-        this.data.type === 'character'
+        this.data.type === ActorType.Character
       );
     }
   }
@@ -102,7 +108,8 @@ export default class SwadeActor extends Actor {
     return (
       this.items.filter(
         (i: SwadeItem) =>
-          i.type === 'edge' && i.data.data['isArcaneBackground'] === true,
+          i.type === ItemType.Edge &&
+          i.data.data['isArcaneBackground'] === true,
       ).length > 0
     );
   }
@@ -115,7 +122,7 @@ export default class SwadeActor extends Actor {
   static async create(data, options = {}) {
     let link = false;
 
-    if (data.type === 'character') {
+    if (data.type === ActorType.Character) {
       link = true;
     }
     data.token = data.token || {};
@@ -155,11 +162,7 @@ export default class SwadeActor extends Actor {
     //If the Actor is a wildcard the build a dicepool, otherwise build a Roll
     if (this.isWildcard) {
       let wildRoll = new Roll('');
-      let wildDie = this._buildTraitDie(
-        abl['wild-die'].sides,
-        game.i18n.localize('SWADE.WildDie'),
-      );
-      wildRoll.terms.push(wildDie);
+      wildRoll.terms.push(this._buildWildDie(abl['wild-die'].sides));
       let wildCardPool = new DicePool({
         rolls: [attrRoll, wildRoll],
         modifiers: ['kh'],
@@ -261,7 +264,7 @@ export default class SwadeActor extends Actor {
 
   async makeUnskilledAttempt(
     options: IRollOptions = { event: null },
-  ): Promise<any> {
+  ): Promise<Roll> {
     let tempSkill = new Item(
       {
         name: game.i18n.localize('SWADE.Unskilled'),
@@ -284,6 +287,9 @@ export default class SwadeActor extends Actor {
   }
 
   async spendBenny() {
+    let currentBennies = getProperty(this.data, 'data.bennies.value');
+    //return early if there no bennies to spend
+    if (currentBennies < 1) return;
     let message = await renderTemplate(CONFIG.SWADE.bennies.templates.spend, {
       target: this,
       speaker: game.user,
@@ -294,11 +300,10 @@ export default class SwadeActor extends Actor {
     if (game.settings.get('swade', 'notifyBennies')) {
       ChatMessage.create(chatData);
     }
-    let actorData = this.data as any;
-    if (actorData.data.bennies.value > 0) {
-      await this.update({
-        'data.bennies.value': actorData.data.bennies.value - 1,
-      });
+    await this.update({ 'data.bennies.value': currentBennies - 1 });
+    if (!!game.dice3d && game.settings.get('swade', 'dsnShowBennyAnimation')) {
+      const benny = new Roll('1dB').roll();
+      game.dice3d.showForRoll(benny, game.user, true, null, false);
     }
   }
 
@@ -594,12 +599,7 @@ export default class SwadeActor extends Actor {
 
     if (this.isWildcard) {
       let wildRoll = new Roll('');
-      wildRoll.terms.push(
-        this._buildTraitDie(
-          skillData['wild-die'].sides,
-          game.i18n.localize('SWADE.WildDie'),
-        ),
-      );
+      wildRoll.terms.push(this._buildWildDie(skillData['wild-die'].sides));
       rollMods.forEach((m) => wildRoll.terms.push(m.value));
       dicePool.rolls.push(wildRoll);
     }
@@ -632,6 +632,27 @@ export default class SwadeActor extends Actor {
       modifiers: ['x', ...modifiers],
       options: { flavor: flavor },
     });
+  }
+
+  private _buildWildDie(sides = 6, modifiers: any[] = []): Die {
+    let die = new Die({
+      faces: sides,
+      modifiers: ['x', ...modifiers],
+      options: { flavor: game.i18n.localize('SWADE.WildDie') },
+    });
+    if (game.dice3d) {
+      /**
+       * TODO
+       * This doesn't seem to currently work due to an apparent bug in the Foundry roll API
+       * which removes property from the options object during the roll evaluation
+       * I'll keep it here anyway so we have it ready when the bug is fixed
+       */
+      const colorPreset = game.settings.get('swade', 'dsnWildDie');
+      if (colorPreset !== 'none') {
+        die.options['colorset'] = colorPreset;
+      }
+    }
+    return die;
   }
 
   private _buildTraitRollModifiers(data: any, options: IRollOptions) {

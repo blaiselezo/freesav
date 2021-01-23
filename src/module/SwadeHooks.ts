@@ -2,6 +2,7 @@
 import Bennies from './bennies';
 import * as chat from './chat';
 import { formatRoll } from './chat';
+import DiceSettings from './DiceSettings';
 import SwadeActor from './entities/SwadeActor';
 import SwadeItem from './entities/SwadeItem';
 import SwadeTemplate from './entities/SwadeTemplate';
@@ -9,7 +10,6 @@ import { ActorType } from './enums/ActorTypeEnum';
 import { ItemType } from './enums/ItemTypeEnum';
 import { TemplatePreset } from './enums/TemplatePresetEnum';
 import { SwadeSetup } from './setup/setupHandler';
-import SwadeBaseActorSheet from './sheets/SwadeBaseActorSheet';
 import SwadeCharacterSheet from './sheets/SwadeCharacterSheet';
 import SwadeNPCSheet from './sheets/SwadeNPCSheet';
 import SwadeVehicleSheet from './sheets/SwadeVehicleSheet';
@@ -77,6 +77,9 @@ export default class SwadeHooks {
     if (!createData.img) {
       createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
     }
+    if (createData.type === ItemType.Skill && options.renderSheet !== null) {
+      options.renderSheet = true;
+    }
   }
 
   public static onPreCreateActor(
@@ -126,6 +129,7 @@ export default class SwadeHooks {
     actor.createEmbeddedEntity(
       'OwnedItem',
       skillIndex.filter((i) => skillsToAdd.includes(i.data.name)),
+      { renderSheet: null },
     );
   }
 
@@ -156,7 +160,7 @@ export default class SwadeHooks {
 
       if (wildcard) {
         element.innerHTML = `
-					<a><img src="systems/swade/assets/ui/wildcard.svg" class="wildcard-icon">${wildcard.data.name}</a>
+					<a><img src="${CONFIG.SWADE.wildCardIcons.regular}" class="wildcard-icon">${wildcard.data.name}</a>
 					`;
       }
     }
@@ -182,7 +186,7 @@ export default class SwadeHooks {
           const entityName = el.children[1];
           entityName.children[0].insertAdjacentHTML(
             'afterbegin',
-            '<img src="systems/swade/assets/ui/wildcard-dark.svg" class="wildcard-icon">',
+            `<img src="${CONFIG.SWADE.wildCardIcons.compendium}" class="wildcard-icon">`,
           );
         }
       });
@@ -421,6 +425,7 @@ export default class SwadeHooks {
 
   public static onGetSceneControlButtons(sceneControlButtons: any[]) {
     const measure = sceneControlButtons.find((a) => a.name === 'measure');
+    let template: SwadeTemplate = null;
     const newButtons = [
       {
         name: 'swcone',
@@ -429,7 +434,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
-          const template = SwadeTemplate.fromPreset(TemplatePreset.CONE);
+          template = SwadeTemplate.fromPreset(TemplatePreset.CONE);
           if (template) template.drawPreview(event);
         },
       },
@@ -440,7 +445,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
-          const template = SwadeTemplate.fromPreset(TemplatePreset.SBT);
+          template = SwadeTemplate.fromPreset(TemplatePreset.SBT);
           if (template) template.drawPreview(event);
         },
       },
@@ -451,7 +456,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
-          const template = SwadeTemplate.fromPreset(TemplatePreset.MBT);
+          template = SwadeTemplate.fromPreset(TemplatePreset.MBT);
           if (template) template.drawPreview(event);
         },
       },
@@ -462,7 +467,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
-          const template = SwadeTemplate.fromPreset(TemplatePreset.LBT);
+          template = SwadeTemplate.fromPreset(TemplatePreset.LBT);
           if (template) template.drawPreview(event);
         },
       },
@@ -571,5 +576,98 @@ export default class SwadeHooks {
       });
     });
     return false;
+  }
+
+  public static onDiceSoNiceInit(dice3d: any) {
+    game.settings.register('swade', 'dsnShowBennyAnimation', {
+      name: game.i18n.localize('SWADE.ShowBennyAnimation'),
+      hint: game.i18n.localize('SWADE.ShowBennyAnimationDesc'),
+      default: true,
+      scope: 'client',
+      type: Boolean,
+      config: false,
+    });
+
+    game.settings.register('swade', 'dsnWildDie', {
+      name: game.i18n.localize('SWADE.WildDiePreset'),
+      hint: game.i18n.localize('SWADE.WildDiePresetDesc'),
+      default: 'none',
+      scope: 'client',
+      type: String,
+      config: false,
+    });
+
+    game.settings.register('swade', 'dsnCustomWildDieOptions', {
+      default: {
+        font: 'auto',
+        material: 'auto',
+        texture: 'none',
+      },
+      scope: 'client',
+      type: Object,
+      config: false,
+    });
+
+    game.settings.register('swade', 'dsnCustomWildDieColors', {
+      default: {
+        labelColor: '#000000',
+        diceColor: game.user['color'],
+        outlineColor: game.user['color'],
+        edgeColor: game.user['color'],
+      },
+      scope: 'client',
+      type: Object,
+      config: false,
+    });
+
+    game.settings.registerMenu('swade', 'dice-config', {
+      name: game.i18n.localize('SWADE.DiceConf'),
+      label: game.i18n.localize('SWADE.DiceConfLabel'),
+      hint: game.i18n.localize('SWADE.DiceConfDesc'),
+      icon: 'fas fa-dice',
+      type: DiceSettings,
+      restricted: false,
+    });
+  }
+
+  public static onDiceSoNiceReady(dice3d: any) {
+    const customWilDieColors = game.settings.get(
+      'swade',
+      'dsnCustomWildDieColors',
+    );
+
+    const customWilDieOptions = game.settings.get(
+      'swade',
+      'dsnCustomWildDieOptions',
+    );
+
+    dice3d.addColorset(
+      {
+        name: 'customWildDie',
+        description: 'DICESONICE.ColorCustom',
+        category: 'DICESONICE.Colors',
+        foreground: customWilDieColors.labelColor,
+        background: customWilDieColors.diceColor,
+        outline: customWilDieColors.outlineColor,
+        edge: customWilDieColors.edgeColor,
+        texture: customWilDieOptions.texture,
+        material: customWilDieOptions.material,
+        font: customWilDieOptions.font,
+      },
+      'no',
+    );
+
+    dice3d.addDicePreset(
+      {
+        type: 'db',
+        labels: [
+          CONFIG.SWADE.bennies.textures.front,
+          CONFIG.SWADE.bennies.textures.back,
+        ],
+        system: 'standard',
+        colorset: 'black',
+      },
+      'd2',
+    );
   }
 }

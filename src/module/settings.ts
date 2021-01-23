@@ -62,6 +62,40 @@ export function registerSettings() {
     config: true,
   });
 
+  game.settings.register('swade', 'ammoManagement', {
+    name: game.i18n.localize('SWADE.AmmoManagement'),
+    hint: game.i18n.localize('SWADE.AmmoManagementDesc'),
+    default: false,
+    scope: 'world',
+    type: Boolean,
+    config: false,
+  });
+
+  game.settings.register('swade', 'ammoFromInventory', {
+    name: game.i18n.localize('SWADE.PCAmmoFromInventory'),
+    hint: game.i18n.localize('SWADE.PCAmmoFromInventoryDesc'),
+    default: false,
+    scope: 'world',
+    type: Boolean,
+    config: false,
+  });
+
+  game.settings.register('swade', 'npcAmmo', {
+    name: game.i18n.localize('SWADE.NPCAmmoFromInventory'),
+    default: false,
+    scope: 'world',
+    type: Boolean,
+    config: false,
+  });
+
+  game.settings.register('swade', 'vehicleAmmo', {
+    name: game.i18n.localize('SWADE.VehicleAmmoFromInventory'),
+    default: false,
+    scope: 'world',
+    type: Boolean,
+    config: false,
+  });
+
   game.settings.register('swade', 'enableConviction', {
     name: game.i18n.localize('SWADE.EnableConv'),
     hint: game.i18n.localize('SWADE.EnableConvDesc'),

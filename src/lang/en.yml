@@ -6,6 +6,9 @@ SWADE.CommunityCharSheet: Community Character Sheet
 SWADE.CommunityNPCSheet: Community NPC Sheet
 SWADE.CommunityVicSheet: Community Vehicle Sheet
 SWADE.CommunityItemSheet: Community Item Sheet
+SWADE.Expand: Expand
+SWADE.OfficialSheet: Savage Worlds Official Sheet by Pinnacle
+SWADE.ModHint: Make sure your modifier includes a + or -
 
 #***************************
 # Entity Labels
@@ -87,6 +90,7 @@ SWADE.MeleeWeapons: Melee Weapons
 SWADE.RangedWeapons: Ranged Weapons
 SWADE.Armors: Armors
 SWADE.Shields: Shields
+SWADE.Biography: Biography
 
 #####################
 # Status
@@ -153,8 +157,8 @@ SWADE.QuickAccess: Quick Access
 SWADE.Effects: Active Effects
 SWADE.Hindrances: Hindrances
 SWADE.MajHind: Major Hindrance
-SWADE.Major: '(Major)'
-SWADE.Minor: '(Minor)'
+SWADE.Major: (Major)
+SWADE.Minor: (Minor)
 SWADE.Edges: Edges
 SWADE.ArcBack: Arcane Background
 SWADE.Req: Requirements
@@ -187,10 +191,11 @@ SWADE.Wounds: Wounds
 SWADE.WoundsMax: Max Wounds
 SWADE.Fatigue: Fatigue
 SWADE.FatigueMax: Max Fatigue
-SWADE.Incap: Incapacitated!
+SWADE.Incap: Incapacitated
 SWADE.Init: Initiative
 SWADE.InitDraw: draws for Initiative!
 SWADE.JokersWild: gets Joker's Wild!
+SWADE.General: General
 
 #####################
 # Roll Modifiers
@@ -218,6 +223,7 @@ SWADE.AltSkill: Alternative Skill
 SWADE.Class: Classification
 SWADE.Vehicular: Vehicular Weapon
 SWADE.VehicleMod: Vehicle Mod
+SWADE.OpSkill: Operation Skill
 
 #####################
 # Setttings
@@ -234,27 +240,38 @@ SWADE.EnableConvDesc: Enable the Conviction setting rule
 SWADE.EnableWoundPace: Adjust Pace with Wounds
 SWADE.EnableWoundPaceDesc: When enabled, Pace is automatically affected by Wounds
 SWADE.AutoLink: Automatically Link Wild Cards
-SWADE.AutoLinkDesc:
-  When enabled, NPC Wild Cards will have their tokens linked when
-  you toggle them between Extra and Wild Card
+SWADE.AutoLinkDesc: When enabled, NPC Wild Cards will have their tokens linked when you toggle them between Extra and Wild Card
 SWADE.GmBennies: GM Bennies
 SWADE.GmBenniesDesc: Sets how many Bennies the GM recieves on a refresh
 SWADE.EnableBennyNotify: Benny notifications
-SWADE.EnableBennyNotifyDesc:
-  Displays chat messages when bennies are taken, given
-  or refreshed.
+SWADE.EnableBennyNotifyDesc: Displays chat messages when bennies are taken, given or refreshed.
 SWADE.VehicleMods: Vehicles Mods
 SWADE.VehicleModsDesc: Vehicles use Mod-Slots
 SWADE.VehicleEdges: Vehicle Edges
 SWADE.VehicleEdgesDesc: Vehicles use Edges and Hindrances
+SWADE.ShowBennyAnimation: Show Benny Animation
+SWADE.ShowBennyAnimationDesc: Play an animation when spending a Benny. Only available if Dice So Nice! is installed
+SWADE.WildDiePreset: Wild Die Theme
+SWADE.WildDiePresetDesc: Select a DSN Theme for your Wild Die. Select 'Custom' if you want to create your own or 'None' if you don't want your Wild Die to look differently. Please keep in mind that self-created Wild Dies currently can only be seen by you. Other players will see them differently.
+SWADE.AmmoManagement: Ammunition Management
+SWADE.AmmoManagementDesc: When turned on, and applicable, actions subtract ammunition from the magazine of the weapon. Item cards also gain a new reload button and you will not be able to roll an attack if not enough ammunition is available
+SWADE.PCAmmoFromInventory: PCs use Ammunition from Inventory
+SWADE.PCAmmoFromInventoryDesc: When activated the option to set a `Gear` Item can be set to be used as ammunition and will be used when reloading the weapon
+SWADE.NPCAmmoFromInventory: NPCs use ammunition from their inventory
+SWADE.VehicleAmmoFromInventory: Vehicles use ammunition from their inventory
+
+# Settings Submenus
 SWADE.SettingConf: Setting Configurator
 SWADE.SettingConfLabel: Open Setting Configurator
 SWADE.SettingConfDesc: Fine tune the system to fit the setting you're playing
+SWADE.DiceConf: Dice Configuration
+SWADE.DiceConfDesc: Configure the settings for the SWADE/Dice So Nice integration
+SWADE.DiceConfLabel: Open Dice Configuration
 
 SWADE.Formula: Formula
 SWADE.SitMod: Situational Mod
 SWADE.RollMode: Roll Mode
-SWADE.RollExample: eg. +1d6x= or -2
+SWADE.RollExample: eg. +1d6x or -2
 SWADE.Roll: Roll
 SWADE.RollRaise: Roll Raise
 SWADE.GroupRoll: Group Roll
@@ -286,114 +303,19 @@ SWADE.Actors: Actors
 SWADE.Items: Items
 SWADE.Max: Max
 SWADE.Curr: Current
-#####################
-# Official Sheet
-#####################
-#***************************
-# General
-#***************************
-SSO.Roll: Roll
-SSO.Edit: Edit
-SSO.OfficialSheet: Savage Worlds Official Sheet by Pinnacle
-SSO.Add: Add
-SSO.Expand: Expand
 
-#***************************
-# Sheet Header
-#***************************
-SSO.Race: Race
-SSO.Rank: Rank
-SSO.Advances: Advances
-SSO.Conviction: Conviction
-SSO.Active: Active
-SSO.PEGLogo: Pinnacle Entertainment Group Logo
-SSO.SWADELogo: Savage Worlds Adventure Edition Logo
-SSO.ConvictionActivate: Something something Conviction activated
+##DSN
+SWADE.DSNNone: '- None -'
 
-#***************************
-# Sheet Tabs
-#***************************
-SSO.Summary: Summary
-SSO.Edges: Edges
-SSO.Inventory: Inventory
-SSO.Powers: Powers
-SSO.Desc: Description
+# Item Chat Cards
+SWADE.Reload: Reload
+SWADE.Refresh: Refresh this card
 
-#***************************
-# Summary Tab
-#***************************
-SSO.Attributes: Attributes
-SSO.Derived: Derived
-SSO.Skills: Skills
-SSO.QuickAccess: Quick Access & Effects
-SSO.Wounds: Wounds
-SSO.Fatigue: Fatigue
-SSO.Bennies: Bennies
-SSO.SpendBennie: Spend Benny
-SSO.AddBennie: Add Benny
-SSO.CurrentBennies: Current Bennies
-
-# Status boxes
-SSO.Shaken: Shaken
-SSO.Distr: Distracted
-SSO.Vuln: Vulnerable
-SSO.Stunned: Stunned
-SSO.Bound: Bound
-SSO.Entangled: Entangled
-
-# Attributes
-SSO.AttrAgi: Agility
-SSO.AttrSma: Smarts
-SSO.AttrSpi: Spirit
-SSO.AttrStr: Strength
-SSO.AttrVig: Vigor
-
-# Derived Stats
-SSO.Size: Size
-SSO.Parry: Parry
-SSO.Tough: Toughness
-SSO.Pace: Pace
-SSO.Running: Running
-
-# Item Cards
-SSO.Dmg: Damage
-SSO.Mag: Shots
-SSO.Rng: Range
-SSO.RoF: RoF
-SSO.Ap: AP
-SSO.PP: PP
-SSO.Dur: Duration
-SSO.Cover: Cover
-SSO.Notes: Notes
-SSO.Armor: Armor
-SSO.MinStr: Min. Str
-
-#***************************
-# Inventory Tab
-#***************************
-SSO.Currency: Currency
-SSO.CarryWeight: Encumbrance
-
-#***************************
-# Description Tab
-#***************************
-SSO.Biography: Biography
-SSO.Weapons: Weapons
-SSO.Armors: Armors
-SSO.Shields: Shields
-SSO.Misc: Misc
-SSO.Weight: Weight
-
-#***************************
-# Edges Tab
-#***************************
-SSO.Hindrances: Hindrances
-SSO.General: General
-
-#***************************
-# Powers Tab
-#***************************
-SSO.CurPP: Current Power Points
-SSO.MaxPP: Max Power Points
-SSO.Trapping: Trapping
-SSO.Power: Power
+# Ammo Management
+SWADE.Ammo: Ammunition
+SWADE.ReloadUnneeded: The weapon is already fully loaded
+SWADE.ReloadSuccess: The weapon has been successfully reloaded
+SWADE.NotEnoughAmmo: You don't have enough ammunition for this action!
+SWADE.NotEnoughAmmoToReload: There's not enough ammo for a full reload
+SWADE.AutoReload: Doesn't need Reload action
+SWADE.NoAmmoSet: There is not ammunition set
