@@ -44,6 +44,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Moved paths to Wild Card icon files to `CONFIG.SWADE.wildCardIcons` which means modules can now add their own custom wildcard icons. Testing showed the ideal place is the `setup` Hook.
 - Parametrized paths to the benny textures in `CONFIG.SWADE.bennies.textures`. Can be used the same way as the wildcard icons
 
+### Deprecated
+
+- Started deprecation of the polish translation as I cannot maintain it. It will be removed from the game system with v0.17.0
+
 ### Removed
 
 - Removed ability to interact with Active Effects on skill Items
