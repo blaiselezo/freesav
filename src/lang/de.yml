@@ -1,4 +1,3 @@
----
 SWADE.Name: Name
 SWADE.Tough: Robustheit
 SWADE.Race: Spezies
@@ -8,7 +7,7 @@ SWADE.Rank: Rang
 SWADE.Inv: Inventar
 SWADE.Summary: Übersicht
 SWADE.Pow: Mächte
-SWADE.Wildcard: Wildcard
+SWADE.WildCard: Wildcard
 SWADE.Extra: Statist
 SWADE.Bennies: Bennys
 SWADE.Shaken: Angeschl.
@@ -53,7 +52,6 @@ SWADE.Del: Löschen
 SWADE.Arcane: Arkan
 SWADE.All: Alle
 SWADE.HasPowers: hat Mächte
-SWADE.Gear: Ausrüstung
 SWADE.Weapons: Waffen
 SWADE.MeleeWeapons: Nahkampfwaffen
 SWADE.RangedWeapons: Fernkampfwaffen
@@ -80,8 +78,8 @@ SWADE.Misc: Sonstiges
 SWADE.QuickAccess: Schnellzugriff
 SWADE.Hindrances: Handicaps
 SWADE.MajHind: Schweres Handicap
-SWADE.Major: '(Schwer)'
-SWADE.Minor: '(Leicht)'
+SWADE.Major: (Schwer)
+SWADE.Minor: (Leicht)
 SWADE.Edges: Talente
 SWADE.ArcBack: Arkaner Hintergrund
 SWADE.Req: Vorausetzungen
@@ -133,19 +131,19 @@ SWADE.AutoInit: Automatische Initiative
 SWADE.AutoInitDesc: Aktionskarten jede Runde automatisch ziehen
 SWADE.CreateInitChat: Chatnachrichten für die Initiative erstellen
 SWADE.HideWC: NSC Wildcards verstecken
-SWADE.HideWCDesc: Den Spielern nicht anzeigen, welche NSCs Wildcards sind
+SWADE.HideWCDesc: 'Den Spielern nicht anzeigen, welche NSCs Wildcards sind'
 SWADE.EnableConv: Entschlossenheit verwenden
 SWADE.EnableConvDesc: Die Regel Entschlossenheit verwenden
 SWADE.AutoLink: Automat. Wildcards verlinken
-SWADE.AutoLinkDesc:
-  Wenn aktiv, bleibt bei NSC-Wildcards der Token beim Umschalten
-  zwischen Statist und Wildcard verknüpft
+SWADE.AutoLinkDesc: >-
+  Wenn aktiv, bleibt bei NSC-Wildcards der Token beim Umschalten zwischen
+  Statist und Wildcard verknüpft
 SWADE.GmBennies: SL Bennies
-SWADE.GmBenniesDesc: Stellt ein, wie viele Bennys der SL beim Zurücksetzen erhält
+SWADE.GmBenniesDesc: 'Stellt ein, wie viele Bennys der SL beim Zurücksetzen erhält'
 SWADE.EnableBennyNotify: Benny Mitteilung
-SWADE.EnableBennyNotifyDesc:
-  Chat-Nachricht ausgeben, wenn Bennys erhalten, eingesetzt
-  oder zurückgesetzt werden.
+SWADE.EnableBennyNotifyDesc: >-
+  Chat-Nachricht ausgeben, wenn Bennys erhalten, eingesetzt oder zurückgesetzt
+  werden.
 SWADE.VehicleMods: Fahrzeug Mod.
 SWADE.VehicleModsDesc: Fahrzeuge nutzen Mod.-Plätze
 SWADE.VehicleEdges: Fahrzeug Talente
