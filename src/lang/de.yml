@@ -170,7 +170,7 @@ SWADE.Head: Kopf
 SWADE.Torso: Torso
 SWADE.Arms: Arme
 SWADE.Legs: Beine
-SWADE ConvictionActivate: Entschlossenheit auslösen!
+SWADE.ConvictionActivate: Entschlossenheit auslösen!
 SWADE.ConvictionExtend: Möchtest du deine Entschlossenheit einsetzen?
 SWADE.ConvictionEnd: schwankt in der Überzeugung
 SWADE.NoBennies: Du hast nicht genug Bennys!
