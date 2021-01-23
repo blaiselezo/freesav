@@ -1,3 +1,32 @@
+---
+#***************************
+# General
+#***************************
+SWADE.CommunityCharSheet: Community Charakterbogen
+SWADE.CommunityNPCSheet: Community NSC Bogen
+SWADE.CommunityVicSheet: Community Fahrzeugbogen
+SWADE.CommunityItemSheet: Community Gegenstandsbogen
+SWADE.Expand: Ausklappen
+SWADE.ModHint: Bitte stell sicher das alle modifikatoren ein + oder - enthalten
+
+#***************************
+# Entity Labels
+#***************************
+# Actor
+ACTOR.TypeCharacter: Spielercharakter
+ACTOR.TypeNpc: NSC
+ACTOR.TypeVehicle: Fahrzeug
+
+# Item
+ITEM.TypeWeapon: Waffe
+ITEM.TypeArmor: Rüstung
+ITEM.TypeShield: Schild
+ITEM.TypeGear: Ausrüstung
+ITEM.TypeEdge: Talent
+ITEM.TypeHindrance: Handicap
+ITEM.TypeSkill: Fertigkeit
+ITEM.TypePower: Macht
+
 SWADE.Name: Name
 SWADE.Tough: Robustheit
 SWADE.Race: Spezies
@@ -71,6 +100,7 @@ SWADE.MinStrLong: Mindeststärke
 SWADE.MinStr: Min.Stärke
 SWADE.MinStrShort: Min.STR
 SWADE.Desc: Beschreibung
+SWADE.Biography: Biographie
 SWADE.Special: Spez. Fähigkeiten
 SWADE.Details: Details
 SWADE.Equippable: Ausrüstbar
@@ -157,7 +187,7 @@ SWADE.RollRaise: Steigerung
 SWADE.Ok: OK
 SWADE.Cancel: Abbrechen
 SWADE.Redraw: Neu ziehen
-SWADE.Add: Hinzufügen
+SWADE.Add: Neu
 SWADE.ConfigInit: Initiative konfigurieren
 SWADE.IgnWounds: Ignoriere Wunden
 SWADE.Size: Größe
