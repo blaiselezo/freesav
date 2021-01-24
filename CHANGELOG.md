@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Fixed a bug which would cause chatcards to reopen again after being closed and updated from the chatlog,
 - Added missing translation key for Power Trappings
+- Added missing labels for major and minor hindrances on the official character sheet
 
 ## [v0.16.1]
 

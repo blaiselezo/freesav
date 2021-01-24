@@ -13,6 +13,8 @@
         <span class="item-name">
           <button type="button">
             <span class="sr-only">{{localize "SWADE.Expand"}}</span> {{name}}
+            {{#if this.data.major}}{{localize "SWADE.Major"}}{{else }}{{localize
+            "SWADE.Minor"}}{{/if}}
           </button>
         </span>
         <div class="item-controls">
