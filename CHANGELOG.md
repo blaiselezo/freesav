@@ -24,7 +24,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Fixed
 
-- Fixed a bug which would cause chatcards to reopen again after being closed and updated from the chatlog
+- Fixed a bug which would cause chatcards to reopen again after being closed and updated from the chatlog,
+- Added missing translation key for Power Trappings
 
 ## [v0.16.1]
 

@@ -1,21 +1,11 @@
----
-#***************************
-# General
-#***************************
 SWADE.CommunityCharSheet: Community Charakterbogen
 SWADE.CommunityNPCSheet: Community NSC-Bogen
 SWADE.CommunityVicSheet: Community Fahrzeugbogen
 SWADE.CommunityItemSheet: Community Gegenstandsbogen
 SWADE.ModHint: Bitte stell sicher das alle Modifikatoren ein + oder - enthalten
-
-#***************************
-# Entity Labels
-#***************************
-# Actor
 ACTOR.TypeCharacter: Charakter
 ACTOR.TypeNpc: NSC
 ACTOR.TypeVehicle: Fahrzeug
-# Item
 ITEM.TypeWeapon: Waffe
 ITEM.TypeArmor: Rüstung
 ITEM.TypeShield: Schild
@@ -24,7 +14,6 @@ ITEM.TypeEdge: Talent
 ITEM.TypeHindrance: Handicap
 ITEM.TypeSkill: Fertigkeit
 ITEM.TypePower: Macht
-
 SWADE.Name: Name
 SWADE.Tough: Robustheit
 SWADE.Race: Spezies
@@ -127,8 +116,8 @@ SWADE.QuickAccess: Schnellzugriff
 SWADE.Effects: Aktive Effekte
 SWADE.Hindrances: Handicaps
 SWADE.MajHind: Starkes Handicap
-SWADE.Major: '(Stark)'
-SWADE.Minor: '(Leicht)'
+SWADE.Major: (Stark)
+SWADE.Minor: (Leicht)
 SWADE.Edges: Talent
 SWADE.ArcBack: Arkaner Hintergrund
 SWADE.Req: Voraussetzungen
@@ -138,7 +127,7 @@ SWADE.Hesitant: Zögerlich
 SWADE.LevelHeaded: Kühler Kopf
 SWADE.ImprovedLevelHeaded: Sehr kühler Kopf
 SWADE.AutoCalc: Automatische Berechnungen
-SWADE.InclArmor: Automatisch Robustheit berechnen, inclusive Rüstung
+SWADE.InclArmor: 'Automatisch Robustheit berechnen, inclusive Rüstung'
 SWADE.Label: Etikett
 SWADE.HasMaxValue: Hat Maximalwert
 SWADE.Enabled: aktiviert
@@ -190,23 +179,19 @@ SWADE.AutoInit: Automatische Initiative
 SWADE.AutoInitDesc: Aktionskarten jede Runde automatisch ziehen
 SWADE.CreateInitChat: Chatnachrichten für Initiative
 SWADE.HideWC: NSC Wildcards verstecken
-SWADE.HideWCDesc: Den Spielern nicht anzeigen, welche NSCs Wildcards sind
+SWADE.HideWCDesc: 'Den Spielern nicht anzeigen, welche NSCs Wildcards sind'
 SWADE.EnableConv: Entschlossenheit verwenden
 SWADE.EnableConvDesc: Setting-Regel Entschlossenheit verwenden
 SWADE.EnableWoundPace: Bewegung durch Wunden modifizieren
-SWADE.EnableWoundPaceDesc:
-  Wenn aktiviert, wird die Bewegung automatisch durch Wunden
-  angepasst
+SWADE.EnableWoundPaceDesc: 'Wenn aktiviert, wird die Bewegung automatisch durch Wunden angepasst'
 SWADE.AutoLink: NSC Wildcards mit Token verbinden
-SWADE.AutoLinkDesc:
-  NSC Wildcards beim Umschalten zwischen Statist und Wildcard mit
-  Token verbinden
+SWADE.AutoLinkDesc: >-
+  NSC Wildcards beim Umschalten zwischen Statist und Wildcard mit Token
+  verbinden
 SWADE.GmBennies: SL Bennys
-SWADE.GmBenniesDesc: Voreinstellung, wie viele Bennys der SL bei Auffrischen erhält
+SWADE.GmBenniesDesc: 'Voreinstellung, wie viele Bennys der SL bei Auffrischen erhält'
 SWADE.EnableBennyNotify: Nachrichten zu Bennys
-SWADE.EnableBennyNotifyDesc:
-  Zeige Chatnachricht beim Nehmen, Einsetzen oder Auffrischen
-  von Bennys
+SWADE.EnableBennyNotifyDesc: 'Zeige Chatnachricht beim Nehmen, Einsetzen oder Auffrischen von Bennys'
 SWADE.VehicleMods: Fahrzeug Modifikationen
 SWADE.VehicleModsDesc: Fahrzeuge nutzen Modifikations-Plätze
 SWADE.VehicleEdges: Fahrzeug-Talente
@@ -251,7 +236,11 @@ SWADE.Curr: Aktuell
 SWADE.Aiming: Zielen
 SWADE.Ammo: Munition
 SWADE.AmmoManagement: Munitionsmanagement
-SWADE.AmmoManagementDesc: Wenn diese Option aktiviert und anwendbar ist, wird die Munition vom Magazin der Waffe abgezogen. Gegenstandskarten im Chat erhalten außerdem einen neuen Nachladeknopf und du kannst keinene Angriffe ausführen, wenn nicht genügend Munition verfügbar ist
+SWADE.AmmoManagementDesc: >-
+  Wenn diese Option aktiviert und anwendbar ist, wird die Munition vom Magazin
+  der Waffe abgezogen. Gegenstandskarten im Chat erhalten außerdem einen neuen
+  Nachladeknopf und du kannst keinene Angriffe ausführen, wenn nicht genügend
+  Munition verfügbar ist
 SWADE.AutoReload: Braucht keine Nachladenaktion
 SWADE.Berserk: Berserkerrausch
 SWADE.BleedingOut: Verblutend
@@ -277,7 +266,10 @@ SWADE.OfficialSheet: Offizielles Blatt
 SWADE.OnFire: Brennend
 SWADE.OpSkill: Steuerfertigkeit
 SWADE.PCAmmoFromInventory: Spielercharactere laden Munition aus ihrem Inventar nach
-SWADE.PCAmmoFromInventoryDesc: Wenn diese Option aktiviert ist, kann die Option zum Einstellen eines "Ausrüstung" gegenstands als Munition festgelegt werden und wird beim Nachladen der Waffe verwendet
+SWADE.PCAmmoFromInventoryDesc: >-
+  Wenn diese Option aktiviert ist, kann die Option zum Einstellen eines
+  "Ausrüstung" gegenstands als Munition festgelegt werden und wird beim
+  Nachladen der Waffe verwendet
 SWADE.Poisoned: Vergiftet
 SWADE.Prone: Liegend
 SWADE.Reach: Reichweite
@@ -291,4 +283,9 @@ SWADE.Smite: Waffe verbessert
 SWADE.Torch: Lichtquelle
 SWADE.VehicleAmmoFromInventory: Fahrzeuge nutzen Munition aus ihrem Inventar
 SWADE.WildDiePreset: Wildcard Würfel Voreinstellung
-SWADE.WildDiePresetDesc: Wähle ein DSN-Theme für den Wild Die. Wähle "Custom", wenn ein eigener erstellt werden soll, oder "Kein" wenn der Wild Die nicht anders aussehen soll. Bitte beachten Sie, dass selbst erstellte Wild Dies derzeit nur von Ihnen gesehen werden können. Andere Spieler werden sie anders sehen.
+SWADE.WildDiePresetDesc: >-
+  Wähle ein DSN-Theme für den Wild Die. Wähle "Custom", wenn ein eigener
+  erstellt werden soll, oder "Kein" wenn der Wild Die nicht anders aussehen
+  soll. Bitte beachten Sie, dass selbst erstellte Wild Dies derzeit nur von
+  Ihnen gesehen werden können. Andere Spieler werden sie anders sehen.
+SWADE.Trapping: Ausprägung
