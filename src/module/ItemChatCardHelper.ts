@@ -431,8 +431,11 @@ export default class ItemChatCardHelper {
     //update the message and render the chatlog/chat popout
     await message.update({ content: messageContent.body.innerHTML });
     ui['chat'].render(true);
-    for (const app in message.apps) {
-      message.apps[app].render(true);
+    for (const appId in message.apps) {
+      const app = message.apps[appId] as FormApplication;
+      if (app.rendered) {
+        app.render(true);
+      }
     }
   }
 

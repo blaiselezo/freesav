@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Fixed
+
+- Fixed a bug which would cause chatcards to reopen again after being closed and updated from the chatlog
+
 ## [v0.16.1]
 
 ### Changed
