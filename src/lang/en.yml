@@ -318,4 +318,4 @@ SWADE.ReloadSuccess: The weapon has been successfully reloaded
 SWADE.NotEnoughAmmo: You don't have enough ammunition for this action!
 SWADE.NotEnoughAmmoToReload: There's not enough ammo for a full reload
 SWADE.AutoReload: Doesn't need Reload action
-SWADE.NoAmmoSet: There is not ammunition set
+SWADE.NoAmmoSet: There is no ammunition set

@@ -20,6 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.16.1]
+
+### Changed
+
+- Updated german translation
+
+### Fixed
+
+- Fixed a bug which would stop the system from loading if Dice So Nice was not installed
+- Fixed a spelling mistake in the english translation
+
 ## [v0.16.0]
 
 ### Added
@@ -29,7 +40,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added a new Configuration Submenu for _Dice So Nice!_ related settings.
 - Added option to toggle whether the Benny spending animation should be played. This setting can be found in the new Dice Configuration system settings submenu and is only available if DSN is installed
 - Added the ability to set a custom Wild Die color theme. This setting can be found in the new Dice Configuration system settings submenu and is only available if DSN is installed
-- Added Ammo Management. Ammo management is a system option per player that is turned on by default. When activated it allows you to to track how many shots are expended by an attack as well as reload the gun if it's empty. When active you cannot perform an action unless you have enough ammunition in the magazine. Weapons have recieved 2 new options. One marks the weapon if it doesn't need to be reloaded, such as bows. The other is a text field that lets you enter the name of an item that is used as ammunition.
+- Added Ammo Management. Ammo management is a system option that is turned off by default. When activated it allows you to to track how many shots are expended by an attack as well as reload the gun if it's empty. When active you cannot perform an action unless you have enough ammunition in the magazine. Weapons have recieved 2 new options. One marks the weapon if it doesn't need to be reloaded, such as bows. The other is a text field that lets you enter the name of an item that is used as ammunition. There are also options to which enable the usage of ammo from the inventory. Say you have a gun which is missing 10 shots from a magazine while this feature is enabled. Reloading the weapon will pull 10 shots from the appropriate item that you set as ammunition on the weapon from the characters inventory. A warning is displayed if not enough ammunition for a full reload is available.
 - Expanded Power Chat Card to now include options to directly adjust PP. This can be used to easily spend PP without having to do it via the character sheet
 - Added Shaken icon
 - Added Incapacitated icon

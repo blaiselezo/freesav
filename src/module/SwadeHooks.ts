@@ -631,6 +631,14 @@ export default class SwadeHooks {
   }
 
   public static onDiceSoNiceReady(dice3d: any) {
+    //@ts-ignore
+    import('/modules/dice-so-nice/DiceColors.js')
+      .then((obj) => {
+        CONFIG.SWADE.dsnColorSets = obj.COLORSETS;
+        CONFIG.SWADE.dsnTextureList = obj.TEXTURELIST;
+      })
+      .catch((err) => console.log(err));
+
     const customWilDieColors = game.settings.get(
       'swade',
       'dsnCustomWildDieColors',

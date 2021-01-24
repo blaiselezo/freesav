@@ -1,6 +1,3 @@
-// @ts-ignore
-import { COLORSETS, TEXTURELIST } from '/modules/dice-so-nice/DiceColors.js';
-
 /**
  * This class defines a submenu for the system settings which will handle the DSN Settings
  */
@@ -108,7 +105,7 @@ export default class DiceSettings extends FormApplication {
   }
 
   private _prepareColorsetList() {
-    let sets = this._deepCopyColorsets(COLORSETS);
+    let sets = this._deepCopyColorsets(CONFIG.SWADE.dsnColorSets);
     sets.none = {
       name: 'none',
       category: 'DICESONICE.Colors',
@@ -142,8 +139,8 @@ export default class DiceSettings extends FormApplication {
   }
 
   private _prepareTextureList() {
-    return Object.keys(TEXTURELIST).reduce((i18nCfg, key) => {
-      i18nCfg[key] = TEXTURELIST[key].name;
+    return Object.keys(CONFIG.SWADE.dsnTextureList).reduce((i18nCfg, key) => {
+      i18nCfg[key] = CONFIG.SWADE.dsnTextureList[key].name;
       return i18nCfg;
     }, {});
   }

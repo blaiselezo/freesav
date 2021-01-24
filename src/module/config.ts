@@ -229,4 +229,8 @@ export const SWADE = {
     regular: 'systems/swade/assets/ui/wildcard.svg',
     compendium: 'systems/swade/assets/ui/wildcard-dark.svg',
   },
+
+  dsnColorSets: {},
+
+  dsnTextureList: {},
 };
