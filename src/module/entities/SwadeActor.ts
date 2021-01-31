@@ -656,7 +656,7 @@ export default class SwadeActor extends Actor {
     return new Die({
       faces: sides,
       modifiers: ['x', ...modifiers],
-      options: { flavor: flavor },
+      options: { flavor: flavor.replace(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g, '') },
     });
   }
 
@@ -664,7 +664,11 @@ export default class SwadeActor extends Actor {
     let die = new Die({
       faces: sides,
       modifiers: ['x', ...modifiers],
-      options: { flavor: game.i18n.localize('SWADE.WildDie') },
+      options: {
+        flavor: game.i18n
+          .localize('SWADE.WildDie')
+          .replace(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g, ''),
+      },
     });
     if (game.dice3d) {
       /**
