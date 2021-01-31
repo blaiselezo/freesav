@@ -382,7 +382,9 @@ export default class SwadeActor extends Actor {
 
   calcStatusPenalties(): number {
     let retVal = 0;
-    if (this.data.data.status.isDistracted) {
+    const isDistracted = getProperty(this.data, 'data.status.isDistracted');
+    const isEntangled = getProperty(this.data, 'data.status.isEntangled');
+    if (isDistracted || isEntangled) {
       retVal -= 2;
     }
     return retVal;
