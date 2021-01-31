@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 - Moved the carry capacity calculation to the `Actor` class and adjusted sheet classes accordingly. This should keep it consistent between all sheets.
+- Moved the DSN integration settings away from a `client` setting to a flag on the user. This will make these settings consistent across all browsers, but not all worlds.
 
 ### Fixed
 

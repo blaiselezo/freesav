@@ -58,6 +58,38 @@ export default class SwadeHooks {
     });
     await SwadeSetup.setup();
     Hooks.on('hotbarDrop', (bar, data, slot) => createSwadeMacro(data, slot));
+
+    CONFIG.SWADE.diceConfig.flags = {
+      dsnShowBennyAnimation: {
+        type: Boolean,
+        default: false,
+        label: game.i18n.localize('SWADE.ShowBennyAnimation'),
+        hint: game.i18n.localize('SWADE.ShowBennyAnimationDesc'),
+      },
+      dsnWildDie: {
+        type: String,
+        default: 'none',
+        label: game.i18n.localize('SWADE.WildDiePreset'),
+        hint: game.i18n.localize('SWADE.WildDiePresetDesc'),
+      },
+      dsnCustomWildDieColors: {
+        type: Object,
+        default: {
+          labelColor: '#000000',
+          diceColor: game.user['color'],
+          outlineColor: game.user['color'],
+          edgeColor: game.user['color'],
+        },
+      },
+      dsnCustomWildDieOptions: {
+        type: Object,
+        default: {
+          font: 'auto',
+          material: 'auto',
+          texture: 'none',
+        },
+      },
+    };
   }
 
   public static onPreCreateItem(createData: any, options: any, userId: string) {
@@ -579,47 +611,6 @@ export default class SwadeHooks {
   }
 
   public static onDiceSoNiceInit(dice3d: any) {
-    game.settings.register('swade', 'dsnShowBennyAnimation', {
-      name: game.i18n.localize('SWADE.ShowBennyAnimation'),
-      hint: game.i18n.localize('SWADE.ShowBennyAnimationDesc'),
-      default: true,
-      scope: 'client',
-      type: Boolean,
-      config: false,
-    });
-
-    game.settings.register('swade', 'dsnWildDie', {
-      name: game.i18n.localize('SWADE.WildDiePreset'),
-      hint: game.i18n.localize('SWADE.WildDiePresetDesc'),
-      default: 'none',
-      scope: 'client',
-      type: String,
-      config: false,
-    });
-
-    game.settings.register('swade', 'dsnCustomWildDieOptions', {
-      default: {
-        font: 'auto',
-        material: 'auto',
-        texture: 'none',
-      },
-      scope: 'client',
-      type: Object,
-      config: false,
-    });
-
-    game.settings.register('swade', 'dsnCustomWildDieColors', {
-      default: {
-        labelColor: '#000000',
-        diceColor: game.user['color'],
-        outlineColor: game.user['color'],
-        edgeColor: game.user['color'],
-      },
-      scope: 'client',
-      type: Object,
-      config: false,
-    });
-
     game.settings.registerMenu('swade', 'dice-config', {
       name: game.i18n.localize('SWADE.DiceConf'),
       label: game.i18n.localize('SWADE.DiceConfLabel'),
@@ -639,15 +630,13 @@ export default class SwadeHooks {
       })
       .catch((err) => console.log(err));
 
-    const customWilDieColors = game.settings.get(
-      'swade',
-      'dsnCustomWildDieColors',
-    );
+    const customWilDieColors =
+      game.user.getFlag('swade', 'dsnCustomWildDieColors') ||
+      CONFIG.SWADE.diceConfig.flags.dsnCustomWildDieColors.default;
 
-    const customWilDieOptions = game.settings.get(
-      'swade',
-      'dsnCustomWildDieOptions',
-    );
+    const customWilDieOptions =
+      game.user.getFlag('swade', 'dsnCustomWildDieOptions') ||
+      CONFIG.SWADE.diceConfig.flags.dsnCustomWildDieOptions.default;
 
     dice3d.addColorset(
       {

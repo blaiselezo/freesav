@@ -301,7 +301,7 @@ export default class SwadeActor extends Actor {
       ChatMessage.create(chatData);
     }
     await this.update({ 'data.bennies.value': currentBennies - 1 });
-    if (!!game.dice3d && game.settings.get('swade', 'dsnShowBennyAnimation')) {
+    if (!!game.dice3d && game.user.getFlag('swade', 'dsnShowBennyAnimation')) {
       const benny = new Roll('1dB').roll();
       game.dice3d.showForRoll(benny, game.user, true, null, false);
     }
@@ -677,7 +677,7 @@ export default class SwadeActor extends Actor {
        * which removes property from the options object during the roll evaluation
        * I'll keep it here anyway so we have it ready when the bug is fixed
        */
-      const colorPreset = game.settings.get('swade', 'dsnWildDie');
+      const colorPreset = game.user.getFlag('swade', 'dsnWildDie') || 'none';
       if (colorPreset !== 'none') {
         die.options['colorset'] = colorPreset;
       }

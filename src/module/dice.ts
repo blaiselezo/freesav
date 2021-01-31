@@ -160,7 +160,8 @@ export default class SwadeDice {
               term.options['flavor'] ===
                 game.i18n.localize('SWADE.WildDie').replace(' ', '')
             ) {
-              const colorPreset = game.settings.get('swade', 'dsnWildDie');
+              const colorPreset =
+                game.user.getFlag('swade', 'dsnWildDie') || 'none';
               if (colorPreset !== 'none')
                 term.options['colorset'] = colorPreset;
             }

@@ -79,12 +79,7 @@ export const SWADE = {
   diceConfig: {
     id: 'diceConfig',
     title: 'SWADE Dice Settings',
-    settings: [
-      'dsnShowBennyAnimation',
-      'dsnWildDie',
-      'dsnCustomWildDieColors',
-      'dsnCustomWildDieOptions',
-    ],
+    flags: {},
   },
 
   templates: {

@@ -7,10 +7,7 @@ export default class DiceSettings extends FormApplication {
   constructor(object = {}, options = { parent: null }) {
     super(object, options);
     this.config = CONFIG.SWADE.diceConfig;
-    this.customWildDieDefaultColors = game.settings.get(
-      'swade',
-      'dsnCustomWildDieColors',
-    );
+    this.customWildDieDefaultColors = this.config.flags.dsnCustomWildDieColors.default;
   }
 
   static get defaultOptions() {
@@ -46,14 +43,21 @@ export default class DiceSettings extends FormApplication {
    */
   getData(): any {
     let settings = {};
-    for (const setting of this.config.settings) {
-      settings[setting] = game.settings.settings.get(`swade.${setting}`);
-      settings[setting].value = game.settings.get('swade', setting);
-      settings[setting].isCheckbox = settings[setting].type.name === 'Boolean';
-      settings[setting].isObject = settings[setting].type.name === 'Object';
-      if (setting === 'dsnWildDie') {
-        settings[setting].isSelectOptGroup = true;
-        settings[setting].groups = this._prepareColorsetList();
+    for (const flag in this.config.flags) {
+      const defaultValue = this.config.flags[flag].default;
+      settings[flag] = {
+        module: 'swade',
+        key: flag,
+        value: game.user.getFlag('swade', flag) || defaultValue,
+        name: this.config.flags[flag].label || '',
+        hint: this.config.flags[flag].hint || '',
+        type: this.config.flags[flag].type,
+        isCheckbox: this.config.flags[flag].type === Boolean,
+        isObject: this.config.flags[flag].type === Object,
+      };
+      if (flag === 'dsnWildDie') {
+        settings[flag].isSelectOptGroup = true;
+        settings[flag].groups = this._prepareColorsetList();
       }
     }
 
@@ -68,37 +72,36 @@ export default class DiceSettings extends FormApplication {
 
   async _updateObject(event, formData): Promise<void> {
     const expandedFormdata = expandObject(formData) as any;
-    console.log(expandedFormdata);
     //handle basic settings
+    console.log(expandedFormdata);
     for (const [key, value] of Object.entries(expandedFormdata.swade)) {
-      console.log(key, value);
-      await game.settings.set('swade', key, value);
-    }
-    //handle custom wild die
-    if (expandedFormdata.swade.dsnWildDie === 'customWildDie') {
-      await game.settings.set('swade', 'dsnCustomWildDieColors', {
-        diceColor:
-          expandedFormdata.diceColor ||
-          this.customWildDieDefaultColors.diceColor,
-        edgeColor:
-          expandedFormdata.edgeColor ||
-          this.customWildDieDefaultColors.edgeColor,
-        labelColor:
-          expandedFormdata.labelColor ||
-          this.customWildDieDefaultColors.labelColor,
-        outlineColor:
-          expandedFormdata.outlineColor ||
-          this.customWildDieDefaultColors.outlineColor,
-      });
+      //handle custom wild die
+      if (expandedFormdata.swade.dsnWildDie === 'customWildDie') {
+        await game.user.setFlag('swade', 'dsnCustomWildDieColors', {
+          diceColor:
+            expandedFormdata.diceColor ||
+            this.customWildDieDefaultColors.diceColor,
+          edgeColor:
+            expandedFormdata.edgeColor ||
+            this.customWildDieDefaultColors.edgeColor,
+          labelColor:
+            expandedFormdata.labelColor ||
+            this.customWildDieDefaultColors.labelColor,
+          outlineColor:
+            expandedFormdata.outlineColor ||
+            this.customWildDieDefaultColors.outlineColor,
+        });
+      }
+      await game.user.setFlag('swade', key, value);
     }
     this.render(true);
   }
 
   async _resetSettings() {
-    for (const setting of this.config.settings) {
-      let resetValue = game.settings.settings.get(`swade.${setting}`).default;
-      if (game.settings.get('swade', setting) !== resetValue) {
-        await game.settings.set('swade', setting, resetValue);
+    for (const flag in this.config.flags) {
+      let resetValue = this.config.flags[flag].default;
+      if (game.user.getFlag('swade', flag) !== resetValue) {
+        await game.user.setFlag('swade', flag, resetValue);
       }
     }
     this.render(true);
