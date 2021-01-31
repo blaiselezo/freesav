@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+### Changed
+
+- Moved the carry capacity calculation to the `Actor` class and adjusted sheet classes accordingly. This should keep it consistent between all sheets.
+
 ### Fixed
 
 - Fixed a bug which would cause chatcards to reopen again after being closed and updated from the chatlog,

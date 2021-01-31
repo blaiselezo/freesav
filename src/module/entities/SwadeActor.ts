@@ -507,6 +507,30 @@ export default class SwadeActor extends Actor {
   }
 
   /**
+   * Calculates the maximum carry capacity based on the strength die and any adjustment steps
+   */
+  calcMaxCarryCapacity(): number {
+    const strengthDie = getProperty(this.data, 'data.attributes.strength.die');
+
+    let stepAdjust =
+      getProperty(this.data, 'data.attributes.strength.encumbranceSteps') * 2;
+
+    if (stepAdjust < 0) stepAdjust = 0;
+
+    let encumbDie = strengthDie.sides + stepAdjust;
+
+    if (encumbDie > 12) encumbDie > 12;
+
+    let capacity = 20 + 10 * (encumbDie - 4);
+
+    if (strengthDie.modifier > 0) {
+      capacity = capacity + 20 * strengthDie.modifier;
+    }
+
+    return capacity;
+  }
+
+  /**
    * Helper Function for Vehicle Actors, to roll Maneuevering checks
    */
   rollManeuverCheck(event: any = null) {
