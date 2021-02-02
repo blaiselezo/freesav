@@ -290,20 +290,16 @@ export default class ItemChatCardHelper {
     const item = actor.items.get(itemId) as SwadeItem;
     const currentShots = parseInt(getProperty(item.data, 'data.currentShots'));
     const hasAutoReload = getProperty(item.data, 'data.autoReload') as boolean;
-    const useAmmoFromInventory = game.settings.get(
-      'swade',
-      'ammoFromInventory',
-    ) as boolean;
-
+    const ammoManagement = game.settings.get('swade', 'ammoManagement');
     const doReload = this.isReloadPossible(actor);
 
     //handle Auto Reload
     if (hasAutoReload) {
-      if (doReload) return;
+      if (!doReload) return;
       const ammo = actor.items.find(
         (i: Item) => i.name === getProperty(item.data, 'data.ammo'),
       );
-      if (!ammo && !useAmmoFromInventory) return;
+      if (!ammo && !doReload) return;
       const current = getProperty(ammo.data, 'data.quantity');
       const newQuantity = current - (shotsUsed || 1);
 
@@ -311,8 +307,8 @@ export default class ItemChatCardHelper {
         _id: ammo.id,
         'data.quantity': newQuantity,
       });
-      //handle normal reload
-    } else if (doReload && !!shotsUsed && currentShots - shotsUsed >= 0) {
+      //handle normal shot consumption
+    } else if (ammoManagement && !!shotsUsed && currentShots - shotsUsed >= 0) {
       await actor.updateOwnedItem({
         _id: itemId,
         'data.currentShots': currentShots - shotsUsed,

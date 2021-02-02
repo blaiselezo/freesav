@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [v0.16.2]
 
+### Added
+
+- Added missing translations on the official sheet
+
 ### Changed
 
 - Moved the carry capacity calculation to the `Actor` class and adjusted sheet classes accordingly. This should keep it consistent between all sheets.
@@ -32,6 +36,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Fixed a bug which would cause chatcards to reopen again after being closed and updated from the chatlog,
 - Added missing translation key for Power Trappings
 - Added missing labels for major and minor hindrances on the official character sheet
+- Fixed a bug which would cause NPC and Vehicle ammo tracking not to behave correctly
 
 ## [v0.16.1]
 
