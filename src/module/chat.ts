@@ -233,3 +233,63 @@ export async function createGmBennyAddMessage(
   };
   ChatMessage.create(chatData);
 }
+
+export function rerollFromChat(li: JQuery<HTMLElement>, spendBenny: boolean) {
+  const message = game.messages.get(li.data('messageId')) as ChatMessage;
+  let flavor = new DOMParser().parseFromString(
+    getProperty(message, 'data.flavor'),
+    'text/html',
+  );
+  const speaker = getProperty(message, 'data.speaker');
+  const roll = message.roll;
+  //little helper function to get the actor from the Speaker
+  let getActorFromMessage = (speaker: any): SwadeActor => {
+    // Case 1 - a synthetic actor from a Token
+    const tokenKey = speaker.token;
+    if (tokenKey) {
+      const scene = game.scenes.get(speaker.scene);
+      if (!scene) return null;
+      const tokenData = scene.getEmbeddedEntity('Token', tokenKey);
+      if (!tokenData) return null;
+      const token = new Token(tokenData);
+      return token.actor as SwadeActor;
+    }
+    // Case 2 - use Actor ID directory
+    return (
+      (game.actors.get(speaker.actor) as SwadeActor) || (null as SwadeActor)
+    );
+  };
+
+  const actor = getActorFromMessage(speaker);
+  const currentBennies = getProperty(actor.data, 'data.bennies.value');
+
+  const doSpendBenny = spendBenny && !!actor && actor.isWildcard;
+
+  if (doSpendBenny && currentBennies <= 0) {
+    ui.notifications.warn(game.i18n.localize('SWADE.NoBennies'));
+    return;
+  }
+
+  const prefix = doSpendBenny
+    ? game.i18n.localize('SWADE.RerollWithBenny')
+    : game.i18n.localize('SWADE.FreeReroll');
+
+  const prefixes = flavor.getElementsByClassName('prefix') as HTMLCollection;
+  if (prefixes.length > 0) {
+    Array.from(prefixes).forEach((el: HTMLElement) => {
+      el.innerText = prefix;
+    });
+  } else {
+    flavor.body.innerHTML = `<strong class="prefix">${prefix}</strong><br>${flavor.body.innerHTML}`;
+  }
+  const newRollData = {
+    speaker: speaker,
+    flavor: flavor.body.innerHTML,
+  };
+
+  if (doSpendBenny) {
+    actor.spendBenny().then(() => roll.reroll().toMessage(newRollData));
+  } else {
+    roll.reroll().toMessage(newRollData);
+  }
+}

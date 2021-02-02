@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added missing translations on the official sheet
+- Added the ability to reroll rolls in chat by right-clicking the roll in chat and selecting the right option from the context-menu.
 
 ### Changed
 

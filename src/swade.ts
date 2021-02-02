@@ -57,7 +57,6 @@ Hooks.once('init', () => {
   MeasuredTemplate.prototype._getConeShape = getSwadeConeShape;
 
   // Register custom classes
-  //CONFIG.Combat.entityClass = SwadeCombat;
   CONFIG.Actor.entityClass = SwadeActor;
   CONFIG.Item.entityClass = SwadeItem;
   CONFIG.Combat.entityClass = SwadeCombat;
@@ -190,6 +189,12 @@ Hooks.on(
   'renderChatMessage',
   async (chatMessage: ChatMessage, html: JQuery<HTMLElement>, data: any) =>
     SwadeHooks.onRenderChatMessage(chatMessage, html, data),
+);
+
+Hooks.on(
+  'getChatLogEntryContext',
+  (html: JQuery<HTMLElement>, options: any[]) =>
+    SwadeHooks.onGetChatLogEntryContext(html, options),
 );
 
 Hooks.on('renderChatLog', (app, html: JQuery<HTMLElement>, data) =>

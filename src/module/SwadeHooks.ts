@@ -391,6 +391,30 @@ export default class SwadeHooks {
     chat.hideChatActionButtons(message, html, data);
   }
 
+  public static onGetChatLogEntryContext(
+    html: JQuery<HTMLElement>,
+    options: any[],
+  ) {
+    let canApply = (li: JQuery<HTMLElement>) => {
+      const message = game.messages.get(li.data('messageId'));
+      return message?.isRoll && message?.isContentVisible;
+    };
+    options.push(
+      {
+        name: game.i18n.localize('SWADE.RerollWithBenny'),
+        icon: '<i class="fas fa-dice"></i>',
+        condition: canApply,
+        callback: (li) => chat.rerollFromChat(li, true),
+      },
+      {
+        name: game.i18n.localize('SWADE.FreeReroll'),
+        icon: '<i class="fas fa-dice"></i>',
+        condition: canApply,
+        callback: (li) => chat.rerollFromChat(li, false),
+      },
+    );
+  }
+
   public static async onRenderPlayerList(
     list: any,
     html: JQuery<HTMLElement>,
