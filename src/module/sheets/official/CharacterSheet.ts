@@ -348,6 +348,7 @@ export default class CharacterSheet extends ActorSheet {
   getData() {
     let data: any = super.getData();
 
+    data.bennyImageURL = CONFIG.SWADE.bennies.sheetImage;
     data.itemsByType = {};
     for (const type of game.system.entityTypes.Item) {
       data.itemsByType[type] = data.items.filter((i) => i.type === type) || [];
@@ -434,7 +435,7 @@ export default class CharacterSheet extends ActorSheet {
     data.settingrules = {
       conviction: game.settings.get('swade', 'enableConviction'),
     };
-
+    console.log(data);
     return data;
   }
 
