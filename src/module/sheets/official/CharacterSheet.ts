@@ -348,6 +348,7 @@ export default class CharacterSheet extends ActorSheet {
   getData() {
     let data: any = super.getData();
 
+    data.bennyImageURL = CONFIG.SWADE.bennies.sheetImage;
     data.itemsByType = {};
     for (const type of game.system.entityTypes.Item) {
       data.itemsByType[type] = data.items.filter((i) => i.type === type) || [];
@@ -376,7 +377,7 @@ export default class CharacterSheet extends ActorSheet {
       ...data.itemsByType['armor'],
       ...data.itemsByType['shield'],
     ]);
-    data.maxCarryCapacity = this._calcMaxCarryCapacity();
+    data.maxCarryCapacity = this.actor.calcMaxCarryCapacity();
 
     //Checks if the Actor has an Arcane Background
     data.hasArcaneBackground = this.actor.hasArcaneBackground;
@@ -434,7 +435,7 @@ export default class CharacterSheet extends ActorSheet {
     data.settingrules = {
       conviction: game.settings.get('swade', 'enableConviction'),
     };
-
+    console.log(data);
     return data;
   }
 
@@ -474,20 +475,6 @@ export default class CharacterSheet extends ActorSheet {
       retVal += i.data.weight * i.data.quantity;
     });
     return retVal;
-  }
-
-  private _calcMaxCarryCapacity(): number {
-    const strengthDie = getProperty(
-      this.actor.data,
-      'data.attributes.strength.die',
-    );
-    let capacity = 20 + 10 * (strengthDie.sides - 4);
-
-    if (strengthDie.modifier > 0) {
-      capacity = capacity + 20 * strengthDie.modifier;
-    }
-
-    return capacity;
   }
 
   private _toggleEquipped(id: string, item: any): any {

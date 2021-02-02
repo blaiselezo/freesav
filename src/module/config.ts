@@ -49,6 +49,7 @@ export const SWADE = {
       spend: 'systems/swade/templates/chat/benny-spend.html',
       gmadd: 'systems/swade/templates/chat/benny-gmadd.html',
     },
+    sheetImage: 'systems/swade/assets/bennie.webp',
     textures: {
       front: 'systems/swade/assets/benny/benny-chip-front.png',
       back: 'systems/swade/assets/benny/benny-chip-front.png',
@@ -79,12 +80,7 @@ export const SWADE = {
   diceConfig: {
     id: 'diceConfig',
     title: 'SWADE Dice Settings',
-    settings: [
-      'dsnShowBennyAnimation',
-      'dsnWildDie',
-      'dsnCustomWildDieColors',
-      'dsnCustomWildDieOptions',
-    ],
+    flags: {},
   },
 
   templates: {

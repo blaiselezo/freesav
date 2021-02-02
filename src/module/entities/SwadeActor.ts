@@ -301,7 +301,7 @@ export default class SwadeActor extends Actor {
       ChatMessage.create(chatData);
     }
     await this.update({ 'data.bennies.value': currentBennies - 1 });
-    if (!!game.dice3d && game.settings.get('swade', 'dsnShowBennyAnimation')) {
+    if (!!game.dice3d && game.user.getFlag('swade', 'dsnShowBennyAnimation')) {
       const benny = new Roll('1dB').roll();
       game.dice3d.showForRoll(benny, game.user, true, null, false);
     }
@@ -382,7 +382,9 @@ export default class SwadeActor extends Actor {
 
   calcStatusPenalties(): number {
     let retVal = 0;
-    if (this.data.data.status.isDistracted) {
+    const isDistracted = getProperty(this.data, 'data.status.isDistracted');
+    const isEntangled = getProperty(this.data, 'data.status.isEntangled');
+    if (isDistracted || isEntangled) {
       retVal -= 2;
     }
     return retVal;
@@ -502,6 +504,30 @@ export default class SwadeActor extends Actor {
       retVal += this.calcArmor();
     }
     return retVal;
+  }
+
+  /**
+   * Calculates the maximum carry capacity based on the strength die and any adjustment steps
+   */
+  calcMaxCarryCapacity(): number {
+    const strengthDie = getProperty(this.data, 'data.attributes.strength.die');
+
+    let stepAdjust =
+      getProperty(this.data, 'data.attributes.strength.encumbranceSteps') * 2;
+
+    if (stepAdjust < 0) stepAdjust = 0;
+
+    let encumbDie = strengthDie.sides + stepAdjust;
+
+    if (encumbDie > 12) encumbDie > 12;
+
+    let capacity = 20 + 10 * (encumbDie - 4);
+
+    if (strengthDie.modifier > 0) {
+      capacity = capacity + 20 * strengthDie.modifier;
+    }
+
+    return capacity;
   }
 
   /**
@@ -630,7 +656,7 @@ export default class SwadeActor extends Actor {
     return new Die({
       faces: sides,
       modifiers: ['x', ...modifiers],
-      options: { flavor: flavor },
+      options: { flavor: flavor.replace(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g, '') },
     });
   }
 
@@ -638,7 +664,11 @@ export default class SwadeActor extends Actor {
     let die = new Die({
       faces: sides,
       modifiers: ['x', ...modifiers],
-      options: { flavor: game.i18n.localize('SWADE.WildDie') },
+      options: {
+        flavor: game.i18n
+          .localize('SWADE.WildDie')
+          .replace(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g, ''),
+      },
     });
     if (game.dice3d) {
       /**
@@ -647,7 +677,7 @@ export default class SwadeActor extends Actor {
        * which removes property from the options object during the roll evaluation
        * I'll keep it here anyway so we have it ready when the bug is fixed
        */
-      const colorPreset = game.settings.get('swade', 'dsnWildDie');
+      const colorPreset = game.user.getFlag('swade', 'dsnWildDie') || 'none';
       if (colorPreset !== 'none') {
         die.options['colorset'] = colorPreset;
       }

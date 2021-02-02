@@ -205,7 +205,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
         ...data.itemsByType['armor'],
         ...data.itemsByType['shield'],
       ]);
-      data.maxCarryCapacity = this._calcMaxCarryCapacity();
+      data.maxCarryCapacity = this.actor.calcMaxCarryCapacity();
 
       //Checks if an Actor has a Arcane Background
       data.hasArcaneBackground =
@@ -422,33 +422,6 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       retVal += i.data.weight * i.data.quantity;
     });
     return retVal;
-  }
-
-  private _calcMaxCarryCapacity(): number {
-    const strengthDie = getProperty(
-      this.actor.data,
-      'data.attributes.strength.die',
-    );
-
-    let stepAdjust =
-      getProperty(
-        this.actor.data,
-        'data.attributes.strength.encumbranceSteps',
-      ) * 2;
-
-    if (stepAdjust < 0) stepAdjust = 0;
-
-    let encumbDie = strengthDie.sides + stepAdjust;
-
-    if (encumbDie > 12) encumbDie > 12;
-
-    let capacity = 20 + 10 * (encumbDie - 4);
-
-    if (strengthDie.modifier > 0) {
-      capacity = capacity + 20 * strengthDie.modifier;
-    }
-
-    return capacity;
   }
 
   protected _filterPowers(html: JQuery, arcane: string) {
