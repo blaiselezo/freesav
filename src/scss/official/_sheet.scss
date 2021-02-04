@@ -120,33 +120,34 @@
       background: transparent;
       flex-basis: 100px;
     }
-    .charname {
-      flex-basis: 200px;
-      margin: $small-spacing;
-      font-size: 30px;
-      height: 48px;
-      border: none;
-      background: none;
-      width: 100%;
-      margin: 0;
-    }
-    .char-details {
-      justify-content: space-around;
-    }
-    .advances {
-      display: inherit;
-      flex-basis: 100px;
-      line-height: 26px;
-      text-align: center;
-    }
-    .character-detail {
-      max-width: 32%;
-      border: none;
-      background: none;
-      border-radius: 0;
-      margin: 0 $small-spacing;
-      border-bottom: $solid-line;
-    }
+  }
+
+  .charname {
+    flex-basis: 200px;
+    margin: $small-spacing;
+    font-size: 30px;
+    height: 48px;
+    border: none;
+    background: none;
+    width: 100%;
+    margin: 0;
+  }
+  .char-details {
+    justify-content: space-around;
+  }
+  .advances {
+    display: inherit;
+    flex-basis: 100px;
+    line-height: 26px;
+    text-align: center;
+  }
+  .character-detail {
+    max-width: 32%;
+    border: none;
+    background: none;
+    border-radius: 0;
+    margin: 0 $small-spacing;
+    border-bottom: $solid-line;
   }
 
   //conviction
