@@ -315,68 +315,58 @@
   //#######################
   // Summary Tab
   //#######################
-  .vitals {
-    margin-bottom: $large-spacing;
-    align-items: center;
-    justify-content: space-around;
-    .label {
-      text-align: center;
+  .label {
+    text-align: center;
+  }
+  .wounds {
+    background-image: url('./assets/circle_wounds.webp');
+    @include vital;
+    .values {
+      padding-right: 10px;
     }
-    .wounds {
-      background-image: url('./assets/circle_wounds.webp');
-      @include vital;
-      .values {
-        padding-right: 10px;
-      }
+  }
+  .fatigue {
+    background-image: url('./assets/circle_fatigue.webp');
+    @include vital;
+    .values {
+      padding-right: 20px;
     }
-    .fatigue {
-      background-image: url('./assets/circle_fatigue.webp');
-      @include vital;
-      .values {
-        padding-right: 20px;
-      }
+  }
+  .bennies {
+    display: grid;
+    grid-template-columns: repeat(12, 10px);
+    min-height: 80px;
+  }
+  .benny {
+    width: 80px;
+    height: 80px;
+    align-self: center;
+    justify-self: start;
+    grid-row: 1;
+    background-position: center;
+    background-size: contain;
+    text-align: center;
+    &:hover {
+      filter: grayscale(100%);
     }
-    .status {
-      height: 90px;
-      font-weight: bold;
-      margin-right: $medium-spacing;
-    }
-    .bennies {
-      display: grid;
-      grid-template-columns: repeat(12, 10px);
-      min-height: 80px;
-    }
-    .benny {
-      width: 80px;
-      height: 80px;
-      align-self: center;
-      justify-self: start;
-      grid-row: 1;
-      background-position: center;
-      background-size: contain;
-      text-align: center;
-      &:hover {
-        filter: grayscale(100%);
-      }
-    }
-    .current-bennies {
-      grid-row: 1;
-      grid-column: 11 / span 2;
-      align-self: end;
-      justify-self: end;
-      font-size: 24px;
-      font-weight: 700;
-      margin-right: $small-spacing;
-      margin-bottom: -$medium-spacing;
-      z-index: 10;
-    }
-    .add-benny {
-      grid-row: 1;
-      grid-column: 11 / span 2;
-      align-self: start;
-      justify-self: center;
-      z-index: 10;
-    }
+  }
+  .current-bennies {
+    grid-row: 1;
+    grid-column: 11 / span 2;
+    align-self: end;
+    justify-self: end;
+    font-size: 24px;
+    font-weight: 700;
+    margin-right: $small-spacing;
+    margin-bottom: -$medium-spacing;
+    z-index: 10;
+  }
+  .add-benny {
+    grid-row: 1;
+    grid-column: 11 / span 2;
+    align-self: start;
+    justify-self: center;
+    z-index: 10;
   }
 
   .attributes,
