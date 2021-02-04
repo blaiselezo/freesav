@@ -10,26 +10,42 @@
 }
 
 .swade-official {
+  //Custom properties
+  --content-background-image: url('./assets/main_bg.webp');
+
+  --section-header-color: $header-text;
+  --section-header-size: $section-header;
+  --section-header-font: 'Anton', 'Signika', sans-serif;
+
+  --default-font: 'Roboto Slab', 'Signika', serif;
+  --default-font-size: 1em;
+
+  --input-background: $input-bg-light;
+  --input-box-shadow: 0 0 5px red;
+  --input-text-shadow: 0 0 10px red;
+
   //default font of the sheet
-  font-family: 'Roboto Slab', 'Signika', serif;
+  font-family: var(--default-font);
   font-weight: normal;
+  font-size: var(--default-font-size);
 
   //sheet background
   .window-content {
     //sheet background
-    background-image: url('./assets/main_bg.webp');
+    background-image: var(--content-background-image);
     background-repeat: repeat;
     background-position: left top;
+
   }
 
   //some default styling for input fields
   input[type='text'],
   input[type='number'] {
     border: none;
-    background: $input-bg-light;
+    background: var(--input-background);
     &:hover,
     :focus {
-      box-shadow: 0 0 5px red;
+      box-shadow: var(--input-box-shadow);
     }
   }
 
@@ -38,7 +54,7 @@
     background: transparent;
     border-radius: 0;
     line-height: 16px;
-    font-family: 'Roboto Slab', 'Signika', serif;
+    font-family: var(--default-font);
     width: auto;
     padding: $small-spacing;
     margin: $small-spacing;
@@ -46,10 +62,10 @@
       margin: 0;
     }
     &:focus {
-      box-shadow: 0 0 5px red;
+      box-shadow: var(--input-box-shadow);
     }
     &:hover {
-      text-shadow: 0 0 10px red;
+      text-shadow: var(--input-text-shadow);
     }
   }
 
@@ -59,10 +75,10 @@
   }
 
   .section-header {
-    font-family: 'Anton', 'Signika', sans-serif;
+    font-family: var(--section-header-font);
     text-align: center;
-    font-size: $section-header;
-    color: $header-text;
+    font-size: var(--section-header-size);
+    color: var(--section-header-color);
     display: grid;
     grid-template-columns: 1fr auto;
     .name {
@@ -75,7 +91,7 @@
       z-index: 1;
       grid-column: 2;
       grid-row: 1;
-      font-family: 'Roboto Slab', 'Signika', serif;
+      font-family: var(--default-font);
     }
   }
 
@@ -876,7 +892,7 @@
       overflow-y: scroll;
 
       .power-details {
-        font-family: 'Roboto Slab', 'Signika', serif;
+        font-family: var(--default-font);
         display: flex;
         font-size: $small-font;
         font-weight: 900;
@@ -894,14 +910,14 @@
       .trapping {
         margin: $small-spacing;
         padding: $small-spacing;
-        font-family: 'Roboto Slab', 'Signika', serif;
+        font-family: var(--default-font);
         font-size: $small-font;
         font-weight: 900;
       }
     }
 
     .pp-counter {
-      font-family: 'Roboto Slab', 'Signika', serif;
+      font-family: var(--default-font);
       color: black;
       input {
         width: 50px;
