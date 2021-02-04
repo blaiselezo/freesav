@@ -13,14 +13,14 @@
   //Custom properties
   --content-background-image: url('./assets/main_bg.webp');
 
-  --section-header-color: $header-text;
-  --section-header-size: $section-header;
+  --section-header-color: #{$header-text};
+  --section-header-size: #{$section-header};
   --section-header-font: 'Anton', 'Signika', sans-serif;
 
   --default-font: 'Roboto Slab', 'Signika', serif;
   --default-font-size: 1em;
 
-  --input-background: $input-bg-light;
+  --input-background: #{$input-bg-light};
   --input-box-shadow: 0 0 5px red;
   --input-text-shadow: 0 0 10px red;
 
