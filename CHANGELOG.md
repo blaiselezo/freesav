@@ -26,6 +26,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added an option to automatically hide NPC Item Chatcards. This setting is on by default and can be found in the System Settings. You can still make a card public by right-click it and selecting the right option from the context menu
 
+### Changed
+
+- Improved permission control for the reroll options
+
 ## [v0.16.2]
 
 ### Added
