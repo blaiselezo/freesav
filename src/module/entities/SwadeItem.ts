@@ -1,5 +1,6 @@
 import IRollOptions from '../../interfaces/IRollOptions';
 import SwadeDice from '../dice';
+import { ActorType } from '../enums/ActorTypeEnum';
 import { ItemType } from '../enums/ItemTypeEnum';
 // eslint-disable-next-line no-unused-vars
 import SwadeActor from './SwadeActor';
@@ -257,6 +258,12 @@ export default class SwadeItem extends Item {
       },
       flags: { 'core.canPopout': true },
     };
+    if (
+      game.settings.get('swade', 'hideNpcItemChatCards') &&
+      this.actor.data.type === ActorType.NPC
+    ) {
+      chatData['whisper'] = game.users.filter((u: User) => u.isGM);
+    }
 
     // Toggle default roll mode
     let rollMode = game.settings.get('core', 'rollMode');

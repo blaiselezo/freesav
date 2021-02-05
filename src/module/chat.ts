@@ -242,27 +242,8 @@ export function rerollFromChat(li: JQuery<HTMLElement>, spendBenny: boolean) {
   );
   const speaker = getProperty(message, 'data.speaker');
   const roll = message.roll;
-  //little helper function to get the actor from the Speaker
-  let getActorFromMessage = (speaker: any): SwadeActor => {
-    // Case 1 - a synthetic actor from a Token
-    const tokenKey = speaker.token;
-    if (tokenKey) {
-      const scene = game.scenes.get(speaker.scene);
-      if (!scene) return null;
-      const tokenData = scene.getEmbeddedEntity('Token', tokenKey);
-      if (!tokenData) return null;
-      const token = new Token(tokenData);
-      return token.actor as SwadeActor;
-    }
-    // Case 2 - use Actor ID directory
-    return (
-      (game.actors.get(speaker.actor) as SwadeActor) || (null as SwadeActor)
-    );
-  };
-
-  const actor = getActorFromMessage(speaker);
+  const actor = ChatMessage.getSpeakerActor(speaker) as SwadeActor;
   const currentBennies = getProperty(actor.data, 'data.bennies.value');
-
   const doSpendBenny = spendBenny && !!actor && actor.isWildcard;
 
   if (doSpendBenny && currentBennies <= 0) {
