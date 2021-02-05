@@ -291,3 +291,7 @@ SWADE.NotEnoughAmmoToReload: There's not enough ammo for a full reload
 SWADE.AutoReload: Doesn't need Reload action
 SWADE.NoAmmoSet: There is no ammunition set
 SWADE.Trapping: Trappings
+SWADE.AddBenny: Add a Benny
+SWADE.CurrentBennies: Current Bennies
+SWADE.RerollWithBenny: Reroll with Benny
+SWADE.FreeReroll: Free Reroll

@@ -1,14 +1,14 @@
 {
   "private": true,
   "name": "swade",
-  "version": "0.16.1",
+  "version": "0.16.2",
   "description": "An implementation of the Savage Worlds Adventure Edition game system for Foundry Virtual Tabletop (http://foundryvtt.com). This work is permitted under the Pinnacle Entertainment Group Fan License (https://www.peginc.com/licensing)",
   "scripts": {
     "package": "gulp package",
     "build": "gulp build && gulp link",
     "build:watch": "gulp watch",
     "clean": "gulp clean && gulp link --clean",
-    "update": "npm uninstall foundry-pc-types && npm install --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types",
+    "update": "npm uninstall foundry-vtt-types && npm install --save-dev github:League-of-Foundry-Developers/foundry-vtt-types",
     "generate-docs": "typedoc --plugin typedoc-plugin-no-inherit",
     "generate-docs-as-md": "typedoc --options typedoc.json"
   },
