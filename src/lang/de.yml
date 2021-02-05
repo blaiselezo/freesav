@@ -127,7 +127,7 @@ SWADE.Hesitant: Zögerlich
 SWADE.LevelHeaded: Kühler Kopf
 SWADE.ImprovedLevelHeaded: Sehr kühler Kopf
 SWADE.AutoCalc: Automatische Berechnungen
-SWADE.InclArmor: 'Automatisch Robustheit berechnen, inclusive Rüstung'
+SWADE.InclArmor: Automatisch Robustheit berechnen, inclusive Rüstung
 SWADE.Label: Etikett
 SWADE.HasMaxValue: Hat Maximalwert
 SWADE.Enabled: aktiviert
@@ -179,19 +179,19 @@ SWADE.AutoInit: Automatische Initiative
 SWADE.AutoInitDesc: Aktionskarten jede Runde automatisch ziehen
 SWADE.CreateInitChat: Chatnachrichten für Initiative
 SWADE.HideWC: NSC Wildcards verstecken
-SWADE.HideWCDesc: 'Den Spielern nicht anzeigen, welche NSCs Wildcards sind'
+SWADE.HideWCDesc: Den Spielern nicht anzeigen, welche NSCs Wildcards sind
 SWADE.EnableConv: Entschlossenheit verwenden
 SWADE.EnableConvDesc: Setting-Regel Entschlossenheit verwenden
 SWADE.EnableWoundPace: Bewegung durch Wunden modifizieren
-SWADE.EnableWoundPaceDesc: 'Wenn aktiviert, wird die Bewegung automatisch durch Wunden angepasst'
+SWADE.EnableWoundPaceDesc: Wenn aktiviert, wird die Bewegung automatisch durch Wunden angepasst
 SWADE.AutoLink: NSC Wildcards mit Token verbinden
 SWADE.AutoLinkDesc: >-
   NSC Wildcards beim Umschalten zwischen Statist und Wildcard mit Token
   verbinden
 SWADE.GmBennies: SL Bennys
-SWADE.GmBenniesDesc: 'Voreinstellung, wie viele Bennys der SL bei Auffrischen erhält'
+SWADE.GmBenniesDesc: Voreinstellung, wie viele Bennys der SL bei Auffrischen erhält
 SWADE.EnableBennyNotify: Nachrichten zu Bennys
-SWADE.EnableBennyNotifyDesc: 'Zeige Chatnachricht beim Nehmen, Einsetzen oder Auffrischen von Bennys'
+SWADE.EnableBennyNotifyDesc: Zeige Chatnachricht beim Nehmen, Einsetzen oder Auffrischen von Bennys
 SWADE.VehicleMods: Fahrzeug Modifikationen
 SWADE.VehicleModsDesc: Fahrzeuge nutzen Modifikations-Plätze
 SWADE.VehicleEdges: Fahrzeug-Talente
@@ -293,3 +293,7 @@ SWADE.AddBenny: Einen Bennie hinzufügen
 SWADE.CurrentBennies: Derzeitige Bennies
 SWADE.RerollWithBenny: Mit Bennie nochmal würfeln
 SWADE.FreeReroll: Freier Neuwurf
+SWADE.HideNpcItemChatCards: Verstecke NSC Item Chat Karten
+SWADE.HideNpcItemChatCardsDesc: >-
+  Wenn diese Option aktiviert ist, werden NPC-Item-Chat-Karten automatisch als
+  Flüstern an alle Spielleiter gesendet, anstatt für alle sichtbar zu sein

@@ -30,9 +30,13 @@
   {{#if settingrules.conviction}}
     <div id="conviction" class="gridcell">
       <button type="button" class="conviction-toggle">
-        <strong class="{{#if data.details.conviction.active}}pulse{{/if}}">{{localize "SWADE.Conv"}}{{#if
-              data.details.conviction.active}}&nbsp;{{localize
-            "SWADE.Active"}}{{/if}}</strong>
+        <strong class="{{#if data.details.conviction.active}}pulse{{/if}}">
+        {{~#if data.details.conviction.active~}}
+          {{localize "SWADE.ConvictionActive"}}
+        {{~else~}}
+          {{localize "SWADE.Conv"}}
+        {{/if}}
+        </strong>
       </button>
       <div>
         <input type="Number" name="data.details.conviction.value" value="{{data.details.conviction.value}}"

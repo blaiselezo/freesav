@@ -307,6 +307,7 @@
       transform: scale(1);
       border-radius: 5px;
       animation: pulse 2s infinite;
+      white-space: nowrap;
     }
 
     @keyframes pulse {
@@ -329,7 +330,6 @@
       }
     }
   }
-
 
   //#######################
   // Summary Tab
