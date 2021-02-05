@@ -60,6 +60,7 @@
       background: transparent;
     }
   }
+  
 
   .branding {
     grid-row: 1;
@@ -74,6 +75,23 @@
       flex: 0 0;
       margin: auto 0;
       object-fit: contain;
+    }
+  }
+  
+  .conviction-enabled {
+    .charname-container {
+      grid-column: 1 / 6;
+    }
+    .branding {
+      grid-column: 6 / 10;
+    }
+    #conviction {
+      grid-row: 1;
+      grid-column: 10 / -1;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 
