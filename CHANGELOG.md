@@ -29,6 +29,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 - Improved permission control for the reroll options
+- Newly created Scenes will now default to ther gridless option. This only applies to scenes created in the Sidebar. Scenes imported from compendiums or other sources will retain their scene config
+
+### Fixed
+
+- Fixed a bug which would cause Natural Armor not to calculate properly. Natural Armor will be added to Toughness if it is marked as natural armor, has at least the torso location and is equipped
 
 ## [v0.16.2]
 

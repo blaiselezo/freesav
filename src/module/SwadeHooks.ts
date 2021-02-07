@@ -99,6 +99,16 @@ export default class SwadeHooks {
     }
   }
 
+  public static onPreCreateScene(
+    createData: any,
+    options: any,
+    userId: string,
+  ) {
+    if (!createData.gridType) {
+      createData.gridType = CONST.GRID_TYPES.GRIDLESS;
+    }
+  }
+
   public static onPreCreateOwnedItem(
     actor: SwadeActor,
     createData: any,
@@ -402,7 +412,7 @@ export default class SwadeHooks {
         message?.isRoll &&
         message?.isContentVisible &&
         !message.getFlag('core', 'RollTable');
-      return isRightMessageType && (game.user.isGM || actor.owner);
+      return isRightMessageType && !!actor && (game.user.isGM || actor.owner);
     };
     options.push(
       {

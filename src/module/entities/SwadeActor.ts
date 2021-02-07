@@ -443,7 +443,12 @@ export default class SwadeActor extends Actor {
       let isEquipped = getProperty(i.data, 'equipped');
       let coversTorso = getProperty(i.data, 'locations.torso');
       let isNaturalArmor = getProperty(i.data, 'isNaturalArmor');
-      return i.type === 'armor' && isEquipped && !isNaturalArmor && coversTorso;
+      return (
+        i.type === ItemType.Armor &&
+        isEquipped &&
+        !isNaturalArmor &&
+        coversTorso
+      );
     });
 
     armorList.sort((a, b) => {
@@ -458,14 +463,6 @@ export default class SwadeActor extends Actor {
       return 0;
     });
 
-    const naturalArmors = this.data['items'].filter((i: SwadeItem) => {
-      return i.type === 'armor' && getProperty(i.data, 'isNaturalArmor');
-    });
-
-    for (const armor of naturalArmors) {
-      totalArmorVal += parseInt(armor.data.armor);
-    }
-
     if (armorList.length === 0) {
       return totalArmorVal;
     } else if (armorList.length === 1) {
@@ -474,6 +471,18 @@ export default class SwadeActor extends Actor {
       totalArmorVal =
         parseInt(armorList[0].data.armor) +
         Math.floor(parseInt(armorList[1].data.armor) / 2);
+    }
+
+    const naturalArmors = this.data['items'].filter((i: SwadeItem) => {
+      const isArmor = i.type === ItemType.Armor;
+      const isNaturalArmor = getProperty(i.data, 'isNaturalArmor');
+      const isEquipped = getProperty(i.data, 'equipped');
+      const isTorso = getProperty(i.data, 'locations.torso');
+      return isArmor && isNaturalArmor && isEquipped && isTorso;
+    });
+
+    for (const armor of naturalArmors) {
+      totalArmorVal += parseInt(armor.data.armor);
     }
 
     return totalArmorVal;

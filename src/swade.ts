@@ -235,3 +235,7 @@ Hooks.once('diceSoNiceInit', (dice3d: any) => {
 Hooks.once('diceSoNiceReady', (dice3d: any) => {
   SwadeHooks.onDiceSoNiceReady(dice3d);
 });
+
+Hooks.on('preCreateScene', (createData: any, options: any, userId: string) =>
+  SwadeHooks.onPreCreateScene(createData, options, userId),
+);
