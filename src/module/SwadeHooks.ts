@@ -99,6 +99,16 @@ export default class SwadeHooks {
     }
   }
 
+  public static onPreCreateScene(
+    createData: any,
+    options: any,
+    userId: string,
+  ) {
+    if (!createData.gridType) {
+      createData.gridType = 0;
+    }
+  }
+
   public static onPreCreateOwnedItem(
     actor: SwadeActor,
     createData: any,
