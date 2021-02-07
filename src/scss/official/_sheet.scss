@@ -496,6 +496,8 @@
     margin-top: -10px;
 
     .note-header {
+      grid-row: 1;
+      grid-column: 1;
       background-image: url('./assets/skills_header.webp');
       background-position: center bottom;
       background-repeat: no-repeat;
@@ -504,12 +506,16 @@
 	    max-width: 100%;
     }
     .note-main {
+      grid-row: 2;
+      grid-column: 1;
       background-image: url('./assets/skills_bg.webp');
       background-position: center;
       background-repeat: repeat-y;
       background-size: contain;
     }
     .note-footer {
+      grid-row: 3;
+      grid-column: 1;
       background-image: url('./assets/skills_footer.webp');
       background-position: center top;
       background-repeat: no-repeat;
