@@ -280,6 +280,7 @@ SWADE.ReloadUnneeded: Die Waffe ist bereits voll geladen
 SWADE.ShowBennyAnimation: Zeige die Benny Animation
 SWADE.ShowBennyAnimationDesc: Spielt eine 3D Animation ab wenn ein Benny ausgegeben wird
 SWADE.Smite: Waffe verbessert
+SWADE.Protection: Schutz
 SWADE.Torch: Lichtquelle
 SWADE.VehicleAmmoFromInventory: Fahrzeuge nutzen Munition aus ihrem Inventar
 SWADE.WildDiePreset: Wildcard Würfel Voreinstellung
