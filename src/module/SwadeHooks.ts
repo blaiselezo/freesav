@@ -412,7 +412,7 @@ export default class SwadeHooks {
         message?.isRoll &&
         message?.isContentVisible &&
         !message.getFlag('core', 'RollTable');
-      return isRightMessageType && (game.user.isGM || actor.owner);
+      return isRightMessageType && !!actor && (game.user.isGM || actor.owner);
     };
     options.push(
       {
