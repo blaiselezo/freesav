@@ -435,7 +435,6 @@ export default class CharacterSheet extends ActorSheet {
     data.settingrules = {
       conviction: game.settings.get('swade', 'enableConviction'),
     };
-    console.log(data);
     return data;
   }
 
