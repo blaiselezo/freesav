@@ -105,7 +105,7 @@ export default class SwadeHooks {
     userId: string,
   ) {
     if (!createData.gridType) {
-      createData.gridType = 0;
+      createData.gridType = CONST.GRID_TYPES.GRIDLESS;
     }
   }
 
