@@ -484,33 +484,40 @@
     margin-left: $large-spacing;
   }
 
-  .skills {
+  .note-box {
     .section-header {
       width: 90%;
       margin: auto;
     }
+    
     display: grid;
     gap: 0;
-    grid-template-rows: 50px 1fr 80px;
+    grid-template-rows: minmax(2.2em, auto) 1fr 3em;
     margin-top: -10px;
-    .skill-list-header {
+
+    .note-header {
       background-image: url('./assets/skills_header.webp');
       background-position: center bottom;
       background-repeat: no-repeat;
-      background-size: contain;
+      background-size: 100% 100%;
+      aspect-ratio: 10 / 1;
+	    max-width: 100%;
     }
-    .skill-list-main {
+    .note-main {
       background-image: url('./assets/skills_bg.webp');
       background-position: center;
       background-repeat: repeat-y;
       background-size: contain;
     }
-    .skill-list-footer {
+    .note-footer {
       background-image: url('./assets/skills_footer.webp');
       background-position: center top;
       background-repeat: no-repeat;
-      background-size: contain;
+      background-size: 100% 100%;
     }
+  }
+
+  .skills {
     .skill-list {
       margin: 0;
       list-style: none;
@@ -539,41 +546,13 @@
   }
 
   .quickaccess {
-    .section-header {
-      width: 90%;
-      margin: auto;
-    }
-    display: grid;
-    gap: 0;
-    grid-template-rows: 50px 1fr 80px;
-    margin-top: -10px;
-    ol,
-    ul {
+    ol, ul {
       list-style: none;
       padding: 0;
       margin: 0;
       padding-left: $large-spacing;
       width: 95%;
     }
-    .quick-header {
-      background-image: url('./assets/skills_header.webp');
-      background-position: center bottom;
-      background-repeat: no-repeat;
-      background-size: contain;
-    }
-    .quick-main {
-      background-image: url('./assets/skills_bg.webp');
-      background-position: center;
-      background-repeat: repeat-y;
-      background-size: contain;
-    }
-    .quick-footer {
-      background-image: url('./assets/skills_footer.webp');
-      background-position: center top;
-      background-repeat: no-repeat;
-      background-size: contain;
-    }
-
     .effects-list {
       li {
         padding-bottom: $small-spacing;
