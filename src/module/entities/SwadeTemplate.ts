@@ -60,7 +60,12 @@ export default class SwadeTemplate extends MeasuredTemplate {
     const initialLayer = canvas.activeLayer;
     this.draw();
     this.layer.activate();
-    this.layer.preview.addChild(this);
+    if (this.layer.preview.children.length === 0) {
+      this.layer.preview.addChild(this);
+    } else {
+      this.layer.preview.removeChildAt(0);
+      this.layer.preview.addChild(this);
+    }
     this.activatePreviewListeners(initialLayer);
   }
 
