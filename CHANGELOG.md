@@ -30,6 +30,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Improved permission control for the reroll options
 
+### Fixed
+
+- Fixed a bug which would cause Natural Armor not to calculate properly. Natural Armor will be added to Toughness if it is marked as natural armor, has at least the torso location and is equipped
+
 ## [v0.16.2]
 
 ### Added
