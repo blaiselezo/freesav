@@ -153,6 +153,7 @@
   .sheet-body {
     grid-row: 4 / -1;
     grid-column: 1 / -1;
+    margin: -7px;
   }
 
   .tab {
@@ -160,6 +161,7 @@
     overflow: hidden auto;
     height: 100%;
     width: 100%;
+    padding: 7px;
   }
   .tab.active {
     display: grid;
