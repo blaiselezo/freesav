@@ -298,14 +298,21 @@
 
   //conviction
   #conviction {
+    --color-initial: rgba(0, 0, 0, 1);
+    --color-high: rgba(255, 0, 0, 0.7);
+    --color-low: rgba(255, 0, 0, 0);
+
     text-align: center;
     flex: 0;
+    .conviction-toggle {
+      cursor: pointer;
+    }
     input {
       width: 100%;
       max-width: 50px;
     }
     .pulse {
-      box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+      box-shadow: 0 0 0 0 var(--color-initial);
       transform: scale(1);
       border-radius: 5px;
       animation: pulse 2s infinite;
@@ -315,20 +322,20 @@
     @keyframes pulse {
       0% {
         transform: scale(0.95);
-        background: rgba(255, 0, 0, 0.7);
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+        background: var(--color-high);
+        box-shadow: 0 0 0 0 var(--color-high);
       }
 
       70% {
         transform: scale(1);
-        background: rgba(255, 0, 0, 0);
-        box-shadow: 0 0 0 8px rgba(255, 0, 0, 0);
+        background: var(--color-low);
+        box-shadow: 0 0 0 8px var(--color-low);
       }
 
       100% {
         transform: scale(0.95);
-        background: rgba(255, 0, 0, 0);
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+        background: var(--color-low);
+        box-shadow: 0 0 0 0 var(--color-low);
       }
     }
   }
