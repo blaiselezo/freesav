@@ -4,6 +4,7 @@ import IRollOptions from '../../interfaces/IRollOptions';
 import SwadeItem from './SwadeItem';
 import { ActorType } from '../enums/ActorTypeEnum';
 import { ItemType } from '../enums/ItemTypeEnum';
+import * as util from '../util';
 
 /**
  * @noInheritDoc
@@ -301,7 +302,7 @@ export default class SwadeActor extends Actor {
       ChatMessage.create(chatData);
     }
     await this.update({ 'data.bennies.value': currentBennies - 1 });
-    if (!!game.dice3d && game.user.getFlag('swade', 'dsnShowBennyAnimation')) {
+    if (!!game.dice3d && (await util.shouldShowBennyAnimation())) {
       const benny = new Roll('1dB').roll();
       game.dice3d.showForRoll(benny, game.user, true, null, false);
     }

@@ -45,10 +45,11 @@ export default class DiceSettings extends FormApplication {
     let settings = {};
     for (const flag in this.config.flags) {
       const defaultValue = this.config.flags[flag].default;
+      const value = game.user.getFlag('swade', flag);
       settings[flag] = {
         module: 'swade',
         key: flag,
-        value: game.user.getFlag('swade', flag) || defaultValue,
+        value: typeof value === 'undefined' ? defaultValue : value,
         name: this.config.flags[flag].label || '',
         hint: this.config.flags[flag].hint || '',
         type: this.config.flags[flag].type,
@@ -73,7 +74,6 @@ export default class DiceSettings extends FormApplication {
   async _updateObject(event, formData): Promise<void> {
     const expandedFormdata = expandObject(formData) as any;
     //handle basic settings
-    console.log(expandedFormdata);
     for (const [key, value] of Object.entries(expandedFormdata.swade)) {
       //handle custom wild die
       if (expandedFormdata.swade.dsnWildDie === 'customWildDie') {

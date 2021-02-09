@@ -1,4 +1,5 @@
 // eslint-disable-next-line no-unused-vars
+import { SWADE } from './config';
 import SwadeItem from './entities/SwadeItem';
 
 export async function createActionCardTable(
@@ -167,4 +168,19 @@ export function notificationExists(string: string, localize = false): boolean {
   let stringToFind = string;
   if (localize) stringToFind = game.i18n.localize(string);
   return ui.notifications.active.find((n) => n.text() === stringToFind);
+}
+
+export async function shouldShowBennyAnimation(): Promise<boolean> {
+  const value = game.user.getFlag('swade', 'dsnShowBennyAnimation') as boolean;
+  const defaultValue = getProperty(
+    SWADE,
+    'diceConfig.flags.dsnShowBennyAnimation.default',
+  ) as boolean;
+
+  if (typeof value === 'undefined') {
+    await game.user.setFlag('swade', 'dsnShowBennyAnimation', defaultValue);
+    return defaultValue;
+  } else {
+    return value;
+  }
 }

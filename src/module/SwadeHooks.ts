@@ -62,7 +62,7 @@ export default class SwadeHooks {
     CONFIG.SWADE.diceConfig.flags = {
       dsnShowBennyAnimation: {
         type: Boolean,
-        default: false,
+        default: true,
         label: game.i18n.localize('SWADE.ShowBennyAnimation'),
         hint: game.i18n.localize('SWADE.ShowBennyAnimationDesc'),
       },
