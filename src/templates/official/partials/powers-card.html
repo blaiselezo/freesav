@@ -9,20 +9,6 @@
     </div>
   </header>
   <div class="card-content" style="display: none;">
-    {{#if data.damage}}
-    <div>
-      <a class="damage-roll" title="{{localize 'SWADE.Roll'}}"
-        >{{localize "SWADE.Dmg"}}: {{data.damage}}</a
-      >
-    </div>
-    {{/if}} {{#if data.pp}}
-    <div>{{localize "SWADE.PP"}}: {{data.pp}}</div>
-    {{/if}} {{#if data.range}}
-    <div>{{localize "SWADE.Rng"}}: {{data.range}}</div>
-    {{/if}} {{#if data.duration}}
-    <div class="flexrow ellipsize">
-      <div>{{localize "SWADE.Dur"}}: {{data.duration}}</div>
-    </div>
-    {{/if}}
+    {{> "systems/swade/templates/shared-partials/action-card.html"}}
   </div>
 </li>
