@@ -1,0 +1,69 @@
+.card-button {
+  display: block;
+  font-family: 'Signika', sans-serif;
+  font-size: 12px;
+  height: 24px;
+  line-height: 20px;
+  margin: 2px 0;
+  width: 100%;
+  background: rgba(255, 255, 240, 0.8);
+  border: 1px solid #b5b3a4;
+  border-radius: 3px;
+}
+
+.actions-subheading {
+  font-weight: bold;
+}
+
+.swade-official {
+  .item-card {
+    .bold {
+      font-weight: bold;
+    }
+  }
+
+  #summary {
+    .quick-list .gear-card .card-content .card-buttons button {
+      @extend .card-button;
+    }
+  }
+
+  .powers {
+    .power .description-grid {
+      display: grid;
+      grid-template-areas: 'details details' 'trappings trappings' 'description actions';
+      grid-template-columns: 2fr 1fr;
+      grid-gap: 10px;
+
+      .power-details {
+        grid-area: details;
+      }
+
+      .trapping {
+        grid-area: trappings;
+      }
+
+      .enriched-description {
+        grid-area: description;
+        padding: 2px;
+        .swade-core {
+          padding: 0;
+        }
+      }
+
+      .item-card {
+        padding: 2px;
+        grid-area: actions;
+      }
+    }
+
+    .item-card {
+      font-size: 14px;
+      .card-buttons {
+        button {
+          @extend .card-button;
+        }
+      }
+    }
+  }
+}
