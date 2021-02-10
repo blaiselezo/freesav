@@ -1,7 +1,7 @@
 import IRollOptions from '../../interfaces/IRollOptions';
 import SwadeDice from '../dice';
+import { ActorType } from '../enums/ActorTypeEnum';
 import { ItemType } from '../enums/ItemTypeEnum';
-// eslint-disable-next-line no-unused-vars
 import SwadeActor from './SwadeActor';
 
 /**
@@ -66,7 +66,7 @@ export default class SwadeItem extends Item {
     } else {
       roll = new Roll(rollParts.join(''), actor.getRollShortcuts());
     }
-    let newParts = [];
+    const newParts = [];
     roll.terms.forEach((term) => {
       if (term instanceof Die) {
         newParts.push(`${term['number']}d${term.faces}x`);
@@ -199,7 +199,7 @@ export default class SwadeItem extends Item {
     data.hasAdditionalActions = !!actions && Object.keys(actions).length > 0;
 
     data.actions = [];
-    for (let action in actions) {
+    for (const action in actions) {
       data.actions.push({
         key: action,
         type: actions[action].type,
@@ -257,29 +257,35 @@ export default class SwadeItem extends Item {
       },
       flags: { 'core.canPopout': true },
     };
+    if (
+      game.settings.get('swade', 'hideNpcItemChatCards') &&
+      this.actor.data.type === ActorType.NPC
+    ) {
+      chatData['whisper'] = game.users.filter((u: User) => u.isGM);
+    }
 
     // Toggle default roll mode
-    let rollMode = game.settings.get('core', 'rollMode');
+    const rollMode = game.settings.get('core', 'rollMode');
     if (['gmroll', 'blindroll'].includes(rollMode))
       chatData['whisper'] = ChatMessage.getWhisperRecipients('GM');
     if (rollMode === 'selfroll') chatData['whisper'] = [game.user._id];
     if (rollMode === 'blindroll') chatData['blind'] = true;
 
     // Create the chat message
-    let ChatCard = await ChatMessage.create(chatData);
-    Hooks.call('swadeChatCard', this.actor, this, ChatCard, game.user.id);
-    return ChatCard;
+    const chatCard = await ChatMessage.create(chatData);
+    Hooks.call('swadeChatCard', this.actor, this, chatCard, game.user.id);
+    return chatCard;
   }
 
   private makeExplodable(expresion) {
     // Make all dice of a roll able to explode
     // Code from the SWADE system
-    const reg_exp = /\d*d\d+[^kdrxc]/g;
+    const diceRegExp = /\d*d\d+[^kdrxc]/g;
     expresion = expresion + ' '; // Just because of my poor reg_exp foo
-    let dice_strings = expresion.match(reg_exp);
-    let used = [];
-    if (dice_strings) {
-      dice_strings.forEach((match) => {
+    const diceStrings = expresion.match(diceRegExp);
+    const used = [];
+    if (diceStrings) {
+      diceStrings.forEach((match) => {
         if (used.indexOf(match) === -1) {
           expresion = expresion.replace(
             new RegExp(match.slice(0, -1), 'g'),

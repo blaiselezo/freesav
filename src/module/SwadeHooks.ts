@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Bennies from './bennies';
 import * as chat from './chat';
 import { formatRoll } from './chat';
@@ -20,7 +20,7 @@ export default class SwadeHooks {
     // Do anything after initialization but before ready
     // Localize CONFIG objects once up-front
     const toLocalize = [];
-    for (let o of toLocalize) {
+    for (const o of toLocalize) {
       CONFIG.SWADE[o] = Object.entries(CONFIG.SWADE[o]).reduce(
         (obj, e: any) => {
           obj[e[0]] = game.i18n.localize(e[1]);
@@ -32,7 +32,7 @@ export default class SwadeHooks {
   }
 
   public static async onReady() {
-    let packChoices = {};
+    const packChoices = {};
     game.packs
       .filter((p) => p.entity === 'JournalEntry')
       .forEach((p) => {
@@ -62,7 +62,7 @@ export default class SwadeHooks {
     CONFIG.SWADE.diceConfig.flags = {
       dsnShowBennyAnimation: {
         type: Boolean,
-        default: false,
+        default: true,
         label: game.i18n.localize('SWADE.ShowBennyAnimation'),
         hint: game.i18n.localize('SWADE.ShowBennyAnimationDesc'),
       },
@@ -96,6 +96,16 @@ export default class SwadeHooks {
     //Set default image if no image already exists
     if (!createData.img) {
       createData.img = `systems/swade/assets/icons/${createData.type}.svg`;
+    }
+  }
+
+  public static onPreCreateScene(
+    createData: any,
+    options: any,
+    userId: string,
+  ) {
+    if (!createData.gridType) {
+      createData.gridType = CONST.GRID_TYPES.GRIDLESS;
     }
   }
 
@@ -188,7 +198,7 @@ export default class SwadeHooks {
     for (let i = 0; i < found.length; i++) {
       const element = found[i];
       const enitityId = element.parentElement.dataset.entityId;
-      let wildcard = wildcards.find((a) => a._id === enitityId);
+      const wildcard = wildcards.find((a) => a._id === enitityId);
 
       if (wildcard) {
         element.innerHTML = `
@@ -213,7 +223,7 @@ export default class SwadeHooks {
 
       const found = html.find('.directory-item');
       found.each((i, el) => {
-        let entryId = el.dataset.entryId;
+        const entryId = el.dataset.entryId;
         if (ids.includes(entryId)) {
           const entityName = el.children[1];
           entityName.children[0].insertAdjacentHTML(
@@ -395,9 +405,14 @@ export default class SwadeHooks {
     html: JQuery<HTMLElement>,
     options: any[],
   ) {
-    let canApply = (li: JQuery<HTMLElement>) => {
+    const canApply = (li: JQuery<HTMLElement>) => {
       const message = game.messages.get(li.data('messageId'));
-      return message?.isRoll && message?.isContentVisible;
+      const actor = ChatMessage.getSpeakerActor(message.data['speaker']);
+      const isRightMessageType =
+        message?.isRoll &&
+        message?.isContentVisible &&
+        !message.getFlag('core', 'RollTable');
+      return isRightMessageType && !!actor && (game.user.isGM || actor.owner);
     };
     options.push(
       {
@@ -433,7 +448,7 @@ export default class SwadeHooks {
     html: JQuery<HTMLElement>,
     context: any[],
   ) {
-    let players = html.find('#players');
+    const players = html.find('#players');
     if (!players) return;
     context.push(
       {
@@ -453,7 +468,7 @@ export default class SwadeHooks {
               ui['players'].render(true);
               if (game.settings.get('swade', 'notifyBennies')) {
                 //In case one GM gives another GM a benny a different message should be displayed
-                let givenEvent = selectedUser !== game.user;
+                const givenEvent = selectedUser !== game.user;
                 chat.createGmBennyAddMessage(selectedUser, givenEvent);
               }
             });
@@ -491,7 +506,7 @@ export default class SwadeHooks {
         button: true,
         onClick: () => {
           template = SwadeTemplate.fromPreset(TemplatePreset.CONE);
-          if (template) template.drawPreview(event);
+          if (template) template.drawPreview();
         },
       },
       {
@@ -502,7 +517,7 @@ export default class SwadeHooks {
         button: true,
         onClick: () => {
           template = SwadeTemplate.fromPreset(TemplatePreset.SBT);
-          if (template) template.drawPreview(event);
+          if (template) template.drawPreview();
         },
       },
       {
@@ -513,7 +528,7 @@ export default class SwadeHooks {
         button: true,
         onClick: () => {
           template = SwadeTemplate.fromPreset(TemplatePreset.MBT);
-          if (template) template.drawPreview(event);
+          if (template) template.drawPreview();
         },
       },
       {
@@ -524,7 +539,7 @@ export default class SwadeHooks {
         button: true,
         onClick: () => {
           template = SwadeTemplate.fromPreset(TemplatePreset.LBT);
-          if (template) template.drawPreview(event);
+          if (template) template.drawPreview();
         },
       },
     ];
@@ -561,22 +576,22 @@ export default class SwadeHooks {
     const cardPack = game.packs.get(
       game.settings.get('swade', 'cardDeck'),
     ) as Compendium;
-    let cards = (await cardPack.getContent()).sort((a, b) => {
+    const cards = (await cardPack.getContent()).sort((a, b) => {
       const cardA = a.getFlag('swade', 'cardValue');
       const cardB = b.getFlag('swade', 'cardValue');
-      let card = cardA - cardB;
+      const card = cardA - cardB;
       if (card !== 0) return card;
       const suitA = a.getFlag('swade', 'suitValue');
       const suitB = b.getFlag('swade', 'suitValue');
-      let suit = suitA - suitB;
+      const suit = suitA - suitB;
       return suit;
     }) as JournalEntry[];
 
     //prep list of cards for selection
-    let cardTable = game.tables.getName(CONFIG.SWADE.init.cardTable);
+    const cardTable = game.tables.getName(CONFIG.SWADE.init.cardTable);
 
-    let cardList = [];
-    for (let card of cards) {
+    const cardList = [];
+    for (const card of cards) {
       const cardValue = card.getFlag('swade', 'cardValue') as number;
       const suitValue = card.getFlag('swade', 'suitValue') as number;
       const color =

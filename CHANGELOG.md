@@ -20,6 +20,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Added an option to automatically hide NPC Item Chatcards. This setting is on by default and can be found in the System Settings. You can still make a card public by right-click it and selecting the right option from the context menu
+
+### Changed
+
+- Improved permission control for the reroll options
+- Newly created Scenes will now default to ther gridless option. This only applies to scenes created in the Sidebar. Scenes imported from compendiums or other sources will retain their scene config
+- Set default value of Benny animation to true
+
+### Fixed
+
+- Fixed a bug which would cause Natural Armor not to calculate properly. Natural Armor will be added to Toughness if it is marked as natural armor, has at least the torso location and is equipped
+
 ## [v0.16.2]
 
 ### Added

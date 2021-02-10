@@ -42,13 +42,14 @@ export default class DiceSettings extends FormApplication {
    * @override
    */
   getData(): any {
-    let settings = {};
+    const settings = {};
     for (const flag in this.config.flags) {
       const defaultValue = this.config.flags[flag].default;
+      const value = game.user.getFlag('swade', flag);
       settings[flag] = {
         module: 'swade',
         key: flag,
-        value: game.user.getFlag('swade', flag) || defaultValue,
+        value: typeof value === 'undefined' ? defaultValue : value,
         name: this.config.flags[flag].label || '',
         hint: this.config.flags[flag].hint || '',
         type: this.config.flags[flag].type,
@@ -73,7 +74,6 @@ export default class DiceSettings extends FormApplication {
   async _updateObject(event, formData): Promise<void> {
     const expandedFormdata = expandObject(formData) as any;
     //handle basic settings
-    console.log(expandedFormdata);
     for (const [key, value] of Object.entries(expandedFormdata.swade)) {
       //handle custom wild die
       if (expandedFormdata.swade.dsnWildDie === 'customWildDie') {
@@ -99,7 +99,7 @@ export default class DiceSettings extends FormApplication {
 
   async _resetSettings() {
     for (const flag in this.config.flags) {
-      let resetValue = this.config.flags[flag].default;
+      const resetValue = this.config.flags[flag].default;
       if (game.user.getFlag('swade', flag) !== resetValue) {
         await game.user.setFlag('swade', flag, resetValue);
       }
@@ -108,14 +108,14 @@ export default class DiceSettings extends FormApplication {
   }
 
   private _prepareColorsetList() {
-    let sets = this._deepCopyColorsets(CONFIG.SWADE.dsnColorSets);
+    const sets = this._deepCopyColorsets(CONFIG.SWADE.dsnColorSets);
     sets.none = {
       name: 'none',
       category: 'DICESONICE.Colors',
       description: 'SWADE.DSNNone',
     };
     delete sets.custom;
-    let groupedSetsList = Object.values(sets) as any[];
+    const groupedSetsList = Object.values(sets) as any[];
     groupedSetsList.sort((set1: any, set2: any) => {
       if (
         game.i18n.localize(set1.description) <
@@ -128,9 +128,9 @@ export default class DiceSettings extends FormApplication {
       )
         return 1;
     });
-    let preparedList = {};
+    const preparedList = {};
     for (let i = 0; i < groupedSetsList.length; i++) {
-      let locCategory = game.i18n.localize(groupedSetsList[i].category);
+      const locCategory = game.i18n.localize(groupedSetsList[i].category);
       if (!preparedList.hasOwnProperty(locCategory))
         preparedList[locCategory] = {};
 
@@ -149,7 +149,7 @@ export default class DiceSettings extends FormApplication {
   }
 
   private _prepareFontList() {
-    let fontList = {
+    const fontList = {
       auto: game.i18n.localize('DICESONICE.FontAuto'),
     };
     game.dice3d.box.dicefactory.fontFamilies.forEach((font) => {
@@ -171,7 +171,7 @@ export default class DiceSettings extends FormApplication {
   }
 
   private _deepCopyColorsets(colorsets: any): any {
-    let deepCopy = {};
+    const deepCopy = {};
     for (const [key, value] of Object.entries(colorsets)) {
       deepCopy[duplicate(key)] = {
         name: duplicate(value['name']),

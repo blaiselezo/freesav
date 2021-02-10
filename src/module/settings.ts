@@ -62,6 +62,15 @@ export function registerSettings() {
     config: true,
   });
 
+  game.settings.register('swade', 'hideNpcItemChatCards', {
+    name: game.i18n.localize('SWADE.HideNpcItemChatCards'),
+    hint: game.i18n.localize('SWADE.HideNpcItemChatCardsDesc'),
+    default: true,
+    scope: 'world',
+    type: Boolean,
+    config: true,
+  });
+
   game.settings.register('swade', 'ammoManagement', {
     name: game.i18n.localize('SWADE.AmmoManagement'),
     hint: game.i18n.localize('SWADE.AmmoManagementDesc'),

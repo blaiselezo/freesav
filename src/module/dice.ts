@@ -42,14 +42,14 @@ export default class SwadeDice {
     flags,
   }: RollHelperData): Promise<Roll> {
     const template = 'systems/swade/templates/chat/roll-dialog.html';
-    let dialogData = {
+    const dialogData = {
       formula: roll.formula,
       data: data,
       rollMode: game.settings.get('core', 'rollMode'),
       rollModes: CONFIG.Dice.rollModes,
     };
 
-    let buttons = {
+    const buttons = {
       ok: {
         label: game.i18n.localize('SWADE.Roll'),
         icon: '<i class="fas fa-dice"></i>',
@@ -121,23 +121,23 @@ export default class SwadeDice {
     flags,
   }: RollHandlerData): Roll {
     let rollMode = game.settings.get('core', 'rollMode');
-    let groupRoll = actor && raise;
+    const groupRoll = actor && raise;
     // Optionally include a situational bonus
     if (form) data['bonus'] = form.find('#bonus').val();
     if (data['bonus']) roll.terms.push(data['bonus']);
     if (groupRoll && allowGroup) {
       //Group roll
-      let tempRoll = new Roll('');
-      let wildRoll = new Roll('');
+      const tempRoll = new Roll('');
+      const wildRoll = new Roll('');
 
       tempRoll.terms.push(roll.terms[0]);
-      let wildDie = new Die({
+      const wildDie = new Die({
         faces: 6,
         modifiers: ['x'],
         options: { flavor: game.i18n.localize('SWADE.WildDie') },
       });
       wildRoll.terms.push(wildDie);
-      let pool = new DicePool({
+      const pool = new DicePool({
         rolls: [tempRoll, wildRoll],
         modifiers: ['kh'],
       });
@@ -147,9 +147,9 @@ export default class SwadeDice {
       roll.terms.push('+');
       roll.terms.push(new Die({ modifiers: ['x'] }));
     }
-    let retVal = roll.roll();
+    const retVal = roll.roll();
     //This is a workaround to add the DSN Wild Die until the bug which resets the options object is resolved
-    for (let v of roll.terms) {
+    for (const v of roll.terms) {
       if (v instanceof Die) continue;
       if (v['rolls']) {
         v['rolls'].forEach((roll: Roll) => {

@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import SwadeActor from '../entities/SwadeActor';
 import * as chat from '../chat';
 import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 
@@ -42,9 +40,9 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
     this.form = html[0];
 
     // Resize resizable classes
-    let resizable = (html as JQuery).find('.resizable');
+    const resizable = (html as JQuery).find('.resizable');
     resizable.each((_, el) => {
-      let heightDelta =
+      const heightDelta =
         (this.position.height as number) - (this.options.height as number);
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
@@ -65,7 +63,7 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
 
     // Drag events for macros.
     if (this.actor.owner) {
-      let handler = (ev) => this._onDragStart(ev);
+      const handler = (ev) => this._onDragStart(ev);
       // Find all items on the character sheet.
       html.find('span.item.skill').each((i, li) => {
         // Add draggable attribute and dragstart listener.
@@ -102,8 +100,8 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
 
     // Roll Skill
     html.find('.skill.item a').on('click', (event) => {
-      let element = event.currentTarget as Element;
-      let item = element.parentElement.dataset.itemId;
+      const element = event.currentTarget as Element;
+      const item = element.parentElement.dataset.itemId;
       this.actor.rollSkill(item, { event: event });
     });
 
@@ -111,10 +109,10 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
     html.find('.item-create').on('click', async (event) => {
       event.preventDefault();
       const header = event.currentTarget;
-      let type = header.dataset.type;
+      const type = header.dataset.type;
 
       // item creation helper func
-      let createItem = function (
+      const createItem = function (
         type: string,
         name: string = `New ${type.capitalize()}`,
       ): any {
@@ -130,13 +128,13 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
       // Getting back to main logic
       if (type == 'choice') {
         this._chooseItemType().then(async (dialogInput: any) => {
-          let itemData = createItem(dialogInput.type, dialogInput.name);
+          const itemData = createItem(dialogInput.type, dialogInput.name);
           itemData.data.equipped = true;
           await this.actor.createOwnedItem(itemData, { renderSheet: true });
         });
         return;
       } else {
-        let itemData = createItem(type);
+        const itemData = createItem(type);
         itemData.data.equipped = true;
         await this.actor.createOwnedItem(itemData, { renderSheet: true });
       }
@@ -184,7 +182,7 @@ export default class SwadeNPCSheet extends SwadeBaseActorSheet {
   }
 
   getData(): ActorSheetData {
-    let data: any = super.getData();
+    const data: any = super.getData();
 
     // Everything below here is only needed if user is not limited
     if (this.actor.limited) return data;
