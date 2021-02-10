@@ -48,6 +48,7 @@ export const SWADE = {
       add: 'systems/swade/templates/chat/benny-add.html',
       spend: 'systems/swade/templates/chat/benny-spend.html',
       gmadd: 'systems/swade/templates/chat/benny-gmadd.html',
+      joker: 'systems/swade/templates/chat/jokers-wild.html',
     },
     sheetImage: 'systems/swade/assets/bennie.webp',
     textures: {
@@ -66,6 +67,7 @@ export const SWADE = {
     title: 'SWADE Setting Rule Configurator',
     settings: [
       'enableConviction',
+      'jokersWild',
       'vehicleMods',
       'vehicleEdges',
       'gmBennies',

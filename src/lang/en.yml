@@ -174,7 +174,7 @@ SWADE.FatigueMax: Max Fatigue
 SWADE.Incap: Incapacitated
 SWADE.Init: Initiative
 SWADE.InitDraw: draws for Initiative!
-SWADE.JokersWild: gets Joker's Wild!
+SWADE.JokersWild: Joker's Wild
 SWADE.General: General
 SWADE.Addi: Additional
 SWADE.Status: Status
@@ -300,3 +300,4 @@ SWADE.HideNpcItemChatCards: Hide NPC Item Chat Cards
 SWADE.HideNpcItemChatCardsDesc: >-
   When enabled, NPC Item Chat Cards are automatically sent as a whisper to all
   Gamemasters instead of being posted for all to see
+SWADE.JokersWildDesc: Gives a Benny to every player character when one of them is dealt a Joker

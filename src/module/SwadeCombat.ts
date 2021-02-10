@@ -1,3 +1,5 @@
+import { SWADE } from './config';
+
 export default class SwadeCombat extends Combat {
   /**
    * @override
@@ -9,9 +11,10 @@ export default class SwadeCombat extends Combat {
    */
   async rollInitiative(
     ids: string[] | string,
-    formula: string | null,
-    messageOptions: any,
+    formula: string | null = null,
+    messageOptions: any = {},
   ): Promise<Combat> {
+    if (formula) console.log('Wait, why is there a formual');
     // Structure input data
     ids = typeof ids === 'string' ? [ids] : ids;
 
@@ -26,11 +29,10 @@ export default class SwadeCombat extends Combat {
     }
 
     // Iterate over Combatants, performing an initiative draw for each
-    for (let i = 0; i < ids.length; i++) {
-      const id = ids[i];
+    for (const id of ids) {
       // Get Combatant data
       const c = await this.getCombatant(id);
-      if (c.flags.swade && c.flags.swade.cardValue !== null) {
+      if (c?.flags?.swade?.cardValue !== null) {
         console.log('This must be a reroll');
         isRedraw = true;
       }
@@ -341,5 +343,37 @@ export default class SwadeCombat extends Combat {
         c.getFlag('swade', 'cardValue') === cardValue &&
         c.getFlag('swade', 'suitValue') === cardSuit,
     );
+  }
+
+  /**
+   * @override
+   */
+  async nextRound() {
+    const jokerDrawn = this.combatants.some((v) =>
+      getProperty(v, 'flags.swade.hasJoker'),
+    );
+
+    if (jokerDrawn) {
+      await game.tables.getName(SWADE.init.cardTable).reset();
+      ui.notifications.info('Card Deck automatically reset');
+    }
+
+    const resetComs = this.combatants.map((c) => {
+      c.initiative = null;
+      c.hasRolled = false;
+      c.flags.swade.cardValue = null;
+      c.flags.swade.suitValue = null;
+      c.flags.swade.hasJoker = null;
+      c.flags.swade.cardString = null;
+      return c;
+    });
+    await this.update({ combatants: resetComs });
+
+    //Init autoroll
+    if (game.settings.get('swade', 'autoInit')) {
+      const combatantIds = this.combatants.map((c) => c._id);
+      await this.rollInitiative(combatantIds);
+    }
+    return super.nextRound();
   }
 }

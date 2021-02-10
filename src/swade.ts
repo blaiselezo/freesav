@@ -15,7 +15,7 @@ import { registerCustomHelpers } from './module/handlebarsHelpers';
 import ItemChatCardHelper from './module/ItemChatCardHelper';
 import { listenJournalDrop } from './module/journalDrop';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
-import { registerSettings } from './module/settings';
+import { registerSettingRules, registerSettings } from './module/settings';
 import CharacterSheet from './module/sheets/official/CharacterSheet';
 import SwadeCharacterSheet from './module/sheets/SwadeCharacterSheet';
 import SwadeItemSheet from './module/sheets/SwadeItemSheet';
@@ -63,6 +63,7 @@ Hooks.once('init', () => {
 
   // Register custom system settings
   registerSettings();
+  registerSettingRules();
 
   // Register sheets
   Actors.unregisterSheet('core', ActorSheet);
@@ -165,12 +166,6 @@ Hooks.on(
   'renderCombatTracker',
   (app: CombatTracker, html: JQuery<HTMLElement>, data: any) =>
     SwadeHooks.onRenderCombatTracker(app, html, data),
-);
-
-Hooks.on(
-  'preUpdateCombat',
-  async (combat: any | Combat, updateData: any, options: any, userId: string) =>
-    SwadeHooks.onPreUpdateCombat(combat, updateData, options, userId),
 );
 
 Hooks.on(

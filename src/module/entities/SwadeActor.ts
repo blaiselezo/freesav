@@ -4,6 +4,7 @@ import SwadeItem from './SwadeItem';
 import { ActorType } from '../enums/ActorTypeEnum';
 import { ItemType } from '../enums/ItemTypeEnum';
 import * as util from '../util';
+import { SWADE } from '../config';
 
 /**
  * @noInheritDoc
@@ -145,7 +146,7 @@ export default class SwadeActor extends Actor {
     abilityId: string,
     options: IRollOptions = { event: null },
   ): Promise<Roll> | Roll {
-    const label = CONFIG.SWADE.attributes[abilityId].long;
+    const label = SWADE.attributes[abilityId].long;
     const actorData = this.data as any;
     const abl = actorData.data.attributes[abilityId];
     let finalRoll = new Roll('');
@@ -290,14 +291,14 @@ export default class SwadeActor extends Actor {
     const currentBennies = getProperty(this.data, 'data.bennies.value');
     //return early if there no bennies to spend
     if (currentBennies < 1) return;
-    const message = await renderTemplate(CONFIG.SWADE.bennies.templates.spend, {
-      target: this,
-      speaker: game.user,
-    });
-    const chatData = {
-      content: message,
-    };
     if (game.settings.get('swade', 'notifyBennies')) {
+      const message = await renderTemplate(SWADE.bennies.templates.spend, {
+        target: this,
+        speaker: game.user,
+      });
+      const chatData = {
+        content: message,
+      };
       ChatMessage.create(chatData);
     }
     await this.update({ 'data.bennies.value': currentBennies - 1 });
@@ -308,14 +309,14 @@ export default class SwadeActor extends Actor {
   }
 
   async getBenny() {
-    const message = await renderTemplate(CONFIG.SWADE.bennies.templates.add, {
-      target: this,
-      speaker: game.user,
-    });
-    const chatData = {
-      content: message,
-    };
     if (game.settings.get('swade', 'notifyBennies')) {
+      const message = await renderTemplate(SWADE.bennies.templates.add, {
+        target: this,
+        speaker: game.user,
+      });
+      const chatData = {
+        content: message,
+      };
       ChatMessage.create(chatData);
     }
     const actorData = this.data as any;
@@ -330,13 +331,10 @@ export default class SwadeActor extends Actor {
    */
   async refreshBennies(displayToChat = true) {
     if (displayToChat) {
-      const message = await renderTemplate(
-        CONFIG.SWADE.bennies.templates.refresh,
-        {
-          target: this,
-          speaker: game.user,
-        },
-      );
+      const message = await renderTemplate(SWADE.bennies.templates.refresh, {
+        target: this,
+        speaker: game.user,
+      });
       const chatData = {
         content: message,
       };
@@ -565,8 +563,8 @@ export default class SwadeActor extends Actor {
     // Calculate handling
 
     //Handling is capped at a certain penalty
-    if (totalHandling < CONFIG.SWADE.vehicles.maxHandlingPenalty) {
-      totalHandling = CONFIG.SWADE.vehicles.maxHandlingPenalty;
+    if (totalHandling < SWADE.vehicles.maxHandlingPenalty) {
+      totalHandling = SWADE.vehicles.maxHandlingPenalty;
     }
     if (totalHandling > 0) {
       totalHandling = `+${totalHandling}`;

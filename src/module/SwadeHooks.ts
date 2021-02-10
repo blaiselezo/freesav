@@ -2,6 +2,7 @@
 import Bennies from './bennies';
 import * as chat from './chat';
 import { formatRoll } from './chat';
+import { SWADE } from './config';
 import DiceSettings from './DiceSettings';
 import SwadeActor from './entities/SwadeActor';
 import SwadeItem from './entities/SwadeItem';
@@ -21,13 +22,10 @@ export default class SwadeHooks {
     // Localize CONFIG objects once up-front
     const toLocalize = [];
     for (const o of toLocalize) {
-      CONFIG.SWADE[o] = Object.entries(CONFIG.SWADE[o]).reduce(
-        (obj, e: any) => {
-          obj[e[0]] = game.i18n.localize(e[1]);
-          return obj;
-        },
-        {},
-      );
+      SWADE[o] = Object.entries(SWADE[o]).reduce((obj, e: any) => {
+        obj[e[0]] = game.i18n.localize(e[1]);
+        return obj;
+      }, {});
     }
   }
 
@@ -46,7 +44,7 @@ export default class SwadeHooks {
       scope: 'world',
       type: String,
       config: true,
-      default: CONFIG.SWADE.init.defaultCardCompendium,
+      default: SWADE.init.defaultCardCompendium,
       choices: packChoices,
       onChange: async (choice) => {
         console.log(
@@ -59,7 +57,7 @@ export default class SwadeHooks {
     await SwadeSetup.setup();
     Hooks.on('hotbarDrop', (bar, data, slot) => createSwadeMacro(data, slot));
 
-    CONFIG.SWADE.diceConfig.flags = {
+    SWADE.diceConfig.flags = {
       dsnShowBennyAnimation: {
         type: Boolean,
         default: true,
@@ -202,7 +200,7 @@ export default class SwadeHooks {
 
       if (wildcard) {
         element.innerHTML = `
-					<a><img src="${CONFIG.SWADE.wildCardIcons.regular}" class="wildcard-icon">${wildcard.data.name}</a>
+					<a><img src="${SWADE.wildCardIcons.regular}" class="wildcard-icon">${wildcard.data.name}</a>
 					`;
       }
     }
@@ -228,7 +226,7 @@ export default class SwadeHooks {
           const entityName = el.children[1];
           entityName.children[0].insertAdjacentHTML(
             'afterbegin',
-            `<img src="${CONFIG.SWADE.wildCardIcons.compendium}" class="wildcard-icon">`,
+            `<img src="${SWADE.wildCardIcons.compendium}" class="wildcard-icon">`,
           );
         }
       });
@@ -286,10 +284,10 @@ export default class SwadeHooks {
     });
   }
 
-  public static async onPreUpdateCombat(
-    combat: any | Combat,
-    updateData: any,
-    options: any,
+  public static onUpdateCombat(
+    combat: Combat | any,
+    updateData,
+    options,
     userId: string,
   ) {
     // Return early if we are NOT a GM OR we are not the player that triggered the update AND that player IS a GM
@@ -320,73 +318,43 @@ export default class SwadeHooks {
       return;
     }
 
-    let jokerDrawn = false;
+    //return early if we're not doing Joker's Wild
+    if (!game.settings.get('swade', 'jokersWild')) return;
+    const combatants = combat.combatants.filter(
+      (c) => c.actor.data.type === ActorType.Character,
+    );
+    const jokerDrawn = combatants.some((v) =>
+      getProperty(v, 'flags.swade.hasJoker'),
+    );
 
-    // Reset the Initiative of all combatants
-    combat.combatants.forEach((c) => {
-      if (c.flags.swade && c.flags.swade.hasJoker) {
-        jokerDrawn = true;
-      }
-    });
-
-    const resetComs = combat.combatants.map((c) => {
-      c.initiative = 0;
-      c.hasRolled = false;
-      c.flags.swade.cardValue = null;
-      c.flags.swade.suitValue = null;
-      c.flags.swade.hasJoker = null;
-      return c;
-    });
-
-    updateData.combatants = resetComs;
-
-    // Reset the deck if any combatant has had a Joker
-    if (jokerDrawn) {
-      const deck = game.tables.getName(
-        CONFIG.SWADE.init.cardTable,
-      ) as RollTable;
-      await deck.reset();
-      ui.notifications.info('Card Deck automatically reset');
-    }
-
-    //Init autoroll
-    if (game.settings.get('swade', 'autoInit')) {
-      const combatantIds = combat.combatants.map((c) => c._id);
-      await combat.rollInitiative(combatantIds);
-    }
-  }
-
-  public static onUpdateCombat(
-    combat: Combat,
-    updateData,
-    options,
-    userId: string,
-  ) {
-    let string = `Round ${combat.round} - Turn ${combat.turn}\n`;
-    for (let i = 0; i < combat.turns.length; i++) {
-      const element = combat.turns[i];
-      string = string.concat(`${i}) ${element['token']['name']}\n`);
-    }
-    console.log(string);
+    //return early if no Jokers have been drawn
+    if (!jokerDrawn) return;
+    renderTemplate(SWADE.bennies.templates.joker, {
+      speaker: game.user,
+    })
+      .then((template) =>
+        ChatMessage.create({ speaker: game.user, content: template }),
+      )
+      .then(() => {
+        for (const combatant of combatants) {
+          const actor = combatant.actor as SwadeActor;
+          actor.getBenny();
+        }
+      });
   }
 
   public static onDeleteCombat(combat: Combat, options: any, userId: string) {
     if (!game.user.isGM || !game.users.get(userId).isGM) {
       return;
     }
-    const jokers = combat.combatants.filter(
-      (c) => c.flags.swade && c.flags.swade.hasJoker,
-    );
 
-    //reset the deck when combat is ended in a round that a Joker was drawn in
-    if (jokers.length > 0) {
-      const deck = game.tables.getName(
-        CONFIG.SWADE.init.cardTable,
-      ) as RollTable;
-      deck.reset().then(() => {
+    //reset the deck when combat is ended
+    game.tables
+      .getName(SWADE.init.cardTable)
+      .reset()
+      .then(() => {
         ui.notifications.info('Card Deck automatically reset');
       });
-    }
   }
 
   public static async onRenderChatMessage(
@@ -588,7 +556,7 @@ export default class SwadeHooks {
     }) as JournalEntry[];
 
     //prep list of cards for selection
-    const cardTable = game.tables.getName(CONFIG.SWADE.init.cardTable);
+    const cardTable = game.tables.getName(SWADE.init.cardTable);
 
     const cardList = [];
     for (const card of cards) {
@@ -664,18 +632,18 @@ export default class SwadeHooks {
     //@ts-ignore
     import('/modules/dice-so-nice/DiceColors.js')
       .then((obj) => {
-        CONFIG.SWADE.dsnColorSets = obj.COLORSETS;
-        CONFIG.SWADE.dsnTextureList = obj.TEXTURELIST;
+        SWADE.dsnColorSets = obj.COLORSETS;
+        SWADE.dsnTextureList = obj.TEXTURELIST;
       })
       .catch((err) => console.log(err));
 
     const customWilDieColors =
       game.user.getFlag('swade', 'dsnCustomWildDieColors') ||
-      CONFIG.SWADE.diceConfig.flags.dsnCustomWildDieColors.default;
+      getProperty(SWADE, 'diceConfig.flags.dsnCustomWildDieColors.default');
 
     const customWilDieOptions =
       game.user.getFlag('swade', 'dsnCustomWildDieOptions') ||
-      CONFIG.SWADE.diceConfig.flags.dsnCustomWildDieOptions.default;
+      getProperty(SWADE, 'diceConfig.flags.dsnCustomWildDieOptions.default');
 
     dice3d.addColorset(
       {
@@ -696,10 +664,7 @@ export default class SwadeHooks {
     dice3d.addDicePreset(
       {
         type: 'db',
-        labels: [
-          CONFIG.SWADE.bennies.textures.front,
-          CONFIG.SWADE.bennies.textures.back,
-        ],
+        labels: [SWADE.bennies.textures.front, SWADE.bennies.textures.back],
         system: 'standard',
         colorset: 'black',
       },

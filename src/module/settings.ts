@@ -70,6 +70,16 @@ export function registerSettings() {
     type: Boolean,
     config: true,
   });
+}
+export function registerSettingRules() {
+  game.settings.register('swade', 'jokersWild', {
+    name: game.i18n.localize('SWADE.JokersWild'),
+    hint: game.i18n.localize('SWADE.JokersWildDesc'),
+    default: true,
+    scope: 'world',
+    type: Boolean,
+    config: false,
+  });
 
   game.settings.register('swade', 'ammoManagement', {
     name: game.i18n.localize('SWADE.AmmoManagement'),

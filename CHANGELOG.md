@@ -25,12 +25,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added an option to automatically hide NPC Item Chatcards. This setting is on by default and can be found in the System Settings. You can still make a card public by right-click it and selecting the right option from the context menu
+- The system now grants a Benny to all player characters when one of them is dealt a Joker. This can be turned off in the Setting Configurator
 
 ### Changed
 
 - Improved permission control for the reroll options
 - Newly created Scenes will now default to ther gridless option. This only applies to scenes created in the Sidebar. Scenes imported from compendiums or other sources will retain their scene config
 - Set default value of Benny animation to true
+- Refactored some of the new turn combat logic
+- Action deck now automatically resets at the end of every combat, not just when a joker had been drawn
 
 ### Fixed
 

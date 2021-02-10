@@ -31,6 +31,19 @@
         <p class="notes">{{localize "SWADE.EnableConvDesc"}}</p>
       </div>
       <div class="form-group">
+        <label>{{localize "SWADE.JokersWild"}}</label>
+        <div class="form-fields">
+          <input
+            type="checkbox"
+            name="settingRules.jokersWild"
+            data-dtype="Boolean"
+            {{checked
+            settingRules.jokersWild}}
+          />
+        </div>
+        <p class="notes">{{localize "SWADE.JokersWildDesc"}}</p>
+      </div>
+      <div class="form-group">
         <label>{{localize "SWADE.EnableWoundPace"}}</label>
         <div class="form-fields">
           <input
