@@ -272,20 +272,20 @@ export default class SwadeItem extends Item {
     if (rollMode === 'blindroll') chatData['blind'] = true;
 
     // Create the chat message
-    const ChatCard = await ChatMessage.create(chatData);
-    Hooks.call('swadeChatCard', this.actor, this, ChatCard, game.user.id);
-    return ChatCard;
+    const chatCard = await ChatMessage.create(chatData);
+    Hooks.call('swadeChatCard', this.actor, this, chatCard, game.user.id);
+    return chatCard;
   }
 
   private makeExplodable(expresion) {
     // Make all dice of a roll able to explode
     // Code from the SWADE system
-    const reg_exp = /\d*d\d+[^kdrxc]/g;
+    const diceRegExp = /\d*d\d+[^kdrxc]/g;
     expresion = expresion + ' '; // Just because of my poor reg_exp foo
-    const dice_strings = expresion.match(reg_exp);
+    const diceStrings = expresion.match(diceRegExp);
     const used = [];
-    if (dice_strings) {
-      dice_strings.forEach((match) => {
+    if (diceStrings) {
+      diceStrings.forEach((match) => {
         if (used.indexOf(match) === -1) {
           expresion = expresion.replace(
             new RegExp(match.slice(0, -1), 'g'),
