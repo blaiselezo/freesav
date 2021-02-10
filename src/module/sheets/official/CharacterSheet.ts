@@ -37,7 +37,7 @@ export default class CharacterSheet extends ActorSheet {
 
     // Drag events for macros.
     if (this.actor.owner) {
-      let handler = (ev) => this._onDragStart(ev);
+      const handler = (ev) => this._onDragStart(ev);
       // Find all items on the character sheet.
       html.find('li.item.skill').each((i, li) => {
         // Add draggable attribute and dragstart listener.
@@ -106,15 +106,15 @@ export default class CharacterSheet extends ActorSheet {
 
     //Roll Attribute
     html.find('.attribute-label').on('click', (ev) => {
-      let element = ev.currentTarget as Element;
-      let attribute = element.parentElement.dataset.attribute;
+      const element = ev.currentTarget as Element;
+      const attribute = element.parentElement.dataset.attribute;
       this.actor.rollAttribute(attribute, { event: ev });
     });
 
     // Roll Skill
     html.find('.skill-name').on('click', (ev) => {
-      let element = ev.currentTarget as HTMLElement;
-      let item = element.parentElement.dataset.itemId;
+      const element = ev.currentTarget as HTMLElement;
+      const item = element.parentElement.dataset.itemId;
       this.actor.rollSkill(item, { event: ev });
     });
 
@@ -145,7 +145,7 @@ export default class CharacterSheet extends ActorSheet {
 
     // Roll Damage
     html.find('.damage-roll').on('click', (ev) => {
-      let li = $(ev.currentTarget).parents('.item');
+      const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.getOwnedItem(li.data('itemId')) as SwadeItem;
       return item.rollDamage();
     });
@@ -198,7 +198,7 @@ export default class CharacterSheet extends ActorSheet {
       const type = header.dataset.type;
 
       // item creation helper func
-      let createItem = function (
+      const createItem = function (
         type: string,
         name: string = `New ${type.capitalize()}`,
       ): any {
@@ -291,7 +291,7 @@ export default class CharacterSheet extends ActorSheet {
             icon: '<i class="fas fa-check"></i>',
             label: game.i18n.localize('SWADE.Ok'),
             callback: (html: JQuery) => {
-              let newData = {};
+              const newData = {};
               newData[armorPropertyPath] = html
                 .find('input[name="modifier"]')
                 .val();
@@ -328,7 +328,7 @@ export default class CharacterSheet extends ActorSheet {
             icon: '<i class="fas fa-check"></i>',
             label: game.i18n.localize('SWADE.Ok'),
             callback: (html: JQuery) => {
-              let newData = {};
+              const newData = {};
               newData[parryPropertyPath] = html
                 .find('input[name="modifier"]')
                 .val() as number;
@@ -346,7 +346,7 @@ export default class CharacterSheet extends ActorSheet {
   }
 
   getData() {
-    let data: any = super.getData();
+    const data: any = super.getData();
 
     data.bennyImageURL = CONFIG.SWADE.bennies.sheetImage;
     data.itemsByType = {};
@@ -359,13 +359,16 @@ export default class CharacterSheet extends ActorSheet {
     data.sortedSkills.sort((a, b) => a.name.localeCompare(b.name));
 
     data.currentBennies = [];
-    let bennies = getProperty(this.actor.data, 'data.bennies.value') as number;
+    const bennies = getProperty(
+      this.actor.data,
+      'data.bennies.value',
+    ) as number;
     for (let i = 0; i < bennies; i++) {
       data.currentBennies.push(i + 1);
     }
 
-    let additionalStats = data.data.additionalStats || {};
-    for (let attr of Object.values(additionalStats)) {
+    const additionalStats = data.data.additionalStats || {};
+    for (const attr of Object.values(additionalStats)) {
       attr['isCheckbox'] = attr['dtype'] === 'Boolean';
     }
     data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
@@ -495,7 +498,7 @@ export default class CharacterSheet extends ActorSheet {
         effect: 'Active Effect',
       };
     }
-    let templateData = {
+    const templateData = {
         types: choices,
         hasTypes: true,
         name: game.i18n
@@ -535,7 +538,7 @@ export default class CharacterSheet extends ActorSheet {
   }
 
   protected async _createActiveEffect() {
-    let id = (
+    const id = (
       await this.actor.createEmbeddedEntity('ActiveEffect', {
         label: game.i18n
           .localize('ENTITY.New')

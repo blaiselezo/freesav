@@ -28,14 +28,14 @@ export default class SettingConfigurator extends FormApplication {
    * @override
    */
   getData() {
-    let data = {};
-    let settingRules = {};
+    const data = {};
+    const settingRules = {};
     for (const setting of this.config.settings) {
       settingRules[setting] = game.settings.get('swade', setting);
     }
     data['settingRules'] = settingRules;
 
-    let settingFields = game.settings.get('swade', 'settingFields');
+    const settingFields = game.settings.get('swade', 'settingFields');
     data['actorSettingStats'] = settingFields.actor;
     data['itemSettingStats'] = settingFields.item;
     data['dtypes'] = ['String', 'Number', 'Boolean'];
@@ -45,8 +45,8 @@ export default class SettingConfigurator extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.find('#reset').click((ev) => this._resetSettings(ev));
-    html.find('#submit').click((ev) => this.close());
+    html.find('#reset').click(() => this._resetSettings());
+    html.find('#submit').click(() => this.close());
     html
       .find('.attributes')
       .on(
@@ -58,13 +58,13 @@ export default class SettingConfigurator extends FormApplication {
 
   async _updateObject(event, formData) {
     //Gather Data
-    let expandedFormdata = expandObject(formData) as any;
-    let formActorAttrs = expandedFormdata.actorSettingStats || {};
-    let formItemAttrs = expandedFormdata.itemSettingStats || {};
+    const expandedFormdata = expandObject(formData) as any;
+    const formActorAttrs = expandedFormdata.actorSettingStats || {};
+    const formItemAttrs = expandedFormdata.itemSettingStats || {};
 
     //Set the "easy" settings
     for (const key in expandedFormdata.settingRules) {
-      let settingValue = expandedFormdata.settingRules[key];
+      const settingValue = expandedFormdata.settingRules[key];
       if (
         this.config.settings.includes(key) &&
         settingValue !== game.settings.get('swade', key)
@@ -74,11 +74,11 @@ export default class SettingConfigurator extends FormApplication {
     }
 
     // Handle the free-form attributes list
-    let settingFields = game.settings.get('swade', 'settingFields');
+    const settingFields = game.settings.get('swade', 'settingFields');
 
-    let actorAttributes = this._handleKeyValidityCheck(formActorAttrs);
-    let itemAttributes = this._handleKeyValidityCheck(formItemAttrs);
-    let saveValue = {
+    const actorAttributes = this._handleKeyValidityCheck(formActorAttrs);
+    const itemAttributes = this._handleKeyValidityCheck(formItemAttrs);
+    const saveValue = {
       actor: this._handleDeletableAttributes(
         actorAttributes,
         settingFields.actor,
@@ -88,9 +88,9 @@ export default class SettingConfigurator extends FormApplication {
     await game.settings.set('swade', 'settingFields', saveValue);
   }
 
-  async _resetSettings(event: Event) {
+  async _resetSettings() {
     for (const setting of this.config.settings) {
-      let resetValue = game.settings.settings.get(`swade.${setting}`).default;
+      const resetValue = game.settings.settings.get(`swade.${setting}`).default;
       if (game.settings.get('swade', setting) !== resetValue) {
         await game.settings.set('swade', setting, resetValue);
       }
@@ -102,15 +102,15 @@ export default class SettingConfigurator extends FormApplication {
     event.preventDefault();
     const a = event.currentTarget;
     const action = a.dataset.action;
-    let settingFields = game.settings.get('swade', 'settingFields');
+    const settingFields = game.settings.get('swade', 'settingFields');
     const form = this.form;
 
     // Add new attribute
     if (action === 'createChar') {
       const nk = Object.keys(settingFields.actor).length + 1;
-      let newElement = document.createElement('div');
+      const newElement = document.createElement('div');
       newElement.innerHTML = `<input type="text" name="actorSettingStats.attr${nk}.key" value="attr${nk}"/>`;
-      let newKey = newElement.children[0];
+      const newKey = newElement.children[0];
       form.appendChild(newKey);
       await this._onSubmit(event);
       this.render(true);
@@ -118,9 +118,9 @@ export default class SettingConfigurator extends FormApplication {
 
     if (action === 'createItem') {
       const nk = Object.keys(settingFields.item).length + 1;
-      let newElement = document.createElement('div');
+      const newElement = document.createElement('div');
       newElement.innerHTML = `<input type="text" name="itemSettingStats.attr${nk}.key" value="attr${nk}"/>`;
-      let newKey = newElement.children[0];
+      const newKey = newElement.children[0];
       form.appendChild(newKey);
       await this._onSubmit(event);
       this.render(true);
@@ -136,8 +136,8 @@ export default class SettingConfigurator extends FormApplication {
 
   private _handleKeyValidityCheck(attributes: any): any {
     return Object.values(attributes).reduce((obj, v) => {
-      let k = v['key'].trim();
-      if (/[\s\.]/.test(k)) {
+      const k = v['key'].trim();
+      if (/[\s.]/.test(k)) {
         return ui.notifications.error(
           'Attribute keys may not contain spaces or periods',
         );
@@ -154,7 +154,7 @@ export default class SettingConfigurator extends FormApplication {
    * @param base
    */
   private _handleDeletableAttributes(attributes: any, base: any) {
-    for (let k of Object.keys(base)) {
+    for (const k of Object.keys(base)) {
       if (!attributes.hasOwnProperty(k)) {
         delete attributes[k];
       }
