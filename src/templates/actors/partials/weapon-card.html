@@ -15,6 +15,28 @@
     </div>
   </header>
   <div class="card-content collapsed" style="display: none;">
-    {{> "systems/swade/templates/items/action-card.html"}}
+    {{#unless (isEmpty data.damage)}}
+    <div>
+      <a class="damage-roll" title="{{localize 'SWADE.Roll'}}"
+        >{{localize "SWADE.Dmg"}}: {{data.damage}}</a
+      >
+    </div>
+    {{/unless}} {{#unless (isEmpty data.range)}}
+    <div>{{localize "SWADE.Rng"}}: {{data.range}}</div>
+    {{/unless}} {{#unless (isEmpty data.shots)}}
+    <div>{{localize "SWADE.Mag"}}: {{data.shots}}</div>
+    {{/unless}} {{#if (gt data.rof 1)}}
+    <div>{{localize "SWADE.RoF"}}: {{data.rof}}</div>
+    {{/if}} {{#unless (eq data.ap 0)}}
+    <div>{{localize "SWADE.Ap"}}: {{data.ap}}</div>
+    {{/unless}} {{#unless (isEmpty data.notes)}}
+    <div class="chips">
+      <span>{{localize "SWADE.Notes"}}:&nbsp;</span>
+      <div>{{enrich data.notes}}</div>
+      <!-- <div class="chip">
+                    <span class="chip-content">HW</span>
+                </div>  -->
+    </div>
+    {{/unless}}
   </div>
 </li>
