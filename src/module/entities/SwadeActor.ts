@@ -392,24 +392,19 @@ export default class SwadeActor extends Actor {
    * Function for shorcut roll in item (@str + 1d6)
    * return something like : {agi: "1d8x8+1", sma: "1d6x6", spi: "1d6x6", str: "1d6x6-1", vig: "1d6x6"}
    */
-  getRollShortcuts(bAddWildDie = false) {
+  getRollShortcuts() {
     const out = {};
     //return early if the actor is a vehicle
     if (this.data.type === 'vehicle') return out;
     // Attributes
-    const attr = this.data.data.attributes;
-    for (const name of ['agility', 'smarts', 'spirit', 'strength', 'vigor']) {
-      out[name.substring(0, 3)] =
-        `1d${attr[name].die.sides}x` +
-        (attr[name].die.modifier && attr[name].die.modifier != 0
-          ? (['+', '-'].indexOf(attr[name].die.modifier) < 0 ? '+' : '') +
-            attr[name].die.modifier
-          : '') +
-        // wild-die
-        (bAddWildDie && attr[name]['wild-die'].sides
-          ? `+1d${attr[name]['wild-die'].sides}x`
-          : '');
-    } //fr
+    const attributes = this.data.data.attributes;
+    for (const name in attributes) {
+      const attribute = attributes[name];
+      const short = name.substring(0, 3);
+      const die: number = attribute.die.sides;
+      const mod: number = attribute.die.modifier || 0;
+      out[short] = `(1d${die}x${mod !== 0 ? mod.signedString() : ''})`;
+    }
     return out;
   }
 
