@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { SWADE } from './config';
 import SwadeItem from './entities/SwadeItem';
 
@@ -28,14 +27,14 @@ export async function createActionCardTable(
 
   //If it's a rebuild call, delete all entries and then repopulate them
   if (rebuild) {
-    let deletions = cardTable.results.map((i) => i._id) as string[];
+    const deletions = cardTable.results.map((i) => i._id) as string[];
     await cardTable.deleteEmbeddedEntity('TableResult', deletions);
   }
 
   const createData = [];
   for (let i = 0; i < cardPackIndex.length; i++) {
-    let c = cardPackIndex[i] as any;
-    let resultData = {
+    const c = cardPackIndex[i] as any;
+    const resultData = {
       type: 2, //Set type to compendium
       text: c.name,
       img: c.img,
@@ -84,7 +83,7 @@ export async function createSwadeMacro(data: any, slot: number) {
     default:
       break;
   }
-  let macro = (await Macro.create({
+  const macro = (await Macro.create({
     name: item.name,
     type: 'script',
     img: item.img,

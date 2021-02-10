@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /**
  * This is the TypeScript entry file for Foundry VTT.
  * Author: FloRad

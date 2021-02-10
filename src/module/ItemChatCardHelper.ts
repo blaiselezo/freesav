@@ -40,12 +40,6 @@ export default class ItemChatCardHelper {
       );
     }
 
-    // Get card targets
-    let targets = [];
-    if (isTargetted) {
-      targets = this.getChatCardTargets(card);
-    }
-
     await this.handleAction(item, actor, action);
     await this.refreshItemCard(actor);
 
@@ -69,17 +63,6 @@ export default class ItemChatCardHelper {
     // Case 2 - use Actor ID directory
     const actorId = card.dataset.actorId;
     return (game.actors.get(actorId) as SwadeActor) || (null as SwadeActor);
-  }
-
-  static getChatCardTargets(card) {
-    const character = game.user.character;
-    const controlled = canvas.tokens.controlled;
-    const targets = controlled.reduce(
-      (arr, t) => (t.actor ? arr.concat([t.actor]) : arr),
-      [],
-    );
-    if (character && controlled.length === 0) targets.push(character);
-    return targets;
   }
 
   /**
@@ -174,7 +157,7 @@ export default class ItemChatCardHelper {
     const availableActions = getProperty(item.data, 'data.actions.additional');
     const ammoManagement =
       game.settings.get('swade', 'ammoManagement') && !item.isMeleeWeapon;
-    let actionToUse = availableActions[action];
+    const actionToUse = availableActions[action];
 
     // if there isn't actually any action then return early
     if (!actionToUse) {
@@ -191,7 +174,7 @@ export default class ItemChatCardHelper {
           i.name === getProperty(item.data, 'data.actions.skill'),
       );
 
-      let altSkill = actor.items.find(
+      const altSkill = actor.items.find(
         (i: SwadeItem) =>
           i.type === ItemType.Skill && i.name === actionToUse.skillOverride,
       );

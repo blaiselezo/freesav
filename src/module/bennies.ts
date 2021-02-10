@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import SwadeActor from './entities/SwadeActor';
 import * as chat from './chat';
 import { ActorType } from './enums/ActorTypeEnum';
@@ -7,15 +6,18 @@ export default class Bennies {
   static async spendEvent(ev: MouseEvent) {
     ev.preventDefault();
     const userId = (ev.target as HTMLElement).parentElement.dataset.userId;
-    let user = game.users.find((user: User) => user.id == userId);
+    const user = game.users.find((user: User) => user.id == userId);
     if (user.isGM) {
-      let value = user.getFlag('swade', 'bennies');
+      const value = user.getFlag('swade', 'bennies');
       if (value == 0) return;
-      let message = await renderTemplate(CONFIG.SWADE.bennies.templates.spend, {
-        target: game.user,
-        speaker: game.user,
-      });
-      let chatData = {
+      const message = await renderTemplate(
+        CONFIG.SWADE.bennies.templates.spend,
+        {
+          target: game.user,
+          speaker: game.user,
+        },
+      );
+      const chatData = {
         content: message,
       };
       if (game.settings.get('swade', 'notifyBennies')) {
@@ -49,11 +51,11 @@ export default class Bennies {
         game.settings.get('swade', 'gmBennies'),
       );
       if (game.settings.get('swade', 'notifyBennies') && displayToChat) {
-        let message = await renderTemplate(
+        const message = await renderTemplate(
           CONFIG.SWADE.bennies.templates.refresh,
           { target: user, speaker: game.user },
         );
-        let chatData = {
+        const chatData = {
           content: message,
         };
         ChatMessage.create(chatData);
@@ -66,7 +68,7 @@ export default class Bennies {
   }
 
   static async refreshAll() {
-    for (let user of game.users.values()) {
+    for (const user of game.users.values()) {
       this.refresh(user, false);
     }
 
@@ -74,16 +76,16 @@ export default class Bennies {
       (a: SwadeActor) =>
         !a.hasPlayerOwner && a.data.type === ActorType.NPC && a.isWildcard,
     ) as SwadeActor[];
-    for (let actor of npcWildcardsToRefresh) {
+    for (const actor of npcWildcardsToRefresh) {
       await actor.refreshBennies(false);
     }
 
     if (game.settings.get('swade', 'notifyBennies')) {
-      let message = await renderTemplate(
+      const message = await renderTemplate(
         CONFIG.SWADE.bennies.templates.refreshAll,
         {},
       );
-      let chatData = {
+      const chatData = {
         content: message,
       };
       ChatMessage.create(chatData);
@@ -93,7 +95,7 @@ export default class Bennies {
   static async giveEvent(ev: MouseEvent) {
     ev.preventDefault();
     const userId = (ev.target as HTMLElement).parentElement.dataset.userId;
-    let user = game.users.find((user: User) => user.id == userId);
+    const user = game.users.find((user: User) => user.id == userId);
     if (user.isGM) {
       await user.setFlag(
         'swade',
@@ -111,9 +113,9 @@ export default class Bennies {
 
   private static updateBenny(ev: MouseEvent) {
     const userId = (ev.target as HTMLElement).parentElement.dataset.userId;
-    let user = game.users.find((user: User) => user.id == userId);
+    const user = game.users.find((user: User) => user.id == userId);
     if (user.isGM) {
-      let value = user.getFlag('swade', 'bennies');
+      const value = user.getFlag('swade', 'bennies');
       (ev.target as HTMLElement).innerHTML = value.toString();
     } else if (user.character) {
       (ev.target as HTMLElement).innerHTML =
@@ -122,10 +124,10 @@ export default class Bennies {
   }
 
   static append(player: HTMLElement, options: any) {
-    let user = options.users.find(
+    const user = options.users.find(
       (user: User) => user.id == player.dataset.userId,
     );
-    let span = document.createElement('span');
+    const span = document.createElement('span');
     span.classList.add('bennies-count');
 
     // Player view
@@ -159,7 +161,7 @@ export default class Bennies {
       : game.i18n.localize('SWADE.BenniesGive');
     // Manage GM Bennies
     if (user.isGM) {
-      let bennies = user.getFlag('swade', 'bennies');
+      const bennies = user.getFlag('swade', 'bennies');
       // Set bennies to number as defined in GM benny setting
       if (bennies == null) {
         user
