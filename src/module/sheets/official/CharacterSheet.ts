@@ -389,7 +389,7 @@ export default class CharacterSheet extends ActorSheet {
     }
 
     for (const type of Object.keys(data.itemsByType)) {
-      for (let item of data.itemsByType[type]) {
+      for (const item of data.itemsByType[type]) {
         // Basic template rendering data
         const ammoManagement = game.settings.get('swade', 'ammoManagement');
         item.shots = getProperty(item, 'data.shots');
@@ -406,7 +406,7 @@ export default class CharacterSheet extends ActorSheet {
 
         item.actions = [];
 
-        for (let action in actions) {
+        for (const action in actions) {
           item.actions.push({
             key: action,
             type: actions[action].type,
