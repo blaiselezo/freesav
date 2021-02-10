@@ -280,9 +280,9 @@
           {{/if}} {{/each}}
         </ol>
         <ol class="quick-list">
-          {{#each itemsByType.gear as |gear|}}{{#if gear.data.equipped}}{{>
-          "systems/swade/templates/official/partials/misc-card.html"}}
-          {{/if}}{{/each}}
+          {{#each itemsByType.gear as |gear|}} {{#if gear.data.equipped}} {{>
+          "systems/swade/templates/official/partials/misc-card.html"}} {{/if}}
+          {{/each}}
         </ol>
       </div>
       <div class="quick-footer">&nbsp;</div>
