@@ -6,28 +6,51 @@
 >
   {{#unless (isEmpty data.notes)}}
   <div class="chips">
-    <p><span class="bold">{{localize "SWADE.Notes"}}:</span> {{data.notes}}</p>
+    <p>
+      <span class="bold"
+        ><i class="fas fa-sticky-note"></i> {{localize "SWADE.Notes"}}:</span
+      >
+      {{data.notes}}
+    </p>
   </div>
   {{/unless}} {{#if (eq type "armor")}}
   <div class="chips">
-    <p><span class="bold">{{localize "SWADE.Armor"}}:</span> {{data.armor}}</p>
+    <p>
+      <span class="bold"
+        ><i class="fas fa-shield-alt"></i> {{localize "SWADE.Armor"}}:</span
+      >
+      {{data.armor}}
+    </p>
   </div>
   {{/if}} {{#if (and (eq type "weapon") data.range)}}
   <div class="chips">
-    <p><span class="bold">Range:</span> {{data.range}}</p>
+    <p>
+      <span class="bold"><i class="fas fa-ruler-combined"></i> Range:</span>
+      {{data.range}}
+    </p>
   </div>
   {{/if}} {{#if (and (eq type "weapon") (gt data.ap '0'))}}
   <div class="chips">
-    <p><span class="bold">AP:</span> {{data.ap}}</p>
+    <p>
+      <span class="bold"><i class="fas fa-shield-alt"></i> AP:</span>
+      {{data.ap}}
+    </p>
   </div>
   {{/if}} {{#if (eq type "shield")}}
   <div class="chips">
-    <p><span class="bold">{{localize "SWADE.Parry"}}:</span> {{data.parry}}</p>
+    <p>
+      <span class="bold"
+        ><i class="fas fa-shield-alt"></i> {{localize "SWADE.Parry"}}:</span
+      >
+      {{data.parry}}
+    </p>
   </div>
   {{/if}} {{#if hasAmmoManagement}}
   <div class="ammo-counter">
     <p>
-      <span class="bold">{{localize "SWADE.Mag"}}:</span>
+      <span class="bold"
+        ><i class="fas fa-dot-circle"></i> {{localize "SWADE.Mag"}}:</span
+      >
       <span class="current-shots">{{currentShots}}</span>&nbsp;/&nbsp;<span
         class="max-shots"
         >{{shots}}</span
@@ -35,7 +58,17 @@
       {{#if data.ammo}}&nbsp;- &nbsp;{{data.ammo}}{{/if}}
     </p>
   </div>
-  {{/if}} {{#if (eq type "power")}} {{#unless powersTab}}
+  {{/if}}
+
+  <div class="card-buttons">
+    {{#if hasReloadButton}}
+    <button class="card-button" data-action="reload">
+      {{localize "SWADE.Reload"}}
+    </button>
+    {{/if}}
+  </div>
+
+  {{#if (eq type "power")}} {{#unless powersTab}}
   <div class="pp-counter">
     <p>
       <span class="bold"
@@ -63,34 +96,30 @@
         </button>
       </span>
     </span>
-    {{/unless}} {{/if}} {{log this}} {{#unless powersTab}} {{#if hasSkillRoll}}
-    <h4 class="actions-subheading">Skill Rolls</h4>
+    {{/unless}} {{/if}} {{#unless powersTab}} {{#if hasSkillRoll}}
+    <h4 class="actions-subheading">
+      <i class="fas fa-bullseye"></i> Skill Rolls
+    </h4>
     {{/if}} {{/unless}} {{#if hasSkillRoll}}
     <button class="card-button" data-action="formula">
-      {{#if hasSkillRoll}}
-      <i class="fas fa-bullseye"></i> {{skill}} {{/if}}
+      {{#if powersTab}}<i class="fas fa-hand-sparkles"></i> {{/if}}{{skill}}
     </button>
     {{/if}} {{#if hasAdditionalActions}} {{#each actions as |attr key|}} {{#if
     (eq attr.type "skill")}}
     <button class="card-button" data-action="{{attr.key}}">
-      <i class="fas fa-bullseye"></i> {{attr.name}}
+      {{#if powersTab}}<i class="fas fa-hand-sparkles"></i> {{/if}}{{attr.name}}
     </button>
     {{/if}} {{/each}} {{/if}} {{#unless powersTab}} {{#if hasDamage }}
-    <h4 class="actions-subheading">Damage Rolls</h4>
+    <h4 class="actions-subheading"><i class="fas fa-tint"></i> Damage Rolls</h4>
     {{/if}} {{/unless}} {{#if data.damage}}
     <button class="card-button" data-action="damage">
-      <i class="fas fa-tint"></i> {{data.damage}}
+      {{#if powersTab}}<i class="fas fa-tint"></i> {{/if}}{{data.damage}}
     </button>
     {{/if}} {{#if hasAdditionalActions}} {{#each data.actions.additional as
     |attr key|}} {{#if (eq attr.type "damage")}}
     <button class="card-button" data-action="{{key}}">
-      <i class="fas fa-tint"></i> {{attr.name}}
+      {{#if ../powersTab}}<i class="fas fa-tint"></i> {{/if}}{{attr.name}}
     </button>
-    {{/if}} {{/each}} {{/if}} {{#if hasReloadButton}}
-    <h4 class="actions-subheading">Reload</h4>
-    <button class="card-button" data-action="reload">
-      <i class="fas fa-redo-alt"></i> {{localize "SWADE.Reload"}}
-    </button>
-    {{/if}}
+    {{/if}} {{/each}} {{/if}}
   </div>
 </div>
