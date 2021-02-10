@@ -1,0 +1,11 @@
+image: node
+
+stages:
+  - tests
+
+code-quality:
+  stage: tests
+  script:
+    - npm ci
+    - npm run check:lint
+    - npm run check:types

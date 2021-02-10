@@ -10,7 +10,9 @@
     "clean": "gulp clean && gulp link --clean",
     "update": "npm uninstall foundry-vtt-types && npm install --save-dev github:League-of-Foundry-Developers/foundry-vtt-types",
     "generate-docs": "typedoc --plugin typedoc-plugin-no-inherit",
-    "generate-docs-as-md": "typedoc --options typedoc.json"
+    "generate-docs-as-md": "typedoc --options typedoc.json",
+    "check:lint": "eslint --ext .ts,.js ./src",
+    "check:types": "tsc --noEmit"
   },
   "author": "FloRad",
   "license": "GNU GPLv3",
