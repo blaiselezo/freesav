@@ -290,63 +290,60 @@ export default class SwadeHooks {
     options,
     userId: string,
   ) {
+    //NO-OP
+  }
+
+  public static onUpdateCombatant(
+    combat: Combat,
+    combatant: any,
+    updateData: any,
+    options: any,
+    userId: string,
+  ) {
     // Return early if we are NOT a GM OR we are not the player that triggered the update AND that player IS a GM
     const user = game.users.get(userId) as User;
     if (!game.user.isGM || (game.userId !== userId && user.isGM)) {
       return;
     }
 
-    // Return if this update does not contains a round
-    if (!updateData.round) {
-      return;
-    }
-
-    if (combat instanceof CombatEncounters) {
-      combat = game.combats.get(updateData._id) as Combat;
-    }
-
-    // If we are not moving forward through the rounds, return
-    if (updateData.round < 1 || updateData.round < combat.previous.round) {
-      return;
-    }
-
-    // If Combat has just started, return
     if (
-      (!combat.previous.round || combat.previous.round === 0) &&
-      updateData.round === 1
-    ) {
+      !getProperty(updateData, 'flags.swade') ||
+      combatant.actor.data.type !== ActorType.Character
+    )
       return;
+    if (
+      getProperty(combatant, 'flags.swade.hasJoker') &&
+      game.settings.get('swade', 'jokersWild')
+    ) {
+      renderTemplate(SWADE.bennies.templates.joker, {
+        speaker: game.user,
+      })
+        .then((template) =>
+          ChatMessage.create({ speaker: game.user, content: template }),
+        )
+        .then(() => {
+          const combatants = combat.combatants.filter(
+            (c) => c.actor.data.type === ActorType.Character,
+          );
+          for (const combatant of combatants) {
+            const actor = combatant.actor as SwadeActor;
+            actor.getBenny();
+          }
+        });
     }
-
-    //return early if we're not doing Joker's Wild
-    if (!game.settings.get('swade', 'jokersWild')) return;
-    const combatants = combat.combatants.filter(
-      (c) => c.actor.data.type === ActorType.Character,
-    );
-    const jokerDrawn = combatants.some((v) =>
-      getProperty(v, 'flags.swade.hasJoker'),
-    );
-
-    //return early if no Jokers have been drawn
-    if (!jokerDrawn) return;
-    renderTemplate(SWADE.bennies.templates.joker, {
-      speaker: game.user,
-    })
-      .then((template) =>
-        ChatMessage.create({ speaker: game.user, content: template }),
-      )
-      .then(() => {
-        for (const combatant of combatants) {
-          const actor = combatant.actor as SwadeActor;
-          actor.getBenny();
-        }
-      });
   }
 
   public static onDeleteCombat(combat: Combat, options: any, userId: string) {
     if (!game.user.isGM || !game.users.get(userId).isGM) {
       return;
     }
+
+    const jokerDrawn = combat.combatants.some((v) =>
+      getProperty(v, 'flags.swade.hasJoker'),
+    );
+
+    //return early if no Jokers have been drawn
+    if (!jokerDrawn) return;
 
     //reset the deck when combat is ended
     game.tables
@@ -601,17 +598,12 @@ export default class SwadeHooks {
       }
       const cardValue = selectedCard.data().cardValue as number;
       const suitValue = selectedCard.data().suitValue as number;
-      const hasJoker = selectedCard.data().isJoker;
-
+      const hasJoker = selectedCard.data().isJoker as boolean;
+      const cardString = selectedCard.val() as String;
       game.combat.updateEmbeddedEntity('Combatant', {
         _id: options.object._id,
         initiative: suitValue + cardValue,
-        'flags.swade': {
-          cardValue,
-          suitValue,
-          hasJoker,
-          cardString: selectedCard.val(),
-        },
+        flags: { swade: { cardValue, suitValue, hasJoker, cardString } },
       });
     });
     return false;

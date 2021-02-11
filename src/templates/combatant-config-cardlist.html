@@ -9,6 +9,7 @@
         value="{{card.cardString}}"
         data-card-value="{{card.cardValue}}"
         data-suit-value="{{card.suitValue}}"
+        data-is-joker="{{card.isJoker}}"
         {{checked
         card.isDealt}}
       />
@@ -29,7 +30,7 @@
         value="{{card.cardString}}"
         data-card-value="{{card.cardValue}}"
         data-suit-value="{{card.suitValue}}"
-        data-is-joker="true"
+        data-is-joker="{{card.isJoker}}"
         {{checked
         card.isDealt}}
       />

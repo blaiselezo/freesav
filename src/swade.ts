@@ -35,7 +35,7 @@ Hooks.once('init', () => {
   );
 
   // Record Configuration Values
-  // CONFIG.debug.hooks = true;
+  //CONFIG.debug.hooks = true;
   CONFIG.SWADE = SWADE;
 
   game.swade = {
@@ -170,8 +170,26 @@ Hooks.on(
 
 Hooks.on(
   'updateCombat',
-  (combat: Combat, updateData, options, userId: string) =>
+  (combat: Combat, updateData: any, options: any, userId: string) =>
     SwadeHooks.onUpdateCombat(combat, updateData, options, userId),
+);
+
+Hooks.on(
+  'updateCombatant',
+  (
+    combat: Combat,
+    combatant: any,
+    updateData: any,
+    options: any,
+    userId: string,
+  ) =>
+    SwadeHooks.onUpdateCombatant(
+      combat,
+      combatant,
+      updateData,
+      options,
+      userId,
+    ),
 );
 
 Hooks.on('deleteCombat', (combat: Combat, options: any, userId: string) =>

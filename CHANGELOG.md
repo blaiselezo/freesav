@@ -33,7 +33,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Newly created Scenes will now default to ther gridless option. This only applies to scenes created in the Sidebar. Scenes imported from compendiums or other sources will retain their scene config
 - Set default value of Benny animation to true
 - Refactored some of the new turn combat logic
-- Action deck now automatically resets at the end of every combat, not just when a joker had been drawn
 
 ### Fixed
 
