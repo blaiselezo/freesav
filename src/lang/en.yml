@@ -301,3 +301,6 @@ SWADE.HideNpcItemChatCardsDesc: >-
   When enabled, NPC Item Chat Cards are automatically sent as a whisper to all
   Gamemasters instead of being posted for all to see
 SWADE.JokersWildDesc: Gives a Benny to every player character when one of them is dealt a Joker
+SWADE.ParryBase: Parry Base Skill
+SWADE.ParryBaseDesc: The name of the skill which will be used to calculate a characters Parry
+SWADE.AutoCalcParry: Automatically calculates Parry, including Shields

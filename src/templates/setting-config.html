@@ -31,6 +31,18 @@
         <p class="notes">{{localize "SWADE.EnableConvDesc"}}</p>
       </div>
       <div class="form-group">
+        <label>{{localize "SWADE.ParryBase"}}</label>
+        <div class="form-fields">
+          <input
+            type="text"
+            name="settingRules.parryBaseSkill"
+            data-dtype="String"
+            value="{{settingRules.parryBaseSkill}}"
+          />
+        </div>
+        <p class="notes">{{localize "SWADE.ParryBaseDesc"}}</p>
+      </div>
+      <div class="form-group">
         <label>{{localize "SWADE.JokersWild"}}</label>
         <div class="form-fields">
           <input
@@ -56,59 +68,61 @@
         </div>
         <p class="notes">{{localize "SWADE.EnableWoundPaceDesc"}}</p>
       </div>
-      <h3>{{localize "SWADE.Ammo"}}</h3>
-      <hr />
-      <div class="form-group">
-        <label>{{localize "SWADE.AmmoManagement"}}</label>
-        <div class="form-fields">
-          <input
-            type="checkbox"
-            name="settingRules.ammoManagement"
-            data-dtype="Boolean"
-            {{checked
-            settingRules.ammoManagement}}
-          />
+      <section id="ammo">
+        <h3>{{localize "SWADE.Ammo"}}</h3>
+        <hr />
+        <div class="form-group">
+          <label>{{localize "SWADE.AmmoManagement"}}</label>
+          <div class="form-fields">
+            <input
+              type="checkbox"
+              name="settingRules.ammoManagement"
+              data-dtype="Boolean"
+              {{checked
+              settingRules.ammoManagement}}
+            />
+          </div>
+          <p class="notes">{{localize "SWADE.AmmoManagementDesc"}}</p>
         </div>
-        <p class="notes">{{localize "SWADE.AmmoManagementDesc"}}</p>
-      </div>
-      <div class="form-group">
-        <label>{{localize "SWADE.PCAmmoFromInventory"}}</label>
-        <div class="form-fields">
-          <input
-            type="checkbox"
-            name="settingRules.ammoFromInventory"
-            data-dtype="Boolean"
-            {{checked
-            settingRules.ammoFromInventory}}
-          />
+        <div class="form-group">
+          <label>{{localize "SWADE.PCAmmoFromInventory"}}</label>
+          <div class="form-fields">
+            <input
+              type="checkbox"
+              name="settingRules.ammoFromInventory"
+              data-dtype="Boolean"
+              {{checked
+              settingRules.ammoFromInventory}}
+            />
+          </div>
+          <p class="notes">{{localize "SWADE.PCAmmoFromInventoryDesc"}}</p>
         </div>
-        <p class="notes">{{localize "SWADE.PCAmmoFromInventoryDesc"}}</p>
-      </div>
-      <div class="form-group">
-        <label>{{localize "SWADE.NPCAmmoFromInventory"}}</label>
-        <div class="form-fields">
-          <input
-            type="checkbox"
-            name="settingRules.npcAmmo"
-            data-dtype="Boolean"
-            {{checked
-            settingRules.npcAmmo}}
-          />
+        <div class="form-group">
+          <label>{{localize "SWADE.NPCAmmoFromInventory"}}</label>
+          <div class="form-fields">
+            <input
+              type="checkbox"
+              name="settingRules.npcAmmo"
+              data-dtype="Boolean"
+              {{checked
+              settingRules.npcAmmo}}
+            />
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label>{{localize "SWADE.VehicleAmmoFromInventory"}}</label>
-        <div class="form-fields">
-          <input
-            type="checkbox"
-            name="settingRules.vehicleAmmo"
-            data-dtype="Boolean"
-            {{checked
-            settingRules.vehicleAmmo}}
-          />
+        <div class="form-group">
+          <label>{{localize "SWADE.VehicleAmmoFromInventory"}}</label>
+          <div class="form-fields">
+            <input
+              type="checkbox"
+              name="settingRules.vehicleAmmo"
+              data-dtype="Boolean"
+              {{checked
+              settingRules.vehicleAmmo}}
+            />
+          </div>
         </div>
-      </div>
-      <section id="ammo"></section>
+        <hr />
+      </section>
     </section>
     <section id="vehicles">
       <h2 class="module-header">{{localize "SWADE.Vehicles"}}</h2>

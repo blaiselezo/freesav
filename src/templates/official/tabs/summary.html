@@ -151,9 +151,11 @@
               type="text"
               placeholder="{{ localize 'SWADE.Parry' }}"
               data-dtype="Number"
+              {{disabled
+              data.details.autoCalcParry}}
             />
             <button type="button" class="parry-display">
-              {{add parry data.stats.parry.modifier}}
+              {{signedString data.stats.parry.modifier}}
             </button>
           </span>
         </div>

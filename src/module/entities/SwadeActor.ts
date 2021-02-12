@@ -18,17 +18,15 @@ export default class SwadeActor extends Actor {
     this.data = duplicate(this['_data']);
     if (!this.data.img) this.data.img = CONST.DEFAULT_TOKEN;
     if (!this.data.name) this.data.name = 'New ' + this.entity;
-
+    this.prepareEmbeddedEntities();
     this.prepareBaseData();
+    this.applyActiveEffects();
 
     const shouldAutoCalcToughness =
       getProperty(this.data, 'data.details.autoCalcToughness') &&
       this.data.type !== ActorType.Vehicle;
     const toughnessKey = 'data.stats.toughness.value';
     const armorKey = 'data.stats.toughness.armor';
-
-    this.prepareEmbeddedEntities();
-    this.applyActiveEffects();
 
     if (shouldAutoCalcToughness) {
       const adjustedToughness = getProperty(this.data, toughnessKey);
@@ -53,6 +51,14 @@ export default class SwadeActor extends Actor {
       const armorKey = 'data.stats.toughness.armor';
       setProperty(this.data, toughnessKey, this.calcToughness(false));
       setProperty(this.data, armorKey, this.calcArmor());
+    }
+
+    const shouldAutoCalcParry =
+      getProperty(this.data, 'data.details.autoCalcParry') &&
+      this.data.type !== ActorType.Vehicle;
+
+    if (shouldAutoCalcParry) {
+      setProperty(this.data, 'data.stats.parry.value', this.calcParry());
     }
   }
 
@@ -530,6 +536,41 @@ export default class SwadeActor extends Actor {
     }
 
     return capacity;
+  }
+
+  calcParry(): number {
+    let parryTotal = 0;
+    const parryBase = game.settings.get('swade', 'parryBaseSkill') as string;
+    const parryBaseSkill = this.items.find(
+      (i: Item) => i.type === ItemType.Skill && i.name === parryBase,
+    ) as Item;
+
+    const skillDie: number =
+      getProperty(parryBaseSkill, 'data.data.die.sides') || 0;
+
+    //base parry calculation
+    parryTotal = skillDie / 2 + 2;
+
+    //add modifier if the skill die is 12
+    if (skillDie >= 12) {
+      const skillMod: number =
+        getProperty(parryBaseSkill, 'data.data.die.modifier') || 0;
+      parryTotal += Math.floor(skillMod / 2);
+    }
+
+    //add shields
+    const shields = this.items.filter(
+      (i: Item) => i.type === ItemType.Shield,
+    ) as Item[];
+
+    for (const shield of shields) {
+      const isEquipped = getProperty(shield.data, 'data.equipped');
+
+      if (isEquipped) {
+        parryTotal += getProperty(shield.data, 'data.parry');
+      }
+    }
+    return parryTotal;
   }
 
   /**

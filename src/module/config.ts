@@ -68,6 +68,7 @@ export const SWADE = {
     settings: [
       'enableConviction',
       'jokersWild',
+      'parryBaseSkill',
       'vehicleMods',
       'vehicleEdges',
       'gmBennies',

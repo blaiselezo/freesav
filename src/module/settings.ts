@@ -81,6 +81,15 @@ export function registerSettingRules() {
     config: false,
   });
 
+  game.settings.register('swade', 'parryBaseSkill', {
+    name: game.i18n.localize('SWADE.ParryBase'),
+    hint: game.i18n.localize('SWADE.ParryBaseDesc'),
+    default: 'Fighting',
+    scope: 'world',
+    type: String,
+    config: false,
+  });
+
   game.settings.register('swade', 'ammoManagement', {
     name: game.i18n.localize('SWADE.AmmoManagement'),
     hint: game.i18n.localize('SWADE.AmmoManagementDesc'),

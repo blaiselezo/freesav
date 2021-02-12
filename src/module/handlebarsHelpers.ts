@@ -6,6 +6,12 @@ export const registerCustomHelpers = function () {
     return result.signedString();
   });
 
+  Handlebars.registerHelper('signedString', function (number) {
+    const result = parseInt(number);
+    if (isNaN(result)) return '';
+    return result.signedString();
+  });
+
   Handlebars.registerHelper('times', function (a, b) {
     return a * b;
   });

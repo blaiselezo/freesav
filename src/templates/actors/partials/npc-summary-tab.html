@@ -38,9 +38,11 @@
             type="text"
             placeholder="0"
             data-dtype="Number"
+            {{disabled
+            data.details.autoCalcParry}}
           />
           <div class="armor-value" data-target="parry">
-            {{add parry data.stats.parry.modifier}}
+            {{signedString data.stats.parry.modifier}}
           </div>
         </div>
       </div>
