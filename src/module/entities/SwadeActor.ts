@@ -501,7 +501,7 @@ export default class SwadeActor extends Actor {
       getProperty(this.data, 'data.stats.toughness.modifier'),
     );
 
-    const size = parseInt(getProperty(this.data, 'data.stats.size'));
+    const size = parseInt(getProperty(this.data, 'data.stats.size')) || 0;
     retVal = Math.round(vigor / 2) + 2;
     retVal += size;
     retVal += toughMod;
@@ -511,6 +511,7 @@ export default class SwadeActor extends Actor {
     if (includeArmor) {
       retVal += this.calcArmor();
     }
+    if (retVal < 1) retVal = 1;
     return retVal;
   }
 
