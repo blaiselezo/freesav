@@ -63,6 +63,7 @@ Actor:
           value: 0
           active: false
         autoCalcToughness: true
+        autoCalcParry: true
       powerPoints: {}
       fatigue:
         value: 0

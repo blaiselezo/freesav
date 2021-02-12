@@ -139,8 +139,8 @@ export default class SwadeItemSheet extends ItemSheet {
           'Active Effects on owned Items are currently not supported',
         );
       } else {
-        let transfer = $(ev.currentTarget).data('transfer');
-        let id = (
+        const transfer = $(ev.currentTarget).data('transfer');
+        const id = (
           await this.item.createEmbeddedEntity('ActiveEffect', {
             label: game.i18n
               .localize('ENTITY.New')
@@ -161,7 +161,7 @@ export default class SwadeItemSheet extends ItemSheet {
    * Start with the base item data and extending with additional properties for rendering.
    */
   getData() {
-    let data: any = super.getData();
+    const data: any = super.getData();
     data.data.isOwned = this.item.isOwned;
     data.config = CONFIG.SWADE;
     const actor = this.item.actor;
@@ -169,8 +169,8 @@ export default class SwadeItemSheet extends ItemSheet {
     if (ownerIsWildcard || !this.item.isOwned) {
       data.data.ownerIsWildcard = true;
     }
-    let additionalStats = data.data.additionalStats || {};
-    for (let attr of Object.values(additionalStats)) {
+    const additionalStats = data.data.additionalStats || {};
+    for (const attr of Object.values(additionalStats)) {
       attr['isCheckbox'] = attr['dtype'] === 'Boolean';
     }
     data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;

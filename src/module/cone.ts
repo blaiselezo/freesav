@@ -9,8 +9,8 @@ export function getSwadeConeShape(
 ): PIXI.Polygon {
   angle = angle || 90;
   const coneType = game.settings.get('core', 'coneTemplateType');
-  let coneWidth = (1.5 / 9) * distance;
-  let coneLength = (7.5 / 9) * distance;
+  const coneWidth = (1.5 / 9) * distance;
+  const coneLength = (7.5 / 9) * distance;
   let angles;
   let rays;
   let points;
