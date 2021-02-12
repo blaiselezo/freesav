@@ -1,6 +1,5 @@
 import IDriverData from '../../interfaces/IDriverData';
 import SwadeActor from '../entities/SwadeActor';
-// eslint-disable-next-line no-unused-vars
 import SwadeItem from '../entities/SwadeItem';
 import SwadeBaseActorSheet from './SwadeBaseActorSheet';
 
@@ -41,7 +40,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
 
     // Drag events for macros.
     if (this.actor.owner) {
-      let handler = (ev) => this._onDragStart(ev);
+      const handler = (ev) => this._onDragStart(ev);
       // Find all items on the character sheet.
       html.find('li.item.weapon').each((i, li) => {
         // Add draggable attribute and dragstart listener.
@@ -90,7 +89,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     html.find('.item-create').on('click', async (event) => {
       event.preventDefault();
       const header = event.currentTarget;
-      let type = header.dataset.type;
+      const type = header.dataset.type;
 
       let modData;
       let weaponData;
@@ -149,7 +148,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
   }
 
   getData(): ActorSheetData {
-    let data: any = super.getData();
+    const data: any = super.getData();
 
     data.config = CONFIG.SWADE;
     data.itemsByType = {};
@@ -189,7 +188,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
     };
 
     if (data.settingrules.modSlots) {
-      let modsUsed = this._calcModSlotsUsed();
+      const modsUsed = this._calcModSlotsUsed();
       data.mods = {
         used: modsUsed,
         percentage: this._calcModsPercentage(modsUsed),
@@ -216,19 +215,19 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
   }
 
   async setDriver(id: string): Promise<void> {
-    let driver = game.actors.get(id);
+    const driver = game.actors.get(id);
     if (driver && driver.data.type !== 'vehicle') {
       await this.actor.update({ 'data.driver.id': id });
     }
   }
 
   private _fetchDriver() {
-    let driverId = getProperty(this.actor.data, 'data.driver.id');
-    let driver = game.actors.get(driverId) as SwadeActor;
-    let userCanViewDriver =
+    const driverId = getProperty(this.actor.data, 'data.driver.id');
+    const driver = game.actors.get(driverId) as SwadeActor;
+    const userCanViewDriver =
       game.user.isGM ||
       (driver && driver.permission >= CONST.ENTITY_PERMISSIONS.LIMITED);
-    let driverData: IDriverData = {
+    const driverData: IDriverData = {
       img: 'icons/svg/mystery-man-black.svg',
       name: 'No Driver',
       userCanSeeDriver: userCanViewDriver,
@@ -255,8 +254,8 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
   }
 
   private _openDriverSheet() {
-    let driverId = getProperty(this.actor.data, 'data.driver.id');
-    let driver = game.actors.get(driverId);
+    const driverId = getProperty(this.actor.data, 'data.driver.id');
+    const driver = game.actors.get(driverId);
     if (driver) {
       driver.sheet.render(true);
     }
@@ -281,7 +280,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
    * calculate how many modslots are used
    */
   private _calcModSlotsUsed(): number {
-    let mods = this.actor.items.filter(
+    const mods = this.actor.items.filter(
       (i: SwadeItem) =>
         i.type === 'gear' &&
         i.data.data['isVehicular'] &&
@@ -298,7 +297,7 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
    * @param modsUsed number of active modslots
    */
   private _calcModsPercentage(modsUsed: number): number {
-    let maxMods = this.actor.data.data['maxMods'];
+    const maxMods = this.actor.data.data['maxMods'];
     let p = (modsUsed / maxMods) * 100;
 
     //cap the percentage at 100
@@ -309,9 +308,9 @@ export default class SwadeVehicleSheet extends SwadeBaseActorSheet {
   }
 
   private _buildOpSkillList(): any {
-    let retVal = {};
+    const retVal = {};
     const opSkills = CONFIG.SWADE.vehicles.opSkills as string[];
-    for (let skill of opSkills) {
+    for (const skill of opSkills) {
       retVal[skill] = skill;
     }
     return retVal;

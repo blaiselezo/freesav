@@ -55,8 +55,7 @@ export default class SwadeTemplate extends MeasuredTemplate {
    * Creates a preview of the template
    * @param {Event} event   The initiating click event
    */
-  // eslint-disable-next-line no-unused-vars
-  drawPreview(event: Event) {
+  drawPreview() {
     const initialLayer = canvas.activeLayer;
     this.draw();
     this.layer.activate();
@@ -76,7 +75,7 @@ export default class SwadeTemplate extends MeasuredTemplate {
       // Update placement (mouse-move)
       mm: (event) => {
         event.stopPropagation();
-        let now = Date.now(); // Apply a 20ms throttle
+        const now = Date.now(); // Apply a 20ms throttle
         if (now - moveTime <= 20) return;
         const center = event.data.getLocalPosition(this.layer);
         const snapped = canvas.grid.getSnappedPosition(center.x, center.y, 2);
@@ -88,7 +87,7 @@ export default class SwadeTemplate extends MeasuredTemplate {
 
       // Cancel the workflow (right-click)
       // eslint-disable-next-line no-unused-vars
-      rc: (event: Event) => {
+      rc: () => {
         this.layer.preview.removeChildren();
         canvas.stage.off('mousemove', handlers.mm);
         canvas.stage.off('mousedown', handlers.lc);
@@ -98,8 +97,8 @@ export default class SwadeTemplate extends MeasuredTemplate {
       },
 
       // Confirm the workflow (left-click)
-      lc: (event) => {
-        handlers.rc(event);
+      lc: () => {
+        handlers.rc();
 
         // Confirm final snapped position
         const destination = canvas.grid.getSnappedPosition(this.x, this.y, 2);
@@ -114,8 +113,8 @@ export default class SwadeTemplate extends MeasuredTemplate {
       mw: (event) => {
         if (event.ctrlKey) event.preventDefault(); // Avoid zooming the browser window
         event.stopPropagation();
-        let delta = canvas.grid.type > CONST.GRID_TYPES.SQUARE ? 30 : 15;
-        let snap = event.shiftKey ? delta : 5;
+        const delta = canvas.grid.type > CONST.GRID_TYPES.SQUARE ? 30 : 15;
+        const snap = event.shiftKey ? delta : 5;
         this.data.direction += snap * Math.sign(event.deltaY);
         this.refresh();
       },

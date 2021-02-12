@@ -25,15 +25,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added an option to automatically hide NPC Item Chatcards. This setting is on by default and can be found in the System Settings. You can still make a card public by right-click it and selecting the right option from the context menu
+- The system now grants a Benny to all player characters when one of them is dealt a Joker. This can be turned off in the Setting Configurator
+- Added the ability to automatically calculate parry. This option can be set in actor Tweaks and will default to on for all newly created actors after this point. The calculation also takes any shields which are equipped into account
+- Added a new Field to the setting configurator which lets you set the name of the Skill which will be used as the base to calculate Toughness. It will default to _Fighting_. Changing this setting will require you to reload the world to have the change take effect
 
 ### Changed
 
 - Improved permission control for the reroll options
 - Newly created Scenes will now default to ther gridless option. This only applies to scenes created in the Sidebar. Scenes imported from compendiums or other sources will retain their scene config
+- Set default value of Benny animation to true
+- Refactored some of the new turn combat logic
+- Set minimum Toughness to 1 when auto-calculating
 
 ### Fixed
 
 - Fixed a bug which would cause Natural Armor not to calculate properly. Natural Armor will be added to Toughness if it is marked as natural armor, has at least the torso location and is equipped
+- Fixed a small issue where roll shortcuts would not properly work with multiplications and divisions
 
 ## [v0.16.2]
 

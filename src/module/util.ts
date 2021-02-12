@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-unused-vars
+import { SWADE } from './config';
 import SwadeItem from './entities/SwadeItem';
 
 export async function createActionCardTable(
@@ -27,14 +27,14 @@ export async function createActionCardTable(
 
   //If it's a rebuild call, delete all entries and then repopulate them
   if (rebuild) {
-    let deletions = cardTable.results.map((i) => i._id) as string[];
+    const deletions = cardTable.results.map((i) => i._id) as string[];
     await cardTable.deleteEmbeddedEntity('TableResult', deletions);
   }
 
   const createData = [];
   for (let i = 0; i < cardPackIndex.length; i++) {
-    let c = cardPackIndex[i] as any;
-    let resultData = {
+    const c = cardPackIndex[i] as any;
+    const resultData = {
       type: 2, //Set type to compendium
       text: c.name,
       img: c.img,
@@ -83,7 +83,7 @@ export async function createSwadeMacro(data: any, slot: number) {
     default:
       break;
   }
-  let macro = (await Macro.create({
+  const macro = (await Macro.create({
     name: item.name,
     type: 'script',
     img: item.img,
@@ -167,4 +167,19 @@ export function notificationExists(string: string, localize = false): boolean {
   let stringToFind = string;
   if (localize) stringToFind = game.i18n.localize(string);
   return ui.notifications.active.find((n) => n.text() === stringToFind);
+}
+
+export async function shouldShowBennyAnimation(): Promise<boolean> {
+  const value = game.user.getFlag('swade', 'dsnShowBennyAnimation') as boolean;
+  const defaultValue = getProperty(
+    SWADE,
+    'diceConfig.flags.dsnShowBennyAnimation.default',
+  ) as boolean;
+
+  if (typeof value === 'undefined') {
+    await game.user.setFlag('swade', 'dsnShowBennyAnimation', defaultValue);
+    return defaultValue;
+  } else {
+    return value;
+  }
 }
