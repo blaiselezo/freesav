@@ -48,6 +48,7 @@
   .grid-under, .grid-cover {
     margin: 0;
     display: none;
+    pointer-events: none;
   }
 
   .charname-container {
@@ -162,16 +163,20 @@
     height: 100%;
     width: 100%;
     padding: 7px;
-  }
-  .tab.active {
-    display: grid;
+    .active {
+      display: block;
+    }
   }
 
   .summary {
-    grid-template-rows: max-content max-content 1fr;
+    grid-template-rows: max-content max-content minmax(0, 1fr);
     grid-template-columns: repeat(10, 1fr);
     gap: .5em;
 
+    &.active {
+      display: grid;
+    }
+    
     .fatigue-wrapper, .wounds-wrapper {
       grid-row: 1;
       grid-column: span 2;
