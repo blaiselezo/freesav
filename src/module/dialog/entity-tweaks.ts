@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import SwadeActor from '../entities/SwadeActor';
 import SwadeItem from '../entities/SwadeItem';
 
@@ -30,11 +29,11 @@ export default class SwadeEntityTweaks extends FormApplication {
    * @return {Object}
    */
   getData() {
-    let data = this.object.data;
-    let settingFields = this._getAppropriateSettingFields();
+    const data = this.object.data;
+    const settingFields = this._getAppropriateSettingFields();
 
-    for (let [key, value] of Object.entries(settingFields)) {
-      let fieldExists = getProperty(
+    for (const [key] of Object.entries(settingFields)) {
+      const fieldExists = getProperty(
         this.object.data,
         `data.additionalStats.${key}`,
       );
@@ -72,7 +71,7 @@ export default class SwadeEntityTweaks extends FormApplication {
    */
   async _updateObject(event, formData: any) {
     event.preventDefault();
-    let expandedFormData = expandObject(formData);
+    const expandedFormData = expandObject(formData);
 
     //recombine the formdata
     setProperty(
@@ -81,15 +80,15 @@ export default class SwadeEntityTweaks extends FormApplication {
       this._handleAdditionalStats(expandedFormData),
     );
     //flatten formdata
-    let flattenedFormData = flattenObject(expandedFormData);
+    const flattenedFormData = flattenObject(expandedFormData);
     // Update the actor
-    this.object.update(flattenedFormData).then((entity: Entity) => {
+    this.object.update(flattenedFormData).then(() => {
       this.object.sheet.render(true);
     });
   }
 
   private _getAppropriateSettingFields(): any {
-    let fields = game.settings.get('swade', 'settingFields');
+    const fields = game.settings.get('swade', 'settingFields');
     let settingFields = {};
     if (this.object instanceof SwadeActor) {
       settingFields = fields.actor;
@@ -100,15 +99,15 @@ export default class SwadeEntityTweaks extends FormApplication {
   }
 
   private _handleAdditionalStats(expandedFormData: any): any {
-    let formFields =
+    const formFields =
       getProperty(expandedFormData, 'data.additionalStats') || {};
     const prototypeFields = this._getAppropriateSettingFields();
-    let newFields = duplicate(
+    const newFields = duplicate(
       getProperty(this.object.data, 'data.additionalStats'),
     );
     //handle setting specific fields
-    for (let [key, value] of Object.entries(formFields)) {
-      let fieldExistsOnEntity = getProperty(
+    for (const [key, value] of Object.entries(formFields)) {
+      const fieldExistsOnEntity = getProperty(
         this.object.data,
         `data.additionalStats.${key}`,
       );
@@ -129,7 +128,7 @@ export default class SwadeEntityTweaks extends FormApplication {
     }
 
     //handle "stray" fields that exist on the actor but have no prototype
-    for (let key of Object.keys(
+    for (const key of Object.keys(
       getProperty(this.object.data, 'data.additionalStats'),
     )) {
       if (!prototypeFields[key]) {

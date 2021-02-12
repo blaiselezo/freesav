@@ -151,9 +151,11 @@
               type="text"
               placeholder="{{ localize 'SWADE.Parry' }}"
               data-dtype="Number"
+              {{disabled
+              data.details.autoCalcParry}}
             />
             <button type="button" class="parry-display">
-              {{add parry data.stats.parry.modifier}}
+              {{signedString data.stats.parry.modifier}}
             </button>
           </span>
         </div>
@@ -280,9 +282,9 @@
           {{/if}} {{/each}}
         </ol>
         <ol class="quick-list">
-          {{#each itemsByType.gear as |gear|}}{{#if gear.data.equipped}}{{>
-          "systems/swade/templates/official/partials/misc-card.html"}}
-          {{/if}}{{/each}}
+          {{#each itemsByType.gear as |gear|}} {{#if gear.data.equipped}} {{>
+          "systems/swade/templates/official/partials/misc-card.html"}} {{/if}}
+          {{/each}}
         </ol>
       </div>
       <div class="quick-footer">&nbsp;</div>

@@ -153,7 +153,7 @@ SWADE.FatigueMax: Max Erschöpfung
 SWADE.Incap: Ausgeschaltet!
 SWADE.Init: Initiative
 SWADE.InitDraw: zieht für Initiative!
-SWADE.JokersWild: erhält Macht des Jokers!
+SWADE.JokersWild: Joker's Wild
 SWADE.Addi: Zusätzlich
 SWADE.Status: Status
 SWADE.Handling: Handling
@@ -297,3 +297,9 @@ SWADE.HideNpcItemChatCards: Verstecke NSC Item Chat Karten
 SWADE.HideNpcItemChatCardsDesc: >-
   Wenn diese Option aktiviert ist, werden NPC-Item-Chat-Karten automatisch als
   Flüstern an alle Spielleiter gesendet, anstatt für alle sichtbar zu sein
+SWADE.JokersWildDesc: Gibts jedem Spielercharakter einen Benny wenn eine/r einen Joker zieht
+SWADE.ParryBase: Parade basis Fertigkeit
+SWADE.ParryBaseDesc: >-
+  Der Name der Fertigkeit welche zur errechnung des Paradewerts hernagezogen
+  wird
+SWADE.AutoCalcParry: Automatisch Parade berechnen, inclusive Schilde

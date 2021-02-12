@@ -2,7 +2,13 @@ import SwadeItem from './entities/SwadeItem';
 
 export const registerCustomHelpers = function () {
   Handlebars.registerHelper('add', function (a, b) {
-    let result = parseInt(a) + parseInt(b);
+    const result = parseInt(a) + parseInt(b);
+    return result.signedString();
+  });
+
+  Handlebars.registerHelper('signedString', function (number) {
+    const result = parseInt(number);
+    if (isNaN(result)) return '';
     return result.signedString();
   });
 
@@ -24,7 +30,7 @@ export const registerCustomHelpers = function () {
 
   Handlebars.registerHelper('modifier', (str) => {
     str = str === '' || str === null ? '0' : str;
-    let value = typeof str == 'string' ? parseInt(str) : str;
+    const value = typeof str == 'string' ? parseInt(str) : str;
     return value == 0 ? '' : value > 0 ? ` + ${value}` : ` - ${-value}`;
   });
 
