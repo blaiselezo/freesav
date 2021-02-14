@@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Set default value of Benny animation to true
 - Refactored some of the new turn combat logic
 - Set minimum Toughness to 1 when auto-calculating
+- Changed the font size of the cards in the Combat Tracker to `20px` for easier readability
 
 ### Fixed
 
