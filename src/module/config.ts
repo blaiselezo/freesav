@@ -230,7 +230,7 @@ export const SWADE = {
       label: 'SWADE.Smite',
     },
     {
-      icon: 'icons/environment/wilderness/island.webp', // TODO needs icon
+      icon: 'systems/swade/assets/icons/status/status_protection.svg',
       id: 'protection',
       label: 'SWADE.Protection',
       changes: [
