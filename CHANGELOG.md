@@ -44,6 +44,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Fixed a bug which would cause Natural Armor not to calculate properly. Natural Armor will be added to Toughness if it is marked as natural armor, has at least the torso location and is equipped
 - Fixed a small issue where roll shortcuts would not properly work with multiplications and divisions
+- Fixed a bug which would cause preset templates to behave eratically. Many thanks go out to Moerill who was instrumental in solving this.
 
 ## [v0.16.2]
 
