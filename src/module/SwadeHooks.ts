@@ -470,6 +470,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
+          if (template) template.destroy();
           template = SwadeTemplate.fromPreset(TemplatePreset.CONE);
           if (template) template.drawPreview();
         },
@@ -481,6 +482,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
+          if (template) template.destroy();
           template = SwadeTemplate.fromPreset(TemplatePreset.SBT);
           if (template) template.drawPreview();
         },
@@ -492,6 +494,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
+          if (template) template.destroy();
           template = SwadeTemplate.fromPreset(TemplatePreset.MBT);
           if (template) template.drawPreview();
         },
@@ -503,6 +506,7 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
+          if (template) template.destroy();
           template = SwadeTemplate.fromPreset(TemplatePreset.LBT);
           if (template) template.drawPreview();
         },
