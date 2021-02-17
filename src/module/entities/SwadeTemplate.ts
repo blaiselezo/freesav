@@ -80,7 +80,6 @@ export default class SwadeTemplate extends MeasuredTemplate {
 
   /**
    * Activate listeners for the template preview
-   * @param {CanvasLayer} initialLayer
    */
   activatePreviewListeners() {
     // Update placement (mouse-move)
@@ -117,7 +116,9 @@ export default class SwadeTemplate extends MeasuredTemplate {
       this.data.y = destination.y;
 
       // Create the template
-      canvas.scene.createEmbeddedEntity('MeasuredTemplate', this.data);
+      canvas.scene
+        .createEmbeddedEntity('MeasuredTemplate', this.data)
+        .then(() => this.destroy());
     };
 
     // Rotate the template by 3 degree increments (mouse-wheel)
