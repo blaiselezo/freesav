@@ -116,6 +116,13 @@ export const SWADE = {
       icon: 'systems/swade/assets/icons/status/status_defending.svg',
       id: 'defending',
       label: 'SWADE.Defending',
+      changes: [
+        {
+          key: 'data.stats.parry.modifier',
+          value: 4,
+          mode: 2,
+        },
+      ],
     },
     {
       icon: 'systems/swade/assets/icons/status/status_flying.svg',
@@ -221,6 +228,23 @@ export const SWADE = {
       icon: 'systems/swade/assets/icons/status/status_smite.svg',
       id: 'smite',
       label: 'SWADE.Smite',
+    },
+    {
+      icon: 'systems/swade/assets/icons/status/status_protection.svg',
+      id: 'protection',
+      label: 'SWADE.Protection',
+      changes: [
+        {
+          key: 'data.stats.toughness.value',
+          value: 0,
+          mode: 2,
+        },
+        {
+          key: 'data.stats.toughness.armor',
+          value: 0,
+          mode: 2,
+        },
+      ],
     },
   ],
 

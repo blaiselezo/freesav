@@ -28,6 +28,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - The system now grants a Benny to all player characters when one of them is dealt a Joker. This can be turned off in the Setting Configurator
 - Added the ability to automatically calculate parry. This option can be set in actor Tweaks and will default to on for all newly created actors after this point. The calculation also takes any shields which are equipped into account
 - Added a new Field to the setting configurator which lets you set the name of the Skill which will be used as the base to calculate Toughness. It will default to _Fighting_. Changing this setting will require you to reload the world to have the change take effect
+- Added Active Effect to the Defend status which adds +4 Parry
+- Added new Status _Protection_ which adds an Active Effect that adds 0 to both toughness and armor, making it easy to apply the power. All you need to do is to put the modifier (4 or 6) into the appropriate Active Effect change.
 
 ### Changed
 
@@ -36,11 +38,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Set default value of Benny animation to true
 - Refactored some of the new turn combat logic
 - Set minimum Toughness to 1 when auto-calculating
+- Changed the font size of the cards in the Combat Tracker to `20px` for easier readability
 
 ### Fixed
 
 - Fixed a bug which would cause Natural Armor not to calculate properly. Natural Armor will be added to Toughness if it is marked as natural armor, has at least the torso location and is equipped
 - Fixed a small issue where roll shortcuts would not properly work with multiplications and divisions
+- Fixed a bug which would cause preset templates to behave eratically. Many thanks go out to Moerill who was instrumental in solving this.
 
 ## [v0.16.2]
 
