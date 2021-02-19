@@ -1,0 +1,26 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  {{!-- Item Sheet Header --}} {{>
+  "systems/swade/templates/items/partials/header-delete.html"}}
+  <main class="sheet-body">
+    <div class="form-group">
+      <label>{{localize "SWADE.Subtype"}}</label>
+      <select name="data.subtype">
+        {{#select item.data.subtype}}
+        <!--TODO Add locallization-->
+        <option value="special">{{localize "SWADE.SpecialAbility"}}</option>
+        <option value="racial">{{localize "SWADE.RacialAbility"}}</option>
+        {{/select}}
+      </select>
+    </div>
+    <header class="header-field flexrow">
+      <span style="flex: 1;">{{localize "SWADE.Effects"}}</span>
+      <a class="header-field-add add-effect" data-transfer="true">
+        <i class="fa fa-plus"></i>
+      </a>
+    </header>
+    {{> "systems/swade/templates/effect-list.html"}}
+    <br />
+    {{> "systems/swade/templates/setting-fields.html"}} {{>
+    "systems/swade/templates/items/partials/description.html"}}
+  </main>
+</form>

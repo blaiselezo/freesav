@@ -174,7 +174,10 @@ export default class SwadeItemSheet extends ItemSheet {
       attr['isCheckbox'] = attr['dtype'] === 'Boolean';
     }
     data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
-    data.displayNav = this.item.type !== ItemType.Skill;
+    data.displayNav = ![
+      ItemType.Skill.toString(),
+      ItemType.Ability.toString(),
+    ].includes(this.item.type);
 
     // Check for enabled optional rules
     data['settingrules'] = {

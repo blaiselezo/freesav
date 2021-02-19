@@ -7,4 +7,5 @@ export enum ItemType {
   Hindrance = 'hindrance',
   Skill = 'skill',
   Power = 'power',
+  Ability = 'ability',
 }
