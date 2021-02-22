@@ -168,48 +168,6 @@
     }
   }
 
-  .summary {
-    grid-template-rows: max-content max-content minmax(0, 1fr);
-    grid-template-columns: repeat(10, 1fr);
-    gap: .5em;
-
-    &.active {
-      display: grid;
-    }
-    
-    .fatigue-wrapper, .wounds-wrapper {
-      grid-row: 1;
-      grid-column: span 2;
-
-      display: flex;
-      flex-direction: column;
-      flex-wrap: nowrap;
-	    justify-content: flex-start;
-    }
-    .status {
-      grid-row: 1;
-      grid-column: span 2;
-      font-weight: bold;
-      display: grid;
-    }
-    .bennies {
-      grid-row: 1;
-      grid-column: span 2;
-    }
-
-    .attributes {
-      grid-row: 2;
-      grid-column: span 5;
-
-      display: flex;
-      flex-direction: column;
-    }
-
-    .skills, .quickaccess {
-      grid-row: 3;
-      grid-column: span 5;
-    }
-  }
   //some default styling for input fields
   input[type='text'],
   input[type='number'] {
@@ -348,6 +306,50 @@
   //#######################
   // Summary Tab
   //#######################
+
+  .summary {
+    grid-template-rows: max-content max-content minmax(0, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+    gap: .5em;
+
+    &.active {
+      display: grid;
+    }
+    
+    .fatigue-wrapper, .wounds-wrapper {
+      grid-row: 1;
+      grid-column: span 2;
+
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+	    justify-content: flex-start;
+    }
+    .status {
+      grid-row: 1;
+      grid-column: span 2;
+      font-weight: bold;
+      display: grid;
+    }
+    .bennies {
+      grid-row: 1;
+      grid-column: span 2;
+    }
+
+    .attributes {
+      grid-row: 2;
+      grid-column: span 5;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .skills, .quickaccess {
+      grid-row: 3;
+      grid-column: span 5;
+    }
+  }
+  
   .label {
     text-align: center;
   }
