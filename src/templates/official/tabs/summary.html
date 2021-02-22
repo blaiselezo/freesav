@@ -194,6 +194,7 @@
     <ol class="skill-list">
       {{#each sortedSkills as |skill|}}
       <li class="item skill flexrow" data-item-id="{{skill._id}}">
+        <img class="skill-icon" src="{{skill.img}}">
         <button
           type="button"
           class="skill-name"
