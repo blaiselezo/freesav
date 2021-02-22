@@ -1,14 +1,11 @@
 <ul class="effects-list">
   {{#each entity.effects}} {{#unless origin}}
-  <li class="flexrow" data-effect-id="{{_id}}">
+  <li class="flexrow{{#if disabled}} disabled-effect{{/if}}" data-effect-id="{{_id}}">
     <img src="{{icon}}" alt="{{label}}" class="effect-icon" />
     <span class="effect-label">{{label}}</span>
     <span class="effect-controls">
       <a class="effect-action" data-action="toggle">
-        <i
-          class="fas fa-power-off"
-          style="{{#if disabled}}color: gray;{{/if}}"
-        ></i>
+        <i class="fas fa-power-off"></i>
       </a>
       <a class="effect-action" data-action="edit">
         <i class="fas fa-edit"></i>
