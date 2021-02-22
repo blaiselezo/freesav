@@ -146,7 +146,9 @@ const tsConfig = ts.createProject('tsconfig.json', {
 function buildTS() {
   return gulp
     .src(['src/**/*.ts', '!src/interfaces/*.ts'])
+    .pipe(sourcemaps.init())
     .pipe(tsConfig())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
 }
 
