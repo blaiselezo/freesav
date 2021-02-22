@@ -134,5 +134,19 @@
     line-height: 24px;
     flex: 0 0 60px;
     text-align: center;
+
+    a, button {
+      cursor: pointer;
+    }
+  }
+  .fa-power-off {
+    color: black;
+    
+  }
+
+  .disabled-effect {
+    .effect-label {
+      text-decoration: line-through;
+    }
   }
 }
