@@ -61,11 +61,8 @@ export default class SwadeItem extends Item {
       rollParts = rollParts.concat(options.additionalMods);
     }
 
-    if (actorIsVehicle) {
-      roll = new Roll(rollParts.join(''));
-    } else {
-      roll = new Roll(rollParts.join(''), actor.getRollShortcuts());
-    }
+    roll = new Roll(rollParts.join(''), actor.getRollShortcuts());
+
     const newParts = [];
     roll.terms.forEach((term) => {
       if (term instanceof Die) {

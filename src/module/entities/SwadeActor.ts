@@ -401,7 +401,8 @@ export default class SwadeActor extends Actor {
   getRollShortcuts() {
     const out = {};
     //return early if the actor is a vehicle
-    if (this.data.type === 'vehicle') return out;
+    if (this.data.type === ActorType.Vehicle) return out;
+
     // Attributes
     const attributes = this.data.data.attributes;
     for (const name in attributes) {
