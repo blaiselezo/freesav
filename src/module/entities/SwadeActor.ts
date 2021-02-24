@@ -25,13 +25,18 @@ export default class SwadeActor extends Actor {
     const shouldAutoCalcToughness =
       getProperty(this.data, 'data.details.autoCalcToughness') &&
       this.data.type !== ActorType.Vehicle;
+    const sizeKey = 'data.stats.size';
     const toughnessKey = 'data.stats.toughness.value';
     const armorKey = 'data.stats.toughness.armor';
 
     if (shouldAutoCalcToughness) {
+      //pull the already calculated and adjusted values from the actor, add the together and then set them back into the actor
       const adjustedToughness = getProperty(this.data, toughnessKey);
       const adjustedArmor = getProperty(this.data, armorKey);
-      setProperty(this.data, toughnessKey, adjustedToughness + adjustedArmor);
+      const adjustedSize = getProperty(this.data, sizeKey);
+      const newValue = adjustedToughness + adjustedSize + adjustedArmor;
+
+      setProperty(this.data, toughnessKey, newValue < 1 ? 1 : newValue);
     }
 
     this.prepareDerivedData();
@@ -49,7 +54,9 @@ export default class SwadeActor extends Actor {
     if (shouldAutoCalcToughness) {
       const toughnessKey = 'data.stats.toughness.value';
       const armorKey = 'data.stats.toughness.armor';
-      setProperty(this.data, toughnessKey, this.calcToughness(false));
+      //calculate base toughness without armor and size
+      setProperty(this.data, toughnessKey, this.calcToughness(false, true));
+      //calculate armor
       setProperty(this.data, armorKey, this.calcArmor());
     }
 
@@ -145,9 +152,6 @@ export default class SwadeActor extends Actor {
     return super.create(data, options);
   }
 
-  /* -------------------------------------------- */
-  /*  Rolls                                       */
-  /* -------------------------------------------- */
   rollAttribute(
     abilityId: string,
     options: IRollOptions = { event: null },
@@ -491,8 +495,9 @@ export default class SwadeActor extends Actor {
   /**
    * Calculates the Toughness value and returns it, optionally with armor
    * @param includeArmor include armor in final value (true/false). Default is true
+   * @param ignoreSize ignore the size for the purpose of calculating the toughness. Default is false
    */
-  calcToughness(includeArmor = true): number {
+  calcToughness(includeArmor = true, ignoreSize = false): number {
     let retVal = 0;
     const vigor = getProperty(this.data, 'data.attributes.vigor.die.sides');
     const vigMod = parseInt(
@@ -502,9 +507,12 @@ export default class SwadeActor extends Actor {
       getProperty(this.data, 'data.stats.toughness.modifier'),
     );
 
-    const size = parseInt(getProperty(this.data, 'data.stats.size')) || 0;
     retVal = Math.round(vigor / 2) + 2;
-    retVal += size;
+
+    if (!ignoreSize) {
+      const size = parseInt(getProperty(this.data, 'data.stats.size')) || 0;
+      retVal += size;
+    }
     retVal += toughMod;
     if (vigMod > 0) {
       retVal += Math.floor(vigMod / 2);
