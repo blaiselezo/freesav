@@ -94,11 +94,7 @@
     style="z-index: {{@index}}; grid-column: {{benny}} / span 8; background-image: url({{../bennyImageURL}});"
   ></span>
   {{/unless}} {{/each}}
-  <button
-    type="button"
-    class="add-benny"
-    title="{{localize 'SWADE.AddBenny'}}"
-  >
+  <button type="button" class="add-benny" title="{{localize 'SWADE.AddBenny'}}">
     <i class="fas fa-plus fa-lg"></i>
   </button>
   <button
@@ -128,7 +124,7 @@
       </span>
     </div>
     <div class="stat">
-      <a class="stat-label running-die">{{ localize "SWADE.Pace" }}</a>
+      <span class="stat-label">{{ localize "SWADE.Pace" }}</span>
       <span class="stat-value flexrow">
         <input
           name="data.stats.speed.value"
@@ -137,6 +133,16 @@
           data-dtype="Number"
           placeholder="{{ localize 'SWADE.Pace' }}"
         />
+        <button
+          type="button"
+          class="running-die"
+          title="{{localize 'SWADE.Roll'}} {{localize 'SWADE.RunningDie'}}"
+        >
+          <img
+            src="systems/swade/assets/official/dice/d{{data.stats.speed.runningDie}}.svg"
+            alt="d{{data.stats.speed.runningDie}} {{localize 'SWADE.RunningDie'}}"
+          />
+        </button>
       </span>
     </div>
     <div class="stat">
@@ -194,7 +200,7 @@
     <ol class="skill-list">
       {{#each sortedSkills as |skill|}}
       <li class="item skill flexrow" data-item-id="{{skill._id}}">
-        <img class="skill-icon" src="{{skill.img}}">
+        <img class="skill-icon" src="{{skill.img}}" />
         <button
           type="button"
           class="skill-name"
@@ -236,7 +242,10 @@
     </header>
     <ul class="effects-list">
       {{#each entity.effects}} {{#unless origin}}
-      <li class="flexrow{{#if disabled}} disabled-effect{{/if}}" data-effect-id="{{_id}}">
+      <li
+        class="flexrow{{#if disabled}} disabled-effect{{/if}}"
+        data-effect-id="{{_id}}"
+      >
         <img src="{{icon}}" alt="{{label}}" class="effect-icon" />
         <span class="effect-label">{{label}}</span>
         <span class="effect-controls">
@@ -254,9 +263,9 @@
       {{/unless}} {{/each}}
     </ul>
     <ol class="quick-list">
-      {{#each itemsByType.weapon as |weapon|}} {{#if weapon.data.equipped}}
-      {{> "systems/swade/templates/official/partials/weapon-card.html"}}
-      {{/if}} {{/each}}
+      {{#each itemsByType.weapon as |weapon|}} {{#if weapon.data.equipped}} {{>
+      "systems/swade/templates/official/partials/weapon-card.html"}} {{/if}}
+      {{/each}}
     </ol>
     {{#if hasArcaneBackground}}
     <ol class="quick-list">
@@ -271,9 +280,9 @@
       {{/each}}
     </ol>
     <ol class="quick-list">
-      {{#each itemsByType.shield as |shield|}} {{#if shield.data.equipped}}
-      {{> "systems/swade/templates/official/partials/shield-card.html"}}
-      {{/if}} {{/each}}
+      {{#each itemsByType.shield as |shield|}} {{#if shield.data.equipped}} {{>
+      "systems/swade/templates/official/partials/shield-card.html"}} {{/if}}
+      {{/each}}
     </ol>
     <ol class="quick-list">
       {{#each itemsByType.gear as |gear|}}{{#if gear.data.equipped}}{{>

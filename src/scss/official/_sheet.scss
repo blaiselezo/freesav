@@ -41,11 +41,12 @@
       display: grid;
       grid-template-rows: repeat(3, max-content) minmax(0, 1fr);
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: .5em;
+      gap: 0.5em;
     }
   }
 
-  .grid-under, .grid-cover {
+  .grid-under,
+  .grid-cover {
     margin: 0;
     display: none;
     pointer-events: none;
@@ -56,12 +57,11 @@
     grid-column: 1 / 8;
     display: flex;
     align-items: center;
-    
+
     input[type] {
       background: transparent;
     }
   }
-  
 
   .branding {
     grid-row: 1;
@@ -78,7 +78,7 @@
       object-fit: contain;
     }
   }
-  
+
   .conviction-enabled {
     .charname-container {
       grid-column: 1 / 6;
@@ -104,7 +104,7 @@
     border-radius: 0;
     margin: 0;
     border-bottom: $solid-line;
-    
+
     input[type] {
       background: transparent;
     }
@@ -119,7 +119,7 @@
     grid-row: 2;
     grid-column: 5 / span 4;
   }
-  
+
   .advances {
     grid-row: 2;
     grid-column: 9 / span 4;
@@ -310,20 +310,21 @@
   .summary {
     grid-template-rows: max-content max-content minmax(0, 1fr);
     grid-template-columns: repeat(10, 1fr);
-    gap: .5em;
+    gap: 0.5em;
 
     &.active {
       display: grid;
     }
-    
-    .fatigue-wrapper, .wounds-wrapper {
+
+    .fatigue-wrapper,
+    .wounds-wrapper {
       grid-row: 1;
       grid-column: span 2;
 
       display: flex;
       flex-direction: column;
       flex-wrap: nowrap;
-	    justify-content: flex-start;
+      justify-content: flex-start;
     }
     .status {
       grid-row: 1;
@@ -344,12 +345,13 @@
       flex-direction: column;
     }
 
-    .skills, .quickaccess {
+    .skills,
+    .quickaccess {
       grid-row: 3;
       grid-column: span 5;
     }
   }
-  
+
   .label {
     text-align: center;
   }
@@ -494,6 +496,16 @@
     .stat + .stat {
       padding-left: $small-spacing;
     }
+    .running-die {
+      max-height: 28px;
+      margin: 0 $small-spacing;
+      padding: 0 $small-spacing;
+      img {
+        margin: auto;
+        margin-top: -$small-spacing;
+        border: none;
+      }
+    }
   }
 
   .primary + .derived {
@@ -505,7 +517,7 @@
       width: 90%;
       margin: auto;
     }
-    
+
     display: grid;
     gap: 0;
     grid-template-rows: minmax(2.2em, auto) 1fr 3em;
@@ -519,7 +531,7 @@
       background-repeat: no-repeat;
       background-size: 100% 100%;
       aspect-ratio: 10 / 1;
-	    max-width: 100%;
+      max-width: 100%;
     }
     .note-main {
       grid-row: 2;
@@ -568,7 +580,8 @@
   }
 
   .quickaccess {
-    ol, ul {
+    ol,
+    ul {
       list-style: none;
       padding: 0;
       margin: 0;

@@ -41,6 +41,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Changed the font size of the cards in the Combat Tracker to `20px` for easier readability
 - Refactored the underlying structure of the official sheet so it is easier to modify and skin
 - Changed the path of the icons used to describe dice in the roll cards to be relative
+- Moved running die roll to a button next to the Pace input which also displays the current running die as an image
 
 ### Fixed
 
