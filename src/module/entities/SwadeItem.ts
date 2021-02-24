@@ -70,6 +70,8 @@ export default class SwadeItem extends Item {
     roll.terms.forEach((term) => {
       if (term instanceof Die) {
         newParts.push(`${term['number']}d${term.faces}x`);
+      } else if (term instanceof Roll) {
+        newParts.push(term.formula);
       } else {
         newParts.push(this.makeExplodable(term));
       }
@@ -94,7 +96,7 @@ export default class SwadeItem extends Item {
     if (options.suppressChat) {
       return new Roll(newParts.join(''));
     }
-
+    console.log(roll);
     // Roll and return
     return SwadeDice.Roll({
       roll: roll,
