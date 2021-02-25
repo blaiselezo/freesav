@@ -227,7 +227,6 @@ export default class SwadeItemSheet extends ItemSheet {
     try {
       //get the data
       data = JSON.parse(event.dataTransfer.getData('text/plain'));
-      console.log(data);
       if ('pack' in data) {
         const pack = game.packs.get(data.pack) as Compendium;
         item = (await pack.getEntity(data.id)) as SwadeItem;
@@ -237,7 +236,7 @@ export default class SwadeItemSheet extends ItemSheet {
         item = game.items.get(data.id) as SwadeItem;
       }
 
-      const itemIsRightType = ![
+      const itemIsRightType = [
         ItemType.Ability.toString(),
         ItemType.Hindrance.toString(),
         ItemType.Edge.toString(),
@@ -246,7 +245,7 @@ export default class SwadeItemSheet extends ItemSheet {
 
       if (
         data.type !== 'Item' ||
-        itemIsRightType ||
+        !itemIsRightType ||
         (item.type === ItemType.Ability &&
           item.data.data.subtype === AbilitySubtype.Race)
       ) {
@@ -260,13 +259,13 @@ export default class SwadeItemSheet extends ItemSheet {
       return false;
     }
     //prep item data
-    const itemData = item.data;
+    const itemData = duplicate(item.data);
     delete itemData['_id'];
     delete itemData['permission'];
 
     //pull the array from the flags, and push the new entry into it
     const collection = this.item.getFlag('swade', 'embeddedAbilities') || [];
-    collection.push([randomID(), item.data]);
+    collection.push([randomID(), itemData]);
     //save array back into flag
     await this.item.setFlag('swade', 'embeddedAbilities', collection);
     return false;

@@ -35,7 +35,9 @@ export const registerCustomHelpers = function () {
   });
 
   Handlebars.registerHelper('enrich', (content) => {
-    return new Handlebars.SafeString(TextEditor.enrichHTML(content, {}));
+    return new Handlebars.SafeString(
+      TextEditor.enrichHTML(content, { secrets: true }),
+    );
   });
 
   Handlebars.registerHelper('canBeEquipped', (item: SwadeItem) => {

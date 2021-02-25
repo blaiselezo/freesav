@@ -562,12 +562,35 @@ export default class SwadeHooks {
         //set name
         await actor.update({ 'data.details.species.name': item.name });
         //process embedded entities
-        const map = new Map(item.getFlag('swade', 'embeddedAbilities') || []);
+        const map = new Map<string, any>(
+          item.getFlag('swade', 'embeddedAbilities') || [],
+        );
         const creationData = [];
         for (const entry of map.values()) {
-          creationData.push(entry);
+          //if the item isn't a skill, then push it to the new items
+          if (entry.type !== ItemType.Skill) {
+            creationData.push(entry);
+          } else {
+            //else, check if there's already a skill like that that exists
+            const skill = actor.items.find(
+              (i: Item) => i.type === ItemType.Skill && i.name === entry.name,
+            ) as Item;
+            if (skill) {
+              //if the skill exists, set it to the value of the skill from the item
+              const skillDie = getProperty(entry, 'data.die');
+              await actor.updateOwnedItem({
+                _id: skill.id,
+                'data.die': skillDie,
+              });
+            } else {
+              //else, add it to the new items
+              creationData.push(entry);
+            }
+          }
         }
-        await actor.createOwnedItem(creationData);
+        if (creationData.length > 0) {
+          await actor.createOwnedItem(creationData, { renderSheet: null });
+        }
 
         //copy active effects
         const effects = Array.from(item['effects'].values()).map(
@@ -577,7 +600,6 @@ export default class SwadeHooks {
             return retVal;
           },
         );
-        console.log(effects);
         if (!!effects && effects.length > 0) {
           await actor.createEmbeddedEntity('ActiveEffect', effects);
         }
