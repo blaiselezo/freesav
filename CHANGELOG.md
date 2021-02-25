@@ -39,12 +39,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Refactored some of the new turn combat logic
 - Set minimum Toughness to 1 when auto-calculating
 - Changed the font size of the cards in the Combat Tracker to `20px` for easier readability
+- Refactored the underlying structure of the official sheet so it is easier to modify and skin
+- Changed the path of the icons used to describe dice in the roll cards to be relative
+- Moved running die roll to a button next to the Pace input which also displays the current running die as an image
 
 ### Fixed
 
 - Fixed a bug which would cause Natural Armor not to calculate properly. Natural Armor will be added to Toughness if it is marked as natural armor, has at least the torso location and is equipped
 - Fixed a small issue where roll shortcuts would not properly work with multiplications and divisions
 - Fixed a bug which would cause preset templates to behave eratically. Many thanks go out to Moerill who was instrumental in solving this.
+- Fixed a small bug which would prevent the toughness auto-calculation from taking into account AE that adjust the size of the character
 
 ## [v0.16.2]
 

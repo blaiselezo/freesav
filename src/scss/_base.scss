@@ -134,5 +134,31 @@
     line-height: 24px;
     flex: 0 0 60px;
     text-align: center;
+
+    a,
+    button {
+      cursor: pointer;
+    }
+  }
+  .fa-power-off {
+    color: black;
+  }
+
+  .disabled-effect {
+    .effect-label {
+      text-decoration: line-through;
+      text-decoration-thickness: $small-spacing;
+    }
+  }
+}
+
+.item.skill {
+  .skill-icon {
+    max-height: 1em;
+    flex-grow: 0;
+    object-fit: contain;
+    margin-top: 0.3em;
+    margin-right: 0.1em;
+    border: none;
   }
 }

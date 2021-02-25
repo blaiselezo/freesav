@@ -19,7 +19,7 @@ export async function formatRoll(
     }
     let img = null;
     if ([4, 6, 8, 10, 12, 20].indexOf(faces) > -1) {
-      img = `../icons/svg/d${faces}-grey.svg`;
+      img = `icons/svg/d${faces}-grey.svg`;
     }
     chatData.dice.push({
       img: img,

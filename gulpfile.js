@@ -17,6 +17,7 @@ const git = require('gulp-git');
 const gyaml = require('gulp-yaml');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
 
 const argv = require('yargs').argv;
 
@@ -145,7 +146,9 @@ const tsConfig = ts.createProject('tsconfig.json', {
 function buildTS() {
   return gulp
     .src(['src/**/*.ts', '!src/interfaces/*.ts'])
+    .pipe(sourcemaps.init())
     .pipe(tsConfig())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
 }
 
@@ -172,7 +175,9 @@ function buildLess() {
 function buildSASS() {
   return gulp
     .src('src/*.scss')
+    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
 }
 

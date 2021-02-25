@@ -1,293 +1,294 @@
-<article id="summary">
-  <section class="vitals flexrow">
-    <div class="flexcol" title="{{localize 'SWADE.Fatigue'}}">
-      <span class="label">{{localize 'SWADE.Fatigue'}}</span>
-      <div class="fatigue">
-        <span class="values">
-          <input
-            type="number"
-            name="data.fatigue.value"
-            value="{{actor.data.fatigue.value}}"
-          />/{{data.fatigue.max}}
-        </span>
-      </div>
-    </div>
-    <div class="flexcol" title="{{localize 'SWADE.Wounds'}}">
-      <span class="label">{{localize 'SWADE.Wounds'}}</span>
-      <div class="wounds">
-        <span class="values">
-          <input
-            type="number"
-            name="data.wounds.value"
-            value="{{actor.data.wounds.value}}"
-          />/{{data.wounds.max}}
-        </span>
-      </div>
-    </div>
-    <div class="status flexcol">
-      <label class="check-container"
-        >{{localize "SWADE.Shaken"}}
-        <input
-          type="checkbox"
-          name="data.status.isShaken"
-          {{checked
-          actor.data.status.isShaken}}
-        />
-        <span class="checkmark"></span>
-      </label>
-      <label class="check-container"
-        >{{localize "SWADE.Distr"}}
-        <input
-          type="checkbox"
-          name="data.status.isDistracted"
-          {{checked
-          actor.data.status.isDistracted}}
-        />
-        <span class="checkmark"></span>
-      </label>
-      <label class="check-container"
-        >{{localize "SWADE.Vuln"}}
-        <input
-          type="checkbox"
-          name="data.status.isVulnerable"
-          {{checked
-          actor.data.status.isVulnerable}}
-        />
-        <span class="checkmark"></span>
-      </label>
-    </div>
-    <div class="status flexcol">
-      <label class="check-container"
-        >{{localize "SWADE.Stunned"}}
-        <input
-          type="checkbox"
-          name="data.status.isStunned"
-          {{checked
-          actor.data.status.isStunned}}
-        />
-        <span class="checkmark"></span>
-      </label>
-      <label class="check-container"
-        >{{localize "SWADE.Entangled"}}
-        <input
-          type="checkbox"
-          name="data.status.isEntangled"
-          {{checked
-          actor.data.status.isEntangled}}
-        />
-        <span class="checkmark"></span>
-      </label>
-      <label class="check-container"
-        >{{localize "SWADE.Bound"}}
-        <input
-          type="checkbox"
-          name="data.status.isBound"
-          {{checked
-          actor.data.status.isBound}}
-        />
-        <span class="checkmark"></span>
-      </label>
-    </div>
-    <div class="bennies" title="{{localize 'SWADE.Bennies'}}">
-      {{#each currentBennies as |benny|}} {{#unless (gte @index 5) }}
-      <span
-        title="{{localize 'SWADE.BenniesSpend'}}"
-        class="benny spend-benny"
-        style="z-index: {{@index}}; grid-column: {{benny}} / span 8; background-image: url({{../bennyImageURL}});"
-      ></span>
-      {{/unless}} {{/each}}
-      <button
-        type="button"
-        class="add-benny"
-        title="{{localize 'SWADE.AddBenny'}}"
-      >
-        <i class="fas fa-plus fa-lg"></i>
-      </button>
-      <button
-        type="button"
-        class="spend-benny current-bennies"
-        title="{{localize 'SWADE.CurrentBennies'}}"
-      >
-        {{actor.data.bennies.value}}
-      </button>
-    </div>
-  </section>
-  <section class="attributes flexrow">
-    <span class="primary">
-      {{> "systems/swade/templates/official/partials/attributes.html"}}
+<div class="fatigue-wrapper" title="{{localize 'SWADE.Fatigue'}}">
+  <span class="label">{{localize 'SWADE.Fatigue'}}</span>
+  <div class="fatigue">
+    <span class="values">
+      <input
+        type="number"
+        name="data.fatigue.value"
+        value="{{actor.data.fatigue.value}}"
+      />/{{data.fatigue.max}}
     </span>
-    <span class="derived">
-      <header class="section-header">{{localize "SWADE.Derived"}}</header>
-      <span class="flexrow">
-        <div class="stat">
-          <span class="stat-label">{{ localize "SWADE.Size" }}</span>
-          <span class="stat-value flexrow">
-            <input
-              name="data.stats.size"
-              type="text"
-              value="{{data.stats.size}}"
-              data-dtype="Number"
-            />
-          </span>
-        </div>
-        <div class="stat">
-          <a class="stat-label running-die">{{ localize "SWADE.Pace" }}</a>
-          <span class="stat-value flexrow">
-            <input
-              name="data.stats.speed.value"
-              type="text"
-              value="{{data.stats.speed.value}}"
-              data-dtype="Number"
-              placeholder="{{ localize 'SWADE.Pace' }}"
-            />
-          </span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">{{ localize "SWADE.Parry" }}</span>
-          <span class="stat-value flexrow">
-            <input
-              name="data.stats.parry.value"
-              value="{{data.stats.parry.value}}"
-              type="text"
-              placeholder="{{ localize 'SWADE.Parry' }}"
-              data-dtype="Number"
-              {{disabled
-              data.details.autoCalcParry}}
-            />
-            <button type="button" class="parry-display">
-              {{signedString data.stats.parry.modifier}}
-            </button>
-          </span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">{{ localize "SWADE.Tough" }}</span>
-          <span class="stat-value flexrow">
-            <input
-              id="toughness"
-              name="data.stats.toughness.value"
-              type="text"
-              value="{{data.stats.toughness.value}}"
-              placeholder="{{localize 'SWADE.Tough'}}"
-              data-dtype="Number"
-              {{disabled
-              data.details.autoCalcToughness}}
-            />
-            <button
-              type="button"
-              class="armor-display"
-              {{disabled
-              data.details.autoCalcToughness}}
-            >
-              {{data.stats.toughness.armor}}
-            </button>
-          </span>
-        </div>
+  </div>
+</div>
+<div class="wounds-wrapper" title="{{localize 'SWADE.Wounds'}}">
+  <span class="label">{{localize 'SWADE.Wounds'}}</span>
+  <div class="wounds">
+    <span class="values">
+      <input
+        type="number"
+        name="data.wounds.value"
+        value="{{actor.data.wounds.value}}"
+      />/{{data.wounds.max}}
+    </span>
+  </div>
+</div>
+<div class="status">
+  <label class="check-container"
+    >{{localize "SWADE.Shaken"}}
+    <input
+      type="checkbox"
+      name="data.status.isShaken"
+      {{checked
+      actor.data.status.isShaken}}
+    />
+    <span class="checkmark"></span>
+  </label>
+  <label class="check-container"
+    >{{localize "SWADE.Distr"}}
+    <input
+      type="checkbox"
+      name="data.status.isDistracted"
+      {{checked
+      actor.data.status.isDistracted}}
+    />
+    <span class="checkmark"></span>
+  </label>
+  <label class="check-container"
+    >{{localize "SWADE.Vuln"}}
+    <input
+      type="checkbox"
+      name="data.status.isVulnerable"
+      {{checked
+      actor.data.status.isVulnerable}}
+    />
+    <span class="checkmark"></span>
+  </label>
+</div>
+<div class="status">
+  <label class="check-container"
+    >{{localize "SWADE.Stunned"}}
+    <input
+      type="checkbox"
+      name="data.status.isStunned"
+      {{checked
+      actor.data.status.isStunned}}
+    />
+    <span class="checkmark"></span>
+  </label>
+  <label class="check-container"
+    >{{localize "SWADE.Entangled"}}
+    <input
+      type="checkbox"
+      name="data.status.isEntangled"
+      {{checked
+      actor.data.status.isEntangled}}
+    />
+    <span class="checkmark"></span>
+  </label>
+  <label class="check-container"
+    >{{localize "SWADE.Bound"}}
+    <input
+      type="checkbox"
+      name="data.status.isBound"
+      {{checked
+      actor.data.status.isBound}}
+    />
+    <span class="checkmark"></span>
+  </label>
+</div>
+<div class="bennies" title="{{localize 'SWADE.Bennies'}}">
+  {{#each currentBennies as |benny|}} {{#unless (gte @index 5) }}
+  <span
+    title="{{localize 'SWADE.BenniesSpend'}}"
+    class="benny spend-benny"
+    style="z-index: {{@index}}; grid-column: {{benny}} / span 8; background-image: url({{../bennyImageURL}});"
+  ></span>
+  {{/unless}} {{/each}}
+  <button type="button" class="add-benny" title="{{localize 'SWADE.AddBenny'}}">
+    <i class="fas fa-plus fa-lg"></i>
+  </button>
+  <button
+    type="button"
+    class="spend-benny current-bennies"
+    title="{{localize 'SWADE.CurrentBennies'}}"
+  >
+    {{actor.data.bennies.value}}
+  </button>
+</div>
+
+<span class="attributes primary">
+  {{> "systems/swade/templates/official/partials/attributes.html"}}
+</span>
+<span class="attributes derived">
+  <header class="section-header">{{localize "SWADE.Derived"}}</header>
+  <span class="flexrow">
+    <div class="stat">
+      <span class="stat-label">{{ localize "SWADE.Size" }}</span>
+      <span class="stat-value flexrow">
+        <input
+          name="data.stats.size"
+          type="text"
+          value="{{data.stats.size}}"
+          data-dtype="Number"
+        />
       </span>
-    </span>
-  </section>
-  <section class="gear flexrow">
-    <span class="skills">
-      <div class="skill-list-header">&nbsp;</div>
-      <div class="skill-list-main">
-        <header class="section-header">
-          <span class="name">{{localize "SWADE.Skills"}}</span>
-          <button type="button" class="item-create controls" data-type="skill">
-            <i class="fa fa-plus"></i>{{localize "SWADE.Add"}}
+    </div>
+    <div class="stat">
+      <span class="stat-label">{{ localize "SWADE.Pace" }}</span>
+      <span class="stat-value flexrow">
+        <input
+          name="data.stats.speed.value"
+          type="text"
+          value="{{data.stats.speed.value}}"
+          data-dtype="Number"
+          placeholder="{{ localize 'SWADE.Pace' }}"
+        />
+        <button
+          type="button"
+          class="running-die"
+          title="{{localize 'SWADE.Roll'}} {{localize 'SWADE.RunningDie'}}"
+        >
+          <img
+            src="systems/swade/assets/official/dice/d{{data.stats.speed.runningDie}}.svg"
+            alt="d{{data.stats.speed.runningDie}} {{localize 'SWADE.RunningDie'}}"
+          />
+        </button>
+      </span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">{{ localize "SWADE.Parry" }}</span>
+      <span class="stat-value flexrow">
+        <input
+          name="data.stats.parry.value"
+          value="{{data.stats.parry.value}}"
+          type="text"
+          placeholder="{{ localize 'SWADE.Parry' }}"
+          data-dtype="Number"
+          {{disabled
+          data.details.autoCalcParry}}
+        />
+        <button type="button" class="parry-display">
+          {{signedString data.stats.parry.modifier}}
+        </button>
+      </span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">{{ localize "SWADE.Tough" }}</span>
+      <span class="stat-value flexrow">
+        <input
+          id="toughness"
+          name="data.stats.toughness.value"
+          type="text"
+          value="{{data.stats.toughness.value}}"
+          placeholder="{{localize 'SWADE.Tough'}}"
+          data-dtype="Number"
+          {{disabled
+          data.details.autoCalcToughness}}
+        />
+        <button
+          type="button"
+          class="armor-display"
+          {{disabled
+          data.details.autoCalcToughness}}
+        >
+          {{data.stats.toughness.armor}}
+        </button>
+      </span>
+    </div>
+  </span>
+</span>
+
+<span class="skills note-box">
+  <div class="note-header">&nbsp;</div>
+  <div class="note-main">
+    <header class="section-header">
+      <span class="name">{{localize "SWADE.Skills"}}</span>
+      <button type="button" class="item-create controls" data-type="skill">
+        <i class="fa fa-plus"></i>{{localize "SWADE.Add"}}
+      </button>
+    </header>
+    <ol class="skill-list">
+      {{#each sortedSkills as |skill|}}
+      <li class="item skill flexrow" data-item-id="{{skill._id}}">
+        <img class="skill-icon" src="{{skill.img}}" />
+        <button
+          type="button"
+          class="skill-name"
+          title="{{localize 'SWADE.Roll'}} {{skill.name}}"
+        >
+          {{skill.name}}
+        </button>
+        <button
+          type="button"
+          class="skill-die item-edit"
+          title="{{localize 'SWADE.Ed'}} {{skill.name}}"
+        >
+          d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}
+        </button>
+        <div class="skill-attribute">
+          {{localizeSkillAttribute skill.data.attribute}}
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+  <div class="note-footer">&nbsp;</div>
+</span>
+<span class="quickaccess note-box">
+  <div class="note-header">&nbsp;</div>
+  <div class="note-main">
+    {{> "systems/swade/templates/official/partials/setting-fields.html"}}
+    <header class="section-header">
+      <span class="name">{{localize "SWADE.QuickAccess"}}</span>
+      <button
+        type="button"
+        class="item-create controls"
+        data-type="choice"
+        data-equipped="true"
+        data-choices="weapon,power,armor,shield, effect"
+      >
+        <i class="fa fa-plus"></i>{{localize "SWADE.Add"}}
+      </button>
+    </header>
+    <ul class="effects-list">
+      {{#each entity.effects}} {{#unless origin}}
+      <li
+        class="flexrow{{#if disabled}} disabled-effect{{/if}}"
+        data-effect-id="{{_id}}"
+      >
+        <img src="{{icon}}" alt="{{label}}" class="effect-icon" />
+        <span class="effect-label">{{label}}</span>
+        <span class="effect-controls">
+          <button type="button" class="effect-action" data-action="toggle">
+            <i class="fas fa-power-off"></i>
           </button>
-        </header>
-        <ol class="skill-list">
-          {{#each sortedSkills as |skill|}}
-          <li class="item skill flexrow" data-item-id="{{skill._id}}">
-            <button
-              type="button"
-              class="skill-name"
-              title="{{localize 'SWADE.Roll'}} {{skill.name}}"
-            >
-              {{skill.name}}
-            </button>
-            <button
-              type="button"
-              class="skill-die item-edit"
-              title="{{localize 'SWADE.Ed'}} {{skill.name}}"
-            >
-              d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}
-            </button>
-            <div class="skill-attribute">
-              {{localizeSkillAttribute skill.data.attribute}}
-            </div>
-          </li>
-          {{/each}}
-        </ol>
-      </div>
-      <div class="skill-list-footer">&nbsp;</div>
-    </span>
-    <span class="quickaccess">
-      <div class="quick-header">&nbsp;</div>
-      <div class="quick-main">
-        {{> "systems/swade/templates/official/partials/setting-fields.html"}}
-        <header class="section-header">
-          <span class="name">{{localize "SWADE.QuickAccess"}}</span>
-          <button
-            type="button"
-            class="item-create controls"
-            data-type="choice"
-            data-equipped="true"
-            data-choices="weapon,power,armor,shield, effect"
-          >
-            <i class="fa fa-plus"></i>{{localize "SWADE.Add"}}
+          <button type="button" class="effect-action" data-action="edit">
+            <i class="fas fa-edit"></i>
           </button>
-        </header>
-        <ul class="effects-list">
-          {{#each entity.effects}} {{#unless origin}}
-          <li class="flexrow" data-effect-id="{{_id}}">
-            <img src="{{icon}}" alt="{{label}}" class="effect-icon" />
-            <span class="effect-label">{{label}}</span>
-            <span class="effect-controls">
-              <button type="button" class="effect-action" data-action="toggle">
-                <i
-                  class="fas fa-power-off"
-                  style="{{#if disabled}}color: gray;{{/if}}"
-                ></i>
-              </button>
-              <button type="button" class="effect-action" data-action="edit">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button type="button" class="effect-action" data-action="delete">
-                <i class="fas fa-trash"></i>
-              </button>
-            </span>
-          </li>
-          {{/unless}} {{/each}}
-        </ul>
-        <ol class="quick-list">
-          {{#each itemsByType.weapon as |weapon|}} {{#if weapon.data.equipped}}
-          {{> "systems/swade/templates/official/partials/weapon-card.html"}}
-          {{/if}} {{/each}}
-        </ol>
-        {{#if hasArcaneBackground}}
-        <ol class="quick-list">
-          {{#each itemsByType.power as |power|}} {{#if power.data.equipped}} {{>
-          "systems/swade/templates/official/partials/powers-card.html"}} {{/if}}
-          {{/each}}
-        </ol>
-        {{/if}}
-        <ol class="quick-list">
-          {{#each itemsByType.armor as |armor|}} {{#if armor.data.equipped}} {{>
-          "systems/swade/templates/official/partials/armor-card.html"}} {{/if}}
-          {{/each}}
-        </ol>
-        <ol class="quick-list">
-          {{#each itemsByType.shield as |shield|}} {{#if shield.data.equipped}}
-          {{> "systems/swade/templates/official/partials/shield-card.html"}}
-          {{/if}} {{/each}}
-        </ol>
-        <ol class="quick-list">
-          {{#each itemsByType.gear as |gear|}} {{#if gear.data.equipped}} {{>
-          "systems/swade/templates/official/partials/misc-card.html"}} {{/if}}
-          {{/each}}
-        </ol>
-      </div>
-      <div class="quick-footer">&nbsp;</div>
-    </span>
-  </section>
-</article>
+          <button type="button" class="effect-action" data-action="delete">
+            <i class="fas fa-trash"></i>
+          </button>
+        </span>
+      </li>
+      {{/unless}} {{/each}}
+    </ul>
+    <ol class="quick-list">
+      {{#each itemsByType.weapon as |weapon|}} {{#if weapon.data.equipped}} {{>
+      "systems/swade/templates/official/partials/weapon-card.html"}} {{/if}}
+      {{/each}}
+    </ol>
+    {{#if hasArcaneBackground}}
+    <ol class="quick-list">
+      {{#each itemsByType.power as |power|}} {{#if power.data.equipped}} {{>
+      "systems/swade/templates/official/partials/powers-card.html"}} {{/if}}
+      {{/each}}
+    </ol>
+    {{/if}}
+    <ol class="quick-list">
+      {{#each itemsByType.armor as |armor|}} {{#if armor.data.equipped}} {{>
+      "systems/swade/templates/official/partials/armor-card.html"}} {{/if}}
+      {{/each}}
+    </ol>
+    <ol class="quick-list">
+      {{#each itemsByType.shield as |shield|}} {{#if shield.data.equipped}} {{>
+      "systems/swade/templates/official/partials/shield-card.html"}} {{/if}}
+      {{/each}}
+    </ol>
+    <ol class="quick-list">
+      {{#each itemsByType.gear as |gear|}}{{#if gear.data.equipped}}{{>
+      "systems/swade/templates/official/partials/misc-card.html"}}
+      {{/if}}{{/each}}
+    </ol>
+  </div>
+  <div class="note-footer">&nbsp;</div>
+</span>
