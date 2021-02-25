@@ -45,4 +45,17 @@ export const registerCustomHelpers = function () {
   Handlebars.registerHelper('disabled', (value) => {
     return value ? 'disabled' : '';
   });
+
+  Handlebars.registerHelper('displayEmbedded', (array: any[] = []) => {
+    const collection = new Map(array);
+    const entities: string[] = [];
+    collection.forEach((val: SwadeItem, key: string) => {
+      entities.push(
+        `<li>
+        <button type="button" style="width:auto;" class="delete-embedded" data-Id="${key}"><i class="fas fa-trash"></i></button> ${val.name}
+        </li>`,
+      );
+    });
+    return `<ol></button> ${entities.join('\n')}</ol>`;
+  });
 };

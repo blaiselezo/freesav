@@ -305,3 +305,6 @@ SWADE.ParryBaseDesc: >-
   wird
 SWADE.AutoCalcParry: Automatisch Parade berechnen, inclusive Schilde
 SWADE.Subtype: Unterkategorie
+SWADE.SpecialAbility: Spezialeigenschaft
+SWADE.RacialAbility: Volkseigenschaft
+SWADE.RacialAbilities: Volkseigenschaften
