@@ -500,11 +500,9 @@
       max-height: 28px;
       margin: 0 $small-spacing;
       padding: 0 $small-spacing;
-      img {
-        margin: auto;
-        margin-top: -$small-spacing;
-        border: none;
-      }
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
     }
   }
 

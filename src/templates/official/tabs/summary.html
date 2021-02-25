@@ -137,11 +137,12 @@
           type="button"
           class="running-die"
           title="{{localize 'SWADE.Roll'}} {{localize 'SWADE.RunningDie'}}"
+          style="background-image: url(systems/swade/assets/official/dice/d{{data.stats.speed.runningDie}}.svg);"
         >
-          <img
-            src="systems/swade/assets/official/dice/d{{data.stats.speed.runningDie}}.svg"
-            alt="d{{data.stats.speed.runningDie}} {{localize 'SWADE.RunningDie'}}"
-          />
+          <span class="sr-only"
+            >d{{data.stats.speed.runningDie}} {{localize
+            'SWADE.RunningDie'}}</span
+          >
         </button>
       </span>
     </div>
