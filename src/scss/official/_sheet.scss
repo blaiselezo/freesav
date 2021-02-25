@@ -36,7 +36,7 @@
     background-repeat: repeat;
     background-position: left top;
 
-    form.editable {
+    & > form {
       height: 100%;
       display: grid;
       grid-template-rows: repeat(3, max-content) minmax(0, 1fr);
