@@ -349,36 +349,38 @@ export default class SwadeCombat extends Combat {
    * @override
    */
   async nextRound() {
-    const jokerDrawn = this.combatants.some((v) =>
-      getProperty(v, 'flags.swade.hasJoker'),
-    );
+    if (!game.user.isGM) {
+      game.socket.emit('system.swade', { type: 'newRound', combatId: this.id });
+    } else {
+      super.nextRound();
+      const jokerDrawn = this.combatants.some((v) =>
+        getProperty(v, 'flags.swade.hasJoker'),
+      );
+      if (jokerDrawn) {
+        await game.tables.getName(SWADE.init.cardTable).reset();
+        ui.notifications.info('Card Deck automatically reset');
+      }
+      const resetComs = this.combatants.map((c) => {
+        c.initiative = null;
+        c.hasRolled = false;
+        c.flags = {
+          swade: {
+            cardValue: null,
+            suitValue: null,
+            hasJoker: null,
+            cardString: null,
+          },
+        };
+        return c;
+      });
+      await this.update({ combatants: resetComs });
 
-    if (jokerDrawn) {
-      await game.tables.getName(SWADE.init.cardTable).reset();
-      ui.notifications.info('Card Deck automatically reset');
+      //Init autoroll
+      if (game.settings.get('swade', 'autoInit')) {
+        const combatantIds = this.combatants.map((c) => c._id);
+        await this.rollInitiative(combatantIds);
+      }
     }
-
-    const resetComs = this.combatants.map((c) => {
-      c.initiative = null;
-      c.hasRolled = false;
-      c.flags = {
-        swade: {
-          cardValue: null,
-          suitValue: null,
-          hasJoker: null,
-          cardString: null,
-        },
-      };
-      return c;
-    });
-    await this.update({ combatants: resetComs });
-
-    //Init autoroll
-    if (game.settings.get('swade', 'autoInit')) {
-      const combatantIds = this.combatants.map((c) => c._id);
-      await this.rollInitiative(combatantIds);
-    }
-
-    return super.nextRound();
+    return this as Combat;
   }
 }

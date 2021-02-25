@@ -10,13 +10,13 @@ export default class SwadeSocketHandler {
    * registers all the socket listeners
    */
   registerSocketListeners(): void {
-    game.socket.on(this.SWADE, (data) => {
+    game.socket.on(this.SWADE, async (data) => {
       switch (data.type) {
         case 'deleteConvictionMessage':
-          this._onDeleteConvictionMessage(data);
+          await this._onDeleteConvictionMessage(data);
           break;
         case 'newRound':
-          this._onNewRound();
+          this._onNewRound(data);
           break;
         default:
           this._onUnknownSocket();
@@ -41,13 +41,16 @@ export default class SwadeSocketHandler {
     }
   }
 
-  newRound() {
-    game.socket.emit(this.SWADE, {
-      type: 'newRound',
-    });
-  }
+  private async _onNewRound(data: any) {
+    //return early if the user is not the first active GM sorted by ID
+    const activeGMs: User[] = game.users
+      .filter((u: User) => u.isGM && u.active)
+      .sort((a: User, b: User) => a.id.localeCompare(b.id));
+    if (activeGMs[0]?.id !== game.user.id) return;
 
-  private _onNewRound() {}
+    //advance round
+    game.combats.get(data.combatId).nextRound();
+  }
 
   private _onUnknownSocket() {
     console.warn(new Error('This socket event is not supported'));
