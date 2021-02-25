@@ -25,8 +25,8 @@ SWADE.RunningDie: Running Die
 SWADE.RollRun: Click to run
 SWADE.Adv: Advances
 SWADE.Rank: Rank
-SWADE.Inv: Inventory
-SWADE.Summary: Summary
+SWADE.Inv: Gear
+SWADE.Summary: Traits
 SWADE.Pow: Powers
 SWADE.WildCard: Wild Card
 SWADE.Extra: Extra
@@ -129,7 +129,7 @@ SWADE.Legs: Legs
 SWADE.MinStrLong: Minimum Strength
 SWADE.MinStr: Min. Strength
 SWADE.MinStrShort: Min.Str
-SWADE.Desc: Description
+SWADE.Desc: About
 SWADE.Special: Special Abilities
 SWADE.Details: Details
 SWADE.Equippable: Equippable
@@ -140,7 +140,7 @@ SWADE.Hindrances: Hindrances
 SWADE.MajHind: Major Hindrance
 SWADE.Major: (Major)
 SWADE.Minor: (Minor)
-SWADE.Edges: Edges
+SWADE.Edges: Edges & Hindrances
 SWADE.ArcBack: Arcane Background
 SWADE.Req: Requirements
 SWADE.Conv: Conviction

@@ -23,8 +23,8 @@ SWADE.RunningDie: Sprinten Würfel
 SWADE.RollRun: Klicke zum Sprinten
 SWADE.Adv: Aufstiege
 SWADE.Rank: Rang
-SWADE.Inv: Inventar
-SWADE.Summary: Zusammenfassung
+SWADE.Inv: Ausrüstung
+SWADE.Summary: Eigenschaften
 SWADE.Pow: Mächte
 SWADE.WildCard: Wildcard
 SWADE.Extra: Statist
@@ -118,7 +118,7 @@ SWADE.Hindrances: Handicaps
 SWADE.MajHind: Starkes Handicap
 SWADE.Major: (Stark)
 SWADE.Minor: (Leicht)
-SWADE.Edges: Talent
+SWADE.Edges: Talente & Handicaps
 SWADE.ArcBack: Arkaner Hintergrund
 SWADE.Req: Voraussetzungen
 SWADE.Conv: Entschlossenheit

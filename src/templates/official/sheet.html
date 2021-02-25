@@ -1,4 +1,7 @@
-<form class="{{cssClass}}{{#if settingrules.conviction}} conviction-enabled{{/if}}" autocomplete="off">
+<form
+  class="{{cssClass}}{{#if settingrules.conviction}} conviction-enabled{{/if}}"
+  autocomplete="off"
+>
   <figure class="grid-under gu-1"></figure>
   <figure class="grid-under gu-2"></figure>
   <figure class="grid-under gu-3"></figure>
@@ -28,36 +31,51 @@
     />
   </figure>
   {{#if settingrules.conviction}}
-    <div id="conviction" class="gridcell">
-      <button type="button" class="conviction-toggle">
-        <strong class="{{#if data.details.conviction.active}}pulse{{/if}}">
-        {{~#if data.details.conviction.active~}}
-          {{localize "SWADE.ConvictionActive"}}
-        {{~else~}}
-          {{localize "SWADE.Conv"}}
-        {{/if}}
-        </strong>
-      </button>
-      <div>
-        <input type="Number" class="conviction-counter" name="data.details.conviction.value" value="{{data.details.conviction.value}}"
-          class="character-detail" data-dtype="Number" />
-      </div>
+  <div id="conviction" class="gridcell">
+    <button type="button" class="conviction-toggle">
+      <strong class="{{#if data.details.conviction.active}}pulse{{/if}}">
+        {{~#if data.details.conviction.active~}} {{localize
+        "SWADE.ConvictionActive"}} {{~else~}} {{localize "SWADE.Conv"}} {{/if}}
+      </strong>
+    </button>
+    <div>
+      <input
+        type="Number"
+        class="conviction-counter"
+        name="data.details.conviction.value"
+        value="{{data.details.conviction.value}}"
+        class="character-detail"
+        data-dtype="Number"
+      />
     </div>
+  </div>
   {{/if}}
 
   <label class="gridcell character-detail race">
     <span class="sr-only">{{localize 'SWADE.Race'}}</span>
-    <input type="text" name="data.details.species.name" value="{{actor.data.details.species.name}}"
-      placeholder="{{localize 'SWADE.Race'}}" />
+    <input
+      type="text"
+      name="data.details.species.name"
+      value="{{actor.data.details.species.name}}"
+      placeholder="{{localize 'SWADE.Race'}}"
+    />
   </label>
   <label class="gridcell character-detail rank">
     <span class="sr-only">{{localize 'SWADE.Rank'}}</span>
-    <input type="text" name="data.advances.rank" value="{{actor.data.advances.rank}}"
-      placeholder="{{localize 'SWADE.Rank'}}" />
+    <input
+      type="text"
+      name="data.advances.rank"
+      value="{{actor.data.advances.rank}}"
+      placeholder="{{localize 'SWADE.Rank'}}"
+    />
   </label>
   <label class="gridcell character-detail advances">
     <span>{{localize 'SWADE.Adv'}}</span>
-    <input type="number" name="data.advances.value" value="{{actor.data.advances.value}}" />
+    <input
+      type="number"
+      name="data.advances.value"
+      value="{{actor.data.advances.value}}"
+    />
   </label>
 
   {{!-- Sheet Tab Navigation --}}
@@ -88,15 +106,16 @@
       {{> "systems/swade/templates/official/tabs/inventory.html"}}
     </section>
 
-    {{!-- Powers Tab --}} 
-    {{#if hasArcaneBackground}}
+    {{!-- Powers Tab --}} {{#if hasArcaneBackground}}
     <section class="tab powers" data-group="primary" data-tab="powers">
       {{> "systems/swade/templates/official/tabs/powers.html"}}
     </section>
-    {{/if}} 
-
-    {{!-- Biography Tab --}}
-    <section class="tab description" data-group="primary" data-tab="description">
+    {{/if}} {{!-- Biography Tab --}}
+    <section
+      class="tab description"
+      data-group="primary"
+      data-tab="description"
+    >
       {{> "systems/swade/templates/official/tabs/description.html"}}
     </section>
   </main>
