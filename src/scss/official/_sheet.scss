@@ -135,14 +135,14 @@
     margin-top: 6px;
 
     .item {
-      padding: $small-spacing 0;
-      flex-basis: 100px;
+      padding: $small-spacing 1ch;
       font-family: 'Anton', 'Signika', sans-serif;
       text-align: center;
       font-size: $large-font;
       color: black;
-      border-radius: 8px;
-      box-shadow: 0px -4px 6px -3px #0000009e;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0px -4px 6px -3px #0000009e, 0px -4px 6px -3px #0000002b inset;
+      white-space: nowrap;
     }
     .active {
       color: $header-text;
