@@ -45,4 +45,9 @@ export const registerCustomHelpers = function () {
   Handlebars.registerHelper('disabled', (value) => {
     return value ? 'disabled' : '';
   });
+
+  Handlebars.registerHelper('capitalize', (str) => {
+    if (typeof str !== 'string') return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  });
 };
