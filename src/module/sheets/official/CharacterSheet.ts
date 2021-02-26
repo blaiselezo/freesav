@@ -113,8 +113,16 @@ export default class CharacterSheet extends ActorSheet {
       this.actor.rollAttribute(attribute, { event: ev });
     });
 
+    //Toggle Equipment Card collapsible
+    html.find('.skill-card .skill-name.item-name').on('click', (ev) => {
+      $(ev.currentTarget)
+        .parents('.item.skill.skill-card')
+        .find('.card-content')
+        .slideToggle();
+    });
+
     // Roll Skill
-    html.find('.skill-name').on('click', (ev) => {
+    html.find('.skill-card .skill-die').on('click', (ev) => {
       const element = ev.currentTarget as HTMLElement;
       const item = element.parentElement.dataset.itemId;
       this.actor.rollSkill(item, { event: ev });
