@@ -28,6 +28,10 @@
     }
   }
 
+  .card-header.flexrow {
+    align-items: flex-start;
+  }
+
   .powers {
     .power .description-grid {
       display: grid;
