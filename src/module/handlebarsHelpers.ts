@@ -1,4 +1,5 @@
 import SwadeItem from './entities/SwadeItem';
+import { ItemType } from './enums/ItemTypeEnum';
 
 export const registerCustomHelpers = function () {
   Handlebars.registerHelper('add', function (a, b) {
@@ -51,13 +52,33 @@ export const registerCustomHelpers = function () {
   Handlebars.registerHelper('displayEmbedded', (array: any[] = []) => {
     const collection = new Map(array);
     const entities: string[] = [];
-    collection.forEach((val: SwadeItem, key: string) => {
+    collection.forEach((val: any, key: string) => {
+      const type =
+        val.type === ItemType.Ability
+          ? game.i18n.localize('SWADE.SpecialAbility')
+          : game.i18n.localize(`ITEM.Type${val.type.capitalize()}`);
+
+      let majorMinor = '';
+      if (val.type === ItemType.Hindrance) {
+        if (val.data.major) {
+          majorMinor = game.i18n.localize('SWADE.Major');
+        } else {
+          majorMinor = game.i18n.localize('SWADE.Minor');
+        }
+      }
+
       entities.push(
-        `<li>
-        <button type="button" style="width:auto;" class="delete-embedded" data-Id="${key}"><i class="fas fa-trash"></i></button> ${val.name}
+        `<li class="flexrow">
+          <img src="${val.img}" alt="${type}" class="effect-icon" />
+          <span class="effect-label">${type} - ${val.name} ${majorMinor}</span>
+          <span class="effect-controls">
+            <a class="effect-action delete-embedded" data-Id="${key}">
+              <i class="fas fa-trash"></i>
+            </a>
+          </span>
         </li>`,
       );
     });
-    return `<ol></button> ${entities.join('\n')}</ol>`;
+    return `<ul class="effects-list">${entities.join('\n')}</ul>`;
   });
 };
