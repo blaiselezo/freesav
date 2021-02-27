@@ -56,11 +56,8 @@ export const preloadHandlebarsTemplates = async function () {
 
     //misc partials
     'systems/swade/templates/official/partials/attributes.html',
-    'systems/swade/templates/official/partials/weapon-card.html',
-    'systems/swade/templates/official/partials/powers-card.html',
-    'systems/swade/templates/official/partials/armor-card.html',
-    'systems/swade/templates/official/partials/shield-card.html',
-    'systems/swade/templates/official/partials/misc-card.html',
+    'systems/swade/templates/official/partials/item-card.html',
+    'systems/swade/templates/official/partials/skill-card.html',
     'systems/swade/templates/official/partials/setting-fields.html',
   ];
 
