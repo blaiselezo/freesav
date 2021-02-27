@@ -26,7 +26,7 @@ export const registerCustomHelpers = function () {
   // Sheet
   Handlebars.registerHelper('localizeSkillAttribute', (attribute) => {
     if (!attribute) return '';
-    return game.i18n.localize(SWADE.attributes[attribute].short);
+    return game.i18n.localize(SWADE.attributes[attribute].long);
   });
 
   Handlebars.registerHelper('modifier', (str) => {
