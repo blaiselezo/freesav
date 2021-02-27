@@ -304,3 +304,5 @@ SWADE.ParryBaseDesc: >-
   Der Name der Fertigkeit welche zur errechnung des Paradewerts hernagezogen
   wird
 SWADE.AutoCalcParry: Automatisch Parade berechnen, inclusive Schilde
+SWADE.About: Beschreibung
+SWADE.EdgesHindrances: Talente & Handicaps
