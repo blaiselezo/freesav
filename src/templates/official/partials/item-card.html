@@ -1,5 +1,8 @@
-<li class="gear-card item power" data-item-id="{{_id}}">
-  <header class="flexrow card-header">
+<li
+  class="gear-card item {{#if (eq type 'power')}}{{type}}{{/if}}"
+  data-item-id="{{_id}}"
+>
+  <header class="card-header flexrow">
     <div class="item-image" style="background-image: url('{{img}}')"></div>
     <button type="button" class="item-name">{{name}}</button>
     <div class="item-controls">
@@ -9,6 +12,7 @@
     </div>
   </header>
   <div class="card-content" style="display: none;">
-    {{> "systems/swade/templates/shared-partials/action-card.html"}}
+    {{#if (eq type 'gear')}} {{{enrich data.description}}} {{else}} {{>
+    "systems/swade/templates/shared-partials/action-card.html"}} {{/if}}
   </div>
 </li>

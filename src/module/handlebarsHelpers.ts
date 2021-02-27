@@ -1,3 +1,4 @@
+import { SWADE } from './config';
 import SwadeItem from './entities/SwadeItem';
 import { ItemType } from './enums/ItemTypeEnum';
 
@@ -26,7 +27,7 @@ export const registerCustomHelpers = function () {
   // Sheet
   Handlebars.registerHelper('localizeSkillAttribute', (attribute) => {
     if (!attribute) return '';
-    return game.i18n.localize(CONFIG.SWADE.attributes[attribute].short);
+    return game.i18n.localize(SWADE.attributes[attribute].short);
   });
 
   Handlebars.registerHelper('modifier', (str) => {
@@ -80,5 +81,10 @@ export const registerCustomHelpers = function () {
       );
     });
     return `<ul class="effects-list">${entities.join('\n')}</ul>`;
+  });
+
+  Handlebars.registerHelper('capitalize', (str) => {
+    if (typeof str !== 'string') return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
   });
 };

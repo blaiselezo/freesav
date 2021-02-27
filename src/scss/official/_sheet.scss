@@ -567,13 +567,27 @@
       flex: 1;
       justify-self: flex-start;
     }
-    .skill-attribute {
-      text-align: right;
-      flex: 1;
-      justify-self: flex-start;
-    }
     li {
       border-bottom: $solid-line;
+      &.item.skill {
+        padding-bottom: 2px;
+        margin-bottom: 2px;
+        .skill-icon {
+          max-height: 24px;
+          flex-grow: 0;
+          object-fit: contain;
+          margin-top: 0.3em;
+          margin-right: 0.1em;
+          border: none;
+        }
+        .card-header.flexrow {
+          align-items: center;
+        }
+        .item-controls {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
     }
   }
 

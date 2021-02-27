@@ -130,7 +130,7 @@ SWADE.Legs: Legs
 SWADE.MinStrLong: Minimum Strength
 SWADE.MinStr: Min. Strength
 SWADE.MinStrShort: Min.Str
-SWADE.Desc: About
+SWADE.Desc: Description
 SWADE.Special: Special Abilities
 SWADE.Details: Details
 SWADE.Equippable: Equippable
@@ -308,5 +308,6 @@ SWADE.ParryBaseDesc: The name of the skill which will be used to calculate a cha
 SWADE.AutoCalcParry: Automatically calculates Parry, including Shields
 SWADE.Subtype: Subtype
 SWADE.SpecialAbility: Special Ability
-SWADE.RacialAbility: Racial Ability
 SWADE.RacialAbilities: Racial Abilities
+SWADE.About: About
+SWADE.EdgesHindrances: Edges & Hindrances

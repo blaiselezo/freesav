@@ -199,28 +199,9 @@
       </button>
     </header>
     <ol class="skill-list">
-      {{#each sortedSkills as |skill|}}
-      <li class="item skill flexrow" data-item-id="{{skill._id}}">
-        <img class="skill-icon" src="{{skill.img}}" />
-        <button
-          type="button"
-          class="skill-name"
-          title="{{localize 'SWADE.Roll'}} {{skill.name}}"
-        >
-          {{skill.name}}
-        </button>
-        <button
-          type="button"
-          class="skill-die item-edit"
-          title="{{localize 'SWADE.Ed'}} {{skill.name}}"
-        >
-          d{{skill.data.die.sides}}{{modifier skill.data.die.modifier}}
-        </button>
-        <div class="skill-attribute">
-          {{localizeSkillAttribute skill.data.attribute}}
-        </div>
-      </li>
-      {{/each}}
+      {{#each sortedSkills as |skill|}} {{>
+      "systems/swade/templates/official/partials/skill-card.html"
+      owner=../owner}} {{/each}}
     </ol>
   </div>
   <div class="note-footer">&nbsp;</div>
@@ -265,29 +246,29 @@
     </ul>
     <ol class="quick-list">
       {{#each itemsByType.weapon as |weapon|}} {{#if weapon.data.equipped}} {{>
-      "systems/swade/templates/official/partials/weapon-card.html"}} {{/if}}
+      "systems/swade/templates/official/partials/item-card.html"}} {{/if}}
       {{/each}}
     </ol>
     {{#if hasArcaneBackground}}
     <ol class="quick-list">
       {{#each itemsByType.power as |power|}} {{#if power.data.equipped}} {{>
-      "systems/swade/templates/official/partials/powers-card.html"}} {{/if}}
+      "systems/swade/templates/official/partials/item-card.html"}} {{/if}}
       {{/each}}
     </ol>
     {{/if}}
     <ol class="quick-list">
       {{#each itemsByType.armor as |armor|}} {{#if armor.data.equipped}} {{>
-      "systems/swade/templates/official/partials/armor-card.html"}} {{/if}}
+      "systems/swade/templates/official/partials/item-card.html"}} {{/if}}
       {{/each}}
     </ol>
     <ol class="quick-list">
       {{#each itemsByType.shield as |shield|}} {{#if shield.data.equipped}} {{>
-      "systems/swade/templates/official/partials/shield-card.html"}} {{/if}}
+      "systems/swade/templates/official/partials/item-card.html"}} {{/if}}
       {{/each}}
     </ol>
     <ol class="quick-list">
       {{#each itemsByType.gear as |gear|}}{{#if gear.data.equipped}}{{>
-      "systems/swade/templates/official/partials/misc-card.html"}}
+      "systems/swade/templates/official/partials/item-card.html"}}
       {{/if}}{{/each}}
     </ol>
   </div>
