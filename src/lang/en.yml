@@ -308,6 +308,7 @@ SWADE.ParryBaseDesc: The name of the skill which will be used to calculate a cha
 SWADE.AutoCalcParry: Automatically calculates Parry, including Shields
 SWADE.Subtype: Subtype
 SWADE.SpecialAbility: Special Ability
+SWADE.SpecialAbilities: Special Abilities
 SWADE.RacialAbilities: Racial Abilities
 SWADE.About: About
 SWADE.EdgesHindrances: Edges & Hindrances
