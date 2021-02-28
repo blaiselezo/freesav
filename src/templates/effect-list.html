@@ -1,6 +1,9 @@
 <ul class="effects-list">
-  {{#each entity.effects}} {{#unless origin}}
-  <li class="flexrow{{#if disabled}} disabled-effect{{/if}}" data-effect-id="{{_id}}">
+  {{#each entity.effects}}
+  <li
+    class="flexrow{{#if disabled}} disabled-effect{{/if}}"
+    data-effect-id="{{_id}}"
+  >
     <img src="{{icon}}" alt="{{label}}" class="effect-icon" />
     <span class="effect-label">{{label}}</span>
     <span class="effect-controls">
@@ -15,5 +18,5 @@
       </a>
     </span>
   </li>
-  {{/unless}} {{/each}}
+  {{/each}}
 </ul>
