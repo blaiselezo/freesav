@@ -125,44 +125,28 @@ export default class SwadeItemSheet extends ItemSheet {
       const effectId = a.closest('li').dataset.effectId;
       const effect = this.item['effects'].get(effectId) as any;
       const action = a.dataset.action;
-      if (this.item.isOwned) {
-        //FIXME once this is supported in Foundry
-        ui.notifications.info(
-          'Active Effects on owned Items are currently not supported',
-        );
-      } else {
-        switch (action) {
-          case 'edit':
-            return effect.sheet.render(true);
-          case 'delete':
-            return effect.delete();
-          case 'toggle':
-            return effect.update({ disabled: !effect.data.disabled });
-        }
+      switch (action) {
+        case 'edit':
+          return effect.sheet.render(true);
+        case 'delete':
+          return effect.delete();
+        case 'toggle':
+          return effect.update({ disabled: !effect.data.disabled });
       }
     });
 
     html.find('.add-effect').on('click', async (ev) => {
-      if (this.item.isOwned) {
-        //FIXME once this is supported in Foundry
-        ui.notifications.info(
-          'Active Effects on owned Items are currently not supported',
-        );
-      } else {
-        const transfer = $(ev.currentTarget).data('transfer');
-        const id = (
-          await this.item.createEmbeddedEntity('ActiveEffect', {
-            label: game.i18n
-              .localize('ENTITY.New')
-              .replace('{entity}', game.i18n.localize('Active Effect')),
-            icon: '/icons/svg/mystery-man.svg',
-            transfer: transfer,
-          })
-        )._id;
-        return new ActiveEffectConfig(this.item['effects'].get(id)).render(
-          true,
-        );
-      }
+      const transfer = $(ev.currentTarget).data('transfer');
+      const id = (
+        await this.item.createEmbeddedEntity('ActiveEffect', {
+          label: game.i18n
+            .localize('ENTITY.New')
+            .replace('{entity}', game.i18n.localize('Active Effect')),
+          icon: '/icons/svg/mystery-man.svg',
+          transfer: transfer,
+        })
+      )._id;
+      return new ActiveEffectConfig(this.item['effects'].get(id)).render(true);
     });
 
     html.find('.delete-embedded').on('click', (ev) => {

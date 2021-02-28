@@ -237,9 +237,11 @@
           <button type="button" class="effect-action" data-action="edit">
             <i class="fas fa-edit"></i>
           </button>
+          {{#unless origin}}
           <button type="button" class="effect-action" data-action="delete">
             <i class="fas fa-trash"></i>
           </button>
+          {{/unless}}
         </span>
       </li>
       {{/each}}
