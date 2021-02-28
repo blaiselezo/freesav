@@ -1,3 +1,5 @@
+import { SWADE } from './config';
+
 export default class SwadeCombat extends Combat {
   /**
    * @override
@@ -9,9 +11,10 @@ export default class SwadeCombat extends Combat {
    */
   async rollInitiative(
     ids: string[] | string,
-    formula: string | null,
-    messageOptions: any,
+    formula: string | null = null,
+    messageOptions: any = {},
   ): Promise<Combat> {
+    if (formula) console.log('Wait, why is there a formula');
     // Structure input data
     ids = typeof ids === 'string' ? [ids] : ids;
 
@@ -26,11 +29,10 @@ export default class SwadeCombat extends Combat {
     }
 
     // Iterate over Combatants, performing an initiative draw for each
-    for (let i = 0; i < ids.length; i++) {
-      const id = ids[i];
+    for (const id of ids) {
       // Get Combatant data
-      let c = await this.getCombatant(id);
-      if (c.flags.swade && c.flags.swade.cardValue !== null) {
+      const c = await this.getCombatant(id);
+      if (c.initiative !== null) {
         console.log('This must be a reroll');
         isRedraw = true;
       }
@@ -47,7 +49,7 @@ export default class SwadeCombat extends Combat {
       // Draw initiative
       let card;
       if (isRedraw) {
-        let oldCard = await this.findCard(
+        const oldCard = await this.findCard(
           c.flags.swade.cardValue,
           c.flags.swade.suitValue,
         );
@@ -68,11 +70,11 @@ export default class SwadeCombat extends Combat {
               //sort cards to pick the lower one
               const cardA = a.getFlag('swade', 'cardValue');
               const cardB = b.getFlag('swade', 'cardValue');
-              let card = cardA - cardB;
+              const card = cardA - cardB;
               if (card !== 0) return card;
               const suitA = a.getFlag('swade', 'suitValue');
               const suitB = b.getFlag('swade', 'suitValue');
-              let suit = suitA - suitB;
+              const suit = suitA - suitB;
               return suit;
             });
             card = cards[0];
@@ -168,15 +170,15 @@ export default class SwadeCombat extends Combat {
     if (a.flags.swade && b.flags.swade) {
       const cardA = a.flags.swade.cardValue;
       const cardB = b.flags.swade.cardValue;
-      let card = cardB - cardA;
+      const card = cardB - cardA;
       if (card !== 0) return card;
       const suitA = a.flags.swade.suitValue;
       const suitB = b.flags.swade.suitValue;
-      let suit = suitB - suitA;
+      const suit = suitB - suitA;
       return suit;
     }
-    let [an, bn] = [a.token.name || '', b.token.name || ''];
-    let cn = an.localeCompare(bn);
+    const [an, bn] = [a.token.name || '', b.token.name || ''];
+    const cn = an.localeCompare(bn);
     if (cn !== 0) return cn;
     return a.tokenId - b.tokenId;
   }
@@ -230,7 +232,7 @@ export default class SwadeCombat extends Combat {
     const cards: JournalEntry[] = [];
 
     for (let i = 0; i < count; i++) {
-      let drawResult = await actionCardDeck.draw({ displayChat: false });
+      const drawResult = await actionCardDeck.draw({ displayChat: false });
       const lookUpCard = packIndex.find(
         (c) => c.name === drawResult.results[0].text,
       );
@@ -260,11 +262,11 @@ export default class SwadeCombat extends Combat {
     const sortedCards = cards.sort((a: JournalEntry, b: JournalEntry) => {
       const cardA = a.getFlag('swade', 'cardValue') as number;
       const cardB = b.getFlag('swade', 'cardValue') as number;
-      let card = cardB - cardA;
+      const card = cardB - cardA;
       if (card !== 0) return card;
       const suitA = a.getFlag('swade', 'suitValue') as number;
       const suitB = b.getFlag('swade', 'suitValue') as number;
-      let suit = suitB - suitA;
+      const suit = suitB - suitA;
       return suit;
     });
     let card = null;
@@ -307,8 +309,8 @@ export default class SwadeCombat extends Combat {
         buttons: buttons,
         close: async () => {
           if (immedeateRedraw) {
-            let newCard = await this.drawCard();
-            let newCards = [...cards, ...newCard];
+            const newCard = await this.drawCard();
+            const newCards = [...cards, ...newCard];
             card = await this.pickACard(newCards, combatantName, oldCardId);
           }
           //if no card has been chosen then choose first in array
@@ -341,5 +343,44 @@ export default class SwadeCombat extends Combat {
         c.getFlag('swade', 'cardValue') === cardValue &&
         c.getFlag('swade', 'suitValue') === cardSuit,
     );
+  }
+
+  /**
+   * @override
+   */
+  async nextRound() {
+    if (!game.user.isGM) {
+      game.socket.emit('system.swade', { type: 'newRound', combatId: this.id });
+    } else {
+      super.nextRound();
+      const jokerDrawn = this.combatants.some((v) =>
+        getProperty(v, 'flags.swade.hasJoker'),
+      );
+      if (jokerDrawn) {
+        await game.tables.getName(SWADE.init.cardTable).reset();
+        ui.notifications.info('Card Deck automatically reset');
+      }
+      const resetComs = this.combatants.map((c) => {
+        c.initiative = null;
+        c.hasRolled = false;
+        c.flags = {
+          swade: {
+            cardValue: null,
+            suitValue: null,
+            hasJoker: null,
+            cardString: null,
+          },
+        };
+        return c;
+      });
+      await this.update({ combatants: resetComs });
+
+      //Init autoroll
+      if (game.settings.get('swade', 'autoInit')) {
+        const combatantIds = this.combatants.map((c) => c._id);
+        await this.rollInitiative(combatantIds);
+      }
+    }
+    return this as Combat;
   }
 }

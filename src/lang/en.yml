@@ -16,6 +16,7 @@ ITEM.TypeEdge: Edge
 ITEM.TypeHindrance: Hindrance
 ITEM.TypeSkill: Skill
 ITEM.TypePower: Power
+ITEM.TypeAbility: Ability
 SWADE.Name: Name
 SWADE.Tough: Toughness
 SWADE.Race: Race
@@ -25,8 +26,8 @@ SWADE.RunningDie: Running Die
 SWADE.RollRun: Click to run
 SWADE.Adv: Advances
 SWADE.Rank: Rank
-SWADE.Inv: Inventory
-SWADE.Summary: Summary
+SWADE.Inv: Gear
+SWADE.Summary: Traits
 SWADE.Pow: Powers
 SWADE.WildCard: Wild Card
 SWADE.Extra: Extra
@@ -104,6 +105,7 @@ SWADE.Torch: Torch
 SWADE.Invisible: Invisible
 SWADE.Smite: Smite
 SWADE.Armor: Armor
+SWADE.Protection: Protection
 SWADE.Dmg: Damage
 SWADE.DmgOver: Damage Override
 SWADE.Rng: Range
@@ -148,7 +150,7 @@ SWADE.Hesitant: Hesitant
 SWADE.LevelHeaded: Level Headed
 SWADE.ImprovedLevelHeaded: Improved Level Headed
 SWADE.AutoCalc: Automatic Calculations
-SWADE.InclArmor: 'Automatically calculates Toughness, including armor'
+SWADE.InclArmor: Automatically calculates Toughness, including armor
 SWADE.Label: Label
 SWADE.HasMaxValue: Has Max Value
 SWADE.Enabled: Enabled
@@ -174,7 +176,7 @@ SWADE.FatigueMax: Max Fatigue
 SWADE.Incap: Incapacitated
 SWADE.Init: Initiative
 SWADE.InitDraw: draws for Initiative!
-SWADE.JokersWild: gets Joker's Wild!
+SWADE.JokersWild: Joker's Wild
 SWADE.General: General
 SWADE.Addi: Additional
 SWADE.Status: Status
@@ -206,7 +208,7 @@ SWADE.HideWCDesc: Do not show which NPCs are Wild Cards to players
 SWADE.EnableConv: Enable Conviction
 SWADE.EnableConvDesc: Enable the Conviction setting rule
 SWADE.EnableWoundPace: Adjust Pace with Wounds
-SWADE.EnableWoundPaceDesc: 'When enabled, Pace is automatically affected by Wounds'
+SWADE.EnableWoundPaceDesc: When enabled, Pace is automatically affected by Wounds
 SWADE.AutoLink: Automatically Link Wild Cards
 SWADE.AutoLinkDesc: >-
   When enabled, NPC Wild Cards will have their tokens linked when you toggle
@@ -214,7 +216,7 @@ SWADE.AutoLinkDesc: >-
 SWADE.GmBennies: GM Bennies
 SWADE.GmBenniesDesc: Sets how many Bennies the GM recieves on a refresh
 SWADE.EnableBennyNotify: Benny notifications
-SWADE.EnableBennyNotifyDesc: 'Displays chat messages when bennies are taken, given or refreshed.'
+SWADE.EnableBennyNotifyDesc: Displays chat messages when bennies are taken, given or refreshed.
 SWADE.VehicleMods: Vehicles Mods
 SWADE.VehicleModsDesc: Vehicles use Mod-Slots
 SWADE.VehicleEdges: Vehicle Edges
@@ -265,6 +267,7 @@ SWADE.PickACard: Pick a card
 SWADE.NoCardsLeft: There are not enough cards left in the deck!
 SWADE.OldCard: Old card
 SWADE.ActionCard: Action Card
+SWADE.ConvictionActive: Conviction Active
 SWADE.ConvictionActivate: Calls upon their conviction!
 SWADE.ConvictionExtend: Do you want to extend your conviction?
 SWADE.ConvictionEnd: wavers in their conviction
@@ -295,3 +298,17 @@ SWADE.AddBenny: Add a Benny
 SWADE.CurrentBennies: Current Bennies
 SWADE.RerollWithBenny: Reroll with Benny
 SWADE.FreeReroll: Free Reroll
+SWADE.HideNpcItemChatCards: Hide NPC Item Chat Cards
+SWADE.HideNpcItemChatCardsDesc: >-
+  When enabled, NPC Item Chat Cards are automatically sent as a whisper to all
+  Gamemasters instead of being posted for all to see
+SWADE.JokersWildDesc: Gives a Benny to every player character when one of them is dealt a Joker
+SWADE.ParryBase: Parry Base Skill
+SWADE.ParryBaseDesc: The name of the skill which will be used to calculate a characters Parry
+SWADE.AutoCalcParry: Automatically calculates Parry, including Shields
+SWADE.Subtype: Subtype
+SWADE.SpecialAbility: Special Ability
+SWADE.SpecialAbilities: Special Abilities
+SWADE.RacialAbilities: Racial Abilities
+SWADE.About: About
+SWADE.EdgesHindrances: Edges & Hindrances

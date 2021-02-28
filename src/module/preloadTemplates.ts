@@ -14,6 +14,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swade/templates/actors/partials/powers-tab.html',
     'systems/swade/templates/actors/partials/biography-tab.html',
     'systems/swade/templates/setting-fields.html',
+    'systems/swade/templates/shared-partials/action-card.html',
 
     //Vehicle Partials
     'systems/swade/templates/actors/vehicle-partials/summary-tab.html',
@@ -40,6 +41,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swade/templates/items/partials/header-delete.html',
     'systems/swade/templates/items/partials/description.html',
     'systems/swade/templates/items/partials/actions.html',
+    'systems/swade/templates/items/partials/ae-header.html',
     'systems/swade/templates/effect-list.html',
 
     //official sheet
@@ -55,11 +57,8 @@ export const preloadHandlebarsTemplates = async function () {
 
     //misc partials
     'systems/swade/templates/official/partials/attributes.html',
-    'systems/swade/templates/official/partials/weapon-card.html',
-    'systems/swade/templates/official/partials/powers-card.html',
-    'systems/swade/templates/official/partials/armor-card.html',
-    'systems/swade/templates/official/partials/shield-card.html',
-    'systems/swade/templates/official/partials/misc-card.html',
+    'systems/swade/templates/official/partials/item-card.html',
+    'systems/swade/templates/official/partials/skill-card.html',
     'systems/swade/templates/official/partials/setting-fields.html',
   ];
 

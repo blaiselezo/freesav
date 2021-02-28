@@ -48,6 +48,7 @@ export const SWADE = {
       add: 'systems/swade/templates/chat/benny-add.html',
       spend: 'systems/swade/templates/chat/benny-spend.html',
       gmadd: 'systems/swade/templates/chat/benny-gmadd.html',
+      joker: 'systems/swade/templates/chat/jokers-wild.html',
     },
     sheetImage: 'systems/swade/assets/bennie.webp',
     textures: {
@@ -66,6 +67,8 @@ export const SWADE = {
     title: 'SWADE Setting Rule Configurator',
     settings: [
       'enableConviction',
+      'jokersWild',
+      'parryBaseSkill',
       'vehicleMods',
       'vehicleEdges',
       'gmBennies',
@@ -113,6 +116,13 @@ export const SWADE = {
       icon: 'systems/swade/assets/icons/status/status_defending.svg',
       id: 'defending',
       label: 'SWADE.Defending',
+      changes: [
+        {
+          key: 'data.stats.parry.modifier',
+          value: 4,
+          mode: 2,
+        },
+      ],
     },
     {
       icon: 'systems/swade/assets/icons/status/status_flying.svg',
@@ -219,6 +229,23 @@ export const SWADE = {
       id: 'smite',
       label: 'SWADE.Smite',
     },
+    {
+      icon: 'systems/swade/assets/icons/status/status_protection.svg',
+      id: 'protection',
+      label: 'SWADE.Protection',
+      changes: [
+        {
+          key: 'data.stats.toughness.value',
+          value: 0,
+          mode: 2,
+        },
+        {
+          key: 'data.stats.toughness.armor',
+          value: 0,
+          mode: 2,
+        },
+      ],
+    },
   ],
 
   wildCardIcons: {
@@ -229,4 +256,6 @@ export const SWADE = {
   dsnColorSets: {},
 
   dsnTextureList: {},
+
+  raceLocalizationKey: 'SWADE.Race',
 };

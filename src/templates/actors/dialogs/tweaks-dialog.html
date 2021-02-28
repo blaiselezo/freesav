@@ -187,6 +187,19 @@
       </span>
       <p class="notes">{{localize "SWADE.InclArmor"}}</p>
     </div>
+    <div class="form-group">
+      <label for="{{_id}}-autoCalcParry">{{localize "SWADE.Parry"}}</label>
+      <span class="form-fields">
+        <input
+          type="checkbox"
+          name="data.details.autoCalcParry"
+          id="{{_id}}-autoCalcParry"
+          {{checked
+          data.details.autoCalcParry}}
+        />
+      </span>
+      <p class="notes">{{localize "SWADE.AutoCalcParry"}}</p>
+    </div>
   </section>
   {{/unless}}{{/if}}
   <section id="additionalStats">

@@ -1,15 +1,18 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Bennies from './bennies';
 import * as chat from './chat';
 import { formatRoll } from './chat';
+import { SWADE } from './config';
 import DiceSettings from './DiceSettings';
 import SwadeActor from './entities/SwadeActor';
 import SwadeItem from './entities/SwadeItem';
 import SwadeTemplate from './entities/SwadeTemplate';
+import { AbilitySubtype } from './enums/AbilitySubtypeEnum';
 import { ActorType } from './enums/ActorTypeEnum';
 import { ItemType } from './enums/ItemTypeEnum';
 import { TemplatePreset } from './enums/TemplatePresetEnum';
 import { SwadeSetup } from './setup/setupHandler';
+import CharacterSheet from './sheets/official/CharacterSheet';
 import SwadeCharacterSheet from './sheets/SwadeCharacterSheet';
 import SwadeNPCSheet from './sheets/SwadeNPCSheet';
 import SwadeVehicleSheet from './sheets/SwadeVehicleSheet';
@@ -20,19 +23,16 @@ export default class SwadeHooks {
     // Do anything after initialization but before ready
     // Localize CONFIG objects once up-front
     const toLocalize = [];
-    for (let o of toLocalize) {
-      CONFIG.SWADE[o] = Object.entries(CONFIG.SWADE[o]).reduce(
-        (obj, e: any) => {
-          obj[e[0]] = game.i18n.localize(e[1]);
-          return obj;
-        },
-        {},
-      );
+    for (const o of toLocalize) {
+      SWADE[o] = Object.entries(SWADE[o]).reduce((obj, e: any) => {
+        obj[e[0]] = game.i18n.localize(e[1]);
+        return obj;
+      }, {});
     }
   }
 
   public static async onReady() {
-    let packChoices = {};
+    const packChoices = {};
     game.packs
       .filter((p) => p.entity === 'JournalEntry')
       .forEach((p) => {
@@ -46,7 +46,7 @@ export default class SwadeHooks {
       scope: 'world',
       type: String,
       config: true,
-      default: CONFIG.SWADE.init.defaultCardCompendium,
+      default: SWADE.init.defaultCardCompendium,
       choices: packChoices,
       onChange: async (choice) => {
         console.log(
@@ -59,10 +59,10 @@ export default class SwadeHooks {
     await SwadeSetup.setup();
     Hooks.on('hotbarDrop', (bar, data, slot) => createSwadeMacro(data, slot));
 
-    CONFIG.SWADE.diceConfig.flags = {
+    SWADE.diceConfig.flags = {
       dsnShowBennyAnimation: {
         type: Boolean,
-        default: false,
+        default: true,
         label: game.i18n.localize('SWADE.ShowBennyAnimation'),
         hint: game.i18n.localize('SWADE.ShowBennyAnimationDesc'),
       },
@@ -99,6 +99,16 @@ export default class SwadeHooks {
     }
   }
 
+  public static onPreCreateScene(
+    createData: any,
+    options: any,
+    userId: string,
+  ) {
+    if (!createData.gridType) {
+      createData.gridType = CONST.GRID_TYPES.GRIDLESS;
+    }
+  }
+
   public static onPreCreateOwnedItem(
     actor: SwadeActor,
     createData: any,
@@ -111,6 +121,13 @@ export default class SwadeHooks {
     }
     if (createData.type === ItemType.Skill && options.renderSheet !== null) {
       options.renderSheet = true;
+    }
+
+    if (
+      createData.type === ItemType.Ability &&
+      createData.data.subtype === AbilitySubtype.Race
+    ) {
+      return false;
     }
   }
 
@@ -188,11 +205,11 @@ export default class SwadeHooks {
     for (let i = 0; i < found.length; i++) {
       const element = found[i];
       const enitityId = element.parentElement.dataset.entityId;
-      let wildcard = wildcards.find((a) => a._id === enitityId);
+      const wildcard = wildcards.find((a) => a._id === enitityId);
 
       if (wildcard) {
         element.innerHTML = `
-					<a><img src="${CONFIG.SWADE.wildCardIcons.regular}" class="wildcard-icon">${wildcard.data.name}</a>
+					<a><img src="${SWADE.wildCardIcons.regular}" class="wildcard-icon">${wildcard.data.name}</a>
 					`;
       }
     }
@@ -213,12 +230,12 @@ export default class SwadeHooks {
 
       const found = html.find('.directory-item');
       found.each((i, el) => {
-        let entryId = el.dataset.entryId;
+        const entryId = el.dataset.entryId;
         if (ids.includes(entryId)) {
           const entityName = el.children[1];
           entityName.children[0].insertAdjacentHTML(
             'afterbegin',
-            `<img src="${CONFIG.SWADE.wildCardIcons.compendium}" class="wildcard-icon">`,
+            `<img src="${SWADE.wildCardIcons.compendium}" class="wildcard-icon">`,
           );
         }
       });
@@ -276,8 +293,18 @@ export default class SwadeHooks {
     });
   }
 
-  public static async onPreUpdateCombat(
-    combat: any | Combat,
+  public static onUpdateCombat(
+    combat: Combat | any,
+    updateData,
+    options,
+    userId: string,
+  ) {
+    //NO-OP
+  }
+
+  public static onUpdateCombatant(
+    combat: Combat,
+    combatant: any,
     updateData: any,
     options: any,
     userId: string,
@@ -288,95 +315,52 @@ export default class SwadeHooks {
       return;
     }
 
-    // Return if this update does not contains a round
-    if (!updateData.round) {
-      return;
-    }
-
-    if (combat instanceof CombatEncounters) {
-      combat = game.combats.get(updateData._id) as Combat;
-    }
-
-    // If we are not moving forward through the rounds, return
-    if (updateData.round < 1 || updateData.round < combat.previous.round) {
-      return;
-    }
-
-    // If Combat has just started, return
     if (
-      (!combat.previous.round || combat.previous.round === 0) &&
-      updateData.round === 1
-    ) {
+      !getProperty(updateData, 'flags.swade') ||
+      combatant.actor.data.type !== ActorType.Character
+    )
       return;
+    if (
+      getProperty(combatant, 'flags.swade.hasJoker') &&
+      game.settings.get('swade', 'jokersWild')
+    ) {
+      renderTemplate(SWADE.bennies.templates.joker, {
+        speaker: game.user,
+      })
+        .then((template) =>
+          ChatMessage.create({ speaker: game.user, content: template }),
+        )
+        .then(() => {
+          const combatants = combat.combatants.filter(
+            (c) => c.actor.data.type === ActorType.Character,
+          );
+          for (const combatant of combatants) {
+            const actor = combatant.actor as SwadeActor;
+            actor.getBenny();
+          }
+        });
     }
-
-    let jokerDrawn = false;
-
-    // Reset the Initiative of all combatants
-    combat.combatants.forEach((c) => {
-      if (c.flags.swade && c.flags.swade.hasJoker) {
-        jokerDrawn = true;
-      }
-    });
-
-    const resetComs = combat.combatants.map((c) => {
-      c.initiative = 0;
-      c.hasRolled = false;
-      c.flags.swade.cardValue = null;
-      c.flags.swade.suitValue = null;
-      c.flags.swade.hasJoker = null;
-      return c;
-    });
-
-    updateData.combatants = resetComs;
-
-    // Reset the deck if any combatant has had a Joker
-    if (jokerDrawn) {
-      const deck = game.tables.getName(
-        CONFIG.SWADE.init.cardTable,
-      ) as RollTable;
-      await deck.reset();
-      ui.notifications.info('Card Deck automatically reset');
-    }
-
-    //Init autoroll
-    if (game.settings.get('swade', 'autoInit')) {
-      const combatantIds = combat.combatants.map((c) => c._id);
-      await combat.rollInitiative(combatantIds);
-    }
-  }
-
-  public static onUpdateCombat(
-    combat: Combat,
-    updateData,
-    options,
-    userId: string,
-  ) {
-    let string = `Round ${combat.round} - Turn ${combat.turn}\n`;
-    for (let i = 0; i < combat.turns.length; i++) {
-      const element = combat.turns[i];
-      string = string.concat(`${i}) ${element['token']['name']}\n`);
-    }
-    console.log(string);
   }
 
   public static onDeleteCombat(combat: Combat, options: any, userId: string) {
     if (!game.user.isGM || !game.users.get(userId).isGM) {
       return;
     }
-    const jokers = combat.combatants.filter(
-      (c) => c.flags.swade && c.flags.swade.hasJoker,
+
+    const jokerDrawn = combat.combatants.some((v) =>
+      getProperty(v, 'flags.swade.hasJoker'),
     );
 
-    //reset the deck when combat is ended in a round that a Joker was drawn in
-    if (jokers.length > 0) {
-      const deck = game.tables.getName(
-        CONFIG.SWADE.init.cardTable,
-      ) as RollTable;
-      deck.reset().then(() => {
+    //return early if no Jokers have been drawn
+    if (!jokerDrawn) return;
+
+    //reset the deck when combat is ended
+    game.tables
+      .getName(SWADE.init.cardTable)
+      .reset()
+      .then(() => {
         ui.notifications.info('Card Deck automatically reset');
       });
-    }
   }
 
   public static async onRenderChatMessage(
@@ -395,9 +379,14 @@ export default class SwadeHooks {
     html: JQuery<HTMLElement>,
     options: any[],
   ) {
-    let canApply = (li: JQuery<HTMLElement>) => {
+    const canApply = (li: JQuery<HTMLElement>) => {
       const message = game.messages.get(li.data('messageId'));
-      return message?.isRoll && message?.isContentVisible;
+      const actor = ChatMessage.getSpeakerActor(message.data['speaker']);
+      const isRightMessageType =
+        message?.isRoll &&
+        message?.isContentVisible &&
+        !message.getFlag('core', 'RollTable');
+      return isRightMessageType && !!actor && (game.user.isGM || actor.owner);
     };
     options.push(
       {
@@ -433,7 +422,7 @@ export default class SwadeHooks {
     html: JQuery<HTMLElement>,
     context: any[],
   ) {
-    let players = html.find('#players');
+    const players = html.find('#players');
     if (!players) return;
     context.push(
       {
@@ -453,7 +442,7 @@ export default class SwadeHooks {
               ui['players'].render(true);
               if (game.settings.get('swade', 'notifyBennies')) {
                 //In case one GM gives another GM a benny a different message should be displayed
-                let givenEvent = selectedUser !== game.user;
+                const givenEvent = selectedUser !== game.user;
                 chat.createGmBennyAddMessage(selectedUser, givenEvent);
               }
             });
@@ -490,8 +479,9 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
+          if (template) template.destroy();
           template = SwadeTemplate.fromPreset(TemplatePreset.CONE);
-          if (template) template.drawPreview(event);
+          if (template) template.drawPreview();
         },
       },
       {
@@ -501,8 +491,9 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
+          if (template) template.destroy();
           template = SwadeTemplate.fromPreset(TemplatePreset.SBT);
-          if (template) template.drawPreview(event);
+          if (template) template.drawPreview();
         },
       },
       {
@@ -512,8 +503,9 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
+          if (template) template.destroy();
           template = SwadeTemplate.fromPreset(TemplatePreset.MBT);
-          if (template) template.drawPreview(event);
+          if (template) template.drawPreview();
         },
       },
       {
@@ -523,17 +515,22 @@ export default class SwadeHooks {
         visible: true,
         button: true,
         onClick: () => {
+          if (template) template.destroy();
           template = SwadeTemplate.fromPreset(TemplatePreset.LBT);
-          if (template) template.drawPreview(event);
+          if (template) template.drawPreview();
         },
       },
     ];
     measure.tools.splice(measure.tools.length - 1, 0, ...newButtons);
   }
 
-  public static onDropActorSheetData(
+  public static async onDropActorSheetData(
     actor: SwadeActor,
-    sheet: SwadeCharacterSheet | SwadeNPCSheet | SwadeVehicleSheet,
+    sheet:
+      | SwadeCharacterSheet
+      | SwadeNPCSheet
+      | SwadeVehicleSheet
+      | CharacterSheet,
     data: any,
   ) {
     if (data.type === 'Actor' && actor.data.type === ActorType.Vehicle) {
@@ -543,6 +540,70 @@ export default class SwadeHooks {
         vehicleSheet.setDriver(data.id);
       }
       return false;
+    }
+    if (data.type === 'Item' && !(sheet instanceof SwadeVehicleSheet)) {
+      let item: SwadeItem;
+      if ('pack' in data) {
+        const pack = game.packs.get(data.pack) as Compendium;
+        item = (await pack.getEntity(data.id)) as SwadeItem;
+      } else if ('actorId' in data) {
+        item = new SwadeItem(data.data, {});
+      } else {
+        item = game.items.get(data.id) as SwadeItem;
+      }
+
+      if (
+        item.type !== ItemType.Ability ||
+        item.data.data.subtype !== AbilitySubtype.Race
+      ) {
+        return false;
+      } else {
+        // TODO maybe do skill upgrade?
+        //set name
+        await actor.update({ 'data.details.species.name': item.name });
+        //process embedded entities
+        const map = new Map<string, any>(
+          item.getFlag('swade', 'embeddedAbilities') || [],
+        );
+        const creationData = [];
+        for (const entry of map.values()) {
+          //if the item isn't a skill, then push it to the new items
+          if (entry.type !== ItemType.Skill) {
+            creationData.push(entry);
+          } else {
+            //else, check if there's already a skill like that that exists
+            const skill = actor.items.find(
+              (i: Item) => i.type === ItemType.Skill && i.name === entry.name,
+            ) as Item;
+            if (skill) {
+              //if the skill exists, set it to the value of the skill from the item
+              const skillDie = getProperty(entry, 'data.die');
+              await actor.updateOwnedItem({
+                _id: skill.id,
+                'data.die': skillDie,
+              });
+            } else {
+              //else, add it to the new items
+              creationData.push(entry);
+            }
+          }
+        }
+        if (creationData.length > 0) {
+          await actor.createOwnedItem(creationData, { renderSheet: null });
+        }
+
+        //copy active effects
+        const effects = Array.from(item['effects'].values()).map(
+          (ae: ActiveEffect) => {
+            const retVal = ae.data;
+            delete retVal._id;
+            return retVal;
+          },
+        );
+        if (!!effects && effects.length > 0) {
+          await actor.createEmbeddedEntity('ActiveEffect', effects);
+        }
+      }
     }
   }
 
@@ -561,22 +622,22 @@ export default class SwadeHooks {
     const cardPack = game.packs.get(
       game.settings.get('swade', 'cardDeck'),
     ) as Compendium;
-    let cards = (await cardPack.getContent()).sort((a, b) => {
+    const cards = (await cardPack.getContent()).sort((a, b) => {
       const cardA = a.getFlag('swade', 'cardValue');
       const cardB = b.getFlag('swade', 'cardValue');
-      let card = cardA - cardB;
+      const card = cardA - cardB;
       if (card !== 0) return card;
       const suitA = a.getFlag('swade', 'suitValue');
       const suitB = b.getFlag('swade', 'suitValue');
-      let suit = suitA - suitB;
+      const suit = suitA - suitB;
       return suit;
     }) as JournalEntry[];
 
     //prep list of cards for selection
-    let cardTable = game.tables.getName(CONFIG.SWADE.init.cardTable);
+    const cardTable = game.tables.getName(SWADE.init.cardTable);
 
-    let cardList = [];
-    for (let card of cards) {
+    const cardList = [];
+    for (const card of cards) {
       const cardValue = card.getFlag('swade', 'cardValue') as number;
       const suitValue = card.getFlag('swade', 'suitValue') as number;
       const color =
@@ -618,17 +679,12 @@ export default class SwadeHooks {
       }
       const cardValue = selectedCard.data().cardValue as number;
       const suitValue = selectedCard.data().suitValue as number;
-      const hasJoker = selectedCard.data().isJoker;
-
+      const hasJoker = selectedCard.data().isJoker as boolean;
+      const cardString = selectedCard.val() as String;
       game.combat.updateEmbeddedEntity('Combatant', {
         _id: options.object._id,
         initiative: suitValue + cardValue,
-        'flags.swade': {
-          cardValue,
-          suitValue,
-          hasJoker,
-          cardString: selectedCard.val(),
-        },
+        flags: { swade: { cardValue, suitValue, hasJoker, cardString } },
       });
     });
     return false;
@@ -649,18 +705,18 @@ export default class SwadeHooks {
     //@ts-ignore
     import('/modules/dice-so-nice/DiceColors.js')
       .then((obj) => {
-        CONFIG.SWADE.dsnColorSets = obj.COLORSETS;
-        CONFIG.SWADE.dsnTextureList = obj.TEXTURELIST;
+        SWADE.dsnColorSets = obj.COLORSETS;
+        SWADE.dsnTextureList = obj.TEXTURELIST;
       })
       .catch((err) => console.log(err));
 
     const customWilDieColors =
       game.user.getFlag('swade', 'dsnCustomWildDieColors') ||
-      CONFIG.SWADE.diceConfig.flags.dsnCustomWildDieColors.default;
+      getProperty(SWADE, 'diceConfig.flags.dsnCustomWildDieColors.default');
 
     const customWilDieOptions =
       game.user.getFlag('swade', 'dsnCustomWildDieOptions') ||
-      CONFIG.SWADE.diceConfig.flags.dsnCustomWildDieOptions.default;
+      getProperty(SWADE, 'diceConfig.flags.dsnCustomWildDieOptions.default');
 
     dice3d.addColorset(
       {
@@ -681,10 +737,7 @@ export default class SwadeHooks {
     dice3d.addDicePreset(
       {
         type: 'db',
-        labels: [
-          CONFIG.SWADE.bennies.textures.front,
-          CONFIG.SWADE.bennies.textures.back,
-        ],
+        labels: [SWADE.bennies.textures.front, SWADE.bennies.textures.back],
         system: 'standard',
         colorset: 'black',
       },

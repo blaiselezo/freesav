@@ -11,20 +11,22 @@
 
     .item {
       border: 1px solid $charcoal;
-      background: $header-text;
+      background: $input-bg-dark;
       border-radius: 4px 4px 0 0;
       margin: 0 5px -1px;
       padding: 4px;
-      color: $light-pastel-blue;
+      color: $anthracite;
       &:hover,
       &:focus {
-        background: $input-bg-dark;
+        background: $header-text;
         text-shadow: none;
+        color: $light-pastel-blue;
       }
       &.active {
-        background: $input-bg-dark;
+        background: $header-text;
         border-bottom: 0;
         text-shadow: none;
+        color: $light-pastel-blue;
       }
       &:first-of-type {
         margin-left: 0;
@@ -134,5 +136,31 @@
     line-height: 24px;
     flex: 0 0 60px;
     text-align: center;
+
+    a,
+    button {
+      cursor: pointer;
+    }
+  }
+  .fa-power-off {
+    color: black;
+  }
+
+  .disabled-effect {
+    .effect-label {
+      text-decoration: line-through;
+      text-decoration-thickness: $small-spacing;
+    }
+  }
+}
+
+.item.skill {
+  .skill-icon {
+    max-height: 1em;
+    flex-grow: 0;
+    object-fit: contain;
+    margin-top: 0.3em;
+    margin-right: 0.1em;
+    border: none;
   }
 }

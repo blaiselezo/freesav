@@ -20,6 +20,66 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.17.0]
+
+### Added
+
+- Added an option to automatically hide NPC Item Chatcards. This setting is on by default and can be found in the System Settings. You can still make a card public by right-click it and selecting the right option from the context menu
+- The system now grants a Benny to all player characters when one of them is dealt a Joker. This can be turned off in the Setting Configurator
+- Added the ability to automatically calculate parry. This option can be set in actor Tweaks and will default to on for all newly created actors after this point. The calculation also takes any shields which are equipped into account
+- Added a new Field to the setting configurator which lets you set the name of the Skill which will be used as the base to calculate Toughness. It will default to _Fighting_. Changing this setting will require you to reload the world to have the change take effect
+- Added Active Effect to the Defend status which adds +4 Parry
+- Added new Status _Protection_ which adds an Active Effect that adds 0 to both toughness and armor, making it easy to apply the power. All you need to do is to put the modifier (4 or 6) into the appropriate Active Effect change.
+- Added new Item type `ability`. This item type has two subtypes, `race` and `special`. If the item has the subtype `race` you can drag&drop the following items onto it to create racial abilities:
+
+  - Skills
+  - Edges
+  - Hindrances
+  - Ability items with the subtype `special`
+
+  You can delete these embedded racial abilities from the race item but not edit them.
+
+  When you have prepared the race you can then drag&drop it onto any non-vehicle actor.
+
+  Once that is done, several things happen:
+
+  - The racial abilities are taken from the race and added to the actor
+  - Any active effects that were added to the race are copied to the actor
+  - The actors race is set to the name of the race item that was dropped onto the actors
+    - If one of the racial abilities is a skill and the skill is already present on the actor, the die and modifier are set to the value of the racial ability. Otherwise a new skill is created
+  - The race item itself is _not_ added to the actor, it merely acts as a carrier.
+
+- Added blank option to linked attribute selection on skills
+- Added new translation keys
+
+### Changed
+
+- Improved permission control for the reroll options
+- Newly created Scenes will now default to ther gridless option. This only applies to scenes created in the Sidebar. Scenes imported from compendiums or other sources will retain their scene config
+- Set default value of Benny animation to true
+- Refactored some of the new turn combat logic
+- Set minimum Toughness to 1 when auto-calculating
+- Changed the font size of the cards in the Combat Tracker to `20px` for easier readability
+- [BREAKING] Refactored the underlying structure of the official sheet so it is easier to modify and skin
+- Changed the path of the icons used to describe dice in the roll cards to be relative
+- Moved running die roll to a button next to the Pace input which also displays the current running die as an image
+- Changed the way the skills display on the official character sheet. They are now more in line with the rest of the sheet. Thanks a lot to Kristian Serrano for that.
+- Renamed most of the tabs on the character sheet to be more in line with Savage Worlds terminology
+- Actor sheets now display Active Effects which come from Items they own. Item sheets now have _all_ interactions with Active Effects removed when the item is owned by an Actor as they cannot be interacted with anyway.
+- Changed the colors of active/inactve tabs on the item sheets and community sheet.
+
+### Removed
+
+- Consolidated the quickaccess item cards into a single file. Thanks a lot to Kristian Serrano for that.
+- Removed the polish translation, as announced with v0.16.0
+
+### Fixed
+
+- Fixed a bug which would cause Natural Armor not to calculate properly. Natural Armor will be added to Toughness if it is marked as natural armor, has at least the torso location and is equipped
+- Fixed a small issue where roll shortcuts would not properly work with multiplications and divisions
+- Fixed a bug which would cause preset templates to behave eratically. Many thanks go out to Moerill who was instrumental in solving this.
+- Fixed a small bug which would prevent the toughness auto-calculation from taking into account AE that adjust the size of the character
+
 ## [v0.16.2]
 
 ### Added

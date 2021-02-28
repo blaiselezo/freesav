@@ -17,6 +17,7 @@ const git = require('gulp-git');
 const gyaml = require('gulp-yaml');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
 
 const argv = require('yargs').argv;
 
@@ -142,6 +143,18 @@ const tsConfig = ts.createProject('tsconfig.json', {
 /**
  * Build TypeScript
  */
+function buildTSDevel() {
+  return gulp
+    .src(['src/**/*.ts', '!src/interfaces/*.ts'])
+    .pipe(sourcemaps.init())
+    .pipe(tsConfig())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('dist'));
+}
+
+/**
+ * Build TypeScript
+ */
 function buildTS() {
   return gulp
     .src(['src/**/*.ts', '!src/interfaces/*.ts'])
@@ -173,6 +186,15 @@ function buildSASS() {
   return gulp
     .src('src/*.scss')
     .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('dist'));
+}
+
+function buildSASSDevel() {
+  return gulp
+    .src('src/*.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
 }
 
@@ -242,9 +264,8 @@ async function copyFiles() {
  * Watch for changes for each build step
  */
 function buildWatch() {
-  gulp.watch('src/**/*.ts', { ignoreInitial: false }, buildTS);
-  gulp.watch('src/**/*.less', { ignoreInitial: false }, buildLess);
-  gulp.watch('src/**/*.scss', { ignoreInitial: false }, buildSASS);
+  gulp.watch('src/**/*.ts', { ignoreInitial: false }, buildTSDevel);
+  gulp.watch('src/**/*.scss', { ignoreInitial: false }, buildSASSDevel);
   gulp.watch(
     ['src/**/*.yml', '!src/packs/**/*.yml'],
     { ignoreInitial: false },
@@ -280,6 +301,7 @@ async function clean() {
       'enums',
       'packs',
       `${name}.js`,
+      `${name}.js.map`,
       'module.json',
       'system.json',
       'template.json',
@@ -291,7 +313,7 @@ async function clean() {
     fs.existsSync(path.join('src', `${name}.less`)) ||
     fs.existsSync(path.join('src', `${name}.scss`))
   ) {
-    files.push('fonts', `${name}.css`);
+    files.push('fonts', `${name}.css`, `${name}.css.map`);
   }
 
   console.log(' ', chalk.yellow('Files to clean:'));

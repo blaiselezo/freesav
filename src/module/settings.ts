@@ -62,6 +62,34 @@ export function registerSettings() {
     config: true,
   });
 
+  game.settings.register('swade', 'hideNpcItemChatCards', {
+    name: game.i18n.localize('SWADE.HideNpcItemChatCards'),
+    hint: game.i18n.localize('SWADE.HideNpcItemChatCardsDesc'),
+    default: true,
+    scope: 'world',
+    type: Boolean,
+    config: true,
+  });
+}
+export function registerSettingRules() {
+  game.settings.register('swade', 'jokersWild', {
+    name: game.i18n.localize('SWADE.JokersWild'),
+    hint: game.i18n.localize('SWADE.JokersWildDesc'),
+    default: true,
+    scope: 'world',
+    type: Boolean,
+    config: false,
+  });
+
+  game.settings.register('swade', 'parryBaseSkill', {
+    name: game.i18n.localize('SWADE.ParryBase'),
+    hint: game.i18n.localize('SWADE.ParryBaseDesc'),
+    default: 'Fighting',
+    scope: 'world',
+    type: String,
+    config: false,
+  });
+
   game.settings.register('swade', 'ammoManagement', {
     name: game.i18n.localize('SWADE.AmmoManagement'),
     hint: game.i18n.localize('SWADE.AmmoManagementDesc'),

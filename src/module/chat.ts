@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import SwadeActor from './entities/SwadeActor';
 import ItemChatCardHelper from './ItemChatCardHelper';
 
@@ -10,7 +9,7 @@ export async function formatRoll(
   const colorMessage = chatMessage.getFlag('swade', 'colorMessage');
 
   // Little helper function
-  let pushDice = (chatData, total, faces, red?: boolean) => {
+  const pushDice = (chatData, total, faces, red?: boolean) => {
     let color = 'black';
     if (total > faces) {
       color = 'green';
@@ -20,7 +19,7 @@ export async function formatRoll(
     }
     let img = null;
     if ([4, 6, 8, 10, 12, 20].indexOf(faces) > -1) {
-      img = `../icons/svg/d${faces}-grey.svg`;
+      img = `icons/svg/d${faces}-grey.svg`;
     }
     chatData.dice.push({
       img: img,
@@ -31,8 +30,8 @@ export async function formatRoll(
   };
 
   //helper function that determines if a roll contained at least one result of 1
-  let rollIsRed = (roll?: Roll) => {
-    let retVal = roll.terms.some((d: Die) => {
+  const rollIsRed = (roll?: Roll) => {
+    const retVal = roll.terms.some((d: Die) => {
       if (d['class'] !== 'Die') return false;
       return d.results[0]['result'] === 1;
     });
@@ -40,20 +39,20 @@ export async function formatRoll(
   };
 
   //helper function that determines if a roll contained at least one result of 1
-  let dieIsRed = (die?: Die) => {
+  const dieIsRed = (die?: Die) => {
     if (die['class'] !== 'Die') return false;
     return die.results[0]['result'] === 1;
   };
 
-  let roll = JSON.parse(data.message.roll);
-  let chatData = { dice: [], modifiers: [] };
+  const roll = JSON.parse(data.message.roll);
+  const chatData = { dice: [], modifiers: [] };
 
   //don't format older messages anymore
   if (roll.parts) return;
   for (let i = 0; i < roll.terms.length; i++) {
     if (roll.terms[i].class === 'DicePool') {
       // Format the dice pools
-      let pool = roll.terms[i].rolls;
+      const pool = roll.terms[i].rolls;
       let faces = 0;
       // Compute dice from the pool
       pool.forEach((poolRoll: Roll) => {
@@ -67,7 +66,7 @@ export async function formatRoll(
       });
     } else if (roll.terms[i].class === 'Die') {
       // Grab the right dice
-      let faces = roll.terms[i].faces;
+      const faces = roll.terms[i].faces;
       let totalDice = 0;
       roll.terms[i].results.forEach((result) => {
         totalDice += result.result;
@@ -90,20 +89,20 @@ export async function formatRoll(
     }
   }
   // Replace default dice-formula by this custom;
-  let rendered = await renderTemplate(
+  const rendered = await renderTemplate(
     'systems/swade/templates/chat/roll-formula.html',
     chatData,
   );
-  let formula = html.find('.dice-formula');
+  const formula = html.find('.dice-formula');
   formula.replaceWith(rendered);
 }
 
 export function chatListeners(html: JQuery<HTMLElement>) {
   html.on('click', '.card-header .item-name', (event) => {
-    let target = $(event.currentTarget).parents('.item-card');
-    let actor = game.actors.get(target.data('actorId')) as SwadeActor;
+    const target = $(event.currentTarget).parents('.item-card');
+    const actor = game.actors.get(target.data('actorId')) as SwadeActor;
     if (actor && (game.user.isGM || actor.hasPerm(game.user, 'OBSERVER'))) {
-      let desc = target.find('.card-content');
+      const desc = target.find('.card-content');
       desc.slideToggle();
     }
   });
@@ -182,7 +181,7 @@ export function hideChatActionButtons(
   const chatCard = html.find('.swade.chat-card');
   if (chatCard.length > 0) {
     // If the user is the message author or the actor owner, proceed
-    let actor = game.actors.get(data.message.speaker.actor);
+    const actor = game.actors.get(data.message.speaker.actor);
     if (actor && actor.owner) return;
     else if (game.user.isGM || data.author.id === game.user.id) return;
 
@@ -228,7 +227,7 @@ export async function createGmBennyAddMessage(
     });
   }
 
-  let chatData = {
+  const chatData = {
     content: message,
   };
   ChatMessage.create(chatData);
@@ -236,33 +235,14 @@ export async function createGmBennyAddMessage(
 
 export function rerollFromChat(li: JQuery<HTMLElement>, spendBenny: boolean) {
   const message = game.messages.get(li.data('messageId')) as ChatMessage;
-  let flavor = new DOMParser().parseFromString(
+  const flavor = new DOMParser().parseFromString(
     getProperty(message, 'data.flavor'),
     'text/html',
   );
   const speaker = getProperty(message, 'data.speaker');
   const roll = message.roll;
-  //little helper function to get the actor from the Speaker
-  let getActorFromMessage = (speaker: any): SwadeActor => {
-    // Case 1 - a synthetic actor from a Token
-    const tokenKey = speaker.token;
-    if (tokenKey) {
-      const scene = game.scenes.get(speaker.scene);
-      if (!scene) return null;
-      const tokenData = scene.getEmbeddedEntity('Token', tokenKey);
-      if (!tokenData) return null;
-      const token = new Token(tokenData);
-      return token.actor as SwadeActor;
-    }
-    // Case 2 - use Actor ID directory
-    return (
-      (game.actors.get(speaker.actor) as SwadeActor) || (null as SwadeActor)
-    );
-  };
-
-  const actor = getActorFromMessage(speaker);
+  const actor = ChatMessage.getSpeakerActor(speaker) as SwadeActor;
   const currentBennies = getProperty(actor.data, 'data.bennies.value');
-
   const doSpendBenny = spendBenny && !!actor && actor.isWildcard;
 
   if (doSpendBenny && currentBennies <= 0) {

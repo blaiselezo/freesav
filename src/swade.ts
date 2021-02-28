@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /**
  * This is the TypeScript entry file for Foundry VTT.
  * Author: FloRad
@@ -16,7 +15,7 @@ import { registerCustomHelpers } from './module/handlebarsHelpers';
 import ItemChatCardHelper from './module/ItemChatCardHelper';
 import { listenJournalDrop } from './module/journalDrop';
 import { preloadHandlebarsTemplates } from './module/preloadTemplates';
-import { registerSettings } from './module/settings';
+import { registerSettingRules, registerSettings } from './module/settings';
 import CharacterSheet from './module/sheets/official/CharacterSheet';
 import SwadeCharacterSheet from './module/sheets/SwadeCharacterSheet';
 import SwadeItemSheet from './module/sheets/SwadeItemSheet';
@@ -64,6 +63,7 @@ Hooks.once('init', () => {
 
   // Register custom system settings
   registerSettings();
+  registerSettingRules();
 
   // Register sheets
   Actors.unregisterSheet('core', ActorSheet);
@@ -169,15 +169,27 @@ Hooks.on(
 );
 
 Hooks.on(
-  'preUpdateCombat',
-  async (combat: any | Combat, updateData: any, options: any, userId: string) =>
-    SwadeHooks.onPreUpdateCombat(combat, updateData, options, userId),
+  'updateCombat',
+  (combat: Combat, updateData: any, options: any, userId: string) =>
+    SwadeHooks.onUpdateCombat(combat, updateData, options, userId),
 );
 
 Hooks.on(
-  'updateCombat',
-  (combat: Combat, updateData, options, userId: string) =>
-    SwadeHooks.onUpdateCombat(combat, updateData, options, userId),
+  'updateCombatant',
+  (
+    combat: Combat,
+    combatant: any,
+    updateData: any,
+    options: any,
+    userId: string,
+  ) =>
+    SwadeHooks.onUpdateCombatant(
+      combat,
+      combatant,
+      updateData,
+      options,
+      userId,
+    ),
 );
 
 Hooks.on('deleteCombat', (combat: Combat, options: any, userId: string) =>
@@ -235,3 +247,7 @@ Hooks.once('diceSoNiceInit', (dice3d: any) => {
 Hooks.once('diceSoNiceReady', (dice3d: any) => {
   SwadeHooks.onDiceSoNiceReady(dice3d);
 });
+
+Hooks.on('preCreateScene', (createData: any, options: any, userId: string) =>
+  SwadeHooks.onPreCreateScene(createData, options, userId),
+);

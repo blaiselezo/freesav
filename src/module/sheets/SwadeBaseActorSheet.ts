@@ -1,6 +1,4 @@
-// eslint-disable-next-line no-unused-vars
 import SwadeActor from '../entities/SwadeActor';
-// eslint-disable-next-line no-unused-vars
 import SwadeItem from '../entities/SwadeItem';
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import * as chat from '../chat';
@@ -44,7 +42,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     // Edit armor modifier
     html.find('.armor-value').on('click', (ev) => {
       let target = ev.currentTarget.dataset.target;
-      let shouldAutoCalcArmor = getProperty(
+      const shouldAutoCalcArmor = getProperty(
         this.actor.data,
         'data.details.autoCalcToughness',
       );
@@ -56,15 +54,15 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
     // Roll attribute
     html.find('.attribute-label a').on('click', (event) => {
-      let element = event.currentTarget as Element;
-      let attribute = element.parentElement.parentElement.dataset.attribute;
+      const element = event.currentTarget as Element;
+      const attribute = element.parentElement.parentElement.dataset.attribute;
       this.actor.rollAttribute(attribute, { event: event });
     });
 
     // Roll Damage
     html.find('.damage-roll').on('click', (event) => {
-      let element = event.currentTarget as Element;
-      let itemId = $(element).parents('[data-item-id]').attr('data-item-id');
+      const element = event.currentTarget as Element;
+      const itemId = $(element).parents('[data-item-id]').attr('data-item-id');
       const item = this.actor.getOwnedItem(itemId) as SwadeItem;
       return item.rollDamage();
     });
@@ -173,8 +171,8 @@ export default class SwadeBaseActorSheet extends ActorSheet {
     });
 
     html.find('.add-effect').on('click', async (ev) => {
-      let transfer = $(ev.currentTarget).data('transfer');
-      let id = (
+      const transfer = $(ev.currentTarget).data('transfer');
+      const id = (
         await this.actor.createEmbeddedEntity('ActiveEffect', {
           label: game.i18n
             .localize('ENTITY.New')
@@ -188,7 +186,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
   }
 
   getData() {
-    let data: any = super.getData();
+    const data: any = super.getData();
     data.config = CONFIG.SWADE;
 
     data.itemsByType = {};
@@ -245,8 +243,8 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       };
     }
 
-    let additionalStats = data.data.additionalStats || {};
-    for (let attr of Object.values(additionalStats)) {
+    const additionalStats = data.data.additionalStats || {};
+    for (const attr of Object.values(additionalStats)) {
       attr['isCheckbox'] = attr['dtype'] === 'Boolean';
     }
     data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
@@ -292,7 +290,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
         gear: game.i18n.localize('ITEM.TypeGear'),
       };
     }
-    let templateData = {
+    const templateData = {
         types: choices,
         hasTypes: true,
         name: game.i18n
@@ -340,11 +338,11 @@ export default class SwadeBaseActorSheet extends ActorSheet {
 
   protected async _onResize(event: any) {
     super._onResize(event);
-    let html = $(event.path);
+    const html = $(event.path);
     const selector = `#${this.id} .resizable`;
-    let resizable = html.find(selector);
+    const resizable = html.find(selector);
     resizable.each((_, el) => {
-      let heightDelta =
+      const heightDelta =
         (this.position.height as number) - (this.options.height as number);
       el.style.height = `${heightDelta + parseInt(el.dataset.baseSize)}px`;
     });
@@ -384,7 +382,7 @@ export default class SwadeBaseActorSheet extends ActorSheet {
       targetPropertyPath,
     );
 
-    let title = `${game.i18n.localize('SWADE.Ed')} ${
+    const title = `${game.i18n.localize('SWADE.Ed')} ${
       this.actor.name
     } ${targetLabel}`;
 
@@ -401,8 +399,8 @@ export default class SwadeBaseActorSheet extends ActorSheet {
           icon: '<i class="fas fa-check"></i>',
           label: game.i18n.localize('SWADE.Ok'),
           callback: (html: JQuery) => {
-            let mod = html.find('input[name="modifier"]').val();
-            let newData = {};
+            const mod = html.find('input[name="modifier"]').val();
+            const newData = {};
             newData[targetPropertyPath] = parseInt(mod as string);
             this.actor.update(newData);
           },

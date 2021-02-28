@@ -1,5 +1,7 @@
+import { SWADE } from '../config';
 import SwadeEntityTweaks from '../dialog/entity-tweaks';
 import SwadeItem from '../entities/SwadeItem';
+import { AbilitySubtype } from '../enums/AbilitySubtypeEnum';
 import { ItemType } from '../enums/ItemTypeEnum';
 
 /**
@@ -68,6 +70,14 @@ export default class SwadeItemSheet extends ItemSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    if (!this.isEditable) return;
+    if (
+      this.item.type === ItemType.Ability &&
+      this.item.data.data.subtype === AbilitySubtype.Race
+    ) {
+      this.form.ondrop = (ev) => this._onDrop(ev);
+    }
+
     // Delete Item from within Sheet. Only really used for Skills, Edges, Hindrances and Powers
     html.find('.item-delete').on('click', (ev) => {
       const li = $(ev.currentTarget).parents('.item');
@@ -115,44 +125,38 @@ export default class SwadeItemSheet extends ItemSheet {
       const effectId = a.closest('li').dataset.effectId;
       const effect = this.item['effects'].get(effectId) as any;
       const action = a.dataset.action;
-      if (this.item.isOwned) {
-        //FIXME once this is supported in Foundry
-        ui.notifications.info(
-          'Active Effects on owned Items are currently not supported',
-        );
-      } else {
-        switch (action) {
-          case 'edit':
-            return effect.sheet.render(true);
-          case 'delete':
-            return effect.delete();
-          case 'toggle':
-            return effect.update({ disabled: !effect.data.disabled });
-        }
+      switch (action) {
+        case 'edit':
+          return effect.sheet.render(true);
+        case 'delete':
+          return effect.delete();
+        case 'toggle':
+          return effect.update({ disabled: !effect.data.disabled });
       }
     });
 
     html.find('.add-effect').on('click', async (ev) => {
-      if (this.item.isOwned) {
-        //FIXME once this is supported in Foundry
-        ui.notifications.info(
-          'Active Effects on owned Items are currently not supported',
-        );
-      } else {
-        let transfer = $(ev.currentTarget).data('transfer');
-        let id = (
-          await this.item.createEmbeddedEntity('ActiveEffect', {
-            label: game.i18n
-              .localize('ENTITY.New')
-              .replace('{entity}', game.i18n.localize('Active Effect')),
-            icon: '/icons/svg/mystery-man.svg',
-            transfer: transfer,
-          })
-        )._id;
-        return new ActiveEffectConfig(this.item['effects'].get(id)).render(
-          true,
-        );
-      }
+      const transfer = $(ev.currentTarget).data('transfer');
+      const id = (
+        await this.item.createEmbeddedEntity('ActiveEffect', {
+          label: game.i18n
+            .localize('ENTITY.New')
+            .replace('{entity}', game.i18n.localize('Active Effect')),
+          icon: '/icons/svg/mystery-man.svg',
+          transfer: transfer,
+        })
+      )._id;
+      return new ActiveEffectConfig(this.item['effects'].get(id)).render(true);
+    });
+
+    html.find('.delete-embedded').on('click', (ev) => {
+      ev.preventDefault();
+      const id = ev.currentTarget.dataset.id;
+      const map = new Map(
+        this.item.getFlag('swade', 'embeddedAbilities') || [],
+      );
+      map.delete(id);
+      this.item.setFlag('swade', 'embeddedAbilities', Array.from(map));
     });
   }
 
@@ -161,20 +165,23 @@ export default class SwadeItemSheet extends ItemSheet {
    * Start with the base item data and extending with additional properties for rendering.
    */
   getData() {
-    let data: any = super.getData();
+    const data: any = super.getData();
     data.data.isOwned = this.item.isOwned;
-    data.config = CONFIG.SWADE;
+    data.config = SWADE;
     const actor = this.item.actor;
     const ownerIsWildcard = actor && actor.isWildcard;
     if (ownerIsWildcard || !this.item.isOwned) {
       data.data.ownerIsWildcard = true;
     }
-    let additionalStats = data.data.additionalStats || {};
-    for (let attr of Object.values(additionalStats)) {
+    const additionalStats = data.data.additionalStats || {};
+    for (const attr of Object.values(additionalStats)) {
       attr['isCheckbox'] = attr['dtype'] === 'Boolean';
     }
     data.hasAdditionalStatsFields = Object.keys(additionalStats).length > 0;
-    data.displayNav = this.item.type !== ItemType.Skill;
+    data.displayNav = ![
+      ItemType.Skill.toString(),
+      ItemType.Ability.toString(),
+    ].includes(this.item.type);
 
     // Check for enabled optional rules
     data['settingrules'] = {
@@ -189,5 +196,62 @@ export default class SwadeItemSheet extends ItemSheet {
         break;
     }
     return data;
+  }
+
+  /**
+   * @override
+   */
+  async _onDrop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    let data;
+    let item: SwadeItem;
+
+    //get the data and accept it
+    try {
+      //get the data
+      data = JSON.parse(event.dataTransfer.getData('text/plain'));
+      if ('pack' in data) {
+        const pack = game.packs.get(data.pack) as Compendium;
+        item = (await pack.getEntity(data.id)) as SwadeItem;
+      } else if ('actorId' in data) {
+        item = new SwadeItem(data.data, {});
+      } else {
+        item = game.items.get(data.id) as SwadeItem;
+      }
+
+      const itemIsRightType = [
+        ItemType.Ability.toString(),
+        ItemType.Hindrance.toString(),
+        ItemType.Edge.toString(),
+        ItemType.Skill.toString(),
+      ].includes(item.type);
+
+      if (
+        data.type !== 'Item' ||
+        !itemIsRightType ||
+        (item.type === ItemType.Ability &&
+          item.data.data.subtype === AbilitySubtype.Race)
+      ) {
+        console.log(
+          'SWADE | Races only accept abilities, hindrances, edges and skills',
+        );
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+    //prep item data
+    const itemData = duplicate(item.data);
+    delete itemData['_id'];
+    delete itemData['permission'];
+
+    //pull the array from the flags, and push the new entry into it
+    const collection = this.item.getFlag('swade', 'embeddedAbilities') || [];
+    collection.push([randomID(), itemData]);
+    //save array back into flag
+    await this.item.setFlag('swade', 'embeddedAbilities', collection);
+    return false;
   }
 }

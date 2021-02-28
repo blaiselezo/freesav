@@ -38,9 +38,11 @@
             type="text"
             placeholder="0"
             data-dtype="Number"
+            {{disabled
+            data.details.autoCalcParry}}
           />
           <div class="armor-value" data-target="parry">
-            {{add parry data.stats.parry.modifier}}
+            {{signedString data.stats.parry.modifier}}
           </div>
         </div>
       </div>
@@ -142,6 +144,26 @@
         <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
           {{#unless @first}}&nbsp;{{/unless}}{{hindrance.name}} {{#if
           hindrance.data.major}}{{localize "SWADE.Major"}}{{/if}}{{#unless
+          @last}},{{/unless}}
+        </a>
+      </span>
+      {{/each}}
+    </section>
+    <section class="gear abilities">
+      <header class="header-field flexrow">
+        <div>
+          <span>{{localize "SWADE.SpecialAbilities"}}</span>
+        </div>
+        <div class="header-field-add">
+          <a class="item-create" data-type="ability"
+            ><i class="fa fa-plus"></i
+          ></a>
+        </div>
+      </header>
+      {{#each itemsByType.ability as |ability id|}}
+      <span class="item" data-item-id="{{ability._id}}">
+        <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
+          {{#unless @first}}&nbsp;{{/unless}}{{ability.name}}{{#unless
           @last}},{{/unless}}
         </a>
       </span>

@@ -2,7 +2,7 @@ export const listenJournalDrop = function () {
   // Grabbing the image url from the journal entry
   function _onDragStart(event: any) {
     event.stopPropagation();
-    let url = event.srcElement.style.backgroundImage
+    const url = event.srcElement.style.backgroundImage
       .slice(4, -1)
       .replace(/"/g, '');
     const dragData = { type: 'image', src: url };
@@ -13,11 +13,11 @@ export const listenJournalDrop = function () {
   async function _onDropImage(event, data) {
     if (data.type == 'image') {
       // Projecting screen coords to the canvas
-      let t = canvas.tiles.worldTransform;
+      const t = canvas.tiles.worldTransform;
       // Determine the tile size
       const tex = await loadTexture(data.src);
 
-      let tileData = {
+      const tileData = {
         img: data.src,
         width: (CONFIG.SWADE.imagedrop.height * tex.width) / tex.height,
         height: CONFIG.SWADE.imagedrop.height,
@@ -35,7 +35,7 @@ export const listenJournalDrop = function () {
   }
 
   // Add the listener to the board html element
-  Hooks.once('canvasReady', (_: any) => {
+  Hooks.once('canvasReady', () => {
     document.getElementById('board').addEventListener('drop', (event) => {
       // Try to extract the data (type + src)
       let data: any;
@@ -50,7 +50,7 @@ export const listenJournalDrop = function () {
   });
 
   // Add the listener for draggable event from the journal image
-  Hooks.on('renderJournalSheet', (sheet: any, html: any, data: any) => {
+  Hooks.on('renderJournalSheet', (sheet: any, html: any) => {
     html.find('.lightbox-image').each((i: number, div: Element) => {
       div.setAttribute('draggable', 'true');
       div.addEventListener('dragstart', _onDragStart, false);

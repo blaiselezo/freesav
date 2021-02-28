@@ -1,8 +1,16 @@
+import { SWADE } from './config';
 import SwadeItem from './entities/SwadeItem';
+import { ItemType } from './enums/ItemTypeEnum';
 
 export const registerCustomHelpers = function () {
   Handlebars.registerHelper('add', function (a, b) {
-    let result = parseInt(a) + parseInt(b);
+    const result = parseInt(a) + parseInt(b);
+    return result.signedString();
+  });
+
+  Handlebars.registerHelper('signedString', function (number) {
+    const result = parseInt(number);
+    if (isNaN(result)) return '';
     return result.signedString();
   });
 
@@ -19,17 +27,19 @@ export const registerCustomHelpers = function () {
   // Sheet
   Handlebars.registerHelper('localizeSkillAttribute', (attribute) => {
     if (!attribute) return '';
-    return game.i18n.localize(CONFIG.SWADE.attributes[attribute].short);
+    return game.i18n.localize(SWADE.attributes[attribute].long);
   });
 
   Handlebars.registerHelper('modifier', (str) => {
     str = str === '' || str === null ? '0' : str;
-    let value = typeof str == 'string' ? parseInt(str) : str;
+    const value = typeof str == 'string' ? parseInt(str) : str;
     return value == 0 ? '' : value > 0 ? ` + ${value}` : ` - ${-value}`;
   });
 
   Handlebars.registerHelper('enrich', (content) => {
-    return new Handlebars.SafeString(TextEditor.enrichHTML(content, {}));
+    return new Handlebars.SafeString(
+      TextEditor.enrichHTML(content, { secrets: true }),
+    );
   });
 
   Handlebars.registerHelper('canBeEquipped', (item: SwadeItem) => {
@@ -38,5 +48,43 @@ export const registerCustomHelpers = function () {
 
   Handlebars.registerHelper('disabled', (value) => {
     return value ? 'disabled' : '';
+  });
+
+  Handlebars.registerHelper('displayEmbedded', (array: any[] = []) => {
+    const collection = new Map(array);
+    const entities: string[] = [];
+    collection.forEach((val: any, key: string) => {
+      const type =
+        val.type === ItemType.Ability
+          ? game.i18n.localize('SWADE.SpecialAbility')
+          : game.i18n.localize(`ITEM.Type${val.type.capitalize()}`);
+
+      let majorMinor = '';
+      if (val.type === ItemType.Hindrance) {
+        if (val.data.major) {
+          majorMinor = game.i18n.localize('SWADE.Major');
+        } else {
+          majorMinor = game.i18n.localize('SWADE.Minor');
+        }
+      }
+
+      entities.push(
+        `<li class="flexrow">
+          <img src="${val.img}" alt="${type}" class="effect-icon" />
+          <span class="effect-label">${type} - ${val.name} ${majorMinor}</span>
+          <span class="effect-controls">
+            <a class="effect-action delete-embedded" data-Id="${key}">
+              <i class="fas fa-trash"></i>
+            </a>
+          </span>
+        </li>`,
+      );
+    });
+    return `<ul class="effects-list">${entities.join('\n')}</ul>`;
+  });
+
+  Handlebars.registerHelper('capitalize', (str) => {
+    if (typeof str !== 'string') return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
   });
 };
