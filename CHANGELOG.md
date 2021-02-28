@@ -49,6 +49,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
     - If one of the racial abilities is a skill and the skill is already present on the actor, the die and modifier are set to the value of the racial ability. Otherwise a new skill is created
   - The race item itself is _not_ added to the actor, it merely acts as a carrier.
 
+- Added blank option to linked attribute selection on skills
 - Added new translation keys
 
 ### Changed
