@@ -30,6 +30,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added a new Field to the setting configurator which lets you set the name of the Skill which will be used as the base to calculate Toughness. It will default to _Fighting_. Changing this setting will require you to reload the world to have the change take effect
 - Added Active Effect to the Defend status which adds +4 Parry
 - Added new Status _Protection_ which adds an Active Effect that adds 0 to both toughness and armor, making it easy to apply the power. All you need to do is to put the modifier (4 or 6) into the appropriate Active Effect change.
+- Added new translation keys
 
 ### Changed
 
@@ -43,10 +44,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Changed the path of the icons used to describe dice in the roll cards to be relative
 - Moved running die roll to a button next to the Pace input which also displays the current running die as an image
 - Changed the way the skills display on the official character sheet. They are now more in line with the rest of the sheet. Thanks a lot to Kristian Serrano for that.
+- Renamed most of the tabs on the character sheet to be more in line with Savage Worlds terminology
 
 ### Removed
 
 - Consolidated the quickaccess item cards into a single file. Thanks a lot to Kristian Serrano for that.
+- Removed the polish translation, as announced with v0.16.0
 
 ### Fixed
 
