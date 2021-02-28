@@ -7,10 +7,12 @@ import DiceSettings from './DiceSettings';
 import SwadeActor from './entities/SwadeActor';
 import SwadeItem from './entities/SwadeItem';
 import SwadeTemplate from './entities/SwadeTemplate';
+import { AbilitySubtype } from './enums/AbilitySubtypeEnum';
 import { ActorType } from './enums/ActorTypeEnum';
 import { ItemType } from './enums/ItemTypeEnum';
 import { TemplatePreset } from './enums/TemplatePresetEnum';
 import { SwadeSetup } from './setup/setupHandler';
+import CharacterSheet from './sheets/official/CharacterSheet';
 import SwadeCharacterSheet from './sheets/SwadeCharacterSheet';
 import SwadeNPCSheet from './sheets/SwadeNPCSheet';
 import SwadeVehicleSheet from './sheets/SwadeVehicleSheet';
@@ -119,6 +121,13 @@ export default class SwadeHooks {
     }
     if (createData.type === ItemType.Skill && options.renderSheet !== null) {
       options.renderSheet = true;
+    }
+
+    if (
+      createData.type === ItemType.Ability &&
+      createData.data.subtype === AbilitySubtype.Race
+    ) {
+      return false;
     }
   }
 
@@ -515,9 +524,13 @@ export default class SwadeHooks {
     measure.tools.splice(measure.tools.length - 1, 0, ...newButtons);
   }
 
-  public static onDropActorSheetData(
+  public static async onDropActorSheetData(
     actor: SwadeActor,
-    sheet: SwadeCharacterSheet | SwadeNPCSheet | SwadeVehicleSheet,
+    sheet:
+      | SwadeCharacterSheet
+      | SwadeNPCSheet
+      | SwadeVehicleSheet
+      | CharacterSheet,
     data: any,
   ) {
     if (data.type === 'Actor' && actor.data.type === ActorType.Vehicle) {
@@ -527,6 +540,70 @@ export default class SwadeHooks {
         vehicleSheet.setDriver(data.id);
       }
       return false;
+    }
+    if (data.type === 'Item' && !(sheet instanceof SwadeVehicleSheet)) {
+      let item: SwadeItem;
+      if ('pack' in data) {
+        const pack = game.packs.get(data.pack) as Compendium;
+        item = (await pack.getEntity(data.id)) as SwadeItem;
+      } else if ('actorId' in data) {
+        item = new SwadeItem(data.data, {});
+      } else {
+        item = game.items.get(data.id) as SwadeItem;
+      }
+
+      if (
+        item.type !== ItemType.Ability ||
+        item.data.data.subtype !== AbilitySubtype.Race
+      ) {
+        return false;
+      } else {
+        // TODO maybe do skill upgrade?
+        //set name
+        await actor.update({ 'data.details.species.name': item.name });
+        //process embedded entities
+        const map = new Map<string, any>(
+          item.getFlag('swade', 'embeddedAbilities') || [],
+        );
+        const creationData = [];
+        for (const entry of map.values()) {
+          //if the item isn't a skill, then push it to the new items
+          if (entry.type !== ItemType.Skill) {
+            creationData.push(entry);
+          } else {
+            //else, check if there's already a skill like that that exists
+            const skill = actor.items.find(
+              (i: Item) => i.type === ItemType.Skill && i.name === entry.name,
+            ) as Item;
+            if (skill) {
+              //if the skill exists, set it to the value of the skill from the item
+              const skillDie = getProperty(entry, 'data.die');
+              await actor.updateOwnedItem({
+                _id: skill.id,
+                'data.die': skillDie,
+              });
+            } else {
+              //else, add it to the new items
+              creationData.push(entry);
+            }
+          }
+        }
+        if (creationData.length > 0) {
+          await actor.createOwnedItem(creationData, { renderSheet: null });
+        }
+
+        //copy active effects
+        const effects = Array.from(item['effects'].values()).map(
+          (ae: ActiveEffect) => {
+            const retVal = ae.data;
+            delete retVal._id;
+            return retVal;
+          },
+        );
+        if (!!effects && effects.length > 0) {
+          await actor.createEmbeddedEntity('ActiveEffect', effects);
+        }
+      }
     }
   }
 

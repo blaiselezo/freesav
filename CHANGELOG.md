@@ -45,6 +45,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Moved running die roll to a button next to the Pace input which also displays the current running die as an image
 - Changed the way the skills display on the official character sheet. They are now more in line with the rest of the sheet. Thanks a lot to Kristian Serrano for that.
 - Renamed most of the tabs on the character sheet to be more in line with Savage Worlds terminology
+- Actor sheets now display Active Effects which come from Items they own
 
 ### Removed
 

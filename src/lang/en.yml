@@ -16,6 +16,7 @@ ITEM.TypeEdge: Edge
 ITEM.TypeHindrance: Hindrance
 ITEM.TypeSkill: Skill
 ITEM.TypePower: Power
+ITEM.TypeAbility: Ability
 SWADE.Name: Name
 SWADE.Tough: Toughness
 SWADE.Race: Race
@@ -305,5 +306,9 @@ SWADE.JokersWildDesc: Gives a Benny to every player character when one of them i
 SWADE.ParryBase: Parry Base Skill
 SWADE.ParryBaseDesc: The name of the skill which will be used to calculate a characters Parry
 SWADE.AutoCalcParry: Automatically calculates Parry, including Shields
+SWADE.Subtype: Subtype
+SWADE.SpecialAbility: Special Ability
+SWADE.SpecialAbilities: Special Abilities
+SWADE.RacialAbilities: Racial Abilities
 SWADE.About: About
 SWADE.EdgesHindrances: Edges & Hindrances

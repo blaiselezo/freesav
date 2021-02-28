@@ -199,9 +199,9 @@
       </button>
     </header>
     <ol class="skill-list">
-      {{#each sortedSkills as |skill|}}
-        {{> "systems/swade/templates/official/partials/skill-card.html" owner=../owner}}
-      {{/each}}
+      {{#each sortedSkills as |skill|}} {{>
+      "systems/swade/templates/official/partials/skill-card.html"
+      owner=../owner}} {{/each}}
     </ol>
   </div>
   <div class="note-footer">&nbsp;</div>
@@ -217,13 +217,13 @@
         class="item-create controls"
         data-type="choice"
         data-equipped="true"
-        data-choices="weapon,power,armor,shield, effect"
+        data-choices="weapon,power,armor,shield,effect"
       >
         <i class="fa fa-plus"></i>{{localize "SWADE.Add"}}
       </button>
     </header>
     <ul class="effects-list">
-      {{#each entity.effects}} {{#unless origin}}
+      {{#each entity.effects}}
       <li
         class="flexrow{{#if disabled}} disabled-effect{{/if}}"
         data-effect-id="{{_id}}"
@@ -242,7 +242,7 @@
           </button>
         </span>
       </li>
-      {{/unless}} {{/each}}
+      {{/each}}
     </ul>
     <ol class="quick-list">
       {{#each itemsByType.weapon as |weapon|}} {{#if weapon.data.equipped}} {{>

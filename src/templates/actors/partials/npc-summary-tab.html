@@ -149,6 +149,26 @@
       </span>
       {{/each}}
     </section>
+    <section class="gear abilities">
+      <header class="header-field flexrow">
+        <div>
+          <span>{{localize "SWADE.SpecialAbilities"}}</span>
+        </div>
+        <div class="header-field-add">
+          <a class="item-create" data-type="ability"
+            ><i class="fa fa-plus"></i
+          ></a>
+        </div>
+      </header>
+      {{#each itemsByType.ability as |ability id|}}
+      <span class="item" data-item-id="{{ability._id}}">
+        <a class="item-control item-edit" title="{{localize 'SWADE.Ed'}}">
+          {{#unless @first}}&nbsp;{{/unless}}{{ability.name}}{{#unless
+          @last}},{{/unless}}
+        </a>
+      </span>
+      {{/each}}
+    </section>
     <section class="gear">
       {{> "systems/swade/templates/setting-fields.html"}}
     </section>

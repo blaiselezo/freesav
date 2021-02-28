@@ -155,6 +155,7 @@ Item:
     - hindrance
     - skill
     - power
+    - ability
   templates:
     itemDescription:
       description: ''
@@ -252,3 +253,7 @@ Item:
       modifier: 0
     wild-die:
       sides: 6
+  ability:
+    templates:
+      - itemDescription
+    subtype: string

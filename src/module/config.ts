@@ -256,4 +256,6 @@ export const SWADE = {
   dsnColorSets: {},
 
   dsnTextureList: {},
+
+  raceLocalizationKey: 'SWADE.Race',
 };
