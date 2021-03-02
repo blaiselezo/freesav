@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
-## [Unreleased]
+## [v0.17.1]
 
 ### Added
 
@@ -28,11 +28,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Changed
 
-- Changed the order of edges and hindrances on the official repo
+- Changed the order of edges and hindrances on the official character sheet
 - Removed restrictions on what can be added to a race as a racial ability. Now the only thing that cannot be added is another race
-- Item sheets can now scroll
 - Changed the layout of the Ability item sheet, putting the description above the active effects/racial abilities
 - Special Abilities can now act like Arcane Backgrounds, unlocking the powers tab
+- Item sheets can now scroll
 - Active Effects and Actions lists on Item sheets now scroll when they become too long
 
 ### Fixed
@@ -47,7 +47,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added an option to automatically hide NPC Item Chatcards. This setting is on by default and can be found in the System Settings. You can still make a card public by right-click it and selecting the right option from the context menu
 - The system now grants a Benny to all player characters when one of them is dealt a Joker. This can be turned off in the Setting Configurator
 - Added the ability to automatically calculate parry. This option can be set in actor Tweaks and will default to on for all newly created actors after this point. The calculation also takes any shields which are equipped into account
-- Added a new Field to the setting configurator which lets you set the name of the Skill which will be used as the base to calculate Toughness. It will default to _Fighting_. Changing this setting will require you to reload the world to have the change take effect
+- Added a new Field to the setting configurator which lets you set the name of the Skill which will be used as the base to calculate Parry. It will default to _Fighting_. Changing this setting will require you to reload the world to have the change take effect
 - Added Active Effect to the Defend status which adds +4 Parry
 - Added new Status _Protection_ which adds an Active Effect that adds 0 to both toughness and armor, making it easy to apply the power. All you need to do is to put the modifier (4 or 6) into the appropriate Active Effect change.
 - Added new Item type `ability`. This item type has two subtypes, `race` and `special`. If the item has the subtype `race` you can drag&drop the following items onto it to create racial abilities:
