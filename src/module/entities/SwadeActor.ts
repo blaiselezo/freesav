@@ -10,6 +10,32 @@ import { SWADE } from '../config';
  * @noInheritDoc
  */
 export default class SwadeActor extends Actor {
+  /* -------------------------------------------- */
+  /*  Getters
+  /* -------------------------------------------- */
+  get isWildcard(): boolean {
+    if (this.data.type === ActorType.Vehicle) {
+      return false;
+    } else {
+      return (
+        getProperty(this.data, 'data.wildcard') ||
+        this.data.type === ActorType.Character
+      );
+    }
+  }
+
+  get hasArcaneBackground(): boolean {
+    const abEdges = this.items.filter(
+      (i: SwadeItem) =>
+        i.type === ItemType.Edge && i.data.data['isArcaneBackground'] === true,
+    );
+    const abAbilities = this.items.filter(
+      (i: SwadeItem) =>
+        i.type === ItemType.Ability && i.data.data['grantsPowers'] === true,
+    );
+    return abEdges.length > 0 || abAbilities.length > 0;
+  }
+
   /**
    * @override
    * Extends data from base Actor class
@@ -117,30 +143,6 @@ export default class SwadeActor extends Actor {
       if (completeParry < 0) completeParry = 0;
       setProperty(this.data, parryKey, completeParry);
     }
-  }
-
-  /* -------------------------------------------- */
-  /*  Getters
-  /* -------------------------------------------- */
-  get isWildcard(): boolean {
-    if (this.data.type === ActorType.Vehicle) {
-      return false;
-    } else {
-      return (
-        getProperty(this.data, 'data.wildcard') ||
-        this.data.type === ActorType.Character
-      );
-    }
-  }
-
-  get hasArcaneBackground(): boolean {
-    return (
-      this.items.filter(
-        (i: SwadeItem) =>
-          i.type === ItemType.Edge &&
-          i.data.data['isArcaneBackground'] === true,
-      ).length > 0
-    );
   }
 
   /* -------------------------------------------- */
