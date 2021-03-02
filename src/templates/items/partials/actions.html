@@ -54,9 +54,9 @@
     <a class="action-create"><i class="fa fa-plus"></i></a>
   </div>
 </header>
-<section class="actions-list">
+<ol class="actions-list">
   {{#each data.actions.additional as |attr key|}}
-  <div class="actions-container">
+  <li class="actions-container">
     <div class="action-name form-group">
       <label>{{localize "SWADE.Name"}}</label>
       <span class="form-fields">
@@ -149,7 +149,7 @@
       </span>
     </div>
     {{/if}}
-  </div>
+  </li>
   {{/each}}
-</section>
+</ol>
 <br />
