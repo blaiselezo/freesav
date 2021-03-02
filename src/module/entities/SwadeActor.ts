@@ -21,24 +21,6 @@ export default class SwadeActor extends Actor {
     this.prepareEmbeddedEntities();
     this.prepareBaseData();
     this.applyActiveEffects();
-
-    const shouldAutoCalcToughness =
-      getProperty(this.data, 'data.details.autoCalcToughness') &&
-      this.data.type !== ActorType.Vehicle;
-    const sizeKey = 'data.stats.size';
-    const toughnessKey = 'data.stats.toughness.value';
-    const armorKey = 'data.stats.toughness.armor';
-
-    if (shouldAutoCalcToughness) {
-      //pull the already calculated and adjusted values from the actor, add the together and then set them back into the actor
-      const adjustedToughness = getProperty(this.data, toughnessKey);
-      const adjustedArmor = getProperty(this.data, armorKey);
-      const adjustedSize = getProperty(this.data, sizeKey);
-      const newValue = adjustedToughness + adjustedSize + adjustedArmor;
-
-      setProperty(this.data, toughnessKey, newValue < 1 ? 1 : newValue);
-    }
-
     this.prepareDerivedData();
   }
 
@@ -52,20 +34,19 @@ export default class SwadeActor extends Actor {
       this.data.type !== ActorType.Vehicle;
 
     if (shouldAutoCalcToughness) {
+      //if we calculate the toughness then we set the values to 0 beforehand so the active effects can be applies
       const toughnessKey = 'data.stats.toughness.value';
       const armorKey = 'data.stats.toughness.armor';
-      //calculate base toughness without armor and size
-      setProperty(this.data, toughnessKey, this.calcToughness(false, true));
-      //calculate armor
-      setProperty(this.data, armorKey, this.calcArmor());
+      setProperty(this.data, toughnessKey, 0);
+      setProperty(this.data, armorKey, 0);
     }
 
     const shouldAutoCalcParry =
       getProperty(this.data, 'data.details.autoCalcParry') &&
       this.data.type !== ActorType.Vehicle;
-
     if (shouldAutoCalcParry) {
-      setProperty(this.data, 'data.stats.parry.value', this.calcParry());
+      //same procedure as with Toughness
+      setProperty(this.data, 'data.stats.parry.value', 0);
     }
   }
 
@@ -101,6 +82,40 @@ export default class SwadeActor extends Actor {
       } else if (sides > 12) {
         setProperty(this.data, `data.attributes.${attribute}.die.sides`, 12);
       }
+    }
+
+    // Toughness calculation
+    const shouldAutoCalcToughness =
+      getProperty(this.data, 'data.details.autoCalcToughness') &&
+      this.data.type !== ActorType.Vehicle;
+
+    if (shouldAutoCalcToughness) {
+      const toughKey = 'data.stats.toughness.value';
+      const armorKey = 'data.stats.toughness.armor';
+      const adjustedTough = getProperty(this.data, toughKey);
+      const adjustedArmor = getProperty(this.data, armorKey);
+
+      //add some sensible lower limits
+      let completeArmor = this.calcArmor() + adjustedArmor;
+      if (completeArmor < 0) completeArmor = 0;
+      let completeTough =
+        this.calcToughness(false) + adjustedTough + completeArmor;
+      if (completeTough < 1) completeTough = 1;
+
+      setProperty(this.data, toughKey, completeTough);
+      setProperty(this.data, armorKey, completeArmor);
+    }
+
+    const shouldAutoCalcParry =
+      getProperty(this.data, 'data.details.autoCalcParry') &&
+      this.data.type !== ActorType.Vehicle;
+
+    if (shouldAutoCalcParry) {
+      const parryKey = 'data.stats.parry.value';
+      const adjustedParry = getProperty(this.data, parryKey);
+      let completeParry = this.calcParry() + adjustedParry;
+      if (completeParry < 0) completeParry = 0;
+      setProperty(this.data, parryKey, completeParry);
     }
   }
 
@@ -495,9 +510,8 @@ export default class SwadeActor extends Actor {
   /**
    * Calculates the Toughness value and returns it, optionally with armor
    * @param includeArmor include armor in final value (true/false). Default is true
-   * @param ignoreSize ignore the size for the purpose of calculating the toughness. Default is false
    */
-  calcToughness(includeArmor = true, ignoreSize = false): number {
+  calcToughness(includeArmor = true): number {
     let retVal = 0;
     const vigor = getProperty(this.data, 'data.attributes.vigor.die.sides');
     const vigMod = parseInt(
@@ -509,10 +523,9 @@ export default class SwadeActor extends Actor {
 
     retVal = Math.round(vigor / 2) + 2;
 
-    if (!ignoreSize) {
-      const size = parseInt(getProperty(this.data, 'data.stats.size')) || 0;
-      retVal += size;
-    }
+    const size = parseInt(getProperty(this.data, 'data.stats.size')) || 0;
+    retVal += size;
+
     retVal += toughMod;
     if (vigMod > 0) {
       retVal += Math.floor(vigMod / 2);
