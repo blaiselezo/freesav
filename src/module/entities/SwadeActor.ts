@@ -471,8 +471,8 @@ export default class SwadeActor extends Actor {
     });
 
     armorList.sort((a, b) => {
-      const aValue = parseInt(a.data.armor);
-      const bValue = parseInt(b.data.armor);
+      const aValue = parseInt(a.data.armor, 10);
+      const bValue = parseInt(b.data.armor, 10);
       if (aValue < bValue) {
         return 1;
       }
@@ -482,14 +482,12 @@ export default class SwadeActor extends Actor {
       return 0;
     });
 
-    if (armorList.length === 0) {
-      return totalArmorVal;
-    } else if (armorList.length === 1) {
+    if (armorList.length === 1) {
       totalArmorVal = parseInt(armorList[0].data.armor);
-    } else {
+    } else if (armorList.length > 1) {
       totalArmorVal =
-        parseInt(armorList[0].data.armor) +
-        Math.floor(parseInt(armorList[1].data.armor) / 2);
+        parseInt(armorList[0].data.armor, 10) +
+        Math.floor(parseInt(armorList[1].data.armor, 10) / 2);
     }
 
     const naturalArmors = this.data['items'].filter((i: SwadeItem) => {
@@ -501,7 +499,7 @@ export default class SwadeActor extends Actor {
     });
 
     for (const armor of naturalArmors) {
-      totalArmorVal += parseInt(armor.data.armor);
+      totalArmorVal += parseInt(armor.data.armor, 10);
     }
 
     return totalArmorVal;

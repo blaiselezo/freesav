@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Fixed a small bug which would cause toughness not to be calculated correctly
+- Fixed a small bug which would cause natural armor not to be calculated when no actual armor is equipped
 
 ## [v0.17.0]
 
