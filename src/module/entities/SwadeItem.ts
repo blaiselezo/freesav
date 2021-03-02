@@ -1,4 +1,5 @@
 import IRollOptions from '../../interfaces/IRollOptions';
+import { SWADE } from '../config';
 import SwadeDice from '../dice';
 import { ActorType } from '../enums/ActorTypeEnum';
 import { ItemType } from '../enums/ItemTypeEnum';
@@ -217,7 +218,7 @@ export default class SwadeItem extends Item {
       tokenId: token ? `${token.scene._id}.${token.id}` : null,
       item: this.data,
       data: this.getChatData({}),
-      config: CONFIG.SWADE,
+      config: SWADE,
       hasAmmoManagement:
         this.type === ItemType.Weapon &&
         !this.isMeleeWeapon &&
