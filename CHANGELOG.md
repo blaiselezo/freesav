@@ -33,6 +33,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Item sheets can now scroll
 - Changed the layout of the Ability item sheet, putting the description above the active effects/racial abilities
 - Special Abilities can now act like Arcane Backgrounds, unlocking the powers tab
+- Active Effects and Actions lists on Item sheets now scroll when they become too long
 
 ### Fixed
 
