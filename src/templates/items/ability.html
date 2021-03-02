@@ -12,8 +12,21 @@
         {{/unless}} {{/select}}
       </select>
     </div>
-    {{> "systems/swade/templates/items/partials/ae-header.html"}} {{>
-    "systems/swade/templates/effect-list.html"}}
+    {{#if (eq item.data.subtype "special")}}
+    <div class="form-group">
+      <label class="check-container">
+        {{localize "SWADE.GrantsPowers"}}
+        <input
+          type="checkbox"
+          name="data.grantsPowers"
+          {{checked
+          item.data.grantsPowers}}
+          data-dtype="Boolean"
+        />
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    {{/if}} {{> "systems/swade/templates/items/partials/description.html"}}
     <br />
     {{#if (eq item.data.subtype "race")}}
     <header class="header-field flexrow">
@@ -21,6 +34,7 @@
     </header>
     {{{displayEmbedded item.flags.swade.embeddedAbilities}}} {{/if}} {{>
     "systems/swade/templates/setting-fields.html"}} {{>
-    "systems/swade/templates/items/partials/description.html"}}
+    "systems/swade/templates/items/partials/ae-header.html"}} {{>
+    "systems/swade/templates/effect-list.html"}}
   </main>
 </form>

@@ -256,4 +256,5 @@ Item:
   ability:
     templates:
       - itemDescription
-    subtype: string
+    subtype: special
+    grantsPowers: false

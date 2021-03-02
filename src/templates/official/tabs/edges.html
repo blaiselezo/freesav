@@ -1,20 +1,18 @@
 <span class="edges">
   <header class="section-header">
-    <span class="name">{{localize "SWADE.Hindrances"}}</span>
-    <button type="button" class="item-create controls" data-type="hindrance">
+    <span class="name">{{localize "SWADE.Edges"}}</span>
+    <button type="button" class="item-create controls" data-type="edge">
       <i class="fa fa-plus"></i>{{localize "SWADE.Add"}}
     </button>
   </header>
   <ul>
-    {{#each itemsByType.hindrance}}
+    {{#each itemsByType.edge}}
     <li class="edge-hindrance item" data-item-id="{{_id}}">
       <span class="flexrow">
         <img class="item-image" src="{{img}}" alt="{{name}}" />
         <span class="item-name">
           <button type="button">
             <span class="sr-only">{{localize "SWADE.Expand"}}</span> {{name}}
-            {{#if this.data.major}}{{localize "SWADE.Major"}}{{else }}{{localize
-            "SWADE.Minor"}}{{/if}}
           </button>
         </span>
         <div class="item-controls">
@@ -33,19 +31,21 @@
     {{/each}}
   </ul>
   <header class="section-header">
-    <span class="name">{{localize "SWADE.Edges"}}</span>
-    <button type="button" class="item-create controls" data-type="edge">
+    <span class="name">{{localize "SWADE.Hindrances"}}</span>
+    <button type="button" class="item-create controls" data-type="hindrance">
       <i class="fa fa-plus"></i>{{localize "SWADE.Add"}}
     </button>
   </header>
   <ul>
-    {{#each itemsByType.edge}}
+    {{#each itemsByType.hindrance}}
     <li class="edge-hindrance item" data-item-id="{{_id}}">
       <span class="flexrow">
         <img class="item-image" src="{{img}}" alt="{{name}}" />
         <span class="item-name">
           <button type="button">
             <span class="sr-only">{{localize "SWADE.Expand"}}</span> {{name}}
+            {{#if this.data.major}}{{localize "SWADE.Major"}}{{else }}{{localize
+            "SWADE.Minor"}}{{/if}}
           </button>
         </span>
         <div class="item-controls">
