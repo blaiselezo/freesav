@@ -34,7 +34,7 @@ export default class SwadeItemSheet extends ItemSheet {
    */
   get template() {
     const path = 'systems/swade/templates/items';
-    return `${path}/${this.item.data.type}.html`;
+    return `${path}/${this.item.type}.html`;
   }
 
   /**
