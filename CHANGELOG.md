@@ -20,6 +20,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [Unreleased]
+
+### Added
+
+- Added `main-grid` class as the parent element for the official character sheet
+
+### Changed
+
+- Changed the order of edges and hindrances on the official repo
+
 ## [v0.17.0]
 
 ### Added
@@ -75,7 +85,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Fixed
 
-- Fixed a bug which would cause Natural Armor not to calculate properly. Natural Armor will be added to Toughness if it is marked as natural armor, has at least the torso location and is equipped
+gioness if it is marked as natural armor, has at least the torso location and is equipped
+
 - Fixed a small issue where roll shortcuts would not properly work with multiplications and divisions
 - Fixed a bug which would cause preset templates to behave eratically. Many thanks go out to Moerill who was instrumental in solving this.
 - Fixed a small bug which would prevent the toughness auto-calculation from taking into account AE that adjust the size of the character
