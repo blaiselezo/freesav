@@ -31,6 +31,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Changed the order of edges and hindrances on the official repo
 - Removed restrictions on what can be added to a race as a racial ability. Now the only thing that cannot be added is another race
 - Item sheets can now scroll
+- Changed the layout of the Ability item sheet, putting the description above the active effects/racial abilities
 - Special Abilities can now act like Arcane Backgrounds, unlocking the powers tab
 
 ### Fixed
