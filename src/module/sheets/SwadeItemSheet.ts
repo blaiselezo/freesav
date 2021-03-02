@@ -220,28 +220,19 @@ export default class SwadeItemSheet extends ItemSheet {
         item = game.items.get(data.id) as SwadeItem;
       }
 
-      const itemIsRightType = [
-        ItemType.Ability.toString(),
-        ItemType.Hindrance.toString(),
-        ItemType.Edge.toString(),
-        ItemType.Skill.toString(),
-      ].includes(item.type);
-
       if (
         data.type !== 'Item' ||
-        !itemIsRightType ||
         (item.type === ItemType.Ability &&
           item.data.data.subtype === AbilitySubtype.Race)
       ) {
-        console.log(
-          'SWADE | Races only accept abilities, hindrances, edges and skills',
-        );
+        console.log('SWADE | You cannot add a race to a race');
         return false;
       }
     } catch (error) {
       console.error(error);
       return false;
     }
+
     //prep item data
     const itemData = duplicate(item.data);
     delete itemData['_id'];

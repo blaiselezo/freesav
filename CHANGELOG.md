@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 - Changed the order of edges and hindrances on the official repo
+- Removed restrictions on what can be added to a race as a racial ability. Now the only thing that cannot be added is another race
 
 ## [v0.17.0]
 
