@@ -2,7 +2,7 @@
   min-width: 560px;
   .window-content {
     padding: 5px;
-    overflow-y: scroll;
+    //overflow-y: scroll;
   }
 
   // Sheet Header
@@ -72,6 +72,16 @@
       @extend %header-field;
       margin-bottom: 0px;
     }
+  }
+
+  .actions-list {
+    max-height: 400px;
+    overflow-y: scroll;
+  }
+
+  .effects-list {
+    max-height: 150px;
+    overflow-y: scroll;
   }
 
   .actions-container {
