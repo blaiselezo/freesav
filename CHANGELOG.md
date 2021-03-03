@@ -20,6 +20,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Security
 -->
 
+## [v0.17.2]
+
+### Changed
+
+- Renamed Community character sheet to Legacy character sheet
+- Legacy character sheets and NPC sheets now properly display the powers tab when the actor has a special ability that grants powers
+
+### Fixed
+
+- Removed polish language definition from system manifest
+
 ## [v0.17.1]
 
 ### Added
